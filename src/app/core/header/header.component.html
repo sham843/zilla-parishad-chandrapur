@@ -29,11 +29,11 @@
                         <i class='bx bxs-brightness-half'></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <button class="dropdown-item" *ngIf="language=='English'" (click)="changeLanguage('Marathi')">
-                            <i class='bx bxs-sun me-2'></i> Marathi
+                        <button class="dropdown-item" (click)="changeLanguage('Marathi')">
+                            Marathi
                         </button>
-                        <button class="dropdown-item" *ngIf="language=='Marathi'" (click)="changeLanguage('English')">
-                            <i class='bx bxs-moon me-2'></i> English
+                        <button class="dropdown-item" (click)="changeLanguage('English')">
+                             English
                         </button>
                     </div>
                 </div>
