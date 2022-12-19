@@ -9,6 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { RegisterSchoolComponent } from './register-school/register-school.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
     MatSelectModule,
     MatDialogModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
 
   ]
 })
