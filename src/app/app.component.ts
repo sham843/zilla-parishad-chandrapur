@@ -11,7 +11,6 @@ import { WebStorageService } from './core/services/web-storage.service';
 })
 export class AppComponent {
   title = 'Zilla Parishad Chandrapur';
-  isLoggedIn: boolean = true;
   classname: any;
   constructor(private router: Router,
     private titleService: Title,

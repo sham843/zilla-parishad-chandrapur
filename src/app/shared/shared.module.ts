@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashPipe } from './pipes/dash.pipe';
-import { TableComponent } from './components/table/table.component';
 
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { PageStatisticsComponent } from './components/page-statistics/page-statistics.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { TableGridComponent } from './components/table-grid/table-grid.component';
 
 @NgModule({
   declarations: [
     DashPipe,
-    TableComponent,
+    TableGridComponent,
     PageStatisticsComponent
   ],
   imports: [
@@ -26,6 +26,6 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatIconModule
   ],
-  exports: [TableComponent, PageStatisticsComponent]
+  exports: [TableGridComponent, PageStatisticsComponent]
 })
 export class SharedModule { }

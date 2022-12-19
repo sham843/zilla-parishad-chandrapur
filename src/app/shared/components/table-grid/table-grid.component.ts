@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableGridComponent implements OnInit {
   @Output() recObjToChild = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;

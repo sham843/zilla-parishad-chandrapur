@@ -1,13 +1,4 @@
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
-  <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
-<app-sidebar *ngIf="isLoggedIn"></app-sidebar>
-<div class="wrapper">
-    <app-header *ngIf="isLoggedIn"></app-header>
-        <div class="main-content">
-            <div [class]="classname">
-            <router-outlet></router-outlet>
-           </div>
-        </div>
-    <app-footer *ngIf="isLoggedIn"></app-footer>
-</div>
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+<router-outlet></router-outlet>
