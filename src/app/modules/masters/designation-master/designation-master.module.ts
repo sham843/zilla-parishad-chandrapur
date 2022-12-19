@@ -10,6 +10,8 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 
@@ -26,7 +28,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatDialogModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonModule
     
   ]
 })
