@@ -24,6 +24,19 @@
                         </button>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bxs-brightness-half'></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <button class="dropdown-item" *ngIf="language=='English'" (click)="changeLanguage('Marathi')">
+                            <i class='bx bxs-sun me-2'></i> Marathi
+                        </button>
+                        <button class="dropdown-item" *ngIf="language=='Marathi'" (click)="changeLanguage('English')">
+                            <i class='bx bxs-moon me-2'></i> English
+                        </button>
+                    </div>
+                </div>
 
                 <div class="dropdown">
                     <img src="assets/images/user.jpg" class="avatar dropdown-toggle" data-bs-toggle="dropdown"

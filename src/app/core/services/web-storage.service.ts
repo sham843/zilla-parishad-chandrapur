@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebStorageService {
-private theme=new BehaviorSubject('');
-  constructor() { }
-
-  getTheme(){
-    return this.theme.asObservable();
+  // change theme
+  private theme = new BehaviorSubject('')
+  constructor() {}
+  getTheme() {
+    return this.theme.asObservable()
   }
-  setTheme(className:any){
-    this.theme.next(className);
+  setTheme(className: any) {
+    this.theme.next(className)
+  }
+
+  // change language
+  private langName = new BehaviorSubject('')
+  langNameOnChange = this.langName.asObservable()
+  sendlangType(type: string) {
+    this.langName.next(type)
   }
 }
