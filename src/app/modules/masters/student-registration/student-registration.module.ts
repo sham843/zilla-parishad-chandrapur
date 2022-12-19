@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatInputModule,
     MatDatepickerModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonModule
 
   ]
 })

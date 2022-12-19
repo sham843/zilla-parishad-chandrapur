@@ -1,31 +1,37 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" aria-current="page">Masters</li>
+      <li class="breadcrumb-item active" aria-current="page">Student Registration</li>
+    </ol>
+  </nav>
 <mat-card class="plain-card">
     <mat-card-header class="card-header mb-3">
-        <div class="d-flex align-items-center justify-content-between w-100">
-            <h6 class="text-main">Student List</h6>
-            <div class="d-flex gap-2">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h6 class="text-main mb-0">Student List</h6>
+            <div class="d-flex align-items-center gap-2">
                 <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
                     <mat-icon>
-                        download
+                      download
                     </mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" xPosition="before">
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
                     <button mat-menu-item>
-                        <div class="d-flex align-items-center justify-content-between w-100">
-                            <span>PDF</span>
-                            <i class='bx bxs-file-pdf text-danger'></i>
-                        </div>
+                      <div class="d-flex align-items-center justify-content-between w-100">
+                        <span>PDF</span>
+                        <i class='bx bxs-file-pdf text-danger'></i>
+                      </div>
                     </button>
                     <button mat-menu-item>
-                        <div class="d-flex align-items-center justify-content-between w-100">
-                            <span>Excel</span>
-                            <i class='bx bxs-file text-primary'></i>
-                        </div>
+                      <div class="d-flex align-items-center justify-content-between w-100">
+                        <span>Excel</span>
+                        <i class='bx bxs-file text-primary'></i>
+                      </div>
                     </button>
-                </mat-menu>
-                <button mat-button class="btn btn-main d-flex align-items-center" (click)="registerStudent()">
+                  </mat-menu>
+                <button mat-flat-button class="btn-main" (click)="registerStudent()">
                     <mat-icon>add</mat-icon>
                     <span>
-                        Add New
+                        Add Student
                     </span>
                 </button>
             </div>
