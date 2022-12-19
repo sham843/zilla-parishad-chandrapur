@@ -1,0 +1,50 @@
+#dash-stats .card{
+    border: none;
+    border-radius: 15px;
+    position: relative;
+}
+#dash-stats .card p{
+    margin-bottom: 5px;
+    color: #fff;
+}
+#dash-stats .card h3{
+    margin-bottom: 0px;
+    color: #fff;
+    font-weight: 600;
+}
+#dash-stats .card .right-img img{
+    width: 40px;
+}
+#dash-stats .card .right-img{
+    background-color: #fff;
+    width: 80px;
+    height: 85px;
+    line-height: 95px;
+    text-align: center;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 15%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 15%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#dash-stats .card .bg-image{
+    width: 94px;
+    height: 94px;
+    position: absolute;
+    left: 0;
+    bottom: -16px;
+}
+.bg-blue{
+    background-color:#3F6EC5;
+}
+.bg-cyan{
+    background-color:#3E92C4;
+}
+.bg-voilet{
+    background-color:#434AB3;
+}
+.bg-magenta{
+    background-color:#9442B0;
+}
