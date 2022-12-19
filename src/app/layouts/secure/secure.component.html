@@ -1,11 +1,10 @@
-
-  <app-sidebar></app-sidebar>
-  <div class="wrapper">
-      <app-header></app-header>
-          <div class="main-content">
-              <div [class]="classname">
-              <router-outlet></router-outlet>
-             </div>
-          </div>
-      <app-footer></app-footer>
-  </div>
+<app-sidebar></app-sidebar>
+<div class="wrapper">
+    <app-header></app-header>
+    <div class="main-content">
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

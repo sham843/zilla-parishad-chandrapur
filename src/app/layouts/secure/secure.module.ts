@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { SecureRoutingModule } from './secure-routing.module';
 import { SecureComponent } from './secure.component';
-import { SidebarComponent } from 'src/app/core/sidebar/sidebar.component';
-import { HeaderComponent } from 'src/app/core/header/header.component';
-import { FooterComponent } from 'src/app/core/footer/footer.component';
+import { CoreModule } from 'src/app/core/core.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,9 +13,8 @@ import { FooterComponent } from 'src/app/core/footer/footer.component';
   imports: [
     CommonModule,
     SecureRoutingModule,
-    SidebarComponent,
-    HeaderComponent,
-    FooterComponent
+    CoreModule,
+    ReactiveFormsModule
   ]
 })
 export class SecureModule { }
