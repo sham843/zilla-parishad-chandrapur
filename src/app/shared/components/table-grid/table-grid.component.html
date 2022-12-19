@@ -1,0 +1,50 @@
+<table mat-table [dataSource]="tableRecords" class="dashboard-table" matSort >
+    <ng-container *ngFor="let columns of displayedColumns; let j=index" matColumnDef="{{columns}}">
+        <ng-container *ngIf="columns !='action'">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{tableHeaders[j] | titlecase}}
+            </th>
+            <td mat-cell *matCellDef="let element let i=index">
+                <ng-container *ngIf="'srNo' ==columns">{{((pageNumber + 1) * 10 + i + 1)-20}}</ng-container>
+                <ng-container
+                    *ngIf="'srNo' !=columns && tableInfo?.img != columns && tableInfo?.blink != columns && tableInfo?.badge !=  columns">{{element[columns] | dash}}
+                </ng-container>
+                <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns]}}"></ng-container>
+                <ng-container *ngIf="tableInfo?.blink == columns">{{element[columns] }}</ng-container>
+                <ng-container *ngIf="tableInfo?.badge == columns">{{element[columns] }}</ng-container>
+                <ng-container *ngIf="tableInfo?.isBlock == columns">
+                    <mat-slide-toggle (change)="action(element, 'Block')">
+                    </mat-slide-toggle>
+                </ng-container>
+            </td>
+        </ng-container>
+        <ng-container *ngIf="columns =='action'">
+            <th mat-header-cell *matHeaderCellDef>
+                {{columns | titlecase}}
+            </th>
+            <td mat-cell *matCellDef="let element let i=index">
+                <button mat-icon-button (click)="action(element, 'Edit', i)">
+                    <span class="material-symbols-outlined text-main">
+                        edit
+                    </span>
+                </button>
+                <button mat-icon-button (click)="action(element, 'Delete')">
+                    <span class="material-symbols-outlined text-danger">
+                        delete
+                    </span>
+                </button>
+            </td>
+        </ng-container>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index" [ngClass]="{'bg-danger ':highlightedRow == i}"></tr>
+</table>
+<mat-paginator *ngIf="tableInfo?.tableData?.length!=0 && tableInfo?.pagintion" showFirstLastButtons [length]="tableSize"
+    (page)="action($event, 'Pagination')" [pageSizeOptions]="[10]" aria-label="Select page">
+</mat-paginator>
+
+<div *ngIf="tableInfo?.tableData?.length ==0">
+    <div class="alert alert-danger text-center py-2 ">
+        Data not available
+    </div>
+</div>

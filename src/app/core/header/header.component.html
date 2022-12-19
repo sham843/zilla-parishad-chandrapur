@@ -1,0 +1,56 @@
+<nav class="navbar bg-white">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between w-100">
+            <div class="search">
+                <div class="input-group">
+                    <span class="input-group-text"><i class='bx bx-search'></i></span>
+                    <input type="search" class="form-control" placeholder="Search">
+                </div>
+            </div>
+            <div class="d-flex gap-2 align-items-center justify-content-between">
+                <button class="btn">
+                    <i class='bx bxs-bell-ring'></i>
+                </button>
+                <div class="dropdown">
+                    <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bxs-brightness-half'></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <button class="dropdown-item" (click)="changeTheme('light')">
+                            <i class='bx bxs-sun me-2'></i> Light Mode
+                        </button>
+                        <button class="dropdown-item" (click)="changeTheme('dark')">
+                            <i class='bx bxs-moon me-2'></i> Dark Mode
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <img src="assets/images/user.jpg" class="avatar dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <!-- <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown button
+                    </button> -->
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <div class="dropdown-header">
+                                <p class="mb-0 text-main fw-bold">Mr. Sunil Rajaram Shinde</p>
+                                <small class="text-mutedd">Designation</small>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider my-1">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                        <li>
+                            <hr class="dropdown-divider my-1">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

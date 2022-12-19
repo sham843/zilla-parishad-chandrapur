@@ -1,0 +1,45 @@
+.navbar .avatar{
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.search .input-group .input-group-text,
+.search .input-group .form-control
+{
+    border: none;
+    font-size: 0.85rem;
+    background-color: transparent;
+    box-shadow: none;
+}
+.search .input-group{
+    border: 1px solid #eee;
+    border-radius: 30px;
+}
+.navbar button.btn{
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    padding: 0;
+}
+.navbar button.btn,
+.navbar button.btn:focus,
+.navbar button.btn:active
+{
+    border: none;
+}
+.dropdown-menu{
+    padding: 7px;
+    border: none;
+    box-shadow: 0 0 20px 0px rgb(0 0 0 / 20%);
+}
+.dropdown-menu .dropdown-item{
+    font-size: 0.85rem;
+    padding: 10px 15px;
+    border-radius: 0.375rem;
+}
+.dropdown-menu .dropdown-item:active,
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus{
+    background-color:var(--main-color);
+    color: #fff;
+}
