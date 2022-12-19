@@ -14,7 +14,7 @@ export class SchoolRegistrationComponent {
 
   addnew(){
     this.dialog.open(RegisterSchoolComponent, {
-      width:'600px'
+      width:'700px'
     });
   }
 }
