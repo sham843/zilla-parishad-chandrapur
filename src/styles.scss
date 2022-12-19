@@ -1,4 +1,149 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import "@angular/material/theming";
+@import './assets/css/MaterialStyleSheet.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+$angular-primary: mat.define-palette(mat.$teal-palette, 500, 100, 900);
+$angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$angular-warn: mat.define-palette(mat.$red-palette);
+$angular-default-theme: mat.define-light-theme((color: (primary: $angular-primary,
+        accent: $angular-accent,
+        warn: $angular-warn,
+      ),
+    ));
+@include mat.all-component-themes($angular-default-theme);
+$angular-dark-theme: mat.define-dark-theme((color: (primary: $angular-primary,
+        accent: $angular-accent,
+        warn: $angular-warn,
+      ),
+    ));
+
+.darkMode {
+  @include mat.all-component-colors($angular-dark-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #EEEEEE
+}
+
+:root {
+  --main-color: rgb(3, 146, 134);
+  --main-light-color: rgb(221, 255, 252);
+  --main-dark-color: rgb(0, 95, 87);
+}
+
+.text-main {
+  color: var(--main-color);
+}
+
+.bg-main {
+  background-color: var(--main-color);
+}
+
+.bg-main-light {
+  background-color: var(--main-color);
+}
+
+.bg-main-dark {
+  background-color: var(--main-dark-color);
+}
+
+.btn-main {
+  font-family: 'Poppins', sans-serif !important;
+  background-color: var(--main-color) !important;
+  color: #fff !important;
+  font-size: 0.85rem;
+}
+
+.btn-main:hover {
+  background-color: var(--main-dark-color) !important;
+  color: #fff;
+}
+
+.btn-icon {
+  width: 34px !important;
+  min-width: 38px !important;
+}
+
+.btn-icon .material-icons{
+  font-size: 18px !important;
+  line-height: normal !important;
+  overflow: unset;
+  margin:0 !important;
+}
+.btn-modal-close {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  line-height: 38px !important;
+  padding: 3px !important;
+}
+.btn-second{
+  font-size: 0.85rem !important;
+  color:#A8A8A8 !important;
+  border: solid 1px #A8A8A8 !important;
+  border-radius:0.375rem !important;
+  background-color: transparent !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+.breadcrumb {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.dashboard-table {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.dashboard-table th,
+.dashboard-table mat-header-cell {
+  font-size: 0.85rem !important;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.dashboard-table td,
+.dashboard-table mat-cell {
+  font-size: 0.85rem !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.dashboard-table button {
+  height: 40px !important;
+  width: 40px !important;
+  padding: 10px !important;
+}
+
+.dashboard-table button .material-symbols-outlined {
+  font-size: 18px !important;
+}
+
+.plain-card {
+  box-shadow: none !important;
+  border-radius: 10px;
+}
+
+.plain-card .card-header {
+  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.plain-card .card-footer {
+  border-top: 1px solid #eee;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+}
+
+.plain-card .card-body {
+  padding: 10px 15px;
+  font-size: 0.85rem;
+}
