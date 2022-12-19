@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -17,8 +18,8 @@ import {MatCardModule} from '@angular/material/card';
     DashboardRoutingModule,
     MatSelectModule,
     MatInputModule,
-    MatCardModule
-
+    MatCardModule,
+    TranslateModule
   ]
 })
 export class DashboardModule { }

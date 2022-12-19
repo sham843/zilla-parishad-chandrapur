@@ -14,10 +14,10 @@ export class HeaderComponent {
   constructor(
     private overlay: OverlayContainer,
     private webStorage: WebStorageService,
-    private translate:TranslateService
+    private translate: TranslateService,
   ) {
-    translate.addLangs(['English', 'Marathi']);
-    translate.setDefaultLang('English');
+    translate.addLangs(['English', 'Marathi'])
+    translate.setDefaultLang('English')
   }
   ngOnInit(): void {}
 
@@ -38,8 +38,8 @@ export class HeaderComponent {
   }
 
   changeLanguage(lang: any) {
-    this.language = lang;
-    this.translate.use(lang);
-    this.webStorage.sendlangType(lang);
+    this.language = lang
+    this.translate.use(lang)
+    this.webStorage.sendlangType(lang)
   }
 }

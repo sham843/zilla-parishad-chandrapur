@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-home',
@@ -7,5 +6,5 @@ import { TranslateService } from '@ngx-translate/core'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-constructor(public translate:TranslateService){}
+constructor(){}
 }
