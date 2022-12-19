@@ -1,1 +1,29 @@
-<p>user-registration works!</p>
+<mat-card class="plain-card">
+  <mat-card-header class="card-header mb-3">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <h6 class="text-main mb-0">Office Users</h6>
+      <div><button mat-flat-button class="btn-main btn-icon me-2"><mat-icon>
+            download
+          </mat-icon></button>
+        <button mat-flat-button class="btn-main"><mat-icon>
+            add
+          </mat-icon> Add User</button>
+      </div>
+
+    </div>
+  </mat-card-header>
+  <mat-card-header>
+    <div class="d-flex me-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Search by Name</mat-label>
+        <input matInput placeholder="Search by Name">
+      </mat-form-field>
+    </div>
+    <div class="d-flex">
+      <mat-form-field appearance="outline">
+        <mat-label>Search by Contact</mat-label>
+        <input matInput placeholder="Search by Contact">
+      </mat-form-field>
+    </div>
+  </mat-card-header>
+</mat-card>
