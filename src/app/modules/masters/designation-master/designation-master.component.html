@@ -2,10 +2,26 @@
         <mat-card-header class="card-header mb-3">
             <div class="d-flex justify-content-between align-items-center w-100">
                 <h6 class="text-main mb-0">Designation Master</h6>
-                <div class="d-flex align-items-center">
-                    <button mat-icon-button class="btn btn-icon mx-2">
-                        <mat-icon>download</mat-icon>
-                    </button>
+                <div class="d-flex align-items-center gap-2">
+                    <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+                        <mat-icon>
+                          download
+                        </mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu" xPosition="before">
+                        <button mat-menu-item>
+                          <div class="d-flex align-items-center justify-content-between w-100">
+                            <span>PDF</span>
+                            <i class='bx bxs-file-pdf text-danger'></i>
+                          </div>
+                        </button>
+                        <button mat-menu-item>
+                          <div class="d-flex align-items-center justify-content-between w-100">
+                            <span>Excel</span>
+                            <i class='bx bxs-file text-primary'></i>
+                          </div>
+                        </button>
+                      </mat-menu>
                     <button class="btn btn-main d-flex align-items-center" (click)="adddesignation()">
                         <mat-icon>add</mat-icon>
                         <span>
