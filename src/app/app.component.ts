@@ -22,6 +22,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.webStorage.getTheme().subscribe((res: any) => {
+      console.log("ressssss",res);
       this.classname = res;
     })
   }
