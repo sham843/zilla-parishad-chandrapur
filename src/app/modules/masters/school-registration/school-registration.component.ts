@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { RegisterSchoolComponent } from './register-school/register-school.component';
+
+
 
 @Component({
   selector: 'app-school-registration',
@@ -6,5 +10,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./school-registration.component.scss']
 })
 export class SchoolRegistrationComponent {
+  constructor(public dialog: MatDialog) {}
 
+  addnew(){
+    this.dialog.open(RegisterSchoolComponent, {
+      width:'700px'
+    });
+  }
 }
