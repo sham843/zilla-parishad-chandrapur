@@ -21,7 +21,7 @@ export class ApiService {
 
   getBaseurl(url: string) {
     switch (url) {     
-      case 'baseUrl': return 'https://demozposmanabad.mahamining.com/'; break;
+      case 'baseUrl': return 'https://zpchaservices.mahamining.com/'; break;
       default: return ''; break;
     }
   }
