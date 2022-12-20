@@ -24,7 +24,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Level</mat-label>
                         <mat-select formControlName="userLevel" (selectionChange)="getDesignation(userRegistrationForm.value.userLevel)">
-                            <mat-option *ngFor="let level of userLevelArr" [value]="level">{{level}}</mat-option>
+                            <mat-option *ngFor="let level of userLevelArr" [value]="level.id">{{level.desingationLevel}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

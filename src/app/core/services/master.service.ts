@@ -79,6 +79,16 @@ export class MasterService {
     });
   }
 
+  getDesignationLevel(strPara: string,designationTypeId:number) { 
+  return new Observable((obj) => {
+    this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+designationTypeId+'&flag='+strPara, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+      error: (e: any) => { obj.error(e) }
+    });
+  });
+}
+
   getDesignationType(strPara: string,designationLevelId:number) {
   return new Observable((obj) => {
     this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+designationLevelId+'flag='+strPara, false, false, false, 'baseUrl');
@@ -127,8 +137,6 @@ getAllReligion(strPara: string) {
     });
   }
 
-
- 
 
   getAllGroupClass(strPara: string) {
     return new Observable((obj) => {
