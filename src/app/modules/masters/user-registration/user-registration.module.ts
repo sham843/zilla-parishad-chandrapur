@@ -9,11 +9,15 @@ import {MatMenuModule} from '@angular/material/menu';
 
 import { UserRegistrationRoutingModule } from './user-registration-routing.module';
 import { UserRegistrationComponent } from './user-registration.component';
+import { RegisterUsersComponent } from './register-users/register-users.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    RegisterUsersComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { UserRegistrationComponent } from './user-registration.component';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class UserRegistrationModule { }
