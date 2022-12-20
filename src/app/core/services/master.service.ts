@@ -58,6 +58,16 @@ export class MasterService {
       });
     });
   }
+ 
+  getAllSchool(strPara: string,centerId:any) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang='+strPara+'&CenterId='+centerId, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
 
   getAllSchoolType(strPara: string) {
     return new Observable((obj) => {
@@ -117,6 +127,10 @@ getAllReligion(strPara: string) {
     });
   });
 }
+
+
+
+
  /*  getAllSubject(strPara: string) { zp_chandrapur/master/GetAllAgency
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllSubject?flag_lang='+strPara, false, false, false, 'baseUrl');

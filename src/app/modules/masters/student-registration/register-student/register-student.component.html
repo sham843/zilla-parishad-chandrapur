@@ -1,4 +1,4 @@
-<!-- <mat-card class="plain-card">
+ <mat-card class="plain-card">
     <mat-card-header class="card-header mb-3">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="text-main">Register Student</h6>
@@ -32,7 +32,7 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>Kendra</mat-label>
-                    <mat-select placeholder="Select" formControlName="center">
+                    <mat-select placeholder="Select" formControlName="center" (selectionChange)="getSchool()">
                         <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                         </mat-option>
                     </mat-select>
@@ -41,12 +41,11 @@
         </div>
          <div class="row">
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>School</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select placeholder="Select" formControlName="school">
+                        <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -123,19 +122,21 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            </div>
+             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Cast</mat-label>
                     <input matInput placeholder="Enter Cast Here" formControlName="cast">
                 </mat-form-field>
             </div>
-          </div>          
+          </div>  
+        
+          </form>     
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex align-items-center justify-content-between w-100">
             <button mat-stroked-button class="btn-second">Cancel</button>
-            <button mat-stroked-button class="btn  btn-main">Submit</button>
+            <button mat-stroked-button class="btn  btn-main" (click)="onClickSubmit()">{{editFlag ?'Update':'Submit'}}</button>
         </div>
     </mat-card-footer>
- </mat-card> -->
+ </mat-card> 
