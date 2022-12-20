@@ -6,14 +6,14 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class MasterService {
-
-  constructor(private apiService: ApiService) {   }
+  constructor(private apiService: ApiService)
+     {  }
 
   getAllState(strPara?: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllState?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllState?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
@@ -21,9 +21,9 @@ export class MasterService {
 
   getAllDistrict(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllDistrict?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllDistrict?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
@@ -31,9 +31,9 @@ export class MasterService {
 
   getAllTaluka(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllTaluka?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllTaluka?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
@@ -41,9 +41,9 @@ export class MasterService {
 
   getAllVillage(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllVillage?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllVillage?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
@@ -51,14 +51,14 @@ export class MasterService {
 
   getAllCenter(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllCenter?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCenter?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
   }
-
+/* 
   getAllSchoolType(strPara: string) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllSchoolType?flag_lang='+strPara, false, false, false, 'baseUrl');
@@ -158,5 +158,5 @@ export class MasterService {
         error: (e: any) => { obj.error(e) }
       });
     });
-  }
+  } */
 }

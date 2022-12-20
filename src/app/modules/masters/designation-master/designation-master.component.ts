@@ -36,7 +36,8 @@ export class DesignationMasterComponent {
 
   adddesignation(){
     this.dialog.open(AddDesignationComponent, {
-      width:'400px'
+      width:'400px',
+      disableClose: true
     });
   }
 

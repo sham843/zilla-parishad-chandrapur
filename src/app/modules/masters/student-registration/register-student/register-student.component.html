@@ -40,6 +40,8 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+        </div>
+         <div class="row">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>School</mat-label>
@@ -70,6 +72,8 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+         </div>
+         <div class="row">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>First Name</mat-label>
@@ -88,29 +92,30 @@
                     <input matInput placeholder="Search By Id">
                 </mat-form-field>
             </div>
+         </div>
+         <div class="row">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Saral ID</mat-label>
+                    <mat-label>First Name</mat-label>
                     <input matInput placeholder="Search By Id">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Gender</mat-label>
-                    <mat-select>
-                        <mat-option>Male</mat-option>
-                        <mat-option>Female</mat-option>
-                    </mat-select>
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput placeholder="Search By Id">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Birth Date</mat-label>
                     <input matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
             </div>
+         </div>
+          <div class="row">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Aadhar Card</mat-label>
@@ -132,12 +137,13 @@
                     <input matInput placeholder="Enter Cast">
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row">
+          </div>
+       
+       
             <div class="d-flex align-items-center justify-content-between w-100">
                 <button mat-stroked-button class="btn btn-secondary-outline">Cancel</button>
                 <button mat-stroked-button class="btn  btn-main">Submit</button>
             </div>
-        </div>
+       
     </mat-card-content>
 </mat-card>
