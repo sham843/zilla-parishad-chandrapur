@@ -13,6 +13,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,8 +33,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDialogModule,
     MatMenuModule,
     MatButtonModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+SharedModule,
+ReactiveFormsModule,
+FormsModule
   ]
 })
 export class StudentRegistrationModule { }
