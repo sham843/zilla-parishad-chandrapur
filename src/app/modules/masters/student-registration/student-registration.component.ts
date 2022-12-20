@@ -11,12 +11,14 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 })
 export class StudentRegistrationComponent {
   pageNumber: number = 1;
+  dataObj:any
   constructor(public dialog: MatDialog,
     private apiService:ApiService,
     private errors:ErrorsService) {}
 
     ngOnInit() {
       this.getTableData()
+      
     }
 
     onPagintion(pageNo: number) {
@@ -43,7 +45,7 @@ export class StudentRegistrationComponent {
             tableDatasize = 0;
           }
           let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'mobileNo', 'action'];
-          let displayedheaders = ['saralId', 'Name', 'Gender', 'Standard','Parents Contact No.','Action'];
+          let displayedheaders = ['Saral ID', 'Name', 'Gender', 'Standard','Parents Contact No.','Action'];
           let tableData = {
             pageNumber: this.pageNumber,
             img: '', blink: '', badge: '', isBlock: '', pagintion: true,
@@ -58,21 +60,29 @@ export class StudentRegistrationComponent {
     }
 
 
-  registerStudent(){
+  registerStudent(obj?:any){
+    console.log("obj",obj)
     this.dialog.open(RegisterStudentComponent, {
       width:'700px',
+      data:  this.dataObj,
       disableClose: true
     });
+    //  dialogRef.afterClosed().subscribe((result:any) => {
+    //    result == 'Yes' ? this.getTableData() : '';
+    //  });
   }
 
   childCompInfo(obj: any) {
+    console.log(obj);
+    this.dataObj=obj;
+    
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
         this.getTableData();
         break;
       case 'Edit' || 'Delete':
-        // this.addUpdateAgency(obj);
+         this.registerStudent(obj);
         break;    
     }
   }
