@@ -11,6 +11,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -18,7 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     DesignationMasterComponent,
-    AddDesignationComponent
+    AddDesignationComponent,
   ],
   imports: [
     CommonModule,
@@ -29,8 +31,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatDialogModule,
     MatInputModule,
     MatMenuModule,
-    MatButtonModule
-    
-  ]
+    MatButtonModule,
+    ReactiveFormsModule,SharedModule
+  ],
+  providers:[]
 })
 export class DesignationMasterModule { }

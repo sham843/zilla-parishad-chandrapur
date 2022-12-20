@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service'
-import { MasterService } from 'src/app/core/services/master.service'
-import { WebStorageService } from 'src/app/core/services/web-storage.service'
-import { RegisterSchoolComponent } from './register-school/register-school.component'
-=======
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { RegisterSchoolComponent } from './register-school/register-school.component';
 
 
->>>>>>> 2c8279665c628d4d6c77678f31883400af8835f0
 
 @Component({
   selector: 'app-school-registration',
@@ -32,10 +24,11 @@ export class SchoolRegistrationComponent {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
   }
- 
   addnew(){
     this.dialog.open(RegisterSchoolComponent, {
-      width:'700px'
+      width:'700px',
+      disableClose: true
+
     });
   }
 }
