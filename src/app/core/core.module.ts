@@ -6,6 +6,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     MatSnackBarModule,
     RouterModule,
+    MatIconModule
   ],
   providers: [
     AuthGuard,

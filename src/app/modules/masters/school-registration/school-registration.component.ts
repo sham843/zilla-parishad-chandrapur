@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { WebStorageService } from 'src/app/core/services/web-storage.service'
-import { RegisterSchoolComponent } from './register-school/register-school.component'
+import { Component } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { RegisterSchoolComponent } from './register-school/register-school.component';
 
 
 
@@ -24,10 +24,11 @@ export class SchoolRegistrationComponent {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
   }
-  
   addnew(){
     this.dialog.open(RegisterSchoolComponent, {
-      width:'700px'
+      width:'700px',
+      disableClose: true
+
     });
   }
 }

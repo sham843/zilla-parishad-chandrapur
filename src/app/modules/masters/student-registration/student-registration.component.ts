@@ -13,7 +13,8 @@ export class StudentRegistrationComponent {
 
   registerStudent(){
     this.dialog.open(RegisterStudentComponent, {
-      width:'700px'
+      width:'700px',
+      disableClose: true
     });
   }
 }
