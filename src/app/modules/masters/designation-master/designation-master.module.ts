@@ -12,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 
 
 
@@ -32,7 +32,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatInputModule,
     MatMenuModule,
     MatButtonModule,
-    ReactiveFormsModule,SharedModule
+    ReactiveFormsModule,
+    TableGridComponent
   ],
   providers:[]
 })
