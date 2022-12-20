@@ -6,18 +6,20 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
-
 import { UserRegistrationRoutingModule } from './user-registration-routing.module';
 import { UserRegistrationComponent } from './user-registration.component';
 import { RegisterUsersComponent } from './register-users/register-users.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 
 
 @NgModule({
   declarations: [
     UserRegistrationComponent,
-    RegisterUsersComponent
+    RegisterUsersComponent,
+    // TableGridComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatCardModule,
     MatMenuModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserRegistrationModule { }

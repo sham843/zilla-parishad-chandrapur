@@ -24,7 +24,6 @@ export class SchoolRegistrationComponent {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
   }
-
   addnew(){
     this.dialog.open(RegisterSchoolComponent, {
       width:'700px',
