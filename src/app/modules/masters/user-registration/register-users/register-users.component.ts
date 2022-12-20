@@ -62,7 +62,9 @@ export class RegisterUsersComponent {
     this.addRemoveValidation();
   }
   getUserLevel(typeId:number) {
- 
+        this.master.getDesignationLevel(this.lang,typeId).subscribe((res:any)=>{
+        this.userLevelArr=res.responseData;
+ })
   }
   getDesignation(levelId:any) {
     this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{

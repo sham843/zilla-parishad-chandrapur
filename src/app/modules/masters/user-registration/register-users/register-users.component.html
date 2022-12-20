@@ -1,125 +1,140 @@
 <mat-card class="plain-card">
-    <mat-card class="card-header mb-3">
-        <div class="d-flex justify-content-between align-items-center">
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
             <h6 class="text-main mb-0">Register Users</h6>
-            <button class="btn" [mat-dialog-close]="true">
+            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
-    </mat-card>
-   <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
-    <mat-card-content>
-        <div class="row gy-2 gx-2">
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>User Type</mat-label>
-                    <mat-select formControlName="userType" (selectionChange)="getUserLevel(userRegistrationForm.value.userType)">
-                        <mat-option *ngFor="let type of userTypeArr" [value]="type.userTypeId">{{type.userType}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <ng-container *ngIf="userRegistrationForm.value.userType!=2">
+    </mat-card-header>
+    <!-- <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()"> -->
+    <mat-card-content class="card-body">
+        <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
+            <div class="row gy-2 gx-2">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Level</mat-label>
-                        <mat-select formControlName="userLevel" (selectionChange)="getDesignation(userRegistrationForm.value.userLevel)">
-                            <mat-option *ngFor="let level of userLevelArr" [value]="level">{{level}}</mat-option>
+                        <mat-label>User Type</mat-label>
+                        <mat-select formControlName="userType"
+                            (selectionChange)="getUserLevel(userRegistrationForm.value.userType)">
+                            <mat-option *ngFor="let type of userTypeArr"
+                                [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </ng-container>
-            <ng-container *ngIf="userRegistrationForm.value.userType!=3">
+                <ng-container *ngIf="userRegistrationForm.value.userType!=2">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Level</mat-label>
+                            <mat-select formControlName="userLevel"
+                                (selectionChange)="getDesignation(userRegistrationForm.value.userLevel)">
+                                <mat-option *ngFor="let level of userLevelArr"
+                                    [value]="level.id">{{level.desingationLevel}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="userRegistrationForm.value.userType!=3">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Designation</mat-label>
+                            <mat-select formControlName="designation" (selectionChange)="getDistrict()">
+                                <mat-option *ngFor="let designation of designationArr"
+                                    [value]="designation">{{designation}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Designation</mat-label>
-                        <mat-select formControlName="designation" (selectionChange)="getDistrict()">
-                            <mat-option *ngFor="let designation of designationArr" [value]="designation">{{designation}}</mat-option>
+                        <mat-label>District</mat-label>
+                        <mat-select formControlName="district"
+                            (selectionChange)="getTaluka(userRegistrationForm.value.district)">
+                            <mat-option *ngFor="let dist of districtArr"
+                                [value]="dist.id">{{dist.district}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </ng-container>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>District</mat-label>
-                    <mat-select formControlName="district" (selectionChange)="getTaluka(userRegistrationForm.value.district)">
-                        <mat-option *ngFor="let dist of districtArr" [value]="dist.id">{{dist.district}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Taluka</mat-label>
-                    <mat-select formControlName="taluka" (selectionChange)="getKendra(userRegistrationForm.value.taluka)">
-                        <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id">{{taluka.taluka}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Kendra</mat-label>
-                    <mat-select formControlName="kendra" (selectionChange)="getSchoolName()">
-                        <mat-option *ngFor="let kendra of kendraArr" [value]="kendra.id">{{kendra.center}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <ng-container *ngIf="userRegistrationForm.value.userType==2">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>School</mat-label>
-                        <mat-select formControlName="school" (selectionChange)="getAgency()">
-                            <mat-option *ngFor="let school of schoolArr" [value]="school">{{school}}</mat-option>
+                        <mat-label>Taluka</mat-label>
+                        <mat-select formControlName="taluka"
+                            (selectionChange)="getKendra(userRegistrationForm.value.taluka)">
+                            <mat-option *ngFor="let taluka of talukaArr"
+                                [value]="taluka.id">{{taluka.taluka}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </ng-container>
-            <ng-container *ngIf="userRegistrationForm.value.userType==3">
-                <div class="col-sm-4"> 
+                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Agency Name</mat-label>
-                        <mat-select formControlName="agency">
-                            <mat-option *ngFor="let agency of agencyArr" [value]="agency">{{agency}}</mat-option>
+                        <mat-label>Kendra</mat-label>
+                        <mat-select formControlName="kendra" (selectionChange)="getSchoolName()">
+                            <mat-option *ngFor="let kendra of kendraArr"
+                                [value]="kendra.id">{{kendra.center}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </ng-container>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Name</mat-label>
-                    <input matInput placeholder="Enter Name" formControlName="name" (keypress)="validation.alphabetsWithSpaces($event)" 
-                    (keyup)="validation.removeSpaceAtBegining($event)">
-                </mat-form-field>
-            </div>
-            <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                <ng-container *ngIf="userRegistrationForm.value.userType==2">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>School</mat-label>
+                            <mat-select formControlName="school" (selectionChange)="getAgency()">
+                                <mat-option *ngFor="let school of schoolArr" [value]="school">{{school}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Agency Name</mat-label>
+                            <mat-select formControlName="agency">
+                                <mat-option *ngFor="let agency of agencyArr" [value]="agency">{{agency}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Contact Person</mat-label>
-                        <input matInput placeholder="Enter contact person name" formControlName="contact">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter Name" formControlName="name"
+                            (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                     </mat-form-field>
                 </div>
-            </ng-container>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Mobile Number</mat-label>
-                    <input matInput placeholder="Enter contact person name" formControlName="mobile" (keypress)="validation.onlyDigits($event)" 
-                    (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Enter Email Id" formControlName="email" (keypress)="validation.emailRegex"
-                    (keyup)="validation.removeSpaceAtBegining($event)">
-                </mat-form-field>
-            </div>
-            <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Contact Person</mat-label>
+                            <input matInput placeholder="Enter contact person name" formControlName="contact">
+                        </mat-form-field>
+                    </div>
+                </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Agency Address</mat-label>
-                        <input matInput placeholder="Enter agency Address" formControlName="address" (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-label>Mobile Number</mat-label>
+                        <input matInput placeholder="Enter contact person name" formControlName="mobile"
+                            (keypress)="validation.onlyDigits($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
                     </mat-form-field>
                 </div>
-            </ng-container>
-        </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Enter Email Id" formControlName="email"
+                            (keypress)="validation.emailRegex" (keyup)="validation.removeSpaceAtBegining($event)">
+                    </mat-form-field>
+                </div>
+                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Agency Address</mat-label>
+                            <input matInput placeholder="Enter agency Address" formControlName="address"
+                                (keyup)="validation.removeSpaceAtBegining($event)">
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+            </div>
+        </form>
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-between align-items-center w-100">
@@ -127,3 +142,5 @@
             <button mat-stroked-button class="btn-main">Submit</button>
         </div>
     </mat-card-footer>
+    <!-- </form> -->
+</mat-card>
