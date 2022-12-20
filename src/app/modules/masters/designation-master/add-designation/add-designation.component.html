@@ -1,52 +1,61 @@
 <mat-card class="plain-card">
-    <mat-card-header class="card-header mb-3">
+    <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0">Register Designation </h6>
-            <button class="btn" [mat-dialog-close]="true">
+            <h6 class="text-main mb-0 fw-bold">Register Designation </h6>
+            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                 <mat-icon>
                     close
                 </mat-icon>
             </button>
         </div>
-        </mat-card-header>
-</mat-card>
-<mat-card-content>
-    <form [formGroup]="designationForm" (ngSubmit)="onClickSubmit(formDirective)" #formDirective="ngForm">
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Designation Level</mat-label>
-                <mat-select formControlName="dummyDesigLvlkey" (selectionChange)="clearFormDependancy($event);getDesignationType();setDesignationLvl()">
-                    <mat-option *ngFor="let upDesigLevel of desigantionLevel" [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Designation Type</mat-label>
-                <mat-select formControlName="linkedToDesignationId">
-                    <mat-option *ngFor="let upDesigType of desigantionType" [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Set Designation Level</mat-label>
-                <mat-select formControlName="designationLevelId">
-                    <mat-option *ngFor="let setDesigLvl of setDesignationLevel" [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Add Designation</mat-label>
-                <input matInput placeholder="Add Designation" formControlName="designationName">
-              </mat-form-field>
-        </div>
-        <div class="row">
-            <div class="d-flex justify-content-between">
-                <button class="btn bg-secondary-outline" (click)="clearForm(formDirective)">Clear</button>
-                <button type="submit" class="btn btn-main">Submit</button>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+        <form [formGroup]="designationForm" (ngSubmit)="onClickSubmit(formDirective)" #formDirective="ngForm">
+            <div class="row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Designation Level</mat-label>
+                    <mat-select formControlName="dummyDesigLvlkey"
+                        (selectionChange)="clearFormDependancy($event);getDesignationType();setDesignationLvl()">
+                        <mat-option *ngFor="let upDesigLevel of desigantionLevel"
+                            [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Designation Type</mat-label>
+                    <mat-select formControlName="linkedToDesignationId">
+                        <mat-option *ngFor="let upDesigType of desigantionType"
+                            [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="mb-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Set Designation Level</mat-label>
+                    <mat-select formControlName="designationLevelId">
+                        <mat-option *ngFor="let setDesigLvl of setDesignationLevel"
+                            [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Add Designation</mat-label>
+                    <input matInput placeholder="Add Designation" formControlName="designationName">
+                </mat-form-field>
+            </div>
+        </form>
+
+    </mat-card-content>
+    <mat-card-footer class="card-footer">
+        <div class="d-flex justify-content-between align-items-center w-100 ">
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <button class="btn bg-secondary-outline" (click)="clearForm(formDirective)">Clear</button>
+                    <button type="submit" class="btn btn-main">Submit</button>
+                </div>
             </div>
         </div>
-    </form>
-</mat-card-content>
+    </mat-card-footer>
+</mat-card>

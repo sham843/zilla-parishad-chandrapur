@@ -45,7 +45,7 @@ export class StudentRegistrationComponent {
             tableDatasize = 0;
           }
           let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'mobileNo', 'action'];
-          let displayedheaders = ['saralId', 'Name', 'Gender', 'Standard','Parents Contact No.','Action'];
+          let displayedheaders = ['Saral ID', 'Name', 'Gender', 'Standard','Parents Contact No.','Action'];
           let tableData = {
             pageNumber: this.pageNumber,
             img: '', blink: '', badge: '', isBlock: '', pagintion: true,
