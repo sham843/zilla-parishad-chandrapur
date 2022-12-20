@@ -62,7 +62,7 @@ export class RegisterUsersComponent {
     this.addRemoveValidation();
   }
   getUserLevel(typeId:number) {
-
+ 
   }
   getDesignation(levelId:any) {
     this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{
@@ -85,7 +85,11 @@ export class RegisterUsersComponent {
     })
   }
   getSchoolName() {}
-  getAgency() {}
+  getAgency() {
+    this.master.getAllAgency(this.lang).subscribe((res:any)=>{
+      this.agencyArr=res;
+    })
+  }
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
 addRemoveValidation(){

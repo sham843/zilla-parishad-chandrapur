@@ -13,7 +13,8 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>User Type</mat-label>
-                    <mat-select formControlName="userType" (selectionChange)="getUserLevel(userRegistrationForm.value.userType)">
+                    <mat-select formControlName="userType" 
+                    (selectionChange)="userRegistrationForm.value.userType!=2?getUserLevel(userRegistrationForm.value.userType):getDesignation(userRegistrationForm.value.userLevel)">
                         <mat-option *ngFor="let type of userTypeArr" [value]="type.userTypeId">{{type.userType}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -32,7 +33,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Designation</mat-label>
-                        <mat-select formControlName="designation" (selectionChange)="getDistrict()">
+                        <mat-select formControlName="designation">
                             <mat-option *ngFor="let designation of designationArr" [value]="designation">{{designation}}</mat-option>
                         </mat-select>
                     </mat-form-field>
