@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MatSort } from '@angular/material/sort';
 
-
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
@@ -15,8 +14,6 @@ export class TableGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;
 
-
-
   displayedColumns = new Array();
   tableRecords: any;
   tableSize!: number;
@@ -26,7 +23,6 @@ export class TableGridComponent implements OnInit {
   tableHeaders = new Array();
   highlightedRow!:number;
   constructor(private apiService: ApiService) { }
-
 
   ngOnInit() {
     this.tableInfo = [];
