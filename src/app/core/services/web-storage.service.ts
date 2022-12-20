@@ -17,7 +17,8 @@ export class WebStorageService {
 
   // change language
   private langName = new BehaviorSubject('')
-  langNameOnChange = this.langName.asObservable()
+  langNameOnChange = this.langName.asObservable();
+
   sendlangType(type: string) {
     this.langName.next(type)
   }

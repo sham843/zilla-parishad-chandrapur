@@ -19,7 +19,10 @@ export class HeaderComponent {
     translate.addLangs(['English', 'Marathi'])
     translate.setDefaultLang('English')
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let language: any = sessionStorage.getItem('language')
+    this.webStorage.sendlangType(language)
+  }
 
   changeTheme(darkMode: any) {
     let darkClassName: any
@@ -41,5 +44,6 @@ export class HeaderComponent {
     this.language = lang
     this.translate.use(lang)
     this.webStorage.sendlangType(lang)
+    sessionStorage.setItem('language', lang)
   }
 }
