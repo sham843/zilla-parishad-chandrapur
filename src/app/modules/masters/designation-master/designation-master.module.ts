@@ -9,6 +9,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { AddDesignationComponent } from './add-designation/add-designation.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 
@@ -24,7 +27,9 @@ import {MatInputModule} from '@angular/material/input';
     MatSelectModule,
     MatIconModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    MatButtonModule
     
   ]
 })
