@@ -12,6 +12,7 @@ import { RegisterStudentComponent } from './register-student/register-student.co
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatDatepickerModule,
     MatDialogModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatNativeDateModule
 
   ]
 })
