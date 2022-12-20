@@ -12,14 +12,11 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
-
-
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
-    RegisterUsersComponent,
-    // TableGridComponent
+    RegisterUsersComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class UserRegistrationModule { }
