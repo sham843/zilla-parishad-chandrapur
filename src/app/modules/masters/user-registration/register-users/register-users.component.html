@@ -1,8 +1,10 @@
 <mat-card class="plain-card">
     <mat-card class="card-header mb-3">
-        <div class="d-flex justify-content-between">
-            <h6 class="text-main">Register Users</h6>
-            <button class="btn" [mat-dialog-close]="true"><mat-icon>close</mat-icon></button>
+        <div class="d-flex justify-content-between align-items-center">
+            <h6 class="text-main mb-0">Register Users</h6>
+            <button class="btn" [mat-dialog-close]="true">
+                <mat-icon>close</mat-icon>
+            </button>
         </div>
     </mat-card>
     <mat-card-content>
@@ -91,38 +93,38 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Name</mat-label>
                     <input matInput placeholder="Enter Name">
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Contact Person</mat-label>
                     <input matInput placeholder="Enter contact person name">
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Mobile Number</mat-label>
                     <input matInput placeholder="Enter contact person name">
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="Enter Email Id">
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Agency Address</mat-label>
                     <input matInput placeholder="Enter agency Address">
-                  </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <button mat-stroked-button class="btn-secondary-outline">Cancel</button>
-                <button mat-stroked-button class="btn-main">Submit</button>
+                </mat-form-field>
             </div>
         </div>
     </mat-card-content>
+    <mat-card-footer class="card-footer"> 
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <button mat-stroked-button class="btn-secondary-outline">Cancel</button>
+            <button mat-stroked-button class="btn-main">Submit</button>
+        </div>
+    </mat-card-footer>
 </mat-card>
