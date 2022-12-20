@@ -12,8 +12,9 @@ export class UserRegistrationComponent {
 
   registerusers(){
     this.dialog.open(RegisterUsersComponent, {
-      width:'700px'
+      width:'700px',
+      disableClose: true
     });
   }
- 
+
 }
