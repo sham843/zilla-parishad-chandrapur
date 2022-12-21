@@ -29,7 +29,7 @@ export class MasterService {
     });
   }
 
-  getAllTaluka(strPara: string) {
+  getAllTaluka(strPara: string,talukaId:number) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllTaluka?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
@@ -58,8 +58,18 @@ export class MasterService {
       });
     });
   }
+  getDesignationLevel(strPara: string) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'designation/get-designation-level?flag='+strPara, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
+  
 /* 
-  getAllSchoolType(strPara: string) {
+  getAllSchoolType(strPara: string) { designation/get-designation-level?flag=
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllSchoolType?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({

@@ -26,6 +26,6 @@ import { TableGridComponent } from './components/table-grid/table-grid.component
     MatButtonModule,
     MatIconModule
   ],
-  exports: [TableGridComponent, PageStatisticsComponent]
+  // exports: [TableGridComponent, PageStatisticsComponent]
 })
 export class SharedModule { }

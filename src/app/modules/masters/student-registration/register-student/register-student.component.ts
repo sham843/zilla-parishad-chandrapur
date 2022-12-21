@@ -113,7 +113,7 @@ addData:any;
   }
 
   getCenter() {
-    this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
+    /* this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -126,11 +126,11 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   getSchool() {
-    this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
+   /*  this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
@@ -143,13 +143,13 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
 
 
   getStandard() {
-    this.master.getAllStandard(this.lang).subscribe({
+    /* this.master.getAllStandard(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
@@ -162,11 +162,11 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   getReligion() {
-    this.master.getAllReligion(this.lang).subscribe({
+   /*  this.master.getAllReligion(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
@@ -179,7 +179,7 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   
