@@ -14,7 +14,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>District</mat-label>
-                        <mat-select placeholder="Select" formControlName="district" (selectionChange)="getTaluka()">
+                        <mat-select placeholder="Select" formControlName="districtId" (selectionChange)="getTaluka()">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
                             </mat-option>
@@ -24,7 +24,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="taluka" (selectionChange)="getCenter()">
+                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter()">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
@@ -33,8 +33,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Kendra</mat-label>
-                        <mat-select placeholder="Select" formControlName="center"
-                            (selectionChange)="getSchool(lang,studentFrm.value.center)">
+                        <mat-select placeholder="Select" formControlName="centerId"
+                            (selectionChange)="getSchool(lang,studentFrm.value.centerId)">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
@@ -43,7 +43,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>School</mat-label>
-                        <mat-select placeholder="Select" formControlName="school">
+                        <mat-select placeholder="Select" formControlName="schoolId">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
@@ -52,7 +52,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Standard</mat-label>
-                        <mat-select placeholder="Select" formControlName="standard">
+                        <mat-select placeholder="Select" formControlName="standardId">
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
@@ -91,7 +91,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Gender</mat-label>
-                        <mat-select placeholder="Select" formControlName="gender">
+                        <mat-select placeholder="Select" formControlName="genderId">
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
@@ -114,7 +114,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Religion</mat-label>
-                        <mat-select placeholder="Select" formControlName="religion">
+                        <mat-select placeholder="Select" formControlName="religionId">
                             <mat-option *ngFor="let religion of religionArray"
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
@@ -134,7 +134,7 @@
         <div class="d-flex align-items-center justify-content-end w-100">
             <button mat-stroked-button class="btn-second me-2">Cancel</button>
             <button type="submit" mat-stroked-button class="btn-main"
-                (click)="onClickSubmit()">{{"Submit"}}</button>
+                (click)="onClickSubmit()">{{editFlag ? "Update" : "Submit"}}</button>
         </div>
     </mat-card-footer>
 </mat-card>
