@@ -25,14 +25,12 @@ export class AddDesignationComponent {
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
               private master: MasterService){}
   ngOnInit(){
-    console.log(this.editFlag);
-    
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
-    this.getDesignationLevel();
-    this.data ? this.editMethod() : '';
+    this.data ? this.editMethod() : this.getDesignationLevel();
+
   }
 
   controlForm(){
@@ -50,8 +48,10 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
+    console.log( this.editFlag);
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
+     
       this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.designationLevelId),this.getDesignationType()) : '';
     })
   }
@@ -62,9 +62,8 @@ export class AddDesignationComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          
-          
           this.desigantionType = res.responseData;
+          // console.log(this.desigantionType,this.data.linkedToDesignationId ,"Type");
           this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId),this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
@@ -80,6 +79,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
+          // console.log(this.desigantionType,this.data.linkedToDesignationId ,"Type");
           this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
@@ -98,7 +98,7 @@ export class AddDesignationComponent {
   //   "userId": 0
   // }
     let postObj = {
-      id: 1,
+      id: 0,
       linkedToDesignationId:this.designationForm.value.linkedToDesignationId,
       designationLevelId:this.designationForm.value.designationLevelId,
       designationName:this.designationForm.value.designationName,
@@ -138,7 +138,7 @@ editMethod(){
     isDeleted: false,
     userId: 0
   })
-  this.editFlag ? this.getDesignationLevel() : '';
+ this.getDesignationLevel();
 }
 
   clearFormDependancy(index:any){
