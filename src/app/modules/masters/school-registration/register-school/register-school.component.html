@@ -7,95 +7,97 @@
             </button>
         </div>
     </mat-card-header>
-    <mat-card-content>
-        <h6 class="mb-4">School Details</h6>
-        <div class="row">
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>District</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitData()">
+        <mat-card-content>
+            <h6 class="mb-4">School Details</h6>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>District</mat-label>
+                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+                            <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
+                                {{dist.district}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Taluka</mat-label>
+                        <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
+                            <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                                {{tal.taluka}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Kendra</mat-label>
+                        <mat-select formControlName="centerId" (selectionChange)="getSchoolCategory()">
+                            <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
+                                {{cet.center}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Taluka</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>School</mat-label>
+                        <input matInput placeholder="Enter School name" formControlName="schoolName">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>School Category</mat-label>
+                        <mat-select formControlName="s_CategoryId" (selectionChange)="getSchoolType()">
+                            <mat-option *ngFor="let cat of schoolcategoryArray" [value]="cat.id">
+                                {{cat.categoryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>School Type</mat-label>
+                        <mat-select formControlName="s_TypeId" (selectionChange)="getGenderAllow()">
+                            <mat-option *ngFor="let type of schooltypeArray" [value]="type.id">
+                                {{type.schoolType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Kendra</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Gender Allowed</mat-label>
+                        <mat-select formControlName="g_GenderId" (selectionChange)="getGroupClass()">
+                            <mat-option *ngFor="let gen of genderAllowArray" [value]="gen.id">
+                                {{gen.gender}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Group Class</mat-label>
+                        <mat-select formControlName="g_ClassId">
+                            <mat-option *ngFor="let gr of groupArray" [value]="gr.id">
+                                {{gr.groupClass}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>School</mat-label>
-                    <input matInput placeholder="Enter School name">
-                </mat-form-field>
+            <div class="row">
+                <div class="d-flex align-items-center justify-content-between">
+                    <button class="btn btn-secondary-outline" type="reset">Cancel</button>
+                    <button class="btn btn-main" type="submit">Submit</button>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>School Category</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>School Type</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Gender Allowed</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Group Class</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="d-flex align-items-center justify-content-between">
-                <button class="btn btn-secondary-outline">Cancel</button>
-                <button class="btn btn-main">Submit</button>
-            </div>
-        </div>
-    </mat-card-content>
+        </mat-card-content>
+    </form>
 </mat-card>
