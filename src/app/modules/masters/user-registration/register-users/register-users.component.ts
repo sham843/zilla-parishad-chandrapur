@@ -19,6 +19,7 @@ export class RegisterUsersComponent {
   talukaArr=new Array();
   kendraArr=new Array();
   agencyArr=new Array();
+  schoolArr=new Array();
   lang:string='English';
   constructor(
     private fb: FormBuilder,

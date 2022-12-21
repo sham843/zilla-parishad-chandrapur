@@ -6,7 +6,7 @@
                 <mat-icon>close</mat-icon>
             </button>
         </div>
-    </mat-card-header>
+        </mat-card>
     <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
     <mat-card-content class="card-body">
             <div class="row gy-2 gx-2">
@@ -140,4 +140,5 @@
             <button mat-stroked-button class="btn-main">{{'user_Registration.submit' |translate}}</button>
         </div>
     </mat-card-footer>
+    </form>
 </mat-card>
