@@ -66,9 +66,9 @@ addData:any;
       "aadharNo": [''],
       "religion": [''],
       "cast": [''],
-      "mobileNo": ['']
-     
+      "mobileNo": ['']     
     })
+    this.onEdit(this.data);
   }
 
   getDistrict() {
@@ -190,22 +190,23 @@ addData:any;
       f_Name: editObj.f_Name,
       m_Name: editObj.m_Name,
       l_Name: editObj.l_Name,
-      stateId:editObj.state,
-      districtId:editObj.district,
-      talukaId:editObj.taluka,
-      centerId: editObj.center,
-      schoolId:editObj.school,
-      standardId: editObj.standard,
+      stateId:editObj.stateId,
+      districtId:editObj.districtId,
+      talukaId:editObj.talukaId,
+      centerId: editObj.centerId,
+      schoolId:editObj.schoolId,
+      standardId: editObj.standardId,
       saralId:editObj.saralId,
-      genderId:editObj.gender,
+      genderId:editObj.genderId,
       dob:editObj.dob,
       aadharNo: editObj.aadharNo,
-      lan: editObj.id,
-      religionId:editObj.religion,
+      lan: editObj.lan,
+      religionId:editObj.religionId,
       castId:editObj.cast,
       mobileNo: editObj.mobileNo,
       emailId: editObj.emailId,
     });
+    
   }
 
   onClickSubmit() {
