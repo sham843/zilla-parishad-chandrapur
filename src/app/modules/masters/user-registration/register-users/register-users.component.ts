@@ -1,6 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
+import { ApiService } from 'src/app/core/services/api.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
 import { WebStorageService } from 'src/app/core/services/web-storage.service'
@@ -20,19 +22,20 @@ export class RegisterUsersComponent {
   kendraArr=new Array();
   agencyArr=new Array();
   schoolArr=new Array();
-  lang:string='English';
+  lang:string |any='English';
   constructor(
     private fb: FormBuilder,
     public validation: ValidationService,
     private webStorage: WebStorageService,
     private master: MasterService,
-    public translate:TranslateService
+    public translate:TranslateService,
+    public dialogRef: MatDialogRef<RegisterUsersComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private apiService:ApiService
   ) {}
 
   ngOnInit() {
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
-      res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
-    })
+   this.lang=this.apiService.getLanguageFlag();
     this.getUserControl();
     this.getUserType();
     this.getDistrict();
@@ -40,32 +43,36 @@ export class RegisterUsersComponent {
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
-      userType: ['', Validators.required],
+      userType: [this.data?this.data.userTypeId:'', Validators.required],
       userLevel: [''],
       designation: [''],
       district: ['', Validators.required],
       taluka: ['', Validators.required],
-      kendra: ['', Validators.required],
+      kendra: [this.data?this.data.center:'', Validators.required],
       school: [''],
       agency: [''],
-      name: ['', [Validators.required,Validators.pattern(this.validation.fullName)]],
+      name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       contact: [''],
-      mobile: ['', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
+      mobile: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       email: ['', Validators.required,Validators.email,Validators.pattern(this.validation.email)],
       address: ['']
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {
-   /*  this.master.getAllUserType(this.lang).subscribe((res:any)=>{
+    this.master.getUserType(this.lang).subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
     })
-    this.addRemoveValidation(); */
+    this.addRemoveValidation();
   }
-  getUserLevel(typeId:number) {
-      /*   this.master.getDesignationLevel(this.lang,typeId).subscribe((res:any)=>{
-        this.userLevelArr=res.responseData;
- }) */
+  getUserLevel(typeId:number) { 
+  this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
+  this.apiService.getHttp().subscribe((res:any)=>{
+    if(res.statusCode == "200"){
+      this.userLevelArr=res.responseData;
+      console.log(this.userLevelArr);
+    }
+  })
   }
   getDesignation(levelId:any) {
    /*  this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{
@@ -78,20 +85,28 @@ export class RegisterUsersComponent {
     })
   }
   getTaluka(distId:number) {
-  /*   this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
+     this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
-    }) */
+    })
   }
   getKendra(talukaId:number) {
-   /*  this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
+    this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
-    }) */
+    })
   }
-  getSchoolName() {}
+  getSchoolName(centerId:number) {
+    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
+      this.schoolArr=res.responseData;
+    })
+  }
   getAgency() {
-   /*  this.master.getAllAgency(this.lang).subscribe((res:any)=>{
-      this.agencyArr=res;
-    }) */
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res:any)=>{
+      if(res.statusCode == "200"){
+        this.agencyArr=res.responseData;
+        console.log(this.agencyArr)
+      }
+    })
   }
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
