@@ -14,7 +14,7 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>District</mat-label>
-                    <mat-select placeholder="Select" formControlName="district" (selectionChange)="getTaluka()">
+                    <mat-select placeholder="Select" formControlName="district"  (selectionChange)="getTaluka()">
                         <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.district}}
                         </mat-option>
                     </mat-select>
