@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 @Component({
   selector: 'app-register-school',
@@ -16,13 +16,22 @@ export class RegisterSchoolComponent {
   schooltypeArray = new Array();
   genderAllowArray = new Array();
   groupArray = new Array();
-  editFlag:boolean=false;
+  editFlag: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: ApiService,public dialog: MatDialog) { }
+
+
+
+  constructor(private fb: FormBuilder, private service: ApiService, public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    console.log('data', this.data);
     this.getFormData();
     this.getDistrict();
+    if (this.data) {
+      {
+        this.onEditData()
+      }
+    }
   }
 
   getFormData() {
@@ -56,6 +65,7 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getTaluka() : '';
   }
 
   getTaluka() {
@@ -68,6 +78,8 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getCenter() : '';
+
   }
 
   getCenter() {
@@ -80,6 +92,8 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getSchoolCategory() : '';
+
   }
 
   getSchoolCategory() {
@@ -91,6 +105,7 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getSchoolType() : '';
   }
 
   getSchoolType() {
@@ -102,6 +117,7 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getGenderAllow() : '';
   }
 
   getGenderAllow() {
@@ -113,6 +129,7 @@ export class RegisterSchoolComponent {
         }
       }),
     })
+    this.editFlag ? this.getGroupClass() : '';
   }
 
   getGroupClass() {
@@ -125,34 +142,60 @@ export class RegisterSchoolComponent {
       }),
     })
   }
- 
+  onEditData(obj?: any) {
+    obj = this.data
+    this.editFlag = true;
+    this.registerForm.patchValue({
+      createdBy: 0,
+      modifiedBy: 0,
+      createdDate: new Date(),
+      modifiedDate: new Date(),
+      isDeleted: true,
+      id: obj.id,
+      schoolName: obj.schoolName,
+      m_SchoolName: '',
+      stateId: obj.stateId,
+      districtId: obj.districtId,
+      talukaId: obj.talukaId,
+      centerId: obj.centerId,
+      s_CategoryId: obj.s_CategoryId,
+      s_TypeId: obj.s_TypeId,
+      g_GenderId: obj.g_GenderId,
+      g_ClassId: obj.g_ClassId,
+      lan: ''
+    })
+    this.editFlag ? this.getDistrict() : '';
+  }
+
   onSubmitData() {
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
       return
-    } if(!this.editFlag){
+    } if (!this.editFlag) {
       this.service.setHttp('post', 'zp_chandrapur/School/Add', false, formData, false, 'baseUrl');
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
-            alert('post done');
             this.registerForm.reset();
+            this.dialogRef.close();
           }
         }),
       })
-    }else{
-      this.editFlag=true;
+    } else {
+      this.editFlag = true;
       this.service.setHttp('put', 'zp_chandrapur/School/Update', false, formData, false, 'baseUrl');
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
-            alert('update done');
             this.registerForm.reset();
+            this.dialogRef.close();
           }
         }),
       })
     }
   }
+
+
 
 
 }

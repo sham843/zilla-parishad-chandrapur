@@ -37,7 +37,7 @@ export class SchoolRegistrationComponent {
 
     });
   }
-  // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=EN
+  
   getTableData(flag?:string){
     this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
     let tableDataArray = new Array();
@@ -55,7 +55,7 @@ export class SchoolRegistrationComponent {
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'schoolName', 'center','taluka','action'];
-        let displayedheaders = ['Sr. No', 'School Name', 'Kendra','Taluka','action'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra','Taluka','Action'];
         console.log("Table Data",tableDataArray);
         let tableData = {
           pageNumber: this.pageNumber,

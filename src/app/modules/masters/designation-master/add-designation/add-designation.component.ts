@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { MasterService } from 'src/app/core/services/master.service';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -10,6 +12,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class AddDesignationComponent {
 
+  lang:string='English';
   editFlag: boolean = false;
   designationForm!:FormGroup;
   desigantionLevel = new Array();
@@ -19,10 +22,14 @@ export class AddDesignationComponent {
 
 
   constructor(private fb: FormBuilder, private commonMethod: CommonMethodsService, private apiService: ApiService,
-              private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any){}
+              private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
+              private master: MasterService){}
 
   importedEditObj = this.data;
   ngOnInit(){
+    this.webStorage.langNameOnChange.subscribe((res: any) => {
+      res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
+    })
     this.controlForm();
     this.getDesignationLevel();
 
@@ -31,17 +38,7 @@ export class AddDesignationComponent {
       this.editMethod();
     }
   }
-
-  // {
-  //   "id": 0,
-  //   "designationLevelId": 0,<<<<<<<<<<------------
-  //   "linkedToDesignationId": 0,
-  //   "designationName": "string",
-  //   "linkedToDesignationName": "string",
-  //   "designationLevelName": "string",<<<<<<<<<-----------
-  //   "isDeleted": true,
-  //   "userId": 0
-  // }
+  
   controlForm(){
     this.designationForm = this.fb.group({
       dummyDesigLvlkey:[],
@@ -57,15 +54,8 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
-    this.apiService.setHttp('GET', 'designation/get-designation-level?flag=en-US', false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.desigantionLevel = res.responseData;
-        }
-      }, error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      }
+    this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
+      this.desigantionLevel = res.responseData;
     })
   }
 
