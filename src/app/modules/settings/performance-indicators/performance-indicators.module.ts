@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PerformanceIndicatorsRoutingModule } from './performance-indicators-routing.module';
 import { PerformanceIndicatorsComponent } from './performance-indicators.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { PerformanceIndicatorsComponent } from './performance-indicators.compone
   ],
   imports: [
     CommonModule,
-    PerformanceIndicatorsRoutingModule
+    PerformanceIndicatorsRoutingModule,
+    MatCardModule,
+    MatSelectModule
   ]
 })
 export class PerformanceIndicatorsModule { }

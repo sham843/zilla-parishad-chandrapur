@@ -23,6 +23,7 @@ schoolArray=new Array();
 standardArray=new Array();
 genderArray=new Array();
 religionArray=new Array();
+
 editFlag:boolean=false;
 addData:any;
   constructor(
@@ -44,9 +45,9 @@ addData:any;
       })
       this.formData();
       this.getDistrict();
-      this.getStandard();
-      this.getReligion();
-      
+      this.getStandard(this.lang);
+      this.getReligion(this.lang);
+      this.getGender(this.lang)
     }
 
   formData() {
@@ -55,17 +56,17 @@ addData:any;
       "f_Name": [''],
       "m_Name": [''],
       "l_Name": [''],
-      "state": [''],
+      // "state": [''],
       "district": [1],
-      "taluka": [''],
-      "center": [''],
-      "school": [''],
-      "standard": [''],
+      "taluka": [ ],
+      "center": [ ],
+      "school": [ ],
+      "standard":[ ],
       "saralId": [''],
-      "gender": [''],
+      "gender":[ ],
       "dob": [''],
       "aadharNo": [''],
-      "religion": [''],
+      "religion":[ ],
       "cast": [''],
       "mobileNo": ['']     
     })
@@ -113,7 +114,7 @@ addData:any;
   }
 
   getCenter() {
-    /* this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
+     this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -126,11 +127,12 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    }) */
+    }) 
   }
 
-  getSchool() {
-   /*  this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
+  getSchool(strPara: string, centerId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
@@ -143,13 +145,12 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    }) */
+    })
   }
 
-
-
-  getStandard() {
-    /* this.master.getAllStandard(this.lang).subscribe({
+  getStandard(strPara: string) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllStandard?flag_lang='+ strPara, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
@@ -162,11 +163,30 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    }) */
+    })
   }
 
-  getReligion() {
-   /*  this.master.getAllReligion(this.lang).subscribe({
+  getGender(strPara: string) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang='+ strPara, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.genderArray = res.responseData;
+        }
+        else {
+          this.genderArray=[];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+  }
+
+  getReligion(strPara: string) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllReligion?flag_lang='+ strPara, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
@@ -179,8 +199,61 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    }) */
+    })
   }
+
+  // getSchool() {
+  //    this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.schoolArray = res.responseData;
+  //       }
+  //       else {
+  //         this.schoolArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   }) 
+  // }
+
+
+
+  // getStandard() {
+  //    this.master.getAllStandard(this.lang).subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.standardArray = res.responseData;
+  //       }
+  //       else {
+  //         this.standardArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   }) 
+  // }
+
+  // getReligion() {
+  //   this.master.getAllReligion(this.lang).subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.religionArray = res.responseData;
+  //       }
+  //       else {
+  //         this.religionArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   }) 
+  // }
 
   
   // onEdit(editObj: any) {
@@ -214,8 +287,29 @@ addData:any;
   //   });
     
   // }
+  onClickSubmit(){
+    let data = this.studentFrm.value;
+    this.apiService.setHttp('post', 'zp-Chandrapur/Student/AddStudent', false, data, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.dialogRef.close('Yes');
+          this.formData();
+          this.editFlag = false;
+        }
+        else {
+         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
 
-  onClickSubmit() {
+  }
+
+  onClickSubmit1() {
     if (!this.studentFrm.valid) {
       return;
     } else {

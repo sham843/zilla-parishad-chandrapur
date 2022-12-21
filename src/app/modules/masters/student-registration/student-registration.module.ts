@@ -13,26 +13,29 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { TableGridComponent } from "../../../shared/components/table-grid/table-grid.component";
 
 @NgModule({
-  declarations: [
-    StudentRegistrationComponent,
-    RegisterStudentComponent
-  ],
-  imports: [
-    CommonModule,
-    StudentRegistrationRoutingModule,
-    MatCardModule,
-    MatSelectModule,
-    MatIconModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatNativeDateModule
-
-  ]
+    declarations: [
+        StudentRegistrationComponent,
+        RegisterStudentComponent
+    ],
+    imports: [
+        CommonModule,
+        StudentRegistrationRoutingModule,
+        MatCardModule,
+        MatSelectModule,
+        MatIconModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        FormsModule,
+        TableGridComponent
+    ]
 })
 export class StudentRegistrationModule { }
