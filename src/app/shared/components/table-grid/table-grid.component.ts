@@ -60,7 +60,8 @@ export class TableGridComponent implements OnInit {
   // }
 
   action(obj: any, label: string, i?:any) {
-    this.highlightedRow = i;
+    label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;;
+    
     obj.label = label;
     obj.pageNumber = obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
