@@ -47,11 +47,9 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
-    console.log( this.editFlag);
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
-     
-      this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.designationLevelId),this.getDesignationType()) : '';
+      this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId),this.getDesignationType()) : '';
     })
   }
 
