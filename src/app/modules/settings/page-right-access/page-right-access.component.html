@@ -5,10 +5,10 @@
                 <mat-label>Input</mat-label>
                 <input matInput>
             </mat-form-field>
-            <button mat-stroked-button >Filter</button>
+            <button mat-stroked-button>Filter</button>
         </div>
     </mat-card-header>
     <mat-card-content>
-<app-table-grid></app-table-grid>
+        <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
     </mat-card-content>
 </mat-card>
