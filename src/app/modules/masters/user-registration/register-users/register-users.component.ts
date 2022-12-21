@@ -21,6 +21,7 @@ export class RegisterUsersComponent {
   agencyArr=new Array();
   schoolArr=new Array();
   lang:string |any='English';
+  get f(){return this.userRegistrationForm.controls}
   constructor(
     private fb: FormBuilder,
     public validation: ValidationService,
@@ -40,18 +41,18 @@ export class RegisterUsersComponent {
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
-      userType: [this.data?this.data.userTypeId:'', Validators.required],
+      userType: [this.data?this.data.userTypeId:'', [Validators.required]],
       userLevel: [''],
       designation: [''],
-      district: ['', Validators.required],
-      taluka: ['', Validators.required],
-      kendra: [this.data?this.data.center:'', Validators.required],
+      district: ['', [Validators.required]],
+      taluka: ['', [Validators.required]],
+      kendra: [this.data?this.data.center:'', [Validators.required]],
       school: [''],
       agency: [''],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       contact: [''],
       mobile: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      email: ['', Validators.required,Validators.email,Validators.pattern(this.validation.email)],
+      email: ['', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
       address: ['']
     })
   }

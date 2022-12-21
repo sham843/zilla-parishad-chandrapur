@@ -66,3 +66,6 @@ input:-webkit-autofill:active {
 .mat-mdc-form-field-subscript-wrapper{
     display:none;
 }
+.mat-mdc-form-field-icon-prefix>.mat-icon{
+    padding: 6px !important;
+}

@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { AddDesignationComponent } from './add-designation/add-designation.component';
 
@@ -23,17 +25,28 @@ export class DesignationMasterComponent {
     {value: 'pizza-1', viewValue: 'Pizza'},
     {value: 'tacos-2', viewValue: 'Tacos'},
   ];
-
+  lang:string='English';
   pageNumber: number = 1;
   searchContent = new FormControl('');
+  desigantionLevelArray = new Array();
 
-  constructor(public dialog: MatDialog,private apiService:ApiService,
-    private errors: ErrorsService) {}
+  constructor(public dialog: MatDialog,private apiService:ApiService, private master: MasterService,
+    private errors: ErrorsService,private webStorage:WebStorageService) {}
 
     ngOnInit() {
+      
+      this.webStorage.langNameOnChange.subscribe((res: any) => {
+        res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
+      })
+      this.getDesignationLevel();
       this.getTableData()
     }
 
+    getDesignationLevel() {
+      this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
+        this.desigantionLevelArray = res.responseData;
+      })
+    }
   adddesignation(){
     this.dialog.open(AddDesignationComponent, {
       width:'400px',
@@ -45,9 +58,8 @@ export class DesignationMasterComponent {
     this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
-    // let str = `pageno=${this.pageNumber}&pagesize=10`;
-
-    this.apiService.setHttp('GET', 'designation/get-designation-details-table?flag=en-US', false, false, false, 'baseUrl');
+    // let str = `designation/get-designation-details-table?designationLevel=${this.pageNumber}&pageno=${this.pageNumber}&pagesize=10`;
+    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel='+Number(this.searchContent.value)+'+&pageNo=1&pageSize=10&flag=en-US', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {

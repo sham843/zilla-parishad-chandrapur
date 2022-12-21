@@ -1,15 +1,16 @@
 <mat-card class="plain-card">
-    <mat-card class="card-header mb-3">
-        <div class="d-flex justify-content-between align-items-center">
-            <h6 class="text-main mb-0">{{'user_Registration.register_users' | translate}}</h6>
-            <button class="btn" [mat-dialog-close]="true">
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h6 class="text-main mb-0 fw-bold">{{'user_Registration.register_users' | translate}}</h6>
+            <button class="btn-modal-close" [mat-dialog-close]="true" mat-icon-button>
                 <mat-icon>close</mat-icon>
             </button>
         </div>
-        </mat-card>
-    <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
+    </mat-card-header>
+
     <mat-card-content class="card-body">
-            <div class="row gy-2 gx-2">
+        <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
+            <div class="row g-4 mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
@@ -18,16 +19,27 @@
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['userType'].errors">
+                            <span class="text-danger" *ngIf="f['userType'].hasError('required')">
+                                Please Select User Type
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userType!=2">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
-                            <mat-select formControlName="userLevel" (selectionChange)="getDesignation(userRegistrationForm.value.userLevel)">
+                            <mat-select formControlName="userLevel"
+                                (selectionChange)="getDesignation(userRegistrationForm.value.userLevel)">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
+                            <mat-error *ngIf="f['userLevel'].errors">
+                                <span class="text-danger" *ngIf="f['userLevel'].hasError('required')">
+                                    Please Select User Level
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
@@ -39,6 +51,11 @@
                                 <mat-option *ngFor="let designation of designationArr"
                                     [value]="designation">{{designation}}</mat-option>
                             </mat-select>
+                            <mat-error *ngIf="f['designation'].errors">
+                                <span class="text-danger" *ngIf="f['designation'].hasError('required')">
+                                    Please Select Designation
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
@@ -50,6 +67,11 @@
                             <mat-option *ngFor="let dist of districtArr"
                                 [value]="dist.id">{{dist.district}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['district'].errors">
+                            <span class="text-danger" *ngIf="f['district'].hasError('required')">
+                                Please Select District
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -60,15 +82,26 @@
                             <mat-option *ngFor="let taluka of talukaArr"
                                 [value]="taluka.id">{{taluka.taluka}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['taluka'].errors">
+                            <span class="text-danger" *ngIf="f['taluka'].hasError('required')">
+                                Please Select Taluka
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="kendra" (selectionChange)="getSchoolName(userRegistrationForm.value.kendra)">
+                        <mat-select formControlName="kendra"
+                            (selectionChange)="getSchoolName(userRegistrationForm.value.kendra)">
                             <mat-option *ngFor="let kendra of kendraArr"
                                 [value]="kendra.id">{{kendra.center}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['kendra'].errors">
+                            <span class="text-danger" *ngIf="f['kendra'].hasError('required')">
+                                Please Select Kendra
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userType==2">
@@ -76,8 +109,14 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.school' |translate}}</mat-label>
                             <mat-select formControlName="school" (selectionChange)="getAgency()">
-                                <mat-option *ngFor="let school of schoolArr" [value]="school.id">{{school.schoolName}}</mat-option>
+                                <mat-option *ngFor="let school of schoolArr"
+                                    [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
+                            <mat-error *ngIf="f['school'].errors">
+                                <span class="text-danger" *ngIf="f['school'].hasError('required')">
+                                    Please Select School Name
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
@@ -86,58 +125,91 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.agency_name' |translate}}</mat-label>
                             <mat-select formControlName="agency">
-                                <mat-option *ngFor="let agency of agencyArr" [value]="agency.id">{{agency.agencyName}}</mat-option>
+                                <mat-option *ngFor="let agency of agencyArr"
+                                    [value]="agency.id">{{agency.agencyName}}</mat-option>
                             </mat-select>
+                            <mat-error *ngIf="f['agency'].errors">
+                                <span class="text-danger" *ngIf="f['agency'].hasError('required')">
+                                    Please Select Agency Name
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.name' |translate}}</mat-label>
-                        <input matInput placeholder="{{'user_Registration.enter_name' |translate}}" formControlName="name"
-                            (keypress)="validation.alphabetsWithSpaces($event)"
+                        <input matInput placeholder="{{'user_Registration.enter_name' |translate}}"
+                            formControlName="name" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['name'].errors">
+                            <span class="text-danger" *ngIf="f['name'].hasError('required')">
+                                Please Enter Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userType==3">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.contact_person' |translate}}</mat-label>
-                            <input matInput placeholder="{{'user_Registration.enter_person_contact' |translate}}" formControlName="contact">
+                            <input matInput placeholder="{{'user_Registration.enter_person_contact' |translate}}"
+                                formControlName="contact">
+                            <mat-error *ngIf="f['contact'].errors">
+                                <span class="text-danger" *ngIf="f['contact'].hasError('required')">
+                                    Please Enter Person Contact
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.mobile_number' |translate}}</mat-label>
-                        <input matInput placeholder="{{'user_Registration.enter_mobile_number' |translate}}" formControlName="mobile"
-                            (keypress)="validation.onlyDigits($event)"
+                        <input matInput placeholder="{{'user_Registration.enter_mobile_number' |translate}}"
+                            formControlName="mobile" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
+                        <mat-error *ngIf="f['mobile'].errors">
+                            <span class="text-danger" *ngIf="f['mobile'].hasError('required')">
+                                Please Enter Mobile Number
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.email' |translate}}</mat-label>
-                        <input matInput placeholder="{{'user_Registration.enter_email_id' |translate}}" formControlName="email"
-                            (keypress)="validation.emailRegex" (keyup)="validation.removeSpaceAtBegining($event)">
+                        <input matInput placeholder="{{'user_Registration.enter_email_id' |translate}}"
+                            formControlName="email" (keypress)="validation.emailRegex"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['email'].errors">
+                            <span class="text-danger" *ngIf="f['email'].hasError('required')">
+                                Please Enter email
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userType==3">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.agency_address' |translate}}</mat-label>
-                            <input matInput placeholder="{{'user_Registration.enter_agency_address' |translate}}" formControlName="address"
-                                (keyup)="validation.removeSpaceAtBegining($event)">
+                            <input matInput placeholder="{{'user_Registration.enter_agency_address' |translate}}"
+                                formControlName="address" (keyup)="validation.removeSpaceAtBegining($event)">
+                            <mat-error *ngIf="f['address'].errors">
+                                <span class="text-danger" *ngIf="f['address'].hasError('required')">
+                                    Please Enter Address
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>
             </div>
+        </form>
     </mat-card-content>
-    <mat-card-footer class="card-footer"> 
-        <div class="d-flex justify-content-between align-items-center w-100">
-            <button mat-stroked-button class="btn-secondary-outline">{{'user_Registration.cancel' |translate}}</button>
+    <mat-card-footer class="card-footer">
+        <div class="d-flex justify-content-end align-items-center w-100">
+            <button mat-stroked-button class="btn-second me-2">{{'user_Registration.cancel' |translate}}</button>
             <button mat-stroked-button class="btn-main">{{'user_Registration.submit' |translate}}</button>
         </div>
     </mat-card-footer>
-    </form>
 </mat-card>
