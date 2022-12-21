@@ -42,21 +42,15 @@
         <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Search By Id</mat-label>
-                <input matInput placeholder="Search By Id">
+                <input matInput placeholder="Search By Id" [formControl]="searchContent">
             </mat-form-field>
         </div>
-        <div class="col-sm-3">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Search By Name</mat-label>
-                <input matInput placeholder="Search By Name">
-            </mat-form-field>
+        <div class="col-sm-auto">
+          <button (click)="getTableData()" mat-flat-button class="btn-main me-2">Filter</button>
+          <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
         </div>
-        <div class="col-sm-3">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Search By Contact</mat-label>
-                <input matInput placeholder="Search By Contact">
-            </mat-form-field>
-        </div>
+        
+       
     </div>
     </mat-card-header>
     <mat-card-content class="card-body">
