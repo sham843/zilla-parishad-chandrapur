@@ -28,7 +28,7 @@
                       </div>
                     </button>
                   </mat-menu>
-                <button mat-flat-button class="btn-main" (click)="addnew()">
+                <button mat-flat-button class="btn-main" (click)="addSchoolData()">
                     <mat-icon>add</mat-icon>
                     <span>
                         Add School
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row">
-            Table
+          <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
         </div>
     </mat-card-content>
 </mat-card>
