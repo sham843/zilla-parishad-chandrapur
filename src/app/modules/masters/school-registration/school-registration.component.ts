@@ -30,7 +30,6 @@ export class SchoolRegistrationComponent {
     })
     this.getTableData();
   }
-
   addnew(){
     this.dialog.open(RegisterSchoolComponent, {
       width:'700px',

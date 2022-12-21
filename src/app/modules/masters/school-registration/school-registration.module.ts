@@ -11,7 +11,6 @@ import {MatInputModule} from '@angular/material/input';
 import { RegisterSchoolComponent } from './register-school/register-school.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    SharedModule,
     ReactiveFormsModule
   ]
 })
