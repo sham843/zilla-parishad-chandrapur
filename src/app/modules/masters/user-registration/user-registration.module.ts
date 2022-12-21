@@ -12,7 +12,7 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -31,7 +31,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    TableGridComponent
   ]
 })
 export class UserRegistrationModule { }
