@@ -1,5 +1,35 @@
 {
     "dashboard":{
         "dashboard":"मुख्यपृष्ठ"
+    },
+    "user_Registration":{
+        "register_users":"वापरकर्त्यांची नोंदणी करा",
+        "add_user":"वापरकर्ता जोडा",
+        "user_registration":"वापरकर्ता नोंदणी",
+        "office_users":"ऑफिस वापरकर्ते",
+        "search_by_name_contact":"नाव/संपर्कानुसार शोधा",
+        "masters":"मास्टर्स",
+        "pdf":"पीडीएफ",
+        "excel":"एक्सेल",
+        "user_type":"वापरकर्ता प्रकार",
+        "level":"पातळी",
+        "designation":"पदनाम",
+        "district":"जिल्हा",
+        "taluka":"तालुका",
+        "kendra":"केंद्र",
+        "school":"शाळा",
+        "agency_name":"एजन्सीचे नाव",
+        "name":"नाव",
+        "contact_person":"संपर्क व्यक्ती",
+        "mobile_number":"मोबाईल नंबर",
+        "email":"ईमेल",
+        "agency_address":"एजन्सीचा पत्ता",
+        "cancel":"रद्द करा",
+        "submit":"प्रस्तुत करणे",
+        "enter_name":"नाव प्रविष्ट करा",
+        "enter_person_contact":"व्यक्ती संपर्क प्रविष्ट करा",
+        "enter_mobile_number":"मोबाईल नंबर टाका",
+        "enter_email_id":"ईमेल आयडी टाका",
+        "enter_agency_address":"एजन्सीचा पत्ता प्रविष्ट करा"
     }
 }

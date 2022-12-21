@@ -12,6 +12,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
+
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
@@ -24,6 +25,8 @@ export class TableGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;
 
+
+
   displayedColumns = new Array();
   tableRecords: any;
   tableSize!: number;
@@ -31,8 +34,9 @@ export class TableGridComponent implements OnInit {
   pageIndex!: number;
   tableInfo: any;
   tableHeaders = new Array();
-  highlightedRow!: number;
+  highlightedRow!:number;
   constructor(private apiService: ApiService) { }
+
 
   ngOnInit() {
     this.tableInfo = [];
@@ -56,7 +60,7 @@ export class TableGridComponent implements OnInit {
   //   this.tableInfo.sort = this.sort;
   // }
 
-  action(obj: any, label: string, i?: any) {
+  action(obj: any, label: string, i?:any) {
     this.highlightedRow = i;
     obj.label = label;
     obj.pageNumber = obj.pageIndex + 1;

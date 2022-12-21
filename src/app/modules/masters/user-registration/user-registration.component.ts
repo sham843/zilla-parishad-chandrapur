@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core'
+import { Component} from '@angular/core'
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/core/services/api.service'
 import { RegisterUsersComponent } from './register-users/register-users.component'
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.scss'],
+  styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent {
   tableData:any;
@@ -17,7 +18,9 @@ export class UserRegistrationComponent {
   totalItem!:number;
   pageNumber:number=1;
   searchControl=new FormControl('');
-  constructor(public dialog: MatDialog, private apiService: ApiService) {}
+  constructor(public dialog: MatDialog, 
+    private apiService: ApiService,
+    public translate:TranslateService) {}
   ngOnInit() {
     this.getAllUserData();
   }
@@ -43,8 +46,9 @@ export class UserRegistrationComponent {
   childCompInfo(obj: any) {}
   registerusers() {
     this.dialog.open(RegisterUsersComponent, {
-      width: '700px',
-      disableClose: true,
-    })
+      width:'700px',
+      disableClose: true
+    });
   }
+
 }

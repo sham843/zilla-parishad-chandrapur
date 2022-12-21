@@ -12,7 +12,7 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -31,7 +31,7 @@ import { TableGridComponent } from 'src/app/shared/components/table-grid/table-g
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    TableGridComponent
+    TranslateModule
   ]
 })
 export class UserRegistrationModule { }

@@ -1,12 +1,13 @@
-import { Component,Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
@@ -68,7 +69,7 @@ addData:any;
       "cast": [''],
       "mobileNo": ['']     
     })
-    this.onEdit(this.data);
+    // this.onEdit(this.data);
  
   }
 
@@ -77,6 +78,7 @@ addData:any;
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
+          console.log("this.districtArray",this.districtArray)
           this.getTaluka();
         }
         else {
@@ -90,13 +92,15 @@ addData:any;
     })
   }
 
+  
+
+
   getTaluka() {
     this.master.getAllTaluka(this.lang,this.studentFrm.value.district).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-         
-        }
+         }
         else {
           this.talukaArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -109,7 +113,7 @@ addData:any;
   }
 
   getCenter() {
-    this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
+    /* this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -122,11 +126,11 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   getSchool() {
-    this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
+   /*  this.master.getAllSchool(this.lang,this.studentFrm.value.center).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
@@ -139,13 +143,13 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
 
 
   getStandard() {
-    this.master.getAllStandard(this.lang).subscribe({
+    /* this.master.getAllStandard(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
@@ -158,11 +162,11 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   getReligion() {
-    this.master.getAllReligion(this.lang).subscribe({
+   /*  this.master.getAllReligion(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
@@ -175,41 +179,41 @@ addData:any;
       error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
-    })
+    }) */
   }
 
   
-  onEdit(editObj: any) {
-    console.log("editObj",editObj);
-    this.editFlag = true;
-    this.studentFrm.patchValue({
-      createdBy: 0,
-      modifiedBy: 0,
-      createdDate: new Date(),
-      modifiedDate:  new Date(),
-      isDeleted: true,
-      id: editObj.id,
-      f_Name: editObj.f_Name,
-      m_Name: editObj.m_Name,
-      l_Name: editObj.l_Name,
-      stateId:editObj.stateId,
-      districtId:editObj.districtId,
-      talukaId:editObj.talukaId,
-      centerId: editObj.centerId,
-      schoolId:editObj.schoolId,
-      standardId: editObj.standardId,
-      saralId:editObj.saralId,
-      genderId:editObj.genderId,
-      dob:editObj.dob,
-      aadharNo: editObj.aadharNo,
-      lan: editObj.lan,
-      religionId:editObj.religionId,
-      castId:editObj.cast,
-      mobileNo: editObj.mobileNo,
-      emailId: editObj.emailId,
-    });
+  // onEdit(editObj: any) {
+  //   console.log("editObj",editObj);
+  //   this.editFlag = true;
+  //   this.studentFrm.patchValue({
+  //     createdBy: 0,
+  //     modifiedBy: 0,
+  //     createdDate: new Date(),
+  //     modifiedDate:  new Date(),
+  //     isDeleted: true,
+  //     id: editObj.id,
+  //     f_Name: editObj.f_Name,
+  //     m_Name: editObj.m_Name,
+  //     l_Name: editObj.l_Name,
+  //     stateId:editObj.stateId,
+  //     districtId:editObj.districtId,
+  //     talukaId:editObj.talukaId,
+  //     centerId: editObj.centerId,
+  //     schoolId:editObj.schoolId,
+  //     standardId: editObj.standardId,
+  //     saralId:editObj.saralId,
+  //     genderId:editObj.genderId,
+  //     dob:editObj.dob,
+  //     aadharNo: editObj.aadharNo,
+  //     lan: editObj.lan,
+  //     religionId:editObj.religionId,
+  //     castId:editObj.cast,
+  //     mobileNo: editObj.mobileNo,
+  //     emailId: editObj.emailId,
+  //   });
     
-  }
+  // }
 
   onClickSubmit() {
     if (!this.studentFrm.valid) {
