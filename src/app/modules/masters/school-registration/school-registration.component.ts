@@ -5,7 +5,7 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
-import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -16,11 +16,15 @@ export class SchoolRegistrationComponent {
   districtArr = new Array();
   lang: string = 'en';
   pageNumber:Number=1;
+  districtArray=new Array();
+  talukaArray=new Array();
+  filterForm!:FormGroup;
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
     private apiService:ApiService,
-    private errors:ErrorsService
+    private errors:ErrorsService,
+    private fb:FormBuilder,
 
   ) {}
 
@@ -29,20 +33,23 @@ export class SchoolRegistrationComponent {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
     this.getTableData();
+    this.getFilterFormData();
+    // this.getTaluka();
   }
-  addnew(){
-    this.dialog.open(RegisterSchoolComponent, {
-      width:'700px',
-      disableClose: true
 
-    });
+  getFilterFormData(){
+    this.filterForm=this.fb.group({
+      talukaId:'',
+      centerId:''
+    })
   }
-  
+  // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=en
   getTableData(flag?:string){
     this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
+    console.log(str);
     this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -95,6 +102,8 @@ export class SchoolRegistrationComponent {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
      this.getTableData();
     });
   }
@@ -104,8 +113,42 @@ export class SchoolRegistrationComponent {
       width: '320px',
       data: '',
       disableClose: true,
-      autoFocus: false
+      autoFocus: false, 
     })
+    console.log(dialogRef); 
   }
+
+  deleteRecords(){
+    
+  }
+
+
+  // getTaluka() {
+  //   this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang=en&DistrictId=', false, false, false, 'baseUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == '200') {
+  //         this.talukaArray = res.responseData;
+  //       }
+  //     }),
+  //   })
+  // }
+
+  // getCenter() {
+  //   let formData = this.filterForm.value.talukaId;
+  //   this.service.setHttp('get', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang=en&TalukaId=' + formData, false, false, false, 'baseUrl');
+  //   this.service.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == '200') {
+  //         this.centerArray = res.responseData;
+  //       }
+  //     }),
+  //   })
+  //   this.editFlag ? this.getSchoolCategory() : '';
+
+  // }
+
+  
+
 
 }

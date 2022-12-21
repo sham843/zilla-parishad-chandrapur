@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 @Component({
   selector: 'app-register-school',
@@ -24,14 +24,10 @@ export class RegisterSchoolComponent {
   constructor(private fb: FormBuilder, private service: ApiService, public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    console.log('data', this.data);
+    // console.log('data', this.data);
     this.getFormData();
     this.getDistrict();
-    if (this.data) {
-      {
-        this.onEditData()
-      }
-    }
+    this.data ? this.onEditData() : '' ;
   }
 
   getFormData() {
