@@ -65,7 +65,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="kendra" (selectionChange)="getSchoolName()">
+                        <mat-select formControlName="kendra" (selectionChange)="getSchoolName(userRegistrationForm.value.kendra)">
                             <mat-option *ngFor="let kendra of kendraArr"
                                 [value]="kendra.id">{{kendra.center}}</mat-option>
                         </mat-select>
@@ -76,7 +76,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.school' |translate}}</mat-label>
                             <mat-select formControlName="school" (selectionChange)="getAgency()">
-                                <mat-option *ngFor="let school of schoolArr" [value]="school">{{school}}</mat-option>
+                                <mat-option *ngFor="let school of schoolArr" [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -86,7 +86,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.agency_name' |translate}}</mat-label>
                             <mat-select formControlName="agency">
-                                <mat-option *ngFor="let agency of agencyArr" [value]="agency">{{agency}}</mat-option>
+                                <mat-option *ngFor="let agency of agencyArr" [value]="agency.id">{{agency.agencyName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
