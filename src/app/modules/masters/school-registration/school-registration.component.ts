@@ -37,7 +37,7 @@ export class SchoolRegistrationComponent {
 
     });
   }
-  // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=EN
+  
   getTableData(flag?:string){
     this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
     let tableDataArray = new Array();
