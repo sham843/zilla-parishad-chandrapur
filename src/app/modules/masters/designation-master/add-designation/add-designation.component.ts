@@ -24,21 +24,19 @@ export class AddDesignationComponent {
   constructor(private fb: FormBuilder, private commonMethod: CommonMethodsService, private apiService: ApiService,
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
               private master: MasterService){}
-
-  importedEditObj = this.data;
   ngOnInit(){
+    console.log(this.editFlag);
+    
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
     this.getDesignationLevel();
-
-    if(this.importedEditObj){
-      this.editFlag = true;
+    if(this.data){
       this.editMethod();
     }
   }
-  
+
   controlForm(){
     this.designationForm = this.fb.group({
       dummyDesigLvlkey:[],
@@ -54,18 +52,24 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
+    console.log(this.editFlag,'ss');
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
+      this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.designationLevelId),this.getDesignationType()) : '';
     })
+    
   }
 
   getDesignationType() {
     let dummyDesigLvlkey = this.designationForm.value.dummyDesigLvlkey;
-    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + dummyDesigLvlkey + '&flag=en-US', false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + dummyDesigLvlkey + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
+          
+          
           this.desigantionType = res.responseData;
+          this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId),this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -75,11 +79,12 @@ export class AddDesignationComponent {
 
   setDesignationLvl() {
     let dummyDesigLvlkey = this.designationForm.value.dummyDesigLvlkey;
-    this.apiService.setHttp('GET', 'designation/get-set-designation-level?designationLevelId=' + dummyDesigLvlkey + '&flag=en-US', false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-level?designationLevelId=' + dummyDesigLvlkey + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
+          this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -106,7 +111,7 @@ export class AddDesignationComponent {
       isDeleted: true,
       userId: 0
     };
-    this.apiService.setHttp('POST', 'designation/save-designation-details?flag=en-US', false, postObj, false, 'baseUrl');
+    this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, postObj, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -125,18 +130,19 @@ export class AddDesignationComponent {
 }
 
 editMethod(){
+  this.editFlag = true;
   this.designationForm.patchValue({
-    id: this.importedEditObj.id,
-    linkedToDesignationId:this.importedEditObj.linkedToDesignationId,
-    designationLevelId:this.importedEditObj.designationLevelId,
-    designationName:this.importedEditObj.designationName,
+    id: this.data.id,
+    // dummyDesigLvlkey:this.importedEditObj.designationLevelId,
+    // linkedToDesignationId:this.importedEditObj.linkedToDesignationId,
+    // designationLevelId:this.importedEditObj.designationLevelId,
+    designationName:this.data.designationName,
     linkedToDesignationName: "",
     designationLevelName: "",
     isDeleted: true,
     userId: 0
   })
-  this.getDesignationType();
-  this.setDesignationLvl();
+  this.getDesignationLevel();
 }
 
   clearFormDependancy(index:any){
