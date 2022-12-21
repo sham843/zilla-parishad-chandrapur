@@ -5,7 +5,7 @@
   </ol>
 </nav>
 <mat-card class="plain-card">
-  <mat-card-header class="card-header mb-3">
+  <mat-card-header class="card-header">
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0">{{'user_Registration.office_users' |translate}}</h6>
       <div><button mat-flat-button class="btn-main btn-icon me-2" [matMenuTriggerFor]="menu">
@@ -35,21 +35,22 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-card-content>
-    <div class="row">
-      <div class="col-sm-3 d-flex w-100">
-        <mat-form-field appearance="outline">
+  <mat-card-header class="card-header">
+    <div class="row w-100 gx-2">
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'user_Registration.search_by_name_contact' |translate}}</mat-label>
-          <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}" [formControl]="searchControl">
+          <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}"
+            [formControl]="searchControl">
         </mat-form-field>
-        <button (click)="getAllUserData()" mat-flat-button class="btn-main mx-2">Filter</button>
-        <button (click)="clearFilter()" mat-flat-button class="btn-main">Clear</button>
+      </div>
+      <div class="col-sm-auto">
+        <button (click)="getAllUserData()" mat-flat-button class="btn-main me-2">Filter</button>
+        <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
       </div>
     </div>
-  </mat-card-content>
-  <mat-card-content>
-    <div class="row">
-      <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
   </mat-card-content>
 </mat-card>
