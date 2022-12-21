@@ -37,11 +37,13 @@
   </mat-card-header>
   <mat-card-content>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3 d-flex w-100">
         <mat-form-field appearance="outline">
           <mat-label>{{'user_Registration.search_by_name_contact' |translate}}</mat-label>
           <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}" [formControl]="searchControl">
         </mat-form-field>
+        <button (click)="getAllUserData()" mat-flat-button class="btn-main mx-2">Filter</button>
+        <button (click)="clearFilter()" mat-flat-button class="btn-main">Clear</button>
       </div>
     </div>
   </mat-card-content>

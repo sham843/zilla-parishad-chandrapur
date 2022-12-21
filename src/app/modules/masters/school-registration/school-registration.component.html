@@ -28,7 +28,7 @@
             </div>
           </button>
         </mat-menu>
-        <button mat-flat-button class="btn-main" (click)="addnew()">
+        <button mat-flat-button class="btn-main" (click)="addSchoolData()">
           <mat-icon>add</mat-icon>
           <span>
             Add School
@@ -37,30 +37,32 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-card-header class="card-header">
-    <div class="row w-100">
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
+  <form [formGroup]="filterForm">
+    <mat-card-header class="card-header">
+      <div class="row w-100">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>All Taluka</mat-label>
+            <mat-select formControlName="talukaId">
+              <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                    {{tal.takuka}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Kendra</mat-label>
+            <mat-select formControlName="centerId">
+              <mat-option>
+                   
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Kendra</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </mat-card-header>
+    </mat-card-header>
+  </form>
   <mat-card-content class="card-body">
     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
   </mat-card-content>
