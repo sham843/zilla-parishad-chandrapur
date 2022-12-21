@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { AddDesignationComponent } from './add-designation/add-designation.component';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-designation-master',
@@ -18,36 +15,40 @@ interface Food {
 })
 
 export class DesignationMasterComponent {
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
 
+  lang: string = 'English';
   pageNumber: number = 1;
   searchContent = new FormControl('');
+  desigantionLevelArray = new Array();
+  constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
+    private errors: ErrorsService, private webStorage: WebStorageService) { }
 
-  constructor(public dialog: MatDialog,private apiService:ApiService,
-    private errors: ErrorsService) {}
+  ngOnInit() {
+    this.webStorage.langNameOnChange.subscribe((res: any) => {
+      res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
+    })
+    this.getDesignationLevel();
+    this.getTableData()
+  }
 
-    ngOnInit() {
-      this.getTableData()
-    }
-
-  adddesignation(){
+  getDesignationLevel() {
+    this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
+      this.desigantionLevelArray = res.responseData;
+    })
+  }
+  adddesignation() {
     this.dialog.open(AddDesignationComponent, {
-      width:'400px',
+      width: '400px',
       disableClose: true
     });
   }
 
-  getTableData(flag?:string){
-    this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
+  getTableData(flag?: string) {
+    this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
-    // let str = `pageno=${this.pageNumber}&pagesize=10`;
-
-    this.apiService.setHttp('GET', 'designation/get-designation-details-table?flag=en-US', false, false, false, 'baseUrl');
+    let str = `pageno=${this.pageNumber}&pagesize=10`;
+    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchContent.value) + '&' + str + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -59,11 +60,11 @@ export class DesignationMasterComponent {
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'action'];
-        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Action'];
+        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level', 'Action'];
         let tableData = {
           pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '', pagintion:true,
-          displayedColumns: displayedColumns, 
+          img: '', blink: '', badge: '', isBlock: '', pagintion: true,
+          displayedColumns: displayedColumns,
           tableData: tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders
@@ -92,12 +93,12 @@ export class DesignationMasterComponent {
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-      this.dialog.open(AddDesignationComponent, {
-        width: '420px',
-        data: obj,
-        disableClose: true,
-        autoFocus: false
-      })
+    this.dialog.open(AddDesignationComponent, {
+      width: '420px',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    })
   }
 
   globalDialogOpen() {
@@ -109,5 +110,5 @@ export class DesignationMasterComponent {
     })
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
-  
+
 }

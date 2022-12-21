@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {MatCardModule} from '@angular/material/card';
 @Component({
   selector: 'app-global-dialog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,MatCardModule],
   templateUrl: './global-dialog.component.html',
   styleUrls: ['./global-dialog.component.scss']
 })

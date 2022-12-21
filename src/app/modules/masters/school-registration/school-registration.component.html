@@ -43,9 +43,9 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>All Taluka</mat-label>
-            <mat-select formControlName="talukaId">
+            <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
-                    {{tal.takuka}}
+                    {{tal.taluka}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -54,8 +54,8 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Select Kendra</mat-label>
             <mat-select formControlName="centerId">
-              <mat-option>
-                   
+              <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
+                    {{cen.center}}
               </mat-option>
             </mat-select>
           </mat-form-field>

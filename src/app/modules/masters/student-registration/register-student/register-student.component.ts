@@ -48,9 +48,9 @@ addData:any;
       this.getStandard(this.lang);
       this.getReligion(this.lang);
       this.getGender(this.lang);
-      // if (this.data) {
-      //   this.onEdit();
-      // }
+      if (this.data) {
+        this.onEdit();
+      }
     }
 
     get f() {
@@ -64,17 +64,16 @@ addData:any;
       "f_Name": [''],
       "m_Name": [''],
       "l_Name": [''],
-      // "state": [''],
-      "district": [1],
-      "taluka": [ ],
-      "center": [ ],
-      "school": [ ],
-      "standard":[ ],
+     "districtId": [1],
+      "talukaId": [ ],
+      "centerId": [ ],
+      "schoolId": [ ],
+      "standardId":[ ],
       "saralId": [''],
-      "gender":[ ],
+      "genderId":[ ],
       "dob": [''],
       "aadharNo": [''],
-      "religion":[ ],
+      "religionId":[ ],
       "cast": [''],
       "mobileNo": ['']     
     })
@@ -90,7 +89,7 @@ addData:any;
           // console.log("this.districtArray",this.districtArray)
           // this.getTaluka();
           if (this.editFlag == true) {
-            this.f['centerId'].setValue(this.data.centerId);
+            this.studentFrm.controls['districtId'].setValue(this.data.district);
             this.getTaluka();
           }
         }
@@ -109,10 +108,14 @@ addData:any;
 
 
   getTaluka() {
-    this.master.getAllTaluka(this.lang,this.studentFrm.value.district).subscribe({
+    this.master.getAllTaluka(this.lang,this.studentFrm.value.districtId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
+          if (this.editFlag == true) {
+            this.studentFrm.controls['talukaId'].setValue(this.data.taluka);
+            this.getCenter();
+          }
          }
         else {
           this.talukaArray = [];
@@ -126,7 +129,7 @@ addData:any;
   }
 
   getCenter() {
-     this.master.getAllCenter(this.lang,this.studentFrm.value.taluka).subscribe({
+     this.master.getAllCenter(this.lang,this.studentFrm.value.talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -268,54 +271,53 @@ addData:any;
   // }
 
   
-  // onEdit() {
+  onEdit() {
    
-  //   this.editFlag = true;
-  //   this.studentFrm.patchValue({
-  //     createdBy: 0,
-  //     modifiedBy: 0,
-  //     createdDate: new Date(),
-  //     modifiedDate:  new Date(),
-  //     isDeleted: true,
-  //     id: this.data.id,
-  //     f_Name: this.data.f_Name,
-  //     m_Name: this.data.m_Name,
-  //     l_Name:this.data.l_Name,
-  //     stateId:0,
-  //     saralId:this.data.saralId,
-  //      dob:this.data.dob.split('T')[0],
-  //     aadharNo: this.data.aadharNo,
-  //     lan: this.data.lan,
-  //     religionId:editObj.religionId,
-  //     castId:editObj.cast,
-  //     mobileNo: editObj.mobileNo,
-  //     emailId: editObj.emailId,
-  //   });
-  // }
-
-  onClickSubmit(){
-    let data = this.studentFrm.value;
-    this.apiService.setHttp('post', 'zp-Chandrapur/Student/AddStudent', false, data, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
-          this.formData();
-          this.editFlag = false;
-        }
-        else {
-         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      }
-    })
-
+    this.editFlag = true;
+    this.studentFrm.patchValue({
+      createdBy: 0,
+      modifiedBy: 0,
+      createdDate: new Date(),
+      modifiedDate:  new Date(),
+      isDeleted: true,
+      id: this.data.id,
+      f_Name: this.data.f_Name,
+      m_Name: this.data.m_Name,
+      l_Name:this.data.l_Name,
+      stateId:0,
+      saralId:this.data.saralId,
+       dob:this.data.dob.split('T')[0],
+      aadharNo: this.data.aadharNo,
+      lan: this.lang,
+      cast:this.data.cast,
+      mobileNo: this.data.mobileNo,
+      emailId: this.data.emailId,
+    });
   }
 
-  onClickSubmit1() {
+  // onClickSubmit(){
+  //   let data = this.studentFrm.value;
+  //   this.apiService.setHttp('post', 'zp-Chandrapur/Student/AddStudent', false, data, false, 'baseUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.commonMethod.snackBar(res.statusMessage, 0);
+  //         this.dialogRef.close('Yes');
+  //         this.formData();
+  //         this.editFlag = false;
+  //       }
+  //       else {
+  //        this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   })
+
+  // }
+
+  onClickSubmit() {
     if (!this.studentFrm.valid) {
       return;
     } else {
