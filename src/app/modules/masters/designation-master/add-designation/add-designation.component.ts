@@ -32,9 +32,7 @@ export class AddDesignationComponent {
     })
     this.controlForm();
     this.getDesignationLevel();
-    if(this.data){
-      this.editMethod();
-    }
+    this.data ? this.editMethod() : '';
   }
 
   controlForm(){
@@ -52,12 +50,10 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
-    console.log(this.editFlag,'ss');
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
       this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.designationLevelId),this.getDesignationType()) : '';
     })
-    
   }
 
   getDesignationType() {
@@ -139,10 +135,10 @@ editMethod(){
     designationName:this.data.designationName,
     linkedToDesignationName: "",
     designationLevelName: "",
-    isDeleted: true,
+    isDeleted: false,
     userId: 0
   })
-  this.getDesignationLevel();
+  this.editFlag ? this.getDesignationLevel() : '';
 }
 
   clearFormDependancy(index:any){

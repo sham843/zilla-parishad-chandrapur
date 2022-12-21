@@ -5,8 +5,6 @@ import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
-import { WebStorageService } from 'src/app/core/services/web-storage.service'
-
 @Component({
   selector: 'app-register-users',
   templateUrl: './register-users.component.html',
@@ -26,7 +24,6 @@ export class RegisterUsersComponent {
   constructor(
     private fb: FormBuilder,
     public validation: ValidationService,
-    private webStorage: WebStorageService,
     private master: MasterService,
     public translate:TranslateService,
     public dialogRef: MatDialogRef<RegisterUsersComponent>,
@@ -75,6 +72,7 @@ export class RegisterUsersComponent {
   })
   }
   getDesignation(levelId:any) {
+    levelId
    /*  this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{
       this.designationArr=res;
     })*/
