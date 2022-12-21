@@ -51,7 +51,6 @@ export class TableGridComponent implements OnInit {
         this.tableInfo.tableData ? this.tableRecords = new MatTableDataSource(this.tableInfo.tableData) : this.tableRecords = [];
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
-
       }
     })
   }

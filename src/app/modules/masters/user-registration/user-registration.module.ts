@@ -13,6 +13,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -31,7 +32,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    TableGridComponent
   ]
 })
 export class UserRegistrationModule { }

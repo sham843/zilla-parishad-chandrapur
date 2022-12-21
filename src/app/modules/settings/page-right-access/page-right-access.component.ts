@@ -32,11 +32,11 @@ export class PageRightAccessComponent implements OnInit {
           this.tableDataArray = [];
           this.totalItem = 0;
         }
-        let displayedColumns = ['srNo', 'pageName', 'pageURL','select'];
-        let displayedheaders = ['Sr NO.', 'PAGE NAME', 'PAGE URL','SELECT'];
+        let displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'];
+        let displayedheaders = ['Sr NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
         this.tableData = {
           pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '',checkBox:'select',
+          img: '', blink: '', badge: '', isBlock: '', checkBox: 'select',
           displayedColumns: displayedColumns,
           tableData: this.tableDataArray,
           tableSize: this.totalItem,
@@ -48,4 +48,9 @@ export class PageRightAccessComponent implements OnInit {
     });
   }
 
+  childCompInfo(obj: any) {
+    if (obj.label == 'checkBox') {
+      console.log(obj);
+    }
+  }
 }
