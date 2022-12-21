@@ -6,8 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-student.component.scss']
 })
 export class RegisterStudentComponent {
-<<<<<<< HEAD
-=======
 studentFrm!:FormGroup;
 lang: string = 'en';
 districtArray=new Array();
@@ -236,6 +234,5 @@ addData:any;
       })
     }
   }
->>>>>>> fcabc6a069d7d115e1224f840185d2863fe2dbb9
 
 }
