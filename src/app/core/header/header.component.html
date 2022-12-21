@@ -9,31 +9,43 @@
             </div>
             <div class="d-flex gap-2 align-items-center justify-content-between">
                 <button class="btn">
-                    <i class='bx bxs-bell-ring'></i>
+                    <mat-icon>notifications_active</mat-icon>
                 </button>
                 <div class="dropdown">
                     <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class='bx bxs-brightness-half'></i>
+                        <mat-icon>brightness_medium</mat-icon>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <button class="dropdown-item" (click)="changeTheme('light')">
-                            <i class='bx bxs-sun me-2'></i> Light Mode
+                            <div class="d-flex align-items-center">
+                                <mat-icon>light_mode</mat-icon>
+                                <span>Light Mode</span>
+                            </div>
                         </button>
                         <button class="dropdown-item" (click)="changeTheme('dark')">
-                            <i class='bx bxs-moon me-2'></i> Dark Mode
+                            <div class="d-flex align-items-center">
+                                <mat-icon>nights_stay</mat-icon>
+                                <span>Dark Mode</span>
+                            </div>
                         </button>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class='bx bxs-brightness-half'></i>
+                        <mat-icon>translate</mat-icon>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <button class="dropdown-item" (click)="changeLanguage('Marathi')">
-                            Marathi
+                            <div class="d-flex align-items-center">
+                                <img src="assets/images/marathi.svg">
+                                <span>Marathi</span>
+                            </div>
                         </button>
                         <button class="dropdown-item" (click)="changeLanguage('English')">
-                             English
+                            <div class="d-flex align-items-center">
+                                <img src="assets/images/english.svg">
+                                <span>English</span>
+                            </div>
                         </button>
                     </div>
                 </div>

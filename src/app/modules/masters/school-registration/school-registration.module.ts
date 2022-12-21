@@ -12,7 +12,8 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatMenuModule,
     MatButtonModule,
     ReactiveFormsModule,
-    SharedModule
+    TableGridComponent
   ]
 })
 export class SchoolRegistrationModule { }
