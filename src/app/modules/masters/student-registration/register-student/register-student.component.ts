@@ -69,6 +69,7 @@ addData:any;
       "mobileNo": ['']     
     })
     this.onEdit(this.data);
+ 
   }
 
   getDistrict() {
@@ -179,6 +180,7 @@ addData:any;
 
   
   onEdit(editObj: any) {
+    console.log("editObj",editObj);
     this.editFlag = true;
     this.studentFrm.patchValue({
       createdBy: 0,
