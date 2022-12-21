@@ -9,9 +9,8 @@
             </button>
         </div>
     </mat-card-header>
-    
+    <form [formGroup]="designationForm" (ngSubmit)="onClickSubmit(formDirective)" #formDirective="ngForm">
      <mat-card-content class="card-body">
-        <form [formGroup]="designationForm" (ngSubmit)="onClickSubmit(formDirective)" #formDirective="ngForm">
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Designation Level</mat-label>
@@ -46,7 +45,6 @@
                     <input matInput placeholder="Add Designation" formControlName="designationName">
                 </mat-form-field>
             </div>
-        </form>
      </mat-card-content>
      <mat-card-footer class="card-footer" align="end">
         <div class="d-flex justify-content-end align-items-center w-100">
@@ -54,4 +52,5 @@
             <button mat-flat-button type="submit" class="btn-main">Submit</button>
         </div>
      </mat-card-footer>
+    </form>
 </mat-card>
