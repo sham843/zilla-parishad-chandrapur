@@ -1,30 +1,38 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page">Settings</li>
-      <li class="breadcrumb-item active" aria-current="page">Designation Master</li>
+        <li class="breadcrumb-item" aria-current="page">Settings</li>
+        <li class="breadcrumb-item active" aria-current="page">Page Right Access</li>
     </ol>
-  </nav>
-<mat-card>
-    <mat-card-header>
-        <form [formGroup]="filterForm">
-            <div class="d-flex w-100 gap-2">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select User Type</mat-label>
-                    <mat-select formControlName="DesignationtypeId">
-                        <mat-option *ngFor="let getUserType of resGetUserTypeData" [value]="getUserType?.userTypeId">{{getUserType?.userType}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+</nav>
+<form [formGroup]="filterForm">
+    <mat-card class="plain-card">
+        <mat-card-header class="card-header">
+            <h6 class="text-main mb-0">Page Right Access</h6>
+        </mat-card-header>
+        <mat-card-header class="card-header">
+            <div class="row w-100 gx-2">
+                <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Select User Type</mat-label>
+                        <mat-select formControlName="DesignationtypeId">
+                            <mat-option *ngFor="let getUserType of resGetUserTypeData"
+                                [value]="getUserType?.userTypeId">{{getUserType?.userType}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Page Name/Page URL</mat-label>
+                        <input matInput formControlName="Textsearch">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-auto">
+                    <button mat-stroked-button class="btn-main" (click)="getAllPagesData()">Filter</button>
+                </div>
             </div>
-            <div class="d-flex w-100 gap-2">
-                <mat-form-field appearance="outline" class="">
-                    <mat-label>Page Name/Page URL</mat-label>
-                    <input matInput formControlName="Textsearch">
-                </mat-form-field>
-                <button mat-stroked-button (click)="getAllPagesData()">Filter</button>
-            </div>
-        </form>
-    </mat-card-header>
-    <mat-card-content>
-        <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-    </mat-card-content>
-</mat-card>
+        </mat-card-header>
+        <mat-card-content class="card-body">
+            <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+        </mat-card-content>
+    </mat-card>
+</form>
