@@ -23,9 +23,9 @@
       "ES2022",
       "dom"
     ],
-    // unused variable remove
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+     // unused variable remove
+     "noUnusedLocals": true,
+     "noUnusedParameters": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
