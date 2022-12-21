@@ -59,7 +59,7 @@ export class DesignationMasterComponent {
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'action'];
-        let displayedheaders = ['Sr. No', 'Designation Name', 'Designation Level','action'];
+        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Action'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion:true,

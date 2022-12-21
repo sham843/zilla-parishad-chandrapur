@@ -14,8 +14,6 @@ const routes: Routes = [
     loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) 
   },
   
-  
-  
   { path: '**', loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule) },];
 
 @NgModule({
