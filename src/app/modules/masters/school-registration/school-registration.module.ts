@@ -12,6 +12,7 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class SchoolRegistrationModule { }
