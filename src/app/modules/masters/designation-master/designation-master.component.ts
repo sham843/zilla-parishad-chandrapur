@@ -59,7 +59,7 @@ export class DesignationMasterComponent {
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'action'];
-        let displayedheaders = ['Sr. No', 'Designation Name', 'Designation Level','action'];
+        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Action'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion:true,
@@ -92,12 +92,12 @@ export class DesignationMasterComponent {
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-    this.dialog.open(AddDesignationComponent, {
-      width: '420px',
-      data: obj,
-      disableClose: true,
-      autoFocus: false
-    })
+      this.dialog.open(AddDesignationComponent, {
+        width: '420px',
+        data: obj,
+        disableClose: true,
+        autoFocus: false
+      })
   }
 
   globalDialogOpen() {
