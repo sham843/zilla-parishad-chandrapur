@@ -1,18 +1,13 @@
-import { Component,Inject} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from 'src/app/core/services/api.service';
-import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { ErrorsService } from 'src/app/core/services/errors.service';
-import { MasterService } from 'src/app/core/services/master.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
   styleUrls: ['./register-student.component.scss']
 })
 export class RegisterStudentComponent {
+<<<<<<< HEAD
+=======
 studentFrm!:FormGroup;
 lang: string = 'en';
 districtArray=new Array();
@@ -244,5 +239,6 @@ addData:any;
       })
     }
   }
+>>>>>>> fcabc6a069d7d115e1224f840185d2863fe2dbb9
 
 }

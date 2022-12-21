@@ -3,24 +3,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MatSort } from '@angular/material/sort';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatButtonModule } from '@angular/material/button';
+
+
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
-  styleUrls: ['./table-grid.component.scss'],
-  standalone: true,
-  imports: [CommonModule, MatSlideToggleModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule]
+  styleUrls: ['./table-grid.component.scss']
 })
 export class TableGridComponent implements OnInit {
   @Output() recObjToChild = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;
+
+
 
   displayedColumns = new Array();
   tableRecords: any;
@@ -29,8 +24,9 @@ export class TableGridComponent implements OnInit {
   pageIndex!: number;
   tableInfo: any;
   tableHeaders = new Array();
-  highlightedRow!: number;
+  highlightedRow!:number;
   constructor(private apiService: ApiService) { }
+
 
   ngOnInit() {
     this.tableInfo = [];
@@ -54,7 +50,7 @@ export class TableGridComponent implements OnInit {
   //   this.tableInfo.sort = this.sort;
   // }
 
-  action(obj: any, label: string, i?: any) {
+  action(obj: any, label: string, i?:any) {
     this.highlightedRow = i;
     obj.label = label;
     obj.pageNumber = obj.pageIndex + 1;

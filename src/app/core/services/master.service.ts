@@ -29,9 +29,9 @@ export class MasterService {
     });
   }
 
-  getAllTaluka(strPara: string,distId:number) {
+  getAllTaluka(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang='+strPara+'&DistrictId='+distId, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllTaluka?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
@@ -49,99 +49,27 @@ export class MasterService {
     });
   }
 
-  getAllCenter(strPara: string,talukaId:number) {
+  getAllCenter(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang='+strPara+'&TalukaId='+talukaId, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCenter?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
   }
- 
-  getAllSchool(strPara: string,centerId:any) {
-    return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang='+strPara+'&CenterId='+centerId, false, false, false, 'baseUrl');
-      this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
-        error: (e: any) => { obj.error(e) }
-      });
-    });
-  }
-
+/* 
   getAllSchoolType(strPara: string) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolType?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllSchoolType?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
+        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
         error: (e: any) => { obj.error(e) }
       });
     });
   }
 
-  getAllUserType(strPara: string) {
-    return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllUserType?flag_lang='+strPara, false, false, false, 'baseUrl');
-      this.apiService.getHttp().subscribe({
-        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
-        error: (e: any) => { obj.error(e) }
-      });
-    });
-  }
-
-  getDesignationLevel(strPara: string,designationTypeId:number) { 
-  return new Observable((obj) => {
-    this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+designationTypeId+'&flag='+strPara, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
-      error: (e: any) => { obj.error(e) }
-    });
-  });
-}
-
-  getDesignationType(strPara: string,designationLevelId:number) {
-  return new Observable((obj) => {
-    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+designationLevelId+'flag='+strPara, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
-      error: (e: any) => { obj.error(e) }
-    });
-  });
-}
-
-getAllAgency(strPara: string) { 
-return new Observable((obj) => {
-  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+strPara, false, false, false, 'baseUrl');
-  this.apiService.getHttp().subscribe({
-    next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
-    error: (e: any) => { obj.error(e) }
-  });
-});
-}
-
-getAllStandard(strPara: string) {
-  return new Observable((obj) => {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllStandard?flag_lang='+strPara, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
-      error: (e: any) => { obj.error(e) }
-    });
-  });
-}
-getAllReligion(strPara: string) {
-  return new Observable((obj) => {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllReligion?flag_lang='+strPara, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
-      error: (e: any) => { obj.error(e) }
-    });
-  });
-}
-
-
-
-
- /*  getAllSubject(strPara: string) { zp_chandrapur/master/GetAllAgency
+  getAllSubject(strPara: string) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllSubject?flag_lang='+strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
@@ -151,6 +79,16 @@ getAllReligion(strPara: string) {
     });
   }
 
+
+  getAllStandard(strPara: string) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllStandard?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
 
   getAllGroupClass(strPara: string) {
     return new Observable((obj) => {
@@ -172,7 +110,15 @@ getAllReligion(strPara: string) {
     });
   }
 
-
+  getAllReligion(strPara: string) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllReligion?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
 
   getAllSpecialization(strPara: string) {
     return new Observable((obj) => {
@@ -204,5 +150,13 @@ getAllReligion(strPara: string) {
     });
   }
 
- */
+  getAllUserType(strPara: string) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp-osmanabad/master/GetAllUserType?flag_lang='+strPara, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){ console.log("res",res);obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  } */
 }

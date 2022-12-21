@@ -39,16 +39,22 @@
   <mat-card-content>
     <div class="row">
       <div class="col-sm-3">
-        <mat-form-field appearance="outline">
-          <mat-label>Search by Name/Contact</mat-label>
-          <input matInput placeholder="Search by Name" [formControl]="searchControl">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Search by Name</mat-label>
+          <input matInput placeholder="Search by Name">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Search by Contact</mat-label>
+          <input matInput placeholder="Search by Contact">
         </mat-form-field>
       </div>
     </div>
   </mat-card-content>
   <mat-card-content>
     <div class="row">
-     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+      Table
     </div>
   </mat-card-content>
 </mat-card>
