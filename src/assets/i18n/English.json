@@ -1,5 +1,35 @@
 {
     "dashboard":{
         "dashboard":"Dashboard"
+    },
+    "user_Registration":{
+        "register_users":"Register Users",
+        "add_user":"Add User",
+        "user_registration":"User Registration",
+        "office_users":"Office Users",
+        "search_by_name_contact":"Search by Name/Contact",
+        "masters":"Masters",
+        "pdf":"PDF",
+        "excel":"Excel",
+        "user_type":"User Type",
+        "level":"Level",
+        "designation":"Designation",
+        "district":"District",
+        "taluka":"Taluka",
+        "kendra":"Kendra",
+        "school":"School",
+        "agency_name":"Agency Name",
+        "name":"Name",
+        "contact_person":"Contact Person",
+        "mobile_number":"Mobile Number",
+        "email":"Email",
+        "agency_address":"Agency Address",
+        "cancel":"Cancel",
+        "submit":"Submit",
+        "enter_name":"Enter Name",
+        "enter_person_contact":"Enter Person contact",
+        "enter_mobile_number":"Enter Mobile Number",
+        "enter_email_id":"Enter Email Id",
+        "enter_agency_address":"Enter Agency Address"
     }
 }

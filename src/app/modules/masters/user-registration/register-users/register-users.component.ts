@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { TranslateService } from '@ngx-translate/core'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
 import { WebStorageService } from 'src/app/core/services/web-storage.service'
@@ -26,6 +27,7 @@ export class RegisterUsersComponent {
     public validation: ValidationService,
     private webStorage: WebStorageService,
     private master: MasterService,
+    public translate:TranslateService
   ) {}
 
   ngOnInit() {

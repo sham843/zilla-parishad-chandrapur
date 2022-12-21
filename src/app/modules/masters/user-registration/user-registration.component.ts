@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/core/services/api.service'
 import { RegisterUsersComponent } from './register-users/register-users.component'
 
@@ -17,7 +18,9 @@ export class UserRegistrationComponent {
   totalItem!:number;
   pageNumber:number=1;
   searchControl=new FormControl('');
-  constructor(public dialog: MatDialog, private apiService: ApiService) {}
+  constructor(public dialog: MatDialog, 
+    private apiService: ApiService,
+    public translate:TranslateService) {}
   ngOnInit() {
     this.getAllUserData();
   }
