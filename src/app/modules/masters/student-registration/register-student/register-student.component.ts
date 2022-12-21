@@ -48,9 +48,9 @@ addData:any;
       this.getStandard(this.lang);
       this.getReligion(this.lang);
       this.getGender(this.lang);
-      // if (this.data) {
-      //   this.onEdit();
-      // }
+      if (this.data) {
+        this.onEdit();
+      }
     }
 
     get f() {
@@ -64,8 +64,7 @@ addData:any;
       "f_Name": [''],
       "m_Name": [''],
       "l_Name": [''],
-      // "state": [''],
-      "district": [1],
+     "district": [1],
       "taluka": [ ],
       "center": [ ],
       "school": [ ],
@@ -90,7 +89,7 @@ addData:any;
           // console.log("this.districtArray",this.districtArray)
           // this.getTaluka();
           if (this.editFlag == true) {
-            this.f['centerId'].setValue(this.data.centerId);
+            this.studentFrm.controls['district'].setValue(this.data.districtId);
             this.getTaluka();
           }
         }
@@ -268,30 +267,29 @@ addData:any;
   // }
 
   
-  // onEdit() {
+  onEdit() {
    
-  //   this.editFlag = true;
-  //   this.studentFrm.patchValue({
-  //     createdBy: 0,
-  //     modifiedBy: 0,
-  //     createdDate: new Date(),
-  //     modifiedDate:  new Date(),
-  //     isDeleted: true,
-  //     id: this.data.id,
-  //     f_Name: this.data.f_Name,
-  //     m_Name: this.data.m_Name,
-  //     l_Name:this.data.l_Name,
-  //     stateId:0,
-  //     saralId:this.data.saralId,
-  //      dob:this.data.dob.split('T')[0],
-  //     aadharNo: this.data.aadharNo,
-  //     lan: this.data.lan,
-  //     religionId:editObj.religionId,
-  //     castId:editObj.cast,
-  //     mobileNo: editObj.mobileNo,
-  //     emailId: editObj.emailId,
-  //   });
-  // }
+    this.editFlag = true;
+    this.studentFrm.patchValue({
+      createdBy: 0,
+      modifiedBy: 0,
+      createdDate: new Date(),
+      modifiedDate:  new Date(),
+      isDeleted: true,
+      id: this.data.id,
+      f_Name: this.data.f_Name,
+      m_Name: this.data.m_Name,
+      l_Name:this.data.l_Name,
+      stateId:0,
+      saralId:this.data.saralId,
+       dob:this.data.dob.split('T')[0],
+      aadharNo: this.data.aadharNo,
+      lan: this.lang,
+      cast:this.data.cast,
+      mobileNo: this.data.mobileNo,
+      emailId: this.data.emailId,
+    });
+  }
 
   onClickSubmit(){
     let data = this.studentFrm.value;

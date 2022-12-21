@@ -30,6 +30,7 @@
         "enter_person_contact":"Enter Person contact",
         "enter_mobile_number":"Enter Mobile Number",
         "enter_email_id":"Enter Email Id",
-        "enter_agency_address":"Enter Agency Address"
+        "enter_agency_address":"Enter Agency Address",
+        "please_select_user_type":"Please Select User Type"
     }
 }
