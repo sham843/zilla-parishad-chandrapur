@@ -7,11 +7,14 @@
             <td mat-cell *matCellDef="let element let i=index">
                 <ng-container *ngIf="'srNo' ==columns">{{((pageNumber + 1) * 10 + i + 1)-20}}</ng-container>
                 <ng-container
-                    *ngIf="'srNo' !=columns && tableInfo?.img != columns && tableInfo?.blink != columns && tableInfo?.badge !=  columns">{{element[columns] ? element[columns] : '-' }}
+                    *ngIf="tableInfo?.checkBox != columns && 'srNo' !=columns && tableInfo?.img != columns && tableInfo?.blink != columns && tableInfo?.badge !=  columns">{{element[columns] ? element[columns] : '-' }}
                 </ng-container>
                 <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns]}}"></ng-container>
                 <ng-container *ngIf="tableInfo?.blink == columns">{{element[columns] }}</ng-container>
                 <ng-container *ngIf="tableInfo?.badge == columns">{{element[columns] }}</ng-container>
+                <ng-container *ngIf="tableInfo?.checkBox == columns" (change)="action(element, 'checkBox')">
+                    <mat-checkbox class="example-margin"></mat-checkbox>
+                </ng-container>
                 <ng-container *ngIf="tableInfo?.isBlock == columns">
                     <mat-slide-toggle (change)="action(element, 'Block')">
                     </mat-slide-toggle>

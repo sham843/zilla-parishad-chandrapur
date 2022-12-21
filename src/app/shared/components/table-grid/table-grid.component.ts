@@ -10,12 +10,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule]
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule]
 })
 export class TableGridComponent implements OnInit {
   @Output() recObjToChild = new EventEmitter<any>();
