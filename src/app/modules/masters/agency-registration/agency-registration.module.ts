@@ -8,11 +8,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { RegisterAgencyComponent } from './register-agency/register-agency.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
-    AgencyRegistrationComponent
+    AgencyRegistrationComponent,
+    RegisterAgencyComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatMenuModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class AgencyRegistrationModule { }
