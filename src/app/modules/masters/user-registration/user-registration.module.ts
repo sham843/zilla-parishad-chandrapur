@@ -12,8 +12,13 @@ import { UserRegistrationComponent } from './user-registration.component';
 import { RegisterUsersComponent } from './register-users/register-users.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+<<<<<<< HEAD
 
 
+=======
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+>>>>>>> fcabc6a069d7d115e1224f840185d2863fe2dbb9
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -29,7 +34,14 @@ import {MatSelectModule} from '@angular/material/select';
     MatCardModule,
     MatMenuModule,
     MatDialogModule,
+<<<<<<< HEAD
     MatSelectModule
+=======
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TableGridComponent
+>>>>>>> fcabc6a069d7d115e1224f840185d2863fe2dbb9
   ]
 })
 export class UserRegistrationModule { }
