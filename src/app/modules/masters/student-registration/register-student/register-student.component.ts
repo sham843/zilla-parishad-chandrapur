@@ -47,8 +47,16 @@ addData:any;
       this.getDistrict();
       this.getStandard(this.lang);
       this.getReligion(this.lang);
-      this.getGender(this.lang)
+      this.getGender(this.lang);
+      // if (this.data) {
+      //   this.onEdit();
+      // }
     }
+
+    get f() {
+      return this.studentFrm.controls;
+    }
+  
 
   formData() {
     this.studentFrm = this.fb.group({
@@ -79,8 +87,12 @@ addData:any;
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
-          console.log("this.districtArray",this.districtArray)
-          this.getTaluka();
+          // console.log("this.districtArray",this.districtArray)
+          // this.getTaluka();
+          if (this.editFlag == true) {
+            this.f['centerId'].setValue(this.data.centerId);
+            this.getTaluka();
+          }
         }
         else {
           this.districtArray = [];
@@ -256,8 +268,8 @@ addData:any;
   // }
 
   
-  // onEdit(editObj: any) {
-  //   console.log("editObj",editObj);
+  // onEdit() {
+   
   //   this.editFlag = true;
   //   this.studentFrm.patchValue({
   //     createdBy: 0,
@@ -265,28 +277,22 @@ addData:any;
   //     createdDate: new Date(),
   //     modifiedDate:  new Date(),
   //     isDeleted: true,
-  //     id: editObj.id,
-  //     f_Name: editObj.f_Name,
-  //     m_Name: editObj.m_Name,
-  //     l_Name: editObj.l_Name,
-  //     stateId:editObj.stateId,
-  //     districtId:editObj.districtId,
-  //     talukaId:editObj.talukaId,
-  //     centerId: editObj.centerId,
-  //     schoolId:editObj.schoolId,
-  //     standardId: editObj.standardId,
-  //     saralId:editObj.saralId,
-  //     genderId:editObj.genderId,
-  //     dob:editObj.dob,
-  //     aadharNo: editObj.aadharNo,
-  //     lan: editObj.lan,
+  //     id: this.data.id,
+  //     f_Name: this.data.f_Name,
+  //     m_Name: this.data.m_Name,
+  //     l_Name:this.data.l_Name,
+  //     stateId:0,
+  //     saralId:this.data.saralId,
+  //      dob:this.data.dob.split('T')[0],
+  //     aadharNo: this.data.aadharNo,
+  //     lan: this.data.lan,
   //     religionId:editObj.religionId,
   //     castId:editObj.cast,
   //     mobileNo: editObj.mobileNo,
   //     emailId: editObj.emailId,
   //   });
-    
   // }
+
   onClickSubmit(){
     let data = this.studentFrm.value;
     this.apiService.setHttp('post', 'zp-Chandrapur/Student/AddStudent', false, data, false, 'baseUrl');
