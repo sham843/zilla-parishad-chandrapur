@@ -6,6 +6,7 @@ import { PageRightAccessComponent } from './page-right-access.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MatButtonModule} from '@angular/material/button';
     PageRightAccessRoutingModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    TableGridComponent
   ]
 })
 export class PageRightAccessModule { }

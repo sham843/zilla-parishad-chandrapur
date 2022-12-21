@@ -5,7 +5,7 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
-
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
