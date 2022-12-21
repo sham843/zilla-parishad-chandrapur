@@ -47,9 +47,8 @@ export class StudentRegistrationComponent {
       this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
       let tableDataArray = new Array();
       let tableDatasize!: Number;
-      let str=`?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}&searchText=${this.searchContent.value}`;;
-    
-      this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str, false, false, false, 'baseUrl');
+      let str=`?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
+       this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&searchText=' + (this.searchContent.value), false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
   
         next: (res: any) => {
