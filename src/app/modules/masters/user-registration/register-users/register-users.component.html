@@ -18,6 +18,11 @@
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['userType'].errors">
+                            <span class="text-danger" *ngIf="f['userType'].hasError('required')">
+                                Please Select User Type
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userType!=2">
@@ -28,6 +33,11 @@
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
+                            <mat-error *ngIf="f['userLevel'].errors">
+                                <span class="text-danger" *ngIf="f['userLevel'].hasError('required')">
+                                    Please Select User Level
+                                </span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </ng-container>

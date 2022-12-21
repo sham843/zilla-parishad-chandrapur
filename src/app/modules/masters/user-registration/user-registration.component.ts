@@ -40,9 +40,9 @@ export class UserRegistrationComponent {
           tableHeaders: displayedheaders,
           pagination:true,edit:true,delete:true
         };
-     }
+      }
      this.apiService.tableData.next(this.tableData);
-      })
+  })
   }
 
   childCompInfo(obj: any) {

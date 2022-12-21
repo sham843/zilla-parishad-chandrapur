@@ -21,6 +21,7 @@ export class RegisterUsersComponent {
   agencyArr=new Array();
   schoolArr=new Array();
   lang:string |any='English';
+  get f(){return this.userRegistrationForm.controls}
   constructor(
     private fb: FormBuilder,
     public validation: ValidationService,
