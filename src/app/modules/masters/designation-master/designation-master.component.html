@@ -43,7 +43,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Designation</mat-label>
           <mat-select [formControl]="searchContent">
-            <mat-option *ngFor="let food of foods" [value]="food.value">{{food.viewValue}}</mat-option>
+            <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

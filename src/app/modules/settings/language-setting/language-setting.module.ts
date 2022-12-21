@@ -5,6 +5,7 @@ import { LanguageSettingRoutingModule } from './language-setting-routing.module'
 import { LanguageSettingComponent } from './language-setting.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {MatSelectModule} from '@angular/material/select';
     CommonModule,
     LanguageSettingRoutingModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ]
 })
 export class LanguageSettingModule { }
