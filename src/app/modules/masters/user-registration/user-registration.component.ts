@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core'
+import { Component} from '@angular/core'
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator';
@@ -10,7 +10,7 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.scss'],
+  styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent {
   tableData:any;
@@ -46,8 +46,9 @@ export class UserRegistrationComponent {
   childCompInfo(obj: any) {}
   registerusers() {
     this.dialog.open(RegisterUsersComponent, {
-      width: '700px',
-      disableClose: true,
-    })
+      width:'700px',
+      disableClose: true
+    });
   }
+
 }

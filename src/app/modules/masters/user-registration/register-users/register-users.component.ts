@@ -8,20 +8,18 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service'
 @Component({
   selector: 'app-register-users',
   templateUrl: './register-users.component.html',
-  styleUrls: ['./register-users.component.scss'],
+  styleUrls: ['./register-users.component.scss']
 })
 export class RegisterUsersComponent {
-  userRegistrationForm!: FormGroup
-  userTypeArr = new Array()
-  userLevelArr = new Array()
-  designationArr = new Array()
-  districtArr = new Array()
-  talukaArr = new Array()
-  kendraArr = new Array()
-  schoolArr = new Array()
-  agencyArr = new Array()
-  lang:string='en';
-
+  userRegistrationForm!:FormGroup;
+  userTypeArr=new Array();
+  userLevelArr=new Array();
+  designationArr=new Array();
+  districtArr=new Array();
+  talukaArr=new Array();
+  kendraArr=new Array();
+  agencyArr=new Array();
+  lang:string='English';
   constructor(
     private fb: FormBuilder,
     public validation: ValidationService,
@@ -58,41 +56,41 @@ export class RegisterUsersComponent {
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {
-    this.master.getAllUserType(this.lang).subscribe((res:any)=>{
+   /*  this.master.getAllUserType(this.lang).subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
     })
-    this.addRemoveValidation();
+    this.addRemoveValidation(); */
   }
   getUserLevel(typeId:number) {
-        this.master.getDesignationLevel(this.lang,typeId).subscribe((res:any)=>{
+      /*   this.master.getDesignationLevel(this.lang,typeId).subscribe((res:any)=>{
         this.userLevelArr=res.responseData;
- })
+ }) */
   }
   getDesignation(levelId:any) {
-    this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{
+   /*  this.master.getDesignationType(this.lang,levelId).subscribe((res:any)=>{
       this.designationArr=res;
-    })
-  }
+    })*/
+  } 
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
     })
   }
   getTaluka(distId:number) {
-    this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
+  /*   this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
-    })
+    }) */
   }
   getKendra(talukaId:number) {
-    this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
+   /*  this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
-    })
+    }) */
   }
   getSchoolName() {}
   getAgency() {
-    this.master.getAllAgency(this.lang).subscribe((res:any)=>{
+   /*  this.master.getAllAgency(this.lang).subscribe((res:any)=>{
       this.agencyArr=res;
-    })
+    }) */
   }
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
