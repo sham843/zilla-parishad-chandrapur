@@ -39,11 +39,9 @@ export class SchoolRegistrationComponent {
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
-  
     this.getTableData();
     this.getFilterFormData();
     this.getTaluka();
-    
   }
 
   getFilterFormData(){
@@ -54,12 +52,13 @@ export class SchoolRegistrationComponent {
   }
   // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=en
   getTableData(flag?:string){
+    // let formValue=this.filterForm.value || '' ;
     this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
-    let str = `zp_chandrapur/School/GetAll?pageno=${this.pageNumber}&pagesize=10&TalukaId=${this.filterForm?.value.talukaId}&CenterId=${this.filterForm?.value.centerId}&lan=${this.lang}`;
+    let str = `pageno=${this.pageNumber}&pagesize=10`;
     console.log(str);
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll', false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?'+str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {      
@@ -109,23 +108,26 @@ export class SchoolRegistrationComponent {
       width: '700px',
       data: obj,
       disableClose: true,
-      autoFocus: false
+      autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
-     this.getTableData();
+     result == 'Yes' ?  this.getTableData() : ''
     });
+    this.filterForm.reset();
   }
 
   globalDialogOpen() {
     const dialogRef =this.dialog.open(GlobalDialogComponent, {
       width: '320px',
-      data: '',
+      data:'',
       disableClose: true,
       autoFocus: false, 
-    })
-    console.log(dialogRef); 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      result == 'Yes' ?  this.getTableData() : ''
+      
+     });
+    
   }
 
   getTaluka() {
