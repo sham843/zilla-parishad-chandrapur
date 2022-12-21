@@ -55,7 +55,7 @@ export class SchoolRegistrationComponent {
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'schoolName', 'center','taluka','action'];
-        let displayedheaders = ['Sr. No', 'School Name', 'Kendra','Taluka','action'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra','Taluka','Action'];
         console.log("Table Data",tableDataArray);
         let tableData = {
           pageNumber: this.pageNumber,
