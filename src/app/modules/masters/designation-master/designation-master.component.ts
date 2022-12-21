@@ -92,12 +92,12 @@ export class DesignationMasterComponent {
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-    this.dialog.open(AddDesignationComponent, {
-      width: '420px',
-      data: obj,
-      disableClose: true,
-      autoFocus: false
-    })
+      this.dialog.open(AddDesignationComponent, {
+        width: '420px',
+        data: obj,
+        disableClose: true,
+        autoFocus: false
+      })
   }
 
   globalDialogOpen() {
