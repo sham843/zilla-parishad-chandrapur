@@ -8,6 +8,7 @@
         </div>
     </mat-card-header>
     <mat-card-content>
+        <form [formGroup]="studentFrm">
         <h6 class="mb-4">Student Details</h6>
         <div class="row">
             <div class="col-sm-4">
@@ -20,55 +21,47 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>Taluka</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select placeholder="Select" formControlName="taluka" (selectionChange)="getCenter()">
+                        <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>Kendra</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select placeholder="Select" formControlName="center" (selectionChange)="getSchool(lang,studentFrm.value.center)">
+                        <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
         </div>
          <div class="row">
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>School</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select placeholder="Select" formControlName="school">
+                        <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>Standard</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select placeholder="Select" formControlName="standard">
+                        <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Parent's Contact No</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
-                    </mat-select>
+                    <mat-label>Parent Contact No</mat-label>
+                    <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo">
                 </mat-form-field>
             </div>
          </div>
@@ -76,39 +69,42 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>First Name</mat-label>
-                    <input matInput placeholder="Search By Id">
+                    <input matInput placeholder="Enter First Name Here" formControlName="f_Name">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Middle Name</mat-label>
-                    <input matInput placeholder="Search By Id">
+                    <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Last Name</mat-label>
-                    <input matInput placeholder="Search By Id">
+                    <input matInput placeholder="Enter Last Name Here" formControlName="l_Name">
                 </mat-form-field>
             </div>
          </div>
          <div class="row">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>First Name</mat-label>
-                    <input matInput placeholder="Search By Id">
+                    <mat-label>Saral ID</mat-label>
+                    <input matInput placeholder="Enter Saral ID Here" formControlName="saralId">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Middle Name</mat-label>
-                    <input matInput placeholder="Search By Id">
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>Gender</mat-label>
+                    <mat-select placeholder="Select" formControlName="gender">
+                        <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Birth Date</mat-label>
-                    <input matInput [matDatepicker]="picker">
+                    <input matInput [matDatepicker]="picker" formControlName="dob">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -118,31 +114,32 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Aadhar Card</mat-label>
-                    <input matInput placeholder="Image upload">
+                    <input matInput placeholder="Image upload" formControlName="aadharNo">
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>Religion</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
+                    <mat-select placeholder="Select" formControlName="religion">
+                        <mat-option *ngFor="let religion of religionArray" [value]="religion.id">{{religion.religion}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Cast</mat-label>
-                    <input matInput placeholder="Enter Cast">
+                    <input matInput placeholder="Enter Cast Here" formControlName="cast">
                 </mat-form-field>
             </div>
           </div>
        
        
             <div class="d-flex align-items-center justify-content-between w-100">
-                <button mat-stroked-button class="btn btn-secondary-outline">Cancel</button>
-                <button mat-stroked-button class="btn  btn-main">Submit</button>
-            </div>
+                <button mat-stroked-button class="btn-second">Cancel</button>
+                <button type="submit" mat-stroked-button class="btn  btn-main" (click)="onClickSubmit()">{{"Submit"}}</button>
+        </div>
        
+    </form>
     </mat-card-content>
 </mat-card>
