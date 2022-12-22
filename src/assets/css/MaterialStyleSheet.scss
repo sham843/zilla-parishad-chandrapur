@@ -73,3 +73,12 @@ input:-webkit-autofill:active {
 .mat-mdc-table .mdc-data-table__row {
     height: 42px !important;
   }
+  .mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper{
+    padding: 0 !important;
+  }
+  .mat-mdc-form-field-error{
+    margin: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.7rem;
+    letter-spacing: normal;
+  }
