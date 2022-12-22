@@ -23,7 +23,6 @@ export class SchoolRegistrationComponent {
   talukaArray=new Array();
   centerArray=new Array();
   filterForm!:FormGroup;
-  getData:any
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
@@ -88,19 +87,20 @@ export class SchoolRegistrationComponent {
 
   }
 
-  childCompInfo(obj: any) {
-    this.getData=obj.districtId;
+  childCompInfo(obj?: any) {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
         this.getTableData();
         break;
-      case 'Edit' || 'Delete':
+      case 'Edit':
         this.addSchoolData(obj);
         break;
       case 'Block':
         this.globalDialogOpen();
         break;
+        case 'Delete':
+        this.globalDialogOpen(obj)
     }
   }
   addSchoolData(obj?: any) {
@@ -114,20 +114,6 @@ export class SchoolRegistrationComponent {
      result == 'Yes' ?  this.getTableData() : ''
     });
     this.filterForm.reset();
-  }
-
-  globalDialogOpen() {
-    const dialogRef =this.dialog.open(GlobalDialogComponent, {
-      width: '320px',
-      data:'',
-      disableClose: true,
-      autoFocus: false, 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      result == 'Yes' ?  this.getTableData() : ''
-      
-     });
-    
   }
 
   getTaluka() {
@@ -165,4 +151,75 @@ export class SchoolRegistrationComponent {
       }
     })
   }
+
+  globalDialogOpen(delObj?:any) {
+    let dataObj={
+      cancelButton: 'Cancel',
+       okButton: 'Delete'
+    }
+    const dialogRef =this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data:dataObj,
+      disableClose: true,
+      autoFocus: false, 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      result == 'Yes' ?  this.getTableData() : ''
+     let deleteObj
+     deleteObj={
+      id:delObj.id,
+      modifiedBy: 0,
+      modifiedDate:new Date(),
+      lan:'en'
+     }
+     this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=en', false, deleteObj, false, 'baseUrl');
+     this.apiService.getHttp().subscribe({
+       next: ((res: any) => {
+         if (res.statusCode == '200') {
+            this.getTableData();
+         }
+       }),
+     })
+     });
+    console.log(delObj);
+  }
+
+  deleteTable(){
+
+  }
 }
+
+
+// openDeleteDialog(id: any) {
+//   let dialoObj = {
+//     title: 'Do you want to delete the selected course ?',
+//     cancelButton: 'Cancel',
+//     okButton: 'Delete'
+//   }
+//   const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+//     width: '300px',
+//     data: dialoObj
+//   });
+//   dialogRef.afterClosed().subscribe(result => {
+//     if (result == 'yes') {
+//       let deleteObj = {
+//         "registerId": id.registerId,
+//         "modifiedBy": 0
+//       }
+//       this.service.setHttp('delete', 'whizhack_cms/register/Delete', false, deleteObj, false, 'whizhackService');
+//       this.service.getHttp().subscribe({
+//         next: ((res: any) => {
+//           if (res.statusCode === '200') {
+//             this.getTableData();
+//             this.snack.matSnackBar(res.statusMessage, 0)
+//           }
+//         }),
+//         error: (error: any) => {
+//           this.errorSer.handelError(error.statusMessage)
+//         }
+//       })
+//     } else {
+//       this.getTableData();
+//     }
+//   });
+// }
