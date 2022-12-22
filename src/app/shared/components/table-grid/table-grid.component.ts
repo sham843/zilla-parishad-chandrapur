@@ -25,8 +25,6 @@ export class TableGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;
 
-
-
   displayedColumns = new Array();
   tableRecords: any;
   tableSize!: number;

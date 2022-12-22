@@ -80,6 +80,6 @@ export class HeaderComponent {
 
   localStorageClear() {
     localStorage.clear();
-    this.router.navigate(['../home']);
+    this.router.navigate(['../login']);
   }
 }

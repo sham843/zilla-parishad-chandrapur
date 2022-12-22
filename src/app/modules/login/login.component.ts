@@ -8,6 +8,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import * as CryptoJS from 'crypto-js';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,11 @@ export class LoginComponent {
   language!: string;
   loginUser = [{ id: 1, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: 'School login', m_name: 'शाळा लॉगिन' }];
   //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
+  otpTimer: number = 20
+  otpTimerFlag: boolean = false;
   encryptInfo: any;
+  otpTimerSub: any;
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -32,7 +37,7 @@ export class LoginComponent {
     private translate: TranslateService
   ) {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      this.language = res ? res : 'English';
+      this.language = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
     })
     this.translate.use(this.language)
     this.loginDefForm();
@@ -65,6 +70,7 @@ export class LoginComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.sendOtpFlag = true;
+          this.setOtpTimer();
           this.commonMethods.snackBar(res.responseData.message, 0);
         }
         else {
@@ -76,6 +82,23 @@ export class LoginComponent {
     }
   }
 
+  setOtpTimer() {
+    this.otpTimerFlag = false;
+    this.otpTimerSub = setInterval(() => {
+      --this.otpTimer;
+      if (this.otpTimer == 0) {
+        this.otpTimerFlag = true;
+        clearInterval(this.otpTimerSub);
+        this.formDirective.resetForm({
+          MobileNo:this.loginForm.value.MobileNo,
+          userType: this.loginForm.value.userType,
+          flag: this.language == 'English' ? 'en' : 'mr-IN',
+        })
+        this.otpTimer = 20;
+      }
+    }, 1000)
+  }
+
   clearMobAndOTP() {
     this.sendOtpFlag = false;
     this.loginForm.controls['MobileNo'].setValue('');
@@ -83,10 +106,13 @@ export class LoginComponent {
     this.loginForm.controls['o2'].setValue('');
     this.loginForm.controls['o3'].setValue('');
     this.loginForm.controls['o4'].setValue('');
+    clearInterval(this.otpTimerSub);
+    this.otpTimer = 20;
   }
 
   onSubmit() {
     if (this.loginForm.invalid) {
+      this.commonMethods.snackBar(this.language == 'English' ?'Please enter valid OTP...' : 'कृपया वैध OTP प्रविष्ट करा...', 1)
       return;
     } else if (this.loginForm.valid) {
       let loginData = this.loginForm.value;
@@ -94,6 +120,7 @@ export class LoginComponent {
       this.apiService.setHttp('get', 'zp_chandrapur/user-registration/VerifyOTP?' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
+          console.log(res);
           sessionStorage.setItem('loggedIn', 'true');
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           localStorage.setItem('loggedInData', this.encryptInfo);

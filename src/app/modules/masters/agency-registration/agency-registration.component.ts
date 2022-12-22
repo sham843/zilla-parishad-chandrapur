@@ -98,10 +98,10 @@ language:any;
       })
   }
 
-  clearFilter(){
+  /* clearFilter(){
     this.searchControl.setValue('');
     this.getAllAgencyData();
-  }
+  } */
   //----------------------------------------------------delete functionality---------------------------------------------------------
   removeModalOpen(obj?:any) {
     const dialog= this.dialog.open(GlobalDialogComponent, {
