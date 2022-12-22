@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
+// import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
@@ -21,7 +22,9 @@ export class DesignationMasterComponent {
   searchContent = new FormControl('');
   desigantionLevelArray = new Array();
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
-    private errors: ErrorsService, private webStorage: WebStorageService) { }
+    private errors: ErrorsService, private webStorage: WebStorageService, 
+    // private commonMethod: CommonMethodsService
+    ) { }
 
   ngOnInit() {
     this.webStorage.langNameOnChange.subscribe((res: any) => {
@@ -36,12 +39,12 @@ export class DesignationMasterComponent {
       this.desigantionLevelArray = res.responseData;
     })
   }
-  adddesignation() {
-    this.dialog.open(AddDesignationComponent, {
-      width: '400px',
-      disableClose: true
-    });
-  }
+  // adddesignation() {
+  //   this.dialog.open(AddDesignationComponent, {
+  //     width: '400px',
+  //     disableClose: true
+  //   });
+  // }
 
   getTableData(flag?: string) {
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
@@ -93,13 +96,59 @@ export class DesignationMasterComponent {
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-    this.dialog.open(AddDesignationComponent, {
-      width: '420px',
-      data: obj,
-      disableClose: true,
-      autoFocus: false
-    })
+    console.log('sss');
+    
+    // if(obj.label == 'EDIT'){
+      const dialogRef = this.dialog.open(AddDesignationComponent, {
+        width: '420px',
+        data: obj,
+        disableClose: true,
+        autoFocus: false
+      });
+      dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+           this.getTableData();
+          });
+    // }
+    // else if(obj.label == 'Delete'){
+    //   let dialoObj = {
+    //     header: 'Delete',
+    //     title: 'Do you want to delete Designation record?',
+    //     cancelButton: 'Cancel',
+    //     okButton: 'Ok'
+    //   }
+      
+    //   const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+    //     width: '320px',
+    //     data: dialoObj,
+    //     disableClose: true,
+    //     autoFocus: false
+    //   })
+    //   deleteDialogRef.afterClosed().subscribe((result: any) => {
+    //     if (result == 'yes') {
+    //       this.deleteRecord(obj)
+    //     }
+    //   })
+    // }
   }
+
+  // deleteRecord(obj: any) {
+  //   let designationId = obj.value.id;
+  //   let userId = obj.value.userId;
+  //   // designation/delete-designation-details?designationId=4&userId=0&flag=en-US
+  //   this.apiService.setHttp('DELETE', 'designation/delete-designation-details?designationId='+ designationId +'&userId=' + userId + '&flag=' + this.lang, false, false, false, 'baseUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: (res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.commonMethod.snackBar(res.statusMessage,0);
+  //         this.getTableData()
+  //       } else {
+  //         this.commonMethod.snackBar(res.statusMessage,1);
+  //       }
+  //     },
+  //     error: ((err: any) => { this.errors.handelError(err) })
+  //   });
+  // }
 
   globalDialogOpen() {
     this.dialog.open(GlobalDialogComponent, {
@@ -110,5 +159,4 @@ export class DesignationMasterComponent {
     })
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
-
 }
