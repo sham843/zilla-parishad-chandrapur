@@ -42,7 +42,7 @@ export class LoginComponent {
     this.loginForm = this.fb.group(({
       MobileNo: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
       userType: [1],
-      flag: [''],
+      flag: [this.language=='Marathi'?'mr-IN':'En'],
       o1: ['', Validators.required],
       o2: ['', Validators.required],
       o3: ['', Validators.required],
