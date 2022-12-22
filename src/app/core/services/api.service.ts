@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { WebStorageService } from './web-storage.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,22 +17,9 @@ export class ApiService {
 
   disableCloseFlag: boolean = true;
 
-  constructor(private http: HttpClient,
-    private webStorage:WebStorageService) { }
+  constructor(private http: HttpClient) { }
 
-  getLanguageFlag(){
-    let language;
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
-      res == 'Marathi'? language='mr-IN':language='en'; 
-    })
-    return language;
-  }
-
-  getLocalStorageData(){
-    let localData:any=localStorage.getItem('loggedInData');
-    var deData = CryptoJS.AES.decrypt(decodeURIComponent(localData), 'secret key 123');
-    return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
-  }
+  
   getBaseurl(url: string) {
     switch (url) {     
       case 'baseUrl': return 'https://zpchaservices.mahamining.com/'; break;

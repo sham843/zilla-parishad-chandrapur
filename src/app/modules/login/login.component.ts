@@ -6,6 +6,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import * as CryptoJS from 'crypto-js';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +26,8 @@ export class LoginComponent {
     private errors: ErrorsService,
     public validation: ValidationService,
     private fb: FormBuilder,
-    private commonMethods: CommonMethodsService
+    private commonMethods: CommonMethodsService,
+    public translate:TranslateService
   ) {
     this.loginDefForm();
   }
