@@ -37,7 +37,7 @@ export class StudentRegistrationComponent {
   ) { }
 
   ngOnInit() {
-    this.lang = this.apiService.getLanguageFlag();
+    // this.lang = this.apiService.getLanguageFlag();
     this.getTableData()
   }
 
