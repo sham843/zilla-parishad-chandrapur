@@ -155,7 +155,7 @@ export class SchoolRegistrationComponent {
   globalDialogOpen(delObj?:any) {
     let dataObj={
       cancelButton: 'Cancel',
-       okButton: 'Delete'
+      okButton: 'Delete'
     }
     const dialogRef =this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -183,43 +183,4 @@ export class SchoolRegistrationComponent {
      });
     console.log(delObj);
   }
-
-  deleteTable(){
-
-  }
 }
-
-
-// openDeleteDialog(id: any) {
-//   let dialoObj = {
-//     title: 'Do you want to delete the selected course ?',
-//     cancelButton: 'Cancel',
-//     okButton: 'Delete'
-//   }
-//   const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-//     width: '300px',
-//     data: dialoObj
-//   });
-//   dialogRef.afterClosed().subscribe(result => {
-//     if (result == 'yes') {
-//       let deleteObj = {
-//         "registerId": id.registerId,
-//         "modifiedBy": 0
-//       }
-//       this.service.setHttp('delete', 'whizhack_cms/register/Delete', false, deleteObj, false, 'whizhackService');
-//       this.service.getHttp().subscribe({
-//         next: ((res: any) => {
-//           if (res.statusCode === '200') {
-//             this.getTableData();
-//             this.snack.matSnackBar(res.statusMessage, 0)
-//           }
-//         }),
-//         error: (error: any) => {
-//           this.errorSer.handelError(error.statusMessage)
-//         }
-//       })
-//     } else {
-//       this.getTableData();
-//     }
-//   });
-// }
