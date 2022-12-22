@@ -15,13 +15,13 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>
+          <button type="button" mat-menu-item>
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>PDF</span>
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
           </button>
-          <button mat-menu-item>
+          <button type="button" mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>Excel</span>
               <i class='bx bxs-file text-primary'></i>
@@ -47,8 +47,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-sm-auto">
-        <button (click)="getTableData('filter')" mat-flat-button class="btn-main">Filter</button>
+      <div class="col-sm-auto mb-4">
+        <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">Filter</button>
+        <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
       </div>
     </div>
   </mat-card-header>

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
@@ -22,9 +23,10 @@ export class DesignationMasterComponent {
   pageNumber: number = 1;
   searchContent = new FormControl('');
   desigantionLevelArray = new Array();
+  tableDataArray = new Array();
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService, 
-    private commonMethod: CommonMethodsService,private spinner: NgxSpinnerService
+    private commonMethod: CommonMethodsService,private spinner: NgxSpinnerService,private excelPdf: ExcelPdfDownloadService
     ) { }
 
   ngOnInit() {
@@ -35,6 +37,11 @@ export class DesignationMasterComponent {
     this.getTableData()
   }
 
+  clearFilter(){
+    this.searchContent.reset();
+    this.getTableData();
+  }
+
   getDesignationLevel() {
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevelArray = res.responseData;
@@ -43,7 +50,7 @@ export class DesignationMasterComponent {
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDataArray = new Array();
+    this.tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchContent.value) + '&' + str + '&flag=' + this.lang, false, false, false, 'baseUrl');
@@ -51,11 +58,11 @@ export class DesignationMasterComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          tableDataArray = res.responseData.responseData1;
+          this.tableDataArray = res.responseData.responseData1;
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           alert('try one more time')
-          tableDataArray = [];
+          this.tableDataArray = [];
           tableDatasize = 0;
         }
         let displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'action'];
@@ -64,7 +71,7 @@ export class DesignationMasterComponent {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', 
           displayedColumns: displayedColumns,pagination: true,
-          tableData: tableDataArray,
+          tableData: this.tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders,
         };
@@ -143,4 +150,17 @@ export class DesignationMasterComponent {
     })
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
+  excelDownload() {
+    let pageName='Designation Master';
+    let header=['Sr.No.','Designation Name','Designation Level'];
+    let column=['srNo', 'designationName','designationLevelName'];
+    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+  }
+
+  // pdfDownload() {
+  //   let pageName='Designation Master';
+  //   let header=['Sr.No.','Designation Name','Designation Level'];
+  //   let column=['srNo', 'designationName','designationLevelName'];
+  //   this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
+  // }
 }

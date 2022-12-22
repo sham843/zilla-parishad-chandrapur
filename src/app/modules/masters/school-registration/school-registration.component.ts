@@ -69,7 +69,7 @@ export class SchoolRegistrationComponent {
         let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
         let tableData = {
           pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '', pagintion: true,
+          img: '', blink: '', badge: '', isBlock: '', pagination: true,
           displayedColumns: displayedColumns,
           tableData: tableDataArray,
           tableSize: tableDatasize,
@@ -82,8 +82,10 @@ export class SchoolRegistrationComponent {
   }
 
   clearFilter() {
-    this.filterForm.reset();
+    
+    this.getFilterFormData()
     this.getTableData();
+    this.filterForm.reset();
   }
 
   childCompInfo(obj?: any) {
@@ -94,14 +96,14 @@ export class SchoolRegistrationComponent {
         break;
       case 'Edit':
         this.addSchoolData(obj);
-        this.getTableData();
+        // this.getTableData();
         break;
       case 'Block':
         this.globalDialogOpen();
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
-        this.getTableData();
+        // this.getTableData();
     }
   }
 
@@ -116,7 +118,7 @@ export class SchoolRegistrationComponent {
       console.log(result);
       this.getTableData()
     });
-    this.filterForm.reset();
+    
   }
 
   getTaluka() {
@@ -191,3 +193,32 @@ export class SchoolRegistrationComponent {
     });
   }
 }
+
+
+// downloadExcel(){
+//   this.excelDataArr = [];
+//   this.service.setHttp('get', 'whizhack_cms/register/GetAllByPagination?IsDownload=true', false, false, false, 'whizhackService');
+//   this.service.getHttp().subscribe({
+//     next: ((res: any) => {
+//       if (res.statusCode == '200') {
+//         this.excelDataArr = res.responseData?.responseData;
+//         if(this.excelDataArr.length == 0){
+//           this.snack.matSnackBar('No Data Found !!', 1)
+//         }else{
+//           let keyExcelHeader = ['Register ID', 'Name', 'Email ID', 'Date of Birth', 'Contact Number', 'Course Selected', 'Course', 'Gender', 'Country', 'City', 'Qualification', 'Institute Name', 'Degree', 'Year of Passing', 'Percentage', 'Total Experience', 'Message', 'IP Address', 'Operating System', 'Browser'];;
+//           let apiKeys = ['registerId', 'fullName', 'email', 'date_of_Birth', 'mobileNo', 'course_Title', 'pageName', 'gender', 'country', 'city', 'qualification', 'instituteName', 'degree', 'year_of_passing', 'percentage', 'total_Experience', 'message', 'iP_address', 'operating_System', 'browser'];
+//           let nameArr = [{
+//             'sheet_name': 'Enquiries',
+//             'excel_name': 'Enquiries_list'
+//           }];
+//           this.excelService.generateExcel(keyExcelHeader, apiKeys, this.excelDataArr, nameArr);
+//         }       
+//       }else{
+//         this.excelDataArr = [];
+//       }
+//     }), error: (error: any) => {
+//       this.errorSer.handelError(error.status);
+//     }
+//   })
+// }
+
