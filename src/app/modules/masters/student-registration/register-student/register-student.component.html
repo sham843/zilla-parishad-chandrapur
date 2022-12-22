@@ -20,7 +20,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['districtId'].hasError('required')">
-                            District is Required
+                            District Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -32,7 +32,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['talukaId'].hasError('required')">
-                            Taluka is Required
+                            Taluka Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -45,7 +45,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
-                            Kendra is Required
+                            Kendra Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -57,7 +57,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
-                            School is Required
+                            School Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -68,33 +68,61 @@
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
-                            School is Required
+                        <mat-error class="mt-2" *ngIf="f['standardId'].hasError('required')">
+                            Standard Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Parent Contact No</mat-label>
-                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo">
+                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo"
+                        (keypress)="validation.onlyDigits($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
+                        <mat-error *ngIf="f['mobileNo'].errors">
+                            <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
+                                Please Enter Contact Number
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>First Name</mat-label>
-                        <input matInput placeholder="Enter First Name Here" formControlName="f_Name">
+                        <input matInput placeholder="Enter First Name Here" formControlName="f_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['f_Name'].errors">
+                            <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
+                                Please Enter First Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Middle Name</mat-label>
-                        <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name">
+                        <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['m_Name'].errors">
+                            <span class="text-danger" *ngIf="f['m_Name'].hasError('required')">
+                                Please Enter Middle Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Enter Last Name Here" formControlName="l_Name">
+                        <input matInput placeholder="Enter Last Name Here" formControlName="l_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['l_Name'].errors">
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
+                                Please Enter Last Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -110,10 +138,8 @@
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="f['genderId'].errors">
-                            <span class="text-danger" *ngIf="f['genderId'].hasError('required')">
-                                Please Select Gender
-                            </span>
+                        <mat-error class="mt-2" *ngIf="f['genderId'].hasError('required')">
+                            Gender Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -123,6 +149,9 @@
                         <input matInput [matDatepicker]="picker" formControlName="dob">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
+                        Birth Date Is Required
+                    </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -139,17 +168,22 @@
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="f['religionId'].errors">
-                            <span class="text-danger" *ngIf="f['religionId'].hasError('required')">
-                                Please Select Religion
-                            </span>
+                        <mat-error class="mt-2" *ngIf="f['religionId'].hasError('required')">
+                            Religion Is Required
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Caste</mat-label>
-                        <input matInput placeholder="Enter Caste Here" formControlName="cast">
+                        <input matInput placeholder="Enter Caste Here" formControlName="cast"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['cast'].errors">
+                            <span class="text-danger" *ngIf="f['cast'].hasError('required')">
+                                Please Enter Caste Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>

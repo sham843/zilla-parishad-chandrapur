@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -33,6 +34,7 @@ addData:any;
     private master:MasterService,
     private commonMethod:CommonMethodsService,
     private webStorage: WebStorageService,
+    public validation: ValidationService,
      private ngxspinner: NgxSpinnerService,
      private dialogRef: MatDialogRef<RegisterStudentComponent>,
      @Inject(MAT_DIALOG_DATA) public data: any
@@ -61,9 +63,9 @@ addData:any;
   formData() {
     this.studentFrm = this.fb.group({
       "id": [0],
-      "f_Name": [''],
-      "m_Name": [''],
-      "l_Name": [''],
+      "f_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "m_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "l_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
      "districtId": [1 ,[Validators.required]],
       "talukaId": [ ,[Validators.required]],
       "centerId": [ ,[Validators.required]],
@@ -71,11 +73,11 @@ addData:any;
       "standardId": [ ,[Validators.required]],
       "saralId": [''],
       "genderId": [ ,[Validators.required]],
-      "dob": [''],
+      "dob": ['',[Validators.required]],
       "aadharNo": [''],
       "religionId": [ ,[Validators.required]],
-      "cast": [''],
-      "mobileNo": ['']     
+      "cast": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "mobileNo": ['', [Validators.required,Validators.pattern(this.validation.mobile_No)]]     
     })
     // this.onEdit(this.data);
  

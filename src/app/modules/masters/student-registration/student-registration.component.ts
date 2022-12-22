@@ -54,6 +54,7 @@ export class StudentRegistrationComponent {
         next: (res: any) => {
           if (res.statusCode == "200") {
             tableDataArray = res.responseData.responseData1;
+            // console.log("tableDataArray",tableDataArray)
             tableDatasize = res.responseData.responseData2.pageCount;
           } else {
             tableDataArray = [];
@@ -66,7 +67,8 @@ export class StudentRegistrationComponent {
             img: '', blink: '', badge: '', isBlock: '', pagintion: true,
             displayedColumns: displayedColumns, tableData: tableDataArray,
             tableSize: tableDatasize,
-            tableHeaders: displayedheaders
+            tableHeaders: displayedheaders,
+            // edit:true,delete:true
           };
           this.apiService.tableData.next(tableData);
         },
