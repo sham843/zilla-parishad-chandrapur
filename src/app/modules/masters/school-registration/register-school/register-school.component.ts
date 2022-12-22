@@ -23,10 +23,12 @@ export class RegisterSchoolComponent {
   lang: string = 'en';
   constructor
     (
-      private fb: FormBuilder, private service: ApiService,
+      private fb: FormBuilder, 
+      private service: ApiService,
       public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
       private webStorage: WebStorageService,
-      private common: CommonMethodsService, private error: ErrorsService,
+      private common: CommonMethodsService, 
+      private error: ErrorsService,
     ) { }
 
   ngOnInit() {
