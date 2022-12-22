@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class ValidationService {
 
   constructor() { }
-  name=('^[a-zA-Z]+$');
-  fullName=('^[a-zA-Z][a-zA-Z ]*$');
-  email= ('^[a-zA-Z0-9._%+-]+@([a-z0-9.]+[.])+[a-z]{2,5}$');
-  mobile_No=('[6-9]\\d{9}');
-  age=('[0-9]{2,}|[5-9]{1}$');
-  aadhar_card=('^[2-9][0-9]{11}$');
+  name = ('^[a-zA-Z]+$');
+  fullName = ('^[a-zA-Z][a-zA-Z ]*$');
+  email = ('^[a-zA-Z0-9._%+-]+@([a-z0-9.]+[.])+[a-z]{2,5}$');
+  mobile_No = ('[6-9]\\d{9}');
+  age = ('[0-9]{2,}|[5-9]{1}$');
+  aadhar_card = ('^[2-9][0-9]{11}$');
 
 
   alphabetsWithSpaces(event: any) {
@@ -27,8 +27,8 @@ export class ValidationService {
     const maskSeperator = new RegExp('^([0-9])', 'g');
     return maskSeperator.test(event.key);
   }
-  
- onlyAlphabets(event: any) {
+
+  onlyAlphabets(event: any) {
     if (!this.noSpacesAtStart(event)) {
       return false
     }
@@ -65,5 +65,18 @@ export class ValidationService {
   alphaNumeric(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z0-9])', 'g');
     return maskSeperator.test(event.key);
+  }
+  noFirstSpaceAllow(event: any) {  // for First Space Not Allow
+    if (event.target.selectionStart === 0 && (event.code === 'Space')) {
+      event.preventDefault();
+    }
+  }
+
+  acceptedOnlyNumbers(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 }
