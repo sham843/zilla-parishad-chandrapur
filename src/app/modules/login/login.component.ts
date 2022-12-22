@@ -17,10 +17,10 @@ export class LoginComponent {
   @ViewChild('formDirective') formDirective!: NgForm;
   loginForm!: FormGroup;
   sendOtpFlag: boolean = false;
-  language!:string;
+  language!: string;
   loginUser = [{ id: 1, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: 'School login', m_name: 'शाळा लॉगिन' }];
   //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
-  encryptInfo:any;
+  encryptInfo: any;
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -28,8 +28,8 @@ export class LoginComponent {
     public validation: ValidationService,
     private fb: FormBuilder,
     private commonMethods: CommonMethodsService,
-    private webStorage:WebStorageService,
-    private translate:TranslateService
+    private webStorage: WebStorageService,
+    private translate: TranslateService
   ) {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res ? res : 'English';
@@ -42,7 +42,7 @@ export class LoginComponent {
     this.loginForm = this.fb.group(({
       MobileNo: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
       userType: [1],
-      flag: [this.language=='Marathi'?'mr-IN':'En'],
+      flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       o1: ['', Validators.required],
       o2: ['', Validators.required],
       o3: ['', Validators.required],
@@ -56,7 +56,7 @@ export class LoginComponent {
 
   sendOtp() {
     if (this.loginForm.controls['MobileNo'].status == 'INVALID') {
-      this.commonMethods.snackBar('Please enter valid Mobile No.', 1)
+      this.commonMethods.snackBar(this.language == 'English' ? 'Please enter valid Mobile No. ' : 'कृपया वैध मोबाईल क्रमांक प्रविष्ट करा.', 1)
     } else {
 
       let loginData = this.loginForm.value;
@@ -78,9 +78,11 @@ export class LoginComponent {
 
   clearMobAndOTP() {
     this.sendOtpFlag = false;
-    this.formDirective.resetForm({
-      userType: this.loginForm.value.userType ? this.loginForm.value.userType : 1
-    });
+    this.loginForm.controls['MobileNo'].setValue('');
+    this.loginForm.controls['o1'].setValue('');
+    this.loginForm.controls['o2'].setValue('');
+    this.loginForm.controls['o3'].setValue('');
+    this.loginForm.controls['o4'].setValue('');
   }
 
   onSubmit() {
@@ -94,7 +96,7 @@ export class LoginComponent {
         if (res.statusCode == "200") {
           sessionStorage.setItem('loggedIn', 'true');
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
-          localStorage.setItem('loggedInData',this.encryptInfo );
+          localStorage.setItem('loggedInData', this.encryptInfo);
           this.router.navigate(['../dashboard'])
         }
         else {
