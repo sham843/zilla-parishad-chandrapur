@@ -134,7 +134,7 @@ childCompInfo(obj: any) {
 //#region -----------------------------Delete Dialog Box Start---------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
-      p1: 'Are you sure you want to delete this record?',
+      p1: 'Are you want To Delete Student Record ?',
       p2: '', cardTitle: 'Delete',
       successBtnText: 'Delete',
       dialogIcon: '',
