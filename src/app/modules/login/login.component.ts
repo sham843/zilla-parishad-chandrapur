@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +18,7 @@ export class LoginComponent {
   loginUser = [{ id: 1, name: '', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: '', m_name: 'शाळा लॉगिन' }];
   lang: string = 'mr-IN'
   //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
-
+  encryptInfo:any;
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -85,7 +85,8 @@ export class LoginComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           sessionStorage.setItem('loggedIn', 'true');
-          localStorage.setItem('loggedInData', JSON.stringify(res));
+          this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
+          localStorage.setItem('loggedInData',this.encryptInfo );
           this.router.navigate(['../dashboard'])
         }
         else {

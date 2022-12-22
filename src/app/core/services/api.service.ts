@@ -28,6 +28,12 @@ export class ApiService {
     })
     return language;
   }
+
+  getLocalStorageData(){
+    let localData:any=localStorage.getItem('loggedInData');
+    var deData = CryptoJS.AES.decrypt(decodeURIComponent(localData), 'secret key 123');
+    return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
+  }
   getBaseurl(url: string) {
     switch (url) {     
       case 'baseUrl': return 'https://zpchaservices.mahamining.com/'; break;
