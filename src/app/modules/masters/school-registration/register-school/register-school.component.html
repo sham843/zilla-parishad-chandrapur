@@ -18,6 +18,7 @@
                                 {{dist.district}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['districtId'].hasError('required')">*District Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -28,6 +29,7 @@
                                 {{tal.taluka}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['talukaId'].hasError('required')">*Taluka Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -38,12 +40,14 @@
                                 {{cet.center}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['centerId'].hasError('required')">*Kendra Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>School</mat-label>
                         <input matInput placeholder="Enter School name" formControlName="schoolName">
+                        <!-- <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">*School Name Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -54,6 +58,7 @@
                                 {{cat.categoryName}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">*School Category Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -64,6 +69,7 @@
                                 {{type.schoolType}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['s_TypeId'].hasError('required')">*School Type Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -74,6 +80,7 @@
                                 {{gen.gender}}
                             </mat-option>
                         </mat-select>
+                        <!-- <mat-error *ngIf="registerForm.controls['g_GenderId'].hasError('required')">*Gender Allowed Required</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -84,6 +91,7 @@
                                 {{gr.groupClass}}
                             </mat-option>
                         </mat-select>
+                            <!-- <mat-error *ngIf="registerForm.controls['g_ClassId'].hasError('required')">*Group Class Required</mat-error> -->
                     </mat-form-field>
                 </div>
             </div>

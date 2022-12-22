@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { ErrorsService } from 'src/app/core/services/errors.service';
 @Component({
   selector: 'app-register-school',
   templateUrl: './register-school.component.html',
@@ -18,7 +20,11 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: ApiService, public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+    constructor(
+    private fb: FormBuilder, private service: ApiService,
+    public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+    private common:CommonMethodsService,private error:ErrorsService
+    ) { }
 
   ngOnInit() {
     this.getFormData();
@@ -34,19 +40,20 @@ export class RegisterSchoolComponent {
       modifiedDate: new Date(),
       isDeleted: true,
       id: 0,
-      schoolName: '',
+      schoolName:'',
       m_SchoolName: '',
-      stateId: 0,
-      districtId: '',
-      talukaId: '',
-      centerId: '',
-      s_CategoryId: '',
-      s_TypeId: '',
-      g_GenderId: '',
-      g_ClassId: '',
+      stateId:1,
+      districtId:'',
+      talukaId:'',
+      centerId:'',
+      s_CategoryId:'',
+      s_TypeId:'',
+      g_GenderId:'',
+      g_ClassId:'',
       lan: ''
     })
   }
+
 
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=en', false, false, false, 'baseUrl');
@@ -94,8 +101,13 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.schoolcategoryArray = res.responseData;
+        }else {
+          this.schoolcategoryArray = [];
+          this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }),
+      }),error: (error: any) => {
+        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }
     })
     this.editFlag ? this.getSchoolType() : '';
   }
@@ -162,6 +174,7 @@ export class RegisterSchoolComponent {
 
 
   onSubmitData() {
+    debugger
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
       return
@@ -170,6 +183,7 @@ export class RegisterSchoolComponent {
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
+            this.common.snackBar(res.statusMessage,1);
             this.registerForm.reset();
             this.dialogRef.close();
           }
@@ -181,6 +195,7 @@ export class RegisterSchoolComponent {
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
+            this.common.snackBar(res.statusMessage,1);
             this.registerForm.reset();
             this.dialogRef.close();
           }
@@ -193,27 +208,8 @@ export class RegisterSchoolComponent {
     this.editFlag=false;
   }
 
-  // onDeletData(obj?:any){
-  //   obj=this.data;
-  //   console.log(obj);
-  //   let delObj={
-  //     "id":obj.id,
-  //     "modifiedBy": 0,
-  //     "modifiedDate": "2022-12-21T12:56:19.376Z",
-  //     "lan":''    
-  //   }
-  //   this.service.setHttp('delete', 'zp_chandrapur/School/Delete?lan=en', false, delObj, false, 'baseUrl');
-  //   this.service.getHttp().subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == '200') {
-  //         this.dialogRef.close();
-  //       }
-  //     }),
-  //   })
-  // }
-    
-
-  }
+   
+ }
 
 
 
