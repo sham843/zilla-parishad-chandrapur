@@ -8,7 +8,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -23,6 +23,7 @@ export class SchoolRegistrationComponent {
   talukaArray = new Array();
   centerArray = new Array();
   filterForm!: FormGroup;
+  tableDataArray=new Array();
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
@@ -30,7 +31,8 @@ export class SchoolRegistrationComponent {
     private errorService: ErrorsService,
     private fb: FormBuilder,
     private master: MasterService,
-    private commonMethod: CommonMethodsService
+    private commonMethod: CommonMethodsService,
+    private excelPdf: ExcelPdfDownloadService
   ) { }
 
   ngOnInit() {
@@ -51,27 +53,27 @@ export class SchoolRegistrationComponent {
   getTableData(flag?: string) {
     let formValue = this.filterForm.value || '' ;
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDataArray = new Array();
+    this.tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
-          tableDataArray = res.responseData.responseData1;
+          this.tableDataArray = res.responseData.responseData1;
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           alert('try one more time')
-          tableDataArray = [];
+          this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
+        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
           displayedColumns: displayedColumns,
-          tableData: tableDataArray,
+          tableData: this.tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders
         };
@@ -79,6 +81,13 @@ export class SchoolRegistrationComponent {
       },
       error: ((err: any) => { this.errorService.handelError(err) })
     });
+  }
+
+  excelDownload() {
+    let pageName='Designation Master';
+    let header=['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
+    let column= ['srNo', 'schoolName', 'center', 'taluka', 'action'];
+    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }
 
   clearFilter() {
