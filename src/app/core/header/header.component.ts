@@ -55,11 +55,11 @@ export class HeaderComponent {
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',
       data: {
-        p1: 'Are You Sure',
+        p1: 'Are You Sure?',
         p2: '',
         cardTitle: 'Logout',
         successBtnText: 'Logout',
-        dialogIcon: 'assets/images/trash.gif',
+        dialogIcon: 'assets/images/logout.gif',
         cancelBtnText: 'Cancel',
       },
       disableClose: true,

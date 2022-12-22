@@ -69,3 +69,7 @@ input:-webkit-autofill:active {
 .mat-mdc-form-field-icon-prefix>.mat-icon{
     padding: 6px !important;
 }
+.mat-mdc-table .mat-mdc-header-row,
+.mat-mdc-table .mdc-data-table__row {
+    height: 42px !important;
+  }
