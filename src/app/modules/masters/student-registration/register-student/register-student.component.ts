@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -64,16 +64,16 @@ addData:any;
       "f_Name": [''],
       "m_Name": [''],
       "l_Name": [''],
-     "districtId": [1],
-      "talukaId": [ ],
-      "centerId": [ ],
-      "schoolId": [ ],
-      "standardId":[ ],
+     "districtId": [1 ,[Validators.required]],
+      "talukaId": [ ,[Validators.required]],
+      "centerId": [ ,[Validators.required]],
+      "schoolId": [ ,[Validators.required]],
+      "standardId": [ ,[Validators.required]],
       "saralId": [''],
-      "genderId":[ ],
+      "genderId": [ ,[Validators.required]],
       "dob": [''],
       "aadharNo": [''],
-      "religionId":[ ],
+      "religionId": [ ,[Validators.required]],
       "cast": [''],
       "mobileNo": ['']     
     })
@@ -87,7 +87,7 @@ addData:any;
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
           // console.log("this.districtArray",this.districtArray)
-          // this.getTaluka();
+          this.getTaluka();
           if (this.editFlag == true) {
             this.studentFrm.controls['districtId'].setValue(this.data.district);
             this.getTaluka();

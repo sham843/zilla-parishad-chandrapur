@@ -19,6 +19,9 @@
                                 [value]="district.id">{{district.district}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['districtId'].hasError('required')">
+                            District is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -28,6 +31,9 @@
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['talukaId'].hasError('required')">
+                            Taluka is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -38,6 +44,9 @@
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
+                            Kendra is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -47,6 +56,9 @@
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
+                            School is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -56,6 +68,9 @@
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
+                            School is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -95,6 +110,11 @@
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['genderId'].errors">
+                            <span class="text-danger" *ngIf="f['genderId'].hasError('required')">
+                                Please Select Gender
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -119,6 +139,11 @@
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="f['religionId'].errors">
+                            <span class="text-danger" *ngIf="f['religionId'].hasError('required')">
+                                Please Select Religion
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
