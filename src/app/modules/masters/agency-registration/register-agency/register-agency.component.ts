@@ -41,6 +41,7 @@ export class RegisterAgencyComponent {
   getAgencyControl() {
     this.agencyForm = this.fb.group({
       agencyName: [this.data?this.data.agencyName:'', [Validators.required]],
+      agencyNameMr: [this.data?this.data.m_AgencyName:'', [Validators.required]],
       registrationNo: [this.data?this.data.registrationNo:'', [Validators.required]],
       contactPerson: [this.data?this.data.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       district: [this.data?this.data.districtId:'', [Validators.required]],
@@ -94,8 +95,10 @@ export class RegisterAgencyComponent {
       })
     }
   }
-
   clearForm(formDirective:any){
     formDirective.resetForm();
+  }
+  contactNo(){
+    this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(' '):'';
   }
 }

@@ -59,7 +59,9 @@
         "please_enter_contact_number":"कृपया संपर्क क्रमांक प्रविष्ट करा",
         "agency_registration":"एजन्सी नोंदणी",
         "Add_agency":"एजन्सी जोडा",
-        "agency_marathi_name":"एजन्सीचे मराठी नाव"
+        "agency_marathi_name":"एजन्सीचे मराठी नाव",
+        "please_enter_valid_emailId":"कृपया वैध ईमेल आयडी प्रविष्ट करा",
+        "please_enter_valid_contact_no":"कृपया वैध संपर्क क्रमांक प्रविष्ट करा"
     },
     "login":{
         "officer_login":"अधिकारी लॉगिन",
