@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { RegisterSchoolComponent } from './register-school/register-school.component';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -18,49 +18,49 @@ export class SchoolRegistrationComponent {
   stateArr = new Array();
   districtArr = new Array();
   lang: string = 'en';
-  pageNumber:Number=1;
-  districtArray=new Array();
-  talukaArray=new Array();
-  centerArray=new Array();
-  filterForm!:FormGroup;
+  pageNumber: Number = 1;
+  districtArray = new Array();
+  talukaArray = new Array();
+  centerArray = new Array();
+  filterForm!: FormGroup;
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
-    private apiService:ApiService,
-    private errorService:ErrorsService,
-    private fb:FormBuilder,
-    private master:MasterService,
-    private commonMethod:CommonMethodsService
+    private apiService: ApiService,
+    private errorService: ErrorsService,
+    private fb: FormBuilder,
+    private master: MasterService,
+    private commonMethod: CommonMethodsService
 
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
-    this.getTableData();
     this.getFilterFormData();
     this.getTaluka();
+    this.getTableData();
   }
 
-  getFilterFormData(){
-    this.filterForm=this.fb.group({
-      talukaId:'',
-      centerId:''
+  getFilterFormData() {
+    this.filterForm = this.fb.group({
+      talukaId: [0],
+      centerId:[0]
     })
   }
   // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=en
-  getTableData(flag?:string){
-    // let formValue=this.filterForm.value || '' ;
-    this.pageNumber =   flag == 'filter'? 1 :this.pageNumber;
+  getTableData(flag?: string) {
+    let formValue=this.filterForm.value;
+    this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
     console.log(str);
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?'+str, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?'+str+'&TalukaId='+formValue.talukaId +'&CenterId='+formValue.centerId +'&lan='+ this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        if (res.statusCode == "200") {      
+        if (res.statusCode == "200") {
           tableDataArray = res.responseData.responseData1;
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
@@ -68,25 +68,27 @@ export class SchoolRegistrationComponent {
           tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center','taluka','action'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra','Taluka','Action'];
-        console.log("Table Data",tableDataArray);
+        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
+        console.log("Table Data", tableDataArray);
         let tableData = {
           pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '', pagintion:true,
-          displayedColumns: displayedColumns, 
+          img: '', blink: '', badge: '', isBlock: '', pagintion: true,
+          displayedColumns: displayedColumns,
           tableData: tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders
         };
-        console.log(res.responseData.responseData1,'aaaa');
+        console.log(res.responseData.responseData1, 'aaaa');
         this.apiService.tableData.next(tableData);
       },
       error: ((err: any) => { this.errorService.handelError(err) })
     });
 
   }
-
+  clearFilter(){
+    this.filterForm.reset();
+  }
   childCompInfo(obj?: any) {
     switch (obj.label) {
       case 'Pagination':
@@ -95,12 +97,14 @@ export class SchoolRegistrationComponent {
         break;
       case 'Edit':
         this.addSchoolData(obj);
+        this.getTableData();
         break;
       case 'Block':
         this.globalDialogOpen();
         break;
-        case 'Delete':
-        this.globalDialogOpen(obj)
+      case 'Delete':
+        this.globalDialogOpen(obj);
+        this.getTableData();
     }
   }
   addSchoolData(obj?: any) {
@@ -111,13 +115,14 @@ export class SchoolRegistrationComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
-     result == 'Yes' ?  this.getTableData() : ''
+      console.log(result);
+       this.getTableData()
     });
     this.filterForm.reset();
   }
 
   getTaluka() {
-    this.master.getAllTaluka(this.lang,1).subscribe({
+    this.master.getAllTaluka(this.lang, 1).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
@@ -133,10 +138,10 @@ export class SchoolRegistrationComponent {
     })
   }
 
- 
-  getCenter(){
-    let formData=this.filterForm.value.talukaId;
-    this.master.getAllCenter(this.lang,formData).subscribe({
+
+  getCenter() {
+    let formData = this.filterForm.value.talukaId;
+    this.master.getAllCenter(this.lang, formData).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -152,35 +157,37 @@ export class SchoolRegistrationComponent {
     })
   }
 
-  globalDialogOpen(delObj?:any) {
-    let dataObj={
-      cancelButton: 'Cancel',
-      okButton: 'Delete'
+  globalDialogOpen(delObj?: any) {
+    let dataObj = {
+      cancelBtnText: 'Cancel',
+      successBtnText: 'Delete'
     }
-    const dialogRef =this.dialog.open(GlobalDialogComponent, {
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
-      data:dataObj,
+      data: dataObj,
       disableClose: true,
-      autoFocus: false, 
+      autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
-      result == 'Yes' ?  this.getTableData() : ''
-     let deleteObj
-     deleteObj={
-      id:delObj.id,
-      modifiedBy: 0,
-      modifiedDate:new Date(),
-      lan:'en'
-     }
-     this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=en', false, deleteObj, false, 'baseUrl');
-     this.apiService.getHttp().subscribe({
-       next: ((res: any) => {
-         if (res.statusCode == '200') {
-            this.getTableData();
-         }
-       }),
-     })
-     });
-    console.log(delObj);
+      if (result == 'Yes') {
+        let deleteObj
+        deleteObj = {
+          id: delObj.id,
+          modifiedBy: 0,
+          modifiedDate: new Date(),
+          lan:this.lang
+        }
+        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan='+this.lang, false, deleteObj, false, 'baseUrl');
+        this.apiService.getHttp().subscribe({
+          next: ((res: any) => {
+            if (res.statusCode == '200') {
+              this.getTableData();
+            }
+          }),
+        })
+      }else{
+        this.getTableData();
+      }
+    });
   }
 }

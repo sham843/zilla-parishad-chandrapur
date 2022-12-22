@@ -42,15 +42,89 @@ export class ExcelPdfDownloadService {
   //#endregion-------------------------------------------------------download pdf method end-------------------------------------------------------
  
   //#region----------------------------------------------------------download excel method start--------------------------------------
-  downloadExcel(){
-    this.numToAlpha
-      // Create workbook and worksheet
-      const workbook = new ExcelJS.Workbook();
-      //Add Data Conditional Formating
-        workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
-          const blob = new Blob([data], { type: EXCEL_TYPE });
-          FileSaver.saveAs(blob, "School Registration" + EXCEL_EXTENSION);
-        });
+  downloadExcel(data:any,pageName:any,key:any,headersArray:any){
+    let keyCenterNo = ""
+    if (key.length == 4) {
+      keyCenterNo = "C"
+    } else {
+      keyCenterNo = String.fromCharCode(Math.ceil(key.length / 2) + 64)
+    }
+    const header = key;
+    let result: any = data.map((obj: any) => {
+      let filterObj: any = {};
+      for (let i: any = 0; i < headersArray.length; i++) {
+        filterObj[headersArray[i]] = obj[headersArray[i]];
+      }
+      return filterObj;
+    });
+    // Create workbook and worksheet
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = 'Snippet Coder';
+    workbook.lastModifiedBy = 'SnippetCoder';
+    workbook.created = new Date();
+    workbook.modified = new Date();
+    const worksheet = workbook.addWorksheet(pageName);
+    // Adding Header Row
+    worksheet.addRow([]);
+    worksheet.mergeCells(keyCenterNo + '4:' + this.numToAlpha(header.length - 2) + '4');
+    worksheet.getCell(keyCenterNo + '4').value = pageName;
+    worksheet.getCell(keyCenterNo + '4').alignment = { horizontal: 'center' };
+    worksheet.getCell(keyCenterNo + '4').font = { size: 15, bold: true };
+    
+    const headerRow = worksheet.addRow(header);
+    headerRow.eachCell((cell: any, index: any) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: {
+          argb: 'FFFFFFFF'
+        },
+        bgColor: {
+          argb: 'FFFFFFFF'
+        },
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+      cell.font = { size: 12, bold: true }
+      worksheet.getColumn(index).width = header[index - 1].length < 20 ? 20 : header[index - 1].length;
+      worksheet.getColumn(1).width = 10;
+      worksheet.getColumn(3).width = 20;
+      worksheet.getColumn(4).width = 50;
+    });
+
+    //Add Data Conditional Formating
+ result.forEach((element: any) => {
+      const eachRow: any = [];
+      headersArray.forEach((column: any) => {
+        eachRow.push(element[column]);
+      })
+
+// if (element.isDeleted === 'Y') {
+      const deletedRow = worksheet.addRow(eachRow);
+      deletedRow.eachCell((cell: any) => {
+        cell.font = {
+          align: 'left'
+        };
+        cell.alignment = {
+          vertical: 'middle', horizontal: 'left'
+        };
+        cell.border = {
+          top: { style: 'thin' },
+          left: { tyle: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' }
+        };
+      }); 
+    })
+
+      workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
+        const blob = new Blob([data], { type: EXCEL_TYPE });
+        FileSaver.saveAs(blob, pageName + EXCEL_EXTENSION);
+      });
   }
   //#endregion-------------------------------------------------------download excel method end--------------------------------------
 }
