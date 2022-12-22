@@ -33,7 +33,7 @@ export class RegisterAgencyComponent {
   ) {}
 
   ngOnInit() {
-    this.lang = this.apiService.getLanguageFlag()
+    this.lang = this.apiService.getLanguageFlag();
     this.getAgencyControl()
     this.getDistrict()
   }
