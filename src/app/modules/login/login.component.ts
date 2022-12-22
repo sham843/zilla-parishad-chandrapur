@@ -123,7 +123,7 @@ export class LoginComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           if(res.responseData.pageLstModels.length == 0){
-            this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : 'काहीतरी चूक झाली', 1)
+            this.commonMethods.snackBar(this.language == 'English' ? 'Soory you not have right to access page. Please contact admin.' : 'सोरी तुम्हाला पृष्ठावर प्रवेश करण्याचा अधिकार नाही. कृपया प्रशासकाशी संपर्क साधा.', 1)
             return
           }
           sessionStorage.setItem('loggedIn', 'true');
