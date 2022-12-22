@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { ApiService } from 'src/app/core/services/api.service'
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service'
+import { WebStorageService } from 'src/app/core/services/web-storage.service'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { RegisterAgencyComponent } from './register-agency/register-agency.component'
 
@@ -17,20 +18,25 @@ export class AgencyRegistrationComponent {
   totalItem!: number
   tableDataArray = new Array()
   tableData!: object
-
+language:any;
   constructor(
     public dialog: MatDialog,
     private excelPdf: ExcelPdfDownloadService,
     private apiService: ApiService,
+    private webStorage:WebStorageService
   ) {}
 
   ngOnInit() {
     this.getAllAgencyData();
+    this.webStorage.langNameOnChange.subscribe((res: any) => {
+      res == 'Marathi' ? (this.language = 'mr-IN') : (this.language = 'en');
+      this.getAllAgencyData();
+    })
   }
   //--------------------------------------------------------get agency data-----------------------------------------------------------
   getAllAgencyData() {
     let serchText = this.searchControl.value ? this.searchControl.value : ''
-    let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}`;
+    let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}&lan=${this.language}`;
     this.apiService.setHttp('get','zp_chandrapur/agency/GetAll?' + obj,true,false,false,'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
@@ -41,7 +47,8 @@ export class AgencyRegistrationComponent {
         this.totalItem = 0
       }
       let displayedColumns = ['srNo', 'agencyName','contactNo','emailId','action']
-      let displayedheaders = [ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
+      let displayedheaders;
+      this.language =='mr-IN'? displayedheaders=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी','कृती']:displayedheaders=[ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         img: '',
@@ -118,9 +125,12 @@ export class AgencyRegistrationComponent {
   }
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
   pdfDownload() {
-    this.excelPdf.downLoadPdf()
+    let pageName='Agency Registration';
+    let header=['Sr.No.','Agency Name','Contact No.','Email Id'];
+    let column=['srNo', 'agencyName','contactNo','emailId'];
+    this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
   }
   excelDownload() {
-    this.excelPdf.downloadExcel()
+    this.excelPdf.downloadExcel();
   }
 }
