@@ -349,7 +349,12 @@ onClickSubmit() {
    clearDropdown(flag:any){
 switch(flag){
   case 'talukaId':
-    this.studentFrm.controls['talukaId'].setValue('')
+    this.studentFrm.controls['centerId'].setValue(0);
+    this.studentFrm.controls['schoolId'].setValue(0);
+    break;
+    case 'centerId':
+      this.studentFrm.controls['schoolId'].setValue(0);
+      break;
 }
    }
 

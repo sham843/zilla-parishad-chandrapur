@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { ErrorsService } from 'src/app/core/services/errors.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
+// import { ErrorsService } from 'src/app/core/services/errors.service';
+// import { MasterService } from 'src/app/core/services/master.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 
@@ -16,6 +16,12 @@ import { RegisterStudentComponent } from './register-student/register-student.co
 })
 export class StudentRegistrationComponent {
   searchContent = new FormControl('');
+  talukaId = new FormControl('');
+  centerId = new FormControl('');
+  schoolId = new FormControl('');
+  talukaArray=new Array();
+  centerArray=new Array();
+  schoolArray=new Array();
   pageNumber: number = 1;
   dataObj: any;
   fname!:undefined;
@@ -23,15 +29,15 @@ export class StudentRegistrationComponent {
   lang: string | any = 'English';
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
-    private errors: ErrorsService,
-    private webStorage:WebStorageService,
-    private commonService:CommonMethodsService
+    //  private errors: ErrorsService,
+    private commonMethod:CommonMethodsService,
+    // private master:MasterService,
+    // private errorService : ErrorsService
+    
   ) { }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res:any)=>{
-      this.lang=res
-    })
+    // this.lang = this.apiService.getLanguageFlag();
     this.getTableData()
   }
 
@@ -45,8 +51,13 @@ export class StudentRegistrationComponent {
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
-    let str = `?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&searchText=' + (this.searchContent.value), false, false, false, 'baseUrl');
+    // let str = `?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
+    let str=`?pageno=${this.pageNumber}&pagesize=10&
+    TalukaId=${this.talukaId.value ? this.talukaId.value : 0}
+    &CenterId=${this.centerId.value ? this.centerId.value : 0}
+    &SchoolId=${this.schoolId.value ? this.schoolId.value : 0}
+    &lan=${this.lang}`;
+   this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&searchText=' + (this.searchContent.value), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
 
       next: (res: any) => {
@@ -72,7 +83,7 @@ export class StudentRegistrationComponent {
         };
         this.apiService.tableData.next(tableData);
       },
-      error: ((err: any) => { this.errors.handelError(err) })
+      // error: ((err: any) => { this.errors.handelError(err) })
     });
   }
 
@@ -138,16 +149,16 @@ export class StudentRegistrationComponent {
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
-            this.commonService.snackBar(res.statusMessage, 0);
+            this.commonMethod.snackBar(res.statusMessage, 0);
             this.getTableData();
           }
           else {
-            this.commonService.snackBar(res.statusMessage, 1);
+            this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
-        error: (error: any) => {
-          this.errors.handelError(error.status);
-        }
+        // error: (error: any) => {
+        //   this.errors.handelError(error.status);
+        // }
       })
     });
    
@@ -155,8 +166,65 @@ export class StudentRegistrationComponent {
 
   clearFilter() {
     this.searchContent.setValue('');
+
     this.getTableData();
   }
+
+
+  // getTaluka() {
+  //  this.master.getAllTaluka(this.lang,1).subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.talukaArray = res.responseData;
+  //         }
+  //       else {
+  //         this.talukaArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   })
+  // }
+
+  // getCenter() {
+  //   let talukaId = this.talukaId.value;
+  //    this.master.getAllCenter(this.lang,talukaId).subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.centerArray = res.responseData;
+  //      }
+  //       else {
+  //         this.centerArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   }) 
+  // }
+
+  // getSchool() {
+  //   let centerId = this.centerId.value;
+  //   this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' +  this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.schoolArray = res.responseData;
+  //       }
+  //       else {
+  //         this.schoolArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     }
+  //   })
+  // }
+
 
  
 
