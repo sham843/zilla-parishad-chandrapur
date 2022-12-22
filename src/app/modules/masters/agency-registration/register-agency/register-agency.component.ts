@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
 import { MasterService } from 'src/app/core/services/master.service'
@@ -27,7 +28,8 @@ export class RegisterAgencyComponent {
     private master: MasterService,
     private apiService: ApiService,
     private errors:ErrorsService,
-    public validation:ValidationService
+    public validation:ValidationService,
+    public translate:TranslateService
   ) {}
 
   ngOnInit() {

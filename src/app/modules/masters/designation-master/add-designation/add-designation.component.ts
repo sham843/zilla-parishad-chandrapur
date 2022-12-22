@@ -2,9 +2,10 @@ import { Component, ErrorHandler, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { DesignationMasterComponent } from '../designation-master.component';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -20,11 +21,12 @@ export class AddDesignationComponent {
   setDesignationLevel = new Array();
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-
   constructor(private fb: FormBuilder, private commonMethod: CommonMethodsService, private apiService: ApiService,
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
-              private master: MasterService){}
+              private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>){}
   ngOnInit(){
+    console.log(this.data,'editData');
+    
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
@@ -60,7 +62,6 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
-          // console.log(this.desigantionType,this.data.linkedToDesignationId ,"Type");
           this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId),this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
@@ -76,7 +77,6 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
-          // console.log(this.desigantionType,this.data.linkedToDesignationId ,"Type");
           this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
@@ -87,29 +87,57 @@ export class AddDesignationComponent {
   //#endregion---------------------------------------------dropdown api's end---------------------------------------------------
 
   onClickSubmit(formDirective?: any) {
+
  if (!this.designationForm.valid) {
       return;
-  } else {
-    // {
-  //   "isDeleted": true,
-  //   "userId": 0
-  // }
+  } else if(!this.editFlag){
     let postObj = {
       id: 0,
       linkedToDesignationId:this.designationForm.value.linkedToDesignationId,
       designationLevelId:this.designationForm.value.designationLevelId,
       designationName:this.designationForm.value.designationName,
-      linkedToDesignationName: "",
-      designationLevelName: "",
+      linkedToDesignationLevelName:'',
+      linkedToDesignationName: '',
+      designationLevelName:'',
       isDeleted: true,
       userId: 0
     };
-    this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, postObj, false, 'baseUrl');
+    this.apiService.setHttp('POST','designation/save-designation-details?flag=' + this.lang, false, postObj, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           formDirective?.resetForm();
           this.controlForm();
+          this.dialogRef.close();
+          this.commonMethod.snackBar(res.statusMessage, 0)
+        } else {
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+      }
+    })
+  }else if(this.editFlag){
+let putObj = {
+      id: this.data.id,
+      linkedToDesignationLevelId:this.designationForm.value.dummyDesigLvlkey,
+      linkedToDesignationId:this.designationForm.value.linkedToDesignationId,
+      designationLevelId:this.designationForm.value.designationLevelId,
+      designationName:this.designationForm.value.designationName,
+      linkedToDesignationLevelName:'',
+      linkedToDesignationName:'',
+      designationLevelName:'',
+      isDeleted: false,
+      userId: 0
+    };
+    this.apiService.setHttp('PUT','designation/update-designation-details?flag=' + this.lang, false, putObj, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == '200') {
+          formDirective?.resetForm();
+          this.controlForm();
+          this.dialogRef.close();
           this.commonMethod.snackBar(res.statusMessage, 0)
         } else {
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -126,9 +154,6 @@ editMethod(){
   this.editFlag = true;
   this.designationForm.patchValue({
     id: this.data.id,
-    // dummyDesigLvlkey:this.importedEditObj.designationLevelId,
-    // linkedToDesignationId:this.importedEditObj.linkedToDesignationId,
-    // designationLevelId:this.importedEditObj.designationLevelId,
     designationName:this.data.designationName,
     linkedToDesignationName: "",
     designationLevelName: "",

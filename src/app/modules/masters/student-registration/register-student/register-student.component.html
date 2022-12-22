@@ -1,4 +1,5 @@
 <mat-card class="plain-card">
+    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="text-main mb-0 fw-bold">Register Student</h6>
@@ -9,12 +10,12 @@
     </mat-card-header>
     <mat-card-content class="card-body">
 
-        <form [formGroup]="studentFrm">
+        
             <div class="row g-4 mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>District</mat-label>
-                        <mat-select placeholder="Select" formControlName="districtId" (selectionChange)="getTaluka()">
+                        <mat-select placeholder="Select" formControlName="districtId" (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
                             </mat-option>
@@ -27,7 +28,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter()">
+                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter(studentFrm.value.talukaId)">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
@@ -76,11 +77,11 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Parent Contact No</mat-label>
-                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo"
+                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="parentsMobileNo"
                         (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
-                        <mat-error *ngIf="f['mobileNo'].errors">
-                            <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
+                        <mat-error *ngIf="f['parentsMobileNo'].errors">
+                            <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('required')">
                                 Please Enter Contact Number
                             </span>
                         </mat-error>
@@ -126,9 +127,16 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                  <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Saral ID</mat-label>
-                        <input matInput placeholder="Enter Saral ID Here" formControlName="saralId">
+                        <input matInput placeholder="Enter Saral ID Here" formControlName="saralId"
+                        (keypress)="validation.alphaNumeric($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['l_Name'].errors">
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
+                                Please Enter Saral Id
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -146,7 +154,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Birth Date</mat-label>
-                        <input matInput [matDatepicker]="picker"  [readonly]="true" formControlName="dob" (click)="picker.open()">
+                        <input matInput [matDatepicker]="picker"  [readonly]="true" placeholder="Enter Birth Date Here..."
+                        formControlName="dob" (click)="picker.open()">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
@@ -157,7 +166,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Aadhar Card</mat-label>
-                        <input matInput placeholder="Image upload" formControlName="aadharNo"
+                        <input matInput placeholder="Image upload" placeholder="Enter Aadhar Card Number Here..."  formControlName="aadharNo"
                       (keyup)="validation.removeSpaceAtBegining($event)" maxlength="12">
                         <mat-error *ngIf="f['aadharNo'].errors">
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
@@ -193,13 +202,13 @@
                     </mat-form-field>
                 </div>
             </div>
-        </form>
+       
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex align-items-center justify-content-end w-100">
-            <button mat-stroked-button class="btn-second me-2">Cancel</button>
-            <button type="submit" mat-stroked-button class="btn-main"
-                (click)="onClickSubmit()">{{editFlag ? "Update" : "Submit"}}</button>
+            <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
+            <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
         </div>
     </mat-card-footer>
+</form>
 </mat-card>

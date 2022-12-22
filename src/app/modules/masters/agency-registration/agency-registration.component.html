@@ -1,13 +1,13 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page">Masters</li>
-      <li class="breadcrumb-item active" aria-current="page">Designation Master</li>
+      <li class="breadcrumb-item" aria-current="page">{{'common.masters' |translate}}</li>
+      <li class="breadcrumb-item active" aria-current="page">{{'common.designation' |translate}}</li>
     </ol>
   </nav>
   <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-          <h6 class="text-main mb-0">Agency Registration</h6>
+          <h6 class="text-main mb-0">{{'agency.agency_registration' |translate}}</h6>
           <div class="d-flex align-items-center gap-2">
             <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
               <mat-icon>
@@ -17,13 +17,13 @@
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item (click)="pdfDownload()">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                  <span>PDF</span>
+                  <span>{{'common.pdf' |translate}}</span>
                   <i class='bx bxs-file-pdf text-danger'></i>
                 </div>
               </button>
               <button mat-menu-item (click)="excelDownload()">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                  <span>Excel</span>
+                  <span>{{'common.excel' |translate}}</span>
                   <i class='bx bxs-file text-primary'></i>
                 </div>
               </button>
@@ -31,7 +31,7 @@
             <button mat-flat-button class="btn-main" (click)="registeragency()">
               <mat-icon>add</mat-icon>
               <span>
-                Add Agency
+                {{'agency.Add_agency' |translate}}
               </span>
             </button>
           </div>
@@ -41,12 +41,12 @@
         <div class="row w-100">
             <div class="col-sm-3 d-flex">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Search By Name/Contact</mat-label>
-                    <input matInput placeholder="Search by name/contact" [formControl]="searchControl">
+                    <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
+                    <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" [formControl]="searchControl">
                   </mat-form-field>
                   <div class="col-sm-auto">
-                    <button (click)="getAllAgencyData()" mat-flat-button class="btn-main mx-2">Filter</button>
-                    <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
+                    <button (click)="getAllAgencyData()" mat-flat-button class="btn-main mx-2">{{'common.filter' |translate}}</button>
+                    <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' |translate}}</button>
                   </div>
             </div>
         </div>
