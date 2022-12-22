@@ -31,7 +31,6 @@ export class SchoolRegistrationComponent {
     private fb: FormBuilder,
     private master: MasterService,
     private commonMethod: CommonMethodsService
-
   ) { }
 
   ngOnInit() {
@@ -46,18 +45,16 @@ export class SchoolRegistrationComponent {
   getFilterFormData() {
     this.filterForm = this.fb.group({
       talukaId: [0],
-      centerId:[0]
+      centerId: [0]
     })
   }
-  // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&lan=en
   getTableData(flag?: string) {
-    let formValue=this.filterForm.value;
+    let formValue = this.filterForm.value || '' ;
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
-    console.log(str);
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?'+str+'&TalukaId='+formValue.talukaId +'&CenterId='+formValue.centerId +'&lan='+ this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -70,7 +67,6 @@ export class SchoolRegistrationComponent {
         }
         let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action'];
         let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
-        console.log("Table Data", tableDataArray);
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion: true,
@@ -79,16 +75,17 @@ export class SchoolRegistrationComponent {
           tableSize: tableDatasize,
           tableHeaders: displayedheaders
         };
-        console.log(res.responseData.responseData1, 'aaaa');
         this.apiService.tableData.next(tableData);
       },
       error: ((err: any) => { this.errorService.handelError(err) })
     });
+  }
 
-  }
-  clearFilter(){
+  clearFilter() {
     this.filterForm.reset();
+    this.getTableData();
   }
+
   childCompInfo(obj?: any) {
     switch (obj.label) {
       case 'Pagination':
@@ -107,6 +104,7 @@ export class SchoolRegistrationComponent {
         this.getTableData();
     }
   }
+
   addSchoolData(obj?: any) {
     const dialogRef = this.dialog.open(RegisterSchoolComponent, {
       width: '700px',
@@ -116,7 +114,7 @@ export class SchoolRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-       this.getTableData()
+      this.getTableData()
     });
     this.filterForm.reset();
   }
@@ -175,17 +173,19 @@ export class SchoolRegistrationComponent {
           id: delObj.id,
           modifiedBy: 0,
           modifiedDate: new Date(),
-          lan:this.lang
+          lan: this.lang
         }
-        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan='+this.lang, false, deleteObj, false, 'baseUrl');
+        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: ((res: any) => {
             if (res.statusCode == '200') {
               this.getTableData();
             }
-          }),
+          }), error: (error: any) => {
+            this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+          }
         })
-      }else{
+      } else {
         this.getTableData();
       }
     });

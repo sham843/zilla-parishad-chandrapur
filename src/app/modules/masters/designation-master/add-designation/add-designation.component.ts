@@ -1,11 +1,12 @@
 import { Component, ErrorHandler, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { DesignationMasterComponent } from '../designation-master.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -23,10 +24,8 @@ export class AddDesignationComponent {
 
   constructor(private fb: FormBuilder, private commonMethod: CommonMethodsService, private apiService: ApiService,
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
-              private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>){}
+              private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner:NgxSpinnerService){}
   ngOnInit(){
-    console.log(this.data,'editData');
-    
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
@@ -36,10 +35,10 @@ export class AddDesignationComponent {
 
   controlForm(){
     this.designationForm = this.fb.group({
-      dummyDesigLvlkey:[],
-      linkedToDesignationId:[],
-      designationLevelId:[],
-      designationName:['']
+      dummyDesigLvlkey:[,Validators.required],
+      linkedToDesignationId:[,Validators.required],
+      designationLevelId:[,Validators.required],
+      designationName:['',Validators.required]
     })
   }
 
@@ -91,6 +90,7 @@ export class AddDesignationComponent {
  if (!this.designationForm.valid) {
       return;
   } else if(!this.editFlag){
+    this.spinner.show();
     let postObj = {
       id: 0,
       linkedToDesignationId:this.designationForm.value.linkedToDesignationId,
@@ -105,6 +105,7 @@ export class AddDesignationComponent {
     this.apiService.setHttp('POST','designation/save-designation-details?flag=' + this.lang, false, postObj, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
+        this.spinner.hide();
         if (res.statusCode == '200') {
           formDirective?.resetForm();
           this.controlForm();
@@ -115,10 +116,12 @@ export class AddDesignationComponent {
         }
       }),
       error: (error: any) => {
+        this.spinner.hide();
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }else if(this.editFlag){
+    this.spinner.show();
 let putObj = {
       id: this.data.id,
       linkedToDesignationLevelId:this.designationForm.value.dummyDesigLvlkey,
@@ -134,6 +137,7 @@ let putObj = {
     this.apiService.setHttp('PUT','designation/update-designation-details?flag=' + this.lang, false, putObj, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
+        this.spinner.hide();
         if (res.statusCode == '200') {
           formDirective?.resetForm();
           this.controlForm();
@@ -144,6 +148,7 @@ let putObj = {
         }
       }),
       error: (error: any) => {
+        this.spinner.hide();
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })

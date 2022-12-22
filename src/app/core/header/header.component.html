@@ -35,7 +35,16 @@
                         <mat-icon>translate</mat-icon>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <button class="dropdown-item" (click)="changeLanguage('Marathi')">
+                        <ng-container *ngFor="let getLag of lag">
+                        <button class="dropdown-item" (click)="changeLanguage(getLag)" [class.active]="getLag == selLang">
+                            <div class="d-flex align-items-center">
+                                <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
+                                <span>{{getLag}}</span>
+                            </div>
+                 
+                        </button>
+                    </ng-container>
+                        <!-- <button class="dropdown-item" (click)="changeLanguage('Marathi')">
                             <div class="d-flex align-items-center">
                                 <img src="assets/images/marathi.svg">
                                 <span>Marathi</span>
@@ -46,7 +55,7 @@
                                 <img src="assets/images/english.svg">
                                 <span>English</span>
                             </div>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 

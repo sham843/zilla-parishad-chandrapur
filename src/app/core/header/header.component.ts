@@ -14,6 +14,8 @@ import { WebStorageService } from '../services/web-storage.service'
 export class HeaderComponent {
   @HostBinding('class') className = ''
   language: string = 'English'
+  lag = ['English', 'Marathi'];
+  selLang!: string;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog, private router: Router,
@@ -24,8 +26,13 @@ export class HeaderComponent {
     translate.setDefaultLang('English')
   }
   ngOnInit(): void {
-    let language: any = sessionStorage.getItem('language')
-    this.webStorage.sendlangType(language)
+    let language: any = sessionStorage.getItem('language');
+    this.webStorage.sendlangType(language);
+    this.translate.use(language);
+    
+    this.webStorage.langNameOnChange.subscribe((res:any)=>{
+      this.selLang = res;
+    })
   }
 
   changeTheme(darkMode: any) {

@@ -149,11 +149,13 @@ export class StudentRegistrationComponent {
    
   }
 
-
-
   clearFilter() {
     this.searchContent.setValue('');
     this.getTableData();
   }
+
+ 
+
+
 }
 
