@@ -30,7 +30,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-sm-auto col-auto">
-                        <button mat-flat-button class="btn-main btn-icon" (click)="sendOtp()" *ngIf="!sendOtpFlag">
+                        <button mat-flat-button type="button" class="btn-main btn-icon" (click)="sendOtp()" *ngIf="!sendOtpFlag">
                             <mat-icon>
                                 arrow_circle_right
                             </mat-icon>
@@ -47,30 +47,31 @@
                     <div class="d-flex gap-2">
                         <div class="flex-fill" style="width:55px">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"  class="text-center" formControlName="o1" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                <input matInput placeholder="X"    #input1 class="text-center"
+                                (keyup)="(input1.value.length == 1) ? input2.focus() : 'input1.focus()'" formControlName="o1" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                             </mat-form-field>
                         </div>
                         <div class="flex-fill" style="width:55px">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"  class="text-center"  formControlName="o2" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                <input matInput placeholder="X"   #input2  (keyup)="(input2.value.length == 1) ? input3.focus() : 'input2.focus()'" class="text-center" (keyup.backspace)="input1.focus()"  formControlName="o2" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                             </mat-form-field>
                         </div>
                         <div class="flex-fill" style="width:55px">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"  class="text-center" formControlName="o3"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                <input matInput placeholder="X"   #input3  (keyup)="(input3.value.length == 1) ? input4.focus() : 'input3.focus()'" class="text-center" (keyup.backspace)="input2.focus()" formControlName="o3"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                             </mat-form-field>
                         </div>
                         <div class="flex-fill" style="width:55px">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"   class="text-center" formControlName="o4"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                <input matInput placeholder="X"    #input4 class="text-center" formControlName="o4"   (keyup)="(input4.value.length==1)? 'input4.focus()':''" (keyup.backspace)="input3.focus()"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="text-end mb-3">
-                        <small class="text-muted">0.20 Sec.</small>
+                        <small class="text-muted">{{otpTimer}} Sec.</small>
                     </div>
                     <div class="text-center">
-                        <p class="small mb-4">{{'login.dont_get_otp' | translate}}<a class="text-main">{{'login.resend_otp' | translate}}</a></p>
+                        <p class="small mb-4" *ngIf="otpTimerFlag">{{'login.dont_get_otp' | translate}}<a class="text-main" (click)="sendOtp()"> {{'login.resend_otp' | translate}}</a></p>
 
                         <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit" >{{'login.login' | translate}}</button>
                     </div>
