@@ -33,6 +33,8 @@ export class AddDesignationComponent {
     this.data ? this.editMethod() : this.getDesignationLevel();
   }
 
+  get f() { return this.designationForm.controls };
+
   controlForm(){
     this.designationForm = this.fb.group({
       dummyDesigLvlkey:[,Validators.required],

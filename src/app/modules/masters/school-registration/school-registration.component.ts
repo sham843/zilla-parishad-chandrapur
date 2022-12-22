@@ -8,7 +8,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -23,6 +23,7 @@ export class SchoolRegistrationComponent {
   talukaArray = new Array();
   centerArray = new Array();
   filterForm!: FormGroup;
+  tableDataArray=new Array();
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
@@ -30,7 +31,8 @@ export class SchoolRegistrationComponent {
     private errorService: ErrorsService,
     private fb: FormBuilder,
     private master: MasterService,
-    private commonMethod: CommonMethodsService
+    private commonMethod: CommonMethodsService,
+    private excelPdf: ExcelPdfDownloadService
   ) { }
 
   ngOnInit() {
@@ -51,27 +53,27 @@ export class SchoolRegistrationComponent {
   getTableData(flag?: string) {
     let formValue = this.filterForm.value || '' ;
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDataArray = new Array();
+    this.tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
-          tableDataArray = res.responseData.responseData1;
+          this.tableDataArray = res.responseData.responseData1;
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           alert('try one more time')
-          tableDataArray = [];
+          this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
+        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
           displayedColumns: displayedColumns,
-          tableData: tableDataArray,
+          tableData: this.tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders
         };
@@ -81,9 +83,18 @@ export class SchoolRegistrationComponent {
     });
   }
 
+  excelDownload() {
+    let pageName='Designation Master';
+    let header=['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
+    let column= ['srNo', 'schoolName', 'center', 'taluka', 'action'];
+    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+  }
+
   clearFilter() {
-    this.filterForm.reset();
+    
+    this.getFilterFormData()
     this.getTableData();
+    this.filterForm.reset();
   }
 
   childCompInfo(obj?: any) {
@@ -94,14 +105,14 @@ export class SchoolRegistrationComponent {
         break;
       case 'Edit':
         this.addSchoolData(obj);
-        this.getTableData();
+        // this.getTableData();
         break;
       case 'Block':
         this.globalDialogOpen();
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
-        this.getTableData();
+        // this.getTableData();
     }
   }
 
@@ -116,7 +127,7 @@ export class SchoolRegistrationComponent {
       console.log(result);
       this.getTableData()
     });
-    this.filterForm.reset();
+    
   }
 
   getTaluka() {
@@ -191,3 +202,32 @@ export class SchoolRegistrationComponent {
     });
   }
 }
+
+
+// downloadExcel(){
+//   this.excelDataArr = [];
+//   this.service.setHttp('get', 'whizhack_cms/register/GetAllByPagination?IsDownload=true', false, false, false, 'whizhackService');
+//   this.service.getHttp().subscribe({
+//     next: ((res: any) => {
+//       if (res.statusCode == '200') {
+//         this.excelDataArr = res.responseData?.responseData;
+//         if(this.excelDataArr.length == 0){
+//           this.snack.matSnackBar('No Data Found !!', 1)
+//         }else{
+//           let keyExcelHeader = ['Register ID', 'Name', 'Email ID', 'Date of Birth', 'Contact Number', 'Course Selected', 'Course', 'Gender', 'Country', 'City', 'Qualification', 'Institute Name', 'Degree', 'Year of Passing', 'Percentage', 'Total Experience', 'Message', 'IP Address', 'Operating System', 'Browser'];;
+//           let apiKeys = ['registerId', 'fullName', 'email', 'date_of_Birth', 'mobileNo', 'course_Title', 'pageName', 'gender', 'country', 'city', 'qualification', 'instituteName', 'degree', 'year_of_passing', 'percentage', 'total_Experience', 'message', 'iP_address', 'operating_System', 'browser'];
+//           let nameArr = [{
+//             'sheet_name': 'Enquiries',
+//             'excel_name': 'Enquiries_list'
+//           }];
+//           this.excelService.generateExcel(keyExcelHeader, apiKeys, this.excelDataArr, nameArr);
+//         }       
+//       }else{
+//         this.excelDataArr = [];
+//       }
+//     }), error: (error: any) => {
+//       this.errorSer.handelError(error.status);
+//     }
+//   })
+// }
+
