@@ -15,13 +15,13 @@
               </mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="pdfDownload()">
                 <div class="d-flex align-items-center justify-content-between w-100">
                   <span>PDF</span>
                   <i class='bx bxs-file-pdf text-danger'></i>
                 </div>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="excelDownload()">
                 <div class="d-flex align-items-center justify-content-between w-100">
                   <span>Excel</span>
                   <i class='bx bxs-file text-primary'></i>
@@ -39,16 +39,19 @@
       </mat-card-header>
       <mat-card-header class="card-header">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm d-flex">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Search By Name/Contact</mat-label>
-                    <input matInput placeholder="Search by name/contact">
+                    <input matInput placeholder="Search by name/contact" [formControl]="searchControl">
                   </mat-form-field>
-                
+                  <div class="col-sm-auto">
+                    <button (click)="getAllAgencyData()" mat-flat-button class="btn-main mx-2">Filter</button>
+                    <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
+                  </div>
             </div>
         </div>
       </mat-card-header>
       <mat-card-content class="card-body">
-        Table
+        <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
       </mat-card-content>
   </mat-card>

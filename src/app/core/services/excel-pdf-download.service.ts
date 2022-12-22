@@ -27,6 +27,9 @@ export class ExcelPdfDownloadService {
       head:[header],
        body: [],
     })
+    
+    this.numToAlpha,
+    column
     doc.save('schoolData')
   }
   //#endregion-------------------------------------------------------download pdf method end-------------------------------------------------------

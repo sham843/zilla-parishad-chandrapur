@@ -9,25 +9,41 @@
             </button>
         </div>
     </mat-card-header>
+   <form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm">
     <mat-card-content class="card-body">
         <h6 class="mb-3">Agency Details</h6>
         <div class="row mb-3">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Agency Name</mat-label>
-                    <input matInput placeholder="Enter Agency Name">
+                    <input matInput placeholder="Enter Agency Name" formControlName="agencyName" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['agencyName'].errors">
+                        <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
+                            Please Enter Agency Name
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Registration Number</mat-label>
-                    <input matInput placeholder="Enter Registration Number">
+                    <input matInput placeholder="Enter Registration Number" formControlName="registrationNo" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['registrationNo'].errors">
+                        <span class="text-danger" *ngIf="f['registrationNo'].hasError('required')">
+                            Please Enter Registration Number
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Contact Person</mat-label>
-                    <input matInput placeholder="Enter Contact Person">
+                    <input matInput placeholder="Enter Contact Person" formControlName="contactPerson" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['contactPerson'].errors">
+                        <span class="text-danger" *ngIf="f['contactPerson'].hasError('required')">
+                            Please Enter Contact Person
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -35,27 +51,38 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>District</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select formControlName="district" (selectionChange)="getTalukaArr(agencyForm.value.district)">
+                        <mat-option *ngFor="let dist of districtArr" [value]="dist.id">{{dist.district}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="f['district'].errors">
+                        <span class="text-danger" *ngIf="f['district'].hasError('required')">
+                            Please Select District
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Taluka</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-select formControlName="taluka">
+                        <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="f['taluka'].errors">
+                        <span class="text-danger" *ngIf="f['taluka'].hasError('required')">
+                            Please Select Taluka
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Contact Number</mat-label>
-                    <input matInput placeholder="Enter Contact Person">
+                    <input matInput placeholder="Enter Contact Person" formControlName="contactNo"  maxlength="10" (keypress)="validation.onlyDigits($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['contactNo'].errors">
+                        <span class="text-danger" *ngIf="f['contactNo'].hasError('required')">
+                            Please Enter Contact Number
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -63,21 +90,32 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email ID</mat-label>
-                    <input matInput placeholder="Enter Email id">
+                    <input matInput placeholder="Enter Email id" formControlName="emailId" (keypress)="validation.emailRegex($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['emailId'].errors">
+                        <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
+                            Please Enter Email Id
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Address</mat-label>
-                    <input matInput placeholder="Enter Address">
+                    <input matInput placeholder="Enter Address" formControlName="address" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['address'].errors">
+                        <span class="text-danger" *ngIf="f['address'].hasError('required')">
+                            Please Enter Address
+                        </span>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-between">
-            <button mat-flat-button class="btn-second">Cancel</button>
-            <button mat-flat-button class="btn-main">Submit</button>
+            <button mat-flat-button class="btn-second" type="button" (click)="clearForm(formDirective)">Cancel</button>
+            <button mat-flat-button class="btn-main" type="submit">Submit</button>
         </div>
     </mat-card-footer>
+   </form>
 </mat-card>

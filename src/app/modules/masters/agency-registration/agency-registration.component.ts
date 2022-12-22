@@ -1,20 +1,126 @@
-import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import { RegisterAgencyComponent } from './register-agency/register-agency.component';
+import { Component } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
+import { ApiService } from 'src/app/core/services/api.service'
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service'
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
+import { RegisterAgencyComponent } from './register-agency/register-agency.component'
 
 @Component({
   selector: 'app-agency-registration',
   templateUrl: './agency-registration.component.html',
-  styleUrls: ['./agency-registration.component.scss']
+  styleUrls: ['./agency-registration.component.scss'],
 })
 export class AgencyRegistrationComponent {
-  constructor(public dialog: MatDialog){}
+  searchControl = new FormControl()
+  pageNumber: number = 1
+  totalItem!: number
+  tableDataArray = new Array()
+  tableData!: object
 
-  registeragency(){
-    this.dialog.open(RegisterAgencyComponent, {
-      width:'750px',
-      disableClose: true
-    });
+  constructor(
+    public dialog: MatDialog,
+    private excelPdf: ExcelPdfDownloadService,
+    private apiService: ApiService,
+  ) {}
+
+  ngOnInit() {
+    this.getAllAgencyData();
+  }
+  //--------------------------------------------------------get agency data-----------------------------------------------------------
+  getAllAgencyData() {
+    let serchText = this.searchControl.value ? this.searchControl.value : ''
+    let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}`;
+    this.apiService.setHttp('get','zp_chandrapur/agency/GetAll?' + obj,true,false,false,'baseUrl')
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == '200') {
+        this.tableDataArray = res.responseData.responseData1;
+        this.totalItem = res.responseData.responseData2.pageCount;
+      } else {
+        this.tableDataArray = []
+        this.totalItem = 0
+      }
+      let displayedColumns = ['srNo', 'agencyName','contactNo','emailId','action']
+      let displayedheaders = [ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
+      this.tableData = {
+        pageNumber: this.pageNumber,
+        img: '',
+        blink: '',
+        badge: '',
+        isBlock: '',
+        displayedColumns: displayedColumns,
+        tableData: this.tableDataArray,
+        tableSize: this.totalItem,
+        tableHeaders: displayedheaders,
+        pagination: true,
+        edit: true,
+        delete: true,
+      }
+      this.apiService.tableData.next(this.tableData)
+    })
   }
 
+  childCompInfo(obj: any) {   //table method
+    if (obj.label == 'Pagination') {
+      this.pageNumber = obj.pageNumber
+      this.getAllAgencyData();
+    } else if (obj.label == 'Edit') {
+      this.registeragency(obj);
+    } else {
+      this.removeModalOpen(obj);
+    }
+  }
+  
+  registeragency(obj?:any) {
+   const dialog= this.dialog.open(RegisterAgencyComponent, {
+      width: '750px',
+      disableClose: true,
+      data:obj
+    })
+    dialog.afterClosed().subscribe((res:any)=>{
+        if(res=='Yes'){
+          this.getAllAgencyData();
+        }
+      })
+  }
+
+  clearFilter(){
+    this.searchControl.setValue('');
+    this.getAllAgencyData();
+  }
+  //----------------------------------------------------delete functionality---------------------------------------------------------
+  removeModalOpen(obj?:any) {
+    const dialog= this.dialog.open(GlobalDialogComponent, {
+       width: '750px',
+       disableClose: true,
+       data:obj
+     })
+     dialog.afterClosed().subscribe((res:any)=>{
+         if(res=='Yes'){
+           this.removeAgency(obj);
+         }
+       })
+   }
+
+  removeAgency(obj:any){
+    let deleteObj={
+        "id":obj.id,
+        "modifiedBy": 0,
+        "modifiedDate":new Date(),
+        "lan": ""
+    }
+    this.apiService.setHttp('delete','zp_chandrapur/agency/Delete',true,deleteObj,false,'baseUrl')
+    this.apiService.getHttp().subscribe((res: any) => {
+      if(res.statusCode=='200'){
+        this.getAllAgencyData();
+      }
+    })
+  }
+  //#region------------------------------------------------start pdf & excel download method-----------------------------------------
+  pdfDownload() {
+    this.excelPdf.downLoadPdf()
+  }
+  excelDownload() {
+    this.excelPdf.downloadExcel()
+  }
 }
