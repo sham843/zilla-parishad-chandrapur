@@ -89,11 +89,7 @@ export class LoginComponent {
       if (this.otpTimer == 0) {
         this.otpTimerFlag = true;
         clearInterval(this.otpTimerSub);
-        this.formDirective.resetForm({
-          MobileNo:this.loginForm.value.MobileNo,
-          userType: this.loginForm.value.userType,
-          flag: this.language == 'English' ? 'en' : 'mr-IN',
-        })
+        this.clearVal(false)
         this.otpTimer = 20;
       }
     }, 1000)
@@ -101,13 +97,19 @@ export class LoginComponent {
 
   clearMobAndOTP() {
     this.sendOtpFlag = false;
-    this.loginForm.controls['MobileNo'].setValue('');
+    this.clearVal(true)
+    clearInterval(this.otpTimerSub);
+    this.otpTimer = 20;
+  }
+
+  clearVal(mobNoFlag: boolean) {
+    if (mobNoFlag) {
+      this.loginForm.controls['MobileNo'].setValue('');
+    }
     this.loginForm.controls['o1'].setValue('');
     this.loginForm.controls['o2'].setValue('');
     this.loginForm.controls['o3'].setValue('');
     this.loginForm.controls['o4'].setValue('');
-    clearInterval(this.otpTimerSub);
-    this.otpTimer = 20;
   }
 
   onSubmit() {
@@ -120,7 +122,10 @@ export class LoginComponent {
       this.apiService.setHttp('get', 'zp_chandrapur/user-registration/VerifyOTP?' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
-          console.log(res);
+          if(res.responseData.pageLstModels.length == 0){
+            this.commonMethods.snackBar(this.language == 'English' ? 'Soory you not have right to access page. Please contact admin.' : 'सोरी तुम्हाला पृष्ठावर प्रवेश करण्याचा अधिकार नाही. कृपया प्रशासकाशी संपर्क साधा.', 1)
+            return
+          }
           sessionStorage.setItem('loggedIn', 'true');
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           localStorage.setItem('loggedInData', this.encryptInfo);

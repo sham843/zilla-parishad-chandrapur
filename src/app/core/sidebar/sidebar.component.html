@@ -1,51 +1,33 @@
 <div class="sidebar close bg-main">
   <div class="logo-details">
     <img src="assets/images/logo-white.svg" alt="Logo">
-    <!-- <span class="logo_name">CodingLab</span> -->
   </div>
   <ul class="nav-links">
-    <li>
-      <a>
-        <img src="assets/images/menu-icons/dashboard-grey.svg">
-        <span class="link_name">Dashboard</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" routerLink="../dashboard">Dashbaord</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <a>
-          <img src="assets/images/menu-icons/Masters-grey.svg">
-          <span class="link_name">Masters</span>
-        </a>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name">Masters</a></li>
-        <li><a routerLink="../designation-master"><img src="assets/images/menu-icons/Designation-grey.svg">Designation
-            Master</a></li>
-        <li><a routerLink="../school-registration"><img src="assets/images/menu-icons/school-grey.svg">School
-            Registration</a></li>
-        <li><a routerLink="../student-registration"><img src="assets/images/menu-icons/student-grey.svg">Student
-            Registration</a></li>
-        <li><a routerLink="../user-registration"><img src="assets/images/menu-icons/User-grey.svg">Office Users</a></li>
-        <li><a routerLink="../agency-registration"><img src="assets/images/menu-icons/User-grey.svg">Agency
-            Registration</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <a>
-          <img src="assets/images/menu-icons/settings-grey.svg">
-          <span class="link_name">Settings</span>
-        </a>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name">Settings</a></li>
-        <li><a routerLink="../language-setting">Language Setting</a></li>
-        <li><a routerLink="../performance-indicators">Performance Indicators</a></li>
-        <li><a routerLink="../page-right-access">Page Access Matrix</a></li>
-      </ul>
-    </li>
+    <ng-container *ngFor="let pages of loginPages let i = index">
+      <ng-container *ngIf="pages.pageURL.length <= 1">
+        <li>
+          <a><img src="{{pages.menuIcon}}"> <span class="link_name">{{pages.pageName}}</span></a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" routerLink="../{{pages.pageURL}}">{{pages.pageName}}</a></li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="pages.pageURL.length > 1">
+        <li>
+          <div class="iocn-link">
+            <a><img src="{{pages.menuIcon}}"> <span class="link_name">{{pages.pageNameView}}</span></a>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name">{{pages.pageNameView}}</a></li>
+            <li *ngFor="let page of pages.pageURL; let pageUrlIndex = index"><a routerLinkActive="active"
+                routerLink="../{{page}}">
+                <ng-container *ngFor="let pageName of pages.pageName; let pageNameIndex = index">
+                  <ng-container *ngIf="pageNameIndex == pageUrlIndex">{{pageName}}</ng-container>
+                </ng-container>
+              </a></li>
+          </ul>
+        </li>
+      </ng-container>
+    </ng-container>
   </ul>
 </div>
