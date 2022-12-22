@@ -75,12 +75,12 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Search By Id</mat-label>
-            <input matInput placeholder="Search By Id" formControlName="searchText">
+            <input matInput placeholder="Search By SaralId/Name/Contact" formControlName="searchText">
           </mat-form-field>
         </div>
         <div class="col-sm">
           <button (click)="getTableData()" type="submit" mat-flat-button class="btn-main me-2">Filter</button>
-           <button  mat-flat-button class="btn-second" (click)="clearForm()">Clear</button> 
+          <button mat-flat-button class="btn-second" (click)="clearForm()">Clear</button>
         </div>
       </div>
     </form>

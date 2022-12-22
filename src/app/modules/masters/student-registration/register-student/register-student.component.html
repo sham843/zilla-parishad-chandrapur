@@ -1,21 +1,22 @@
 <mat-card class="plain-card">
     <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
-    <mat-card-header class="card-header">
-        <div class="d-flex align-items-center justify-content-between w-100">
-            <h6 class="text-main mb-0 fw-bold">Register Student</h6>
-            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
-    </mat-card-header>
-    <mat-card-content class="card-body">
+        <mat-card-header class="card-header">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <h6 class="text-main mb-0 fw-bold">Register Student</h6>
+                <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </mat-card-header>
+        <mat-card-content class="card-body">
 
-        
+
             <div class="row g-4 mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>District</mat-label>
-                        <mat-select placeholder="Select" formControlName="districtId" (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
+                        <mat-select placeholder="Select" formControlName="districtId"
+                            (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
                             </mat-option>
@@ -28,12 +29,13 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter(studentFrm.value.talukaId);clearDropdown('talukaId')">
+                        <mat-select placeholder="Select" formControlName="talukaId"
+                            (selectionChange)="getCenter(studentFrm.value.talukaId);clearDropdown('talukaId')">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2">
-                            <span >Taluka Is Required</span>
+                            <span>Taluka Is Required</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -78,7 +80,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Parent Contact No</mat-label>
                         <input matInput placeholder="Enter Parent Contact No Here" formControlName="parentsMobileNo"
-                        (keypress)="validation.onlyDigits($event)"
+                            (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
                         <mat-error *ngIf="f['parentsMobileNo'].errors">
                             <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('required')">
@@ -91,8 +93,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>First Name</mat-label>
                         <input matInput placeholder="Enter First Name Here" formControlName="f_Name"
-                        (keypress)="validation.alphabetsWithSpaces($event)"
-                        (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['f_Name'].errors">
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
                                 Please Enter First Name
@@ -104,8 +106,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Middle Name</mat-label>
                         <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name"
-                        (keypress)="validation.alphabetsWithSpaces($event)"
-                        (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_Name'].errors">
                             <span class="text-danger" *ngIf="f['m_Name'].hasError('required')">
                                 Please Enter Middle Name
@@ -117,8 +119,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Last Name</mat-label>
                         <input matInput placeholder="Enter Last Name Here" formControlName="l_Name"
-                        (keypress)="validation.alphabetsWithSpaces($event)"
-                        (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['l_Name'].errors">
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 Please Enter Last Name
@@ -127,11 +129,11 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Saral ID</mat-label>
                         <input matInput placeholder="Enter Saral ID Here" formControlName="saralId"
-                        (keypress)="validation.alphaNumeric($event)"
-                        (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keypress)="validation.alphaNumeric($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['l_Name'].errors">
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 Please Enter Saral Id
@@ -154,20 +156,21 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Birth Date</mat-label>
-                        <input matInput [matDatepicker]="picker"  [readonly]="true" placeholder="Enter Birth Date Here..."
-                        formControlName="dob" (click)="picker.open()">
+                        <input matInput [matDatepicker]="picker" [readonly]="true" [max]="todayDate"
+                            placeholder="Enter Birth Date Here..." formControlName="dob" (click)="picker.open()">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
-                        Birth Date Is Required
-                    </mat-error>
+                            Birth Date Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Aadhar Card</mat-label>
-                        <input matInput placeholder="Image upload" placeholder="Enter Aadhar Card Number Here..."  formControlName="aadharNo"
-                      (keyup)="validation.removeSpaceAtBegining($event)" maxlength="12">
+                        <input matInput placeholder="Image upload" placeholder="Enter Aadhar Card Number Here..."
+                            formControlName="aadharNo" (keyup)="validation.removeSpaceAtBegining($event)"
+                            maxlength="12">
                         <mat-error *ngIf="f['aadharNo'].errors">
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
                                 Please Enter Aadhar Number
@@ -192,8 +195,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Caste</mat-label>
                         <input matInput placeholder="Enter Caste Here" formControlName="cast"
-                        (keypress)="validation.alphabetsWithSpaces($event)"
-                        (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['cast'].errors">
                             <span class="text-danger" *ngIf="f['cast'].hasError('required')">
                                 Please Enter Caste Name
@@ -202,13 +205,13 @@
                     </mat-form-field>
                 </div>
             </div>
-       
-    </mat-card-content>
-    <mat-card-footer class="card-footer">
-        <div class="d-flex align-items-center justify-content-end w-100">
-            <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
-            <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
-        </div>
-    </mat-card-footer>
-</form>
+
+        </mat-card-content>
+        <mat-card-footer class="card-footer">
+            <div class="d-flex align-items-center justify-content-end w-100">
+                <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
+                <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
+            </div>
+        </mat-card-footer>
+    </form>
 </mat-card>
