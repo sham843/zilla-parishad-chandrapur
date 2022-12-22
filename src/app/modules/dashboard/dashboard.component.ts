@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +7,9 @@ import { ApiService } from 'src/app/core/services/api.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-constructor(public translate:TranslateService,
-  private apiService:ApiService){}
+constructor(public translate:TranslateService){}
 
 ngOnInit(){
-  console.log("localStrorage Data",this.apiService.getLocalStorageData());
+  // console.log("localStrorage Data",this.apiService.getLocalStorageData());
 }
 }

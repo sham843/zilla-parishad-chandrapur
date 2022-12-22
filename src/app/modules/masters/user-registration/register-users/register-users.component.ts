@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
+import { WebStorageService } from 'src/app/core/services/web-storage.service'
 @Component({
   selector: 'app-register-users',
   templateUrl: './register-users.component.html',
@@ -23,6 +24,7 @@ export class RegisterUsersComponent {
   lang:string |any='English';
   get f(){return this.userRegistrationForm.controls}
   constructor(
+    private webStorage:WebStorageService,
     private fb: FormBuilder,
     public validation: ValidationService,
     private master: MasterService,
@@ -33,7 +35,9 @@ export class RegisterUsersComponent {
   ) {}
 
   ngOnInit() {
-   this.lang=this.apiService.getLanguageFlag();
+    this.webStorage.setLanguage.subscribe((res:any)=>{
+      this.lang=res
+    })
     this.getUserControl();
     this.getUserType();
     this.getDistrict();

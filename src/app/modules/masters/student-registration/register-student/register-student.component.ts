@@ -7,6 +7,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 
 @Component({
@@ -36,13 +37,15 @@ addData:any;
     private commonMethod:CommonMethodsService,
     public validation: ValidationService,
      private ngxspinner: NgxSpinnerService,
+     private webStorage:WebStorageService,
      private dialogRef: MatDialogRef<RegisterStudentComponent>,
      @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
     ngOnInit() {
-      console.log("data",this.data);
-      this.lang=this.apiService.getLanguageFlag();
+      this.webStorage.setLanguage.subscribe((res:any)=>{
+        this.lang=res
+      })
       this.formData();
       this.getDistrict();
       this.getStandard(this.lang);

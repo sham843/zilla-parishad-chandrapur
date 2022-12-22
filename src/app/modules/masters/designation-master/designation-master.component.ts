@@ -28,7 +28,7 @@ export class DesignationMasterComponent {
     ) { }
 
   ngOnInit() {
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
+    this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.getDesignationLevel();

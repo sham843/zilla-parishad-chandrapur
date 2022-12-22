@@ -26,7 +26,7 @@ export class AddDesignationComponent {
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
               private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner:NgxSpinnerService){}
   ngOnInit(){
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
+    this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();

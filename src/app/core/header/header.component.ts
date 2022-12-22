@@ -27,10 +27,10 @@ export class HeaderComponent {
   }
   ngOnInit(): void {
     let language: any = sessionStorage.getItem('language');
-    this.webStorage.sendlangType(language);
+    this.webStorage.setLanguage.next(language);
     this.translate.use(language);
     
-    this.webStorage.langNameOnChange.subscribe((res:any)=>{
+    this.webStorage.setLanguage.subscribe((res:any)=>{
       this.selLang = res;
     })
   }
@@ -54,7 +54,7 @@ export class HeaderComponent {
   changeLanguage(lang: any) {
     this.language = lang
     this.translate.use(lang)
-    this.webStorage.sendlangType(lang)
+    this.webStorage.setLanguage.next(lang)
     sessionStorage.setItem('language', lang)
   }
 

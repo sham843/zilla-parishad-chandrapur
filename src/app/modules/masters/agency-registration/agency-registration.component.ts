@@ -28,7 +28,7 @@ language:any;
 
   ngOnInit() {
     this.getAllAgencyData();
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
+    this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
       this.setTableData()
     })

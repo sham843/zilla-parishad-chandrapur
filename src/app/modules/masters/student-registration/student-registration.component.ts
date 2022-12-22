@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 
@@ -23,11 +24,14 @@ export class StudentRegistrationComponent {
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     private errors: ErrorsService,
+    private webStorage:WebStorageService,
     private commonService:CommonMethodsService
   ) { }
 
   ngOnInit() {
-    this.lang = this.apiService.getLanguageFlag();
+    this.webStorage.setLanguage.subscribe((res:any)=>{
+      this.lang=res
+    })
     this.getTableData()
   }
 

@@ -34,7 +34,7 @@ export class SchoolRegistrationComponent {
   ) { }
 
   ngOnInit() {
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
+    this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
     })
     this.getFilterFormData();

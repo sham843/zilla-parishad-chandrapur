@@ -51,7 +51,7 @@ export class CommonMethodsService {
 
   getLanguageFlag(){
     let language;
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
+    this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi'? language='mr-IN':language='en'; 
     })
     return language;
