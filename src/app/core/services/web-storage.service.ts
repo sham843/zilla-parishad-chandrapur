@@ -26,4 +26,18 @@ export class WebStorageService {
       return true
     else return false
   }
+
+  getLocalStorageData(){
+    let localData:any=localStorage.getItem('loggedInData');
+    var deData = CryptoJS.AES.decrypt(decodeURIComponent(localData), 'secret key 123');
+    return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
+  }
+
+
+  getAllPageName(){
+    if (this.checkUserIsLoggedIn() == true) {
+      let getAllPageName = JSON.parse(this.getLocalStorageData());
+      return getAllPageName.responseData.pageLstModels;
+    }
+  }
 }
