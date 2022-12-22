@@ -89,11 +89,7 @@ export class LoginComponent {
       if (this.otpTimer == 0) {
         this.otpTimerFlag = true;
         clearInterval(this.otpTimerSub);
-        this.formDirective.resetForm({
-          MobileNo:this.loginForm.value.MobileNo,
-          userType: this.loginForm.value.userType,
-          flag: this.language == 'English' ? 'en' : 'mr-IN',
-        })
+        this.clearVal(false)
         this.otpTimer = 20;
       }
     }, 1000)
@@ -101,13 +97,19 @@ export class LoginComponent {
 
   clearMobAndOTP() {
     this.sendOtpFlag = false;
-    this.loginForm.controls['MobileNo'].setValue('');
+    this.clearVal(true)
+    clearInterval(this.otpTimerSub);
+    this.otpTimer = 20;
+  }
+
+  clearVal(mobNoFlag: boolean) {
+    if (mobNoFlag) {
+      this.loginForm.controls['MobileNo'].setValue('');
+    }
     this.loginForm.controls['o1'].setValue('');
     this.loginForm.controls['o2'].setValue('');
     this.loginForm.controls['o3'].setValue('');
     this.loginForm.controls['o4'].setValue('');
-    clearInterval(this.otpTimerSub);
-    this.otpTimer = 20;
   }
 
   onSubmit() {
