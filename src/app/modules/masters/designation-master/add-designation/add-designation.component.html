@@ -20,6 +20,8 @@
                         <mat-option *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
+                    <mat-error class="mt-2" *ngIf="f['dummyDesigLvlkey'].hasError('required')">Designation Level is Required
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-3">
@@ -29,6 +31,8 @@
                         <mat-option *ngFor="let upDesigType of desigantionType"
                             [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
                     </mat-select>
+                    <mat-error class="mt-2" *ngIf="f['linkedToDesignationId'].hasError('required')">Designation Type is Required
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-3">
@@ -38,12 +42,16 @@
                         <mat-option *ngFor="let setDesigLvl of setDesignationLevel"
                             [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
                     </mat-select>
+                    <mat-error class="mt-2" *ngIf="f['designationLevelId'].hasError('required')">Please set Designation Level
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Add Designation</mat-label>
                     <input matInput placeholder="Add Designation" formControlName="designationName">
+                    <mat-error class="mt-2" *ngIf="f['designationName'].hasError('required')">Designation Name is Required
+                    </mat-error>
                 </mat-form-field>
             </div>
      </mat-card-content>
