@@ -193,6 +193,28 @@ export class RegisterSchoolComponent {
     this.editFlag=false;
   }
 
+  // onDeletData(obj?:any){
+  //   obj=this.data;
+  //   console.log(obj);
+  //   let delObj={
+  //     "id":obj.id,
+  //     "modifiedBy": 0,
+  //     "modifiedDate": "2022-12-21T12:56:19.376Z",
+  //     "lan":''    
+  //   }
+  //   this.service.setHttp('delete', 'zp_chandrapur/School/Delete?lan=en', false, delObj, false, 'baseUrl');
+  //   this.service.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == '200') {
+  //         this.dialogRef.close();
+  //       }
+  //     }),
+  //   })
+  // }
+    
+
+  }
 
 
-}
+
+

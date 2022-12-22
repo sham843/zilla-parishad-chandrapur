@@ -49,9 +49,8 @@
           <button (click)="getTableData()" mat-flat-button class="btn-main me-2">Filter</button>
           <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
         </div>
-        
-       
     </div>
+    
     </mat-card-header>
     <mat-card-content class="card-body">
           <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>

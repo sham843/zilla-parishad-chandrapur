@@ -11,6 +11,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { RegisterAgencyComponent } from './register-agency/register-agency.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +29,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    TableGridComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AgencyRegistrationModule { }

@@ -1,11 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -33,6 +34,7 @@ addData:any;
     private master:MasterService,
     private commonMethod:CommonMethodsService,
     private webStorage: WebStorageService,
+    public validation: ValidationService,
      private ngxspinner: NgxSpinnerService,
      private dialogRef: MatDialogRef<RegisterStudentComponent>,
      @Inject(MAT_DIALOG_DATA) public data: any
@@ -61,21 +63,21 @@ addData:any;
   formData() {
     this.studentFrm = this.fb.group({
       "id": [0],
-      "f_Name": [''],
-      "m_Name": [''],
-      "l_Name": [''],
-     "districtId": [1],
-      "talukaId": [ ],
-      "centerId": [ ],
-      "schoolId": [ ],
-      "standardId":[ ],
+      "f_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "m_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "l_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+     "districtId": [1 ,[Validators.required]],
+      "talukaId": [ ,[Validators.required]],
+      "centerId": [ ,[Validators.required]],
+      "schoolId": [ ,[Validators.required]],
+      "standardId": [ ,[Validators.required]],
       "saralId": [''],
-      "genderId":[ ],
-      "dob": [''],
+      "genderId": [ ,[Validators.required]],
+      "dob": ['',[Validators.required]],
       "aadharNo": [''],
-      "religionId":[ ],
-      "cast": [''],
-      "mobileNo": ['']     
+      "religionId": [ ,[Validators.required]],
+      "cast": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
+      "mobileNo": ['', [Validators.required,Validators.pattern(this.validation.mobile_No)]]     
     })
     // this.onEdit(this.data);
  
@@ -87,7 +89,7 @@ addData:any;
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
           // console.log("this.districtArray",this.districtArray)
-          // this.getTaluka();
+          this.getTaluka();
           if (this.editFlag == true) {
             this.studentFrm.controls['districtId'].setValue(this.data.district);
             this.getTaluka();

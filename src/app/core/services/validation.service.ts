@@ -61,4 +61,9 @@ export class ValidationService {
     const maskSeperator = new RegExp('^([a-zA-Z0-9 .@])', 'g'); // only Accept A-Z & 0-9 & .@
     return maskSeperator.test(event.key);
   }
+
+  alphaNumeric(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z0-9])', 'g');
+    return maskSeperator.test(event.key);
+  }
 }
