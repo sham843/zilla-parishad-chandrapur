@@ -23,18 +23,15 @@ export class StudentRegistrationComponent {
   // }
   pageNumber: number = 1;
   dataObj:any;
-  lang: string = 'en';
+  lang:string |any='English';
   constructor(public dialog: MatDialog,
     private apiService:ApiService,
-    private errors:ErrorsService,
-    private webStorage: WebStorageService,) {}
+    private errors:ErrorsService
+    ) {}
 
     ngOnInit() {
-      this.webStorage.langNameOnChange.subscribe((res: any) => {
-        res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
-      })
+      this.lang=this.apiService.getLanguageFlag();
       this.getTableData()
-      
     }
 
     onPagintion(pageNo: number) {
