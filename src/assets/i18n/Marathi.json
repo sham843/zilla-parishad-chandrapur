@@ -19,7 +19,8 @@
     "clear":"साफ",
     "Sr.no.":"अनुक्रमणिका",
     "contact_n":"संपर्क क्र.",
-    "action":"कृती"
+    "action":"कृती",
+    "select_user_type":"वापरकर्ता प्रकार निवडा"
     },
     "dashboard":{
         "dashboard":"मुख्यपृष्ठ"
@@ -57,6 +58,26 @@
         "contact_number":"संपर्क क्रमांक",
         "please_enter_contact_number":"कृपया संपर्क क्रमांक प्रविष्ट करा",
         "agency_registration":"एजन्सी नोंदणी",
-        "Add_agency":"एजन्सी जोडा"
+        "Add_agency":"एजन्सी जोडा",
+        "agency_marathi_name":"एजन्सीचे मराठी नाव",
+        "please_enter_valid_emailId":"कृपया वैध ईमेल आयडी प्रविष्ट करा",
+        "please_enter_valid_contact_no":"कृपया वैध संपर्क क्रमांक प्रविष्ट करा"
+    },
+    "login":{
+        "officer_login":"अधिकारी लॉगिन",
+        "school_login":"शाळा लॉगिन",
+        "enter_mobile_number":"मोबाईल नंबर टाका",
+        "please_enter_otp":"कृपया तुमच्या मोबाईल नंबर वर पाठवलेला ओ टी पी टाका",
+        "dont_get_otp":"ओ टी पी मिळाला नाही का ?",
+        "resend_otp":"ओ टी पी पुन्हा पाठवा",
+        "login":"लॉगिन"
+    },
+    "page_right_access":{
+        "settings":"सेटिंग्ज",
+        "page_right_access":"पृष्ठ प्रवेश",
+        "page_name/page_url":"पृष्ठाचे नाव/पृष्ठ URL",
+        "page_name":"पृष्ठाचे नाव",
+        "page_url":"पृष्ठ Url",
+        "select":"निवडा"
     }
 }

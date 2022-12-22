@@ -16,10 +16,14 @@ export class WebStorageService {
   }
 
   // change language
-  private langName = new BehaviorSubject('')
-  langNameOnChange = this.langName.asObservable();
+  setLanguage = new BehaviorSubject('')
 
-  sendlangType(type: string) {
-    this.langName.next(type)
+  checkUserIsLoggedIn() {
+    // check user isLoggedIn or not
+    let sessionData: any = sessionStorage.getItem('loggedIn')
+    sessionData == null || sessionData == '' ? localStorage.clear() : ''
+    if (localStorage.getItem('loggedInData') && sessionData == 'true')
+      return true
+    else return false
   }
 }

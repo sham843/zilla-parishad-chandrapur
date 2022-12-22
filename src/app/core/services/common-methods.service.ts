@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { WebStorageService } from './web-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class CommonMethodsService {
 
   constructor(private SnackBar: MatSnackBar,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private webStorage:WebStorageService) { }
 
   snackBar(data: string, status: number) {
     let snackClassArr: any = ['snack-success', 'snack-danger', 'snack-warning'];
@@ -47,6 +49,19 @@ export class CommonMethodsService {
     }
   }
 
+  getLanguageFlag(){
+    let language;
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      res == 'Marathi'? language='mr-IN':language='en'; 
+    })
+    return language;
+  }
+
+  getLocalStorageData(){
+    let localData:any=localStorage.getItem('loggedInData');
+    var deData = CryptoJS.AES.decrypt(decodeURIComponent(localData), 'secret key 123');
+    return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
+  }
 
 
 }

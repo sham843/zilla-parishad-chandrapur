@@ -1,5 +1,5 @@
 <mat-card class="plain-card">
-    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()">
+    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="text-main mb-0 fw-bold">Register Student</h6>
@@ -28,7 +28,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter(studentFrm.value.talukaId)">
+                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter(studentFrm.value.talukaId);clearDropdown('talukaId')">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
@@ -41,7 +41,7 @@
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Kendra</mat-label>
                         <mat-select placeholder="Select" formControlName="centerId"
-                            (selectionChange)="getSchool(lang,studentFrm.value.centerId)">
+                            (selectionChange)="getSchool(lang,studentFrm.value.centerId);clearDropdown('centerId')">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
@@ -206,7 +206,7 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex align-items-center justify-content-end w-100">
-            <button mat-stroked-button class="btn-second me-2">Cancel</button>
+            <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
             <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
         </div>
     </mat-card-footer>

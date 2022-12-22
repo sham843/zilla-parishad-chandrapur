@@ -27,46 +27,51 @@ language:any;
   ) {}
 
   ngOnInit() {
-    // this.getAllAgencyData();
-    this.webStorage.langNameOnChange.subscribe((res: any) => {
-      res == 'Marathi' ? (this.language = 'mr-IN') : (this.language = 'en');
-      this.getAllAgencyData();
+    this.getAllAgencyData();
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.language = res;
+      this.setTableData()
     })
   }
   //--------------------------------------------------------get agency data-----------------------------------------------------------
   getAllAgencyData() {
     let serchText = this.searchControl.value ? this.searchControl.value : ''
-    let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}&lan=${this.language}`;
+    let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}`;
     this.apiService.setHttp('get','zp_chandrapur/agency/GetAll?' + obj,true,false,false,'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.tableDataArray = res.responseData.responseData1;
         this.totalItem = res.responseData.responseData2.pageCount;
+        this.setTableData()
       } else {
         this.tableDataArray = []
         this.totalItem = 0
       }
-      let displayedColumns;
-      this.language =='mr-IN'? displayedColumns=['srNo','m_AgencyName','contactNo','emailId','action']:displayedColumns=[ 'srNo', 'agencyName','contactNo','emailId','action']
-      let displayedheaders;
-      this.language =='mr-IN'? displayedheaders=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी','कृती']:displayedheaders=[ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
-      this.tableData = {
-        pageNumber: this.pageNumber,
-        img: '',
-        blink: '',
-        badge: '',
-        isBlock: '',
-        displayedColumns: displayedColumns,
-        tableData: this.tableDataArray,
-        tableSize: this.totalItem,
-        tableHeaders: displayedheaders,
-        pagination: true,
-        edit: true,
-        delete: true,
-      }
-      this.apiService.tableData.next(this.tableData)
     })
   }
+
+  setTableData(){
+    let displayedColumns;
+    this.language =='Marathi'? displayedColumns=['srNo','m_AgencyName','contactNo','emailId','action']:displayedColumns=[ 'srNo', 'agencyName','contactNo','emailId','action']
+    let displayedheaders;
+    this.language =='Marathi'? displayedheaders=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी','कृती']:displayedheaders=[ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
+    this.tableData = {
+      pageNumber: this.pageNumber,
+      img: '',
+      blink: '',
+      badge: '',
+      isBlock: '',
+      displayedColumns: displayedColumns,
+      tableData: this.tableDataArray,
+      tableSize: this.totalItem,
+      tableHeaders: displayedheaders,
+      pagination: true,
+      edit: true,
+      delete: true,
+    }
+    this.apiService.tableData.next(this.tableData)
+  }
+  
 
   childCompInfo(obj: any) {   //table method
     if (obj.label == 'Pagination') {

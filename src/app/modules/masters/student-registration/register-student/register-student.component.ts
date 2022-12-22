@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -7,6 +7,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ schoolArray=new Array();
 standardArray=new Array();
 genderArray=new Array();
 religionArray=new Array();
-
+@ViewChild('formDirective')
+private formDirective!: NgForm;
 editFlag:boolean=false;
 addData:any;
   constructor(
@@ -35,13 +37,15 @@ addData:any;
     private commonMethod:CommonMethodsService,
     public validation: ValidationService,
      private ngxspinner: NgxSpinnerService,
+     private webStorage:WebStorageService,
      private dialogRef: MatDialogRef<RegisterStudentComponent>,
      @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
     ngOnInit() {
-      console.log("data",this.data);
-      this.lang=this.apiService.getLanguageFlag();
+      this.webStorage.setLanguage.subscribe((res:any)=>{
+        this.lang=res
+      })
       this.formData();
       this.getDistrict();
       this.getStandard(this.lang);
@@ -91,7 +95,7 @@ addData:any;
           this.getTaluka(this.studentFrm.value.districtId);
           if (this.editFlag == true) {
             this.studentFrm.controls['districtId'].setValue(this.data.districtId);
-             this.getTaluka(this.studentFrm.value.districtId);
+            
           }
         }
         else {
@@ -133,7 +137,7 @@ addData:any;
           this.centerArray = res.responseData;
           if (this.editFlag == true) {
             this.studentFrm.controls['centerId'].setValue(this.data.centerId);
-            this.getSchool(this.lang,this.studentFrm.value.districtId);
+            this.getSchool(this.lang,this.studentFrm.value.centerId);
           }
         }
         else {
@@ -323,7 +327,7 @@ onClickSubmit() {
           if (res.statusCode == '200') {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
-            this.formData();
+            this.clearForm();
             this.editFlag = false;
           } else {
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -336,5 +340,22 @@ onClickSubmit() {
       })
     }
   }
+
+  clearForm() {
+    this.formDirective && this.formDirective.resetForm();
+    this.editFlag = false;
+   }
+
+   clearDropdown(flag:any){
+switch(flag){
+  case 'talukaId':
+    this.studentFrm.controls['centerId'].setValue(0);
+    this.studentFrm.controls['schoolId'].setValue(0);
+    break;
+    case 'centerId':
+      this.studentFrm.controls['schoolId'].setValue(0);
+      break;
+}
+   }
 
 }

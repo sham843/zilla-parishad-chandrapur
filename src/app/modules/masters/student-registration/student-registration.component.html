@@ -39,6 +39,39 @@
     </mat-card-header>
     <mat-card-header class="card-header">
       <div class="row w-100">
+
+        <!-- <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Taluka</mat-label>
+            <mat-select placeholder="Select Taluka Here..." [formControl]="talukaId" (selectionChange)="getCenter()">
+                <mat-option *ngFor="let taluka of talukaArray"
+                    [value]="taluka.id">{{taluka.taluka}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Kendra</mat-label>
+          <mat-select placeholder="Select Kendra Here..." [formControl]="centerId" (selectionChange)="getSchool()">
+              <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>School</mat-label>
+        <mat-select placeholder="Select School Here..." [formControl]="schoolId">
+          <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+  </div> -->
+
+
         <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Search By Id</mat-label>

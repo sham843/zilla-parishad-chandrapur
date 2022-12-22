@@ -22,7 +22,8 @@
         "Sr.no.":"Sr.no.",
         "contact_n":"Contact No.",
         "email_id":"Email Id",
-        "action":"Action"
+        "action":"Action",
+        "select_user_type":"Select User Type"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -59,8 +60,27 @@
         "contact_number":"Contact Number",
         "please_enter_contact_number":"Please Enter Contact Number",
         "agency_registration":"Agency Registration",
-        "Add_agency":"Add Agency"
-
-
+        "Add_agency":"Add Agency",
+        "agency_marathi_name":"Agency Marathi Name",
+        "please_enter_valid_emailId":"Please Enter Valid Email Id",
+        "please_enter_valid_contact_no":"Please Enter Valid Contact No."
+    },
+     "login":{
+        "officer_login":"Officer Login",
+        "school_login":"School login",
+        "enter_mobile_number":"Enter Mobile Number",
+        "please_enter_otp":"Please enter the OTP sent to your mobile number",
+        "dont_get_otp":"Didn't get OTP?",
+        "resend_otp":"Resend OTP",
+        "login":"Login"
+    },
+    "page_right_access":{
+        "settings":"Settings",
+        "page_right_access":"Page Right Access",
+        "page_name/page_url":"Page Name/Page URL",
+        "page_name":"Page Name",
+        "page_url":"Page Url",
+        "select":"Select"
     }
+
 }
