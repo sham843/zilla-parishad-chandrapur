@@ -343,4 +343,11 @@ onClickSubmit() {
     this.editFlag = false;
    }
 
+   clearDropdown(flag:any){
+switch(flag){
+  case 'talukaId':
+    this.studentFrm.controls['talukaId'].setValue('')
+}
+   }
+
 }
