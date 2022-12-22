@@ -8,7 +8,7 @@
         <h6 mat-dialog-content class="my-4"*ngIf="dialogData?.p2">{{dialogData?.p2}}</h6>
         <div mat-dialog-actions align="end">
             <button mat-flat-button mat-dialog-close class="btn-second me-2"  (click)="onNoClick('No')">{{dialogData?.cancelBtnText}}</button>
-            <button mat-flat-button cdkFocusInitial type="submit" (click)="onNoClick('Yes')" class="btn-main">{{dialogData?.successBtnText}}</button>
+            <button mat-flat-button type="submit" (click)="onNoClick('Yes')" class="btn-main">{{dialogData?.successBtnText}}</button>
         </div>
     </mat-card-content>
 </mat-card>

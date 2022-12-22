@@ -7,7 +7,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
+
 
 @Component({
   selector: 'app-register-student',
@@ -16,7 +16,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class RegisterStudentComponent {
 studentFrm!:FormGroup;
-lang: string = 'en';
+lang:string |any='English';
 districtArray=new Array();
 talukaArray=new Array();
 centerArray=new Array();
@@ -33,7 +33,6 @@ addData:any;
     private fb:FormBuilder,
     private master:MasterService,
     private commonMethod:CommonMethodsService,
-    private webStorage: WebStorageService,
     public validation: ValidationService,
      private ngxspinner: NgxSpinnerService,
      private dialogRef: MatDialogRef<RegisterStudentComponent>,
@@ -42,9 +41,7 @@ addData:any;
 
     ngOnInit() {
       console.log("data",this.data);
-      this.webStorage.langNameOnChange.subscribe((res: any) => {
-        res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
-      })
+      this.lang=this.apiService.getLanguageFlag();
       this.formData();
       this.getDistrict();
       this.getStandard(this.lang);
@@ -67,14 +64,14 @@ addData:any;
       "m_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
       "l_Name": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
      "districtId": [1 ,[Validators.required]],
-      "talukaId": [ ,[Validators.required]],
+      "talukaId": [ ,Validators.required],
       "centerId": [ ,[Validators.required]],
       "schoolId": [ ,[Validators.required]],
       "standardId": [ ,[Validators.required]],
       "saralId": [''],
       "genderId": [ ,[Validators.required]],
       "dob": ['',[Validators.required]],
-      "aadharNo": [''],
+      "aadharNo": ['',[Validators.required,Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [ ,[Validators.required]],
       "cast": ['',[Validators.required,Validators.pattern(this.validation.fullName)]],
       "mobileNo": ['', [Validators.required,Validators.pattern(this.validation.mobile_No)]]     
@@ -106,9 +103,6 @@ addData:any;
     })
   }
 
-  
-
-
   getTaluka() {
     this.master.getAllTaluka(this.lang,this.studentFrm.value.districtId).subscribe({
       next: ((res: any) => {
@@ -116,7 +110,7 @@ addData:any;
           this.talukaArray = res.responseData;
           if (this.editFlag == true) {
             this.studentFrm.controls['talukaId'].setValue(this.data.taluka);
-            this.getCenter();
+            this.getCenter(this.studentFrm.value.talukaId);
           }
          }
         else {
@@ -130,8 +124,8 @@ addData:any;
     })
   }
 
-  getCenter() {
-     this.master.getAllCenter(this.lang,this.studentFrm.value.talukaId).subscribe({
+  getCenter(talukaId:number) {
+     this.master.getAllCenter(this.lang,talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -274,7 +268,6 @@ addData:any;
 
   
   onEdit() {
-   
     this.editFlag = true;
     this.studentFrm.patchValue({
       createdBy: 0,
@@ -332,8 +325,6 @@ addData:any;
         next: ((res: any) => {
           this.ngxspinner.hide();
           if (res.statusCode == '200') {
-            
-            // this.displayData();
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
             this.formData();
