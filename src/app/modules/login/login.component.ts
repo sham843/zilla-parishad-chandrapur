@@ -37,7 +37,7 @@ export class LoginComponent {
     private translate: TranslateService
   ) {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      this.language = res ? res : 'English';
+      this.language = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
     })
     this.translate.use(this.language)
     this.loginDefForm();
@@ -112,7 +112,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this.commonMethods.snackBar('Please enter valid OTP...', 1)
+      this.commonMethods.snackBar(this.language == 'English' ?'Please enter valid OTP...' : 'कृपया वैध OTP प्रविष्ट करा...', 1)
       return;
     } else if (this.loginForm.valid) {
       let loginData = this.loginForm.value;
