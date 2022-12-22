@@ -1,6 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { Component, HostBinding } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { WebStorageService } from '../services/web-storage.service'
 
 @Component({
@@ -13,6 +16,7 @@ export class HeaderComponent {
   language: string = 'English'
   constructor(
     private overlay: OverlayContainer,
+    private dialog: MatDialog, private router: Router,
     private webStorage: WebStorageService,
     private translate: TranslateService,
   ) {
@@ -45,5 +49,30 @@ export class HeaderComponent {
     this.translate.use(lang)
     this.webStorage.sendlangType(lang)
     sessionStorage.setItem('language', lang)
+  }
+
+  logOut() {
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '350px',
+      data: {
+        p1: 'Are You Sure',
+        p2: '',
+        cardTitle: 'Logout',
+        successBtnText: 'Logout',
+        dialogIcon: 'assets/images/trash.gif',
+        cancelBtnText: 'Cancel',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 'Yes') {
+        this.localStorageClear();
+      }
+    });
+  }
+
+  localStorageClear() {
+    localStorage.clear();
+    this.router.navigate(['../home']);
   }
 }
