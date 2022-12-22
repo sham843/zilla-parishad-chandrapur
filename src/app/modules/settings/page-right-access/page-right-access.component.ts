@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-page-right-access',
@@ -16,14 +17,19 @@ export class PageRightAccessComponent implements OnInit {
   tableData: any;
   pageNumber: number = 1;
   filterForm!: FormGroup;
+  language:any;
   resGetUserTypeData = new Array();
   constructor(private apiService: ApiService, private errors: ErrorsService,
-    private masterService: MasterService, private fb: FormBuilder, private commonMethods: CommonMethodsService) { }
+    private masterService: MasterService, private fb: FormBuilder, private commonMethods: CommonMethodsService,
+    private webStorage:WebStorageService) { }
 
 
   ngOnInit(): void {
     this.callFilterForm();
-    this.getUserTypeData();
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      res=='Marathi'?this.language = 'mr-IN': this.language ='en-IN';
+      this.setTableData(); this.getUserTypeData(this.language);
+    })
   }
 
   callFilterForm() {
@@ -34,8 +40,8 @@ export class PageRightAccessComponent implements OnInit {
 
   }
 
-  getUserTypeData() {
-    this.masterService.getUserType('en-IN').subscribe((res: any) => {
+  getUserTypeData(lang:any) {
+    this.masterService.getUserType(lang).subscribe((res: any) => {
       if (res.statusCode == 200) {
         this.resGetUserTypeData = res.responseData;
         this.filterForm.controls['DesignationtypeId'].setValue(this.resGetUserTypeData[0].userTypeId);
@@ -59,22 +65,29 @@ export class PageRightAccessComponent implements OnInit {
           this.tableDataArray = [];
           this.totalItem = 0;
         }
-        let displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'];
-        let displayedheaders = ['Sr NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
-        this.tableData = {
-          pageNumber: this.pageNumber, pagintion: true,
-          img: '', blink: '', badge: '', isBlock: '', checkBox: 'select',
-          displayedColumns: displayedColumns,
-          tableData: this.tableDataArray,
-          tableSize: this.totalItem,
-          tableHeaders: displayedheaders
-        };
-        this.apiService.tableData.next(this.tableData);
+       this.setTableData();
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
   }
 
+  setTableData(){
+    console.log(this.language);
+    
+    let displayedColumns;
+    this.language=='mr-IN'?displayedColumns=['srNo', 'pageName', 'pageURL', 'select']:displayedColumns=['srNo', 'pageName', 'pageURL', 'select'];
+    let displayedheaders;
+    this.language=='mr-IN'?displayedheaders=['अनुक्रमणिका','पृष्ठाचे नाव','पृष्ठ Url','निवडा']:displayedheaders=['Sr NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
+    this.tableData = {
+      pageNumber: this.pageNumber, pagintion: true,
+      img: '', blink: '', badge: '', isBlock: '', checkBox: 'select',
+      displayedColumns: displayedColumns,
+      tableData: this.tableDataArray,
+      tableSize: this.totalItem,
+      tableHeaders: displayedheaders
+    };
+    this.apiService.tableData.next(this.tableData);
+  }
   childCompInfo(obj: any) {
     if (obj.label == 'checkBox') {
       let postObj = {

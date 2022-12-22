@@ -1,19 +1,19 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Settings</li>
-        <li class="breadcrumb-item active" aria-current="page">Page Right Access</li>
+        <li class="breadcrumb-item" aria-current="page">{{'page_right_access.settings' | translate}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{'page_right_access.page_right_access' | translate}}</li>
     </ol>
 </nav>
 <form [formGroup]="filterForm">
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
-            <h6 class="text-main mb-0">Page Right Access</h6>
+            <h6 class="text-main mb-0">{{'page_right_access.page_right_access' | translate}}</h6>
         </mat-card-header>
         <mat-card-header class="card-header">
             <div class="row w-100 gx-2">
                 <div class="col-sm-3">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Select User Type</mat-label>
+                        <mat-label>{{'common.select_user_type' | translate}}</mat-label>
                         <mat-select formControlName="DesignationtypeId">
                             <mat-option *ngFor="let getUserType of resGetUserTypeData"
                                 [value]="getUserType?.userTypeId">{{getUserType?.userType}}</mat-option>
@@ -22,12 +22,12 @@
                 </div>
                 <div class="col-sm-3">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Page Name/Page URL</mat-label>
+                        <mat-label>{{'page_right_access.page_name/page_url' | translate}}</mat-label>
                         <input matInput formControlName="Textsearch">
                     </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                    <button mat-stroked-button class="btn-main" (click)="getAllPagesData()">Filter</button>
+                    <button mat-stroked-button class="btn-main" (click)="getAllPagesData()">{{'common.filter' | translate}}</button>
                 </div>
             </div>
         </mat-card-header>

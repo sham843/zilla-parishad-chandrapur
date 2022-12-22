@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     TableGridComponent,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class PageRightAccessModule { }
