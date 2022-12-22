@@ -122,7 +122,10 @@ export class LoginComponent {
       this.apiService.setHttp('get', 'zp_chandrapur/user-registration/VerifyOTP?' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
-          console.log(res);
+          if(res.responseData.pageLstModels.length == 0){
+            this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : 'काहीतरी चूक झाली', 1)
+            return
+          }
           sessionStorage.setItem('loggedIn', 'true');
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           localStorage.setItem('loggedInData', this.encryptInfo);
