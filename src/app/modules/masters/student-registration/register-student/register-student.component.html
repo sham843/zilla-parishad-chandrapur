@@ -1,5 +1,5 @@
 <mat-card class="plain-card">
-    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()">
+    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="text-main mb-0 fw-bold">Register Student</h6>
@@ -206,7 +206,7 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex align-items-center justify-content-end w-100">
-            <button mat-stroked-button class="btn-second me-2">Cancel</button>
+            <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
             <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
         </div>
     </mat-card-footer>

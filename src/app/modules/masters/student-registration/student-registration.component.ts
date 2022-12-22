@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
@@ -16,10 +17,13 @@ export class StudentRegistrationComponent {
   searchContent = new FormControl('');
   pageNumber: number = 1;
   dataObj: any;
+  fname!:undefined;
+  lname!:undefined;
   lang: string | any = 'English';
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
-    private errors: ErrorsService
+    private errors: ErrorsService,
+    private commonService:CommonMethodsService
   ) { }
 
   ngOnInit() {
@@ -44,7 +48,9 @@ export class StudentRegistrationComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           tableDataArray = res.responseData.responseData1;
-          // console.log("tableDataArray",tableDataArray)
+          tableDataArray.map((ele:any)=>{
+            ele.fullName = ele.f_Name + ' '+ele.m_Name+' '+ele.l_Name;
+           })
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           tableDataArray = [];
@@ -71,7 +77,7 @@ export class StudentRegistrationComponent {
     console.log("obj", obj)
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
       width: '700px',
-      data: this.dataObj,
+      data: obj,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -84,7 +90,7 @@ export class StudentRegistrationComponent {
 
   childCompInfo(obj: any) {
     // console.log(obj);
-    this.dataObj = obj;
+   
 
     switch (obj.label) {
       case 'Pagination':
@@ -101,8 +107,13 @@ export class StudentRegistrationComponent {
 
   globalDialogOpen(delObj?: any) {
     let dataObj = {
-      cancelButton: 'Cancel',
-      okButton: 'Delete'
+      // cancelButton: 'Cancel',
+      // okButton: 'Delete'
+     p1: 'Are you sure you want to delete this record?',
+       p2: '', cardTitle:  'Delete' ,
+        successBtnText:  'Delete',
+         dialogIcon: '', 
+         cancelBtnText: 'Cancel' 
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -123,12 +134,19 @@ export class StudentRegistrationComponent {
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
+            this.commonService.snackBar(res.statusMessage, 0);
             this.getTableData();
           }
+          else {
+            this.commonService.snackBar(res.statusMessage, 1);
+          }
         }),
+        error: (error: any) => {
+          this.errors.handelError(error.status);
+        }
       })
     });
-    console.log(delObj);
+   
   }
 
 

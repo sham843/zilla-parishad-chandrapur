@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -24,7 +24,8 @@ schoolArray=new Array();
 standardArray=new Array();
 genderArray=new Array();
 religionArray=new Array();
-
+@ViewChild('formDirective')
+private formDirective!: NgForm;
 editFlag:boolean=false;
 addData:any;
   constructor(
@@ -91,7 +92,7 @@ addData:any;
           this.getTaluka(this.studentFrm.value.districtId);
           if (this.editFlag == true) {
             this.studentFrm.controls['districtId'].setValue(this.data.districtId);
-             this.getTaluka(this.studentFrm.value.districtId);
+            
           }
         }
         else {
@@ -133,7 +134,7 @@ addData:any;
           this.centerArray = res.responseData;
           if (this.editFlag == true) {
             this.studentFrm.controls['centerId'].setValue(this.data.centerId);
-            this.getSchool(this.lang,this.studentFrm.value.districtId);
+            this.getSchool(this.lang,this.studentFrm.value.centerId);
           }
         }
         else {
@@ -323,7 +324,7 @@ onClickSubmit() {
           if (res.statusCode == '200') {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
-            this.formData();
+            this.clearForm();
             this.editFlag = false;
           } else {
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -336,5 +337,10 @@ onClickSubmit() {
       })
     }
   }
+
+  clearForm() {
+    this.formDirective && this.formDirective.resetForm();
+    this.editFlag = false;
+   }
 
 }
