@@ -17,7 +17,7 @@
 
                 <div class="d-block mb-4">
                     <mat-button-toggle-group formControlName="userType">
-                        <mat-button-toggle *ngFor="let userTypes of loginUser" value="{{userTypes.id}}" [checked]="userTypes.id == loginForm.value.userType" (click)="clearMobAndOTP()">{{userTypes?.m_name}}</mat-button-toggle>
+                        <mat-button-toggle *ngFor="let userTypes of loginUser" value="{{userTypes.id}}" [checked]="userTypes.id == loginForm.value.userType" (click)="clearMobAndOTP()">{{this.language=='English'?userTypes?.name:userTypes?.m_name}}</mat-button-toggle>
                         <!-- <mat-button-toggle value="2">शाळा लॉगिन</mat-button-toggle> -->
                     </mat-button-toggle-group>
                 </div>
@@ -70,9 +70,9 @@
                         <small class="text-muted">0.20 Sec.</small>
                     </div>
                     <div class="text-center">
-                        <p class="small mb-4">ओ टी पी मिळाला नाही का ? <a class="text-main">ओ टी पी पुन्हा पाठवा</a></p>
+                        <p class="small mb-4">{{'login.dont_get_otp' | translate}}<a class="text-main">{{'login.resend_otp' | translate}}</a></p>
 
-                        <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit" >लॉगिन</button>
+                        <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit" >{{'login.login' | translate}}</button>
                     </div>
                 </ng-container>
             </div>

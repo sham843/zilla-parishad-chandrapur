@@ -7,6 +7,7 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import * as CryptoJS from 'crypto-js';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   sendOtpFlag: boolean = false;
   language!:string;
-  loginUser = [{ id: 1, name: '', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: '', m_name: 'शाळा लॉगिन' }];
+  loginUser = [{ id: 1, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: 'School login', m_name: 'शाळा लॉगिन' }];
   //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
   encryptInfo:any;
   constructor(
@@ -27,11 +28,13 @@ export class LoginComponent {
     public validation: ValidationService,
     private fb: FormBuilder,
     private commonMethods: CommonMethodsService,
-    private webStorage:WebStorageService
+    private webStorage:WebStorageService,
+    private translate:TranslateService
   ) {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res ? res : 'English';
     })
+    this.translate.use(this.language)
     this.loginDefForm();
   }
 
