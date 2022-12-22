@@ -20,7 +20,9 @@
     "Sr.no.":"अनुक्रमणिका",
     "contact_n":"संपर्क क्र.",
     "action":"कृती",
-    "select_user_type":"वापरकर्ता प्रकार निवडा"
+    "select_user_type":"वापरकर्ता प्रकार निवडा",
+    "designation":"पदनाव",
+    "masters":"मास्टर्स"
     },
     "dashboard":{
         "dashboard":"मुख्यपृष्ठ"
@@ -30,10 +32,8 @@
         "add_user":"वापरकर्ता जोडा",
         "user_registration":"वापरकर्ता नोंदणी",
         "office_users":"ऑफिस वापरकर्ते",
-        "masters":"मास्टर्स",
         "user_type":"वापरकर्ता प्रकार",
         "level":"पातळी",
-        "designation":"पदनाव",
         "kendra":"केंद्र",
         "school":"शाळा",
         "name":"नाव",
