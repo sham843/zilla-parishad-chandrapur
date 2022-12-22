@@ -7,7 +7,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
+
 
 @Component({
   selector: 'app-register-student',
