@@ -19,7 +19,7 @@
                                 [value]="district.id">{{district.district}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['districtId'].hasError('required')">
+                        <mat-error class="mt-2">
                             District Is Required
                         </mat-error>
                     </mat-form-field>
@@ -31,8 +31,8 @@
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['talukaId'].hasError('required')">
-                            Taluka Is Required
+                        <mat-error class="mt-2">
+                            <span >Taluka Is Required</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -146,7 +146,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Birth Date</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="dob">
+                        <input matInput [matDatepicker]="picker"  [readonly]="true" formControlName="dob" (click)="picker.open()">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
@@ -157,7 +157,13 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Aadhar Card</mat-label>
-                        <input matInput placeholder="Image upload" formControlName="aadharNo">
+                        <input matInput placeholder="Image upload" formControlName="aadharNo"
+                      (keyup)="validation.removeSpaceAtBegining($event)" maxlength="12">
+                        <mat-error *ngIf="f['aadharNo'].errors">
+                            <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
+                                Please Enter Aadhar Number
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
