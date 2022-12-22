@@ -44,12 +44,16 @@ export class SchoolRegistrationComponent {
     this.getTableData();
   }
 
+//#region ---------------------------------------Filter Form Data-----------------------------------------------------------------
   getFilterFormData() {
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0]
     })
   }
+  //#endregion-----------------------------------Filter Form Data--------------------------------------------------------------------
+
+  //#region -------------------------------------Fetch Table Data------------------------------------------------------------------------
   getTableData(flag?: string) {
     let formValue = this.filterForm.value || '' ;
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
@@ -67,8 +71,8 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka'];
+        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'];
+        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -82,21 +86,26 @@ export class SchoolRegistrationComponent {
       error: ((err: any) => { this.errorService.handelError(err) })
     });
   }
+//#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 
+//#region ---------------------------------------------------Excel Download------------------------------------------------------------ 
   excelDownload() {
-    let pageName='Designation Master';
-    let header=['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action'];
-    let column= ['srNo', 'schoolName', 'center', 'taluka', 'action'];
+    let pageName='School Registration';
+    let header=['Sr. No.', 'School Name', 'Kendra', 'Taluka'];
+    let column= ['srNo', 'schoolName', 'center', 'taluka'];
     this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }
+//#endregion ---------------------------------------------------Excel Download------------------------------------------------------------ 
 
+//#region -----------------------------------------------------------Clear Filter Form-----------------------------------------------------
   clearFilter() {
-    
     this.getFilterFormData()
     this.getTableData();
     this.filterForm.reset();
   }
+//#endregion----------------------------------------------------------Clear Filter Form----------------------------------------------------
 
+//#region ---------------------------------------------------Open Dialogue Data-------------------------------------------------------------
   childCompInfo(obj?: any) {
     switch (obj.label) {
       case 'Pagination':
@@ -105,17 +114,17 @@ export class SchoolRegistrationComponent {
         break;
       case 'Edit':
         this.addSchoolData(obj);
-        // this.getTableData();
         break;
       case 'Block':
         this.globalDialogOpen();
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
-        // this.getTableData();
     }
   }
+ //#endregion ---------------------------------------------------Open Dialogue Data-------------------------------------------------------------
 
+ //#region -------------------------------------------------------Add & Edit Dialogue Open-----------------------------------------------------
   addSchoolData(obj?: any) {
     const dialogRef = this.dialog.open(RegisterSchoolComponent, {
       width: '700px',
@@ -127,9 +136,10 @@ export class SchoolRegistrationComponent {
       console.log(result);
       this.getTableData()
     });
-    
   }
+//#endregion -------------------------------------------------------Add & Edit Dialogue Open-----------------------------------------------------
 
+//#region -------------------------------------------------Filter Form Dropdowns--------------------------------------------------------
   getTaluka() {
     this.master.getAllTaluka(this.lang, 1).subscribe({
       next: ((res: any) => {
@@ -146,7 +156,6 @@ export class SchoolRegistrationComponent {
       }
     })
   }
-
 
   getCenter() {
     let formData = this.filterForm.value.talukaId;
@@ -165,7 +174,9 @@ export class SchoolRegistrationComponent {
       }
     })
   }
+//#endregion-------------------------------------------------Filter Form Dropdowns--------------------------------------------------------
 
+  //#region -------------------------------------------------------Delete Data-----------------------------------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
       cancelBtnText: 'Cancel',
@@ -202,32 +213,5 @@ export class SchoolRegistrationComponent {
     });
   }
 }
-
-
-// downloadExcel(){
-//   this.excelDataArr = [];
-//   this.service.setHttp('get', 'whizhack_cms/register/GetAllByPagination?IsDownload=true', false, false, false, 'whizhackService');
-//   this.service.getHttp().subscribe({
-//     next: ((res: any) => {
-//       if (res.statusCode == '200') {
-//         this.excelDataArr = res.responseData?.responseData;
-//         if(this.excelDataArr.length == 0){
-//           this.snack.matSnackBar('No Data Found !!', 1)
-//         }else{
-//           let keyExcelHeader = ['Register ID', 'Name', 'Email ID', 'Date of Birth', 'Contact Number', 'Course Selected', 'Course', 'Gender', 'Country', 'City', 'Qualification', 'Institute Name', 'Degree', 'Year of Passing', 'Percentage', 'Total Experience', 'Message', 'IP Address', 'Operating System', 'Browser'];;
-//           let apiKeys = ['registerId', 'fullName', 'email', 'date_of_Birth', 'mobileNo', 'course_Title', 'pageName', 'gender', 'country', 'city', 'qualification', 'instituteName', 'degree', 'year_of_passing', 'percentage', 'total_Experience', 'message', 'iP_address', 'operating_System', 'browser'];
-//           let nameArr = [{
-//             'sheet_name': 'Enquiries',
-//             'excel_name': 'Enquiries_list'
-//           }];
-//           this.excelService.generateExcel(keyExcelHeader, apiKeys, this.excelDataArr, nameArr);
-//         }       
-//       }else{
-//         this.excelDataArr = [];
-//       }
-//     }), error: (error: any) => {
-//       this.errorSer.handelError(error.status);
-//     }
-//   })
-// }
+//#endregion -------------------------------------------------------Delete Data-----------------------------------------------------------
 
