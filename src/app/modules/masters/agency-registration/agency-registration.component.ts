@@ -27,7 +27,7 @@ language:any;
   ) {}
 
   ngOnInit() {
-    this.getAllAgencyData();
+    // this.getAllAgencyData();
     this.webStorage.langNameOnChange.subscribe((res: any) => {
       res == 'Marathi' ? (this.language = 'mr-IN') : (this.language = 'en');
       this.getAllAgencyData();
@@ -46,7 +46,8 @@ language:any;
         this.tableDataArray = []
         this.totalItem = 0
       }
-      let displayedColumns = ['srNo', 'agencyName','contactNo','emailId','action']
+      let displayedColumns;
+      this.language =='mr-IN'? displayedColumns=['srNo','m_AgencyName','contactNo','emailId','action']:displayedColumns=[ 'srNo', 'agencyName','contactNo','emailId','action']
       let displayedheaders;
       this.language =='mr-IN'? displayedheaders=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी','कृती']:displayedheaders=[ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
       this.tableData = {
@@ -131,6 +132,9 @@ language:any;
     this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
   }
   excelDownload() {
-    this.excelPdf.downloadExcel();
+    let pageName='Agency Registration';
+    let header=['Sr.No.','Agency Name','Contact No.','Email Id'];
+    let column=['srNo', 'agencyName','contactNo','emailId'];
+    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }
 }
