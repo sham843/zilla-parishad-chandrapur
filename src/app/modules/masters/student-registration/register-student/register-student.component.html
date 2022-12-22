@@ -27,7 +27,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter()">
+                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter(studentFrm.value.taluka)">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
