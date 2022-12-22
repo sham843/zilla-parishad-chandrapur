@@ -14,13 +14,13 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="pdfDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>{{'user_Registration.pdf' |translate}}</span>
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>{{'user_Registration.excel' |translate}}</span>
               <i class='bx bxs-file text-primary'></i>

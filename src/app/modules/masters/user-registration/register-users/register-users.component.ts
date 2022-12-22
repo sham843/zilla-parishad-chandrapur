@@ -52,7 +52,7 @@ export class RegisterUsersComponent {
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       contact: [''],
       mobile: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      email: ['', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
+      email: ['', [Validators.email,Validators.pattern(this.validation.email)]],
       address: ['']
     })
   }

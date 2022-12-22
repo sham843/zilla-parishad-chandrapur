@@ -1,15 +1,14 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-        <h6 class="text-main fw-bold mb-0">Delete User</h6>
+        <h6 class="text-main fw-bold mb-0"> {{dialogData?.cardTitle}}</h6>
     </mat-card-header>
     <mat-card-content class="card-body text-center">
-        <img src="assets/images/trash.gif" class="w-25">
-        <h6 mat-dialog-content class="my-4">
-            Are you sure you want to delete this user?
-        </h6>
+        <img src="{{dialogData?.dialogIcon}}" class="w-25">
+        <h6 mat-dialog-content class="my-4"*ngIf="dialogData?.p1">{{dialogData?.p1}}</h6>
+        <h6 mat-dialog-content class="my-4"*ngIf="dialogData?.p2">{{dialogData?.p2}}</h6>
         <div mat-dialog-actions align="end">
-            <button mat-flat-button mat-dialog-close class="btn-second me-2">Cancel</button>
-            <button mat-flat-button cdkFocusInitial type="submit" class="btn-main">Submit</button>
+            <button mat-flat-button mat-dialog-close class="btn-second me-2"  (click)="onNoClick('No')">{{dialogData?.cancelBtnText}}</button>
+            <button mat-flat-button cdkFocusInitial type="submit" (click)="onNoClick('Yes')" class="btn-main">{{dialogData?.successBtnText}}</button>
         </div>
     </mat-card-content>
 </mat-card>
