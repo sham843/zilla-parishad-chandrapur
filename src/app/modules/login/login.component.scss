@@ -49,3 +49,15 @@
         width: 50%;
     }
 }
+
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #757575!important;
+    border: 1px solid red;
+}
+
+::ng-deep .mat-form-field-empty.mat-form-field-label {
+    color: #757575;
+    border: 1px solid red;
+}

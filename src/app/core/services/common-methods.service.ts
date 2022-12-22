@@ -57,11 +57,4 @@ export class CommonMethodsService {
     return language;
   }
 
-  getLocalStorageData(){
-    let localData:any=localStorage.getItem('loggedInData');
-    var deData = CryptoJS.AES.decrypt(decodeURIComponent(localData), 'secret key 123');
-    return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
-  }
-
-
 }
