@@ -14,72 +14,115 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>District</mat-label>
-                        <mat-select placeholder="Select" formControlName="district" (selectionChange)="getTaluka()">
+                        <mat-select placeholder="Select" formControlName="districtId" (selectionChange)="getTaluka()">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['districtId'].hasError('required')">
+                            District Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="taluka" (selectionChange)="getCenter()">
+                        <mat-select placeholder="Select" formControlName="talukaId" (selectionChange)="getCenter()">
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['talukaId'].hasError('required')">
+                            Taluka Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Kendra</mat-label>
-                        <mat-select placeholder="Select" formControlName="center"
-                            (selectionChange)="getSchool(lang,studentFrm.value.center)">
+                        <mat-select placeholder="Select" formControlName="centerId"
+                            (selectionChange)="getSchool(lang,studentFrm.value.centerId)">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
+                            Kendra Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>School</mat-label>
-                        <mat-select placeholder="Select" formControlName="school">
+                        <mat-select placeholder="Select" formControlName="schoolId">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
+                            School Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Standard</mat-label>
-                        <mat-select placeholder="Select" formControlName="standard">
+                        <mat-select placeholder="Select" formControlName="standardId">
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['standardId'].hasError('required')">
+                            Standard Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Parent Contact No</mat-label>
-                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo">
+                        <input matInput placeholder="Enter Parent Contact No Here" formControlName="mobileNo"
+                        (keypress)="validation.onlyDigits($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
+                        <mat-error *ngIf="f['mobileNo'].errors">
+                            <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
+                                Please Enter Contact Number
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>First Name</mat-label>
-                        <input matInput placeholder="Enter First Name Here" formControlName="f_Name">
+                        <input matInput placeholder="Enter First Name Here" formControlName="f_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['f_Name'].errors">
+                            <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
+                                Please Enter First Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Middle Name</mat-label>
-                        <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name">
+                        <input matInput placeholder="Enter Middle Name Here" formControlName="m_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['m_Name'].errors">
+                            <span class="text-danger" *ngIf="f['m_Name'].hasError('required')">
+                                Please Enter Middle Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Enter Last Name Here" formControlName="l_Name">
+                        <input matInput placeholder="Enter Last Name Here" formControlName="l_Name"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['l_Name'].errors">
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
+                                Please Enter Last Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -91,10 +134,13 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Gender</mat-label>
-                        <mat-select placeholder="Select" formControlName="gender">
+                        <mat-select placeholder="Select" formControlName="genderId">
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['genderId'].hasError('required')">
+                            Gender Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -103,6 +149,9 @@
                         <input matInput [matDatepicker]="picker" formControlName="dob">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
+                        Birth Date Is Required
+                    </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -114,17 +163,27 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Religion</mat-label>
-                        <mat-select placeholder="Select" formControlName="religion">
+                        <mat-select placeholder="Select" formControlName="religionId">
                             <mat-option *ngFor="let religion of religionArray"
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
                         </mat-select>
+                        <mat-error class="mt-2" *ngIf="f['religionId'].hasError('required')">
+                            Religion Is Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Caste</mat-label>
-                        <input matInput placeholder="Enter Caste Here" formControlName="cast">
+                        <input matInput placeholder="Enter Caste Here" formControlName="cast"
+                        (keypress)="validation.alphabetsWithSpaces($event)"
+                        (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['cast'].errors">
+                            <span class="text-danger" *ngIf="f['cast'].hasError('required')">
+                                Please Enter Caste Name
+                            </span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -134,7 +193,7 @@
         <div class="d-flex align-items-center justify-content-end w-100">
             <button mat-stroked-button class="btn-second me-2">Cancel</button>
             <button type="submit" mat-stroked-button class="btn-main"
-                (click)="onClickSubmit()">{{"Submit"}}</button>
+                (click)="onClickSubmit()">{{editFlag ? "Update" : "Submit"}}</button>
         </div>
     </mat-card-footer>
 </mat-card>

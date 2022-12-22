@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -12,7 +13,7 @@ import { RegisterStudentComponent } from './register-student/register-student.co
   styleUrls: ['./student-registration.component.scss']
 })
 export class StudentRegistrationComponent {
- 
+  searchContent = new FormControl('');
 
   // registerStudent(){
   //   this.dialog.open(RegisterStudentComponent, {
@@ -46,18 +47,14 @@ export class StudentRegistrationComponent {
       this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
       let tableDataArray = new Array();
       let tableDatasize!: Number;
-      let str= `?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
-      // zp-Chandrapur/Student/GetAll?
-      // let str = `?pageno=${this.pageNumber}&pagesize=10&textSearch=`;
-      
-      // let str =  `?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}&Name=Rahul&SaralId=saral3&MobileNo=1334433123`;
-      // let str1 = `?pageno=${this.pageNumber}&pagesize=10&textSearch=`;
-       this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str, false, false, false, 'baseUrl');
+      let str=`?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
+       this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&searchText=' + (this.searchContent.value), false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
   
         next: (res: any) => {
           if (res.statusCode == "200") {
             tableDataArray = res.responseData.responseData1;
+            // console.log("tableDataArray",tableDataArray)
             tableDatasize = res.responseData.responseData2.pageCount;
           } else {
             tableDataArray = [];
@@ -70,7 +67,8 @@ export class StudentRegistrationComponent {
             img: '', blink: '', badge: '', isBlock: '', pagintion: true,
             displayedColumns: displayedColumns, tableData: tableDataArray,
             tableSize: tableDatasize,
-            tableHeaders: displayedheaders
+            tableHeaders: displayedheaders,
+            // edit:true,delete:true
           };
           this.apiService.tableData.next(tableData);
         },
@@ -104,6 +102,11 @@ export class StudentRegistrationComponent {
          this.registerStudent(obj);
         break;    
     }
+  }
+
+  clearFilter(){
+    this.searchContent.setValue('');
+    this.getTableData();
   }
 }
 

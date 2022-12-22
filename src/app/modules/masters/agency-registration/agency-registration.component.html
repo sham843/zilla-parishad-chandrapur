@@ -38,8 +38,8 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header">
-        <div class="row">
-            <div class="col-sm d-flex">
+        <div class="row w-100">
+            <div class="col-sm-3 d-flex">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Search By Name/Contact</mat-label>
                     <input matInput placeholder="Search by name/contact" [formControl]="searchControl">
@@ -55,3 +55,6 @@
         <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
       </mat-card-content>
   </mat-card>
+
+
+ 

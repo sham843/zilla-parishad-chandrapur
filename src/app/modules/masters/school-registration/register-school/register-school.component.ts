@@ -18,16 +18,12 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
 
-
-
-
   constructor(private fb: FormBuilder, private service: ApiService, public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    // console.log('data', this.data);
     this.getFormData();
     this.getDistrict();
-    this.data ? this.onEditData() : '' ;
+    this.data ? this.onEditData() : '';
   }
 
   getFormData() {
@@ -138,6 +134,7 @@ export class RegisterSchoolComponent {
       }),
     })
   }
+
   onEditData(obj?: any) {
     obj = this.data
     this.editFlag = true;
@@ -162,6 +159,7 @@ export class RegisterSchoolComponent {
     })
     this.editFlag ? this.getDistrict() : '';
   }
+
 
   onSubmitData() {
     let formData = this.registerForm.value;
@@ -191,7 +189,32 @@ export class RegisterSchoolComponent {
     }
   }
 
+  clearForm(){
+    this.editFlag=false;
+  }
+
+  // onDeletData(obj?:any){
+  //   obj=this.data;
+  //   console.log(obj);
+  //   let delObj={
+  //     "id":obj.id,
+  //     "modifiedBy": 0,
+  //     "modifiedDate": "2022-12-21T12:56:19.376Z",
+  //     "lan":''    
+  //   }
+  //   this.service.setHttp('delete', 'zp_chandrapur/School/Delete?lan=en', false, delObj, false, 'baseUrl');
+  //   this.service.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == '200') {
+  //         this.dialogRef.close();
+  //       }
+  //     }),
+  //   })
+  // }
+    
+
+  }
 
 
 
-}
+

@@ -11,8 +11,7 @@
     </mat-card-header>
    <form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm">
     <mat-card-content class="card-body">
-        <h6 class="mb-3">Agency Details</h6>
-        <div class="row mb-3">
+        <div class="row mb-3 g-4">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Agency Name</mat-label>
@@ -46,8 +45,6 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row mb-3">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>District</mat-label>
@@ -85,8 +82,6 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row mb-3">
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email ID</mat-label>
@@ -112,10 +107,9 @@
         </div>
     </mat-card-content>
     <mat-card-footer class="card-footer">
-        <div class="d-flex justify-content-between">
-            <button mat-flat-button class="btn-second" type="button" (click)="clearForm(formDirective)">Cancel</button>
+        <div class="d-flex justify-content-end">
+            <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">Cancel</button>
             <button mat-flat-button class="btn-main" type="submit">Submit</button>
-        </div>
     </mat-card-footer>
    </form>
 </mat-card>
