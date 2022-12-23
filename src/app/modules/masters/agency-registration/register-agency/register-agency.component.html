@@ -47,8 +47,8 @@
             </div>
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'agency.contact_person' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.contact_person' |translate}}" formControlName="contactPerson" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-label>{{'common.contact_person' |translate}}</mat-label>
+                    <input matInput placeholder="{{'common.contact_person' |translate}}" formControlName="contactPerson" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
                     <mat-error *ngIf="f['contactPerson'].errors">
                         <span class="text-danger" *ngIf="f['contactPerson'].hasError('required')">
                            {{'agency.please_enter_contact_person' |translate}}
