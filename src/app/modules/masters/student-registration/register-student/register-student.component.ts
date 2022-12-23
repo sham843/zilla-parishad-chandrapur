@@ -75,7 +75,7 @@ export class RegisterStudentComponent {
       "saralId": ['', [Validators.required]],
       "genderId": [, [Validators.required]],
       "dob": ['', [Validators.required]],
-      "aadharNo": ['', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": ['', [Validators.required,Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [, [Validators.required]],
       "cast": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
       "parentsMobileNo": ['', [Validators.required, Validators.pattern(this.validation.mobile_No)]]

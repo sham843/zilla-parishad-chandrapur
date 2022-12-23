@@ -71,8 +71,10 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action'];
+        let displayedColumns;
+        this.lang ==  'Marathi' ? displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] :  ['srNo', 'schoolName', 'center', 'taluka','action']
+        let displayedheaders;
+        this.lang == 'Marathi'  ? displayedheaders = ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती']: ['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action']
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,

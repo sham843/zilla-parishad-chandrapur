@@ -38,13 +38,13 @@
     </div>
   </mat-card-header>
   <mat-card-header class="card-header">
-    <form [formGroup]="filterFrm" class="d-flex" #formDirective="ngForm">
+    <form [formGroup]="filterFrm" class="d-flex" >
       <div class="row">
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}" formControlName="talukaId" (selectionChange)="getCenter()">
+            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId" (selectionChange)="getCenter()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
             </mat-select>
