@@ -257,7 +257,7 @@ export class RegisterSchoolComponent {
   }
   //#endregion---------------------------------------Clear Form ------------------------------------------------------------------------------
 
-  'school_marathi':{
+ /*  'school_marathi':{
     "school_registration":"शाळा नोंदणी",
     "school_list":"शाळा सूची",
     "school_name":"शाळेचे नाव",
@@ -320,7 +320,7 @@ export class RegisterSchoolComponent {
   "school_type":"School Type"
   "gender_selected":"Gender Selected"
 }
-
+ */
     
 
 

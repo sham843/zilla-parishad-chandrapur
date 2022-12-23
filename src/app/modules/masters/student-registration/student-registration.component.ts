@@ -88,8 +88,15 @@ export class StudentRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'];
-        let displayedheaders = ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action'];
+        // let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'];
+        // let displayedheaders = ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action'];
+        
+        let displayedColumns;
+    this.lang =='Marathi'? displayedColumns=['srNo','saralId','fullName','gender','standard','parentsMobileNo','action']:displayedColumns=[ 'srNo', 'saralId','fullName','gender','standard','parentsMobileNo','action']
+    let displayedheaders;
+    this.lang =='Marathi'? displayedheaders=['अनुक्रमणिका','सरल आयडी','नाव','लिंग','इयत्ता','पालक संपर्क क्रमांक','कृती']:displayedheaders=[ 'Sr.No.','Saral ID','Name','Gender','Standard','Parent MobileNo','Action']
+
+        
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion: true,
@@ -132,44 +139,89 @@ childCompInfo(obj: any) {
     }
   }
 //#region -----------------------------Delete Dialog Box Start---------------------------------
+  // globalDialogOpen(delObj?: any) {
+  //   let dataObj = {
+  //     p1: 'Are you want To Delete Student Record ?',
+  //     p2: '', cardTitle: 'Delete',
+  //     successBtnText: 'Delete',
+  //     dialogIcon: '',
+  //     cancelBtnText: 'Cancel'
+  //   }
+  //   const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      // width: '320px',
+      // data: dataObj,
+      // disableClose: true,
+      // autoFocus: false,
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     result == 'Yes' ? this.getTableData() : ''
+  //     let deleteObj;
+  //     deleteObj = {
+  //       id: delObj.id,
+  //       modifiedBy: 0,
+  //       modifiedDate: new Date(),
+  //       lan: this.lang
+  //     }
+  //     this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+  //     this.apiService.getHttp().subscribe({
+  //       next: ((res: any) => {
+  //         if (res.statusCode == '200') {
+  //           this.commonMethod.snackBar(res.statusMessage, 0);
+  //           this.getTableData();
+  //         }
+  //         else {
+  //           this.commonMethod.snackBar(res.statusMessage, 1);
+  //         }
+  //       }),
+        // error: (error: any) => {
+        //   this.errorService.handelError(error.status);
+        // }
+  //     })
+  //   });
+  // }
+
   globalDialogOpen(delObj?: any) {
-    let dataObj = {
+    let dialogObj = {
       p1: 'Are you want To Delete Student Record ?',
       p2: '', cardTitle: 'Delete',
       successBtnText: 'Delete',
       dialogIcon: '',
       cancelBtnText: 'Cancel'
     }
+
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
-      data: dataObj,
+      data: dialogObj,
       disableClose: true,
       autoFocus: false,
     });
+
     dialogRef.afterClosed().subscribe(result => {
-      result == 'Yes' ? this.getTableData() : ''
-      let deleteObj;
-      deleteObj = {
-        id: delObj.id,
-        modifiedBy: 0,
-        modifiedDate: new Date(),
-        lan: this.lang
+      if (result == 'Yes') {
+      this.clearForm();
+      let deleteObj = {
+              id: delObj.id,
+              modifiedBy: 0,
+              modifiedDate: new Date(),
+              lan: this.lang
+            }
+
+          this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+           this.apiService.getHttp().subscribe({
+          next: ((res: any) => {
+            if (res.statusCode == "200") {
+              this.commonMethod.snackBar(res.statusMessage, 0);
+             this.getTableData();
+            }
+            else {
+              this.commonMethod.snackBar(res.statusMessage, 1);
+            }
+          }),
+          error: (error: any) => {
+            this.errorService.handelError(error.status);
+          }
+        })
       }
-      this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == '200') {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.getTableData();
-          }
-          else {
-            this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.errorService.handelError(error.status);
-        }
-      })
     });
   }
 //#endregion -----------------------------Delete Dialog Box Start---------------------------------
