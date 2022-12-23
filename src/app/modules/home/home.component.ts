@@ -20,7 +20,6 @@ constructor(private translate:TranslateService,
   }
 
 onChangeLanguage(lang:any){
-  console.log(lang)
   this.translate.use(lang)
     this.webStorage.setLanguage.next(lang)
     sessionStorage.setItem('language', lang)

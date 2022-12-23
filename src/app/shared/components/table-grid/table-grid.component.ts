@@ -12,9 +12,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
-
-
-
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
@@ -35,8 +34,10 @@ export class TableGridComponent implements OnInit {
   tableInfo: any;
   tableHeaders = new Array();
   highlightedRow!:number;
-  constructor(private apiService: ApiService) { }
-
+  language:any;
+  constructor(private apiService: ApiService,
+    private webStorage:WebStorageService,
+    private translate:TranslateService) { }
 
   ngOnInit() {
     this.tableInfo = [];
@@ -53,6 +54,10 @@ export class TableGridComponent implements OnInit {
         this.tableRecords.sort = this.sort;
       }
     })
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.language = res;
+    })
+    this.translate.use(this.language);
   }
 
   // ngAfterViewInit() {

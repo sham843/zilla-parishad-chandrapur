@@ -23,7 +23,10 @@
         "contact_n":"Contact No.",
         "email_id":"Email Id",
         "action":"Action",
-        "select_user_type":"Select User Type"
+        "select_user_type":"Select User Type",
+        "name":"Name",
+        "mobile_number":"Mobile Number",
+        "delete":"Delete"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -37,9 +40,8 @@
         "level":"Level",
         "kendra":"Kendra",
         "school":"School",
-        "name":"Name",
-        "contact_person":"Contact Person",
-        "mobile_number":"Mobile Number",
+
+
         "email":"Email Id",
         "agency_address":"Agency Address",
         "enter_name":"Enter Name",
@@ -53,7 +55,6 @@
         "please_enter_agency_name":"Please Enter Agency Name",
         "registration_number":"Registration Number",
         "please_enter_registration_number":"Please Enter Registration Number",
-        "contact_person":"Contact Person",
         "please_enter_contact_person":"Please Enter Contact Person",
         "address":"Address",
         "please_enter_address":"Please Enter Address",
@@ -81,6 +82,43 @@
         "page_name":"Page Name",
         "page_url":"Page Url",
         "select":"Select"
+    },
+    "student":{
+
+        "kendra":"Kendra",
+        "school":"School",
+        "search_by_saralid_name_mobileno":"Search By SaralId/Name/MobileNo",
+        "saral_id":"Saral Id",
+        "gender":"Gender",
+        "standard":"Standard",
+        "parent_contact_no":"Parent Contact Number",
+        "select_taluka":"Select Taluka",
+        "select_kendra":"Select Kendra",
+        "select_school":"Select School",
+        "select_standard":"Select Standard",
+        "enter_parent_contact_number":"Enter Parent Contact Number",
+        "enter_first_name":"Enter First Name",
+         "enter_middle_name":"Enter Middle Name",
+     "enter_last_name":"Enter Last Name",
+    "enter_caste":"Enter Caste",
+    "taluka_is_required":"Taluka Is Required",
+    "kendra_is_required":"Kendra Is Required",
+    "school_is_required":"School Is Required",
+    "standard_is_required":"Standard Is Required",
+    "please_enter_contact_number":"Please Enter Contact Name",
+    "please_enter_first_name":"Please Enter First Name",
+    "please_enter_middle_name":"Please Enter Middle Name",
+    "please_enter_last_name":"Please Enter Last Name",
+    "please_enter_saral_id":"Please Enter Saral Id",
+    "gender_is_required":"Gender Is Required",
+    "birth_date_is_required":"Birth Date Is Required",
+    "please_enter_aadhar_number":"Please Enter Aadhar Number",
+    "religion_is_required":"Religion Is Required",
+    "please_enter_caste_name":"Please Enter Caste Name",
+    "are_you_want_to_delete_student_record":"Are you want To Delete Student Record?",
+    "student_registration":"Student Registration",
+    "student_list":"Student List",
+    "register_student":"Register Student"
     }
 
 }

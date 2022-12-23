@@ -16,7 +16,7 @@ export class CommonMethodsService {
   snackBar(data: string, status: number) {
     let snackClassArr: any = ['snack-success', 'snack-danger', 'snack-warning'];
     this.SnackBar.open(data, " ", {
-      duration: 2000,
+      duration: 10000,
       panelClass: [snackClassArr[status]],
       verticalPosition: 'top', // 'top' | 'bottom'
       horizontalPosition: 'right', //'start' | 'center' | 'end' | 'left' | 'right'

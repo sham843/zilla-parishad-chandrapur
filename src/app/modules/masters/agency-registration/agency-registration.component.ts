@@ -30,7 +30,6 @@ language:any;
     this.getAllAgencyData();
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
-      console.log(this.language)
       this.setTableData();
     })
   }

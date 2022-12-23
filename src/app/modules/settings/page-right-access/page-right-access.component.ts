@@ -71,9 +71,7 @@ export class PageRightAccessComponent implements OnInit {
     });
   }
 
-  setTableData(){
-    console.log(this.language);
-    
+  setTableData(){  
     let displayedColumns;
     this.language=='mr-IN'?displayedColumns=['srNo', 'pageName', 'pageURL', 'select']:displayedColumns=['srNo', 'pageName', 'pageURL', 'select'];
     let displayedheaders;

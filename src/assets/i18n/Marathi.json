@@ -22,7 +22,10 @@
     "action":"कृती",
     "select_user_type":"वापरकर्ता प्रकार निवडा",
     "designation":"पदनाव",
-    "masters":"मास्टर्स"
+    "masters":"मास्टर्स",
+    "name":"नाव",
+    "mobile_number":"मोबाईल नंबर",
+    "delete":"हटवा"
     },
     "dashboard":{
         "dashboard":"मुख्यपृष्ठ"
@@ -36,9 +39,6 @@
         "level":"पातळी",
         "kendra":"केंद्र",
         "school":"शाळा",
-        "name":"नाव",
-        "contact_person":"संपर्क व्यक्ती",
-        "mobile_number":"मोबाईल नंबर",
         "agency_address":"एजन्सीचा पत्ता",
         "enter_name":"नाव प्रविष्ट करा",
         "enter_person_contact":"व्यक्ती संपर्क प्रविष्ट करा",
@@ -51,7 +51,6 @@
         "please_enter_agency_name":"कृपया एजन्सीचे नाव प्रविष्ट करा",
         "registration_number":"नोंदणी क्रमांक",
         "please_enter_registration_number":"कृपया नोंदणी क्रमांक प्रविष्ट करा",
-        "contact_person":"संपर्क व्यक्ती",
         "please_enter_contact_person":"कृपया संपर्क व्यक्ती प्रविष्ट करा",
         "address":"पत्ता",
         "please_enter_address":"कृपया पत्ता प्रविष्ट करा",
@@ -79,6 +78,42 @@
         "page_name":"पृष्ठाचे नाव",
         "page_url":"पृष्ठ Url",
         "select":"निवडा"
+    },
+    "student":{
+        "kendra":"केंद्र",
+        "school":"शाळा",
+        "search_by_saralid_name_mobileno":"सरलआयडी/नाव/मोबाइल नंबर द्वारे शोधा",
+        "saral_id":"सरल आयडी",
+        "gender":"लिंग",
+        "standard":"इयत्ता",
+        "parent_contact_no":"पालक संपर्क क्रमांक",
+        "select_taluka":"तालुका निवडा",
+        "select_kendra":"केंद्र निवडा",
+        "select_school":"शाळा निवडा",
+        "select_standard":"इयत्ता निवडा",
+        "enter_parent_contact_number":"पालक संपर्क क्रमांक प्रविष्ट करा",
+        "enter_first_name":"प्रथम नाव प्रविष्ट करा",
+        "enter_middle_name":"मधले नाव प्रविष्ट करा",
+        "enter_last_name":"आडनाव प्रविष्ट करा",
+         "enter_caste":"जात प्रविष्ट करा",
+         "taluka_is_required":"तालुका आवश्यक आहे",
+         "kendra_is_required":"केंद्र आवश्यक आहे",
+         "school_is_required":"शाळा आवश्यक आहे",
+        "standard_is_required":"मानक आवश्यक आहे",
+         "please_enter_contact_number":"कृपया संपर्क नाव प्रविष्ट करा",
+        "please_enter_first_name":"कृपया प्रथम नाव प्रविष्ट करा",
+        "please_enter_middle_name":"कृपया मधले नाव प्रविष्ट करा",
+        "please_enter_last_name":"कृपया आडनाव प्रविष्ट करा",
+        "please_enter_saral_id":"कृपया सरल आयडी प्रविष्ट करा",
+        "gender_is_required":"लिंग आवश्यक आहे",
+        "birth_date_is_required":"जन्मतारीख आवश्यक आहे",
+        "please_enter_aadhar_number":"कृपया आधार क्रमांक प्रविष्ट करा",
+        "religion_is_required":"धर्म आवश्यक आहे",
+        "please_enter_caste_name":"कृपया जातीचे नाव प्रविष्ट करा",
+        "are_you_want_to_delete_student_record":"तुम्हाला विद्यार्थी रेकॉर्ड हटवायचा आहे का ?",
+        "student_registration":"विद्यार्थी नोंदणी",
+        "student_list":"विद्यार्थ्यांची यादी",
+        "register_student":"विद्यार्थ्याची नोंदणी करा"
     }
 }
 
