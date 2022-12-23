@@ -118,7 +118,7 @@ export class LoginComponent {
       return;
     } else if (this.loginForm.valid) {
       let loginData = this.loginForm.value;
-      let str = `otpNumber=${loginData.o1}${loginData.o2}${loginData.o3}${loginData.o4}&mobileNumber=${loginData.MobileNo}&flag=${loginData.flag}`
+      let str = `otpNumber=${loginData.o1}${loginData.o2}${loginData.o3}${loginData.o4}&userTypeId=${loginData.userType}&mobileNumber=${loginData.MobileNo}&flag=${loginData.flag}`
       this.apiService.setHttp('get', 'zp_chandrapur/user-registration/VerifyOTP?' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {

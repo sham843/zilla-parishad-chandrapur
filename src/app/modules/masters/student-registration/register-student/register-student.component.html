@@ -171,6 +171,7 @@
                         <mat-label>Aadhar Card</mat-label>
                         <input matInput  placeholder="Enter Aadhar Card Number Here..."
                             formControlName="aadharNo" (keyup)="validation.removeSpaceAtBegining($event)"
+                            (keypress)="validation.onlyDigits($event)"
                             maxlength="12">
                         <mat-error *ngIf="f['aadharNo'].errors">
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
