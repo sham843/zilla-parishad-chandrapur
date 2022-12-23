@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Component} from '@angular/core';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -26,9 +26,9 @@ export class StudentRegistrationComponent {
   fname!: undefined;
   lname!: undefined;
   lang: string | any = 'English';
-  @ViewChild('formDirective')
-  private formDirective!: NgForm;
-  tableDataArray = new Array()
+  // @ViewChild('formDirective')
+  // private formDirective!: NgForm;
+   tableDataArray = new Array()
 
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
@@ -293,7 +293,14 @@ childCompInfo(obj: any) {
 
 //#region--------------------------Clear Form Logic Start---------------------------------- 
 clearForm() {
-    this.formDirective && this.formDirective.resetForm();
+  this.filterFrm.reset();
+  this.filterFrm.setValue({
+    talukaId: 0,
+    centerId: 0,
+    schoolId: 0,
+    searchText: ''
+  });
+    // this.formDirective && this.formDirective.resetForm();
     this.getTableData();
   }
 //#endregion--------------------------Clear Form Logic End---------------------------------- 
