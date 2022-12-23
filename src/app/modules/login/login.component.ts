@@ -65,8 +65,8 @@ export class LoginComponent {
     } else {
 
       let loginData = this.loginForm.value;
-      let str = `${loginData.MobileNo}?userType=${loginData.userType}&flag=${loginData.flag}`
-      this.apiService.setHttp('get', 'zp_chandrapur/user-registration/' + str, false, false, false, 'baseUrl');
+      let str = `?MobileNo=${loginData.MobileNo}&userType=${loginData.userType}&flag=${loginData.flag}`
+      this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetUserLogin' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.sendOtpFlag = true;
