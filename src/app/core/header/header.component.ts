@@ -14,11 +14,12 @@ import { WebStorageService } from '../services/web-storage.service'
 export class HeaderComponent {
   @HostBinding('class') className = ''
   language: string = 'English'
-  lag = ['English', 'Marathi'];
-  selLang!: string;
+  lag = ['English', 'Marathi']
+  selLang!: string
   constructor(
     private overlay: OverlayContainer,
-    private dialog: MatDialog, private router: Router,
+    private dialog: MatDialog,
+    private router: Router,
     private webStorage: WebStorageService,
     private translate: TranslateService,
   ) {
@@ -26,12 +27,12 @@ export class HeaderComponent {
     translate.setDefaultLang('English')
   }
   ngOnInit(): void {
-    let language: any = sessionStorage.getItem('language');
-    this.webStorage.setLanguage.next(language);
-    this.translate.use(language);
-    
-    this.webStorage.setLanguage.subscribe((res:any)=>{
-      this.selLang = res;
+    let language: any = sessionStorage.getItem('language')
+    this.webStorage.setLanguage.next(language)
+    this.translate.use(language)
+
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.selLang = res
     })
   }
 
@@ -59,27 +60,30 @@ export class HeaderComponent {
   }
 
   logOut() {
+    let modalLang
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      modalLang = res
+    })
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',
-      data: {
-        p1: 'Are You Sure?',
+      data: { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
         p2: '',
-        cardTitle: 'Logout',
-        successBtnText: 'Logout',
+        cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
+        successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         dialogIcon: 'assets/images/logout.gif',
-        cancelBtnText: 'Cancel',
+        cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
       },
       disableClose: true,
-    });
+    })
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.localStorageClear();
+        this.localStorageClear()
       }
-    });
+    })
   }
 
   localStorageClear() {
-    localStorage.clear();
-    this.router.navigate(['../login']);
+    localStorage.clear()
+    this.router.navigate(['../login'])
   }
 }
