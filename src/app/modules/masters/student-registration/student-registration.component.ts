@@ -182,11 +182,18 @@ childCompInfo(obj: any) {
 
   globalDialogOpen(delObj?: any) {
     let dialogObj = {
-      p1: 'Are you want To Delete Student Record ?',
-      p2: '', cardTitle: 'Delete',
-      successBtnText: 'Delete',
-      dialogIcon: '',
-      cancelBtnText: 'Cancel'
+      p1:this.lang== 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?': 'Are You Sure You Want To Delete Selected Student?',
+      p2: '',
+      cardTitle: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
+      successBtnText: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
+      dialogIcon: 'assets/images/logout.gif',
+      cancelBtnText: this.lang == 'Marathi' ? 'रद्द करा' : 'Cancel',
+
+      // p1: 'Are you want To Delete Student Record ?',
+      // p2: '', cardTitle: 'Delete',
+      // successBtnText: 'Delete',
+      // dialogIcon: '',
+      // cancelBtnText: 'Cancel'
     }
 
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
