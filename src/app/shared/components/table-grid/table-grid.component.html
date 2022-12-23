@@ -5,7 +5,7 @@
                 {{tableHeaders[j] | titlecase}}
             </th>
             <td mat-cell *matCellDef="let element let i=index">
-                <ng-container *ngIf="'srNo' ==columns"><strong>{{(((pageNumber + 1) * 10 + i + 1)-20)}}</strong></ng-container>
+                <ng-container *ngIf="'srNo' ==columns"><strong class="srno">{{(((pageNumber + 1) * 10 + i + 1)-20)}}</strong></ng-container>
                 <ng-container
                     *ngIf="tableInfo?.checkBox != columns && 'srNo' !=columns && tableInfo?.img != columns && tableInfo?.blink != columns && tableInfo?.badge !=  columns">{{element[columns] ? element[columns] : '-' }}
                 </ng-container>
