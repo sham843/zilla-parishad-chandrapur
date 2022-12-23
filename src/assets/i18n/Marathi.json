@@ -130,6 +130,38 @@
         "please_enter_designation_name": "कृपया पदनाम प्रविष्ट करा",
         "do_you_want_to_delete_selected_designation_record?":"तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
         "linked_to":"संलग्न"
+    },
+    "school_marathi":{
+
+        "school_registration":"शाळा नोंदणी",
+        "school_list":"शाळा सूची",
+        "school_name":"शाळेचे नाव",
+        "add_school":"शाळा जोडा",
+        "kendra_required":"कृपया केंद्र निवडा",
+        "please_select_school_name":"कृपया शाळेचे नाव निवडा",
+        "please_select_school_category":"कृपया शाळा श्रेणी निवडा",
+        "please_select_school_type":"कृपया शाळेचा प्रकार निवडा",
+        "please_select_gender_allowed":"कृपया लिंग निवडा",
+        "please_select_group_class": "कृपया ग्रुप वर्ग निवडा",
+        "chimur":"चिमूर",
+        "gondpipri":"गोंडपिपरी",
+        "bhadravati":"भद्रावती",
+        "warora":"वरोरा",
+        "chandrapur":"चंद्रपूर",
+        "1_primary":"१-प्राथमिक",
+        "2_primary_with_upper_primary":"2 उच्च प्राथमिक सह प्राथमिक",
+        "private":"खाजगी",
+        "goverment":"शासकीय",
+        "male":"पुरुष",
+        "female":"स्त्री",
+        "co_ducation":"सह शिक्षण",
+        "group_class":"गट वर्ग",
+        "1st_2nd":"१ला - 2रा",
+        "3rd_5th":"3रा - 5वा",
+        "6th_8th":"6वी_8वी",
+        "school_category":"शाळा श्रेणी",
+        "school_type":"शाळेचा प्रकार",
+        "gender_selected":"लिंग निवडा"
     }
 
 }
