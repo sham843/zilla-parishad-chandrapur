@@ -39,8 +39,10 @@ body {
   --main-dark-color: rgb(0, 66, 189);
 }
 
+a.text-main,
 .text-main {
   color: var(--main-color);
+  text-decoration: none;
 }
 
 .bg-main {
