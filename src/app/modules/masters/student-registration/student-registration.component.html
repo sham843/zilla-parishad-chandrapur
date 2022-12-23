@@ -31,7 +31,7 @@
         <button mat-flat-button class="btn-main" (click)="registerStudent()">
           <mat-icon>add</mat-icon>
           <span>
-            Add Student
+            {{'student.add_student'|translate}}
           </span>
         </button>
       </div>
@@ -53,7 +53,7 @@
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'student.kendra'|translate}}</mat-label>
+            <mat-label>{{'common.kendra'|translate}}</mat-label>
             <mat-select placeholder="{{'student.select_kendra'|translate}}" formControlName="centerId" (selectionChange)="getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
@@ -63,7 +63,7 @@
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'student.school'|translate}}</mat-label>
+            <mat-label>{{'common.school'|translate}}</mat-label>
             <mat-select placeholder="{{'student.select_school'|translate}}" formControlName="schoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
               </mat-option>

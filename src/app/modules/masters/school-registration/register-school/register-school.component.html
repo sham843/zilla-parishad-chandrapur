@@ -12,96 +12,97 @@
             <div class="row g-4">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>District</mat-label>
+                        <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                             <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
                                 {{dist.district}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['districtId'].hasError('required')">*District Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['districtId'].hasError('required')">{{'common.Please_Select_District' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Taluka</mat-label>
+                        <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
                             <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                                 {{tal.taluka}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['talukaId'].hasError('required')">*Taluka Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['talukaId'].hasError('required')">{{'student.select_taluka' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Kendra</mat-label>
+                        <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="centerId" (selectionChange)="getSchoolCategory()">
                             <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
                                 {{cet.center}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['centerId'].hasError('required')">*Kendra Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['centerId'].hasError('required')">{{'school.kendra_required' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>School</mat-label>
-                        <input matInput placeholder="Enter School name" formControlName="schoolName" (keyup)="validator.alphaNumeric($event)" 
+                        <mat-label>{{'common.school' |translate}}</mat-label>
+                        <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName" (keypress)="validator.alphaNumeric($event)" 
                         minlength="10" maxlength="500">
-                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">*Please Select School Name</mat-error>
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'student.school_is_required' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>School Category</mat-label>
+                        <mat-label>{{'school.school_category' |translate}}</mat-label>
                         <mat-select formControlName="s_CategoryId" (selectionChange)="getSchoolType()">
                             <mat-option *ngFor="let cat of schoolcategoryArray" [value]="cat.id">
                                 {{cat.categoryName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">*Please Select School Category</mat-error>
+                        <mat-error *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">{{'school.please_select_school_category' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>School Type</mat-label>
+                        <mat-label>{{'school.school_type' |translate}}</mat-label>
                         <mat-select formControlName="s_TypeId" (selectionChange)="getGenderAllow()">
                             <mat-option *ngFor="let type of schooltypeArray" [value]="type.id">
                                 {{type.schoolType}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['s_TypeId'].hasError('required')">*Please Select School Type</mat-error>
+                        <mat-error *ngIf="registerForm.controls['s_TypeId'].hasError('required')">{{'school.please_select_school_type' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Gender Allowed</mat-label>
+                        <mat-label>{{'school.gender_selected' |translate}}</mat-label>
                         <mat-select formControlName="g_GenderId" (selectionChange)="getGroupClass()">
                             <mat-option *ngFor="let gen of genderAllowArray" [value]="gen.id">
                                 {{gen.gender}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['g_GenderId'].hasError('required')">*Please Select Gender Allowed</mat-error>
+                        <mat-error *ngIf="registerForm.controls['g_GenderId'].hasError('required')">{{'school.please_select_gender_allowed' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Group Class</mat-label>
+                        <mat-label>{{'school.group_class' |translate}}</mat-label>
                         <mat-select formControlName="g_ClassId">
                             <mat-option *ngFor="let gr of groupArray" [value]="gr.id">
                                 {{gr.groupClass}}
                             </mat-option>
                         </mat-select>
-                            <mat-error *ngIf="registerForm.controls['g_ClassId'].hasError('required')">*Please Select Group Class</mat-error>
+                            <mat-error *ngIf="registerForm.controls['g_ClassId'].hasError('required')">{{'school.please_select_group_class' |translate}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
-                <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">Cancel</button>
+                <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear' |translate}}</button>
                 <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
             </div>
         </mat-card-footer>
     </mat-card>
 </form>
+<!-- {{editFlag ? 'common.submit': 'common.update' |translate}} -->

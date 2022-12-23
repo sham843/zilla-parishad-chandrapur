@@ -1,13 +1,13 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">Masters</li>
-    <li class="breadcrumb-item active" aria-current="page">School Registration</li>
+    <li class="breadcrumb-item" aria-current="page">{{'common.masters' | translate}}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{'school.school_registration' | translate}}</li>
   </ol>
 </nav>
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex justify-content-between align-items-center w-100">
-      <h6 class="text-main mb-0">School List</h6>
+      <h6 class="text-main mb-0">{{'school.school_list' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
         <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
           <mat-icon>
@@ -31,7 +31,7 @@
         <button mat-flat-button class="btn-main" (click)="addSchoolData()">
           <mat-icon>add</mat-icon>
           <span>
-            Add School
+            {{'school.add_school' | translate}}
           </span>
         </button>
       </div>
@@ -42,7 +42,7 @@
       <div class="row w-100">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All Taluka</mat-label>
+            <mat-label>{{'student.select_taluka' | translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                     {{tal.taluka}}
@@ -52,7 +52,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Select Kendra</mat-label>
+            <mat-label>{{'student.select_kendra' | translate}}</mat-label>
             <mat-select formControlName="centerId">
               <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                     {{cen.center}}
@@ -61,8 +61,8 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <button (click)="getTableData()" mat-flat-button class="btn-main me-2">Filter</button>
-          <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
+          <button (click)="getTableData()" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
+          <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
         </div>
       </div>
     </mat-card-header>
