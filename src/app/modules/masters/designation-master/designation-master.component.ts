@@ -75,8 +75,6 @@ export class DesignationMasterComponent {
           tableSize: tableDatasize,
           tableHeaders: displayedheaders,
         };
-        console.log(tableData);
-        
         this.apiService.tableData.next(tableData);
       },
       error: ((err: any) => { 
