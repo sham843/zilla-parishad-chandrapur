@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     RouterModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslateModule
   ],
   providers: [
     AuthGuard,
