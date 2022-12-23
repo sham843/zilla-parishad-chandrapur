@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PageRightAccessRoutingModule } from './page-right-access-routing.module';
 import { PageRightAccessComponent } from './page-right-access.component';
 import {MatCardModule} from '@angular/material/card';
