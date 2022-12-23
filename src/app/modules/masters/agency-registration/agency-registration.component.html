@@ -45,7 +45,7 @@
                     <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" [formControl]="searchControl">
                   </mat-form-field>
                   <div class="col-sm-auto">
-                    <button (click)="getAllAgencyData()" mat-flat-button class="btn-main mx-2">{{'common.filter' |translate}}</button>
+                    <button (click)="getAllAgencyData(true)" mat-flat-button class="btn-main mx-2">{{'common.filter' |translate}}</button>
                     <!-- <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' |translate}}</button> -->
                   </div>
             </div>

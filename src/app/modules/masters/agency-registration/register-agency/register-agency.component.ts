@@ -45,11 +45,11 @@ export class RegisterAgencyComponent {
   getAgencyControl() {
     this.agencyForm = this.fb.group({
       agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required]],
-      agencyNameMr: [this.data.obj?this.data.obj.m_AgencyName:'', [Validators.required]],
+      m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'', [Validators.required]],
       registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required]],
-      contactPerson: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      district: [this.data.obj?this.data.obj.districtId:'', [Validators.required]],
-      taluka: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
+      contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
+      districtId: [this.data.obj?this.data.obj.districtId:'', [Validators.required]],
+      talukaId: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
       contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
       address: [this.data.obj?this.data.obj.address:'', [Validators.required]],
@@ -70,25 +70,14 @@ export class RegisterAgencyComponent {
     if (this.agencyForm.invalid) {
       return
     } else {
-      console.log(this.data);
-      let obj = {
-        createdBy: 0,
-        modifiedBy: 0,
-        createdDate: new Date(),
-        modifiedDate: new Date(),
-        isDeleted: false,
-        id:this.data.obj?this.data.obj.id:0,
-        agencyName: this.agencyForm.value.agencyName,
-        m_AgencyName:this.agencyForm.value.agencyNameMr,
-        registrationNo: this.agencyForm.value.registrationNo,
-        contactPersonName: this.agencyForm.value.contactPerson,
-        contactNo: this.agencyForm.value.contactNo,
-        emailId: this.agencyForm.value.emailId,
-        address: this.agencyForm.value.address,
-        districtId: this.agencyForm.value.district,
-        talukaId: this.agencyForm.value.taluka,
-        lan: '',
-      }
+      let obj = this.agencyForm.value;
+      obj.createdBy=0;
+      obj.modifiedBy=0;
+      obj.createdDate=new Date();
+      obj.modifiedDate=new Date();
+      obj.isDeleted=false;
+      obj.id=this.data.obj?this.data.obj.id:0;
+      obj.lan=this.lang;
       this.apiService.setHttp((this.data.obj? 'put':'post'),(this.data.obj?'zp_chandrapur/agency/Update':'zp_chandrapur/agency/Add'),false,obj,false, 'baseUrl')
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == '200') {

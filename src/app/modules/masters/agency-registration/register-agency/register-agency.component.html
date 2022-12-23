@@ -26,9 +26,9 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}" formControlName="agencyNameMr" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['agencyNameMr'].errors">
-                        <span class="text-danger" *ngIf="f['agencyNameMr'].hasError('required')">
+                    <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}" formControlName="m_AgencyName" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['m_AgencyName'].errors">
+                        <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
                            {{'agency.agency_marathi_name' |translate}}
                         </span>
                     </mat-error>
@@ -48,9 +48,9 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.contact_person' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.contact_person' |translate}}" formControlName="contactPerson" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['contactPerson'].errors">
-                        <span class="text-danger" *ngIf="f['contactPerson'].hasError('required')">
+                    <input matInput placeholder="{{'common.contact_person' |translate}}" formControlName="contactPersonName" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <mat-error *ngIf="f['contactPersonName'].errors">
+                        <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
                            {{'agency.please_enter_contact_person' |translate}}
                         </span>
                     </mat-error>
@@ -59,11 +59,11 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.district' |translate}}</mat-label>
-                    <mat-select formControlName="district" (selectionChange)="getTalukaArr(agencyForm.value.district)">
+                    <mat-select formControlName="districtId" (selectionChange)="getTalukaArr(agencyForm.value.districtId)">
                         <mat-option *ngFor="let dist of districtArr" [value]="dist.id">{{dist.district}}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="f['district'].errors">
-                        <span class="text-danger" *ngIf="f['district'].hasError('required')">
+                    <mat-error *ngIf="f['districtId'].errors">
+                        <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
                             {{'common.Please_Select_District' |translate}}
                         </span>
                     </mat-error>
@@ -72,11 +72,11 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.taluka' |translate}}</mat-label>
-                    <mat-select formControlName="taluka">
+                    <mat-select formControlName="talukaId">
                         <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="f['taluka'].errors">
-                        <span class="text-danger" *ngIf="f['taluka'].hasError('required')">
+                    <mat-error *ngIf="f['talukaId'].errors">
+                        <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
                            {{'common.Please_Select_Taluka' |translate}}
                         </span>
                     </mat-error>
