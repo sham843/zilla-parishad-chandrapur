@@ -3,7 +3,9 @@
     "pdf":"पीडीएफ",
     "excel":"एक्सेल",
     "district":"जिल्हा",
-    "taluka":"तालुका",
+    "taluka":"तालुका",    
+    "kendra": "केंद्र",
+    "school": "शाळा",
     "contact_person":"संपर्क व्यक्ती",
     "email":"ई-मेल आयडी",
     "agency_name":"एजन्सीचे नाव",
@@ -25,7 +27,8 @@
     "masters":"मास्टर्स",
     "name":"नाव",
     "mobile_number":"मोबाईल नंबर",
-    "delete":"हटवा"
+    "delete":"हटवा",
+    "ok":"होय"
     },
     "dashboard":{
         "dashboard":"मुख्यपृष्ठ"
@@ -80,8 +83,6 @@
         "select":"निवडा"
     },
     "student":{
-        "kendra":"केंद्र",
-        "school":"शाळा",
         "search_by_saralid_name_mobileno":"सरलआयडी/नाव/मोबाइल नंबर द्वारे शोधा",
         "saral_id":"सरल आयडी",
         "gender":"लिंग",
@@ -114,7 +115,23 @@
         "student_registration":"विद्यार्थी नोंदणी",
         "student_list":"विद्यार्थ्यांची यादी",
         "register_student":"विद्यार्थ्याची नोंदणी करा"
+    },
+    "designation_master": {
+        "add_designation": "पदनाम जोडा",
+        "designation_name": "पदनाम नाव",
+        "designation_level": "पदनाम स्तर",
+        "select_designation": "पदनाम निवडा",
+        "admin": "प्रशासक",
+        "designation_type": "पदनाम प्रकार",
+        "set_designation_level": "पदनाम स्तर सेट करा",
+        "please_select_designation_level ": "कृपया पदनाम स्तर निवडा",
+        "please_select_designation_type": "कृपया पदनाम प्रकार निवडा",
+        "please_set_designation_level": "कृपया पदनाम स्तर सेट करा",
+        "please_enter_designation_name": "कृपया पदनाम प्रविष्ट करा",
+        "do_you_want_to_delete_selected_designation_record?":"तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
+        "linked_to":"संलग्न"
     }
+
 }
 
 

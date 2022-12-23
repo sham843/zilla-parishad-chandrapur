@@ -4,6 +4,8 @@
         "excel":"Excel",
         "district":"District",
         "taluka":"Taluka",
+        "kendra":"Kendra",
+        "school":"School",
         "contact_person":"Contact Person",
         "email":"Email Id",
         "agency_name":"Agency Name",
@@ -26,7 +28,8 @@
         "select_user_type":"Select User Type",
         "name":"Name",
         "mobile_number":"Mobile Number",
-        "delete":"Delete"
+        "delete":"Delete",
+        "ok":"Ok"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -84,9 +87,6 @@
         "select":"Select"
     },
     "student":{
-
-        "kendra":"Kendra",
-        "school":"School",
         "search_by_saralid_name_mobileno":"Search By SaralId/Name/MobileNo",
         "saral_id":"Saral Id",
         "gender":"Gender",
@@ -119,6 +119,21 @@
     "student_registration":"Student Registration",
     "student_list":"Student List",
     "register_student":"Register Student"
+    },
+    "designation_master": {
+        "add_designation": "Add Designation",
+        "designation_name": "Designation Name",
+        "designation_level": "Designation Level",
+        "select_designation": "Select Designation",
+        "admin": "Admin",
+        "designation_type": "Designation Type",
+        "set_designation_level": "Set Designation Level",
+        "please_select_designation_level": "Please Select Designation Level",
+        "please_select_designation_type": "Please Select Designation Type",
+        "please_set_designation_level": "Please Set Designation Level",
+        "please_enter_designation_name": "Please Enter Designation Name",
+        "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
+        "linked_to":"Linked to"
     }
 
 }
