@@ -17,7 +17,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
 }
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,9 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
       }
     }),
     BrowserAnimationsModule
+    
   ],
+  exports:[],
   providers: [],
   bootstrap: [AppComponent]
 })
