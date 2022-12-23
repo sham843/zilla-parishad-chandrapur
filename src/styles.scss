@@ -164,3 +164,9 @@ body {
 .mat-mdc-snack-bar-container{
   background: #333333 !important;
 }
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: #fff !important;
+}
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  color: #333333 !important ;
+}

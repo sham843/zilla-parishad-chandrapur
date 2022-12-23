@@ -13,13 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule, NumberTransformPipe],
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
 
 })
 export class TableGridComponent implements OnInit {
