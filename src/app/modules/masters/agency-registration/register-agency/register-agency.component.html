@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0 fw-bold">{{'agency.register_agency' |translate}}</h6>
+            <h6 class="text-main mb-0 fw-bold">{{this.data?.cardTitle}}</h6>
             <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                 <mat-icon>
                     close
@@ -99,7 +99,7 @@
             <div class="col-sm-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.email' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId" (keypress)="validation.emailRegex($event)" (keyup)="validation.removeSpaceAtBegining($event)">
+                    <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId" (keyup)="validation.removeSpaceAtBegining($event)">
                     <mat-error *ngIf="f['emailId'].errors">
                         <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
                            {{'common.please_enter_email_id' |translate}}
@@ -125,8 +125,8 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-end">
-            <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">{{'common.cancel' |translate}}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{'common.submit' |translate}}</button>
+            <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">{{this.data?.cancelBtnText}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{this.data?.successBtnText}}</button>
             </div>
     </mat-card-footer>
    </form>

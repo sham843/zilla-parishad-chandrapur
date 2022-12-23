@@ -102,7 +102,12 @@ language:any;
    const dialog= this.dialog.open(RegisterAgencyComponent, {
       width: '750px',
       disableClose: true,
-      data:obj
+      data:{
+        cardTitle:obj?(this.language == 'Marathi' ? 'अपडेट एजन्सी' : 'Update Agency'):(this.language == 'Marathi' ? 'नोंदणी एजन्सी' : 'Register Agency'),
+        successBtnText:obj?(this.language == 'Marathi' ? 'अपडेट' : 'Update'):(this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
+        obj:obj,
+        cancelBtnText:this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
+      }
     })
     dialog.afterClosed().subscribe((res:any)=>{
         if(res=='Yes'){
@@ -137,9 +142,9 @@ language:any;
         "id":obj.id,
         "modifiedBy": 0,
         "modifiedDate":new Date(),
-        "lan":langFlag
+        "lan":''
     }
-    this.apiService.setHttp('delete','zp_chandrapur/agency/Delete',true,deleteObj,false,'baseUrl')
+    this.apiService.setHttp('delete','zp_chandrapur/agency/Delete?lan='+langFlag,true,deleteObj,false,'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if(res.statusCode=='200'){
