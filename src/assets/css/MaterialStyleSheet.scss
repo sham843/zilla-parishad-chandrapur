@@ -22,9 +22,10 @@ textarea.mat-input-element,
 .mat-mdc-select-min-line,
 .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-text-field__input,
 .mat-mdc-icon-button.mat-mdc-button-base,
+.mat-mdc-snack-bar-container .mdc-snackbar__label,
 .mat-tab-label-content {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.85rem !important;
     letter-spacing: normal !important;
 }
 
