@@ -135,7 +135,7 @@
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
         "linked_to":"Linked to"
     },
-    "school_english":{
+    "school":{
         "school_registration":"Register School",
         "school_list":"School List",
         "school_name":"School Name",
