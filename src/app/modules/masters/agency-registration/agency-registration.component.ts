@@ -20,7 +20,7 @@ export class AgencyRegistrationComponent {
   pageNumber: number = 1
   totalItem!: number
   tableDataArray = new Array()
-  tableData!: object
+  tableData: any
 language:any;
   constructor(
     public dialog: MatDialog,
@@ -40,7 +40,8 @@ language:any;
     })
   }
   //--------------------------------------------------------get agency data-----------------------------------------------------------
-  getAllAgencyData() {
+  getAllAgencyData(flag?:boolean) {
+    flag ? this.pageNumber = 1  :'';
     this.spinner.show();
     let serchText = this.searchControl.value ? this.searchControl.value : ''
     let obj = `pageno=${this.pageNumber}&pagesize=10&textSearch=${serchText}`;
@@ -51,7 +52,7 @@ language:any;
         this.spinner.hide();
         this.tableDataArray = res.responseData.responseData1;
         this.totalItem = res.responseData.responseData2.pageCount;
-        this.setTableData()
+        this.setTableData();
       } else {
         this.spinner.hide();
         this.common.snackBar(res.statusMessage,1);
@@ -71,6 +72,7 @@ language:any;
     this.language =='Marathi'? displayedheaders=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी','कृती']:displayedheaders=[ 'Sr.No.','Agency Name','Contact No.','Email Id','Action']
     this.tableData = {
       pageNumber: this.pageNumber,
+      highlightedRow:'',
       img: '',
       blink: '',
       badge: '',
@@ -88,7 +90,7 @@ language:any;
   
 
   childCompInfo(obj: any) {   //table method
-    if (obj.label == 'Pagination') {
+  if (obj.label == 'Pagination') {
       this.pageNumber = obj.pageNumber
       this.getAllAgencyData();
     } else if (obj.label == 'Edit') {
@@ -96,7 +98,7 @@ language:any;
     } else {
       this.deleteAgencyModalOpen(obj);
     }
-  }
+  } 
   
   registeragency(obj?:any) {
    const dialog= this.dialog.open(RegisterAgencyComponent, {
@@ -132,6 +134,7 @@ language:any;
          if(res=='Yes'){
            this.deleteAgency(obj);
          }
+
        })
    }
 

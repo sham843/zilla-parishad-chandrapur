@@ -40,7 +40,8 @@
         </ng-container>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index" [ngClass]="{'highlightedrow ':highlightedRow == i}"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index" ></tr>
+    <!-- [ngClass]="{'highlightedrow ':highlightedRow == i}" -->
 </table>
 <mat-paginator *ngIf="tableInfo?.tableData?.length!=0 && tableInfo?.pagination" showFirstLastButtons [length]="tableSize"
     (page)="action($event, 'Pagination')" [pageSizeOptions]="[10]" aria-label="Select page">
