@@ -4,40 +4,42 @@
         <!-- <li class="breadcrumb-item active" aria-current="page">Library</li> -->
     </ol>
 </nav>
-
+<form [formGroup]="topFilterForm">
 <div class="row">
     <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>तालुका निवडा</mat-label>
-            <mat-select>
-                <mat-option>Option 1</mat-option>
-                <mat-option>Option 2</mat-option>
-                <mat-option>Option 3</mat-option>
-            </mat-select>
+          
+            <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();">
+                <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
+                <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                      {{tal.taluka}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
     </div>
     <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>केंद्र निवडा</mat-label>
-            <mat-select>
-                <mat-option>Option 1</mat-option>
-                <mat-option>Option 2</mat-option>
-                <mat-option>Option 3</mat-option>
-            </mat-select>
+            <mat-select formControlName="kendraId" [disabled]="topFilterForm.value.talukaId==0 ? true : false" (selectionChange)="getSchools();cardCountData();">
+                <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
+                      {{cen.center}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
     </div>
     <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>शाळा निवडा</mat-label>
-            <mat-select>
-                <mat-option>Option 1</mat-option>
-                <mat-option>Option 2</mat-option>
-                <mat-option>Option 3</mat-option>
-            </mat-select>
+            <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId" (selectionChange)="cardCountData()">
+                <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
+                      {{schools.schoolName}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
     </div>
 </div>
-
+</form>
 <div class="row mb-3" id="dash-stats">
     <div class="col-sm-3">
         <div class="card card-body bg-blue h-100">
@@ -45,7 +47,7 @@
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/School-white.svg" class="bg-image">
                     <p>School</p>
-                    <h3>7,500</h3>
+                    <h3>{{cardInfoData?.totalSchools}}</h3>
                 </div>
                 <div class="right-img">
                     <img src="assets/images/statistical-icons/School.svg">
@@ -59,7 +61,7 @@
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/Teacher-white.svg" class="bg-image">
                     <p>Teachers</p>
-                    <h3>4,500</h3>
+                    <h3>{{cardInfoData?.totalTeachers}}</h3>
                 </div>
                 <div class="right-img">
                     <img src="assets/images/statistical-icons/Teacher.svg">
@@ -73,7 +75,7 @@
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/Student-white.svg" class="bg-image">
                     <p>Students</p>
-                    <h3>7,500</h3>
+                    <h3>{{cardInfoData?.totalStudents}}</h3>
                 </div>
                 <div class="right-img">
                     <img src="assets/images/statistical-icons/Student.svg">
@@ -87,7 +89,7 @@
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/ZP-Officer-white.svg" class="bg-image">
                     <p>ZP Officers</p>
-                    <h3>7,500</h3>
+                    <h3>{{cardInfoData?.totalUsers}}</h3>
                 </div>
                 <div class="right-img">
                     <img src="assets/images/statistical-icons/ZP-Officer.svg">
@@ -113,7 +115,7 @@
                 Management wise Schools
             </mat-card-header>
             <mat-card-content class="card-body">
-                PIE-CHART
+           <div id="piChart" ></div>
             </mat-card-content>
         </mat-card>
     </div>
@@ -126,8 +128,7 @@
                 </div>
             </mat-card-header>
             <mat-card-content class="card-body">
-                Table
-                Bar Chart
+                <div id="chart" ></div>
             </mat-card-content>
         </mat-card>
     </div>
