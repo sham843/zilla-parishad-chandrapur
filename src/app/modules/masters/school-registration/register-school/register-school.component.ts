@@ -287,7 +287,8 @@ export class RegisterSchoolComponent {
     "school_category":"शाळा श्रेणी"
     "school_type":"शाळेचा प्रकार"
     "gender_selected":"लिंग निवडा",
-    "school_name_required":"शाळेचे नाव आवश्यक आहे"
+    "school_name_required":"शाळेचे नाव आवश्यक आहे",
+    "update":"अद्यतन"
 }
 
 "school_english":{
@@ -319,7 +320,8 @@ export class RegisterSchoolComponent {
   "6th_8th":"6th-8th",
   "school_category":"School Category"
   "school_type":"School Type"
-  "gender_selected":"Gender Selected"
+  "gender_selected":"Gender Selected",
+   "update":"Update"
 }
  */
     
