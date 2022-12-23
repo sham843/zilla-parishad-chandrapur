@@ -46,8 +46,9 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>School</mat-label>
-                        <input matInput placeholder="Enter School name" formControlName="schoolName">
-                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">*School Name Required</mat-error>
+                        <input matInput placeholder="Enter School name" formControlName="schoolName" (keyup)="validator.alphaNumeric($event)" 
+                        minlength="10" maxlength="500">
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">*Please Select School Name</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -58,7 +59,7 @@
                                 {{cat.categoryName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">*School Category Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">*Please Select School Category</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -69,7 +70,7 @@
                                 {{type.schoolType}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['s_TypeId'].hasError('required')">*School Type Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['s_TypeId'].hasError('required')">*Please Select School Type</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -80,7 +81,7 @@
                                 {{gen.gender}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="registerForm.controls['g_GenderId'].hasError('required')">*Gender Allowed Required</mat-error>
+                        <mat-error *ngIf="registerForm.controls['g_GenderId'].hasError('required')">*Please Select Gender Allowed</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -91,7 +92,7 @@
                                 {{gr.groupClass}}
                             </mat-option>
                         </mat-select>
-                            <mat-error *ngIf="registerForm.controls['g_ClassId'].hasError('required')">*Group Class Required</mat-error>
+                            <mat-error *ngIf="registerForm.controls['g_ClassId'].hasError('required')">*Please Select Group Class</mat-error>
                     </mat-form-field>
                 </div>
             </div>

@@ -15,7 +15,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>District</mat-label>
-                        <mat-select placeholder="Select" formControlName="districtId"
+                        <mat-select placeholder="Select District" formControlName="districtId"
                             (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
@@ -29,8 +29,9 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Taluka</mat-label>
-                        <mat-select placeholder="Select" formControlName="talukaId"
+                        <mat-select placeholder="Select Taluka" formControlName="talukaId"
                             (selectionChange)="getCenter(studentFrm.value.talukaId);clearDropdown('talukaId')">
+                            <!-- [disabled]="!studentFrm.value.districtId" -->
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
@@ -42,7 +43,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Kendra</mat-label>
-                        <mat-select placeholder="Select" formControlName="centerId"
+                        <mat-select placeholder="Select Kendra" formControlName="centerId"
                             (selectionChange)="getSchool(lang,studentFrm.value.centerId);clearDropdown('centerId')">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
@@ -55,7 +56,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>School</mat-label>
-                        <mat-select placeholder="Select" formControlName="schoolId">
+                        <mat-select placeholder="Select School" formControlName="schoolId">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
@@ -67,7 +68,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Standard</mat-label>
-                        <mat-select placeholder="Select" formControlName="standardId">
+                        <mat-select placeholder="Select Standard" formControlName="standardId">
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
@@ -144,7 +145,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>Gender</mat-label>
-                        <mat-select placeholder="Select" formControlName="genderId">
+                        <mat-select placeholder="Select Gender" formControlName="genderId">
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
@@ -209,7 +210,7 @@
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
-                <button mat-stroked-button class="btn-second me-2" (click)="clearForm()">Cancel</button>
+                <button mat-stroked-button class="btn-second me-2" type="button" (click)="clearForm()">Cancel</button>
                 <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
             </div>
         </mat-card-footer>

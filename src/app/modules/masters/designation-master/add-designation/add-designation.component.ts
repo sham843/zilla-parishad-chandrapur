@@ -22,16 +22,20 @@ export class AddDesignationComponent {
   setDesignationLevel = new Array();
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-  constructor(private fb: FormBuilder, private commonMethod: CommonMethodsService, private apiService: ApiService,
+  constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService,
               private errorHandler: ErrorHandler,@Inject(MAT_DIALOG_DATA) public data: any,private webStorage:WebStorageService,
               private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner:NgxSpinnerService){}
-  ngOnInit(){
+  ngOnInit() {
+    //     let localVal:any = this.commonMethod.getLocalStorageData();
+    // let aaa = JSON.parse(localVal)
+    // console.log(aaa.responseData.name)
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
     this.data ? this.editMethod() : this.getDesignationLevel();
   }
+  
 
   get f() { return this.designationForm.controls };
 

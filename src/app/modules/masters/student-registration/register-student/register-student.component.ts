@@ -302,8 +302,9 @@ export class RegisterStudentComponent {
 
   //#region -----------------------------Clear Form Logic Start------------------------------------------------
   clearForm() {
-    this.formDirective && this.formDirective.resetForm();
+   this.formDirective.resetForm();
     this.editFlag = false;
+    this.formData();
   }
   //#endregion -----------------------------Clear Form Logic End------------------------------------------------
 

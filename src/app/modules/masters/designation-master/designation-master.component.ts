@@ -65,8 +65,8 @@ export class DesignationMasterComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'action'];
-        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level', 'Action'];
+        let displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
+        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', 
@@ -120,7 +120,7 @@ export class DesignationMasterComponent {
   globalDialogOpen(obj?:any) {
     let dialoObj = {
       header: 'Delete',
-      cardTitle: 'Do you want to delete selected Designation record?',
+      cardTitle: 'Do you want to delete selected designation record?',
       cancelBtnText: 'Cancel',
       successBtnText: 'Ok'
     }
