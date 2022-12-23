@@ -127,7 +127,8 @@
         "aadhar_card_number":"आधार कार्ड क्रमांक",
         "enter_aadhar_card_number":"आधार कार्ड क्रमांक प्रविष्ट करा",
         "religion":"धर्म",
-        "select_religion":"धर्म निवडा"
+        "select_religion":"धर्म निवडा",
+        "caste":"जात"
     },
     "designation_master": {
         "add_designation": "पदनाम जोडा",
@@ -174,7 +175,8 @@
         "6th_8th":"6वी_8वी",
         "school_category":"शाळा श्रेणी",
         "school_type":"शाळेचा प्रकार",
-        "gender_selected":"लिंग निवडा"
+        "gender_selected":"लिंग निवडा",
+        "school_name_required":"शाळेचे नाव आवश्यक आहे"
     },
     "header":{
       "profile_name":"श्री सुनील राजाराम शिंदे",

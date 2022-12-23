@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class WebStorageService {
   // change theme
+  numFormat:any;
   private theme = new BehaviorSubject('')
   constructor() {}
   getTheme() {
@@ -39,5 +40,12 @@ export class WebStorageService {
       let getAllPageName = JSON.parse(this.getLocalStorageData());
       return getAllPageName.responseData.pageLstModels;
     }
+  }
+  numberTransformFunction(value: any){
+    this.setLanguage.subscribe((res:any)=>{
+      res=='Marathi'?this.numFormat='mr-IN':this.numFormat='en';
+    })
+    let number = new Intl.NumberFormat(this.numFormat).format(value);        
+      return number
   }
 }

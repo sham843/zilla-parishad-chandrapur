@@ -18,6 +18,7 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl{
       super.lastPageLabel = lang == 'English' ? 'Last Page' : 'शेवटच पान';
       super.firstPageLabel = lang == 'English' ? 'First Page' : 'पहिले पान';
       this.ofKeyValue = lang == 'English' ? 'of' : 'च्या';
+      super.itemsPerPageLabel = lang == 'English' ? 'Items per page' : 'प्रति पृष्ठ आयटम';
       super.getRangeLabel = this.RangeLabel;
     });
   }
