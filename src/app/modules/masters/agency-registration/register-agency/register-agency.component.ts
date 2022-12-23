@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
+import { WebStorageService } from 'src/app/core/services/web-storage.service'
 
 @Component({
   selector: 'app-register-agency',
@@ -18,9 +20,7 @@ export class RegisterAgencyComponent {
   talukaArr = new Array();
   lang: any;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
-  get f() {
-    return this.agencyForm.controls
-  }
+  get f() {return this.agencyForm.controls}
   constructor(
     public dialogRef: MatDialogRef<RegisterAgencyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,31 +29,36 @@ export class RegisterAgencyComponent {
     private apiService: ApiService,
     private errors:ErrorsService,
     public validation:ValidationService,
-    public translate:TranslateService
+    public translate:TranslateService,
+    private webstorage:WebStorageService,
+    private common:CommonMethodsService
   ) {}
 
   ngOnInit() {
-    this.lang = '';
+    this.webstorage.setLanguage.subscribe((res:any)=>{
+      res=='Marathi'?this.lang='mr-IN':this.lang='en';
+    })
     this.getAgencyControl()
-    this.getDistrict()
+    this.getDistrict();
   }
  
   getAgencyControl() {
     this.agencyForm = this.fb.group({
-      agencyName: [this.data?this.data.agencyName:'', [Validators.required]],
-      agencyNameMr: [this.data?this.data.m_AgencyName:'', [Validators.required]],
-      registrationNo: [this.data?this.data.registrationNo:'', [Validators.required]],
-      contactPerson: [this.data?this.data.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      district: [this.data?this.data.districtId:'', [Validators.required]],
-      taluka: [this.data?this.data.talukaId:'', [Validators.required]],
-      contactNo: [this.data?this.data.contactNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      address: [this.data?this.data.address:'', [Validators.required]],
+      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required]],
+      agencyNameMr: [this.data.obj?this.data.obj.m_AgencyName:'', [Validators.required]],
+      registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required]],
+      contactPerson: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
+      district: [this.data.obj?this.data.obj.districtId:'', [Validators.required]],
+      taluka: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
+      contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
+      emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
+      address: [this.data.obj?this.data.obj.address:'', [Validators.required]],
     })
   }
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
+      this.data.obj?this.getTalukaArr(this.data.obj.districtId):'';
     })
   }
   getTalukaArr(distId: number) {
@@ -65,15 +70,16 @@ export class RegisterAgencyComponent {
     if (this.agencyForm.invalid) {
       return
     } else {
+      console.log(this.data);
       let obj = {
         createdBy: 0,
         modifiedBy: 0,
         createdDate: new Date(),
         modifiedDate: new Date(),
         isDeleted: false,
-        id: 0,
+        id:this.data.obj?this.data.obj.id:0,
         agencyName: this.agencyForm.value.agencyName,
-        m_AgencyName: '',
+        m_AgencyName:this.agencyForm.value.agencyNameMr,
         registrationNo: this.agencyForm.value.registrationNo,
         contactPersonName: this.agencyForm.value.contactPerson,
         contactNo: this.agencyForm.value.contactNo,
@@ -83,9 +89,10 @@ export class RegisterAgencyComponent {
         talukaId: this.agencyForm.value.taluka,
         lan: '',
       }
-      this.apiService.setHttp('post','zp_chandrapur/agency/Add',true,obj,false, 'baseUrl')
+      this.apiService.setHttp((this.data.obj? 'put':'post'),(this.data.obj?'zp_chandrapur/agency/Update':'zp_chandrapur/agency/Add'),false,obj,false, 'baseUrl')
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == '200') {
+          this.common.snackBar(res.statusMessage,0);
           this.dialogRef.close('Yes');
           formDirective.resetForm();
         }

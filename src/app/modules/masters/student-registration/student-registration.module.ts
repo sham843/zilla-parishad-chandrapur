@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { TableGridComponent } from "../../../shared/components/table-grid/table-grid.component";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { TableGridComponent } from "../../../shared/components/table-grid/table-
         MatNativeDateModule,
         ReactiveFormsModule,
         FormsModule,
-        TableGridComponent
+        TableGridComponent,
+        TranslateModule
     ]
 })
 export class StudentRegistrationModule { }

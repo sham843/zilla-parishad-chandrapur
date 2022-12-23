@@ -4,6 +4,8 @@
         "excel":"Excel",
         "district":"District",
         "taluka":"Taluka",
+        "kendra":"Kendra",
+        "school":"School",
         "contact_person":"Contact Person",
         "email":"Email Id",
         "agency_name":"Agency Name",
@@ -26,7 +28,8 @@
         "select_user_type":"Select User Type",
         "name":"Name",
         "mobile_number":"Mobile Number",
-        "delete":"Delete"
+        "delete":"Delete",
+        "ok":"Ok"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -84,9 +87,6 @@
         "select":"Select"
     },
     "student":{
-
-        "kendra":"Kendra",
-        "school":"School",
         "search_by_saralid_name_mobileno":"Search By SaralId/Name/MobileNo",
         "saral_id":"Saral Id",
         "gender":"Gender",
@@ -119,6 +119,52 @@
     "student_registration":"Student Registration",
     "student_list":"Student List",
     "register_student":"Register Student"
-    }
+    },
+    "designation_master": {
+        "add_designation": "Add Designation",
+        "designation_name": "Designation Name",
+        "designation_level": "Designation Level",
+        "select_designation": "Select Designation",
+        "admin": "Admin",
+        "designation_type": "Designation Type",
+        "set_designation_level": "Set Designation Level",
+        "please_select_designation_level": "Please Select Designation Level",
+        "please_select_designation_type": "Please Select Designation Type",
+        "please_set_designation_level": "Please Set Designation Level",
+        "please_enter_designation_name": "Please Enter Designation Name",
+        "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
+        "linked_to":"Linked to"
+    },
+    "school":{
+        "school_registration":"Register School",
+        "school_list":"School List",
+        "school_name":"School Name",
+        "add_school":"Add School",
+        "kendra_required":"Kendra Required",
+        "please_select_school_name":"Please Select School Name",
+        "please_select_school_category":"Please Select School Category",
+        "please_select_school_type":"Please Select School Type",
+        "please_select_gender_allowed":"Please Select Gender Allowed",
+        "please_select_group_class": "Please Select Group Class",
+        "chimur":"Chimur",
+        "gondpipri":"Gondpipri",
+        "bhadravati":"Bhadravati",
+        "warora":"Warora",
+        "chandrapur":"Chandrapur",
+        "1_primary":"1-Primary",
+        "2_primary_with_upper_primary":"2-Primary With Upper Primary",
+        "private":"Private",
+        "goverment":"Goverment",
+        "male":"Male",
+        "female":"Female",
+        "co_ducation":"Co-ducation",
+        "group_class":"Group Class",
+        "1st_2nd":"1st-2nd",
+        "3rd_5th":"3rd-5th",
+        "6th_8th":"6th-8th",
+        "school_category":"School Category",
+        "school_type":"School Type",
+        "gender_selected":"Gender Selected"
+      }
 
 }

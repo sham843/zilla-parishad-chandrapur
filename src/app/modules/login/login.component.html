@@ -6,76 +6,100 @@
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
     <div class="container" id="login-box">
-        <div class="row">
-            <div class="col-sm-5 d-none d-lg-block">
+        <div class="row align-items-center">
+            <div class="col-sm-6 d-none d-lg-block text-center">
+                <img src="assets/images/logo.png" class="logo" routerLink="../home">
                 <img src="assets/images/login-image.png" class="img-fluid">
             </div>
-            <div class="col-sm-4">
-                <div class="mb-4">
+            <div class="col-sm-6" id="login-box-height">
+                <!-- <div class="mb-4">
                     <img src="assets/images/logo.png" class="logo" routerLink="../home">
-                </div>
+                </div> -->
+                <div>
+                    <div class="d-block mb-4">
+                        <mat-button-toggle-group formControlName="userType">
+                            <mat-button-toggle *ngFor="let userTypes of loginUser" value="{{userTypes.id}}"
+                                [checked]="userTypes.id == loginForm.value.userType"
+                                (click)="clearMobAndOTP()">{{this.language=='English'?userTypes?.name:userTypes?.m_name}}</mat-button-toggle>
+                            <!-- <mat-button-toggle value="2">शाळा लॉगिन</mat-button-toggle> -->
+                        </mat-button-toggle-group>
+                    </div>
 
-                <div class="d-block mb-4">
-                    <mat-button-toggle-group formControlName="userType">
-                        <mat-button-toggle *ngFor="let userTypes of loginUser" value="{{userTypes.id}}" [checked]="userTypes.id == loginForm.value.userType" (click)="clearMobAndOTP()">{{this.language=='English'?userTypes?.name:userTypes?.m_name}}</mat-button-toggle>
-                        <!-- <mat-button-toggle value="2">शाळा लॉगिन</mat-button-toggle> -->
-                    </mat-button-toggle-group>
-                </div>
+                    <div class="row gx-1">
+                        <div class="col-sm col">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-icon matPrefix>person</mat-icon>
+                                <input matInput placeholder="{{'login.enter_mobile_number'|translate}}"
+                                    [readonly]="sendOtpFlag" maxlength="10" formControlName="MobileNo"
+                                    (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-auto col-auto">
+                            <button mat-flat-button type="button" class="btn-main btn-icon" (click)="sendOtp()"
+                                *ngIf="!sendOtpFlag">
+                                <mat-icon>
+                                    arrow_forward
+                                </mat-icon>
+                            </button>
+                            <button mat-flat-button class="bg-danger btn-icon text-white" (click)="clearMobAndOTP()"
+                                *ngIf="sendOtpFlag">
+                                <mat-icon>
+                                    close
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="sendOtpFlag">
+                        <p class="small fw-bold text-dark mb-2">{{'login.please_enter_otp' | translate}}</p>
+                        <div class="d-flex gap-2">
+                            <div class="flex-fill" style="width:55px">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" #input1 class="text-center"
+                                        (keyup)="(input1.value.length == 1) ? input2.focus() : 'input1.focus()'"
+                                        formControlName="o1" maxlength="1"
+                                        (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-fill" style="width:55px">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" #input2
+                                        (keyup)="(input2.value.length == 1) ? input3.focus() : 'input2.focus()'"
+                                        class="text-center" (keyup.backspace)="input1.focus()" formControlName="o2"
+                                        maxlength="1"
+                                        (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-fill" style="width:55px">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" #input3
+                                        (keyup)="(input3.value.length == 1) ? input4.focus() : 'input3.focus()'"
+                                        class="text-center" (keyup.backspace)="input2.focus()" formControlName="o3"
+                                        maxlength="1"
+                                        (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-fill" style="width:55px">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" #input4 class="text-center" formControlName="o4"
+                                        (keyup)="(input4.value.length==1)? 'input4.focus()':''"
+                                        (keyup.backspace)="input3.focus()" maxlength="1"
+                                        (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="text-end mb-3">
+                            <small class="text-muted">{{otpTimer}} Sec.</small>
+                        </div>
+                        <div class="text-center">
+                            <p class="small mb-4" *ngIf="otpTimerFlag">{{'login.dont_get_otp' | translate}}
+                                <a
+                                    class="text-main" (click)="sendOtp()"> {{'login.resend_otp' | translate}}</a></p>
 
-                <div class="row gx-1 mb-4">
-                    <div class="col-sm col">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-icon matPrefix>person</mat-icon>
-                            <input matInput placeholder="{{'login.enter_mobile_number'|translate}}" [readonly]="sendOtpFlag" maxlength="10" formControlName="MobileNo"   (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-auto col-auto">
-                        <button mat-flat-button type="button" class="btn-main btn-icon" (click)="sendOtp()" *ngIf="!sendOtpFlag">
-                            <mat-icon>
-                                arrow_circle_right
-                            </mat-icon>
-                        </button>
-                        <button mat-flat-button class="btn-main btn-icon" (click)="clearMobAndOTP()"  *ngIf="sendOtpFlag">
-                            <mat-icon>
-                                close
-                            </mat-icon>
-                        </button>
-                    </div>
+                            <button mat-flat-button class="btn-main px-5 rounded-pill py-4"
+                                type="submit">{{'login.login' | translate}}</button>
+                        </div>
+                    </ng-container>
                 </div>
-                <ng-container *ngIf="sendOtpFlag">
-                    <p class="small fw-bold text-dark mb-2">{{'login.please_enter_otp' | translate}}</p>
-                    <div class="d-flex gap-2">
-                        <div class="flex-fill" style="width:55px">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"    #input1 class="text-center"
-                                (keyup)="(input1.value.length == 1) ? input2.focus() : 'input1.focus()'" formControlName="o1" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-fill" style="width:55px">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"   #input2  (keyup)="(input2.value.length == 1) ? input3.focus() : 'input2.focus()'" class="text-center" (keyup.backspace)="input1.focus()"  formControlName="o2" maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-fill" style="width:55px">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"   #input3  (keyup)="(input3.value.length == 1) ? input4.focus() : 'input3.focus()'" class="text-center" (keyup.backspace)="input2.focus()" formControlName="o3"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-fill" style="width:55px">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="X"    #input4 class="text-center" formControlName="o4"   (keyup)="(input4.value.length==1)? 'input4.focus()':''" (keyup.backspace)="input3.focus()"  maxlength="1"  (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="text-end mb-3">
-                        <small class="text-muted">{{otpTimer}} Sec.</small>
-                    </div>
-                    <div class="text-center">
-                        <p class="small mb-4" *ngIf="otpTimerFlag">{{'login.dont_get_otp' | translate}}<a class="text-main" (click)="sendOtp()"> {{'login.resend_otp' | translate}}</a></p>
-
-                        <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit" >{{'login.login' | translate}}</button>
-                    </div>
-                </ng-container>
             </div>
 
         </div>

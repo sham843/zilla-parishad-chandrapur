@@ -1,16 +1,19 @@
-.login-bg{
+.login-bg {
     height: 100vh;
     display: flex;
     flex-direction: row;
 }
-.login-bg .login-left{
+
+.login-bg .login-left {
     width: 30%;
     background: linear-gradient(180deg, #4284fd 0%, #09ccc2 100%);
 }
-.login-bg .login-right{
+
+.login-bg .login-right {
     width: 70%;
 }
-#login-box{
+
+#login-box {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -18,15 +21,20 @@
     background: white;
     border-radius: 30px;
     padding: 50px;
+    max-width: 960px;
+    width: 960px;
 }
-#login-box .logo{
+
+#login-box .logo {
     width: 250px;
 }
-.mat-button-toggle-group-appearance-standard{
+
+.mat-button-toggle-group-appearance-standard {
     border: none;
 }
-.mat-button-toggle{
-    background-color:#F6F7FD !important;
+
+.mat-button-toggle {
+    background-color: #F6F7FD !important;
     color: #4385FF !important;
     font-size: 0.85rem !important;
     border-radius: 30px;
@@ -34,26 +42,35 @@
     padding-inline: 30px;
     font-weight: 600;
 }
-.mat-button-toggle.mat-button-toggle-checked{
+
+.mat-button-toggle.mat-button-toggle-checked {
     background-color: #09ccc2 !important;
     color: white !important;
 }
+
 @media screen and (max-width:420px) {
-    #login-box{
+    #login-box {
         padding: 30px;
     }
-    .login-bg .login-left{
+
+    .login-bg .login-left {
         width: 50%;
     }
-    .login-bg .login-right{
+
+    .login-bg .login-right {
         width: 50%;
     }
 }
 
+#login-box-height {
+    height: 375px;
+    display: flex;
+    align-items: center;
+}
 
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: #757575!important;
+    color: #757575 !important;
     border: 1px solid red;
 }
 
