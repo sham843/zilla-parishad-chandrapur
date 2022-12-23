@@ -47,7 +47,7 @@ export class TableGridComponent implements OnInit {
         this.highlightedRow = this.tableInfo.highlightedRow;
         this.displayedColumns = this.tableInfo.displayedColumns;
         this.tableSize = this.tableInfo.tableSize;
-        this.tableHeaders = this.tableInfo.tableHeaders
+        this.tableHeaders = this.tableInfo.tableHeaders;
         this.pageNumber = this.tableInfo.pageNumber;
         this.tableInfo.tableData ? this.tableRecords = new MatTableDataSource(this.tableInfo.tableData) : this.tableRecords = [];
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
@@ -65,8 +65,7 @@ export class TableGridComponent implements OnInit {
   // }
 
   action(obj: any, label: string, i?:any) {
-    label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;;
-    
+    label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;;  
     obj.label = label;
     obj.pageNumber = obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;

@@ -91,7 +91,7 @@ export class ExcelPdfDownloadService {
       };
       cell.font = { size: 12, bold: true }
       worksheet.getColumn(index).width = header[index - 1].length < 20 ? 20 : header[index - 1].length;
-      worksheet.getColumn(1).width = 10;
+      worksheet.getColumn(1).width = 15;
       worksheet.getColumn(3).width = 20;
       worksheet.getColumn(4).width = 50;
     });
