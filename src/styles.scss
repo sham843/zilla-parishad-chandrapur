@@ -150,3 +150,17 @@ body {
   padding: 10px 15px;
   font-size: 0.85rem;
 }
+.snack-warning { 
+  border-left: 7px solid #ffc107;
+}
+
+.snack-danger {
+    border-left: 7px solid #ff4141;
+}
+.snack-success {
+  border-left: 7px solid #198754;
+}
+
+.mat-mdc-snack-bar-container{
+  background: #333333 !important;
+}

@@ -1,1 +1,40 @@
-<p>error works!</p>
+<ng-container *ngIf="this.router.url=='/access-denied'; else elseBlock">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" >
+                    <div class="card-body text-center pb-5">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-sm-12">
+                                <img src="assets/images/access-denied.svg" class="img-fluid w-50">
+                                <h5 class="fw-normal text-danger mb-0">You are not Authorized to Access this Page</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #elseBlock>
+    <div class="container-fluid">
+        <div class="row my-5">
+            <div class="col-md-12 text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 mx-auto">
+                            <div class="card card-body rounded-3">
+                                <img src="assets/images/404.png" class="img-fluid">
+                                <button mat-raised-button  class="btn btn-main mx-auto px-2" routerLink="../dashboard" matTooltip="Go To Home">
+                                    <mat-icon>arrow_back</mat-icon>Go To Home </button>
+                                <!-- <button mat-raised-button  type="button" class="mb-1 px-2 mnw-unset"  matTooltip="Back"> <mat-icon>arrow_back</mat-icon> </button> -->
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

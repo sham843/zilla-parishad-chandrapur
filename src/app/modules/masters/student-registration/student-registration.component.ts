@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-// import { ErrorsService } from 'src/app/core/services/errors.service';
-// import { MasterService } from 'src/app/core/services/master.service';
+import { ErrorsService } from 'src/app/core/services/errors.service';
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
+import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 
@@ -15,60 +17,75 @@ import { RegisterStudentComponent } from './register-student/register-student.co
   styleUrls: ['./student-registration.component.scss']
 })
 export class StudentRegistrationComponent {
-  searchContent = new FormControl('');
-  talukaId = new FormControl('');
-  centerId = new FormControl('');
-  schoolId = new FormControl('');
-  talukaArray=new Array();
-  centerArray=new Array();
-  schoolArray=new Array();
+  filterFrm!: FormGroup;
+  talukaArray = new Array();
+  centerArray = new Array();
+  schoolArray = new Array();
   pageNumber: number = 1;
   dataObj: any;
-  fname!:undefined;
-  lname!:undefined;
+  fname!: undefined;
+  lname!: undefined;
   lang: string | any = 'English';
+  @ViewChild('formDirective')
+  private formDirective!: NgForm;
+  tableDataArray = new Array()
+
   constructor(public dialog: MatDialog,
+    private webStorage: WebStorageService,
     private apiService: ApiService,
-    //  private errors: ErrorsService,
-    private commonMethod:CommonMethodsService,
-    // private master:MasterService,
-    // private errorService : ErrorsService
-    
+    private commonMethod: CommonMethodsService,
+    private master: MasterService,
+    private errorService: ErrorsService,
+    private fb: FormBuilder,
+    private excelPdf: ExcelPdfDownloadService
   ) { }
 
   ngOnInit() {
-    // this.lang = this.apiService.getLanguageFlag();
-    this.getTableData()
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res
+      // console.log("lannnnnn", this.lang)
+    })
+    this.formData();
+    this.getTableData();
+    this.getTaluka();
   }
+  //#region -----------------------------Filter Form Start-----------------------------------
+  formData() {
+    this.filterFrm = this.fb.group({
+      "talukaId": [0],
+      "centerId": [0],
+      "schoolId": [0],
+      "searchText": ['']
+    })
+  }
+  //#endregion -----------------------------Filter Form End-----------------------------------
 
+  //#region -----------------------------Pagination Logic Start-----------------------------------
   onPagintion(pageNo: number) {
     this.pageNumber = pageNo;
     this.getTableData()
   }
+  //#endregion -----------------------------Pagination Logic End-----------------------------------
 
-
+  //#region -----------------------------Table Logic Start-----------------------------------
   getTableData(flag?: string) {
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDataArray = new Array();
     let tableDatasize!: Number;
-    // let str = `?pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`;
-    let str=`?pageno=${this.pageNumber}&pagesize=10&
-    TalukaId=${this.talukaId.value ? this.talukaId.value : 0}
-    &CenterId=${this.centerId.value ? this.centerId.value : 0}
-    &SchoolId=${this.schoolId.value ? this.schoolId.value : 0}
-    &lan=${this.lang}`;
-   this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&searchText=' + (this.searchContent.value), false, false, false, 'baseUrl');
+    let str = `?pageno=${this.pageNumber}&pagesize=10`;
+    let formData = this.filterFrm.value;
+    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
+      '&TalukaId=' + (formData?.talukaId) + '&CenterId=' + (formData?.centerId)
+      + '&SchoolId=' + (formData?.centerId) + '&lan=' + (this.lang) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
-
       next: (res: any) => {
         if (res.statusCode == "200") {
-          tableDataArray = res.responseData.responseData1;
-          tableDataArray.map((ele:any)=>{
-            ele.fullName = ele.f_Name + ' '+ele.m_Name+' '+ele.l_Name;
-           })
+          this.tableDataArray = res.responseData.responseData1;
+          this.tableDataArray.map((ele: any) => {
+            ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
+          })
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
-          tableDataArray = [];
+          this.tableDataArray = [];
           tableDatasize = 0;
         }
         let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'];
@@ -76,18 +93,19 @@ export class StudentRegistrationComponent {
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion: true,
-          displayedColumns: displayedColumns, tableData: tableDataArray,
+          displayedColumns: displayedColumns, tableData: this.tableDataArray,
           tableSize: tableDatasize,
           tableHeaders: displayedheaders,
           // edit:true,delete:true
         };
         this.apiService.tableData.next(tableData);
       },
-      // error: ((err: any) => { this.errors.handelError(err) })
+      error: ((err: any) => { this.errorService.handelError(err) })
     });
   }
+//#endregion -----------------------------Table Logic End----------------------------------------
 
-
+//#region -----------------------------Add/Update Dialog Box Start---------------------------------
   registerStudent(obj?: any) {
     console.log("obj", obj)
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
@@ -98,15 +116,9 @@ export class StudentRegistrationComponent {
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.getTableData() : '';
     });
-
   }
-
-
-
-  childCompInfo(obj: any) {
-    // console.log(obj);
-   
-
+//#endregion -----------------------------Add/Update Dialog Box End---------------------------------
+childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
@@ -119,16 +131,14 @@ export class StudentRegistrationComponent {
         this.globalDialogOpen(obj)
     }
   }
-
+//#region -----------------------------Delete Dialog Box Start---------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
-      // cancelButton: 'Cancel',
-      // okButton: 'Delete'
-     p1: 'Are you sure you want to delete this record?',
-       p2: '', cardTitle:  'Delete' ,
-        successBtnText:  'Delete',
-         dialogIcon: '', 
-         cancelBtnText: 'Cancel' 
+      p1: 'Are you want To Delete Student Record ?',
+      p2: '', cardTitle: 'Delete',
+      successBtnText: 'Delete',
+      dialogIcon: '',
+      cancelBtnText: 'Cancel'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -156,78 +166,84 @@ export class StudentRegistrationComponent {
             this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
-        // error: (error: any) => {
-        //   this.errors.handelError(error.status);
-        // }
+        error: (error: any) => {
+          this.errorService.handelError(error.status);
+        }
       })
     });
-   
+  }
+//#endregion -----------------------------Delete Dialog Box Start---------------------------------
+
+//#region--------------------------Filter Dropdown Start----------------------------------
+  getTaluka() {
+    this.master.getAllTaluka(this.lang, 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.talukaArray = res.responseData;
+        }
+        else {
+          this.talukaArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
   }
 
-  clearFilter() {
-    this.searchContent.setValue('');
+  getCenter() {
+    let talukaId = this.filterFrm.value.talukaId;
+    this.master.getAllCenter(this.lang, talukaId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.centerArray = res.responseData;
+        }
+        else {
+          this.centerArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+  }
 
+  getSchool() {
+    let centerId = this.filterFrm.value.centerId;
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.schoolArray = res.responseData;
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+  }
+//#endregion--------------------------Filter Dropdown End----------------------------------
+
+//#region--------------------------Excel Download Logic Start----------------------------------
+  excelDownload() {
+    let pageName = 'Student Registration';
+    let header = ['Saral Id', 'Full Name', 'Taluka', 'Kendra', 'School Name'];
+    let column = ['saralId', 'fullName', 'taluka', 'center', 'schoolName'];
+    this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
+  }
+//#endregion--------------------------Excel Download Logic End----------------------------------
+
+//#region--------------------------Clear Form Logic Start---------------------------------- 
+clearForm() {
+    this.formDirective && this.formDirective.resetForm();
     this.getTableData();
   }
-
-
-  // getTaluka() {
-  //  this.master.getAllTaluka(this.lang,1).subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == "200") {
-  //         this.talukaArray = res.responseData;
-  //         }
-  //       else {
-  //         this.talukaArray = [];
-  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-  //       }
-  //     }),
-  //     error: (error: any) => {
-  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-  //     }
-  //   })
-  // }
-
-  // getCenter() {
-  //   let talukaId = this.talukaId.value;
-  //    this.master.getAllCenter(this.lang,talukaId).subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == "200") {
-  //         this.centerArray = res.responseData;
-  //      }
-  //       else {
-  //         this.centerArray = [];
-  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-  //       }
-  //     }),
-  //     error: (error: any) => {
-  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-  //     }
-  //   }) 
-  // }
-
-  // getSchool() {
-  //   let centerId = this.centerId.value;
-  //   this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' +  this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
-  //   this.apiService.getHttp().subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == "200") {
-  //         this.schoolArray = res.responseData;
-  //       }
-  //       else {
-  //         this.schoolArray = [];
-  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-  //       }
-  //     }),
-  //     error: (error: any) => {
-  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-  //     }
-  //   })
-  // }
-
-
- 
-
-
+//#endregion--------------------------Clear Form Logic End---------------------------------- 
 }
 

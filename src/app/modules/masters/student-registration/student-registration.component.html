@@ -1,91 +1,92 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page">Masters</li>
-      <li class="breadcrumb-item active" aria-current="page">Student Registration</li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">Masters</li>
+    <li class="breadcrumb-item active" aria-current="page">Student Registration</li>
+  </ol>
+</nav>
 <mat-card class="plain-card">
-    <mat-card-header class="card-header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0">Student List</h6>
-            <div class="d-flex align-items-center gap-2">
-                <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
-                    <mat-icon>
-                      download
-                    </mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item>
-                      <div class="d-flex align-items-center justify-content-between w-100">
-                        <span>PDF</span>
-                        <i class='bx bxs-file-pdf text-danger'></i>
-                      </div>
-                    </button>
-                    <button mat-menu-item>
-                      <div class="d-flex align-items-center justify-content-between w-100">
-                        <span>Excel</span>
-                        <i class='bx bxs-file text-primary'></i>
-                      </div>
-                    </button>
-                  </mat-menu>
-                <button mat-flat-button class="btn-main" (click)="registerStudent()">
-                    <mat-icon>add</mat-icon>
-                    <span>
-                        Add Student
-                    </span>
-                </button>
+  <mat-card-header class="card-header">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <h6 class="text-main mb-0">Student List</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+          <mat-icon>
+            download
+          </mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <!-- <button mat-menu-item>
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span>PDF</span>
+              <i class='bx bxs-file-pdf text-danger'></i>
             </div>
-        </div>
-    </mat-card-header>
-    <mat-card-header class="card-header">
-      <div class="row w-100">
+          </button> -->
+          <button mat-menu-item (click)="excelDownload()">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <span>Excel</span>
+              <i class='bx bxs-file text-primary'></i>
+            </div>
+          </button>
+        </mat-menu>
+        <button mat-flat-button class="btn-main" (click)="registerStudent()">
+          <mat-icon>add</mat-icon>
+          <span>
+            Add Student
+          </span>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-header class="card-header">
+    <form [formGroup]="filterFrm" class="d-flex" #formDirective="ngForm">
+      <div class="row">
 
-        <!-- <div class="col-sm-3">
+        <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Taluka</mat-label>
-            <mat-select placeholder="Select Taluka Here..." [formControl]="talukaId" (selectionChange)="getCenter()">
-                <mat-option *ngFor="let taluka of talukaArray"
-                    [value]="taluka.id">{{taluka.taluka}}
-                </mat-option>
+            <mat-select placeholder="Select Taluka Here..." formControlName="talukaId" (selectionChange)="getCenter()">
+              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
+              </mat-option>
             </mat-select>
-        </mat-form-field>
-      </div>
+          </mat-form-field>
+        </div>
 
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Kendra</mat-label>
-          <mat-select placeholder="Select Kendra Here..." [formControl]="centerId" (selectionChange)="getSchool()">
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Kendra</mat-label>
+            <mat-select placeholder="Select Kendra Here..." formControlName="centerId" (selectionChange)="getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
-          </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-sm-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>School</mat-label>
-        <mat-select placeholder="Select School Here..." [formControl]="schoolId">
-          <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-  </div> -->
-
-
-        <div class="col-sm-3">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Search By Id</mat-label>
-                <input matInput placeholder="Search By Id" [formControl]="searchContent">
-            </mat-form-field>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="col-sm-auto">
-          <button (click)="getTableData()" mat-flat-button class="btn-main me-2">Filter</button>
-          <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
+
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>School</mat-label>
+            <mat-select placeholder="Select School Here..." formControlName="schoolId">
+              <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-    </div>
-    
-    </mat-card-header>
-    <mat-card-content class="card-body">
-          <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-    </mat-card-content>
+
+
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Search By Id</mat-label>
+            <input matInput placeholder="Search By SaralId/Name/Contact" formControlName="searchText">
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <button (click)="getTableData()" type="submit" mat-flat-button class="btn-main me-2">Filter</button>
+          <button mat-flat-button class="btn-second" (click)="clearForm()">Clear</button>
+        </div>
+      </div>
+    </form>
+
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+  </mat-card-content>
 </mat-card>
