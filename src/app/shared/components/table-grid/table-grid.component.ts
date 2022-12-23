@@ -44,6 +44,7 @@ export class TableGridComponent implements OnInit {
     this.apiService.tableData.subscribe((res: any) => {
       this.tableInfo = res;
       if (this.tableInfo) {
+        console.log(this.tableInfo.highlightedRow)
         this.highlightedRow = this.tableInfo.highlightedRow;
         this.displayedColumns = this.tableInfo.displayedColumns;
         this.tableSize = this.tableInfo.tableSize;

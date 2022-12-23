@@ -81,8 +81,7 @@ language:any;
       tableHeaders: displayedheaders,
       pagination: true,
       edit: true,
-      delete: true,
-      highlightedRow:true
+      delete: true
     }
     this.apiService.tableData.next(this.tableData)
   }
