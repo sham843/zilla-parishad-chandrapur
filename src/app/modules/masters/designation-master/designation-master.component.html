@@ -15,7 +15,7 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button type="button" mat-menu-item>
+          <button type="button" mat-menu-item (click)="pdfDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>PDF</span>
               <i class='bx bxs-file-pdf text-danger'></i>
@@ -42,7 +42,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Designation</mat-label>
-          <mat-select [formControl]="searchContent">
+          <mat-select [formControl]="searchdesignationLvl">
             <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
           </mat-select>
         </mat-form-field>
