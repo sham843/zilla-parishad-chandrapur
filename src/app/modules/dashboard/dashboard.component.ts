@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-constructor(public translate:TranslateService){}
+constructor(public translate:TranslateService,
+  private common:CommonMethodsService){}
 
 ngOnInit(){
-  // console.log("localStrorage Data",this.apiService.getLocalStorageData());
+  console.log("localStrorage Data",this.common.getLocalStorageData());
+  let data=this.common.getLocalStorageData();
+  console.log(JSON.parse(data).responseData);
 }
 }

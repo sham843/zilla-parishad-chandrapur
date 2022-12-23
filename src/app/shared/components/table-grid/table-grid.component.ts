@@ -11,6 +11,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
+
 
 
 @Component({
@@ -18,13 +20,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule]
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule, NumberTransformPipe],
+
 })
 export class TableGridComponent implements OnInit {
   @Output() recObjToChild = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;
-
   displayedColumns = new Array();
   tableRecords: any;
   tableSize!: number;
