@@ -82,6 +82,7 @@ language:any;
       pagination: true,
       edit: true,
       delete: true,
+      highlightedRow:true
     }
     this.apiService.tableData.next(this.tableData)
   }
@@ -102,7 +103,12 @@ language:any;
    const dialog= this.dialog.open(RegisterAgencyComponent, {
       width: '750px',
       disableClose: true,
-      data:obj
+      data:{
+        cardTitle:obj?(this.language == 'Marathi' ? 'अपडेट एजन्सी' : 'Update Agency'):(this.language == 'Marathi' ? 'नोंदणी एजन्सी' : 'Register Agency'),
+        successBtnText:obj?(this.language == 'Marathi' ? 'अपडेट' : 'Update'):(this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
+        obj:obj,
+        cancelBtnText:this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
+      }
     })
     dialog.afterClosed().subscribe((res:any)=>{
         if(res=='Yes'){
@@ -137,9 +143,9 @@ language:any;
         "id":obj.id,
         "modifiedBy": 0,
         "modifiedDate":new Date(),
-        "lan":langFlag
+        "lan":''
     }
-    this.apiService.setHttp('delete','zp_chandrapur/agency/Delete',true,deleteObj,false,'baseUrl')
+    this.apiService.setHttp('delete','zp_chandrapur/agency/Delete?lan='+langFlag,true,deleteObj,false,'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if(res.statusCode=='200'){
@@ -153,15 +159,22 @@ language:any;
   }
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
   pdfDownload() {
-    let pageName='Agency Registration';
-    let header=['Sr.No.','Agency Name','Contact No.','Email Id'];
-    let column=['srNo', 'agencyName','contactNo','emailId'];
+    console.log(this.language)
+    let pageName;
+    this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
+    let header:any;
+    this.language=='Marathi'?header=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी']:header=['Sr.No.','Agency Name','Contact No.','Email Id'];
+    let column:any;
+    this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
     this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
   }
   excelDownload() {
-    let pageName='Agency Registration';
-    let header=['Sr.No.','Agency Name','Contact No.','Email Id'];
-    let column=['srNo', 'agencyName','contactNo','emailId'];
+    let pageName;
+    this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
+    let header:any;
+    this.language=='Marathi'?header=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी']:header=['Sr.No.','Agency Name','Contact No.','Email Id'];
+    let column:any;
+    this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
     this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }
 }
