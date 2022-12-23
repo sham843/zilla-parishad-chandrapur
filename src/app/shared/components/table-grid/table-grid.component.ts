@@ -23,7 +23,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 })
 export class TableGridComponent implements OnInit {
-  x = 1
   @Output() recObjToChild = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort;

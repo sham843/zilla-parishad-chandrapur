@@ -128,7 +128,8 @@
    "aadhar_card_number":"Aadhar Card Number",
      "enter_aadhar_card_number":"Enter Aadhar Card Number",
     "religion":"Religion",
-    "select_religion":"Select Religion"
+    "select_religion":"Select Religion",
+    "caste":"Caste"
     },
     "designation_master": {
         "add_designation": "Add Designation",
@@ -174,7 +175,8 @@
         "6th_8th":"6th-8th",
         "school_category":"School Category",
         "school_type":"School Type",
-        "gender_selected":"Gender Selected"
+        "gender_selected":"Gender Selected",
+        "school_name_required":"School Name is Required"
       },
       "header":{
         "profile_name":"Mr. Sunil Rajaram Shinde",

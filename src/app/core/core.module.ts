@@ -9,6 +9,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../shared/pipes/custom-pagination';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,10 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   providers: [
     AuthGuard,
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomMatPaginatorIntl,
+    }
   ],
   exports: [HeaderComponent, FooterComponent, SidebarComponent]
 })
