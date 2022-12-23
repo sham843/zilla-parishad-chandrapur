@@ -266,6 +266,8 @@ export class RegisterStudentComponent {
       parentsMobileNo: this.data.parentsMobileNo,
       emailId: this.data.emailId,
     });
+    // this.clearDropdown('talukaId');
+
   }
   //#endregion -----------------------------Edit Logic End------------------------------------------------
 
@@ -310,6 +312,7 @@ export class RegisterStudentComponent {
 
   //#region-----------------------------Clear Dropdown Dependency Logic Start-----------------------------------
   clearDropdown(flag: any) {
+    this.editFlag = false;
     switch (flag) {
       case 'talukaId':
         this.studentFrm.controls['centerId'].setValue(0);

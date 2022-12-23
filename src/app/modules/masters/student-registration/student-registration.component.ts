@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -28,7 +28,7 @@ export class StudentRegistrationComponent {
   lang: string | any = 'English';
   // @ViewChild('formDirective')
   // private formDirective!: NgForm;
-   tableDataArray = new Array()
+  tableDataArray = new Array()
 
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
@@ -43,7 +43,7 @@ export class StudentRegistrationComponent {
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res
-      // console.log("lannnnnn", this.lang)
+      this.getTableData();
     })
     this.formData();
     this.getTableData();
@@ -88,15 +88,12 @@ export class StudentRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        // let displayedColumns = ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'];
-        // let displayedheaders = ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action'];
-        
         let displayedColumns;
-    this.lang =='Marathi'? displayedColumns=['srNo','saralId','fullName','gender','standard','parentsMobileNo','action']:displayedColumns=[ 'srNo', 'saralId','fullName','gender','standard','parentsMobileNo','action']
-    let displayedheaders;
-    this.lang =='Marathi'? displayedheaders=['अनुक्रमणिका','सरल आयडी','नाव','लिंग','इयत्ता','पालक संपर्क क्रमांक','कृती']:displayedheaders=[ 'Sr.No.','Saral ID','Name','Gender','Standard','Parent MobileNo','Action']
+        displayedColumns = this.lang == 'Marathi' ? ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+        let displayedheaders;
+        displayedheaders = this.lang == 'Marathi' ? ['अनुक्रमणिका', 'सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Sr.No.', 'Saral ID', 'Name', 'Gender', 'Standard', 'Parent MobileNo', 'Action']
 
-        
+
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagintion: true,
@@ -110,9 +107,9 @@ export class StudentRegistrationComponent {
       error: ((err: any) => { this.errorService.handelError(err) })
     });
   }
-//#endregion -----------------------------Table Logic End----------------------------------------
+  //#endregion -----------------------------Table Logic End----------------------------------------
 
-//#region -----------------------------Add/Update Dialog Box Start---------------------------------
+  //#region -----------------------------Add/Update Dialog Box Start---------------------------------
   registerStudent(obj?: any) {
     console.log("obj", obj)
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
@@ -124,8 +121,8 @@ export class StudentRegistrationComponent {
       result == 'Yes' ? this.getTableData() : '';
     });
   }
-//#endregion -----------------------------Add/Update Dialog Box End---------------------------------
-childCompInfo(obj: any) {
+  //#endregion -----------------------------Add/Update Dialog Box End---------------------------------
+  childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
@@ -138,7 +135,7 @@ childCompInfo(obj: any) {
         this.globalDialogOpen(obj)
     }
   }
-//#region -----------------------------Delete Dialog Box Start---------------------------------
+  //#region -----------------------------Delete Dialog Box Start---------------------------------
   // globalDialogOpen(delObj?: any) {
   //   let dataObj = {
   //     p1: 'Are you want To Delete Student Record ?',
@@ -148,10 +145,10 @@ childCompInfo(obj: any) {
   //     cancelBtnText: 'Cancel'
   //   }
   //   const dialogRef = this.dialog.open(GlobalDialogComponent, {
-      // width: '320px',
-      // data: dataObj,
-      // disableClose: true,
-      // autoFocus: false,
+  // width: '320px',
+  // data: dataObj,
+  // disableClose: true,
+  // autoFocus: false,
   //   });
   //   dialogRef.afterClosed().subscribe(result => {
   //     result == 'Yes' ? this.getTableData() : ''
@@ -173,16 +170,16 @@ childCompInfo(obj: any) {
   //           this.commonMethod.snackBar(res.statusMessage, 1);
   //         }
   //       }),
-        // error: (error: any) => {
-        //   this.errorService.handelError(error.status);
-        // }
+  // error: (error: any) => {
+  //   this.errorService.handelError(error.status);
+  // }
   //     })
   //   });
   // }
 
   globalDialogOpen(delObj?: any) {
     let dialogObj = {
-      p1:this.lang== 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?': 'Are You Sure You Want To Delete Selected Student?',
+      p1: this.lang == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
       p2: '',
       cardTitle: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
@@ -205,20 +202,20 @@ childCompInfo(obj: any) {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {
-      this.clearForm();
-      let deleteObj = {
-              id: delObj.id,
-              modifiedBy: 0,
-              modifiedDate: new Date(),
-              lan: this.lang
-            }
+        this.clearForm();
+        let deleteObj = {
+          id: delObj.id,
+          modifiedBy: 0,
+          modifiedDate: new Date(),
+          lan: this.lang
+        }
 
-          this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-           this.apiService.getHttp().subscribe({
+        this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+        this.apiService.getHttp().subscribe({
           next: ((res: any) => {
             if (res.statusCode == "200") {
               this.commonMethod.snackBar(res.statusMessage, 0);
-             this.getTableData();
+              this.getTableData();
             }
             else {
               this.commonMethod.snackBar(res.statusMessage, 1);
@@ -231,9 +228,9 @@ childCompInfo(obj: any) {
       }
     });
   }
-//#endregion -----------------------------Delete Dialog Box Start---------------------------------
+  //#endregion -----------------------------Delete Dialog Box Start---------------------------------
 
-//#region--------------------------Filter Dropdown Start----------------------------------
+  //#region--------------------------Filter Dropdown Start----------------------------------
   getTaluka() {
     this.master.getAllTaluka(this.lang, 1).subscribe({
       next: ((res: any) => {
@@ -287,29 +284,29 @@ childCompInfo(obj: any) {
       }
     })
   }
-//#endregion--------------------------Filter Dropdown End----------------------------------
+  //#endregion--------------------------Filter Dropdown End----------------------------------
 
-//#region--------------------------Excel Download Logic Start----------------------------------
+  //#region--------------------------Excel Download Logic Start----------------------------------
   excelDownload() {
     let pageName = 'Student Registration';
     let header = ['Saral Id', 'Full Name', 'Taluka', 'Kendra', 'School Name'];
     let column = ['saralId', 'fullName', 'taluka', 'center', 'schoolName'];
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
-//#endregion--------------------------Excel Download Logic End----------------------------------
+  //#endregion--------------------------Excel Download Logic End----------------------------------
 
-//#region--------------------------Clear Form Logic Start---------------------------------- 
-clearForm() {
-  this.filterFrm.reset();
-  this.filterFrm.setValue({
-    talukaId: 0,
-    centerId: 0,
-    schoolId: 0,
-    searchText: ''
-  });
+  //#region--------------------------Clear Form Logic Start---------------------------------- 
+  clearForm() {
+    this.filterFrm.reset();
+    this.filterFrm.setValue({
+      talukaId: 0,
+      centerId: 0,
+      schoolId: 0,
+      searchText: ''
+    });
     // this.formDirective && this.formDirective.resetForm();
     this.getTableData();
   }
-//#endregion--------------------------Clear Form Logic End---------------------------------- 
+  //#endregion--------------------------Clear Form Logic End---------------------------------- 
 }
 
