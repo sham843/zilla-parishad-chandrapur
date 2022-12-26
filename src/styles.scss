@@ -185,3 +185,8 @@ a.text-main,
 .mat-mdc-snack-bar-container {
  background: #fff !important;
 }
+// my css
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
