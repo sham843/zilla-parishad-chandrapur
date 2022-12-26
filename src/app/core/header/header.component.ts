@@ -17,7 +17,8 @@ export class HeaderComponent {
   @HostBinding('class') className = ''
   language: string = 'English'
   lag = ['English', 'Marathi']
-  selLang!: string
+  selLang!: string;
+  userName!:string;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -36,6 +37,10 @@ export class HeaderComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res
     })
+
+    let name=JSON.parse(this.webStorage.getLocalStorageData());
+    this.userName=name.responseData.name;
+    console.log(this.userName)
   }
 
   changeTheme(darkMode: any) {
