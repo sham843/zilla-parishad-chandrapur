@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
+import { MasterService } from 'src/app/core/services/master.service'
+import { WebStorageService } from 'src/app/core/services/web-storage.service'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { RegisterUsersComponent } from './register-users/register-users.component'
 @Component({
@@ -11,23 +13,69 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
   styleUrls: ['./user-registration.component.scss'],
 })
 export class UserRegistrationComponent {
+  serachUserForm!: FormGroup;
   tableData: any
-  tableDataArray = new Array()
-  totalItem!: number
-  pageNumber: number = 1
-  searchControl = new FormControl('')
+  tableDataArray = new Array();
+  totalItem!: number;
+  pageNumber: number = 1;
+  lang: string = 'English';
+  userTypeArray = new Array();
+  talukaArray = new Array();
+  centerArray = new Array();
+  schoolArray = new Array();
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
     public translate: TranslateService,
-  ) {}
+    private master: MasterService,
+    private webStorage: WebStorageService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
-    this.getAllUserData()
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      res=='Marathi'?this.lang='mr-IN':this.lang='en';
+      this.setTableData();
+    })
+    this.getFormControl();
+    this.getAllUserData();
+    this.getUserType();
+    this.getTaluka();
+  }
+  getFormControl() {
+    this.serachUserForm = this.fb.group({
+      UserTypeId: [0],
+      TalukaId: [0],
+      CenterId: [0],
+      SchoolId: [0],
+      textSearch: [''],
+    })
+  }
+  getUserType() {
+    this.master.getUserType(this.lang).subscribe((res: any) => {
+      this.userTypeArray = res.responseData;
+    })
+  }
+  getTaluka() {
+    this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
+      this.talukaArray = res.responseData;
+    })
+  }
+  getCenter(talukaId: number) {
+    this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
+      this.centerArray = res.responseData;
+    })
+  }
+  getSchoolList(centerId: number) {
+    this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
+      this.schoolArray = res.responseData;
+    })
   }
   getAllUserData() {
-    let obj = `pageno=${this.pageNumber}&pagesize=10&&textSearch=${this.searchControl.value}`
-    this.apiService.setHttp('get','zp_chandrapur/user-registration/GetAll?' + obj,true, false,false,'baseUrl')
+
+    let obj = `pageno=${this.pageNumber}&pagesize=10&UserTypeId=${this.serachUserForm.value.UserTypeId}&TalukaId=${this.serachUserForm.value.TalukaId}
+    &CenterId=${this.serachUserForm.value.CenterId}&SchoolId=${this.serachUserForm.value.SchoolId}&textSearch=${this.serachUserForm.value.textSearch}`
+    this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetAll?' + obj, false, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.tableDataArray = res.responseData.responseData1
@@ -36,8 +84,14 @@ export class UserRegistrationComponent {
         this.tableDataArray = []
         this.totalItem = 0
       }
-      let displayedColumns = ['userType', 'name', 'mobileNo', 'action']
-      let displayedheaders = ['User Type', 'Name', 'Mobile No', 'Action']
+      this.setTableData();
+    })
+  }
+setTableData(){
+  let displayedColumns:any;
+  this.lang=='mr-IN'?displayedColumns=['Sr.No','m_UserType','name','mobileNo','action']:displayedColumns= ['Sr.No','userType', 'name', 'mobileNo', 'action']
+      let displayedheaders:any;
+      this.lang=='mr-IN'?displayedheaders=['Sr.No','वापरकर्ता प्रकार','नाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr.No','User Type', 'Name', 'Mobile No', 'Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         img: '',
@@ -53,9 +107,7 @@ export class UserRegistrationComponent {
         delete: true,
       }
       this.apiService.tableData.next(this.tableData)
-    })
-  }
-
+}
   childCompInfo(obj: any) {
     console.log(obj)
     obj.label == 'Edit' ? this.registerusers(obj) : this.deleteDialog(obj)
@@ -77,21 +129,17 @@ export class UserRegistrationComponent {
     })
     dialog.afterClosed().subscribe((res) => {
       if (res == 'Yes') {
-          this.removeUser()
+        this.removeUser()
       }
     })
   }
 
 
-  removeUser(){
+  removeUser() {
 
   }
-  clearFilter() {
-    this.searchControl.setValue('')
-    this.getAllUserData()
-  }
+
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
-  pdfDownload() {}
-  excelDownload() {}
+  excelDownload() { }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
 }
