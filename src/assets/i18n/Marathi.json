@@ -194,5 +194,20 @@
         "profile": "प्रोफाइल",
         "change_password": "पासवर्ड बदला",
         "logout": "बाहेर पडणे"
-    }
+    },
+    "change_password":{
+        "new_password":"नवीन पासवर्ड",
+        "required_new_password":"नवीन पासवर्ड आवश्यक आहे",
+        "invalid_new_password_format":"अवैध नवीन पासवर्ड फॉरमॅट",
+        "confirm_password":"पासवर्डची पुष्टी करा",
+        "required_confirm_password":"आवश्यक पुष्टी पासवर्ड",
+        "invalid_confirm_password_format":"अवैध पुष्टी पासवर्ड स्वरूप",
+        "change_password":"पासवर्ड बदला",
+        "passwords_must_contains":"पासवर्डमध्ये असणे आवश्यक आहे",
+        "At_least 8 Characters_long":"किमान 8 वर्ण लांब",
+        "At_least 1 Lowercase_Characters (a-z)":"किमान 1 लोअरकेस वर्ण (a-z)",
+        "At_least 1 Uppercase_Characters (A-Z)":"किमान 1 अप्परकेस वर्ण (A-Z)",
+        "At_least 1 Digits(0-9)":"किमान 1 अंक (0-9)",
+        "At_least 1 Special_Characters (*$@#)":"किमान 1 विशेष वर्ण (*$@#)"
+      }
 }
