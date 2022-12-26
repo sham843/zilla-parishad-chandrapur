@@ -15,12 +15,12 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="excelPdfDownload('pdf')">
+          <!-- <button mat-menu-item (click)="excelPdfDownload('pdf')">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>PDF</span>
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
-          </button>
+          </button> -->
           <button mat-menu-item (click)="excelPdfDownload('excel')">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>Excel</span>
@@ -67,7 +67,7 @@
         </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <button (click)="getTableData()" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
+          <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
           <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
         </div>
       </div>
