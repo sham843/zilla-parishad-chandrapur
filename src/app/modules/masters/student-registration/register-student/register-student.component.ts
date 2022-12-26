@@ -50,16 +50,19 @@ export class RegisterStudentComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
     this.formData();
-    this.getDistrict();
-    this.getStandard(this.lang);
-    this.getReligion(this.lang);
-    this.getGender(this.lang);
-    this.data ? this.onEdit() : '';
+    
+    if (this.data) {
+      this.onEdit()
+    } else {
+      this.getDistrict();
+      this.getStandard(this.lang);
+      this.getReligion(this.lang);
+      this.getGender(this.lang);
+    }
   }
 
   //#region -------------------------------------------------------dropdown fun start heare-----------------------------------------//
   getDistrict() {
-    debugger
     this.master.getAllDistrict(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -67,13 +70,12 @@ export class RegisterStudentComponent {
           this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.data.districtId), this.getTaluka(this.studentFrm.value.districtId)) : this.getTaluka(this.studentFrm.value.districtId);
         }
         else {
-          debugger
           this.districtArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -91,7 +93,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -109,7 +111,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -128,7 +130,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -147,7 +149,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -166,7 +168,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
@@ -185,7 +187,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
