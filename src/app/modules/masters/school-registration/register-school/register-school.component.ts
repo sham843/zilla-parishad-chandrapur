@@ -35,7 +35,7 @@ export class RegisterSchoolComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
+      res == 'Marathi' ?(this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.getFormData();
     this.getDistrict();
@@ -256,81 +256,6 @@ export class RegisterSchoolComponent {
     this.editFlag = false;
   }
   //#endregion---------------------------------------Clear Form ------------------------------------------------------------------------------
-
- /*  'school_marathi':{
-    "school_registration":"शाळा नोंदणी",
-    "school_list":"शाळा सूची",
-    "school_name":"शाळेचे नाव",
-    "add_school":"शाळा जोडा",
-    "kendra_required":"कृपया केंद्र निवडा",
-    "please_select_school_name":"कृपया शाळेचे नाव निवडा",
-    "please_select_school_category":"कृपया शाळा श्रेणी निवडा",
-    "please_select_school_type":"कृपया शाळेचा प्रकार निवडा",
-    "please_select_gender_allowed":"कृपया लिंग निवडा",
-    "please_select_group_class": "कृपया ग्रुप वर्ग निवडा"
-    "chimur":"चिमूर",
-    "gondpipri":"गोंडपिपरी",
-    "bhadravati":"भद्रावती",
-    "warora":"वरोरा",
-    "chandrapur":"चंद्रपूर",
-    "1_primary":"१-प्राथमिक",
-    "2_primary_with_upper_primary":"2 उच्च प्राथमिक सह प्राथमिक",
-    "private":"खाजगी",
-    "goverment":"शासकीय",
-    "male":"पुरुष",
-    "female":"स्त्री",
-    "co_ducation":"सह शिक्षण",
-    "group_class":"गट वर्ग",
-    "1st_2nd":"१ला - 2रा",
-    "3rd_5th":"3रा - 5वा",
-    "6th_8th":"6वी_8वी",
-    "school_category":"शाळा श्रेणी"
-    "school_type":"शाळेचा प्रकार"
-    "gender_selected":"लिंग निवडा",
-    "school_name_required":"शाळेचे नाव आवश्यक आहे",
-    "update":"अद्यतन"
-}
-
-"school_english":{
-  "school_registration":"Register School",
-  "school_list":"School List",
-  "school_name":"School Name",
-  "add_school":"Add School",
-  "kendra_required":"Kendra Required",
-  "please_select_school_name":"Please Select School Name",
-  "please_select_school_category":"Please Select School Category",
-  "please_select_school_type":"Please Select School Type",
-  "please_select_gender_allowed":"Please Select Gender Allowed",
-  "please_select_group_class": "Please Select Group Class"
-  "chimur":"Chimur",
-  "gondpipri":"Gondpipri",
-  "bhadravati":"Bhadravati",
-  "warora":"Warora",
-  "chandrapur":"Chandrapur",
-  "1_primary":"1-Primary",
-  "2_primary_with_upper_primary":"2-Primary With Upper Primary",
-  "private":"Private",
-  "goverment":"Goverment",
-  "male":"Male",
-  "female":"Female",
-  "co_ducation":"Co-ducation",
-  "group_class":"Group Class",
-  "1st_2nd":"1st-2nd",
-  "3rd_5th":"3rd-5th",
-  "6th_8th":"6th-8th",
-  "school_category":"School Category"
-  "school_type":"School Type"
-  "gender_selected":"Gender Selected",
-   "update":"Update"
-}
- */
-    
-
-
-
-
-
-  
 }
 
 

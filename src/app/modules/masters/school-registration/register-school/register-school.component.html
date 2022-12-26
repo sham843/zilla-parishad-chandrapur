@@ -100,9 +100,8 @@
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
                 <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear' |translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{this.editFlag ? 'Update' : 'Submit'}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? ('common.submit'| translate):('common.update'| translate)}}</button>
             </div>
         </mat-card-footer>
     </mat-card>
-    <!-- {{editFlag ?( 'common.update' | translate) :('common.submit' |translate)}} -->
 </form>
