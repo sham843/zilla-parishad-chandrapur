@@ -73,16 +73,16 @@ export class HeaderComponent {
         cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
       }
     }else if(flag=='change_password'){
-      obj= { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+      obj= { p1:'',
       p2: '',
-      cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
-      successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
-      dialogIcon: 'assets/images/logout.gif',
+      cardTitle: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
+      successBtnText: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
+      // dialogIcon: 'assets/images/logout.gif',
       cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
     }
     }
       const dialogRef = this.dialog.open(GlobalDialogComponent, {
-        width: '350px',
+        width: '750px',
         data:obj,
       disableClose: true,
     })

@@ -131,7 +131,14 @@
         "enter_aadhar_card_number": "आधार कार्ड क्रमांक प्रविष्ट करा",
         "religion": "धर्म",
         "select_religion": "धर्म निवडा",
-        "caste": "जात"
+        "caste": "जात",
+        "please_enter_valid_first_Name":"कृपया वैध नाव प्रविष्ट करा",
+"please_enter_valid_middle_Name":"कृपया वैध नाव प्रविष्ट करा",
+"please_enter_valid_last_Name":"कृपया वैध नाव प्रविष्ट करा",
+"please_enter_valid_aadhar_Number":"कृपया वैध आधार क्रमांक प्रविष्ट करा",
+"please_enter_valid_Caste":"कृपया वैध जातीचे नाव प्रविष्ट करा",
+"please_enter_valid_mobile_Number":"कृपया वैध पालक मोबाईल नंबर प्रविष्ट करा",
+"update_Student":"विद्यार्थी अपडेट करा"
     },
     "designation_master": {
         "add_designation": "पदनाम जोडा",
