@@ -48,16 +48,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row gx-1 mb-0">
-                        <div class="col-sm">
-                            <div class="ps-4 w-100" id="captcha"></div>
+                    <div class="row gx-2 mb-0 align-items-start">
+                        <div class="col-sm-5">
+                            <div class="w-100" id="captcha"></div>
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="col-sm text-center">
                             <button mat-flat-button class="btn-main btn-icon" type="button" (click)="commonMethods.createCaptchaCarrerPage()">
                                 <mat-icon>sync</mat-icon>
                             </button>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Enter Captcha</mat-label>
                                 <input matInput placeholder="Enter Captcha"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off">
