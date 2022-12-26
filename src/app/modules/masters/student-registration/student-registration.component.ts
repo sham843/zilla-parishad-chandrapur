@@ -9,7 +9,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-student-registration',
@@ -37,7 +37,8 @@ export class StudentRegistrationComponent {
     private master: MasterService,
     private errorService: ErrorsService,
     private fb: FormBuilder,
-    private excelPdf: ExcelPdfDownloadService
+    private excelPdf: ExcelPdfDownloadService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -69,6 +70,7 @@ export class StudentRegistrationComponent {
 
   //#region -----------------------------Table Logic Start-----------------------------------
   getTableData(flag?: string) {
+    this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let tableDatasize!: Number;
     let str = `?pageno=${this.pageNumber}&pagesize=10`;
@@ -78,6 +80,7 @@ export class StudentRegistrationComponent {
       + '&SchoolId=' + (formData?.centerId) + '&lan=' + (this.lang) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
+        this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDataArray.map((ele: any) => {
@@ -85,6 +88,7 @@ export class StudentRegistrationComponent {
           })
           tableDatasize = res.responseData.responseData2.pageCount;
         } else {
+          this.spinner.hide();
           this.tableDataArray = [];
           tableDatasize = 0;
         }
@@ -104,7 +108,10 @@ export class StudentRegistrationComponent {
         };
         this.apiService.tableData.next(tableData);
       },
-      error: ((err: any) => { this.errorService.handelError(err) })
+      error: ((err: any) => { 
+        this.spinner.hide();
+        this.errorService.handelError(err) 
+      })
     });
   }
   //#endregion -----------------------------Table Logic End----------------------------------------
