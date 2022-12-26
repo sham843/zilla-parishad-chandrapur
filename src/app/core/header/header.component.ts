@@ -60,30 +60,20 @@ export class HeaderComponent {
     sessionStorage.setItem('language', lang)
   }
 
-  openModal(flag:any) {
-    let modalLang,obj;
+  openLogoutModal() {
+    let modalLang;
     this.webStorage.setLanguage.subscribe((res: any) => {
       modalLang = res
     })
-    if(flag=='logout'){
-     obj= { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+      const dialogRef = this.dialog.open(GlobalDialogComponent, {
+        width: '350px',
+        data:{ p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
         p2: '',
         cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         dialogIcon: 'assets/images/logout.gif',
         cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
-      }
-    }else if(flag=='change_password'){
-      obj= { p1:'',
-      p2: '',
-      cardTitle: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
-      successBtnText: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
-      cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
-    }
-    }
-      const dialogRef = this.dialog.open(GlobalDialogComponent, {
-        width: '750px',
-        data:obj,
+      },
       disableClose: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -92,7 +82,9 @@ export class HeaderComponent {
       }
     })
   }
-
+  openChangePassModal(){
+    
+  }
   localStorageClear() {
     localStorage.clear()
     this.router.navigate(['../login'])
