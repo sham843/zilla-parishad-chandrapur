@@ -38,6 +38,9 @@ body {
   --main-light-color: rgb(217, 231, 255);
   --main-dark-color: rgb(0, 66, 189);
 }
+a.text-main{
+  font-size: 0.85rem;
+}
 a.text-main,
 .text-main {
   color: var(--main-color);
