@@ -29,7 +29,8 @@ export class RegisterStudentComponent {
   private formDirective!: NgForm;
   editFlag: boolean = false;
   addData: any;
-  todayDate=new Date();
+  todayDate = new Date();
+
   constructor(
     private apiService: ApiService,
     private errorService: ErrorsService,
@@ -45,54 +46,84 @@ export class RegisterStudentComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
     this.formData();
-    this.getDistrict();
-    this.getStandard(this.lang);
-    this.getReligion(this.lang);
-    this.getGender(this.lang);
-    this.data ? this.onEdit() : '';
-
+    
+    if (this.data) {
+      this.onEdit()
+    } else {
+      this.getDistrict();
+      this.getStandard(this.lang);
+      this.getReligion(this.lang);
+      this.getGender(this.lang);
+    }
+  }
+   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
+   formData(data?: any) {
+    this.studentFrm = this.fb.group({
+      "id": [0],
+      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "m_Name": [data?.m_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
+      "talukaId": [data?.talukaId || '', Validators.required],
+      "centerId": [data?.centerId || '', [Validators.required]],
+      "schoolId": [data?.schoolId || '', [Validators.required]],
+      "standardId": [data?.standardId || '', [Validators.required]],
+      "saralId": [data?.saralId || '', [Validators.required]],
+      "genderId": [data?.genderId || '', [Validators.required]],
+      "dob": [data?.dob || '', [Validators.required]],
+      "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
+      "religionId": [data?.religionId || '', [Validators.required]],
+      "cast": [data?.cast || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
+    })
   }
 
   get f() {
     return this.studentFrm.controls;
   }
 
-  //#region -----------------------------Student Form Start-----------------------------------
-  formData() {
-    this.studentFrm = this.fb.group({
-      "id": [0],
-      "f_Name": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "m_Name": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "l_Name": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "districtId": [1, [Validators.required]],
-      "talukaId": [, Validators.required],
-      "centerId": [, [Validators.required]],
-      "schoolId": [, [Validators.required]],
-      "standardId": [, [Validators.required]],
-      "saralId": ['', [Validators.required]],
-      "genderId": [, [Validators.required]],
-      "dob": ['', [Validators.required]],
-      "aadharNo": ['', [Validators.required,Validators.pattern(this.validation.aadhar_card)]],
-      "religionId": [, [Validators.required]],
-      "cast": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "parentsMobileNo": ['', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
-    })
+  onEdit() {
+    this.editFlag = true;
+    this.formData(this.data);
+    this.getDistrict();
+    this.getStandard(this.lang);
+    this.getReligion(this.lang);
+    this.getGender(this.lang);
   }
-  //#endregion -----------------------------Student Form End-----------------------------------
 
-  //#region -----------------------------District Dropdown Start-----------------------------------
+  clearForm() {
+    this.formDirective.resetForm();
+    this.editFlag = false;
+    this.formData();
+  }
+
+  clearDropdown(flag: any) {
+    this.editFlag = false;
+    switch (flag) {
+      case 'talukaId':
+        this.studentFrm.controls['centerId'].setValue('');
+        this.studentFrm.controls['schoolId'].setValue('');
+        break;
+      case 'centerId':
+        this.studentFrm.controls['schoolId'].setValue('');
+        break;
+    }
+  }
+
+  //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
+
+
+  //#region -------------------------------------------------------dropdown fun start heare-----------------------------------------//
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
-          this.getTaluka(this.studentFrm.value.districtId);
-          if (this.editFlag == true) {
-            this.studentFrm.controls['districtId'].setValue(this.data.districtId);
-          }
+          this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.data.districtId), this.getTaluka(this.studentFrm.value.districtId)) : this.getTaluka(this.studentFrm.value.districtId);
         }
         else {
           this.districtArray = [];
@@ -100,22 +131,17 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------District Dropdown End-----------------------------------
 
-  //#region -----------------------------Taluka Dropdown Start-----------------------------------
   getTaluka(districtId: any) {
     this.master.getAllTaluka(this.lang, districtId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['talukaId'].setValue(this.data.talukaId);
-            this.getCenter(this.studentFrm.value.talukaId);
-          }
+          this.editFlag ? (this.studentFrm.controls['talukaId'].setValue(this.data.talukaId), this.getCenter(this.studentFrm.value.talukaId)) : '';
         }
         else {
           this.talukaArray = [];
@@ -123,22 +149,17 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------Taluka Dropdown End-----------------------------------
 
-  //#region -----------------------------Center Dropdown Start-----------------------------------
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['centerId'].setValue(this.data.centerId);
-            this.getSchool(this.lang, this.studentFrm.value.centerId);
-          }
+          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.lang, this.studentFrm.value.centerId)) : '';
         }
         else {
           this.centerArray = [];
@@ -146,22 +167,18 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------Center Dropdown Start-----------------------------------
 
-  //#region -----------------------------School Dropdown Start----------------------------------------
   getSchool(strPara: string, centerId: number) {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['schoolId'].setValue(this.data.schoolId);
-          }
+          this.editFlag ? this.studentFrm.controls['schoolId'].setValue(this.data.schoolId) : '';
         }
         else {
           this.schoolArray = [];
@@ -169,22 +186,18 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------School Dropdown End----------------------------------------
 
-  //#region -----------------------------Standard Dropdown Start----------------------------------------
   getStandard(strPara: string) {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + strPara, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['standardId'].setValue(this.data.standardId);
-          }
+            this.editFlag ?   this.studentFrm.controls['standardId'].setValue(this.data.standardId) : '';
         }
         else {
           this.standardArray = [];
@@ -192,22 +205,18 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------Standard Dropdown End----------------------------------------
 
-  //#region -----------------------------Gender Dropdown Start----------------------------------------
   getGender(strPara: string) {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang=' + strPara, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.genderArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['genderId'].setValue(this.data.genderId);
-          }
+          this.editFlag ? this.studentFrm.controls['genderId'].setValue(this.data.genderId) : '';
         }
         else {
           this.genderArray = [];
@@ -215,22 +224,18 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------Gender Dropdown End----------------------------------------
 
-  //#region -----------------------------Religion Dropdown Start----------------------------------------
   getReligion(strPara: string) {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllReligion?flag_lang=' + strPara, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-          if (this.editFlag == true) {
-            this.studentFrm.controls['religionId'].setValue(this.data.religionId);
-          }
+          this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
         }
         else {
           this.religionArray = [];
@@ -238,40 +243,13 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
   }
-  //#endregion -----------------------------Religion Dropdown End----------------------------------------
+  //#endregion -----------------------------------------------------dropdown fun end heare ----------------------------------------//
 
-  //#region -----------------------------Edit Logic Start------------------------------------------------
-  onEdit() {
-    this.editFlag = true;
-    this.studentFrm.patchValue({
-      createdBy: 0,
-      modifiedBy: 0,
-      createdDate: new Date(),
-      modifiedDate: new Date(),
-      isDeleted: true,
-      id: this.data.id,
-      f_Name: this.data.f_Name,
-      m_Name: this.data.m_Name,
-      l_Name: this.data.l_Name,
-      stateId: 0,
-      saralId: this.data.saralId,
-      dob: this.data.dob.split('T')[0],
-      aadharNo: this.data.aadharNo,
-      lan: this.lang,
-      cast: this.data.cast,
-      parentsMobileNo: this.data.parentsMobileNo,
-      emailId: this.data.emailId,
-    });
-    // this.clearDropdown('talukaId');
-
-  }
-  //#endregion -----------------------------Edit Logic End------------------------------------------------
-
-  //#region -----------------------------Submit Logic Start------------------------------------------------
+ 
   onClickSubmit() {
     if (!this.studentFrm.valid) {
       return;
@@ -300,28 +278,4 @@ export class RegisterStudentComponent {
       })
     }
   }
-  //#endregion -----------------------------Submit Logic End------------------------------------------------
-
-  //#region -----------------------------Clear Form Logic Start------------------------------------------------
-  clearForm() {
-   this.formDirective.resetForm();
-    this.editFlag = false;
-    this.formData();
-  }
-  //#endregion -----------------------------Clear Form Logic End------------------------------------------------
-
-  //#region-----------------------------Clear Dropdown Dependency Logic Start-----------------------------------
-  clearDropdown(flag: any) {
-    this.editFlag = false;
-    switch (flag) {
-      case 'talukaId':
-        this.studentFrm.controls['centerId'].setValue(0);
-        this.studentFrm.controls['schoolId'].setValue(0);
-        break;
-      case 'centerId':
-        this.studentFrm.controls['schoolId'].setValue(0);
-        break;
-    }
-  }
-  //#endregion-----------------------------Clear Dropdown Dependency Logic End-----------------------------------
 }

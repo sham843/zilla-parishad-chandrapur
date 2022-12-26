@@ -2,6 +2,7 @@
     <mat-card-header class="card-header">
         <h6 class="text-main fw-bold mb-0"> {{dialogData?.cardTitle}}</h6>
     </mat-card-header>
+   <ng-container *ngIf="dialogData?.cardTitle=='Logout'">
     <mat-card-content class="card-body text-center">
         <img src="{{dialogData?.dialogIcon}}" class="w-25">
         <h6 mat-dialog-content class="my-4"*ngIf="dialogData?.p1">{{dialogData?.p1}}</h6>
@@ -11,4 +12,96 @@
             <button mat-flat-button type="submit" (click)="onNoClick('Yes')" class="btn-main">{{dialogData?.successBtnText}}</button>
         </div>
     </mat-card-content>
+   </ng-container>
+<!-------------------------------------------------Change password dialog start---------------------------------------------->
+<ng-container *ngIf="dialogData.cardTitle== 'Change Password'">
+    <form [formGroup]="changePassForm">
+           <div class="row">
+               <div class="col-sm-6 form-container">
+                   <div class="mb-3">
+                       <mat-form-field appearance="outline" class="w-100 form-group">
+                           <mat-label>Current Password</mat-label>
+                           <input matInput [type]="CurrentPasswordHide ? 'password' : 'text'"
+                               autocomplete="nope" formControlName="currentPwd"
+                               [ngClass]="{ 'is-invalid':fpass['currentPwd'].errors }">
+                           <button type="button" mat-icon-button matSuffix
+                               (click)="CurrentPasswordHide = !CurrentPasswordHide"
+                               [attr.aria-label]="'Hide password'"
+                               [attr.aria-pressed]="CurrentPasswordHide">
+                               <mat-icon>{{CurrentPasswordHide ? 'visibility_off' : 'visibility'}}
+                               </mat-icon>
+                           </button>
+                           <mat-error>
+                               <span *ngIf="fpass['currentPwd'].errors?.['required']"
+                                   class="text-danger">Required Current Password</span>
+                               <span *ngIf="fpass['currentPwd'].errors?.['pattern']"
+                                   class="text-danger">Invalid Current Password format</span>
+                           </mat-error>
+                       </mat-form-field>
+                   </div>
+
+                   <div class="mb-3">
+                       <mat-form-field appearance="outline" class="w-100 form-group">
+                           <mat-label>New Password</mat-label>
+                           <input matInput [type]="newPasswordHide ? 'password' : 'text'"
+                               formControlName="newPwd"
+                               [ngClass]="{ 'is-invalid':fpass['newPwd'].errors }">
+                           <button type="button" mat-icon-button matSuffix
+                               (click)="newPasswordHide = !newPasswordHide"
+                               [attr.aria-label]="'Hide password'"
+                               [attr.aria-pressed]="newPasswordHide">
+                               <mat-icon>{{newPasswordHide ? 'visibility_off' : 'visibility'}}
+                               </mat-icon>
+                           </button>
+                           <mat-error>
+                               <span *ngIf="fpass['newPwd'].errors?.['required']"
+                                   class="text-danger">Required New Password</span>
+                               <span *ngIf="fpass['newPwd'].errors?.['pattern']"
+                                   class="text-danger">Invalid New Password format</span>
+                           </mat-error>
+                       </mat-form-field>
+                   </div>
+
+                   <div class="mb-4">
+                       <mat-form-field appearance="outline" class="w-100 form-group">
+                           <mat-label>Confirm Password</mat-label>
+                           <input matInput [type]="retypePasswordHide ? 'password' : 'text'"
+                               formControlName="reTypePwd"
+                               [ngClass]="{'is-invalid':fpass['reTypePwd'].errors}">
+                           <button type="button" mat-icon-button matSuffix
+                               (click)="retypePasswordHide = !retypePasswordHide"
+                               [attr.aria-label]="'Hide password'"
+                               [attr.aria-pressed]="retypePasswordHide">
+                               <mat-icon>{{retypePasswordHide ? 'visibility_off' : 'visibility'}}
+                               </mat-icon>
+                           </button>
+                           <mat-error>
+                               <span *ngIf="fpass['reTypePwd'].errors?.['required']"
+                                   class="text-danger">Required Confirm Password</span>
+                               <span *ngIf="fpass['reTypePwd'].errors?.['pattern']"
+                                   class="text-danger">Invalid Confirm Password format</span>
+                           </mat-error>
+                       </mat-form-field>
+                   </div>
+
+                   <div class="d-flex justify-content-between">
+                       <button type="button" class="me-2 btn-light-main btn" type="button" mat-dialog-close
+                           (click)="onNoClick('No')"
+                           *ngIf="dialogData?.cancelBtnText">{{dialogData?.cancelBtnText}}</button>
+                           <button type="submit" class="btn-main btn" (click)="onChangePassword()">Change Password</button>
+                   </div>
+               </div>
+               <div class="col-sm-6 text-start">
+                   <p class="small">Passwords must contains</p>
+                   <ul class="small">
+                       <li>At least 8 Characters long</li>
+                       <li>At least 1 Lowercase Characters (a-z)</li>
+                       <li>At least 1 Uppercase Characters (A-Z)</li>
+                       <li>At least 1 Digits(0-9)</li>
+                       <li>At least 1 Special Characters (*$@#)</li>
+                   </ul>
+               </div>
+           </div>
+       </form> 
+</ng-container>
 </mat-card>
