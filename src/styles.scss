@@ -38,9 +38,11 @@ body {
   --main-light-color: rgb(217, 231, 255);
   --main-dark-color: rgb(0, 66, 189);
 }
-a.text-main{
+
+a.text-main {
   font-size: 0.85rem;
 }
+
 a.text-main,
 .text-main {
   color: var(--main-color);
@@ -76,12 +78,13 @@ a.text-main,
   min-width: 38px !important;
 }
 
-.btn-icon .material-icons{
+.btn-icon .material-icons {
   font-size: 18px !important;
   line-height: normal !important;
   overflow: unset;
-  margin:0 !important;
+  margin: 0 !important;
 }
+
 .btn-modal-close {
   width: 34px !important;
   min-width: 34px !important;
@@ -89,14 +92,16 @@ a.text-main,
   line-height: 38px !important;
   padding: 3px !important;
 }
-.btn-second{
+
+.btn-second {
   font-size: 0.85rem !important;
-  color:#A8A8A8 !important;
+  color: #A8A8A8 !important;
   border: solid 1px #A8A8A8 !important;
-  border-radius:0.375rem !important;
+  border-radius: 0.375rem !important;
   background-color: transparent !important;
   font-family: 'Noto Sans Devanagari', sans-serif !important;
 }
+
 .breadcrumb {
   font-size: 0.85rem;
   font-weight: 500;
@@ -119,19 +124,24 @@ a.text-main,
   font-family: 'Noto Sans Devanagari', sans-serif !important;
 }
 
-.dashboard-table button {
-  height: 40px !important;
-  width: 40px !important;
-  padding: 10px !important;
+.dashboard-table .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 34px !important;
+  width: 34px !important;
+  padding: 8px 5px !important;
+  background-color: #EEEEEE !important;
+  border-radius: 5px !important;
+  margin: 2px;
 }
 
-.dashboard-table button mat-icon{
+.dashboard-table button mat-icon {
   font-size: 18px !important;
 }
-.dashboard-table .highlightedrow{
+
+.dashboard-table .highlightedrow {
   background-color: var(--main-light-color) !important;
   color: var(--main-color) !important;
 }
+
 .dashboard-table .mat-column-docPath,
 .dashboard-table .mat-column-srNo {
   min-width: 95px !important;
@@ -143,6 +153,7 @@ a.text-main,
   max-width: 120px !important;
   width: 120px !important;
 }
+
 .plain-card {
   box-shadow: none !important;
   border-radius: 10px;
@@ -165,33 +176,42 @@ a.text-main,
   padding: 10px 15px;
   font-size: 0.85rem;
 }
-.mat-mdc-snack-bar-container{
+
+.mat-mdc-snack-bar-container {
   background: #333333 !important;
 }
+
 .mat-mdc-snack-bar-container .mdc-snackbar__surface {
   background-color: #fff !important;
   border-radius: 0 !important;
 }
-.snack-success  .mdc-snackbar__surface  {
+
+.snack-success .mdc-snackbar__surface {
   border-left: 7px solid #198754;
 }
+
 .snack-danger .mdc-snackbar__surface {
   border-left: 7px solid #ff4141;
 }
-.snack-warning .mdc-snackbar__surface { 
+
+.snack-warning .mdc-snackbar__surface {
   border-left: 7px solid #ffc107;
 }
+
 .mat-mdc-snack-bar-container .mdc-snackbar__label {
-  color: #333333 !important ;
+  color: #333333 !important;
 }
+
 .mat-mdc-snack-bar-container {
- background: #fff !important;
+  background: #fff !important;
 }
+
 // my css
 .disabled {
   pointer-events: none;
   opacity: 0.6;
 }
+
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
@@ -205,19 +225,22 @@ a.text-main,
   top: 0;
   opacity: 0;
 }
-.profile-image{
+
+.profile-image {
   width: 158px;
   height: 158px;
   border-radius: 50%;
   object-fit: cover;
-  object-position:middle;
+  object-position: middle;
 }
-.profile-buttons{
+
+.profile-buttons {
   position: absolute;
   bottom: 0px;
   right: 20px;
 }
-.profile-buttons .btn{
+
+.profile-buttons .btn {
   border-radius: 50%;
   height: 32px;
   width: 32px;
