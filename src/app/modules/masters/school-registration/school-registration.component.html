@@ -15,13 +15,13 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="pdfDownload()">
+          <button mat-menu-item (click)="excelPdfDownload('pdf')">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>PDF</span>
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
           </button>
-          <button mat-menu-item (click)="excelDownload()">
+          <button mat-menu-item (click)="excelPdfDownload('excel')">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>Excel</span>
               <i class='bx bxs-file text-primary'></i>

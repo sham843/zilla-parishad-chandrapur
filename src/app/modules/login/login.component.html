@@ -24,28 +24,61 @@
                         </div>
 
                         <div class="row gx-1">
-                            <div class="col-sm col">
+                            <div class="col-sm-12 col-12">
+                                <div class="mb-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-icon matPrefix>person</mat-icon>
+                                        <input matInput placeholder="{{'login.enter_mobile_number'|translate}}"
+                                            [readonly]="sendOtpFlag" maxlength="10" formControlName="MobileNo"
+                                            (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                    </mat-form-field>
+                                </div>
+                                <div class="mb-0">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-icon matPrefix>key</mat-icon>
+                                        <input matInput [type]="hide ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hide = !hide"
+                                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-0">
+                            <div class="col-sm">
+                                Captcha
+                            </div>
+                            <div class="col-sm-auto">
+                                <button mat-flat-button class="btn-main btn-icon">
+                                    <mat-icon>sync</mat-icon>
+                                </button>
+                            </div>
+                            <div class="col-sm">
                                 <mat-form-field appearance="outline" class="w-100">
-                                    <mat-icon matPrefix>person</mat-icon>
-                                    <input matInput placeholder="{{'login.enter_mobile_number'|translate}}"
-                                        [readonly]="sendOtpFlag" maxlength="10" formControlName="MobileNo"
-                                        (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                                    <mat-label>Enter Captcha</mat-label>
+                                    <input matInput placeholder="Enter Captcha">
                                 </mat-form-field>
                             </div>
-                            <div class="col-sm-auto col-auto">
-                                <button mat-flat-button type="button" class="btn-main btn-icon" (click)="sendOtp()"
-                                    *ngIf="!sendOtpFlag">
-                                    <mat-icon>
-                                        arrow_forward
-                                    </mat-icon>
+                        </div>
+                        <div class="d-flex justify-content-end mb-3">
+                            <a routerLink="../forgot-password" class="text-main">Forgot Password</a>
+                        </div>
+                        <div class="mb-0 text-center">
+                            <button mat-flat-button class="bg-second" (click)="clearMobAndOTP()"
+                                    *ngIf="sendOtpFlag">
+                                   Cancel
                                 </button>
-                                <button mat-flat-button class="bg-danger btn-icon text-white" (click)="clearMobAndOTP()"
+                                <button mat-flat-button type="button" class="btn-main" (click)="sendOtp()"
+                                    *ngIf="!sendOtpFlag">
+                                    Login
+                                </button>
+                                <!-- <button mat-flat-button class="bg-danger btn-icon text-white" (click)="clearMobAndOTP()"
                                     *ngIf="sendOtpFlag">
                                     <mat-icon>
                                         close
                                     </mat-icon>
-                                </button>
-                            </div>
+                                </button> -->
                         </div>
                         <ng-container *ngIf="sendOtpFlag">
                             <p class="small fw-bold text-dark mb-2">{{'login.please_enter_otp' | translate}}</p>
@@ -116,17 +149,18 @@
                     <div class="row">
                         <div class="col-sm">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="User Name" class="" readonly [readOnly]="true" formControlName="userName">
+                                <input matInput placeholder="User Name" class="" readonly [readOnly]="true"
+                                    formControlName="userName">
                             </mat-form-field>
                         </div>
                         <div class="col-sm">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" >
-                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+                                    'visibility'}}</mat-icon>
                             </mat-form-field>
                         </div>
-                        <button mat-flat-button class="btn-main px-5 rounded-pill py-4" 
-                        type="submit">Submit</button>
+                        <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit">Submit</button>
                     </div>
 
                     <div>
