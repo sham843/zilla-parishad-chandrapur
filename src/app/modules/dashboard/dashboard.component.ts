@@ -90,7 +90,7 @@ export class DashboardComponent {
   getSchools() {
     let filterFormData = this.topFilterForm.value;
     let str = `${filterFormData.flag}&TalukaId=${filterFormData.talukaId}&CenterId=${filterFormData.kendraId}`
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSchoolByCriteria?flag_lang' + str, false, false, false, 'baseUrl');
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSchoolByCriteria?flag_lang=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -102,7 +102,7 @@ export class DashboardComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethods.checkEmptyData(error.statusText) == false ? this.errors.handelError(error.statusCode) : this.commonMethods.snackBar(error.statusText, 1);
+        this.commonMethods.checkEmptyData(error.statusText) ? this.errors.handelError(error.statusCode) : this.commonMethods.snackBar(error.statusText, 1);
       }
     })
   }
