@@ -5,7 +5,7 @@
 .mdc-list-item__primary-text {
     width: 100% !important;
     font-size: 0.85rem !important;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Noto Sans Devanagari', sans-serif !important;
 }
 
 mat-label,
@@ -24,7 +24,7 @@ textarea.mat-input-element,
 .mat-mdc-icon-button.mat-mdc-button-base,
 .mat-mdc-snack-bar-container .mdc-snackbar__label,
 .mat-tab-label-content {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Noto Sans Devanagari', sans-serif !important;
     font-size: 0.85rem !important;
     letter-spacing: normal !important;
 }
@@ -79,7 +79,7 @@ input:-webkit-autofill:active {
   }
   .mat-mdc-form-field-error{
     margin: 0 !important;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Noto Sans Devanagari', sans-serif !important;
     font-size: 0.7rem;
     letter-spacing: normal;
   }
