@@ -11,11 +11,12 @@ import { ApiService } from '../services/api.service';
 import { CommonMethodsService } from '../services/common-methods.service';
 import { ErrorsService } from '../services/errors.service';
 import { WebStorageService } from '../services/web-storage.service';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-change-password',
   standalone:true,
-  imports: [MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule,FormsModule,MatCardModule],
+  imports: [MatButtonModule, MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule,FormsModule,MatCardModule],
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
