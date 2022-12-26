@@ -178,9 +178,7 @@ export class AddDesignationComponent {
     this.getDesignationType();
   }
 
-  clearFormDependancy(index: any) {
-    console.log(index, 'in');
-
+  clearFormDependancy() {
     this.designationForm.controls['designationLevelId'].setValue('')
     this.designationForm.controls['linkedToDesignationId'].setValue('')
     this.designationForm.controls['designationName'].setValue('')
