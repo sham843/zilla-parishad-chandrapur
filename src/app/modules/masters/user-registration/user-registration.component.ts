@@ -138,7 +138,19 @@ setTableData(){
   removeUser() {
 
   }
-
+  getAllClearData(flag?:any){
+    if(flag=='taluka'){
+      this.serachUserForm.controls['CenterId'].setValue('');
+      this.serachUserForm.controls['SchoolId'].setValue('');
+    }else if(flag=='kendra'){
+      this.serachUserForm.controls['SchoolId'].setValue('');
+    }else{
+      this.serachUserForm.controls['TalukaId'].setValue('');
+      this.serachUserForm.controls['CenterId'].setValue('');
+      this.serachUserForm.controls['SchoolId'].setValue('');
+      this.serachUserForm.controls['textSearch'].setValue('');
+    }
+  }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
