@@ -22,9 +22,9 @@
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                                         <mat-error *ngIf="loginFormControls.userName.errors"> 
-                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')"> User Name is required</span>
+                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')">{{'login.username_required'|translate}}</span>
                                            
-                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">Please enter valid user name </span>
+                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">{{'login.please_enter_valid_username'|translate}}</span>
                                         </mat-error>
                         
                                 </mat-form-field>
@@ -32,42 +32,41 @@
                             <div class="mb-0">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>key</mat-icon>
-                                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{'login.enter_password'|translate}}" formControlName="password">
                                     <button mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                     <mat-error *ngIf="loginFormControls.password.errors">
-                                        <span class="text-danger" *ngIf="loginFormControls.password.hasError('required')">Password is required</span>
+                                        <span class="text-danger" *ngIf="loginFormControls.password.hasError('required')">{{'login.password_required'|translate}}</span>
                                         <span class="text-danger"
-                                            *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">It
-                                            must contain 8 or more characters that are of at least one number, and
-                                            one special characters, and one uppercase and lowercase letter.</span>
+                                            *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">
+                                        {{'login.password_format'|translate}}</span>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
-                    <div class="row gx-1 mb-0">
-                        <div class="col-sm">
-                            <div class="ps-4 w-100" id="captcha"></div>
+                    <div class="row gx-2 mb-0 align-items-start">
+                        <div class="col-sm-5">
+                            <div class="w-100" id="captcha"></div>
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="col-sm text-center">
                             <button mat-flat-button class="btn-main btn-icon" type="button" (click)="commonMethods.createCaptchaCarrerPage()">
                                 <mat-icon>sync</mat-icon>
                             </button>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Enter Captcha</mat-label>
+                                <mat-label>{{'login.enter_captcha'|translate}}</mat-label>
                                 <input matInput placeholder="Enter Captcha"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off">
-                                <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">Captcha is required
+                                <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">{{'login.captcha_required'|translate}}
                                 </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mb-3">
-                        <a routerLink="../forgot-password" class="text-main">Forgot Password</a>
+                        <a routerLink="../forgot-password" class="text-main">{{'login.forgot_password'|translate}}</a>
                     </div>
                     <div class="mb-0 text-center">
                         <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit">{{'login.login' |
