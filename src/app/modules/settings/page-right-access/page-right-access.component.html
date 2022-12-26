@@ -27,7 +27,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                    <button mat-stroked-button class="btn-main" (click)="getAllPagesData()">{{'common.filter' | translate}}</button>
+                    <button mat-stroked-button class="btn-main me-2" (click)="getAllPagesData()">{{'common.filter' | translate}}</button>
+                    <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
                 </div>
             </div>
         </mat-card-header>
