@@ -77,7 +77,6 @@ export class HeaderComponent {
       p2: '',
       cardTitle: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
       successBtnText: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
-      // dialogIcon: 'assets/images/logout.gif',
       cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
     }
     }

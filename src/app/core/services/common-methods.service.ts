@@ -93,4 +93,9 @@ export class CommonMethodsService {
     return this.codecareerPage;
   }
 
+  getUserName(){
+    let username=JSON.parse(this.webStorage.getLocalStorageData())
+    return username.responseData.mobileNo;
+    ;
+  }
 }
