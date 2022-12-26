@@ -59,20 +59,31 @@ export class HeaderComponent {
     sessionStorage.setItem('language', lang)
   }
 
-  logOut() {
-    let modalLang
+  openModal(flag:any) {
+    let modalLang,obj;
     this.webStorage.setLanguage.subscribe((res: any) => {
       modalLang = res
     })
-    const dialogRef = this.dialog.open(GlobalDialogComponent, {
-      width: '350px',
-      data: { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+    if(flag=='logout'){
+     obj= { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
         p2: '',
         cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         dialogIcon: 'assets/images/logout.gif',
         cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
-      },
+      }
+    }else if(flag=='change_password'){
+      obj= { p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+      p2: '',
+      cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
+      successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
+      dialogIcon: 'assets/images/logout.gif',
+      cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
+    }
+    }
+      const dialogRef = this.dialog.open(GlobalDialogComponent, {
+        width: '350px',
+        data:obj,
       disableClose: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
