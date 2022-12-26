@@ -129,14 +129,12 @@ clearDropdown(flag: any) {
 }
 
 clearForm() {
-  // this.filterFrm.reset();
-  // this.filterFrm.setValue({
-  //   talukaId: 0,
-  //   centerId: 0,
-  //   schoolId: 0,
-  //   searchText: ''
-  // });
-  this.formDirective.resetForm();
+  this.formDirective.resetForm({
+      talukaId: 0,
+      centerId: 0,
+      schoolId: 0,
+      searchText: ''
+    });
    this.getTableData('filter');
 }
 //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
@@ -148,8 +146,8 @@ clearForm() {
     let formData = this.filterFrm.value;
     let str = `?pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
-      '&TalukaId=' + (formData?.talukaId||0)  + '&CenterId=' + (formData?.centerId||0)
-      + '&SchoolId=' + (formData?.centerId||0) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText||''), false, false, false, 'baseUrl');
+      '&TalukaId=' + (formData?.talukaId)  + '&CenterId=' + (formData?.centerId)
+      + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
