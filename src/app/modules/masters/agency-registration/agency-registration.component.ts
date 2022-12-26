@@ -160,7 +160,7 @@ language:any;
      
   }
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
-  pdfDownload() {
+ /*  pdfDownload() {
     console.log(this.language)
     let pageName;
     this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
@@ -169,7 +169,7 @@ language:any;
     let column:any;
     this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
     this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
-  }
+  } */
   excelDownload() {
     let pageName;
     this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';

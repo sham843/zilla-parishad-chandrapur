@@ -132,7 +132,14 @@
      "enter_aadhar_card_number":"Enter Aadhar Card Number",
     "religion":"Religion",
     "select_religion":"Select Religion",
-    "caste":"Caste"
+    "caste":"Caste",
+    "please_enter_valid_first_Name":"Please Enter Valid First Name",
+    "please_enter_valid_middle_Name":"Please Enter Valid First Name",
+    "please_enter_valid_last_Name":"Please Enter Valid First Name",
+    "please_enter_valid_aadhar_Number":"Please Enter Valid Aadhar Number",
+    "please_enter_valid_Caste":"Please Enter Valid Caste Name",
+    "please_enter_valid_mobile_Number":"Please Enter Valid Parent Mobile Number",
+    "update_Student":"Update Student"
     },
     "designation_master": {
         "add_designation": "Add Designation",
