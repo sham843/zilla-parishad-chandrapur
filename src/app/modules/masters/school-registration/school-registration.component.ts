@@ -184,7 +184,7 @@ excelPdfDownload(status?:string) {
   //#region -------------------------------------------------------Delete Data-----------------------------------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
-      cardTitle: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      cardTitle: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले  शाळेचा रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected school record?',
       cancelBtnText:this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       successBtnText:this.lang == 'mr-IN'? 'हटवा':'Delete'
     }
