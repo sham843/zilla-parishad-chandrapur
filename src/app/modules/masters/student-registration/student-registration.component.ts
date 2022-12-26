@@ -269,13 +269,5 @@ clearForm() {
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
   
-  // excelDownload1() {
-  //   let pageName = 'Student Registration';
-  //   let header = ['Saral Id', 'Full Name', 'Taluka', 'Kendra', 'School Name'];
-  //   let column = ['saralId', 'fullName', 'taluka', 'center', 'schoolName'];
-  //  }
- 
-
- 
- }
+}
 
