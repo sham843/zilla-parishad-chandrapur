@@ -12,11 +12,12 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-global-dialog',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule,MatIconModule,MatFormFieldModule,FormsModule,ReactiveFormsModule,MatInputModule ],
+  imports: [CommonModule, MatCardModule, MatButtonModule,MatIconModule,MatFormFieldModule,FormsModule,ReactiveFormsModule,MatInputModule,TranslateModule],
   templateUrl: './global-dialog.component.html',
   styleUrls: ['./global-dialog.component.scss']
 })
