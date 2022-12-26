@@ -15,7 +15,7 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="pdfDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>PDF</span>
               <i class='bx bxs-file-pdf text-danger'></i>

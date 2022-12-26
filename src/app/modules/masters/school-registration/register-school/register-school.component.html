@@ -46,7 +46,7 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.school' |translate}}</mat-label>
-                        <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName" (keypress)="validator.alphaNumeric($event)" 
+                        <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName" (keyup)="validator.alphaNumeric($event)" 
                         minlength="10" maxlength="500">
                         <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'student.school_is_required' |translate}}</mat-error>
                     </mat-form-field>
@@ -100,9 +100,9 @@
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
                 <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear' |translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : 'Submit'}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{this.editFlag ? 'Update' : 'Submit'}}</button>
             </div>
         </mat-card-footer>
     </mat-card>
+    <!-- {{editFlag ?( 'common.update' | translate) :('common.submit' |translate)}} -->
 </form>
-<!-- {{editFlag ? 'common.submit': 'common.update' |translate}} -->
