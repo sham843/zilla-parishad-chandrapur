@@ -263,6 +263,7 @@ export class RegisterStudentComponent {
         "modifiedDate": new Date(),
         "isDeleted": false,
       }
+      
        let mainData = { ...obj, ...data};
       let url;
       this.editFlag ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
