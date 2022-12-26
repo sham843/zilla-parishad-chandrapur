@@ -16,7 +16,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
                     <mat-select formControlName="dummyDesigLvlkey"
-                        (selectionChange)="clearFormDependancy($event);getDesignationType();setDesignationLvl()">
+                        (selectionChange)="clearFormDependancy();getDesignationType();setDesignationLvl()">
                         <mat-option *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
