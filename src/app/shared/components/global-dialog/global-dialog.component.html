@@ -15,32 +15,10 @@
    </ng-container>
 <!-------------------------------------------------Change password dialog start---------------------------------------------->
 <ng-container *ngIf="dialogData.cardTitle== 'Change Password'">
-    <form [formGroup]="changePassForm">
+    <form [formGroup]="changePassForm" #formDirective="ngForm">
            <div class="row">
                <div class="col-sm-6 form-container">
-                   <div class="mb-3">
-                       <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>Current Password</mat-label>
-                           <input matInput [type]="CurrentPasswordHide ? 'password' : 'text'"
-                               autocomplete="nope" formControlName="currentPwd"
-                               [ngClass]="{ 'is-invalid':fpass['currentPwd'].errors }">
-                           <button type="button" mat-icon-button matSuffix
-                               (click)="CurrentPasswordHide = !CurrentPasswordHide"
-                               [attr.aria-label]="'Hide password'"
-                               [attr.aria-pressed]="CurrentPasswordHide">
-                               <mat-icon>{{CurrentPasswordHide ? 'visibility_off' : 'visibility'}}
-                               </mat-icon>
-                           </button>
-                           <mat-error>
-                               <span *ngIf="fpass['currentPwd'].errors?.['required']"
-                                   class="text-danger">Required Current Password</span>
-                               <span *ngIf="fpass['currentPwd'].errors?.['pattern']"
-                                   class="text-danger">Invalid Current Password format</span>
-                           </mat-error>
-                       </mat-form-field>
-                   </div>
-
-                   <div class="mb-3">
+                     <div class="mb-3">
                        <mat-form-field appearance="outline" class="w-100 form-group">
                            <mat-label>New Password</mat-label>
                            <input matInput [type]="newPasswordHide ? 'password' : 'text'"
@@ -61,7 +39,6 @@
                            </mat-error>
                        </mat-form-field>
                    </div>
-
                    <div class="mb-4">
                        <mat-form-field appearance="outline" class="w-100 form-group">
                            <mat-label>Confirm Password</mat-label>
