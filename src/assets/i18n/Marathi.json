@@ -146,7 +146,9 @@
         "please_set_designation_level": "कृपया पदनाम स्तर सेट करा",
         "please_enter_designation_name": "कृपया पदनाम प्रविष्ट करा",
         "do_you_want_to_delete_selected_designation_record?": "तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
-        "linked_to": "संलग्न"
+        "linked_to": "संलग्न",
+        "register_designation":"नोंदणी पदनाम",
+        "designation_master":"पदभार मास्टर"
     },
     "school": {
         "school_registration": "शाळा नोंदणी",

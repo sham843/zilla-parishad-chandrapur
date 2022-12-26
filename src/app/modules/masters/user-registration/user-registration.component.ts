@@ -89,7 +89,7 @@ export class UserRegistrationComponent {
   }
 setTableData(){
   let displayedColumns:any;
-  this.lang=='mr-IN'?displayedColumns=['Sr.No','m_UserType','name','mobileNo','action']:displayedColumns= ['Sr.No','userType', 'name', 'mobileNo', 'action']
+  this.lang=='mr-IN'?displayedColumns=['srNo','m_UserType','name','mobileNo','action']:displayedColumns= ['srNo','userType', 'name', 'mobileNo', 'action']
       let displayedheaders:any;
       this.lang=='mr-IN'?displayedheaders=['Sr.No','वापरकर्ता प्रकार','नाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr.No','User Type', 'Name', 'Mobile No', 'Action']
       this.tableData = {

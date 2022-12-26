@@ -147,7 +147,9 @@
         "please_set_designation_level": "Please Set Designation Level",
         "please_enter_designation_name": "Please Enter Designation Name",
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
-        "linked_to":"Linked to"
+        "linked_to":"Linked to",
+        "register_designation":"Register Designation",
+        "designation_master":"Designation Master"
     },
     "school":{
         "school_registration":"Register School",
