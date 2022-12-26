@@ -24,6 +24,8 @@ export class SchoolRegistrationComponent {
   centerArray = new Array();
   filterForm!: FormGroup;
   tableDataArray=new Array();
+  displayedColumns:any;
+  
   constructor(
     private webStorage: WebStorageService,
     public dialog: MatDialog,
@@ -37,7 +39,7 @@ export class SchoolRegistrationComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      res == 'Marathi' ? (this.lang = 'm_') : (this.lang = 'en')
+      res == 'Marathi' ?(this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.getFilterFormData();
     this.getTaluka();
@@ -71,13 +73,10 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        // let displayedColumns  = ['srNo', 'schoolName', 'center', 'taluka','action'] 
-        // let displayedheaders=['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action']
-
         let displayedColumns;
-        this.lang ==  'Marathi' ? displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] :displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action']
+        this.lang ==  'mr-IN' ? displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] :displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action']
         let displayedheaders;
-        this.lang ==  'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती'] :displayedheaders = ['Sr.No.', 'School Name', 'Kendra', 'Taluka','Action']
+        this.lang ==  'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती'] :displayedheaders = ['Sr.No.', 'School Name', 'Kendra', 'Taluka','Action']
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -99,6 +98,12 @@ export class SchoolRegistrationComponent {
     let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
     let column= ['srNo', 'schoolName', 'center', 'taluka'];
     this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+  }
+  pdfDownload() {
+    let pageName='School Registration';
+    let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+    let column= ['srNo', 'schoolName', 'center', 'taluka'];
+    this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
   }
 //#endregion ---------------------------------------------------Excel Download------------------------------------------------------------ 
 
@@ -184,8 +189,9 @@ export class SchoolRegistrationComponent {
   //#region -------------------------------------------------------Delete Data-----------------------------------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
-      cancelBtnText: 'Cancel',
-      successBtnText: 'Delete'
+      cardTitle: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      cancelBtnText:this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      successBtnText:this.lang == 'mr-IN'? 'हटवा':'Delete'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
