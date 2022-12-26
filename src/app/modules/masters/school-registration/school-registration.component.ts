@@ -71,8 +71,13 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'];
-        let displayedheaders = ['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action'];
+        // let displayedColumns  = ['srNo', 'schoolName', 'center', 'taluka','action'] 
+        // let displayedheaders=['Sr. No.', 'School Name', 'Kendra', 'Taluka','Action']
+
+        let displayedColumns;
+        this.lang ==  'Marathi' ? displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] :displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action']
+        let displayedheaders;
+        this.lang ==  'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती'] :displayedheaders = ['Sr.No.', 'School Name', 'Kendra', 'Taluka','Action']
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -91,7 +96,7 @@ export class SchoolRegistrationComponent {
 //#region ---------------------------------------------------Excel Download------------------------------------------------------------ 
   excelDownload() {
     let pageName='School Registration';
-    let header=['Sr. No.', 'School Name', 'Kendra', 'Taluka'];
+    let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
     let column= ['srNo', 'schoolName', 'center', 'taluka'];
     this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }

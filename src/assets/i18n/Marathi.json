@@ -114,7 +114,21 @@
         "are_you_want_to_delete_student_record":"तुम्हाला विद्यार्थी रेकॉर्ड हटवायचा आहे का ?",
         "student_registration":"विद्यार्थी नोंदणी",
         "student_list":"विद्यार्थ्यांची यादी",
-        "register_student":"विद्यार्थ्याची नोंदणी करा"
+        "register_student":"विद्यार्थ्याची नोंदणी करा",
+        "add_student":"विद्यार्थी जोडा",
+        "fullName":"पूर्णनाव",
+        "district_is_required":"जिल्हा आवश्यक आहे",
+        "first_name":"प्रथम नाव",
+        "middle_name":"मध्यम नाव",
+         "last_name":"आडनाव",
+        "enter_saral_id":"सरल आयडी प्रविष्ट करा",
+        "select_gender":"लिंग निवडा",
+        "birth_date":"जन्मतारीख",
+        "aadhar_card_number":"आधार कार्ड क्रमांक",
+        "enter_aadhar_card_number":"आधार कार्ड क्रमांक प्रविष्ट करा",
+        "religion":"धर्म",
+        "select_religion":"धर्म निवडा",
+        "caste":"जात"
     },
     "designation_master": {
         "add_designation": "पदनाम जोडा",
@@ -161,7 +175,14 @@
         "6th_8th":"6वी_8वी",
         "school_category":"शाळा श्रेणी",
         "school_type":"शाळेचा प्रकार",
-        "gender_selected":"लिंग निवडा"
+        "gender_selected":"लिंग निवडा",
+        "school_name_required":"शाळेचे नाव आवश्यक आहे"
+    },
+    "header":{
+      "profile_name":"श्री सुनील राजाराम शिंदे",
+      "profile":"प्रोफाइल",
+      "change_password":"पासवर्ड बदला",
+      "logout":"बाहेर पडणे"
     }
 
 }

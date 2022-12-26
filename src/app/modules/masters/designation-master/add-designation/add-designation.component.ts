@@ -26,9 +26,8 @@ export class AddDesignationComponent {
     private errorHandler: ErrorHandler, @Inject(MAT_DIALOG_DATA) public data: any, private webStorage: WebStorageService,
     private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner: NgxSpinnerService) { }
   ngOnInit() {
-        let localVal:any = this.webStorage.getLocalStorageData();
-        console.log(localVal,'local');
-        
+    // let localVal:any = this.webStorage.getLocalStorageData();
+    // console.log(localVal,'local');
     // let aaa = JSON.parse(localVal)
     // console.log(aaa.responseData.desi)
     this.webStorage.setLanguage.subscribe((res: any) => {

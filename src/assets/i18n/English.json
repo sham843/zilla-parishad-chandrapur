@@ -41,10 +41,7 @@
         "office_users":"Office Users",
         "user_type":"User Type",
         "level":"Level",
-        "kendra":"Kendra",
         "school":"School",
-
-
         "email":"Email Id",
         "agency_address":"Agency Address",
         "enter_name":"Enter Name",
@@ -118,7 +115,21 @@
     "are_you_want_to_delete_student_record":"Are you want To Delete Student Record?",
     "student_registration":"Student Registration",
     "student_list":"Student List",
-    "register_student":"Register Student"
+    "register_student":"Register Student",
+    "add_student":"Add Student",
+    "fullName":"FullName",
+    "district_is_required":"District Is Required",
+    "first_name":"First Name",
+    "middle_name":"Middle Name",
+    "last_name":"Last Name",
+    "enter_saral_id":"Enter Saral Id",
+    "select_gender":"Select Gender",
+    "birth_date":"Birth Date",
+   "aadhar_card_number":"Aadhar Card Number",
+     "enter_aadhar_card_number":"Enter Aadhar Card Number",
+    "religion":"Religion",
+    "select_religion":"Select Religion",
+    "caste":"Caste"
     },
     "designation_master": {
         "add_designation": "Add Designation",
@@ -164,7 +175,14 @@
         "6th_8th":"6th-8th",
         "school_category":"School Category",
         "school_type":"School Type",
-        "gender_selected":"Gender Selected"
+        "gender_selected":"Gender Selected",
+        "school_name_required":"School Name is Required"
+      },
+      "header":{
+        "profile_name":"Mr. Sunil Rajaram Shinde",
+        "profile":"Profile",
+        "change_password":"Change Password",
+        "logout":"Logout"
       }
 
 }

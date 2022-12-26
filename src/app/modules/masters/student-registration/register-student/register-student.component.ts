@@ -75,7 +75,7 @@ export class RegisterStudentComponent {
       "saralId": ['', [Validators.required]],
       "genderId": [, [Validators.required]],
       "dob": ['', [Validators.required]],
-      "aadharNo": ['', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": ['', [Validators.required,Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [, [Validators.required]],
       "cast": ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
       "parentsMobileNo": ['', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
@@ -266,6 +266,8 @@ export class RegisterStudentComponent {
       parentsMobileNo: this.data.parentsMobileNo,
       emailId: this.data.emailId,
     });
+    // this.clearDropdown('talukaId');
+
   }
   //#endregion -----------------------------Edit Logic End------------------------------------------------
 
@@ -310,6 +312,7 @@ export class RegisterStudentComponent {
 
   //#region-----------------------------Clear Dropdown Dependency Logic Start-----------------------------------
   clearDropdown(flag: any) {
+    this.editFlag = false;
     switch (flag) {
       case 'talukaId':
         this.studentFrm.controls['centerId'].setValue(0);

@@ -31,20 +31,20 @@
         <button mat-flat-button class="btn-main" (click)="registerStudent()">
           <mat-icon>add</mat-icon>
           <span>
-            Add Student
+            {{'student.add_student'|translate}}
           </span>
         </button>
       </div>
     </div>
   </mat-card-header>
   <mat-card-header class="card-header">
-    <form [formGroup]="filterFrm" class="d-flex" #formDirective="ngForm">
+    <form [formGroup]="filterFrm" class="d-flex" >
       <div class="row">
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}" formControlName="talukaId" (selectionChange)="getCenter()">
+            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId" (selectionChange)="getCenter()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
             </mat-select>
@@ -53,7 +53,7 @@
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'student.kendra'|translate}}</mat-label>
+            <mat-label>{{'common.kendra'|translate}}</mat-label>
             <mat-select placeholder="{{'student.select_kendra'|translate}}" formControlName="centerId" (selectionChange)="getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
@@ -63,7 +63,7 @@
 
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'student.school'|translate}}</mat-label>
+            <mat-label>{{'common.school'|translate}}</mat-label>
             <mat-select placeholder="{{'student.select_school'|translate}}" formControlName="schoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
               </mat-option>
@@ -82,7 +82,7 @@
           <button (click)="getTableData()" type="submit" mat-flat-button class="btn-main me-2">{{'common.filter'|translate}}</button>
           <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
         </div>
-      </div>
+      </div>     
     </form>
 
   </mat-card-header>

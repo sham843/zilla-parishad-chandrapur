@@ -130,6 +130,16 @@ a.text-main,
   background-color: var(--main-light-color) !important;
   color: var(--main-color) !important;
 }
+.dashboard-table .mat-column-docPath,
+.dashboard-table .mat-column-srNo {
+  min-width: 95px !important;
+  width: 95px !important;
+}
+
+.dashboard-table .mat-column-action {
+  max-width: 120px !important;
+  width: 120px !important;
+}
 .plain-card {
   box-shadow: none !important;
   border-radius: 10px;
