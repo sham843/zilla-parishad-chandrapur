@@ -49,7 +49,7 @@
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
-                    <input matInput placeholder="Add Designation" formControlName="designationName" (keypress)="validation.noFirstSpaceAllow($event)">
+                    <input minlength="2" maxlength="50" matInput placeholder="Add Designation" formControlName="designationName" (keypress)="validation.noFirstSpaceAllow($event)">
                     <mat-error class="mt-2" *ngIf="f['designationName'].hasError('required')">{{'designation_master.please_enter_designation_name' | translate}}
                     </mat-error>
                 </mat-form-field>
