@@ -48,13 +48,9 @@ export class CommonMethodsService {
         return false;
     }
   }
-
-  getLanguageFlag(){
-    let language;
-    this.webStorage.setLanguage.subscribe((res: any) => {
-      res == 'Marathi'? language='mr-IN':language='en'; 
-    })
-    return language;
+  getUserName(){
+    let username=JSON.parse(this.webStorage.getLocalStorageData())
+    return username.responseData.mobileNo;
+    ;
   }
-
 }
