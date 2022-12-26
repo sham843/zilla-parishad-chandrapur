@@ -2,7 +2,6 @@
     <mat-card-header class="card-header">
         <h6 class="text-main fw-bold mb-0"> {{dialogData?.cardTitle}}</h6>
     </mat-card-header>
-   <ng-container *ngIf="dialogData?.cardTitle=='Logout'">
     <mat-card-content class="card-body text-center">
         <img src="{{dialogData?.dialogIcon}}" class="w-25">
         <h6 mat-dialog-content class="my-4"*ngIf="dialogData?.p1">{{dialogData?.p1}}</h6>
@@ -12,73 +11,4 @@
             <button mat-flat-button type="submit" (click)="onNoClick('Yes')" class="btn-main">{{dialogData?.successBtnText}}</button>
         </div>
     </mat-card-content>
-   </ng-container>
-<!-------------------------------------------------Change password dialog start---------------------------------------------->
-<ng-container *ngIf="dialogData.cardTitle== 'Change Password'">
-    <form [formGroup]="changePassForm" #formDirective="ngForm">
-           <div class="row">
-               <div class="col-sm-6 form-container">
-                     <div class="mb-3">
-                       <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>{{'change_password.new_password' |translate}}</mat-label>
-                           <input matInput [type]="newPasswordHide ? 'password' : 'text'"
-                               formControlName="newPwd"
-                               [ngClass]="{ 'is-invalid':fpass['newPwd'].errors }">
-                           <button type="button" mat-icon-button matSuffix
-                               (click)="newPasswordHide = !newPasswordHide"
-                               [attr.aria-label]="'Hide password'"
-                               [attr.aria-pressed]="newPasswordHide">
-                               <mat-icon>{{newPasswordHide ? 'visibility_off' : 'visibility'}}
-                               </mat-icon>
-                           </button>
-                           <mat-error>
-                               <span *ngIf="fpass['newPwd'].errors?.['required']"
-                                   class="text-danger">{{'change_password.required_new_password' |translate}}</span>
-                               <span *ngIf="fpass['newPwd'].errors?.['pattern']"
-                                   class="text-danger">t{{'change_password.invalid_new_password_format' |translate}}</span>
-                           </mat-error>
-                       </mat-form-field>
-                   </div>
-                   <div class="mb-4">
-                       <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>{{'change_password.confirm_password' |translate}}</mat-label>
-                           <input matInput [type]="retypePasswordHide ? 'password' : 'text'"
-                               formControlName="reTypePwd"
-                               [ngClass]="{'is-invalid':fpass['reTypePwd'].errors}">
-                           <button type="button" mat-icon-button matSuffix
-                               (click)="retypePasswordHide = !retypePasswordHide"
-                               [attr.aria-label]="'Hide password'"
-                               [attr.aria-pressed]="retypePasswordHide">
-                               <mat-icon>{{retypePasswordHide ? 'visibility_off' : 'visibility'}}
-                               </mat-icon>
-                           </button>
-                           <mat-error>
-                               <span *ngIf="fpass['reTypePwd'].errors?.['required']"
-                                   class="text-danger">{{'change_password.required_confirm_password' |translate}}</span>
-                               <span *ngIf="fpass['reTypePwd'].errors?.['pattern']"
-                                   class="text-danger">{{'change_password.invalid_confirm_password_format' |translate}}</span>
-                           </mat-error>
-                       </mat-form-field>
-                   </div>
-
-                   <div class="d-flex justify-content-between">
-                       <button type="button" class="me-2 btn-light-main btn" type="button" mat-dialog-close
-                           (click)="onNoClick('No')"
-                           *ngIf="dialogData?.cancelBtnText">{{dialogData?.cancelBtnText}}</button>
-                           <button type="submit" class="btn-main btn" (click)="onChangePassword()">{{'change_password.change_password' |translate}}</button>
-                   </div>
-               </div>
-               <div class="col-sm-6 text-start">
-                   <p class="small">{{'change_password.passwords_must_contains' |translate}}</p>
-                   <ul class="small">
-                       <li>{{'change_password.At_least 8 Characters_long' |translate}}</li>
-                       <li>{{'change_password.At_least 1 Lowercase_Characters (a-z)' |translate}}</li>
-                       <li>{{'change_password.At_least 1 Uppercase_Characters (A-Z)' |translate}}</li>
-                       <li>{{'change_password.At_least 1 Digits(0-9)' |translate}}</li>
-                       <li>(*$@#){{'change_password.At_least 1 Special_Characters (*$@#)' |translate}}</li>
-                   </ul> 
-               </div>
-           </div>
-       </form> 
-</ng-container>
 </mat-card>
