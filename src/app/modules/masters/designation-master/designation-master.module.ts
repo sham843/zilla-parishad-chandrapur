@@ -13,6 +13,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -33,7 +34,8 @@ import { TableGridComponent } from 'src/app/shared/components/table-grid/table-g
     MatMenuModule,
     MatButtonModule,
     TableGridComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   providers:[]
 })
