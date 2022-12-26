@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,11 +11,12 @@ import { ApiService } from '../services/api.service';
 import { CommonMethodsService } from '../services/common-methods.service';
 import { ErrorsService } from '../services/errors.service';
 import { WebStorageService } from '../services/web-storage.service';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-change-password',
   standalone:true,
-  imports: [MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule],
+  imports: [MatButtonModule, MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule,FormsModule,MatCardModule],
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })

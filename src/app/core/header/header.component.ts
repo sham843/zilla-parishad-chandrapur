@@ -5,6 +5,7 @@ import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { MyProfileComponent } from 'src/app/shared/components/my-profile/my-profile.component'
+import { ChangePasswordComponent } from '../change-password/change-password.component'
 import { WebStorageService } from '../services/web-storage.service'
 
 @Component({
@@ -83,7 +84,25 @@ export class HeaderComponent {
     })
   }
   openChangePassModal(){
-    
+    let lang;
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      lang = res
+    })
+      const dialogRef = this.dialog.open(ChangePasswordComponent, {
+        width: '700px',
+        data:{ p1:'',
+        p2: '',
+        cardTitle: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
+        successBtnText: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
+        cancelBtnText: lang == 'Marathi' ? 'रद्द करा' : 'Cancel',
+      },
+      disableClose: true,
+    })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 'Yes') {
+        this.localStorageClear()
+      }
+    })
   }
   localStorageClear() {
     localStorage.clear()
