@@ -2,7 +2,7 @@
     <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
         <mat-card-header class="card-header">
             <div class="d-flex align-items-center justify-content-between w-100">
-                <h6 class="text-main mb-0 fw-bold">{{'student.register_student'|translate}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{editFlag ?  ('student.register_student'|translate ) :  ('student.register_student'|translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -15,7 +15,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district'|translate}}</mat-label>
-                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}" formControlName="districtId"
+                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}" [class.disabled]="studentFrm.value.districtId" formControlName="districtId"
                             (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}

@@ -22,13 +22,9 @@ export class StudentRegistrationComponent {
   centerArray = new Array();
   schoolArray = new Array();
   pageNumber: number = 1;
-  dataObj: any;
-  fname!: undefined;
-  lname!: undefined;
-  lang: string | any = 'English';
-  // @ViewChild('formDirective')
-  // private formDirective!: NgForm;
-  tableDataArray = new Array()
+  lang!:string;
+  tableDataArray = new Array();
+  tableDatasize!:number;
 
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
@@ -39,24 +35,27 @@ export class StudentRegistrationComponent {
     private fb: FormBuilder,
     private excelPdf: ExcelPdfDownloadService,
     private spinner: NgxSpinnerService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res
-      this.getTableData();
-    })
     this.formData();
     this.getTableData();
+
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
+      this.setTableData();
+    })
     this.getTaluka();
   }
   //#region -----------------------------Filter Form Start-----------------------------------
   formData() {
     this.filterFrm = this.fb.group({
-      "talukaId": [0],
-      "centerId": [0],
-      "schoolId": [0],
-      "searchText": ['']
+      talukaId: [0],
+      centerId: [0],
+      schoolId: [0],
+      searchText: ['']
     })
   }
   //#endregion -----------------------------Filter Form End-----------------------------------
@@ -72,12 +71,12 @@ export class StudentRegistrationComponent {
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDatasize!: Number;
-    let str = `?pageno=${this.pageNumber}&pagesize=10`;
     let formData = this.filterFrm.value;
+    let str = `?pageno=${this.pageNumber}&pagesize=10`;
+
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
       '&TalukaId=' + (formData?.talukaId) + '&CenterId=' + (formData?.centerId)
-      + '&SchoolId=' + (formData?.centerId) + '&lan=' + (this.lang) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+      + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -86,39 +85,42 @@ export class StudentRegistrationComponent {
           this.tableDataArray.map((ele: any) => {
             ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
           })
-          tableDatasize = res.responseData.responseData2.pageCount;
+          this.tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
-          tableDatasize = 0;
+          this.tableDatasize = 0;
         }
-        let displayedColumns;
-        displayedColumns = this.lang == 'Marathi' ? ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
-        let displayedheaders;
-        displayedheaders = this.lang == 'Marathi' ? ['अनुक्रमणिका', 'सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Sr.No.', 'Saral ID', 'Name', 'Gender', 'Standard', 'Parent MobileNo', 'Action']
-
-
-        let tableData = {
-          pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '', pagintion: true,
-          displayedColumns: displayedColumns, tableData: this.tableDataArray,
-          tableSize: tableDatasize,
-          tableHeaders: displayedheaders,
-          // edit:true,delete:true
-        };
-        this.apiService.tableData.next(tableData);
+        this.setTableData();
       },
-      error: ((err: any) => { 
+      error: ((err: any) => {
         this.spinner.hide();
-        this.errorService.handelError(err) 
+        this.errorService.handelError(err)
       })
     });
+  }
+
+  setTableData() {
+    let displayedColumns;
+    displayedColumns = this.lang == 'Marathi' ? ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+    let displayedheaders;
+    displayedheaders = this.lang == 'Marathi' ? ['अनुक्रमणिका', 'सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Sr.No.', 'Saral ID', 'Name', 'Gender', 'Standard', 'Parent MobileNo', 'Action']
+
+    let tableData = {
+      pageNumber: this.pageNumber,
+      img: '', blink: '', badge: '', isBlock: '', pagination: true,
+      displayedColumns: displayedColumns, tableData: this.tableDataArray,
+      tableSize: this.tableDatasize,
+      tableHeaders: displayedheaders,
+      // edit:true,delete:true
+    };
+    console.log(tableData);
+    this.apiService.tableData.next(tableData);
   }
   //#endregion -----------------------------Table Logic End----------------------------------------
 
   //#region -----------------------------Add/Update Dialog Box Start---------------------------------
   registerStudent(obj?: any) {
-    console.log("obj", obj)
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
       width: '700px',
       data: obj,
@@ -128,6 +130,7 @@ export class StudentRegistrationComponent {
       result == 'Yes' ? this.getTableData() : '';
     });
   }
+
   //#endregion -----------------------------Add/Update Dialog Box End---------------------------------
   childCompInfo(obj: any) {
     switch (obj.label) {
@@ -142,62 +145,15 @@ export class StudentRegistrationComponent {
         this.globalDialogOpen(obj)
     }
   }
-  //#region -----------------------------Delete Dialog Box Start---------------------------------
-  // globalDialogOpen(delObj?: any) {
-  //   let dataObj = {
-  //     p1: 'Are you want To Delete Student Record ?',
-  //     p2: '', cardTitle: 'Delete',
-  //     successBtnText: 'Delete',
-  //     dialogIcon: '',
-  //     cancelBtnText: 'Cancel'
-  //   }
-  //   const dialogRef = this.dialog.open(GlobalDialogComponent, {
-  // width: '320px',
-  // data: dataObj,
-  // disableClose: true,
-  // autoFocus: false,
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     result == 'Yes' ? this.getTableData() : ''
-  //     let deleteObj;
-  //     deleteObj = {
-  //       id: delObj.id,
-  //       modifiedBy: 0,
-  //       modifiedDate: new Date(),
-  //       lan: this.lang
-  //     }
-  //     this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-  //     this.apiService.getHttp().subscribe({
-  //       next: ((res: any) => {
-  //         if (res.statusCode == '200') {
-  //           this.commonMethod.snackBar(res.statusMessage, 0);
-  //           this.getTableData();
-  //         }
-  //         else {
-  //           this.commonMethod.snackBar(res.statusMessage, 1);
-  //         }
-  //       }),
-  // error: (error: any) => {
-  //   this.errorService.handelError(error.status);
-  // }
-  //     })
-  //   });
-  // }
 
   globalDialogOpen(delObj?: any) {
     let dialogObj = {
-      p1: this.lang == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
+      p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
       p2: '',
-      cardTitle: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
-      successBtnText: this.lang == 'Marathi' ? 'हटवा' : 'Delete',
+      cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       dialogIcon: 'assets/images/logout.gif',
-      cancelBtnText: this.lang == 'Marathi' ? 'रद्द करा' : 'Cancel',
-
-      // p1: 'Are you want To Delete Student Record ?',
-      // p2: '', cardTitle: 'Delete',
-      // successBtnText: 'Delete',
-      // dialogIcon: '',
-      // cancelBtnText: 'Cancel'
+      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     }
 
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
@@ -236,7 +192,6 @@ export class StudentRegistrationComponent {
     });
   }
   //#endregion -----------------------------Delete Dialog Box Start---------------------------------
-
   //#region--------------------------Filter Dropdown Start----------------------------------
   getTaluka() {
     this.master.getAllTaluka(this.lang, 1).subscribe({
@@ -303,6 +258,7 @@ export class StudentRegistrationComponent {
   //#endregion--------------------------Excel Download Logic End----------------------------------
 
   //#region--------------------------Clear Form Logic Start---------------------------------- 
+
   clearForm() {
     this.filterFrm.reset();
     this.filterFrm.setValue({
@@ -313,6 +269,18 @@ export class StudentRegistrationComponent {
     });
     // this.formDirective && this.formDirective.resetForm();
     this.getTableData();
+  }
+
+  clearDropdown(flag: any) {
+    switch (flag) {
+      case 'talukaId':
+        this.filterFrm.controls['centerId'].setValue(0);
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+      case 'centerId':
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+    }
   }
   //#endregion--------------------------Clear Form Logic End---------------------------------- 
 }
