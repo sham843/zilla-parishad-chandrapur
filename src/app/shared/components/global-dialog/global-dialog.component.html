@@ -15,34 +15,12 @@
    </ng-container>
 <!-------------------------------------------------Change password dialog start---------------------------------------------->
 <ng-container *ngIf="dialogData.cardTitle== 'Change Password'">
-    <form [formGroup]="changePassForm">
+    <form [formGroup]="changePassForm" #formDirective="ngForm">
            <div class="row">
                <div class="col-sm-6 form-container">
-                   <div class="mb-3">
+                     <div class="mb-3">
                        <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>Current Password</mat-label>
-                           <input matInput [type]="CurrentPasswordHide ? 'password' : 'text'"
-                               autocomplete="nope" formControlName="currentPwd"
-                               [ngClass]="{ 'is-invalid':fpass['currentPwd'].errors }">
-                           <button type="button" mat-icon-button matSuffix
-                               (click)="CurrentPasswordHide = !CurrentPasswordHide"
-                               [attr.aria-label]="'Hide password'"
-                               [attr.aria-pressed]="CurrentPasswordHide">
-                               <mat-icon>{{CurrentPasswordHide ? 'visibility_off' : 'visibility'}}
-                               </mat-icon>
-                           </button>
-                           <mat-error>
-                               <span *ngIf="fpass['currentPwd'].errors?.['required']"
-                                   class="text-danger">Required Current Password</span>
-                               <span *ngIf="fpass['currentPwd'].errors?.['pattern']"
-                                   class="text-danger">Invalid Current Password format</span>
-                           </mat-error>
-                       </mat-form-field>
-                   </div>
-
-                   <div class="mb-3">
-                       <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>New Password</mat-label>
+                           <mat-label>{{'change_password.new_password' |translate}}</mat-label>
                            <input matInput [type]="newPasswordHide ? 'password' : 'text'"
                                formControlName="newPwd"
                                [ngClass]="{ 'is-invalid':fpass['newPwd'].errors }">
@@ -55,16 +33,15 @@
                            </button>
                            <mat-error>
                                <span *ngIf="fpass['newPwd'].errors?.['required']"
-                                   class="text-danger">Required New Password</span>
+                                   class="text-danger">{{'change_password.required_new_password' |translate}}</span>
                                <span *ngIf="fpass['newPwd'].errors?.['pattern']"
-                                   class="text-danger">Invalid New Password format</span>
+                                   class="text-danger">t{{'change_password.invalid_new_password_format' |translate}}</span>
                            </mat-error>
                        </mat-form-field>
                    </div>
-
                    <div class="mb-4">
                        <mat-form-field appearance="outline" class="w-100 form-group">
-                           <mat-label>Confirm Password</mat-label>
+                           <mat-label>{{'change_password.confirm_password' |translate}}</mat-label>
                            <input matInput [type]="retypePasswordHide ? 'password' : 'text'"
                                formControlName="reTypePwd"
                                [ngClass]="{'is-invalid':fpass['reTypePwd'].errors}">
@@ -77,9 +54,9 @@
                            </button>
                            <mat-error>
                                <span *ngIf="fpass['reTypePwd'].errors?.['required']"
-                                   class="text-danger">Required Confirm Password</span>
+                                   class="text-danger">{{'change_password.required_confirm_password' |translate}}</span>
                                <span *ngIf="fpass['reTypePwd'].errors?.['pattern']"
-                                   class="text-danger">Invalid Confirm Password format</span>
+                                   class="text-danger">{{'change_password.invalid_confirm_password_format' |translate}}</span>
                            </mat-error>
                        </mat-form-field>
                    </div>
@@ -88,18 +65,18 @@
                        <button type="button" class="me-2 btn-light-main btn" type="button" mat-dialog-close
                            (click)="onNoClick('No')"
                            *ngIf="dialogData?.cancelBtnText">{{dialogData?.cancelBtnText}}</button>
-                           <button type="submit" class="btn-main btn" (click)="onChangePassword()">Change Password</button>
+                           <button type="submit" class="btn-main btn" (click)="onChangePassword()">{{'change_password.change_password' |translate}}</button>
                    </div>
                </div>
                <div class="col-sm-6 text-start">
-                   <p class="small">Passwords must contains</p>
+                   <p class="small">{{'change_password.passwords_must_contains' |translate}}</p>
                    <ul class="small">
-                       <li>At least 8 Characters long</li>
-                       <li>At least 1 Lowercase Characters (a-z)</li>
-                       <li>At least 1 Uppercase Characters (A-Z)</li>
-                       <li>At least 1 Digits(0-9)</li>
-                       <li>At least 1 Special Characters (*$@#)</li>
-                   </ul>
+                       <li>{{'change_password.At_least 8 Characters_long' |translate}}</li>
+                       <li>{{'change_password.At_least 1 Lowercase_Characters (a-z)' |translate}}</li>
+                       <li>{{'change_password.At_least 1 Uppercase_Characters (A-Z)' |translate}}</li>
+                       <li>{{'change_password.At_least 1 Digits(0-9)' |translate}}</li>
+                       <li>(*$@#){{'change_password.At_least 1 Special_Characters (*$@#)' |translate}}</li>
+                   </ul> 
                </div>
            </div>
        </form> 

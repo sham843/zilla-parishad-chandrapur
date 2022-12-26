@@ -5,17 +5,34 @@ import { PerformanceIndicatorsRoutingModule } from './performance-indicators-rou
 import { PerformanceIndicatorsComponent } from './performance-indicators.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import { AddClassComponent } from './add-class/add-class.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import { AddLevelComponent } from './add-level/add-level.component';
 
 
 @NgModule({
   declarations: [
-    PerformanceIndicatorsComponent
+    PerformanceIndicatorsComponent,
+    AddClassComponent,
+    AddLevelComponent
   ],
   imports: [
     CommonModule,
     PerformanceIndicatorsRoutingModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule
+
   ]
 })
 export class PerformanceIndicatorsModule { }

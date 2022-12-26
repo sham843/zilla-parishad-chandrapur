@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
+import { MyProfileComponent } from 'src/app/shared/components/my-profile/my-profile.component'
 import { WebStorageService } from '../services/web-storage.service'
 
 @Component({
@@ -77,7 +78,6 @@ export class HeaderComponent {
       p2: '',
       cardTitle: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
       successBtnText: modalLang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
-      // dialogIcon: 'assets/images/logout.gif',
       cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
     }
     }
@@ -96,5 +96,11 @@ export class HeaderComponent {
   localStorageClear() {
     localStorage.clear()
     this.router.navigate(['../login'])
+  }
+
+  openMyProfileDialog() {
+    this.dialog.open(MyProfileComponent,{
+      width: '500px',
+    });
   }
 }
