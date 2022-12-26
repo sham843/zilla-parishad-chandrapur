@@ -20,11 +20,13 @@ export class LoginComponent {
   sendOtpFlag: boolean = false;
   language!: string;
   loginUser = [{ id: 2, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 3, name: 'School login', m_name: 'शाळा लॉगिन' }];
-  //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
   otpTimer: number = 20
   otpTimerFlag: boolean = false;
   encryptInfo: any;
   otpTimerSub: any;
+  forgotPasswodFlag: boolean = false;
+  forgotPassword!: FormGroup;
+  hide = true;
 
   constructor(
     private apiService: ApiService,
@@ -41,17 +43,26 @@ export class LoginComponent {
     })
     this.translate.use(this.language)
     this.loginDefForm();
+    this.forgotPasswordForm();
   }
 
   loginDefForm() {
     this.loginForm = this.fb.group(({
       MobileNo: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
-      userType: [1],
+      userType: [2],
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       o1: ['', Validators.required],
       o2: ['', Validators.required],
       o3: ['', Validators.required],
       o4: ['', Validators.required],
+    }))
+  }
+
+  forgotPasswordForm() {
+    this.loginForm = this.fb.group(({
+      userName: [this.loginForm.value.MobileNo],
+      password: [''],
+      flag: [this.language == 'English' ? 'en' : 'mr-IN'],
     }))
   }
 
@@ -114,7 +125,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this.commonMethods.snackBar(this.language == 'English' ?'Please enter valid OTP...' : 'कृपया वैध OTP प्रविष्ट करा...', 1)
+      this.commonMethods.snackBar(this.language == 'English' ? 'Please enter valid OTP...' : 'कृपया वैध OTP प्रविष्ट करा...', 1)
       return;
     } else if (this.loginForm.valid) {
       let loginData = this.loginForm.value;
@@ -122,7 +133,7 @@ export class LoginComponent {
       this.apiService.setHttp('get', 'zp_chandrapur/user-registration/VerifyOTP?' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
-          if(res.responseData.pageLstModels.length == 0){
+          if (res.responseData.pageLstModels.length == 0) {
             this.commonMethods.snackBar(this.language == 'English' ? 'Soory you not have right to access page. Please contact admin.' : 'सोरी तुम्हाला पृष्ठावर प्रवेश करण्याचा अधिकार नाही. कृपया प्रशासकाशी संपर्क साधा.', 1)
             return
           }
@@ -138,5 +149,23 @@ export class LoginComponent {
         this.errors.handelError(error.status);
       })
     }
+  }
+
+  onSubmitFP() {
+    let forgotPasswordData = this.forgotPassword.value;
+    let str = `?userName=${forgotPasswordData.MobileNo}&password=${forgotPasswordData.password}&flag=${forgotPasswordData.flag}`
+    this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetUserLogin' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.sendOtpFlag = true;
+        this.commonMethods.snackBar(res.responseData.message, 0);
+        this.forgotPasswodFlag = false;
+      }
+      else {
+        this.commonMethods.snackBar(res.responseData.message, 1)
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
   }
 }
