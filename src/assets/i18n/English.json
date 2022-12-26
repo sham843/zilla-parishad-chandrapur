@@ -97,7 +97,7 @@
         "select":"Select"
     },
     "student":{
-        "search_by_saralid_name_mobileno":"Search By SaralId/Name/MobileNo",
+        "search_by_saralid_name_mobileno":"Search by Saral Id/Name/Contact",
         "saral_id":"Saral Id",
         "gender":"Gender",
         "standard":"Standard",

@@ -134,7 +134,7 @@ clearForm() {
     schoolId: 0,
     searchText: ''
   });
-   this.getTableData();
+   this.getTableData('filter');
 }
 //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
 
@@ -172,9 +172,9 @@ clearForm() {
 
   setTableData() {
     let displayedColumns;
-    displayedColumns =  this.lang == 'mr-IN' ? ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+    displayedColumns =  this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
-    displayedheaders =  this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Sr.No.', 'Saral ID', 'Name', 'Gender', 'Standard', 'Parent MobileNo', 'Action']
+    displayedheaders =  this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action']
      let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -215,101 +215,57 @@ clearForm() {
     }
   }
 
-  // globalDialogOpen(delObj?: any) {
-  //   let dialogObj = {
-  //     p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
-  //     p2: '',
-  //     cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-  //     successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-  //     dialogIcon: 'assets/images/logout.gif',
-  //     cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-  //   }
-  //   const dialogRef = this.dialog.open(GlobalDialogComponent, {
-  //     width: '320px',
-  //     data: dialogObj,
-  //     disableClose: true,
-  //     autoFocus: false,
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result == 'Yes') {
-  //       this.clearForm();
-  //       let deleteObj = {
-  //         id: delObj.id,
-  //         modifiedBy: 0,
-  //         modifiedDate: new Date(),
-  //         lan: this.lang
-  //       }
-    //     this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-    //     this.apiService.getHttp().subscribe({
-    //       next: ((res: any) => {
-    //         if (res.statusCode == "200") {
-    //           this.commonMethod.snackBar(res.statusMessage, 0);
-    //           this.getTableData();
-    //         }
-    //         else {
-    //           this.commonMethod.snackBar(res.statusMessage, 1);
-    //         }
-    //       }),
-    //       error: (error: any) => {
-    //         this.errorService.handelError(error.status);
-    //       }
-    //     })
-    //   }
-    // });
-  // }
-
-  globalDialogOpen(obj?: any) {
-    const dialog = this.dialog.open(GlobalDialogComponent, {
-      width: '750px',
-      disableClose: true,
-      data: {
-        p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
-        p2: '',
-        cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-        successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-        dialogIcon: 'assets/images/logout.gif',
-        cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      },
-    })
-    dialog.afterClosed().subscribe((res: any) => {
-      if (res == 'Yes') {
-        this.deleteStudent(obj);
-      }
-    })
-  }
-
-  deleteStudent(obj: any) {
-   this.lang == 'English' ? 'en' : 'mr-IN'
-    let deleteObj = {
-      "id": obj.id,
-      "modifiedBy": 0,
-      "modifiedDate": new Date(),
-      "lan": ''
+  globalDialogOpen(delObj?: any) {
+    let dialogObj = {
+      p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
+      p2: '',
+      cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      dialogIcon: 'assets/images/logout.gif',
+      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     }
-    this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.getTableData();
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialogObj,
+      disableClose: true,
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'Yes') {
+        this.clearForm();
+        let deleteObj = {
+          id: delObj.id,
+          modifiedBy: 0,
+          modifiedDate: new Date(),
+          lan: this.lang
         }
-        else {
-          this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.errorService.handelError(error.status);
+        this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+        this.apiService.getHttp().subscribe({
+          next: ((res: any) => {
+            if (res.statusCode == "200") {
+              this.commonMethod.snackBar(res.statusMessage, 0);
+              this.getTableData();
+            }
+            else {
+              this.commonMethod.snackBar(res.statusMessage, 1);
+            }
+          }),
+          error: (error: any) => {
+            this.errorService.handelError(error.status);
+          }
+        })
       }
-    })
+    });
   }
+
  
   excelDownload() {
     let pageName;
     this.lang == 'mr-IN' ? pageName = 'विद्यार्थी नोंदणी' : pageName = 'Student Registration';
     let header: any;
-    this.lang == 'mr-IN' ? header = ['अनुक्रमणिका', 'सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
+    this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Agency Name', 'Contact No.', 'Email Id'];
     let column;
-    column = this.lang == 'mr-IN' ? ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['srNo', 'saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
+    column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
   

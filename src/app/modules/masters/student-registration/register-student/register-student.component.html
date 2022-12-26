@@ -147,8 +147,8 @@
                         <input matInput placeholder="{{'student.enter_saral_id'|translate}}" formControlName="saralId"
                             (keypress)="validation.alphaNumeric($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['saral_id']?.errors">
-                            <span class="text-danger" *ngIf="f['saral_id'].hasError('required')">
+                        <mat-error *ngIf="f['saralId']?.errors">
+                            <span class="text-danger" *ngIf="f['saralId'].hasError('required')">
                                 {{'student.please_enter_saral_id'|translate}}
                             </span>
                         </mat-error>
@@ -170,7 +170,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.birth_date'|translate}}</mat-label>
                         <input matInput [matDatepicker]="picker" [readonly]="true" [max]="todayDate"
-                            placeholder="Enter Birth Date Here..." formControlName="dob" (click)="picker.open()">
+                            placeholder="{{'student.birth_date'|translate}}" formControlName="dob" (click)="picker.open()">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
