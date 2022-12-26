@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">{{'user_Registration.masters' |translate}}</li>
+    <li class="breadcrumb-item" aria-current="page">{{'common.masters' |translate}}</li>
     <li class="breadcrumb-item active" aria-current="page">{{'user_Registration.user_registration' |translate}}</li>
   </ol>
 </nav>
@@ -14,15 +14,15 @@
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="pdfDownload()">
+          <!-- <button mat-menu-item (click)="pdfDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
-              <span>{{'user_Registration.pdf' |translate}}</span>
+              <span>{{'common.pdf' |translate}}</span>
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
-          </button>
+          </button> -->
           <button mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
-              <span>{{'user_Registration.excel' |translate}}</span>
+              <span>{{'common.excel' |translate}}</span>
               <i class='bx bxs-file text-primary'></i>
             </div>
           </button>
@@ -36,59 +36,51 @@
     </div>
   </mat-card-header>
   <mat-card-header class="card-header">
-    <div class="row w-100 gx-2">
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>User Type</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <form [formGroup]="serachUserForm" (ngSubmit)="getAllUserData()">
+      <div class="row w-100 gx-2">
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.select_user_type'|translate}}</mat-label>
+            <mat-select formControlName="UserTypeId" (selectionChange)="getAllUserData()">
+              <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.select_taluka'|translate}}</mat-label>
+            <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllUserData()">
+              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.select_kendra'|translate}}</mat-label>
+            <mat-select formControlName="CenterId" (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllUserData()">
+              <mat-option *ngFor="let kendra of centerArray" [value]="kendra.id">{{kendra.center}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>   
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.select_school'|translate}}</mat-label>
+            <mat-select formControlName="SchoolId" (selectionChange)="getAllUserData()">
+              <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
+            <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}" formControlName="textSearch">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <button (click)="getAllUserData()" mat-flat-button class="btn-main me-2">{{'common.filter' |translate}}</button>
+        </div>
       </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Kendra</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select School</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'user_Registration.search_by_name_contact' |translate}}</mat-label>
-          <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}"
-            [formControl]="searchControl">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <button (click)="getAllUserData()" mat-flat-button class="btn-main me-2">Filter</button>
-        <button (click)="clearFilter()" mat-flat-button class="btn-second">Clear</button>
-      </div>
-    </div>
+    </form>
   </mat-card-header>
   <mat-card-content class="card-body">
     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>

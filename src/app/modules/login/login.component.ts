@@ -19,7 +19,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   sendOtpFlag: boolean = false;
   language!: string;
-  loginUser = [{ id: 1, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 2, name: 'School login', m_name: 'शाळा लॉगिन' }];
+  loginUser = [{ id: 2, name: 'Officer Login', m_name: 'अधिकारी लॉगिन' }, { id: 3, name: 'School login', m_name: 'शाळा लॉगिन' }];
   //अधिकारी लॉगिन = 1 // शाळा लॉगिन = 2 
   otpTimer: number = 20
   otpTimerFlag: boolean = false;
