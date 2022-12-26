@@ -60,6 +60,62 @@ export class RegisterStudentComponent {
       this.getGender(this.lang);
     }
   }
+   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
+   formData(data?: any) {
+    this.studentFrm = this.fb.group({
+      "id": [0],
+      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "m_Name": [data?.m_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
+      "talukaId": [data?.talukaId || '', Validators.required],
+      "centerId": [data?.centerId || '', [Validators.required]],
+      "schoolId": [data?.schoolId || '', [Validators.required]],
+      "standardId": [data?.standardId || '', [Validators.required]],
+      "saralId": [data?.saralId || '', [Validators.required]],
+      "genderId": [data?.genderId || '', [Validators.required]],
+      "dob": [data?.dob || '', [Validators.required]],
+      "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
+      "religionId": [data?.religionId || '', [Validators.required]],
+      "cast": [data?.cast || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
+    })
+  }
+
+  get f() {
+    return this.studentFrm.controls;
+  }
+
+  onEdit() {
+    this.editFlag = true;
+    this.formData(this.data);
+    this.getDistrict();
+    this.getStandard(this.lang);
+    this.getReligion(this.lang);
+    this.getGender(this.lang);
+  }
+
+  clearForm() {
+    this.formDirective.resetForm();
+    this.editFlag = false;
+    this.formData();
+  }
+
+  clearDropdown(flag: any) {
+    this.editFlag = false;
+    switch (flag) {
+      case 'talukaId':
+        this.studentFrm.controls['centerId'].setValue('');
+        this.studentFrm.controls['schoolId'].setValue('');
+        break;
+      case 'centerId':
+        this.studentFrm.controls['schoolId'].setValue('');
+        break;
+    }
+  }
+
+  //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
+
 
   //#region -------------------------------------------------------dropdown fun start heare-----------------------------------------//
   getDistrict() {
@@ -193,59 +249,7 @@ export class RegisterStudentComponent {
   }
   //#endregion -----------------------------------------------------dropdown fun end heare ----------------------------------------//
 
-  //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
-  formData(data?: any) {
-    this.studentFrm = this.fb.group({
-      "id": [0],
-      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "m_Name": [data?.m_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
-      "talukaId": [data?.talukaId || '', Validators.required],
-      "centerId": [data?.centerId || '', [Validators.required]],
-      "schoolId": [data?.schoolId || '', [Validators.required]],
-      "standardId": [data?.standardId || '', [Validators.required]],
-      "saralId": [data?.saralId || '', [Validators.required]],
-      "genderId": [data?.genderId || '', [Validators.required]],
-      "dob": [data?.dob || '', [Validators.required]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
-      "religionId": [data?.religionId || '', [Validators.required]],
-      "cast": [data?.cast || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
-    })
-  }
-
-  get f() {
-    return this.studentFrm.controls;
-  }
-
-  onEdit() {
-    this.editFlag = true;
-    this.formData(this.data);
-    this.getDistrict();
-  }
-
-  clearForm() {
-    this.formDirective.resetForm();
-    this.editFlag = false;
-    this.formData();
-  }
-
-  clearDropdown(flag: any) {
-    this.editFlag = false;
-    switch (flag) {
-      case 'talukaId':
-        this.studentFrm.controls['centerId'].setValue('');
-        this.studentFrm.controls['schoolId'].setValue('');
-        break;
-      case 'centerId':
-        this.studentFrm.controls['schoolId'].setValue('');
-        break;
-    }
-  }
-
-  //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
-
+ 
   onClickSubmit() {
     if (!this.studentFrm.valid) {
       return;
