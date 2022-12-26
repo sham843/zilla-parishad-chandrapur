@@ -31,7 +31,8 @@
         "name": "नाव",
         "mobile_number": "मोबाईल नंबर",
         "delete": "हटवा",
-        "ok": "होय"
+        "ok": "होय",
+        "update":"अद्यतन"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
@@ -148,7 +149,7 @@
         "admin": "प्रशासक",
         "designation_type": "पदनाम प्रकार",
         "set_designation_level": "पदनाम स्तर सेट करा",
-        "please_select_designation_level ": "कृपया पदनाम स्तर निवडा",
+        "please_select_designation_level": "कृपया पदनाम स्तर निवडा",
         "please_select_designation_type": "कृपया पदनाम प्रकार निवडा",
         "please_set_designation_level": "कृपया पदनाम स्तर सेट करा",
         "please_enter_designation_name": "कृपया पदनाम प्रविष्ट करा",
