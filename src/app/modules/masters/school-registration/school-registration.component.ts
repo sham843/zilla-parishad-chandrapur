@@ -24,7 +24,6 @@ export class SchoolRegistrationComponent {
   centerArray = new Array();
   filterForm!: FormGroup;
   tableDataArray=new Array();
-  displayedColumns:any;
   
   constructor(
     private webStorage: WebStorageService,
@@ -39,7 +38,7 @@ export class SchoolRegistrationComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
-      res == 'Marathi' ?(this.lang = 'mr-IN') : (this.lang = 'en');
+      this.lang = res == 'Marathi' ?'mr-IN' : 'en';
     })
     this.getFilterFormData();
     this.getTaluka();
@@ -73,10 +72,8 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           tableDatasize = 0;
         }
-        let displayedColumns;
-        this.lang ==  'mr-IN' ? displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] :displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action']
-        let displayedheaders;
-        this.lang ==  'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती'] :displayedheaders = ['Sr.No.', 'School Name', 'Kendra', 'Taluka','Action']
+        let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka','action'] 
+        let displayedheaders = this.lang ==  'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका','कृती'] : ['Sr.No.', 'School Name', 'Kendra', 'Taluka','Action']
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -93,17 +90,12 @@ export class SchoolRegistrationComponent {
 //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 
 //#region ---------------------------------------------------Excel Download------------------------------------------------------------ 
-  excelDownload() {
-    let pageName='School Registration';
-    let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
-    let column= ['srNo', 'schoolName', 'center', 'taluka'];
-    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
-  }
-  pdfDownload() {
-    let pageName='School Registration';
-    let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
-    let column= ['srNo', 'schoolName', 'center', 'taluka'];
-    this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
+excelPdfDownload(status?:string) {
+  let pageName='School Registration';
+  let header=['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+  let column= ['srNo', 'schoolName', 'center', 'taluka'];
+  status == 'excel' ? this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column) : this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column)
+
   }
 //#endregion ---------------------------------------------------Excel Download------------------------------------------------------------ 
 
@@ -142,8 +134,7 @@ export class SchoolRegistrationComponent {
       disableClose: true,
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe(() => {
       this.getTableData()
     });
   }
