@@ -17,7 +17,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class RegisterStudentComponent {
   studentFrm!: FormGroup;
-  lang: string | any = 'English';
+  lang: string  = 'English';
   districtArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
@@ -257,9 +257,9 @@ export class RegisterStudentComponent {
       this.ngxspinner.show();
       let data = this.studentFrm.value;
       let obj = {
-        "createdBy": this.webStorage.getUserId(),
+        "createdBy": !this.editFlag ? this.webStorage.getUserId() : this.data.createdBy,
         "modifiedBy": this.webStorage.getUserId(),
-        "createdDate": new Date(),
+        "createdDate": !this.editFlag ? new Date() :  this.data.createdDate,
         "modifiedDate": new Date(),
         "isDeleted": false,
       }
