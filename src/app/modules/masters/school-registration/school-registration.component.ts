@@ -18,7 +18,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 export class SchoolRegistrationComponent {
   stateArr = new Array();
   districtArr = new Array();
-  lang: string = 'en';
+  lang!:string;
   pageNumber: Number = 1;
   districtArray = new Array();
   talukaArray = new Array();
@@ -51,7 +51,7 @@ export class SchoolRegistrationComponent {
     this.getTaluka();
   }
 
-  //#region ---------------------------------------Filter Form Data-----------------------------------------------------------------
+  //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
   getFilterFormData() {
     this.filterForm = this.fb.group({
       talukaId: [0],
@@ -59,7 +59,52 @@ export class SchoolRegistrationComponent {
       schoolName: ['']
     })
   }
-  //#endregion-----------------------------------Filter Form Data--------------------------------------------------------------------
+
+  getTaluka() {
+    this.master.getAllTaluka(this.lang, this.apiService.disId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.talukaArray = res.responseData;
+        }
+        else {
+          this.talukaArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
+  }
+
+  getCenter() {
+    let formData = this.filterForm.value.talukaId;
+    this.master.getAllCenter(this.lang, formData).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.centerArray = res.responseData;
+        }
+        else {
+          this.centerArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
+  }
+
+  clearFilter() {
+    this.formGroupDirective.reset({
+      talukaId: [0],
+      centerId: [0],
+      schoolName: ['']
+    });
+    this.getTableData();
+  }
+
+  //#endregion-----------------------------------Filter Form Data Ends--------------------------------------------------------------------
 
   //#region -------------------------------------Fetch Table Data------------------------------------------------------------------------
   getTableData(flag?: string) {
@@ -97,30 +142,23 @@ export class SchoolRegistrationComponent {
     this.apiService.tableData.next(tableData);
   }
 
-  //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
+  // excelDownload() {
+  //   let pageName;
+  //   this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
+  //   let header:any;
+  //   this.language=='Marathi'?header=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी']:header=['Sr.No.','Agency Name','Contact No.','Email Id'];
+  //   let column:any;
+  //   this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
+  //   this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+  // }
 
-  //#region ---------------------------------------------------Excel Download------------------------------------------------------------ 
-  excelPdfDownload(status?: string) {
-    let pageName = 'School Registration';
-    let header = ['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
-    let column = ['srNo', 'schoolName', 'center', 'taluka'];
-    status == 'excel' ? this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column) : this.excelPdf.downLoadPdf(this.tableDataArray, pageName, header, column)
-
+  excelDownload() {
+    let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
+    let header = this.lang == 'mr-IN' ?['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] :['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+    let column = this.lang == 'mr-IN' ? ['srNo', 'schoolName', 'center', 'taluka'] : ['srNo', 'schoolName', 'center', 'taluka'];
+    this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
-  //#endregion ---------------------------------------------------Excel Download------------------------------------------------------------ 
 
-  //#region -----------------------------------------------------------Clear Filter Form-----------------------------------------------------
-  clearFilter() {
-    this.formGroupDirective.reset({
-      talukaId: [0],
-      centerId: [0],
-      schoolName: ['']
-    });
-    this.getTableData();
-  }
-  //#endregion----------------------------------------------------------Clear Filter Form----------------------------------------------------
-
-  //#region ---------------------------------------------------Open Dialogue Data-------------------------------------------------------------
   childCompInfo(obj?: any) {
     switch (obj.label) {
       case 'Pagination':
@@ -134,9 +172,7 @@ export class SchoolRegistrationComponent {
         this.globalDialogOpen(obj);
     }
   }
-  //#endregion ---------------------------------------------------Open Dialogue Data-------------------------------------------------------------
 
-  //#region -------------------------------------------------------Add & Edit Dialogue Open-----------------------------------------------------
   addSchoolData(obj?: any) {
     const dialogRef = this.dialog.open(RegisterSchoolComponent, {
       width: '700px',
@@ -144,50 +180,11 @@ export class SchoolRegistrationComponent {
       disableClose: true,
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.getTableData()
+    dialogRef.afterClosed().subscribe((result:any) => {
+      !result ? this.getTableData() : '';
     });
   }
-  //#endregion -------------------------------------------------------Add & Edit Dialogue Open-----------------------------------------------------
 
-  //#region -------------------------------------------------Filter Form Dropdowns--------------------------------------------------------
-  getTaluka() {
-    this.master.getAllTaluka(this.lang, this.apiService.disId).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.talukaArray = res.responseData;
-        }
-        else {
-          this.talukaArray = [];
-          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.errorService.handelError(error.status);
-      }
-    })
-  }
-
-  getCenter() {
-    let formData = this.filterForm.value.talukaId;
-    this.master.getAllCenter(this.lang, formData).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.centerArray = res.responseData;
-        }
-        else {
-          this.centerArray = [];
-          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.errorService.handelError(error.status);
-      }
-    })
-  }
-  //#endregion-------------------------------------------------Filter Form Dropdowns--------------------------------------------------------
-
-  //#region -------------------------------------------------------Delete Data-----------------------------------------------------------
   globalDialogOpen(delObj?: any) {
     let dataObj = {
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
@@ -227,6 +224,6 @@ export class SchoolRegistrationComponent {
       }
     });
   }
+ //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 }
-//#endregion -------------------------------------------------------Delete Data-----------------------------------------------------------
 

@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -22,6 +22,7 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
   lang: string = 'en';
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   constructor
     (
       private fb: FormBuilder, 
