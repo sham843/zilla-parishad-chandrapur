@@ -52,10 +52,10 @@ export class StudentRegistrationComponent {
   //#region -----------------------------Filter Form Start-----------------------------------
   formData() {
     this.filterFrm = this.fb.group({
-      "talukaId": [0],
-      "centerId": [0],
-      "schoolId": [0],
-      "searchText": ['']
+      talukaId: [0],
+      centerId: [0],
+      schoolId: [0],
+      searchText: ['']
     })
   }
   //#endregion -----------------------------Filter Form End-----------------------------------
@@ -258,6 +258,7 @@ export class StudentRegistrationComponent {
   //#endregion--------------------------Excel Download Logic End----------------------------------
 
   //#region--------------------------Clear Form Logic Start---------------------------------- 
+
   clearForm() {
     this.filterFrm.reset();
     this.filterFrm.setValue({
@@ -268,6 +269,18 @@ export class StudentRegistrationComponent {
     });
     // this.formDirective && this.formDirective.resetForm();
     this.getTableData();
+  }
+
+  clearDropdown(flag: any) {
+    switch (flag) {
+      case 'talukaId':
+        this.filterFrm.controls['centerId'].setValue(0);
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+      case 'centerId':
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+    }
   }
   //#endregion--------------------------Clear Form Logic End---------------------------------- 
 }
