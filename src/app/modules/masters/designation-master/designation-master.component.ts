@@ -67,8 +67,10 @@ export class DesignationMasterComponent {
           tableDatasize = 0;
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
-        let displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
-        let displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
+        let displayedColumns;
+        this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
+        let displayedheaders;
+        this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
         let tableData = {
           pageNumber: this.pageNumber,
           img: '', blink: '', badge: '', isBlock: '', 
@@ -117,9 +119,9 @@ export class DesignationMasterComponent {
   globalDialogOpen(obj?:any) {
     let dialoObj = {
       header: 'Delete',
-      cardTitle: 'Do you want to delete selected designation record?',
-      cancelBtnText: 'Cancel',
-      successBtnText: 'Ok'
+      cardTitle: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      successBtnText: this.lang == 'mr-IN' ? 'होय' : 'Ok'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',

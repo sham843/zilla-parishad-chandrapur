@@ -14,51 +14,51 @@
      <mat-card-content class="card-body">
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Designation Level</mat-label>
+                    <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
                     <mat-select formControlName="dummyDesigLvlkey"
                         (selectionChange)="clearFormDependancy($event);getDesignationType();setDesignationLvl()">
                         <mat-option *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2" *ngIf="f['dummyDesigLvlkey'].hasError('required')">Please Select Designation Level
+                    <mat-error class="mt-2" *ngIf="f['dummyDesigLvlkey'].hasError('required')">{{'designation_master.please_select_designation_level' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Designation Type</mat-label>
+                    <mat-label>{{'designation_master.designation_type' | translate}}</mat-label>
                     <mat-select formControlName="linkedToDesignationId">
                         <mat-option *ngFor="let upDesigType of desigantionType"
                             [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2" *ngIf="f['linkedToDesignationId'].hasError('required')">Please Select Designation Type
+                    <mat-error class="mt-2" *ngIf="f['linkedToDesignationId'].hasError('required')">{{'designation_master.please_select_designation_type' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Set Designation Level</mat-label>
+                    <mat-label>{{'designation_master.set_designation_level' | translate}}</mat-label>
                     <mat-select formControlName="designationLevelId">
                         <mat-option *ngFor="let setDesigLvl of setDesignationLevel"
                             [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2" *ngIf="f['designationLevelId'].hasError('required')">Please Set Designation Level
+                    <mat-error class="mt-2" *ngIf="f['designationLevelId'].hasError('required')">{{'designation_master.please_set_designation_level' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Add Designation</mat-label>
+                    <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
                     <input matInput placeholder="Add Designation" formControlName="designationName">
-                    <mat-error class="mt-2" *ngIf="f['designationName'].hasError('required')">Please Enter Designation Name
+                    <mat-error class="mt-2" *ngIf="f['designationName'].hasError('required')">{{'designation_master.please_enter_designation_name' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
      </mat-card-content>
      <mat-card-footer class="card-footer" align="end">
         <div class="d-flex justify-content-end align-items-center w-100">
-            <button type="button" mat-flat-button class="btn-second me-2" (click)="clearForm(formDirective)">Clear</button>
-            <button mat-flat-button type="submit" class="btn-main">Submit</button>
+            <button type="button" mat-flat-button class="btn-second me-2" (click)="clearForm(formDirective)">{{'common.clear' | translate}}</button>
+            <button mat-flat-button type="submit" class="btn-main">{{'common.submit' | translate}}</button>
         </div>
      </mat-card-footer>
  </mat-card>
