@@ -1,0 +1,26 @@
+<mat-card class="plain-card">
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h6 class="text-main mb-0 fw-bold">Add Level</h6>
+            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+                <mat-icon>
+                    close
+                </mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+        <div class="row">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Add Level</mat-label>
+                <input matInput placeholder="">
+              </mat-form-field>
+        </div>
+    </mat-card-content>
+    <mat-card-footer class="card-footer">
+        <div class="d-flex justify-content-end gap-2">
+            <button mat-stroked-button class="btn-second">Clear</button>
+            <button mat-stroked-button class="btn-main">Submit</button>
+        </div>
+    </mat-card-footer>
+</mat-card>

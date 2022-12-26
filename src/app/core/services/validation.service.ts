@@ -79,4 +79,9 @@ export class ValidationService {
       event.preventDefault();
     }
   }
+
+  noSpaces(event: any) {
+    const maskSeperator = new RegExp('^[ ]+|[ ]+$', 'gm');
+    return !maskSeperator.test(event.key);
+}
 }

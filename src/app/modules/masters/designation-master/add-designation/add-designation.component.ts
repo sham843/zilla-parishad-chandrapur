@@ -7,6 +7,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { DesignationMasterComponent } from '../designation-master.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -22,7 +23,7 @@ export class AddDesignationComponent {
   setDesignationLevel = new Array();
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-  constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService,
+  constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService,public validation: ValidationService,
     private errorHandler: ErrorHandler, @Inject(MAT_DIALOG_DATA) public data: any, private webStorage: WebStorageService,
     private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner: NgxSpinnerService) { }
   ngOnInit() {
@@ -35,6 +36,8 @@ export class AddDesignationComponent {
     })
     this.controlForm();
     this.data ? this.editMethod() : this.getDesignationLevel();
+    console.log(this.data,'data');
+    
   }
 
 
@@ -93,7 +96,6 @@ export class AddDesignationComponent {
   //#endregion---------------------------------------------dropdown api's end---------------------------------------------------
 
   onClickSubmit(formDirective?: any) {
-
     if (!this.designationForm.valid) {
       return;
     } else if (!this.editFlag) {
@@ -146,6 +148,7 @@ export class AddDesignationComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == '200') {
+            this.editFlag = false;
             formDirective?.resetForm();
             this.controlForm();
             this.dialogRef.close();
@@ -177,11 +180,11 @@ export class AddDesignationComponent {
 
   clearFormDependancy(index: any) {
     if (index.value == this.designationForm.value.dummyDesigLvlkey) {
-      this.designationForm.controls['linkedToDesignationId'].setValue(0),
-        this.designationForm.controls['designationLevelId'].setValue(0),
+      this.designationForm.controls['linkedToDesignationId'].setValue(''),
+        this.designationForm.controls['designationLevelId'].setValue(''),
         this.designationForm.controls['designationName'].setValue('')
     } else if (this.designationForm.value.linkedToDesignationId) {
-      this.designationForm.controls['designationLevelId'].setValue(0),
+      this.designationForm.controls['designationLevelId'].setValue(''),
         this.designationForm.controls['designationName'].setValue('')
     }
   }
