@@ -16,7 +16,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
                     <mat-select formControlName="dummyDesigLvlkey"
-                        (selectionChange)="clearFormDependancy($event);getDesignationType();setDesignationLvl()">
+                        (selectionChange)="clearFormDependancy();getDesignationType();setDesignationLvl()">
                         <mat-option *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
@@ -49,7 +49,7 @@
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
-                    <input matInput placeholder="Add Designation" formControlName="designationName" (keypress)="validation.noFirstSpaceAllow($event)">
+                    <input minlength="2" maxlength="50" matInput placeholder="Add Designation" formControlName="designationName" (keypress)="validation.noFirstSpaceAllow($event)">
                     <mat-error class="mt-2" *ngIf="f['designationName'].hasError('required')">{{'designation_master.please_enter_designation_name' | translate}}
                     </mat-error>
                 </mat-form-field>
