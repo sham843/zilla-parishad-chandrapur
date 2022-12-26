@@ -72,7 +72,7 @@ export class RegisterStudentComponent {
       "centerId": [data?.centerId || '', [Validators.required]],
       "schoolId": [data?.schoolId || '', [Validators.required]],
       "standardId": [data?.standardId || '', [Validators.required]],
-      "saralId": [data?.saralId || '', [Validators.required]],
+      "saralId": [data?.saralId || '', [Validators.required,Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
       "dob": [data?.dob || '', [Validators.required]],
       "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],

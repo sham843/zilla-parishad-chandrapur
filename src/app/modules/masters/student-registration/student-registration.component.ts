@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -25,7 +25,9 @@ export class StudentRegistrationComponent {
   lang!:string;
   tableDataArray = new Array();
   tableDatasize!:number;
-
+  @ViewChild('formDirective')
+  private formDirective!: NgForm;
+  
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -127,13 +129,14 @@ clearDropdown(flag: any) {
 }
 
 clearForm() {
-  this.filterFrm.reset();
-  this.filterFrm.setValue({
-    talukaId: 0,
-    centerId: 0,
-    schoolId: 0,
-    searchText: ''
-  });
+  // this.filterFrm.reset();
+  // this.filterFrm.setValue({
+  //   talukaId: 0,
+  //   centerId: 0,
+  //   schoolId: 0,
+  //   searchText: ''
+  // });
+  this.formDirective.resetForm();
    this.getTableData('filter');
 }
 //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
@@ -145,8 +148,8 @@ clearForm() {
     let formData = this.filterFrm.value;
     let str = `?pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
-      '&TalukaId=' + (formData?.talukaId) + '&CenterId=' + (formData?.centerId)
-      + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+      '&TalukaId=' + (formData?.talukaId||0)  + '&CenterId=' + (formData?.centerId||0)
+      + '&SchoolId=' + (formData?.centerId||0) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText||''), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
