@@ -108,8 +108,8 @@ export class DesignationMasterComponent {
       const dialogRef = this.dialog.open(AddDesignationComponent, {
         width: '420px',
         data: obj,
-        disableClose: true,
-        autoFocus: false
+        disableClose: true,                                    
+        autoFocus: false,
       });
       dialogRef.afterClosed().subscribe(result => {
         !result ? this.getTableData() : '';
@@ -151,15 +151,15 @@ export class DesignationMasterComponent {
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
     let pageName='Designation Master';
-    let header=['Sr.No.','Designation Name','Designation Level'];
-    let column=['srNo', 'designationName','designationLevelName'];
+    let header=['Sr.No.','Designation Name','Linked To','Designation Level'];
+    let column=['srNo', 'designationName','linkedToDesignationName','designationLevelName'];
     this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
   }
 
-  pdfDownload() {
-    let pageName='Designation Master';
-    let header=['Sr.No.','Designation Name','Designation Level'];
-    let column=['srNo', 'designationName','designationLevelName'];
-    this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
-  }
+  // pdfDownload() {
+  //   let pageName='Designation Master';
+  //   let header=['Sr.No.','Designation Name','Linked To','Designation Level'];
+  //   let column=['srNo', 'designationName','linkedToDesignationName','designationLevelName'];
+  //   this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
+  // }
 }
