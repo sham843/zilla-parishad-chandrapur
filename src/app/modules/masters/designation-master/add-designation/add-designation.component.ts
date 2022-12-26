@@ -36,8 +36,6 @@ export class AddDesignationComponent {
     })
     this.controlForm();
     this.data ? this.editMethod() : this.getDesignationLevel();
-    console.log(this.data,'data');
-    
   }
 
 
