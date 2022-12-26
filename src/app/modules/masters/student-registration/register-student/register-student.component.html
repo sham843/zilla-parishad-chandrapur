@@ -2,7 +2,7 @@
     <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
         <mat-card-header class="card-header">
             <div class="d-flex align-items-center justify-content-between w-100">
-                <h6 class="text-main mb-0 fw-bold">{{editFlag ?  ('student.register_student'|translate ) :  ('student.register_student'|translate)}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{editFlag ?  ('student.update_Student'|translate ) :  ('student.register_student'|translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -87,6 +87,9 @@
                             <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('required')">
                                 {{'student.please_enter_contact_number'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('pattern')">
+                                {{'student.please_enter_valid_mobile_Number' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -100,6 +103,9 @@
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
                                 {{'student.please_enter_first_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['f_Name'].hasError('pattern')">
+                                {{'student.please_enter_valid_first_Name' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -113,6 +119,9 @@
                             <span class="text-danger" *ngIf="f['m_Name'].hasError('required')">
                                 {{'student.please_enter_middle_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['m_Name'].hasError('pattern')">
+                                {{'student.please_enter_valid_middle_Name' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -126,6 +135,9 @@
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 {{'student.please_enter_last_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('pattern')">
+                                {{'student.please_enter_valid_last_Name' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -135,8 +147,8 @@
                         <input matInput placeholder="{{'student.enter_saral_id'|translate}}" formControlName="saralId"
                             (keypress)="validation.alphaNumeric($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['l_Name'].errors">
-                            <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
+                        <mat-error *ngIf="f['saral_id'].errors">
+                            <span class="text-danger" *ngIf="f['saral_id'].hasError('required')">
                                 {{'student.please_enter_saral_id'|translate}}
                             </span>
                         </mat-error>
@@ -177,6 +189,9 @@
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
                                 {{'student.please_enter_aadhar_number'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['aadharNo'].hasError('pattern')">
+                                {{'student.please_enter_valid_aadhar_Number' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -203,6 +218,9 @@
                             <span class="text-danger" *ngIf="f['cast'].hasError('required')">
                                 {{'student.please_enter_caste_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['cast'].hasError('pattern')">
+                                {{'student.please_enter_valid_Caste' | translate}}
+                             </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
