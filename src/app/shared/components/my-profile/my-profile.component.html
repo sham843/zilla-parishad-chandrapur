@@ -1,0 +1,66 @@
+<mat-card class="plain-card">
+    <mat-card-header class="card-header">
+        <div class="d-flex align-items-center justify-content-between w-100">
+            <h6 class="mb-0 text-main">My Profile</h6>
+            <button mat-icon-button mat-dialog-close class="btn-modal-close">
+                <mat-icon>
+                    close
+                </mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+        <div class="text-center mb-3">
+            <div class="upload-btn-wrapper">
+                <img src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
+                <input type="file" id="img-upload" />
+                <div class="profile-buttons d-flex flex-column">
+                    <button type="button" class="btn bg-light text-primary">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                    <button type="button" class="border border-0 btn bg-light text-danger">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput placeholder="Middle Name">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Contact No.</mat-label>
+                    <input matInput placeholder="Contact No.">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email ID</mat-label>
+                    <input matInput placeholder="Email ID">
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-footer class="card-footer">
+        <div class="d-flex w-100 justify-content-end align-items-center">
+            <button mat-dialog-close mat-flat-button class="btn-second me-2">Cancel</button>
+            <button mat-flat-button class="btn-main">Submit</button>
+        </div>
+    </mat-card-footer>
+</mat-card>

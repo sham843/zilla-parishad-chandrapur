@@ -201,8 +201,7 @@ clearForm() {
       result == 'Yes' ? this.getTableData() : '';
     });
   }
-
-  childCompInfo(obj: any) {
+ childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
