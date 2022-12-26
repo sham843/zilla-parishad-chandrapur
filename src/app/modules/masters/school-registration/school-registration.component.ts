@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -33,7 +34,8 @@ export class SchoolRegistrationComponent {
     private fb: FormBuilder,
     private master: MasterService,
     private commonMethod: CommonMethodsService,
-    private excelPdf: ExcelPdfDownloadService
+    private excelPdf: ExcelPdfDownloadService,
+    public validator:ValidationService
   ) { }
 
   ngOnInit() {
@@ -49,19 +51,21 @@ export class SchoolRegistrationComponent {
   getFilterFormData() {
     this.filterForm = this.fb.group({
       talukaId: [0],
-      centerId: [0]
+      centerId: [0],
+      schoolName:['']
     })
   }
   //#endregion-----------------------------------Filter Form Data--------------------------------------------------------------------
 
   //#region -------------------------------------Fetch Table Data------------------------------------------------------------------------
   getTableData(flag?: string) {
+    // zp_chandrapur/School/GetAll?pageno=1&pagesize=10&TalukaId=1&CenterId=1&textSearch=abcddd%20school%20123&lan=en
     let formValue = this.filterForm.value || '' ;
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     this.tableDataArray = new Array();
     let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId +'&textSearch='+formValue.schoolName+'&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {

@@ -219,23 +219,10 @@ export class RegisterSchoolComponent {
   onSubmitData() {
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
-      return
-    } if (!this.editFlag) {
-      this.service.setHttp('post', 'zp_chandrapur/School/Add', false, formData, false, 'baseUrl');
-      this.service.getHttp().subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == '200') {
-            this.common.snackBar(res.statusMessage, 1);
-            this.registerForm.reset();
-            this.dialogRef.close();
-          }
-        }), error: (error: any) => {
-          this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
-        }
-      })
-    } else {
-      this.editFlag = true;
-      this.service.setHttp('put', 'zp_chandrapur/School/Update', false, formData, false, 'baseUrl');
+      return;
+    } else{ 
+    //  let api= !this.editFlag ?'zp_chandrapur/School/Add' :'zp_chandrapur/School/Update'
+      this.service.setHttp(!this.editFlag ?'post':'put','zp_chandrapur/School/'+(!this.editFlag ?'Add' :'Update'), false, formData, false, 'baseUrl');
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
@@ -248,6 +235,21 @@ export class RegisterSchoolComponent {
         }
       })
     }
+    // } else {
+    //   this.editFlag = true;
+    //   this.service.setHttp('put', 'zp_chandrapur/School/Update', false, formData, false, 'baseUrl');
+    //   this.service.getHttp().subscribe({
+    //     next: ((res: any) => {
+    //       if (res.statusCode == '200') {
+    //         this.common.snackBar(res.statusMessage, 1);
+    //         this.registerForm.reset();
+    //         this.dialogRef.close();
+    //       }
+    //     }), error: (error: any) => {
+    //       this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+    //     }
+    //   })
+    // }
   }
 //#endregion ---------------------------------------Submit Data-------------------------------------------------------------------------------
 

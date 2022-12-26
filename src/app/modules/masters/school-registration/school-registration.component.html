@@ -60,6 +60,12 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.school' |translate}}</mat-label>
+            <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName" (keyup)="validator.alphaNumeric($event);validator.removeSpaceAtBegining($event)">
+        </mat-form-field>
+        </div>
         <div class="col-sm-auto">
           <button (click)="getTableData()" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
           <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>

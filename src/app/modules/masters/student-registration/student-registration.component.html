@@ -38,7 +38,7 @@
     </div>
   </mat-card-header>
   <mat-card-header class="card-header">
-    <form [formGroup]="filterFrm" class="d-flex" >
+    <form [formGroup]="filterFrm" #formDirective="ngForm" class="d-flex" >
       <div class="row">
 
         <div class="col-sm">

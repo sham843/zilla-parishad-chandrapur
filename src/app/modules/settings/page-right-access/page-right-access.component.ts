@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -12,6 +12,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent implements OnInit {
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   tableDataArray = new Array();
   totalItem: any;
   tableData: any;
@@ -118,5 +119,13 @@ export class PageRightAccessComponent implements OnInit {
       this.pageNumber = obj.pageNumber;
       this.getAllPagesData();
     }
+  }
+
+  clearForm() {
+    this.formGroupDirective.resetForm({
+        DesignationtypeId:this.filterForm.value.DesignationtypeId,
+        Textsearch:'',
+      });
+    this.getAllPagesData();
   }
 }
