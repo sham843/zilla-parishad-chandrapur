@@ -15,7 +15,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district'|translate}}</mat-label>
-                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}" formControlName="districtId"
+                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}" [class.disabled]="studentFrm.value.districtId" formControlName="districtId"
                             (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
