@@ -216,47 +216,92 @@ clearForm() {
     }
   }
 
-  globalDialogOpen(delObj?: any) {
-    let dialogObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
-      p2: '',
-      cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-      successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-      dialogIcon: 'assets/images/logout.gif',
-      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-    }
-    const dialogRef = this.dialog.open(GlobalDialogComponent, {
-      width: '320px',
-      data: dialogObj,
+  // globalDialogOpen(delObj?: any) {
+  //   let dialogObj = {
+  //     p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
+  //     p2: '',
+  //     cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+  //     successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+  //     dialogIcon: 'assets/images/logout.gif',
+  //     cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+  //   }
+  //   const dialogRef = this.dialog.open(GlobalDialogComponent, {
+  //     width: '320px',
+  //     data: dialogObj,
+  //     disableClose: true,
+  //     autoFocus: false,
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result == 'Yes') {
+  //       this.clearForm();
+  //       let deleteObj = {
+  //         id: delObj.id,
+  //         modifiedBy: 0,
+  //         modifiedDate: new Date(),
+  //         lan: this.lang
+  //       }
+    //     this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+    //     this.apiService.getHttp().subscribe({
+    //       next: ((res: any) => {
+    //         if (res.statusCode == "200") {
+    //           this.commonMethod.snackBar(res.statusMessage, 0);
+    //           this.getTableData();
+    //         }
+    //         else {
+    //           this.commonMethod.snackBar(res.statusMessage, 1);
+    //         }
+    //       }),
+    //       error: (error: any) => {
+    //         this.errorService.handelError(error.status);
+    //       }
+    //     })
+    //   }
+    // });
+  // }
+
+  globalDialogOpen(obj?: any) {
+    const dialog = this.dialog.open(GlobalDialogComponent, {
+      width: '750px',
       disableClose: true,
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == 'Yes') {
-        this.clearForm();
-        let deleteObj = {
-          id: delObj.id,
-          modifiedBy: 0,
-          modifiedDate: new Date(),
-          lan: this.lang
-        }
-        this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
-        this.apiService.getHttp().subscribe({
-          next: ((res: any) => {
-            if (res.statusCode == "200") {
-              this.commonMethod.snackBar(res.statusMessage, 0);
-              this.getTableData();
-            }
-            else {
-              this.commonMethod.snackBar(res.statusMessage, 1);
-            }
-          }),
-          error: (error: any) => {
-            this.errorService.handelError(error.status);
-          }
-        })
+      data: {
+        p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p2: '',
+        cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+        successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+        dialogIcon: 'assets/images/logout.gif',
+        cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      },
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      if (res == 'Yes') {
+        this.deleteStudent(obj);
       }
-    });
+    })
+  }
+
+  deleteStudent(obj: any) {
+   this.lang == 'English' ? 'en' : 'mr-IN'
+    let deleteObj = {
+      "id": obj.id,
+      "modifiedBy": 0,
+      "modifiedDate": new Date(),
+      "lan": ''
+    }
+    this.apiService.setHttp('delete', 'zp-Chandrapur/Student/DeleteStudent?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.getTableData();
+        }
+        else {
+          this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
   }
  
   excelDownload() {
