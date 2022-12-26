@@ -100,9 +100,9 @@ a.text-main,
   font-weight: 500;
 }
 
-.dashboard-table {
-  font-family: 'Poppins', sans-serif !important;
-}
+// .dashboard-table {
+//   font-family: 'Poppins', sans-serif !important;
+// }
 
 .dashboard-table th,
 .dashboard-table mat-header-cell {
@@ -134,6 +134,7 @@ a.text-main,
 .dashboard-table .mat-column-srNo {
   min-width: 95px !important;
   width: 95px !important;
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
 }
 
 .dashboard-table .mat-column-action {
