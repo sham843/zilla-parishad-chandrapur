@@ -76,7 +76,16 @@
         "please_enter_otp": "कृपया तुमच्या मोबाईल नंबर वर पाठवलेला ओ टी पी टाका",
         "dont_get_otp": "ओ टी पी मिळाला नाही का ?",
         "resend_otp": "ओ टी पी पुन्हा पाठवा",
-        "login": "लॉगिन"
+        "login": "लॉगिन",
+        "enter_username/Mobile_number":"युजरनेम/मोबाइल क्र. भरा",
+        "enter_password":"पासवर्ड टाका",
+        "enter_captcha":"कॅप्चा भरा",
+        "username_required":"वापरकर्ता नाव आवश्यक आहे",
+        "please_enter_valid_username":"कृपया वैध वापरकर्तानाव प्रविष्ट करा",
+        "password_required":"पासवर्ड आवश्यक आहे",
+        "captcha_required":"कॅप्चा आवश्यक आहे",
+        "forgot_password":"पासवर्ड विसरलात",
+        "password_format":"त्यात किमान एक संख्या असलेले 8 किंवा अधिक वर्ण आणि एक विशेष वर्ण आणि एक अपरकेस आणि लोअरकेस अक्षरे असणे आवश्यक आहे"
     },
     "page_right_access": {
         "settings": "सेटिंग्ज",

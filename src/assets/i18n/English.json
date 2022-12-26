@@ -77,7 +77,16 @@
         "please_enter_otp":"Please enter the OTP sent to your mobile number",
         "dont_get_otp":"Didn't get OTP?",
         "resend_otp":"Resend OTP",
-        "login":"Login"
+        "login":"Login",
+        "enter_username/Mobile_number":"Enter Username/Mobile Number",
+        "enter_password":"Enter Password",
+        "enter_captcha":"Enter Captcha",
+        "username_required":"User Name is Required",
+        "please_enter_valid_username":"Please Enter Valid Username",
+        "password_required":"Password is Required",
+        "captcha_required":"Captcha is required",
+        "forgot_password":"Forgot Password",
+        "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter"
     },
     "page_right_access":{
         "settings":"Settings",
