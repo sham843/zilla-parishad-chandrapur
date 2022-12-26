@@ -36,20 +36,20 @@
     </div>
   </mat-card-header>
   <mat-card-header class="card-header">
-    <form [formGroup]="serachUserForm" (ngSubmit)="getAllUserData()">
+    <form [formGroup]="serachUserForm">
       <div class="row w-100 gx-2">
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_user_type'|translate}}</mat-label>
             <mat-select formControlName="UserTypeId" (selectionChange)="getAllUserData()">
-              <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
+              <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userType}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_taluka'|translate}}</mat-label>
-            <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllUserData()">
+            <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllClearData('taluka');getAllUserData()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -57,7 +57,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
-            <mat-select formControlName="CenterId" (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllUserData()">
+            <mat-select formControlName="CenterId" (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra');getAllUserData()">
               <mat-option *ngFor="let kendra of centerArray" [value]="kendra.id">{{kendra.center}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -73,11 +73,12 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
-            <input matInput placeholder="{{'user_Registration.search_by_name_contact' |translate}}" formControlName="textSearch">
+            <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" formControlName="textSearch">
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
           <button (click)="getAllUserData()" mat-flat-button class="btn-main me-2">{{'common.filter' |translate}}</button>
+          <button (click)="getAllClearData()" mat-flat-button class="btn-main me-2">{{'common.clear' |translate}}</button>
         </div>
       </div>
     </form>

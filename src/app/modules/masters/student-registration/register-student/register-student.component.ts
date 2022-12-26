@@ -256,6 +256,14 @@ export class RegisterStudentComponent {
     } else {
       this.ngxspinner.show();
       let data = this.studentFrm.value;
+      // let obj = {
+      //   "createdBy": this.webStorage.getUserId(),
+      //   "modifiedBy": this.webStorage.getUserId(),
+      //   "createdDate": new Date(),
+      //   "modifiedDate": new Date(),
+      //   "isDeleted": false,
+      // }
+      // let mainData = { ...obj, ...data};
       let url;
       this.editFlag ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
       this.apiService.setHttp(this.editFlag ? 'put' : 'post', url, false, data, false, 'baseUrl');

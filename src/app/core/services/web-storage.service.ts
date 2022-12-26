@@ -34,7 +34,10 @@ export class WebStorageService {
     return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
   }
 
-
+getUserId(){
+  let userId=this.getLocalStorageData();
+  return JSON.parse(userId).responseData.userTypeId;
+}
   getAllPageName(){
     if (this.checkUserIsLoggedIn() == true) {
       let getAllPageName = JSON.parse(this.getLocalStorageData());
