@@ -78,7 +78,6 @@ export class RegisterAgencyComponent {
       obj.isDeleted=false;
       obj.id=this.data.obj?this.data.obj.id:0;
       obj.lan=this.lang;
-      console.log(obj);
       this.apiService.setHttp((this.data.obj? 'put':'post'),(this.data.obj?'zp_chandrapur/agency/Update':'zp_chandrapur/agency/Add'),false,obj,false, 'baseUrl')
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == '200') {

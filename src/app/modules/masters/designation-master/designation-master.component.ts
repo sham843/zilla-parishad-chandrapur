@@ -79,9 +79,7 @@ export class DesignationMasterComponent {
         this.errors.handelError(err)
       })
     });
-
   }
-
   setTableData() {
     let displayedColumns;
     ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
