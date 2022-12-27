@@ -63,7 +63,7 @@ export class RegisterUsersComponent {
       school: [this.data?this.data.schoolId:''],
       agency: [this.data?this.data.agencyId:''],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      contact: [this.data?this.data.contactPerson:''],
+      // contact: [this.data?this.data.contactPerson:''],
       mobile: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       email: [this.data?this.data.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       address: [this.data?this.data.agencyAddress:''],
@@ -112,6 +112,8 @@ export class RegisterUsersComponent {
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
+      this.userRegistrationForm.controls['district'].setValue(this.districtArr[0].id);
+      this.getTaluka(this.districtArr[0].id)
     })
     this.data?this.getTaluka(this.data.districtId):'';
   }
@@ -216,6 +218,32 @@ if(this.userRegistrationForm.value.userType==3){
   this.userRegistrationForm.get('school')?.updateValueAndValidity();
 }
   }
-  //#endregion-----------------------------------------add and remove validation end
-  registerUser() {}
+  //#endregion-----------------------------------------add and remove validation end----------------------------------------------------
+  //#region--------------------------------------------clear dropdown--------------------------------------------------------------------------
+  clearDropdown(flag:any){
+    if(flag=='userType'){
+      this.userRegistrationForm.controls['userLevel'].setValue(' ');
+      this.userRegistrationForm.controls['designation'].setValue(' ');
+    }else if(flag=='userLevel'){
+      this.userRegistrationForm.controls['designation'].setValue(' ');
+    }else if(flag=='district'){
+      this.userRegistrationForm.controls['taluka'].setValue(' ');
+      this.userRegistrationForm.controls['kendra'].setValue(' ');
+      this.userRegistrationForm.controls['school'].setValue(' ');
+    }else if(flag=='taluka'){
+      this.userRegistrationForm.controls['kendra'].setValue(' ');
+      this.userRegistrationForm.controls['school'].setValue(' ');
+    }else if(flag=='kendra'){
+      this.userRegistrationForm.controls['school'].setValue(' ');
+    }else if(flag=='class'){
+     this.userRegistrationForm.controls['subject'].setValue(' ');
+    }
+  }
+
+  clearUserForm(formDirective:any){
+    formDirective.resetForm();
+  }
+  registerUser(formDirective:any) {
+    formDirective
+  }
 }

@@ -35,7 +35,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
     ReactiveFormsModule,
     TranslateModule,
     TableGridComponent,
-    GlobalDialogComponent
+    GlobalDialogComponent,
   ]
 })
 export class UserRegistrationModule { }
