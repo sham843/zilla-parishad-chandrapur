@@ -41,7 +41,6 @@ export class RegisterUsersComponent {
   ) {}
 
   ngOnInit() {
-    console.log("login response",this.common.getUserTypeID());
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })

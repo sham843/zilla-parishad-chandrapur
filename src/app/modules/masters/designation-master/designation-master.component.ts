@@ -61,7 +61,7 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
-          console.log(this.tableDatasize,'pageCount');
+
           
           this.setTableData();
         } else {
