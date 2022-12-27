@@ -170,6 +170,7 @@
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
         "linked_to":"Linked to",
         "register_designation":"Register Designation",
+        "update_designation":"Update Designation",
         "designation_master":"Designation Master"
     },
     "school":{
