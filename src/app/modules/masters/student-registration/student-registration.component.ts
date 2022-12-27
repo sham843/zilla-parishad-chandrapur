@@ -26,6 +26,8 @@ export class StudentRegistrationComponent {
   tableDataArray = new Array();
   tableDatasize!:number;
   @ViewChild('formDirective')
+  excelDowobj!:any;
+  totalPages!:number;
   private formDirective!: NgForm;
   
   constructor(public dialog: MatDialog,
@@ -142,9 +144,9 @@ clearForm() {
 //#region  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   getTableData(flag?: string) {
     this.spinner.show();
-    this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
+    flag == 'filter' ? this.pageNumber = 1 :'';
     let formData = this.filterFrm.value;
-    let str = `?pageno=${this.pageNumber}&pagesize=10`;
+    let str =  flag != 'excel' ? `?pageno=${this.pageNumber}&pagesize=10` : `?pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
       '&TalukaId=' + (formData?.talukaId)  + '&CenterId=' + (formData?.centerId)
       + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
@@ -157,12 +159,13 @@ clearForm() {
             ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
           })
           this.tableDatasize = res.responseData1?.pageCount;
+          this.totalPages = res.responseData1.totalPages;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        this.setTableData();
+        flag != 'excel' ? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
       error: ((err: any) => {
         this.spinner.hide();
@@ -260,13 +263,14 @@ clearForm() {
 
  
   excelDownload() {
+    this.getTableData('excel')
     let pageName;
     this.lang == 'mr-IN' ? pageName = 'विद्यार्थी नोंदणी' : pageName = 'Student Registration';
     let header: any;
     this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Agency Name', 'Contact No.', 'Email Id'];
     let column;
     column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
-    this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
+    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   
 }

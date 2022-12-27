@@ -44,7 +44,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.select_taluka'|translate}}" formControlName="talukaId" (selectionChange)="clearDropdown('talukaId');getCenter()">
+            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId" (selectionChange)="clearDropdown('talukaId');getCenter()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
             </mat-select>
@@ -64,7 +64,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school'|translate}}</mat-label>
-            <mat-select placeholder="{{'student.select_school'|translate}}" formControlName="schoolId">
+            <mat-select placeholder="{{'common.select_school'|translate}}" formControlName="schoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
               </mat-option>
             </mat-select>
