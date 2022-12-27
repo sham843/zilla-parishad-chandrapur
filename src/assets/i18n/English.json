@@ -88,7 +88,9 @@
         "password_required":"Password is Required",
         "captcha_required":"Captcha is required",
         "forgot_password":"Forgot Password",
-        "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter"
+        "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter",
+        "enter_otp":"Enter OTP",
+        "verify_otp":"Verified OTP"
     },
     "page_right_access":{
         "settings":"Settings",
