@@ -54,7 +54,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.kendra'|translate}}</mat-label>
-            <mat-select placeholder="{{'student.select_kendra'|translate}}" [disabled]="true" formControlName="centerId" (selectionChange)="clearDropdown('centerId');getSchool()">
+            <mat-select placeholder="{{'common.select_kendra'|translate}}" [disabled]="true" formControlName="centerId" (selectionChange)="clearDropdown('centerId');getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
             </mat-select>

@@ -48,20 +48,22 @@
     </div>
   </mat-card-header>
   <mat-card-header class="card-header pb-0 border-bottom-0">
-    <div class="row align-items-start w-100 justify-content-start">
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'designation_master.select_designation' | translate}}</mat-label>
-          <mat-select [formControl]="searchdesignationLvl">
-            <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <ng-container *ngIf="userLoginDesignationLevelId == 1">
+      <div class="row align-items-start w-100 justify-content-start">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'designation_master.select_designation' | translate}}</mat-label>
+            <mat-select [formControl]="searchdesignationLvl">
+              <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
+          <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
+        </div>
       </div>
-      <div class="col-sm-auto">
-        <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter' | translate}}</button>
-        <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
-      </div>
-    </div>
+    </ng-container>
   </mat-card-header>
   <mat-card-content class="card-body pt-0">
     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>

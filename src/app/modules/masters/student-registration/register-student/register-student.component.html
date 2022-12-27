@@ -2,7 +2,7 @@
     <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
         <mat-card-header class="card-header">
             <div class="d-flex align-items-center justify-content-between w-100">
-                <h6 class="text-main mb-0 fw-bold">{{editFlag ?  ('student.update_Student'|translate ) :  ('student.register_student'|translate)}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{data ?  ('student.update_Student'|translate ) :  ('student.register_student'|translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -231,7 +231,7 @@
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
                 <button mat-stroked-button class="btn-second me-2" type="button" (click)="clearForm()">{{'common.cancel'|translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{editFlag ? 'Update' : ('common.submit'|translate)}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{data ? 'Update' : ('common.submit'|translate)}}</button>
             </div>
         </mat-card-footer>
     </form>
