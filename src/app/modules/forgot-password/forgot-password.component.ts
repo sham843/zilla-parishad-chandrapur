@@ -48,9 +48,6 @@ export class ForgotPasswordComponent {
 
   get loginFormControls() { return this.loginForm.controls }
 
-  ngAfterViewInit(): void {
-    !this.forgotPasswodFlag ? this.commonMethods.createCaptchaCarrerPage() : '';
-  }
 
   onSubmit() {
     const formValue = this.loginForm.value;
