@@ -1,4 +1,4 @@
-<div class="sidebar close bg-main">
+<!-- <div class="sidebar close bg-main">
   <div class="logo-details">
     <img src="assets/images/logo-white.svg" alt="Logo">
   </div>
@@ -27,6 +27,51 @@
               </a></li>
           </ul>
         </li>
+      </ng-container>
+    </ng-container>
+  </ul>
+</div> -->
+<div class="sidebar close bg-main">
+  <div class="logo-details">
+    <img src="assets/images/logo-white.svg" alt="Logo">
+  </div>
+  <ul class="nav-links">
+    <ng-container *ngFor="let pages of loginPages let i = index">
+      <ng-container *ngIf="pages.pageURL.length <= 1">
+        <li>
+          <div class="iocn-link">
+              <a>
+                  <img src="{{pages.menuIcon}}">
+                  <!-- <span class="link_name">{{pages.pageNameView}}</span> -->
+              </a>
+          </div>
+          <ul class="sub-menu">
+              <li><a class="link_name">{{pages.pageNameView}}</a></li>
+              <li><a routerlinkactive="active" ng-reflect-router-link-active="active"
+                       href="/{{pages.pageURL}}">{{pages.pageName}}</a>
+              </li>
+          </ul>
+      </li>
+      </ng-container>
+      <ng-container *ngIf="pages.pageURL.length > 1">
+        <li>
+          <div class="iocn-link">
+              <a>
+                  <img src="{{pages.menuIcon}}">
+                  <!-- <span class="link_name">{{pages.pageNameView}}</span> -->
+              </a>
+          </div>
+          <ul class="sub-menu">
+              <li><a class="link_name">{{pages.pageNameView}}</a></li>
+              <li *ngFor="let page of pages.pageURL; let pageUrlIndex = index">
+                <a routerlinkactive="active" ng-reflect-router-link-active="active" href="/{{page}}">
+                  <ng-container *ngFor="let pageName of pages.pageName; let pageNameIndex = index">
+                    <ng-container *ngIf="pageNameIndex == pageUrlIndex">{{pageName}}</ng-container>
+                  </ng-container>
+                </a>
+              </li>
+          </ul>
+      </li>
       </ng-container>
     </ng-container>
   </ul>

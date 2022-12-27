@@ -169,6 +169,7 @@
         "do_you_want_to_delete_selected_designation_record?": "तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
         "linked_to": "संलग्न",
         "register_designation":"नोंदणी पदनाम",
+        "update_designation":"पदनाम अद्यतनित करा",
         "designation_master":"पदभार मास्टर"
     },
     "school": {
