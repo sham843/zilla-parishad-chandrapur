@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource} from '@angular/material/table';
 import { AddClassComponent } from './add-class/add-class.component';
 import { AddLevelComponent } from './add-level/add-level.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-performance-indicators',
@@ -21,7 +22,8 @@ export class PerformanceIndicatorsComponent implements OnInit{
 
 
   @ViewChild(MatSort) sort!: MatSort;
-  displayedColumns: string[] = ['srno','assesmentParameter', 'first', 'second', 'third','fourth','fifth'];
+  // displayedColumns: string[] = ['srno','assesmentParameter', 'first', 'second', 'third','fourth','fifth'];
+  displayedColumns!: string[];
   dataSource: any;
   filterForm: FormGroup | any;
   language:any;
@@ -37,6 +39,7 @@ export class PerformanceIndicatorsComponent implements OnInit{
     private commonMethod: CommonMethodsService,
     private webStorage: WebStorageService,
     private errorService: ErrorsService,
+    private spinner: NgxSpinnerService,
     public dialog: MatDialog
   ) { }
 
@@ -49,6 +52,7 @@ export class PerformanceIndicatorsComponent implements OnInit{
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
       // this.setTableData(); this.getUserTypeData(this.language);
     })
+
   }
 
   getAllSubject() {
@@ -68,11 +72,14 @@ export class PerformanceIndicatorsComponent implements OnInit{
 
   getAllPerformanceIndicatorData() {
     // let formValue = this.filterForm.value;
-    let obj = `${this.filterEnglishLag.value}&UserId=${0}`;
+    let obj = `${this.filterEnglishLag.value}&UserId=${this.webStorage.getUserId()}`;
     this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAll?SubjectId=' + obj, true, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
+          this.performanceIndicatorArray = res.responseData;
+          this.displayedColumns= Object.keys(this.performanceIndicatorArray[0]);
+          console.log(this.displayedColumns )
           this.dataSource = new MatTableDataSource(res.responseData);
           this.dataSource.sort = this.sort;
         } else {
@@ -85,10 +92,58 @@ export class PerformanceIndicatorsComponent implements OnInit{
     });
   }
 
+  onSubmit() {
+    // let formData = this.addLevelForm.value;
+    if (1==1) {
+      return;
+    } else {
+      let obj:any = {
+        "subjectId": this.filterEnglishLag.value,
+        "createdBy": this.webStorage.getUserId(),
+        "createdDate": new Date(),
+        "assesment": [
+          {
+            "standardId": 0,
+            "assesmentPerformanceId": 0,
+            "flag": 0
+          }
+        ]
+      }
+      this.spinner.show();
+      // let formType: string = !this.editFlag ? 'POST' : 'PUT';
+      this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddPerformancesubject', false, obj, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: ((res: any) => {
+          this.spinner.hide();
+          if (res.statusCode == '200') {
+            this.commonMethod.snackBar(res.statusMessage, 0);
+            // this.clearForm();
+          } else {
+            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+        }),
+        error: (error: any) => {
+          this.spinner.hide();
+          this.commonMethod.checkEmptyData(error.statusMessage) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        }
+      })
+    }
+  }
+
+
   addclass(){
-    this.dialog.open(AddClassComponent,{
+    let data = {
+      language:this.language,
+    }
+    const dialogRef = this.dialog.open(AddClassComponent,{
       width:'500px',
+      data: data,
       disableClose:true,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 'Yes') {
+        this.getAllPerformanceIndicatorData();
+      }
     })
   }
 
@@ -97,10 +152,15 @@ export class PerformanceIndicatorsComponent implements OnInit{
       language:this.language,
       subjectId:this.filterEnglishLag.value
     }
-    this.dialog.open(AddLevelComponent,{
+    const dialogRef = this.dialog.open(AddLevelComponent,{
       width:'500px',
       data: data,
       disableClose:true,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 'Yes') {
+        this.getAllPerformanceIndicatorData();
+      }
     })
   }
 
