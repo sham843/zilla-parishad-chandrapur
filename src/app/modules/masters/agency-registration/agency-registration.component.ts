@@ -18,8 +18,10 @@ import { RegisterAgencyComponent } from './register-agency/register-agency.compo
 export class AgencyRegistrationComponent {
   searchControl = new FormControl()
   pageNumber: number = 1
-  totalItem!: number
+  totalItem!: number;
+  totalPages!: number;
   tableDataArray = new Array()
+  agencyData = new Array()
   tableData: any
 language:any;
   constructor(
@@ -52,6 +54,7 @@ language:any;
         this.spinner.hide();
         this.tableDataArray = res.responseData.responseData1;
         this.totalItem = res.responseData.responseData2.pageCount;
+        this.totalPages=res.responseData.responseData2.totalPages;
         this.setTableData();
       } else {
         this.spinner.hide();
@@ -162,12 +165,18 @@ language:any;
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
 
   excelDownload() {
-    let pageName;
+    let pageName:any;
     this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
     let header:any;
     this.language=='Marathi'?header=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी']:header=['Sr.No.','Agency Name','Contact No.','Email Id'];
     let column:any;
     this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
-    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+    let obj = `pageno=${this.pageNumber}&pagesize=${this.totalPages*10}`;
+    this.apiService.setHttp('get','zp_chandrapur/agency/GetAll?' + obj,true,false,false,'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.agencyData=res.responseData.responseData1;
+        this.excelPdf.downloadExcel(this.agencyData,pageName,header,column);
+      }})
   }
 }
