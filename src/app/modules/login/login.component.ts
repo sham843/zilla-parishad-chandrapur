@@ -64,7 +64,6 @@ export class LoginComponent {
     }
     let loginData = this.loginForm.value;
     delete loginData.recaptchaReactive
-    console.log(loginData)
     this.apiService.setHttp('POST', 'zp_chandrapur/user-registration/check-login-user-for-web', false, loginData, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
