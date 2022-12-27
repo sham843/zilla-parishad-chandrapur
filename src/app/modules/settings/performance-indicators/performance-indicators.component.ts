@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViewChild} from '@angular/core';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { ErrorsService } from 'src/app/core/services/errors.service';
+import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource} from '@angular/material/table';
 import { AddClassComponent } from './add-class/add-class.component';
 import { AddLevelComponent } from './add-level/add-level.component';
 
@@ -12,54 +17,92 @@ import { AddLevelComponent } from './add-level/add-level.component';
   templateUrl: './performance-indicators.component.html',
   styleUrls: ['./performance-indicators.component.scss']
 })
-export class PerformanceIndicatorsComponent {
+export class PerformanceIndicatorsComponent implements OnInit{
 
-  constructor(private _liveAnnouncer: LiveAnnouncer,public dialog: MatDialog) {}
 
-  @ViewChild(MatSort)
-  sort: MatSort = new MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
+  displayedColumns: string[] = ['srno','assesmentParameter', 'first', 'second', 'third','fourth','fifth'];
+  dataSource: any;
+  filterForm: FormGroup | any;
+  language:any;
+  getAllSubjectArray:any;
+  performanceIndicatorArray:any;
+  filterEnglishLag = new FormControl(1);
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+  constructor(
+    private apiService: ApiService,
+    private errors: ErrorsService,
+    private masterService: MasterService,
+    private fb: FormBuilder,
+    private commonMethod: CommonMethodsService,
+    private webStorage: WebStorageService,
+    private errorService: ErrorsService,
+    public dialog: MatDialog
+  ) { }
+
+
+  ngOnInit(): void {
+    this.masterService, this.fb
+    this.getAllPerformanceIndicatorData();
+    this.getAllSubject();
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
+      // this.setTableData(); this.getUserTypeData(this.language);
+    })
   }
 
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
+  getAllSubject() {
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject' , true, false, false, 'baseUrl')
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          this.getAllSubjectArray = res.responseData;
+        } else {
+          this.getAllSubjectArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      },
+      error: ((err: any) => { this.errors.handelError(err) })
+    });
   }
 
-  displayedColumns: string[] = ['srno','languagelelvel', 'first', 'second', 'third','fourth','fifth'];
-  dataSource: any = new MatTableDataSource(ELEMENT_DATA);
-
+  getAllPerformanceIndicatorData() {
+    // let formValue = this.filterForm.value;
+    let obj = `${this.filterEnglishLag.value}&UserId=${0}`;
+    this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAll?SubjectId=' + obj, true, false, false, 'baseUrl')
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          this.dataSource = new MatTableDataSource(res.responseData);
+          this.dataSource.sort = this.sort;
+        } else {
+          this.dataSource = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      //  this.setTableData();
+      },
+      error: ((err: any) => { this.errors.handelError(err) })
+    });
+  }
 
   addclass(){
     this.dialog.open(AddClassComponent,{
-      width:'500px'
+      width:'500px',
+      disableClose:true,
     })
   }
+
   addlevel(){
+    let data = {
+      language:this.language,
+      subjectId:this.filterEnglishLag.value
+    }
     this.dialog.open(AddLevelComponent,{
-      width:'500px'
+      width:'500px',
+      data: data,
+      disableClose:true,
     })
   }
 
 
-
 }
-export interface PeriodicElement {
-  srno: number,
-  languagelelvel: string;
-  first: any;
-  second: any;
-  third: any;
-  fourth: any,
-  fifth: any
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {srno: 1, languagelelvel: 'sentence', first: '', second: '', third: '',fourth:'',fifth:''},
- 
-];
