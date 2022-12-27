@@ -57,6 +57,22 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
+                <ng-container *ngIf="userRegistrationForm.value.userType==4">
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'common.agency_name' |translate}}</mat-label>
+                            <mat-select formControlName="agencyName">
+                                <mat-option *ngFor="let agency of agencyArr"
+                                    [value]="agency.id">{{agency.agencyName}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f['agency'].errors">
+                                <span class="text-danger" *ngIf="f['agency'].hasError('required')">
+                                    Please Select Agency Name
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district' |translate}}</mat-label>
@@ -122,22 +138,26 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userType==4">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'common.agency_name' |translate}}</mat-label>
-                            <mat-select formControlName="agency">
-                                <mat-option *ngFor="let agency of agencyArr"
-                                    [value]="agency.id">{{agency.agencyName}}</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="f['agency'].errors">
-                                <span class="text-danger" *ngIf="f['agency'].hasError('required')">
-                                    Please Select Agency Name
-                                </span>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
+                    <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                        <div class="col-sm-4">
+                            <mat-form-field  appearance="outline" class="w-100">
+                                <mat-label>{{'user_Registration.class' |translate}}</mat-label>
+                                <mat-select formControlName="class" multiple (selectionChange)="clearDropdown('class')">
+                                  <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.groupClass}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                        <div class="col-sm-4">
+                            <mat-form-field  appearance="outline" class="w-100">
+                                <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
+                                <mat-select formControlName="subject" multiple>
+                                    <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.name' |translate}}</mat-label>
@@ -177,26 +197,6 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userType==4">
-                    <div class="col-sm-4">
-                        <mat-form-field  appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.class' |translate}}</mat-label>
-                            <mat-select formControlName="class" multiple (selectionChange)="clearDropdown('class')">
-                              <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.groupClass}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userType==4">
-                    <div class="col-sm-4">
-                        <mat-form-field  appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
-                            <mat-select formControlName="subject" multiple>
-                                <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                    </div>
-                </ng-container>
             </div>
         </form>
     </mat-card-content>

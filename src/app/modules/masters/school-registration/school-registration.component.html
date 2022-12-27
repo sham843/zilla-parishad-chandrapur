@@ -43,7 +43,7 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'student.select_taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
+            <mat-select formControlName="talukaId" (selectionChange)="getCenter();clearDropDrown('taluka')">
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                     {{tal.taluka}}
               </mat-option>
@@ -53,7 +53,7 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'student.select_kendra' | translate}}</mat-label>
-            <mat-select formControlName="centerId">
+            <mat-select formControlName="centerId" (selectionChange)="clearDropDrown('center')">
               <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                     {{cen.center}}
               </mat-option>
