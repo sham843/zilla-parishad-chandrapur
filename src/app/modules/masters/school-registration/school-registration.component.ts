@@ -188,7 +188,6 @@ export class SchoolRegistrationComponent {
       data: dataObj,
       disableClose: true,
       autoFocus: false,
-
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'Yes') {

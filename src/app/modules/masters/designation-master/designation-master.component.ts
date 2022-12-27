@@ -25,12 +25,16 @@ export class DesignationMasterComponent {
   desigantionLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
+  userLoginDesignationLevelId!:number;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
   ) { }
 
   ngOnInit() {
+    let localVal: any = this.webStorage.getLocalStorageData();
+    let loginData = JSON.parse(localVal)
+    this.userLoginDesignationLevelId = loginData.responseData.designationLevelId;
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
       this.setTableData();
@@ -54,15 +58,13 @@ export class DesignationMasterComponent {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
-    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchdesignationLvl.value) + '&' + str + '&flag=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchdesignationLvl.value) + '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + this.lang , false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
-          console.log(this.tableDatasize,'pageCount');
-          
           this.setTableData();
         } else {
           this.spinner.hide();
@@ -77,12 +79,11 @@ export class DesignationMasterComponent {
         this.errors.handelError(err)
       })
     });
-
   }
-
   setTableData() {
     let displayedColumns;
-    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
+    ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
+    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'linkedToDesignationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'linkedToDesignationLevelName','linkedToDesignationName','action'];
     let displayedheaders;
     this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
     let tableData = {
@@ -161,15 +162,8 @@ export class DesignationMasterComponent {
   excelDownload() {
 
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name', 'Linked To', 'Designation Level'];
-    let column = ['srNo', 'designationName', 'linkedToDesignationName', 'designationLevelName'];
+    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To'];
+    let column = ['srNo', 'designationName', 'linkedToDesignationLevelName', 'designationLevelName'];
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
-
-  // pdfDownload() {
-  //   let pageName='Designation Master';
-  //   let header=['Sr.No.','Designation Name','Linked To','Designation Level'];
-  //   let column=['srNo', 'designationName','linkedToDesignationName','designationLevelName'];
-  //   this.excelPdf.downLoadPdf(this.tableDataArray,pageName,header,column);
-  // }
 }

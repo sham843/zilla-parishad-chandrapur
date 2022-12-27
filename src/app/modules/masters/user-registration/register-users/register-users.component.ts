@@ -49,7 +49,6 @@ export class RegisterUsersComponent {
     this.getDistrict();
     this.getAgency();
     this.getAllClassGroup();
-    console.log(this.data);
   }
 
   getUserControl() {

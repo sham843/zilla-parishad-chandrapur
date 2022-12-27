@@ -8,12 +8,12 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
   topFilterForm!: FormGroup;
@@ -22,6 +22,8 @@ export class DashboardComponent {
   centerArray = new Array();
   talukaArray = new Array();
   schoolArray = new Array();
+  graphInstance: any;
+
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -38,6 +40,18 @@ export class DashboardComponent {
     this.mainFilterForm();
     this.getTaluka();
     this.cardCountData();
+  }
+
+  ngAfterViewInit() {
+    this.pieChart();
+    this.columnChart();
+    this.showSvgMap(this.commonMethods.mapRegions());
+
+    $(document).on('click', '#mapsvg  path', (e: any) => { 
+      let getClickedId = e.currentTarget;
+      let distrctId = $(getClickedId).attr('id');
+      console.log(distrctId);
+    })
   }
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
@@ -126,11 +140,6 @@ export class DashboardComponent {
   //#endregion ------------------------------------------top bar filter and card data info function's start heare ------------------------------//
 
   //#region ------------------------------main conatnet svg map with graph-------------------------------------------------------//
-  ngAfterViewInit(){
-    this.pieChart();
-    this.columnChart();
-  }
-
   pieChart() {
     var options = {
       series: [44, 55],
@@ -153,54 +162,141 @@ export class DashboardComponent {
     chart.render();
   }
 
-  columnChart(){
+  columnChart() {
     var options = {
       series: [{
-      name: 'PRODUCT A',
-      data: [44, 55, 41, 67, 22, 43, 21, 49]
-    }, {
-      name: 'PRODUCT B',
-      data: [13, 23, 20, 8, 13, 27, 33, 12]
-    }, {
-      name: 'PRODUCT C',
-      data: [11, 17, 15, 15, 21, 14, 15, 13]
-    }],
+        name: 'PRODUCT A',
+        data: [44, 55, 41, 67, 22, 43, 21, 49]
+      }, {
+        name: 'PRODUCT B',
+        data: [13, 23, 20, 8, 13, 27, 33, 12]
+      }, {
+        name: 'PRODUCT C',
+        data: [11, 17, 15, 15, 21, 14, 15, 13]
+      }],
       chart: {
-      type: 'bar',
-      height: 350,
-      stacked: true,
-      stackType: '100%'
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0
+        type: 'bar',
+        height: 350,
+        stacked: true,
+        stackType: '100%'
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: 'bottom',
+            offsetX: -10,
+            offsetY: 0
+          }
         }
-      }
-    }],
-    xaxis: {
-      categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
-        '2012 Q3', '2012 Q4'
-      ],
-    },
-    fill: {
-      opacity: 1
-    },
-    legend: {
-      position: 'right',
-      offsetX: 0,
-      offsetY: 50
-    },
+      }],
+      xaxis: {
+        categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
+          '2012 Q3', '2012 Q4'
+        ],
+      },
+      fill: {
+        opacity: 1
+      },
+      legend: {
+        position: 'right',
+        offsetX: 0,
+        offsetY: 50
+      },
     };
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
-  
-  
-
   }
   //#endregion  -----------------------------main conatnet svg map with graph-----------------------------------------------------//
+
+  //#region ------------------------------------------svg map fun start heare -------------------------------------------------------//
+  showSvgMap(data:any) {
+    this.graphInstance ?   this.graphInstance.destroy():'';
+    let createMap:any = document.getElementById("#mapsvg");
+
+    this.graphInstance =createMap?.mapSvg({
+      width: 550,
+      height: 430,
+      colors: {
+        baseDefault: "#bfddff",
+        background: "#fff",
+        selected: "#272848",
+        hover: "#ebebeb",
+        directory: "#bfddff",
+        status: {}
+      },
+      regions: data,
+      viewBox: [0, 0, 763.614, 599.92],
+      cursor: "pointer",
+      zoom: {
+        on: false,
+        limit: [0, 50],
+        delta: 2,
+        buttons: {
+          on: true,
+          location: "left"
+        },
+        mousewheel: true
+      },
+      tooltips: {
+        mode: "title",
+        off: true,
+        priority: "local",
+        position: "bottom"
+      },
+      popovers: {
+        mode: "on",
+        on: false,
+        priority: "local",
+        position: "top",
+        centerOn: false,
+        width: 300,
+        maxWidth: 50,
+        maxHeight: 50,
+        resetViewboxOnClose: false,
+        mobileFullscreen: false
+      },
+      gauge: {
+        on: false,
+        labels: {
+          low: "low",
+          high: "high"
+        },
+        colors: {
+          lowRGB: {
+            r: 211,
+            g: 227,
+            b: 245,
+            a: 1
+          },
+          highRGB: {
+            r: 67,
+            g: 109,
+            b: 154,
+            a: 1
+          },
+          low: "#d3e3f5",
+          high: "#436d9a",
+          diffRGB: {
+            r: -144,
+            g: -118,
+            b: -91,
+            a: 0
+          }
+        },
+        min: 0,
+        max: false
+      },
+      source: "assets/chandrapur_dist.svg",
+      title: "Maharashtra-bg_o",
+      responsive: true
+    });
+    // });
+  }
+  //#endregion  ------------------------------------------svg map fun end heare -------------------------------------------------------//
+
+
+
+
 }

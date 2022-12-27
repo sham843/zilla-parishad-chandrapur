@@ -1,133 +1,145 @@
-<mat-card class="plain-card">
-    <mat-card-header class="card-header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0 fw-bold">{{this.data?.cardTitle}}</h6>
-            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-                <mat-icon>
-                    close
-                </mat-icon>
-            </button>
-        </div>
-    </mat-card-header>
-   <form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm">
-    <mat-card-content class="card-body">
-        <div class="row mb-3 g-4">
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.agency_name' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.agency_name' |translate}}" formControlName="agencyName" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['agencyName'].errors">
-                        <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
-                           {{'agency.please_enter_agency_name' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
+<form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm">
+    <mat-card class="plain-card">
+        <mat-card-header class="card-header">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h6 class="text-main mb-0 fw-bold">{{this.data?.cardTitle}}</h6>
+                <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+                    <mat-icon>
+                        close
+                    </mat-icon>
+                </button>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}" formControlName="m_AgencyName" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['m_AgencyName'].errors">
-                        <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
-                           {{'agency.agency_marathi_name' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
+        </mat-card-header>
+        <mat-card-content class="card-body">
+            <div class="row mb-3 g-4">
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.agency_name' |translate}}</mat-label>
+                        <input matInput placeholder="{{'common.agency_name' |translate}}" formControlName="agencyName"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['agencyName'].errors">
+                            <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
+                                {{'agency.please_enter_agency_name' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
+                        <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}"
+                            formControlName="m_AgencyName" (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['m_AgencyName'].errors">
+                            <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
+                                {{'agency.agency_marathi_name' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'agency.registration_number' |translate}}</mat-label>
+                        <input matInput placeholder="{{'agency.registration_number' |translate}}"
+                            formControlName="registrationNo" (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['registrationNo'].errors">
+                            <span class="text-danger" *ngIf="f['registrationNo'].hasError('required')">
+                                {{'agency.please_enter_registration_number' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.contact_person' |translate}}</mat-label>
+                        <input matInput placeholder="{{'common.contact_person' |translate}}"
+                            formControlName="contactPersonName" (keypress)="validation.alphabetsWithSpaces($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['contactPersonName'].errors">
+                            <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
+                                {{'agency.please_enter_contact_person' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.district' |translate}}</mat-label>
+                        <mat-select formControlName="districtId"
+                            (selectionChange)="getTalukaArr(agencyForm.value.districtId)">
+                            <mat-option *ngFor="let dist of districtArr"
+                                [value]="dist.id">{{dist.district}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="f['districtId'].errors">
+                            <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
+                                {{'common.Please_Select_District' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.taluka' |translate}}</mat-label>
+                        <mat-select formControlName="talukaId">
+                            <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="f['talukaId'].errors">
+                            <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
+                                {{'common.Please_Select_Taluka' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'agency.contact_number' |translate}}</mat-label>
+                        <input matInput placeholder="{{'agency.contact_number' |translate}}" formControlName="contactNo"
+                            (blur)="contactNo()" maxlength="10" (keypress)="validation.onlyDigits($event)"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['contactNo'].errors">
+                            <span class="text-danger" *ngIf="f['contactNo'].hasError('required')">
+                                {{'agency.please_enter_contact_number' |translate}}
+                            </span>
+                            <span class="text-danger" *ngIf="f['contactNo'].hasError('pattern')">
+                                {{'agency.please_enter_valid_contact_no' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.email' |translate}}</mat-label>
+                        <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['emailId'].errors">
+                            <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
+                                {{'common.please_enter_email_id' |translate}}
+                            </span>
+                            <span class="text-danger" *ngIf="f['emailId'].hasError('pattern')">
+                                {{'agency.please_enter_valid_emailId' | translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'agency.address' |translate}}</mat-label>
+                        <input matInput placeholder="{{'agency.address' |translate}}" formControlName="address"
+                            (keyup)="validation.removeSpaceAtBegining($event)">
+                        <mat-error *ngIf="f['address'].errors">
+                            <span class="text-danger" *ngIf="f['address'].hasError('required')">
+                                {{'agency.please_enter_address' |translate}}
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'agency.registration_number' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.registration_number' |translate}}" formControlName="registrationNo" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['registrationNo'].errors">
-                        <span class="text-danger" *ngIf="f['registrationNo'].hasError('required')">
-                            {{'agency.please_enter_registration_number' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
+        </mat-card-content>
+        <mat-card-footer class="card-footer">
+            <div class="d-flex justify-content-end">
+                <button mat-flat-button class="btn-second me-2" type="button"
+                    (click)="clearForm(formDirective)">{{this.data?.cancelBtnText}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{this.data?.successBtnText}}</button>
             </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.contact_person' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.contact_person' |translate}}" formControlName="contactPersonName" (keypress)="validation.alphabetsWithSpaces($event)" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['contactPersonName'].errors">
-                        <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
-                           {{'agency.please_enter_contact_person' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.district' |translate}}</mat-label>
-                    <mat-select formControlName="districtId" (selectionChange)="getTalukaArr(agencyForm.value.districtId)">
-                        <mat-option *ngFor="let dist of districtArr" [value]="dist.id">{{dist.district}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="f['districtId'].errors">
-                        <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
-                            {{'common.Please_Select_District' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.taluka' |translate}}</mat-label>
-                    <mat-select formControlName="talukaId">
-                        <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="f['talukaId'].errors">
-                        <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
-                           {{'common.Please_Select_Taluka' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'agency.contact_number' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.contact_number' |translate}}" formControlName="contactNo" (blur)="contactNo()"  maxlength="10" (keypress)="validation.onlyDigits($event)" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['contactNo'].errors">
-                        <span class="text-danger" *ngIf="f['contactNo'].hasError('required')">
-                           {{'agency.please_enter_contact_number' |translate}}
-                        </span>
-                        <span class="text-danger" *ngIf="f['contactNo'].hasError('pattern')">
-                            {{'agency.please_enter_valid_contact_no' |translate}}
-                         </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.email' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['emailId'].errors">
-                        <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
-                           {{'common.please_enter_email_id' |translate}}
-                        </span>
-                        <span class="text-danger" *ngIf="f['emailId'].hasError('pattern')">
-                            {{'agency.please_enter_valid_emailId' | translate}}
-                         </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-sm">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'agency.address' |translate}}</mat-label>
-                    <input matInput placeholder="{{'agency.address' |translate}}" formControlName="address" (keyup)="validation.removeSpaceAtBegining($event)">
-                    <mat-error *ngIf="f['address'].errors">
-                        <span class="text-danger" *ngIf="f['address'].hasError('required')">
-                            {{'agency.please_enter_address' |translate}}
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-    </mat-card-content>
-    <mat-card-footer class="card-footer">
-        <div class="d-flex justify-content-end">
-            <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">{{this.data?.cancelBtnText}}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{this.data?.successBtnText}}</button>
-            </div>
-    </mat-card-footer>
-   </form>
-</mat-card>
+        </mat-card-footer>
+    </mat-card>
+</form>
