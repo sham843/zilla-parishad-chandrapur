@@ -63,8 +63,6 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
-    console.log(this.editFlag,'flag');
-
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
       this.editFlag ?( this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId) ,this.getDesignationType() ): '';
@@ -78,7 +76,6 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
-console.log(this.data.linkedToDesignationId);
           this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
@@ -106,8 +103,6 @@ console.log(this.data.linkedToDesignationId);
     if (!this.designationForm.valid) {
       return;
     } else if (!this.editFlag) {
-      console.log(this.webStorage.getUserId(), 'userId');
-
       this.spinner.show();
       let obj = {
         createdBy: this.webStorage.getUserId(),
