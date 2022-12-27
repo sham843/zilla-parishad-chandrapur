@@ -45,7 +45,7 @@ export class AddDesignationComponent {
   controlForm() {
     this.designationForm = this.fb.group({
       id: [this.data ? this.data.id : ''],
-      dummyDesigLvlkey: [!this.data ?  this.userLoginDesignationLevelId:'', Validators.required],
+      dummyDesigLvlkey: [!this.data ? this.userLoginDesignationLevelId : '', Validators.required],
       linkedToDesignationId: ['', Validators.required],
       designationLevelId: ['', Validators.required],
       designationName: [this.data ? this.data.designationName : '', Validators.required]
@@ -65,7 +65,7 @@ export class AddDesignationComponent {
   getDesignationLevel() {
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
-      this.editFlag ?( this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId) ,this.getDesignationType() ): '';
+      this.editFlag ? (this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId), this.getDesignationType()) : '';
     })
   }
 
