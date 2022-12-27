@@ -53,7 +53,8 @@
         "enter_email_id": "ईमेल आयडी टाका",
         "enter_agency_address": "एजन्सीचा पत्ता प्रविष्ट करा",
         "class":"वर्ग",
-        "subjects":"विषय"
+        "subjects":"विषय",
+        "agency_name":"एजन्सीचे नाव"
     },
     "agency": {
         "register_agency": "नोंदणी एजन्सी",
@@ -89,7 +90,9 @@
         "forgot_password":"पासवर्ड विसरलात",
         "password_format":"त्यात किमान एक संख्या असलेले 8 किंवा अधिक वर्ण आणि एक विशेष वर्ण आणि एक अपरकेस आणि लोअरकेस अक्षरे असणे आवश्यक आहे",
         "enter_otp":"ओ टी पी टाका",
-        "verify_otp":"सत्यापित ओ टी पी"
+        "verify_otp":"सत्यापित ओ टी पी",
+        "Enter_new_password":"नवीन पासवर्ड टाका",
+        "Enter_new_confirm":"पुष्टी पासवर्ड प्रविष्ट करा"
     },
     "page_right_access": {
         "settings": "सेटिंग्ज",
