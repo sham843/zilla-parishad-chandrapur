@@ -61,6 +61,9 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
+          console.log(this.tableDatasize,'pageCount');
+          
+          this.setTableData();
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -156,6 +159,7 @@ export class DesignationMasterComponent {
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
+
     let pageName = 'Designation Master';
     let header = ['Sr.No.', 'Designation Name', 'Linked To', 'Designation Level'];
     let column = ['srNo', 'designationName', 'linkedToDesignationName', 'designationLevelName'];

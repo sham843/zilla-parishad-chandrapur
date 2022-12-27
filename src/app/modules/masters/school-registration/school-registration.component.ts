@@ -18,7 +18,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 export class SchoolRegistrationComponent {
   stateArr = new Array();
   districtArr = new Array();
-  lang!:string;
+  lang!: string;
   pageNumber: Number = 1;
   districtArray = new Array();
   talukaArray = new Array();
@@ -141,20 +141,9 @@ export class SchoolRegistrationComponent {
     };
     this.apiService.tableData.next(tableData);
   }
-
-  // excelDownload() {
-  //   let pageName;
-  //   this.language=='Marathi'?pageName='एजन्सी नोंदणी':pageName='Agency Registration';
-  //   let header:any;
-  //   this.language=='Marathi'?header=['अनुक्रमणिका','एजन्सीचे नाव','संपर्क क्र.','ई-मेल आयडी']:header=['Sr.No.','Agency Name','Contact No.','Email Id'];
-  //   let column:any;
-  //   this.language=='Marathi'?column=['srNo', 'm_AgencyName','contactNo','emailId']:column=['srNo', 'agencyName','contactNo','emailId'];
-  //   this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
-  // }
-
   excelDownload() {
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
-    let header = this.lang == 'mr-IN' ?['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] :['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+    let header = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
     let column = this.lang == 'mr-IN' ? ['srNo', 'schoolName', 'center', 'taluka'] : ['srNo', 'schoolName', 'center', 'taluka'];
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
@@ -180,7 +169,7 @@ export class SchoolRegistrationComponent {
       disableClose: true,
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       !result ? this.getTableData() : '';
     });
   }
@@ -224,6 +213,17 @@ export class SchoolRegistrationComponent {
       }
     });
   }
- //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
+
+  clearDropDrown(status: any) {
+    if (status == 'taluka') {
+      this.filterForm.controls['centerId'].setValue(0);
+      this.filterForm.controls['schoolName'].setValue('');
+    } else if (status == 'center') {
+      this.filterForm.controls['schoolName'].setValue('');
+    }
+  }
+  //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
+
+
 }
 

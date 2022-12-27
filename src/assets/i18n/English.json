@@ -54,7 +54,8 @@
         "enter_agency_address":"Enter Agency Address",
         "please_select_user_type":"Please Select User Type",
         "class":"Class",
-        "subjects":"Subjects"
+        "subjects":"Subjects",
+        "agency_name":"Agency Name"
     },
     "agency":{
         "register_agency":"Register Agency",
@@ -76,7 +77,7 @@
         "officer_login":"Officer Login",
         "school_login":"School login",
         "enter_mobile_number":"Enter Mobile Number",
-        "please_enter_otp":"Please enter the OTP sent to your mobile number",
+        "please_enter_otp":"Please enter the OTP",
         "dont_get_otp":"Didn't get OTP?",
         "resend_otp":"Resend OTP",
         "login":"Login",
@@ -88,7 +89,11 @@
         "password_required":"Password is Required",
         "captcha_required":"Captcha is required",
         "forgot_password":"Forgot Password",
-        "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter"
+        "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter",
+        "enter_otp":"Enter OTP",
+        "verify_otp":"Verified OTP",
+        "Enter_new_password":"Enter New Password",
+        "Enter_new_confirm":"Enter Confirm Password"
     },
     "page_right_access":{
         "settings":"Settings",
@@ -168,6 +173,7 @@
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
         "linked_to":"Linked to",
         "register_designation":"Register Designation",
+        "update_designation":"Update Designation",
         "designation_master":"Designation Master"
     },
     "school":{
