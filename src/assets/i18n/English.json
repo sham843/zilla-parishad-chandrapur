@@ -76,7 +76,7 @@
         "officer_login":"Officer Login",
         "school_login":"School login",
         "enter_mobile_number":"Enter Mobile Number",
-        "please_enter_otp":"Please enter the OTP sent to your mobile number",
+        "please_enter_otp":"Please enter the OTP",
         "dont_get_otp":"Didn't get OTP?",
         "resend_otp":"Resend OTP",
         "login":"Login",
