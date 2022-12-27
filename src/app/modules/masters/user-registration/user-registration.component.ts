@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { ApiService } from 'src/app/core/services/api.service'
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { WebStorageService } from 'src/app/core/services/web-storage.service'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
@@ -29,7 +30,8 @@ export class UserRegistrationComponent {
     public translate: TranslateService,
     private master: MasterService,
     private webStorage: WebStorageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private excel:ExcelPdfDownloadService
   ) { }
 
   ngOnInit() {
@@ -145,6 +147,7 @@ setTableData(){
     }else if(flag=='kendra'){
       this.serachUserForm.controls['SchoolId'].setValue('');
     }else{
+      this.serachUserForm.controls['UserTypeId'].setValue('');
       this.serachUserForm.controls['TalukaId'].setValue('');
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
@@ -152,6 +155,14 @@ setTableData(){
     }
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
-  excelDownload() { }
+  excelDownload() { 
+    let pageName;
+    this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
+    let header:any;
+    this.lang=='mr-IN'?header=['अनुक्रमांक','वापरकर्ता प्रकार','नाव','मोबाईल नंबर']:header=['Sr. No.','User Type', 'Name', 'Mobile No'];
+    let column:any;
+    this.lang=='mr-IN'?column=['srNo','m_UserType','name','mobileNo']:column=['srNo','userType', 'name', 'mobileNo'];
+    this.excel.downloadExcel(this.tableDataArray,pageName,header,column);
+  }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
 }

@@ -52,7 +52,9 @@
         "enter_person_contact":"Enter Person contact",
         "enter_mobile_number":"Enter Mobile Number",
         "enter_agency_address":"Enter Agency Address",
-        "please_select_user_type":"Please Select User Type"
+        "please_select_user_type":"Please Select User Type",
+        "class":"Class",
+        "subjects":"Subjects"
     },
     "agency":{
         "register_agency":"Register Agency",

@@ -51,7 +51,9 @@
         "enter_person_contact": "व्यक्ती संपर्क प्रविष्ट करा",
         "enter_mobile_number": "मोबाईल नंबर टाका",
         "enter_email_id": "ईमेल आयडी टाका",
-        "enter_agency_address": "एजन्सीचा पत्ता प्रविष्ट करा"
+        "enter_agency_address": "एजन्सीचा पत्ता प्रविष्ट करा",
+        "class":"वर्ग",
+        "subjects":"विषय"
     },
     "agency": {
         "register_agency": "नोंदणी एजन्सी",
