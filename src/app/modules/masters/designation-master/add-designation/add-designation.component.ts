@@ -113,6 +113,7 @@ export class AddDesignationComponent {
       let postObj = {
         // id: 0,
         srNo: 0,
+        linkedToDesignationLevelId: this.userLoginDesignationLevelId,
         linkedToDesignationId: this.designationForm.value.linkedToDesignationId,
         designationLevelId: this.designationForm.value.designationLevelId,
         designationName: this.designationForm.value.designationName,
