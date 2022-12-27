@@ -21,8 +21,8 @@ export class RegisterSchoolComponent {
   genderAllowArray = new Array();
   groupArray = new Array();
   editFlag: boolean = false;
-  lang: string = 'en';
-  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+  lang!: string;
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   constructor
     (
       private fb: FormBuilder, 
@@ -40,30 +40,35 @@ export class RegisterSchoolComponent {
     })
     this.getFormData();
     this.getDistrict();
-    this.data ? this.onEditData() : '';
+    if(this.data){
+      this.getFormData(this.data)
+    }
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
-  getFormData() {
+  getFormData(obj?:any) {
+    this.data ? this.editFlag =true : '';
+    obj=this.data;
     this.registerForm = this.fb.group({
-      createdBy: 0,
-      modifiedBy: 0,
-      createdDate: new Date(),
-      modifiedDate: new Date(),
+      createdBy:obj?obj.createdBy : 0,
+      modifiedBy:obj?obj.modifiedBy : 0,
+      createdDate:new Date() ,
+      modifiedDate:new Date(),
       isDeleted: true,
-      id: 0,
-      schoolName: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(500),Validators.pattern]],
+      id:obj?obj.id : 0,
+      schoolName: [obj?.schoolName || '',[Validators.required,Validators.minLength(10),Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
       m_SchoolName: '',
-      stateId: [1, Validators.required],
-      districtId: ['', Validators.required],
-      talukaId: ['', Validators.required],
-      centerId: ['', Validators.required],
-      s_CategoryId: ['', Validators.required],
-      s_TypeId: ['', Validators.required],
-      g_GenderId: ['', Validators.required],
-      g_ClassId: ['', Validators.required],
-      lan: ''
+      stateId: [obj?.stateId || 1, Validators.required],
+      districtId: [obj?.districtId ||'', Validators.required],
+      talukaId: [obj?.talukaId ||'', Validators.required],
+      centerId: [obj?.centerId || '', Validators.required],
+      s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
+      s_TypeId: [obj?.s_TypeId || '', Validators.required],
+      g_GenderId: [obj?.g_GenderId || '', Validators.required],
+      g_ClassId: [obj?.g_ClassId || '', Validators.required],
+      lan: this.lang
     })
+    obj ? (this.getDistrict()) : '';
   }
 //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
 
@@ -78,11 +83,11 @@ export class RegisterSchoolComponent {
           this.districtArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getTaluka() : '';
+    this.editFlag ? (this.registerForm.controls['districtId'].setValue(this.data?.districtId), this.getTaluka()) : ''
   }
 
   getTaluka() {
@@ -96,11 +101,11 @@ export class RegisterSchoolComponent {
           this.talukaArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getCenter() : '';
+    this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
   }
 
   getCenter() {
@@ -114,11 +119,11 @@ export class RegisterSchoolComponent {
           this.centerArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getSchoolCategory() : '';
+    this.editFlag ? (this.registerForm.controls['centerId'].setValue(this.data?.centerId), this.getSchoolCategory()) : ''
   }
 
   getSchoolCategory() {
@@ -131,8 +136,8 @@ export class RegisterSchoolComponent {
           this.schoolcategoryArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
     this.editFlag ? this.getSchoolType() : '';
@@ -148,8 +153,8 @@ export class RegisterSchoolComponent {
           this.schooltypeArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
     this.editFlag ? this.getGenderAllow() : '';
@@ -165,8 +170,8 @@ export class RegisterSchoolComponent {
           this.genderAllowArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
     this.editFlag ? this.getGroupClass() : '';
@@ -182,39 +187,12 @@ export class RegisterSchoolComponent {
           this.groupArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-      }), error: (error: any) => {
-        this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+      }),error: (error: any) => {
+        this.error.handelError(error.status);
       }
     })
   }
 //#endregion ---------------------------------------Get DropDowns-----------------------------------------------------------------------
-
-//#region  ---------------------------------------Get Edit Data Patch Value--------------------------------------------------------------
-  onEditData(obj?: any) {
-    obj = this.data
-    this.editFlag = true;
-    this.registerForm.patchValue({
-      createdBy: 0,
-      modifiedBy: 0,
-      createdDate: new Date(),
-      modifiedDate: new Date(),
-      isDeleted: true,
-      id: obj.id,
-      schoolName: obj.schoolName,
-      m_SchoolName: '',
-      stateId: obj.stateId,
-      districtId: obj.districtId,
-      talukaId: obj.talukaId,
-      centerId: obj.centerId,
-      s_CategoryId: obj.s_CategoryId,
-      s_TypeId: obj.s_TypeId,
-      g_GenderId: obj.g_GenderId,
-      g_ClassId: obj.g_ClassId,
-      lan: ''
-    })
-    this.editFlag ? this.getDistrict() : '';
-  }
-//#endregion ---------------------------------------Get Edit Data Patch Value--------------------------------------------------------------
 
 //#region ---------------------------------------Submit Data-------------------------------------------------------------------------------
   onSubmitData() {
@@ -231,34 +209,25 @@ export class RegisterSchoolComponent {
             this.registerForm.reset();
             this.dialogRef.close();
           }
-        }), error: (error: any) => {
-          this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
+        }),error: (error: any) => {
+          this.error.handelError(error.status);
         }
       })
     }
-    // } else {
-    //   this.editFlag = true;
-    //   this.service.setHttp('put', 'zp_chandrapur/School/Update', false, formData, false, 'baseUrl');
-    //   this.service.getHttp().subscribe({
-    //     next: ((res: any) => {
-    //       if (res.statusCode == '200') {
-    //         this.common.snackBar(res.statusMessage, 1);
-    //         this.registerForm.reset();
-    //         this.dialogRef.close();
-    //       }
-    //     }), error: (error: any) => {
-    //       this.common.checkEmptyData(error.statusText) == false ? this.error.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
-    //     }
-    //   })
-    // }
   }
 //#endregion ---------------------------------------Submit Data-------------------------------------------------------------------------------
 
 //#region ---------------------------------------Clear Form ------------------------------------------------------------------------------
   clearForm() {
     this.editFlag = false;
+    this.formDirective.reset();
   }
   //#endregion---------------------------------------Clear Form ------------------------------------------------------------------------------
+  dataobj1={
+   "update_school":"शाळा अद्यतनित करा",
+   "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
+   "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा"
+  }
 }
 
 

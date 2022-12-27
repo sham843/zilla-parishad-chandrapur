@@ -108,7 +108,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <mat-select formControlName="school" (selectionChange)="getAgency()">
+                            <mat-select formControlName="school">
                                 <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
@@ -206,16 +206,16 @@
                 <div class="col-sm-4">
                     <mat-form-field  appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.class' |translate}}</mat-label>
-                        <mat-select>
-                          <mat-option>Option 1</mat-option>
+                        <mat-select formControlName="class" multiple>
+                          <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.groupClass}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field  appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
-                        <mat-select>
-                          <mat-option>Option 1</mat-option>
+                        <mat-select formControlName="subject" multiple>
+                            <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
