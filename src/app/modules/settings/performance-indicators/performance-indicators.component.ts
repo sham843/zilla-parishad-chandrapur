@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
-import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,12 +29,11 @@ export class PerformanceIndicatorsComponent implements OnInit{
   getAllSubjectArray:any;
   performanceIndicatorArray:any;
   filterEnglishLag = new FormControl(1);
+  classStandardArray = [{first:1}, {second:2}, {third:3},{fourth:4},{fifth:5},{sixth:6}, {seven:7}, {eight:8},{nine:9},{ten:10}];
 
   constructor(
     private apiService: ApiService,
     private errors: ErrorsService,
-    private masterService: MasterService,
-    private fb: FormBuilder,
     private commonMethod: CommonMethodsService,
     private webStorage: WebStorageService,
     private errorService: ErrorsService,
@@ -45,7 +43,6 @@ export class PerformanceIndicatorsComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.masterService, this.fb
     this.getAllPerformanceIndicatorData();
     this.getAllSubject();
     this.webStorage.setLanguage.subscribe((res: any) => {
@@ -71,43 +68,63 @@ export class PerformanceIndicatorsComponent implements OnInit{
   }
 
   getAllPerformanceIndicatorData() {
-    // let formValue = this.filterForm.value;
     let obj = `${this.filterEnglishLag.value}&UserId=${this.webStorage.getUserId()}`;
-    this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAll?SubjectId=' + obj, true, false, false, 'baseUrl')
+    this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAll?SubjectId=' + obj, true, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.performanceIndicatorArray = res.responseData;
           this.displayedColumns= Object.keys(this.performanceIndicatorArray[0]);
-          console.log(this.displayedColumns )
           this.dataSource = new MatTableDataSource(res.responseData);
-          this.dataSource.sort = this.sort;
+          this.dataSource.sort = this.sort; 
         } else {
           this.dataSource = [];
+          this.performanceIndicatorArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
-      //  this.setTableData();
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
   }
 
-  onSubmit() {
+  checkedassesmentArray:any[]=[];
+
+  addCheckedassesment(event:any,objData:any,classType:any){
+
+    let classTypeObj:any; this.classStandardArray.map((ele:any)=>{ Object.keys(ele) == classType ? classTypeObj = ele : ''})
+
+    // this.performanceIndicatorArray.map((ele:any)=>{
+    //   let obj:any = {
+    //     "standardId": classTypeObj[classType],
+    //     "assesmentPerformanceId": ele.assesmentParameterId,
+    //     "flag": event.checked == true ? 1 : 0,
+    //   }
+  
+    // })
+
+    let obj:any = {
+      "standardId": classTypeObj[classType],
+      "assesmentPerformanceId": objData.assesmentParameterId,
+      "flag": event.checked == true ? 1 : 0,
+    }
+
+
+      this.checkedassesmentArray.push(obj);
+      this.checkedassesmentArray = Object.values(this.checkedassesmentArray.reduce((acc,cur)=>Object.assign(acc,{[cur.standardId || cur.assesmentPerformanceId]:cur}),{}))
+      console.log(this.checkedassesmentArray,'111')
+
+  }
+
+  onSubmitPI() {
     // let formData = this.addLevelForm.value;
-    if (1==1) {
-      return;
+    if (!this.checkedassesmentArray.length) {
+      this.commonMethod.snackBar('Please Update at least one Class', 1);
     } else {
       let obj:any = {
         "subjectId": this.filterEnglishLag.value,
         "createdBy": this.webStorage.getUserId(),
         "createdDate": new Date(),
-        "assesment": [
-          {
-            "standardId": 0,
-            "assesmentPerformanceId": 0,
-            "flag": 0
-          }
-        ]
+        "assesment": this.checkedassesmentArray
       }
       this.spinner.show();
       // let formType: string = !this.editFlag ? 'POST' : 'PUT';
@@ -117,7 +134,7 @@ export class PerformanceIndicatorsComponent implements OnInit{
           this.spinner.hide();
           if (res.statusCode == '200') {
             this.commonMethod.snackBar(res.statusMessage, 0);
-            // this.clearForm();
+            this.getAllPerformanceIndicatorData();
           } else {
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
