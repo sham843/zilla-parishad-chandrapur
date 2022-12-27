@@ -21,14 +21,14 @@ export class AddDesignationComponent {
   desigantionLevel = new Array();
   desigantionType = new Array();
   setDesignationLevel = new Array();
-  userLoginDesignationLevelId!:number;
+  userLoginDesignationLevelId!: number;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-  constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService,public validation: ValidationService,
+  constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService, public validation: ValidationService,
     private errorHandler: ErrorHandler, @Inject(MAT_DIALOG_DATA) public data: any, private webStorage: WebStorageService,
     private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner: NgxSpinnerService) { }
   ngOnInit() {
-    let localVal:any = this.webStorage.getLocalStorageData();
+    let localVal: any = this.webStorage.getLocalStorageData();
     let loginData = JSON.parse(localVal)
     this.userLoginDesignationLevelId = loginData.responseData.designationLevelId;
 
@@ -36,7 +36,7 @@ export class AddDesignationComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
-    this.data ? this.editMethod() : this.getDesignationLevel(),this.getDesignationType();this.setDesignationLvl();
+    this.data ? this.editMethod() : this.getDesignationLevel(), this.getDesignationType(); this.setDesignationLvl();
   }
 
 
@@ -46,8 +46,8 @@ export class AddDesignationComponent {
     this.designationForm = this.fb.group({
       id: [this.data ? this.data.id : ''],
       dummyDesigLvlkey: [this.data ? this.data.linkedToDesignationLevelId : this.userLoginDesignationLevelId, Validators.required],
-      linkedToDesignationId: [this.data ? this.data.linkedToDesignationId : '', Validators.required],
-      designationLevelId: [this.data ? this.data.designationLevelId : '', Validators.required],
+      linkedToDesignationId: ['', Validators.required],
+      designationLevelId: ['', Validators.required],
       designationName: [this.data ? this.data.designationName : '', Validators.required]
     })
   }
@@ -65,7 +65,7 @@ export class AddDesignationComponent {
   getDesignationLevel() {
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
-      this.editFlag ?  this.getDesignationType() : '';
+      this.editFlag ? this.getDesignationType() : '';
     })
   }
 
@@ -75,7 +75,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
-          this.editFlag ?  this.setDesignationLvl() : '';
+          this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -89,6 +89,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
+          this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -101,13 +102,13 @@ export class AddDesignationComponent {
     if (!this.designationForm.valid) {
       return;
     } else if (!this.editFlag) {
-      console.log(this.webStorage.getUserId(),'userId');
-      
+      console.log(this.webStorage.getUserId(), 'userId');
+
       this.spinner.show();
       let obj = {
-        createdBy:this.webStorage.getUserId(),
+        createdBy: this.webStorage.getUserId(),
         modifiedBy: this.webStorage.getUserId(),
-        createdDate:new Date(),
+        createdDate: new Date(),
         modifiedDate: new Date()
       }
       let postObj = {
@@ -122,7 +123,7 @@ export class AddDesignationComponent {
         isDeleted: true,
         userId: this.webStorage.getUserId(),
       };
-      let finalData = { ...obj, ...postObj};
+      let finalData = { ...obj, ...postObj };
       this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -144,9 +145,9 @@ export class AddDesignationComponent {
     } else if (this.editFlag) {
       this.spinner.show();
       let obj = {
-        createdBy:this.data.createdBy,
+        createdBy: this.data.createdBy,
         modifiedBy: this.webStorage.getUserId(),
-        createdDate:this.data.createdDate,
+        createdDate: this.data.createdDate,
         modifiedDate: new Date()
       }
       let putObj = {
@@ -161,7 +162,7 @@ export class AddDesignationComponent {
         isDeleted: false,
         userId: this.webStorage.getUserId(),
       };
-      let finalData =  { ...obj, ...putObj}
+      let finalData = { ...obj, ...putObj }
       this.apiService.setHttp('PUT', 'designation/update-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -185,8 +186,8 @@ export class AddDesignationComponent {
   }
 
   clearFormDependancy() {
-      this.designationForm.controls['linkedToDesignationId'].setValue(''),
-        this.designationForm.controls['designationLevelId'].setValue(''),
-        this.designationForm.controls['designationName'].setValue('')
+    this.designationForm.controls['linkedToDesignationId'].setValue(''),
+      this.designationForm.controls['designationLevelId'].setValue(''),
+      this.designationForm.controls['designationName'].setValue('')
   }
 }

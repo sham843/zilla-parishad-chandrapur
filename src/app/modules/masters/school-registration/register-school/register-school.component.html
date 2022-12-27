@@ -1,9 +1,9 @@
-<form [formGroup]="registerForm"  (ngSubmit)="onSubmitData()">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm" >
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
             <div class="d-flex justify-content-between align-items-center w-100">
                 <!-- {{'school.school_registration' |translate}} -->
-                <h6 class="text-main mb-0 fw-bold">{{editFlag ? 'Update School' : 'Register School'}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{!editFlag ? ('school.school_registration' |translate) : ('school.school_update' |translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -50,7 +50,8 @@
                         <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName" (keyup)="validator.alphaNumeric($event);validator.removeSpaceAtBegining($event)" 
                         minlength="10" maxlength="500">
                         <mat-error *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'student.school_is_required' |translate}}</mat-error>
-                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">School Length Not Less Than 10</mat-error>
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">Enter Valid School Name</mat-error>
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('pattern')">Enter Valid School Name</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
