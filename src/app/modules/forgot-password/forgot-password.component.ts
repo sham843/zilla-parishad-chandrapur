@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
   otpTimerFlag: boolean = false;
   otpTimerSub: any;
   sendOtpFlag: boolean = false;
-  verOtpFlag: boolean = true;
+  verOtpFlag: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -136,7 +136,7 @@ export class ForgotPasswordComponent {
       this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : '', 1)
       return;
     }else if(this.forgotPasswordForm.value.password != this.forgotPasswordForm.value.cpassword){
-      this.commonMethods.snackBar('New Password And Comfirm Password Not Match',1);
+      this.commonMethods.snackBar(this.language == 'English' ? 'New Password And Comfirm Password Not Match' : 'नवीन पासवर्ड आणि कंफर्म पासवर्ड जुळत नाही', 1);
     } else {
       let loginData = this.forgotPasswordForm.value;
       let obj = {
