@@ -135,15 +135,38 @@ setTableData(){
     const dialog = this.dialog.open(GlobalDialogComponent, {
       width: '700px',
       disableClose: true,
-      data: deleteObj,
+      data:{
+        p1: this.lang='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p2: '',
+        cardTitle: this.lang='mr-IN' ? 'हटवा' : 'Delete',
+        successBtnText: this.lang='mr-IN' ? 'हटवा' : 'Delete',
+        dialogIcon: 'assets/images/logout.gif',
+        cancelBtnText: this.lang='mr-IN' ? 'रद्द करा' : 'Cancel',
+      },
     })
     dialog.afterClosed().subscribe((res) => {
       if (res == 'Yes') {
-        this.removeUser()
+        this.removeUser(deleteObj)
       }
     })
   }
-  removeUser() {
+  removeUser(deleteData:any) {
+    let obj={
+      "id":deleteData.id,
+      "modifiedBy": 0,
+      "modifiedDate":new Date(),
+      "lan": ""
+    }
+    this.apiService.setHttp('delete', 'zp_chandrapur/user-registration/DeleteUser?lan=' + this.lang, false, obj, false, 'baseUrl')
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.common.snackBar(res.statusMessage, 0);
+          this.getAllUserData();
+        }
+      },
+      error: ((err: any) => { this.errors.handelError(err) })
+    });
 
   }
   getAllClearData(flag?:any){
