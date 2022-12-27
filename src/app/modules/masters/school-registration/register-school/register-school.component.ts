@@ -38,33 +38,32 @@ export class RegisterSchoolComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData()
+    this.data ? ( this.editFlag = true , this.getDistrict()):  this.getDistrict();
+    this.getFormData();
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
   getFormData(obj?: any) {
-    this.data ? this.editFlag = true : '';
     obj = this.data;
     this.registerForm = this.fb.group({
-      createdBy: obj ? obj.createdBy : 0,
-      modifiedBy: obj ? obj.modifiedBy : 0,
-      createdDate: new Date(),
-      modifiedDate: new Date(),
+      createdBy: [obj ? obj.createdBy : this.webStorage.getUserId()],
+      modifiedBy:[obj ? obj.modifiedBy :  this.webStorage.getUserId()],
+      createdDate: [obj ? obj.createdDate : new Date()],
+      modifiedDate: [new Date()],
       isDeleted: true,
-      id: obj ? obj.id : 0,
+      id: [obj ? obj.id : 0],
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
-      m_SchoolName: '',
-      stateId: [obj?.stateId || 1, Validators.required],
-      districtId: [obj?.districtId || '', Validators.required],
+      m_SchoolName: [''],
+      stateId: [obj?.stateId || this.service.stateId, Validators.required],
+      districtId: [obj?.districtId ||this.service.disId, Validators.required],
       talukaId: [obj?.talukaId || '', Validators.required],
       centerId: [obj?.centerId || '', Validators.required],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || '', Validators.required],
       g_GenderId: [obj?.g_GenderId || '', Validators.required],
       g_ClassId: [obj?.g_ClassId || '', Validators.required],
-      lan: this.lang
+      lan:[ this.lang]
     })
-    this.getDistrict()
   }
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
@@ -72,6 +71,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.districtArray = res.responseData;
+          this.editFlag ? (this.registerForm.controls['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
         } else {
           this.districtArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -80,7 +80,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? (this.registerForm.controls['districtId'].setValue(this.data?.districtId), this.getTaluka()) : ''
+  
   }
 
   getTaluka() {
@@ -90,6 +90,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.talukaArray = res.responseData;
+          this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
         } else {
           this.talukaArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -98,7 +99,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
+ 
   }
 
   getCenter() {
@@ -108,6 +109,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.centerArray = res.responseData;
+          this.editFlag ? (this.registerForm.controls['centerId'].setValue(this.data?.centerId), this.getSchoolCategory()) : ''
         } else {
           this.centerArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -116,7 +118,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? (this.registerForm.controls['centerId'].setValue(this.data?.centerId), this.getSchoolCategory()) : ''
+
   }
 
   getSchoolCategory() {
@@ -125,6 +127,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.schoolcategoryArray = res.responseData;
+          this.editFlag ? this.getSchoolType() : '';
         } else {
           this.schoolcategoryArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -133,7 +136,6 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getSchoolType() : '';
   }
 
   getSchoolType() {
@@ -142,6 +144,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.schooltypeArray = res.responseData;
+          this.editFlag ? this.getGenderAllow() : '';
         } else {
           this.schooltypeArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -150,7 +153,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getGenderAllow() : '';
+    
   }
 
   getGenderAllow() {
@@ -159,6 +162,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.genderAllowArray = res.responseData;
+          this.editFlag ? this.getGroupClass() : '';
         } else {
           this.genderAllowArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -167,7 +171,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.editFlag ? this.getGroupClass() : '';
+   
   }
 
   getGroupClass() {
@@ -199,6 +203,8 @@ export class RegisterSchoolComponent {
             this.common.snackBar(res.statusMessage, 1);
             this.registerForm.reset();
             this.dialogRef.close();
+          }else{
+            this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }), error: (error: any) => {
           this.error.handelError(error.status);

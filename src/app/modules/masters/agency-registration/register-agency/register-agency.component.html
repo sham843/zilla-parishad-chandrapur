@@ -16,10 +16,13 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.agency_name' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.agency_name' |translate}}" formControlName="agencyName"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keyup)="validation.removeSpaceAtBegining($event)" (keypress)="validation.alphabetsWithSpaces($event)">
                         <mat-error *ngIf="f['agencyName'].errors">
                             <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
                                 {{'agency.please_enter_agency_name' |translate}}
+                            </span>
+                            <span class="text-danger" *ngIf="f['agencyName'].hasError('pattern')">
+                                {{'agency.please_enter_valid_agency_name' |translate}}
                             </span>
                         </mat-error>
                     </mat-form-field>
@@ -27,7 +30,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
-                        <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}"
+                        <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}" (keypress)="validation.unicodeMarathiValidation($event)"
                             formControlName="m_AgencyName" (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_AgencyName'].errors">
                             <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
@@ -44,6 +47,12 @@
                         <mat-error *ngIf="f['registrationNo'].errors">
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('required')">
                                 {{'agency.please_enter_registration_number' |translate}}
+                            </span>
+                            <span class="text-danger" *ngIf="f['registrationNo'].hasError('minlength')">
+                                {{'agency.please_enter_minimum 5 digit_registration_number' |translate}}
+                            </span>
+                            <span class="text-danger" *ngIf="f['registrationNo'].hasError('maxlength')">
+                                {{'agency.please_enter_maximum 50 digit_registration_number' |translate}}
                             </span>
                         </mat-error>
                     </mat-form-field>
@@ -96,9 +105,6 @@
                             (blur)="contactNo()" maxlength="10" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['contactNo'].errors">
-                            <span class="text-danger" *ngIf="f['contactNo'].hasError('required')">
-                                {{'agency.please_enter_contact_number' |translate}}
-                            </span>
                             <span class="text-danger" *ngIf="f['contactNo'].hasError('pattern')">
                                 {{'agency.please_enter_valid_contact_no' |translate}}
                             </span>
@@ -111,10 +117,7 @@
                         <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['emailId'].errors">
-                            <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
-                                {{'common.please_enter_email_id' |translate}}
-                            </span>
-                            <span class="text-danger" *ngIf="f['emailId'].hasError('pattern')">
+                            <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
                                 {{'agency.please_enter_valid_emailId' | translate}}
                             </span>
                         </mat-error>
@@ -125,11 +128,6 @@
                         <mat-label>{{'agency.address' |translate}}</mat-label>
                         <input matInput placeholder="{{'agency.address' |translate}}" formControlName="address"
                             (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['address'].errors">
-                            <span class="text-danger" *ngIf="f['address'].hasError('required')">
-                                {{'agency.please_enter_address' |translate}}
-                            </span>
-                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
