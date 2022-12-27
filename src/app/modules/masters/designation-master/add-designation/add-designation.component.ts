@@ -46,8 +46,8 @@ export class AddDesignationComponent {
     this.designationForm = this.fb.group({
       id: [this.data ? this.data.id : ''],
       dummyDesigLvlkey: [this.data ? this.data.linkedToDesignationLevelId : this.userLoginDesignationLevelId, Validators.required],
-      linkedToDesignationId: [this.data ? this.data.linkedToDesignationId : '', Validators.required],
-      designationLevelId: [this.data ? this.data.designationLevelId : '', Validators.required],
+      linkedToDesignationId: ['', Validators.required],
+      designationLevelId: ['', Validators.required],
       designationName: [this.data ? this.data.designationName : '', Validators.required]
     })
   }
@@ -75,7 +75,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
-          this.editFlag ? this.setDesignationLvl() : '';
+          this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -89,6 +89,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
+          this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
