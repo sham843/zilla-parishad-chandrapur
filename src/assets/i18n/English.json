@@ -54,7 +54,8 @@
         "enter_agency_address":"Enter Agency Address",
         "please_select_user_type":"Please Select User Type",
         "class":"Class",
-        "subjects":"Subjects"
+        "subjects":"Subjects",
+        "agency_name":"Agency Name"
     },
     "agency":{
         "register_agency":"Register Agency",
@@ -90,7 +91,9 @@
         "forgot_password":"Forgot Password",
         "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter",
         "enter_otp":"Enter OTP",
-        "verify_otp":"Verified OTP"
+        "verify_otp":"Verified OTP",
+        "Enter_new_password":"Enter New Password",
+        "Enter_new_confirm":"Enter Confirm Password"
     },
     "page_right_access":{
         "settings":"Settings",

@@ -36,7 +36,7 @@ export class AddDesignationComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
-    this.data ? this.editMethod() : this.getDesignationLevel(), this.getDesignationType(); this.setDesignationLvl();
+    this.data ? this.editMethod() : (this.getDesignationLevel(), this.getDesignationType(), this.setDesignationLvl());
   }
 
 
@@ -45,9 +45,9 @@ export class AddDesignationComponent {
   controlForm() {
     this.designationForm = this.fb.group({
       id: [this.data ? this.data.id : ''],
-      dummyDesigLvlkey: [this.data ? this.data.linkedToDesignationLevelId : this.userLoginDesignationLevelId, Validators.required],
-      linkedToDesignationId: [this.data ? this.data.linkedToDesignationId : '', Validators.required],
-      designationLevelId: [this.data ? this.data.designationLevelId : '', Validators.required],
+      dummyDesigLvlkey: [!this.data ?  this.userLoginDesignationLevelId:'', Validators.required],
+      linkedToDesignationId: ['', Validators.required],
+      designationLevelId: ['', Validators.required],
       designationName: [this.data ? this.data.designationName : '', Validators.required]
     })
   }
@@ -63,19 +63,23 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
+    console.log(this.editFlag,'flag');
+
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
-      this.editFlag ? this.getDesignationType() : '';
+      this.editFlag ?( this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId) ,this.getDesignationType() ): '';
     })
   }
 
   getDesignationType() {
+
     this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + this.userLoginDesignationLevelId + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
-          this.editFlag ? this.setDesignationLvl() : '';
+console.log(this.data.linkedToDesignationId);
+          this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
@@ -89,6 +93,7 @@ export class AddDesignationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.setDesignationLevel = res.responseData;
+          this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
       }, error: (error: any) => {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
