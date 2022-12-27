@@ -97,9 +97,18 @@ export class AddDesignationComponent {
     if (!this.designationForm.valid) {
       return;
     } else if (!this.editFlag) {
+      console.log(this.webStorage.getUserId(),'userId');
+      
       this.spinner.show();
+      let obj = {
+        createdBy:this.webStorage.getUserId(),
+        modifiedBy: this.webStorage.getUserId(),
+        createdDate:new Date(),
+        modifiedDate: new Date()
+      }
       let postObj = {
         id: 0,
+        srNo: 0,
         linkedToDesignationId: this.designationForm.value.linkedToDesignationId,
         designationLevelId: this.designationForm.value.designationLevelId,
         designationName: this.designationForm.value.designationName,
@@ -109,7 +118,8 @@ export class AddDesignationComponent {
         isDeleted: true,
         userId: 0
       };
-      this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, postObj, false, 'baseUrl');
+      let finalData = { ...obj, ...postObj};
+      this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -129,6 +139,12 @@ export class AddDesignationComponent {
       })
     } else if (this.editFlag) {
       this.spinner.show();
+      let obj = {
+        createdBy:this.data.createdBy,
+        modifiedBy: this.webStorage.getUserId(),
+        createdDate:this.data.createdDate,
+        modifiedDate: new Date()
+      }
       let putObj = {
         id: this.data.id,
         linkedToDesignationLevelId: this.designationForm.value.dummyDesigLvlkey,
@@ -141,7 +157,8 @@ export class AddDesignationComponent {
         isDeleted: false,
         userId: 0
       };
-      this.apiService.setHttp('PUT', 'designation/update-designation-details?flag=' + this.lang, false, putObj, false, 'baseUrl');
+      let finalData =  { ...obj, ...putObj}
+      this.apiService.setHttp('PUT', 'designation/update-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();

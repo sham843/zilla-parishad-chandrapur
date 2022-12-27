@@ -26,7 +26,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userType!=2">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
@@ -43,10 +43,10 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userType!=3">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.designation' |translate}}</mat-label>
+                            <mat-label>{{'common.designation' |translate}}</mat-label>
                             <mat-select formControlName="designation" (selectionChange)="getDistrict()">
                                 <mat-option *ngFor="let designation of designationArr"
                                     [value]="designation">{{designation}}</mat-option>
@@ -61,7 +61,7 @@
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.district' |translate}}</mat-label>
+                        <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="district"
                             (selectionChange)="getTaluka(userRegistrationForm.value.district)">
                             <mat-option *ngFor="let dist of districtArr"
@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.taluka' |translate}}</mat-label>
+                        <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="taluka"
                             (selectionChange)="getKendra(userRegistrationForm.value.taluka)">
                             <mat-option *ngFor="let taluka of talukaArr"
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.kendra' |translate}}</mat-label>
+                        <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="kendra"
                             (selectionChange)="getSchoolName(userRegistrationForm.value.kendra)">
                             <mat-option *ngFor="let kendra of kendraArr"
@@ -104,10 +104,10 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userType==2">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.school' |translate}}</mat-label>
+                            <mat-label>{{'common.school' |translate}}</mat-label>
                             <mat-select formControlName="school" (selectionChange)="getAgency()">
                                 <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
@@ -120,10 +120,10 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.agency_name' |translate}}</mat-label>
+                            <mat-label>{{'common.agency_name' |translate}}</mat-label>
                             <mat-select formControlName="agency">
                                 <mat-option *ngFor="let agency of agencyArr"
                                     [value]="agency.id">{{agency.agencyName}}</mat-option>
@@ -138,7 +138,7 @@
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.name' |translate}}</mat-label>
+                        <mat-label>{{'common.name' |translate}}</mat-label>
                         <input matInput placeholder="{{'user_Registration.enter_name' |translate}}"
                             formControlName="name" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
@@ -149,10 +149,10 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'user_Registration.contact_person' |translate}}</mat-label>
+                            <mat-label>{{'common.contact_person' |translate}}</mat-label>
                             <input matInput placeholder="{{'user_Registration.enter_person_contact' |translate}}"
                                 formControlName="contact">
                             <mat-error *ngIf="f['contact'].errors">
@@ -165,7 +165,7 @@
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.mobile_number' |translate}}</mat-label>
+                        <mat-label>{{'common.mobile_number' |translate}}</mat-label>
                         <input matInput placeholder="{{'user_Registration.enter_mobile_number' |translate}}"
                             formControlName="mobile" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
@@ -178,7 +178,7 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'user_Registration.email' |translate}}</mat-label>
+                        <mat-label>{{'common.email' |translate}}</mat-label>
                         <input matInput placeholder="{{'user_Registration.enter_email_id' |translate}}"
                             formControlName="email" (keypress)="validation.emailRegex"
                             (keyup)="validation.removeSpaceAtBegining($event)">
@@ -189,7 +189,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userType==3">
+                <ng-container>
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.agency_address' |translate}}</mat-label>
@@ -205,21 +205,17 @@
                 </ng-container>
                 <div class="col-sm-4">
                     <mat-form-field  appearance="outline" class="w-100">
-                        <mat-label>Select Class</mat-label>
+                        <mat-label>{{'user_Registration.class' |translate}}</mat-label>
                         <mat-select>
                           <mat-option>Option 1</mat-option>
-                          <mat-option>Option 2</mat-option>
-                          <mat-option>Option 3</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field  appearance="outline" class="w-100">
-                        <mat-label>Select Subjects</mat-label>
+                        <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
                         <mat-select>
                           <mat-option>Option 1</mat-option>
-                          <mat-option>Option 2</mat-option>
-                          <mat-option>Option 3</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
@@ -228,8 +224,8 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-end align-items-center w-100">
-            <button mat-stroked-button class="btn-second me-2">{{'user_Registration.cancel' |translate}}</button>
-            <button mat-stroked-button class="btn-main">{{'user_Registration.submit' |translate}}</button>
+            <button mat-stroked-button class="btn-second me-2">{{'common.cancel' |translate}}</button>
+            <button mat-stroked-button class="btn-main">{{'common.submit' |translate}}</button>
         </div>
     </mat-card-footer>
 </mat-card>
