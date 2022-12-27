@@ -224,6 +224,16 @@ export class SchoolRegistrationComponent {
       }
     });
   }
+  clearDropDrown(status:any){
+    if(status == 'taluka'){
+      this.filterForm.controls['centerId'].setValue(0) ;
+      this.filterForm.controls['schoolName'].setValue('') ;
+    }else if(status == 'center'){
+      this.filterForm.controls['schoolName'].setValue('') ;
+    }
+   }
  //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
+
+ 
 }
 

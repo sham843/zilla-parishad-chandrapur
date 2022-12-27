@@ -38,11 +38,7 @@ export class RegisterSchoolComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ?(this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData();
-    this.getDistrict();
-    if(this.data){
-      this.getFormData(this.data)
-    }
+    this.getFormData()
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
@@ -68,11 +64,8 @@ export class RegisterSchoolComponent {
       g_ClassId: [obj?.g_ClassId || '', Validators.required],
       lan: this.lang
     })
-    obj ? (this.getDistrict()) : '';
+    this.getDistrict()
   }
-//#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
-
-//#region  ---------------------------------------Get DropDowns-----------------------------------------------------------------------
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
@@ -192,9 +185,7 @@ export class RegisterSchoolComponent {
       }
     })
   }
-//#endregion ---------------------------------------Get DropDowns-----------------------------------------------------------------------
 
-//#region ---------------------------------------Submit Data-------------------------------------------------------------------------------
   onSubmitData() {
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
@@ -215,19 +206,29 @@ export class RegisterSchoolComponent {
       })
     }
   }
-//#endregion ---------------------------------------Submit Data-------------------------------------------------------------------------------
 
-//#region ---------------------------------------Clear Form ------------------------------------------------------------------------------
   clearForm() {
     this.editFlag = false;
     this.formDirective.reset();
   }
-  //#endregion---------------------------------------Clear Form ------------------------------------------------------------------------------
-  dataobj1={
-   "update_school":"शाळा अद्यतनित करा",
-   "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
-   "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा"
-  }
+//#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
+    // dataobj1={
+    //  "update_school":"शाळा अद्यतनित करा",
+    //  "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
+    //  "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा",
+    //  "please_select_taluka":"कृपया तालुका निवडा",
+    //  "please_select_center":"कृपया केंद्र निवडा",
+    //  "please_select_school":"कृपया शाळा निवडा",
+
+    //  /////////////////////////////////////////////////////////////////
+
+    //  "update_school":"Update School",
+    //  "school_name_length_should_not_less_than_10": "School Name Length Should not Less Than 10",
+    //  "please_enter_valid_school name":"Please Enter Valid School Name",
+    //  "please_select_taluka":"Please Select Taluka",
+    //  "please_select_center":"Please Select Center",
+    //  "please_select_school":"Please Select School",
+    // }
 }
 
 
