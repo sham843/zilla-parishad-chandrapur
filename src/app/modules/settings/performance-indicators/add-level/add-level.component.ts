@@ -40,8 +40,8 @@ export class AddLevelComponent implements OnInit {
 
   defaultForm() {
     this.addLevelForm = this.fb.group({
-      assesmentParameter: ['', [Validators.required]],
-      m_AssesmentParameter: ['', [Validators.required]],
+      assesmentParameter: ['', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
+      m_AssesmentParameter: ['', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
     });
   }
 
@@ -50,7 +50,7 @@ export class AddLevelComponent implements OnInit {
     if (this.addLevelForm.invalid) {
       return;
     } else {
-      let obj = {
+      let obj:any = {
         "createdBy": this.webStorage.getUserId(),
         "modifiedBy": this.webStorage.getUserId(),
         "createdDate": new Date(),
@@ -63,7 +63,7 @@ export class AddLevelComponent implements OnInit {
       }
       this.spinner.show();
       // let formType: string = !this.editFlag ? 'POST' : 'PUT';
-      this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddLanguageLevel', false, obj, false, 'bidderUrl');
+      this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddLanguageLevel', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
