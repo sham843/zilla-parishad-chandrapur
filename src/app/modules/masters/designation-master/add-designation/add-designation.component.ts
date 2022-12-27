@@ -36,7 +36,7 @@ export class AddDesignationComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
-    this.data ? this.editMethod() : this.getDesignationLevel(), this.getDesignationType(); this.setDesignationLvl();
+    this.data ? this.editMethod() : (this.getDesignationLevel(), this.getDesignationType(), this.setDesignationLvl());
   }
 
 
@@ -63,6 +63,8 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
+    console.log(this.editFlag,'flag');
+    
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
       this.editFlag ? this.getDesignationType() : '';
