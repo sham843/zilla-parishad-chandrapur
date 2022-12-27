@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
   otpTimerFlag: boolean = false;
   otpTimerSub: any;
   sendOtpFlag: boolean = false;
-  verOtpFlag: boolean = false;
+  verOtpFlag: boolean = true;
 
   constructor(
     private apiService: ApiService,
