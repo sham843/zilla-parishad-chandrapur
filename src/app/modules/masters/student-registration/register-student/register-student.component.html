@@ -98,7 +98,7 @@
                                 {{'student.please_enter_first_name'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('minlength')">
-                                {{"student.please_enter_minimum_2_character'|translate"}}
+                                {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_first_Name' | translate}}
@@ -114,7 +114,7 @@
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_Name']?.errors">
                             <span class="text-danger" *ngIf="f['m_Name'].hasError('minlength')">
-                                {{"student.please_enter_minimum_2_character'|translate"}}
+                                {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['m_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_middle_Name' | translate}}
@@ -133,7 +133,7 @@
                                 {{'student.please_enter_last_name'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('minlength')">
-                                {{"student.please_enter_minimum_2_character'|translate"}}
+                                {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_last_Name' | translate}}
@@ -150,7 +150,7 @@
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['saralId']?.errors">
                             <span class="text-danger" *ngIf="f['saralId'].hasError('minlength')">
-                                {{"student.please_enter_atleast_2_alphanumeric'|translate"}}
+                                {{'school.please_enter_atleast_2_alphanumeric'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['saralId'].hasError('required')">
                                 {{'student.please_enter_saral_id'|translate}}
@@ -211,7 +211,7 @@
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['cast']?.errors">
                            <span class="text-danger" *ngIf="f['cast'].hasError('minlength')">
-                                {{"student.please_enter_minimum_2_character'|translate"}}
+                            {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['cast'].hasError('pattern')">
                                 {{'student.please_enter_valid_Caste' | translate}}
