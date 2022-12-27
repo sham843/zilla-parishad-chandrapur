@@ -46,9 +46,9 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     obj = this.data;
     this.registerForm = this.fb.group({
-      createdBy: [obj ? obj.createdBy : 0],
-      modifiedBy:[obj ? obj.modifiedBy : 0],
-      createdDate: [new Date()],
+      createdBy: [obj ? obj.createdBy : this.webStorage.getUserId()],
+      modifiedBy:[obj ? obj.modifiedBy :  this.webStorage.getUserId()],
+      createdDate: [obj ? obj.createdDate : new Date()],
       modifiedDate: [new Date()],
       isDeleted: true,
       id: [obj ? obj.id : 0],
