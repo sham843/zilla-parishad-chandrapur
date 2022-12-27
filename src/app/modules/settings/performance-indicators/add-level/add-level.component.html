@@ -9,18 +9,38 @@
             </button>
         </div>
     </mat-card-header>
+    <form [formGroup]="addLevelForm" #formDirective="ngForm" (ngSubmit)="onSubmit()"> 
     <mat-card-content class="card-body">
         <div class="row">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Add Level</mat-label>
-                <input matInput placeholder="">
+                <mat-label>Add English Level</mat-label>
+                <input matInput placeholder="Add English Level" formControlName="assesmentParameter">
+                <mat-error *ngIf="f.assesmentParameter.errors">
+                    <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
+                        Add English Level is required.</span>
+                        <span class="text-danger" *ngIf="f.assesmentParameter.errors?.pattern">
+                            Enter Valid Add English Level</span>
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Add Marathi Level</mat-label>
+                <input matInput placeholder="Add Marathi Level" formControlName="m_AssesmentParameter">
+                <mat-error *ngIf="f.m_AssesmentParameter.errors">
+                    <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
+                        Add Marathi Level is required.</span>
+                        <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.pattern">
+                            Enter Valid Add Marathi Level</span>
+                </mat-error>
               </mat-form-field>
         </div>
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-end gap-2">
-            <button mat-stroked-button class="btn-second">Clear</button>
-            <button mat-stroked-button class="btn-main">Submit</button>
+            <button mat-stroked-button class="btn-second" type="button" (click)="clearForm()">Clear</button>
+            <button mat-stroked-button class="btn-main" type="submit">Submit</button>
         </div>
     </mat-card-footer>
+</form>
 </mat-card>
