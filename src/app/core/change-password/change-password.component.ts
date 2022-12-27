@@ -1,5 +1,5 @@
-import { Component, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,12 +12,11 @@ import { CommonMethodsService } from '../services/common-methods.service';
 import { ErrorsService } from '../services/errors.service';
 import { WebStorageService } from '../services/web-storage.service';
 import {MatButtonModule} from '@angular/material/button';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-change-password',
   standalone:true,
-  imports: [CommonModule,MatButtonModule, MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule,FormsModule,MatCardModule],
+  imports: [MatButtonModule, MatIconModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,TranslateModule,FormsModule,MatCardModule],
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
@@ -28,7 +27,6 @@ export class ChangePasswordComponent {
   newPasswordHide: boolean = true;
   retypePasswordHide: boolean = true;
   language!:string;
-  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   get fpass(){return this.changePassForm.controls}
   constructor(
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
@@ -86,9 +84,7 @@ export class ChangePasswordComponent {
       })
     }
   }
-  ClearForm(formDirective:any){
-    formDirective.resetForm();
-  }
+
     onNoClick(flag: any): void {
       this.dialogRef.close(flag);
     }

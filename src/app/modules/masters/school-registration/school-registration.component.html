@@ -21,7 +21,7 @@
               <i class='bx bxs-file-pdf text-danger'></i>
             </div>
           </button> -->
-          <button mat-menu-item (click)="excelPdfDownload('excel')">
+          <button mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>Excel</span>
               <i class='bx bxs-file text-primary'></i>
@@ -37,7 +37,7 @@
       </div>
     </div>
   </mat-card-header>
-  <form [formGroup]="filterForm">
+  <form [formGroup]="filterForm" #formGroupDirective="ngForm">
     <mat-card-header class="card-header">
       <div class="row w-100">
         <div class="col-sm-3">

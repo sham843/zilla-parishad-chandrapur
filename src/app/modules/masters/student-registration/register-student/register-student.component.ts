@@ -17,7 +17,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class RegisterStudentComponent {
   studentFrm!: FormGroup;
-  lang: string | any = 'English';
+  lang: string  = 'English';
   districtArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
@@ -256,9 +256,17 @@ export class RegisterStudentComponent {
     } else {
       this.ngxspinner.show();
       let data = this.studentFrm.value;
+      let obj = {
+        "createdBy": !this.editFlag ? this.webStorage.getUserId() : this.data.createdBy,
+        "modifiedBy": this.webStorage.getUserId(),
+        "createdDate": !this.editFlag ? new Date() :  this.data.createdDate,
+        "modifiedDate": new Date(),
+        "isDeleted": false,
+      }
+      let mainData = { ...obj, ...data};
       let url;
       this.editFlag ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
-      this.apiService.setHttp(this.editFlag ? 'put' : 'post', url, false, data, false, 'baseUrl');
+      this.apiService.setHttp(this.editFlag ? 'put' : 'post', url, false, mainData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.ngxspinner.hide();

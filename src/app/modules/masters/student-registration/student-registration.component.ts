@@ -183,6 +183,7 @@ clearForm() {
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
     };
+    console.log(tableData);
     this.apiService.tableData.next(tableData);
   }
 
@@ -247,7 +248,7 @@ clearForm() {
               this.getTableData();
             }
             else {
-              this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+              this.commonMethod.snackBar(res.statusMessage, 1);
             }
           }),
           error: (error: any) => {

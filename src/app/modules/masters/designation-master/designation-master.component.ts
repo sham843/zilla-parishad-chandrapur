@@ -24,21 +24,22 @@ export class DesignationMasterComponent {
   searchdesignationLvl = new FormControl('');
   desigantionLevelArray = new Array();
   tableDataArray = new Array();
-
+  tableDatasize!: number;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
-    private errors: ErrorsService, private webStorage: WebStorageService, 
-    private commonMethod: CommonMethodsService,private spinner: NgxSpinnerService,private excelPdf: ExcelPdfDownloadService
-    ) { }
+    private errors: ErrorsService, private webStorage: WebStorageService,
+    private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
+  ) { }
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
+      this.setTableData();
     })
     this.getDesignationLevel();
     this.getTableData()
   }
 
-  clearFilter(){
+  clearFilter() {
     this.searchdesignationLvl.reset();
     this.getTableData();
   }
@@ -47,12 +48,11 @@ export class DesignationMasterComponent {
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevelArray = res.responseData;
     })
-    }
+  }
 
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let tableDatasize!: Number;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchdesignationLvl.value) + '&' + str + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -60,32 +60,36 @@ export class DesignationMasterComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          tableDatasize = res.responseData.responseData2.pageCount;
+          this.tableDatasize = res.responseData.responseData2.pageCount;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
-          tableDatasize = 0;
+          this.tableDatasize = 0;
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
-        let displayedColumns;
-        this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
-        let displayedheaders;
-        this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
-        let tableData = {
-          pageNumber: this.pageNumber,
-          img: '', blink: '', badge: '', isBlock: '', 
-          displayedColumns: displayedColumns,pagination: true,
-          tableData: this.tableDataArray,
-          tableSize: tableDatasize,
-          tableHeaders: displayedheaders,
-        };
-        this.apiService.tableData.next(tableData);
+        this.setTableData();
       },
-      error: ((err: any) => { 
+      error: ((err: any) => {
         this.spinner.hide();
-        this.errors.handelError(err) })
+        this.errors.handelError(err)
+      })
     });
 
+  }
+
+  setTableData() {
+    let displayedColumns;
+    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
+    let displayedheaders;
+    this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
+    let tableData = {
+      pageNumber: this.pageNumber,
+      img: '', blink: '', badge: '', isBlock: '', pagination: true,
+      displayedColumns: displayedColumns, tableData: this.tableDataArray,
+      tableSize: this.tableDatasize,
+      tableHeaders: displayedheaders,
+    };
+    this.apiService.tableData.next(tableData);
   }
 
   childCompInfo(obj: any) {
@@ -105,23 +109,25 @@ export class DesignationMasterComponent {
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-      const dialogRef = this.dialog.open(AddDesignationComponent, {
-        width: '420px',
-        data: obj,
-        disableClose: true,                                    
-        autoFocus: false,
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        !result ? this.getTableData() : '';
-          });
-    }
+    const dialogRef = this.dialog.open(AddDesignationComponent, {
+      width: '420px',
+      data: obj,
+      disableClose: true,
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      !result ? this.getTableData() : '';
+    });
+  }
 
-  globalDialogOpen(obj?:any) {
+  globalDialogOpen(obj?: any) {
     let dialoObj = {
-      header: 'Delete',
-      cardTitle: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
-      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      successBtnText: this.lang == 'mr-IN' ? 'होय' : 'Ok'
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      p2: '',
+      cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      dialogIcon: 'assets/images/logout.gif',
+      cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -130,14 +136,14 @@ export class DesignationMasterComponent {
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      if(result == 'Yes'){
+      if (result == 'Yes') {
         let designationId = obj.id;
         let userId = obj.userId;
-        this.apiService.setHttp('DELETE', 'designation/delete-designation-details?designationId='+ designationId +'&userId=' + userId + '&flag=' + this.lang, false, false, false, 'baseUrl');
+        this.apiService.setHttp('DELETE', 'designation/delete-designation-details?designationId=' + designationId + '&userId=' + userId + '&flag=' + this.lang, false, false, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == "200") {
-              this.commonMethod.snackBar(res.statusMessage,0);
+              this.commonMethod.snackBar(res.statusMessage, 0);
               this.getTableData()
             } else {
               this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -150,10 +156,10 @@ export class DesignationMasterComponent {
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
-    let pageName='Designation Master';
-    let header=['Sr.No.','Designation Name','Linked To','Designation Level'];
-    let column=['srNo', 'designationName','linkedToDesignationName','designationLevelName'];
-    this.excelPdf.downloadExcel(this.tableDataArray,pageName,header,column);
+    let pageName = 'Designation Master';
+    let header = ['Sr.No.', 'Designation Name', 'Linked To', 'Designation Level'];
+    let column = ['srNo', 'designationName', 'linkedToDesignationName', 'designationLevelName'];
+    this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 
   // pdfDownload() {
