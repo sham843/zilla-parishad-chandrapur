@@ -4,11 +4,11 @@
         "excel":"Excel",
         "district":"District",
         "taluka":"Taluka",
-        "select_taluka":"Select Taluka",
+        "select_taluka":"Please Select Taluka",
         "kendra":"Kendra",
-        "select_kendra":"Select kendra",
+        "select_kendra":"Please Select kendra",
         "school":"School",
-        "select_school":"Select School",
+        "select_school":" Please Select School",
         "contact_person":"Contact Person",
         "email":"Email Id",
         "agency_name":"Agency Name",
@@ -28,7 +28,7 @@
         "contact_n":"Contact No.",
         "email_id":"Email Id",
         "action":"Action",
-        "select_user_type":"Select User Type",
+        "select_user_type":"Please Select User Type",
         "name":"Name",
         "mobile_number":"Mobile Number",
         "delete":"Delete",
@@ -109,10 +109,7 @@
         "gender":"Gender",
         "standard":"Standard",
         "parent_contact_no":"Parent Contact Number",
-        "select_taluka":"Select Taluka",
-        "select_kendra":"Select Kendra",
-        "select_school":"Select School",
-        "select_standard":"Select Standard",
+        "select_standard":"Please Select Standard",
         "enter_parent_contact_number":"Enter Parent Contact Number",
         "enter_first_name":"Enter First Name",
          "enter_middle_name":"Enter Middle Name",
@@ -143,12 +140,12 @@
     "middle_name":"Middle Name",
     "last_name":"Last Name",
     "enter_saral_id":"Enter Saral Id",
-    "select_gender":"Select Gender",
+    "select_gender":"Please Select Gender",
     "birth_date":"Birth Date",
    "aadhar_card_number":"Aadhar Card Number",
      "enter_aadhar_card_number":"Enter Aadhar Card Number",
     "religion":"Religion",
-    "select_religion":"Select Religion",
+    "select_religion":"Please Select Religion",
     "caste":"Caste",
     "please_enter_valid_first_Name":"Please Enter Valid First Name",
     "please_enter_valid_middle_Name":"Please Enter Valid First Name",
@@ -162,7 +159,7 @@
         "add_designation": "Add Designation",
         "designation_name": "Designation Name",
         "designation_level": "Designation Level",
-        "select_designation": "Select Designation",
+        "select_designation": "Please Select Designation",
         "admin": "Admin",
         "designation_type": "Designation Type",
         "set_designation_level": "Set Designation Level",
@@ -206,7 +203,10 @@
         "school_category":"School Category",
         "school_type":"School Type",
         "gender_selected":"Gender Selected",
-        "school_name_required":"School Name is Required"
+        "school_name_required":"School Name is Required",
+        "school_name_length_should_not_less_than_10": "School Name Length Should not Less Than 10",
+        "please_enter_valid_school name":"Please Enter Valid School Name",
+        "update_school":"Update School"
       },
       "header":{
         "profile_name":"Mr. Sunil Rajaram Shinde",
@@ -231,3 +231,6 @@
       }
 
 }
+
+
+	
