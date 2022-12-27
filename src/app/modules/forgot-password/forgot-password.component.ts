@@ -47,8 +47,8 @@ export class ForgotPasswordComponent {
     this.forgotPasswordForm = this.fb.group(({
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       mobileNumber: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
-      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{4,20}$')]],
-      cpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{4,20}$')]],
+      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,20}$')]],
+      cpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,20}$')]],
       otpNumber: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]]
     }))
   }
@@ -111,6 +111,14 @@ export class ForgotPasswordComponent {
     this.otpTimer = 20;
   }
 
+  goBack(){
+    this.verOtpFlag = false;
+    let formValue = this.forgotPasswordForm.value;
+    formValue?.mobileNumber ?  this.forgotPasswordForm.controls['password'].setValue('') : '';
+    formValue?.otpNumber ?this.forgotPasswordForm.controls['cpassword'].setValue('') : '';
+  }
+  
+
   setOtpTimer() {
     this.otpTimerFlag = false;
     this.otpTimerSub = setInterval(() => {
@@ -127,6 +135,8 @@ export class ForgotPasswordComponent {
     if (this.forgotPasswordForm.invalid) {
       this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : '', 1)
       return;
+    }else if(this.forgotPasswordForm.value.password != this.forgotPasswordForm.value.cpassword){
+      this.commonMethods.snackBar('New Password And Comfirm Password Not Match',1);
     } else {
       let loginData = this.forgotPasswordForm.value;
       let obj = {
