@@ -152,11 +152,11 @@ clearForm() {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          this.tableDataArray = res.responseData.responseData1;
-          this.tableDataArray.map((ele: any) => {
+          this.tableDataArray = res.responseData;
+          this.tableDataArray?.map((ele: any) => {
             ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
           })
-          this.tableDatasize = res.responseData.responseData2.pageCount;
+          this.tableDatasize = res.responseData1?.pageCount;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -183,7 +183,6 @@ clearForm() {
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
     };
-    console.log(tableData);
     this.apiService.tableData.next(tableData);
   }
 

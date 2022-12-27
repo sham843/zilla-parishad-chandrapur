@@ -9,7 +9,6 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
-
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
@@ -63,7 +62,7 @@ export class RegisterStudentComponent {
    //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
    formData(data?: any) {
     this.studentFrm = this.fb.group({
-      "id": [0],
+      "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
       "m_Name": [data?.m_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
       "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
@@ -78,7 +77,10 @@ export class RegisterStudentComponent {
       "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || '', [Validators.required]],
       "cast": [data?.cast || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
+      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]],
+      "stateId": [data?.stateId || this.apiService.stateId],
+      "lan": ['' || this.lang],
+      "emailId": [''],
     })
   }
 
