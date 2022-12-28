@@ -204,8 +204,8 @@ if(this.userRegistrationForm.value.userType==2){
   this.userRegistrationForm.get('kendra')?.updateValueAndValidity();
   this.userRegistrationForm.get('school')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('school')?.updateValueAndValidity();
-  this.userRegistrationForm.get('class')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('class')?.updateValueAndValidity();
+/*   this.userRegistrationForm.get('class')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('class')?.updateValueAndValidity(); */
   this.userRegistrationForm.get('subject')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('subject')?.updateValueAndValidity();
   this.userRegistrationForm.get('agency')?.clearValidators();
@@ -221,8 +221,8 @@ if(this.userRegistrationForm.value.userType==2){
   this.userRegistrationForm.get('designation')?.updateValueAndValidity();
   this.userRegistrationForm.get('school')?.clearValidators();
   this.userRegistrationForm.get('school')?.updateValueAndValidity();
-  this.userRegistrationForm.get('class')?.clearValidators();
-  this.userRegistrationForm.get('class')?.updateValueAndValidity();
+ /*  this.userRegistrationForm.get('class')?.clearValidators();
+  this.userRegistrationForm.get('class')?.updateValueAndValidity(); */
   this.userRegistrationForm.get('subject')?.clearValidators();
   this.userRegistrationForm.get('subject')?.updateValueAndValidity();
 }
@@ -254,7 +254,31 @@ if(this.userRegistrationForm.value.userType==2){
   clearUserForm(formDirective:any){
     formDirective.resetForm();
   }
-  registerUser(formDirective:any) {
-    formDirective
+  registerUser() {
+    if(this.userRegistrationForm.invalid){
+        return;
+    }
+    else{
+      console.log(this.userRegistrationForm.value.class);
+      console.log(this.userRegistrationForm.value.subject);[2, 3, 4]
+      let classValue:any=[];
+      classValue.push(this.userRegistrationForm.value.class);
+      classValue.forEach((ele:any) => {
+       this.classArr.push( {
+        "standardId":ele
+      })
+      });
+      console.log(this.classArr);
+      /* let classArr=[
+        {
+          "standardId": 0
+        }
+      ]
+      let subjectArr=[
+        {
+          "subjectId": 0
+        }
+      ] */
+    }
   }
 }

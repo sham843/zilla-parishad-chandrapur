@@ -88,7 +88,7 @@ export class DesignationMasterComponent {
     this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: true,
+      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize> 10? true :false,
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
