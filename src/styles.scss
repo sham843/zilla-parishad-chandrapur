@@ -250,3 +250,7 @@ a.text-main,
   padding: 0;
   border-color: var(--main-color);
 }
+// my css
+.mat-mdc-paginator-page-size {
+  display: none !important;
+}
