@@ -14,6 +14,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AgencyRegistrationComponent,
@@ -32,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TableGridComponent,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatTooltipModule
   ]
 })
 export class AgencyRegistrationModule { }
