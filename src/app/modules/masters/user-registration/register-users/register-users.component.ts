@@ -64,8 +64,8 @@ export class RegisterUsersComponent {
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
-      class: [''],
-      subject: ['']
+      standardModels: [''],
+      subjectModels: ['']
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
@@ -187,10 +187,10 @@ if(this.userRegistrationForm.value.userTypeId==2){
   this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
   this.userRegistrationForm.get('schoolId')?.clearValidators();
   this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('class')?.clearValidators();
-  this.userRegistrationForm.get('class')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subject')?.clearValidators();
-  this.userRegistrationForm.get('subject')?.updateValueAndValidity();
+  this.userRegistrationForm.get('standardModels')?.clearValidators();
+  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
+  this.userRegistrationForm.get('subjectModels')?.clearValidators();
+  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
   this.userRegistrationForm.get('agencyId')?.clearValidators();
   this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
 }else if(this.userRegistrationForm.value.userTypeId==3){
@@ -202,10 +202,10 @@ if(this.userRegistrationForm.value.userTypeId==2){
   this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
   this.userRegistrationForm.get('schoolId')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('class')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('class')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subject')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('subject')?.updateValueAndValidity();
+  this.userRegistrationForm.get('standardModels')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
+  this.userRegistrationForm.get('subjectModels')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
   this.userRegistrationForm.get('agencyId')?.clearValidators();
   this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
 }else if(this.userRegistrationForm.value.userTypeId==4){
@@ -219,10 +219,10 @@ if(this.userRegistrationForm.value.userTypeId==2){
   this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
   this.userRegistrationForm.get('schoolId')?.clearValidators();
   this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('class')?.clearValidators();
-  this.userRegistrationForm.get('class')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subject')?.clearValidators();
-  this.userRegistrationForm.get('subject')?.updateValueAndValidity();
+  this.userRegistrationForm.get('standardModels')?.clearValidators();
+  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
+  this.userRegistrationForm.get('subjectModels')?.clearValidators();
+  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
 }
 
   }
@@ -245,7 +245,7 @@ if(this.userRegistrationForm.value.userTypeId==2){
     }else if(flag=='centerId'){
       this.userRegistrationForm.controls['schoolId'].setValue('');
     }else if(flag=='class'){
-     this.userRegistrationForm.controls['subject'].setValue('');
+     this.userRegistrationForm.controls['subjectModels'].setValue('');
     }
   }
 
@@ -259,17 +259,19 @@ if(this.userRegistrationForm.value.userTypeId==2){
     else{
       let standardModels:any=[],subjectModels:any=[];
     if(this.userRegistrationForm.value.userTypeId==3){
-      this.userRegistrationForm.value.class.forEach((ele:any) => {
+      this.userRegistrationForm.value.standardModels.forEach((ele:any) => {
         standardModels.push( {
         "standardId":ele
         })
       });
-      this.userRegistrationForm.value.subject.forEach((ele:any) => {
+      this.userRegistrationForm.value.subjectModels.forEach((ele:any) => {
          subjectModels.push( {
          "subjectId":ele
          })
        });
     }
+    this.userRegistrationForm.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
+    this.userRegistrationForm.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
       let obj=this.userRegistrationForm.value;
       obj.createdBy=this.data?0:0;
       obj.modifiedBy=this.data?0:0;
@@ -287,10 +289,8 @@ if(this.userRegistrationForm.value.userTypeId==2){
       obj.fcmId="";
       obj.profilePhoto="";
       obj.msg="";
-      obj.timestamp="";
-      obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
-      obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
-
+      // obj.timestamp="";
+    console.log(obj)
     this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {

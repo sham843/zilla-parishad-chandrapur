@@ -141,11 +141,11 @@
                         <div class="col-sm-4">
                             <mat-form-field  appearance="outline" class="w-100">
                                 <mat-label>{{'user_Registration.class' |translate}}</mat-label>
-                                <mat-select formControlName="class" multiple (selectionChange)="clearDropdown('class')">
+                                <mat-select formControlName="standardModels" multiple (selectionChange)="clearDropdown('class')">
                                   <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.standard}}</mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="f['class'].errors">
-                                    <span class="text-danger" *ngIf="f['class'].hasError('required')">
+                                <mat-error *ngIf="f['standardModels'].errors">
+                                    <span class="text-danger" *ngIf="f['standardModels'].hasError('required')">
                                         Please Select class Name
                                     </span>
                                 </mat-error>
@@ -156,11 +156,11 @@
                         <div class="col-sm-4">
                             <mat-form-field  appearance="outline" class="w-100">
                                 <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
-                                <mat-select formControlName="subject" multiple>
+                                <mat-select formControlName="subjectModels" multiple>
                                     <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="f['subject'].errors">
-                                    <span class="text-danger" *ngIf="f['subject'].hasError('required')">
+                                <mat-error *ngIf="f['subjectModels'].errors">
+                                    <span class="text-danger" *ngIf="f['subjectModels'].hasError('required')">
                                         Please Select School Name
                                     </span>
                                 </mat-error>
