@@ -5,40 +5,42 @@
     </ol>
 </nav>
 <form [formGroup]="topFilterForm">
-<div class="row">
-    <div class="col-sm-4">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>तालुका निवडा</mat-label>
-          
-            <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();">
-                <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
-                <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
-                      {{tal.taluka}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field>
+    <div class="row">
+        <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>तालुका निवडा</mat-label>
+
+                <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();">
+                    <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
+                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                        {{tal.taluka}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>केंद्र निवडा</mat-label>
+                <mat-select formControlName="kendraId" [disabled]="topFilterForm.value.talukaId==0 ? true : false"
+                    (selectionChange)="getSchools();cardCountData();">
+                    <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
+                        {{cen.center}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>शाळा निवडा</mat-label>
+                <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId"
+                    (selectionChange)="cardCountData()">
+                    <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
+                        {{schools.schoolName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-    <div class="col-sm-4">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>केंद्र निवडा</mat-label>
-            <mat-select formControlName="kendraId" [disabled]="topFilterForm.value.talukaId==0 ? true : false" (selectionChange)="getSchools();cardCountData();">
-                <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
-                      {{cen.center}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>शाळा निवडा</mat-label>
-            <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId" (selectionChange)="cardCountData()">
-                <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
-                      {{schools.schoolName}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field>
-    </div>
-</div>
 </form>
 <div class="row mb-3" id="dash-stats">
     <div class="col-sm-3">
@@ -106,18 +108,38 @@
                 नकाशा
             </mat-card-header>
             <mat-card-content class="card-body">
-               <div id="mapsvg" ></div>
+                <div id="mapsvg"></div>
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="plain-card">
-            <mat-card-header class="card-header">
-                Management wise Schools
-            </mat-card-header>
-            <mat-card-content class="card-body">
-           <div id="piChart" ></div>
-            </mat-card-content>
-        </mat-card>
+        <div class="row">
+            <div class="col-sm-6"> <mat-card class="plain-card">
+                    <mat-card-header class="card-header">
+                        Explain the meaning of English words
+                    </mat-card-header>
+                    <mat-card-content class="card-body">
+                        <div id="chart">
+                        <apx-chart
+                        [series]="chartOptions?.series"
+                        [chart]="chartOptions?.chart"
+                        [labels]="chartOptions?.labels"></apx-chart>
+                    </div>
+                    </mat-card-content>
+                </mat-card></div>
+            <div class="col-sm-6"> <mat-card class="plain-card">
+                    <mat-card-header class="card-header">
+                        Explaining the meaning of an English sentence
+                    </mat-card-header>
+                    <mat-card-content class="card-body">
+                        <!-- <apx-chart
+                        [series]="chartOptions?.series"
+                        [chart]="chartOptions?.chart"
+                        [labels]="chartOptions?.labels"
+                        [responsive]="chartOptions?.responsive"
+                      ></apx-chart> -->
+                    </mat-card-content>
+                </mat-card></div>
+        </div>
     </div>
     <div class="col-sm-8">
         <mat-card class="plain-card h-100">
@@ -128,7 +150,29 @@
                 </div>
             </mat-card-header>
             <mat-card-content class="card-body">
-                <div id="chart" ></div>
+                <div class="row">
+                    <div class="col-sm-4 border-end">
+                        <h6 class="small fw-bold text-center mb-0">मराठी भाषा स्तर</h6>
+                        <apx-chart [series]="barchartOptions?.series[0]" [chart]="barchartOptions?.chart"
+                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
+                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
+                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                    </div>
+                    <div class="col-sm-4 border-end">
+                        <h6 class="small fw-bold text-center mb-0">गणित स्तर निवडा</h6>
+                        <apx-chart [series]="barchartOptions?.series[1]" [chart]="barchartOptions?.chart"
+                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
+                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
+                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="small fw-bold text-center mb-0">इंग्रजी स्तर निवडा</h6>
+                        <apx-chart [series]="barchartOptions?.series[2]" [chart]="barchartOptions?.chart"
+                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
+                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
+                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                    </div>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>
