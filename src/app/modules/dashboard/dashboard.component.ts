@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import * as ApexCharts from 'apexcharts';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -23,7 +22,8 @@ export class DashboardComponent {
   talukaArray = new Array();
   schoolArray = new Array();
   graphInstance: any;
-
+  barchartOptions!: any;
+  chartOptions:any;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -38,16 +38,17 @@ export class DashboardComponent {
       this.language = res;
     });
     this.mainFilterForm();
+    this.pieChart();
     this.getTaluka();
     this.cardCountData();
   }
 
   ngAfterViewInit() {
-    this.pieChart();
-    this.columnChart();
+
+    this.getBarChart();
     this.showSvgMap(this.commonMethods.mapRegions());
 
-    $(document).on('click', '#mapsvg  path', (e: any) => { 
+    $(document).on('click', '#mapsvg  path', (e: any) => {
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
       console.log(distrctId);
@@ -141,81 +142,144 @@ export class DashboardComponent {
 
   //#region ------------------------------main conatnet svg map with graph-------------------------------------------------------//
   pieChart() {
-    var options = {
-      series: [44, 55],
+    this.chartOptions = {
+      series: [44, 55, 13, 43, 22],
       chart: {
-        type: 'donut',
+        type: "donut"
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 80
-          },
-          legend: {
-            position: 'bottom'
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
           }
         }
-      }]
+      ]
     };
-    var chart = new ApexCharts(document.querySelector("#piChart"), options);
-    chart.render();
   }
 
-  columnChart() {
-    var options = {
-      series: [{
-        name: 'PRODUCT A',
-        data: [44, 55, 41, 67, 22, 43, 21, 49]
-      }, {
-        name: 'PRODUCT B',
-        data: [13, 23, 20, 8, 13, 27, 33, 12]
-      }, {
-        name: 'PRODUCT C',
-        data: [11, 17, 15, 15, 21, 14, 15, 13]
-      }],
+  getBarChart() {
+    this.barchartOptions = {
+      series: [
+        [{
+          name: "PRODUCT A",
+          data: [44]
+        },
+        {
+          name: "PRODUCT B",
+          data: [13]
+        },
+        {
+          name: "PRODUCT C",
+          data: [11]
+        }],
+        [{
+          name: "PRODUCT A",
+          data: [24]
+        },
+        {
+          name: "PRODUCT B",
+          data: [10]
+        },
+        {
+          name: "PRODUCT C",
+          data: [48]
+        }],
+        [{
+          name: "PRODUCT A",
+          data: [65]
+        },
+        {
+          name: "PRODUCT B",
+          data: [10]
+        },
+        {
+          name: "PRODUCT C",
+          data: [37]
+        }],
+        [{
+          name: "PRODUCT A",
+          data: [65, 36, 25, 15]
+        },
+        {
+          name: "PRODUCT B",
+          data: [10, 70, 25, 42]
+        },
+        {
+          name: "PRODUCT C",
+          data: [37, 65, 74, 20]
+        }],
+      ],
       chart: {
-        type: 'bar',
+        type: "bar",
         height: 350,
         stacked: true,
-        stackType: '100%'
+        stackType: "100%",
+        toolbar: {
+          show: false
+        },
+       
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          legend: {
-            position: 'bottom',
-            offsetX: -10,
-            offsetY: 0
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0
+            }
           }
         }
-      }],
+      ],
       xaxis: {
-        categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
-          '2012 Q3', '2012 Q4'
-        ],
+        labels: {
+          show: false,
+        },
+        categories: [
+          "2011 Q1",
+        ]
+      },
+
+      yaxis: {
+        show: false,
+        showAlways: false,
+        floating: false,
+        axisTicks: {
+          show: false
+        },
+        axisBorder: {
+          show: false
+        },
+        labels: {
+          show: false
+        },
+
       },
       fill: {
         opacity: 1
       },
       legend: {
-        position: 'right',
+        position: "right",
         offsetX: 0,
         offsetY: 50
-      },
+      }
     };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
   }
   //#endregion  -----------------------------main conatnet svg map with graph-----------------------------------------------------//
 
   //#region ------------------------------------------svg map fun start heare -------------------------------------------------------//
-  showSvgMap(data:any) {
-    this.graphInstance ?   this.graphInstance.destroy():'';
-    let createMap:any = document.getElementById("#mapsvg");
+  showSvgMap(data: any) {
+    this.graphInstance ? this.graphInstance.destroy() : '';
+    let createMap: any = document.getElementById("#mapsvg");
 
-    this.graphInstance =createMap?.mapSvg({
+    this.graphInstance = createMap?.mapSvg({
       width: 550,
       height: 430,
       colors: {
