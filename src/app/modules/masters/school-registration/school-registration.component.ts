@@ -10,6 +10,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -28,6 +29,7 @@ export class SchoolRegistrationComponent {
   tableDatasize!: number;
   totalPages!:number;
   excelDowobj:any;
+  subscription!: Subscription;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -42,11 +44,16 @@ export class SchoolRegistrationComponent {
     public validator: ValidationService
   ) { }
 
+  // this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+  //   res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
+  //   this.setTableData(); this.getUserTypeData(this.language);
+  // })
+
   ngOnInit() {
     this.getFilterFormData();
     this.getTableData();
 
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res == 'Marathi' ? 'mr-IN' : 'en';
       this.setTableData();
     })
@@ -220,10 +227,13 @@ export class SchoolRegistrationComponent {
   clearDropDrown(status: any) {
     if (status == 'taluka') {
       this.filterForm.controls['centerId'].setValue(0);
-      this.filterForm.controls['schoolName'].setValue('');
+      this.filterForm.controls['schoolName'].setValue('');   
     } else if (status == 'center') {
       this.filterForm.controls['schoolName'].setValue('');
     }
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 

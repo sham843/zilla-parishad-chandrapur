@@ -13,7 +13,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district' |translate}}</mat-label>
-                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()" [disabled]="true">
                             <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
                                 {{dist.district}}
                             </mat-option>

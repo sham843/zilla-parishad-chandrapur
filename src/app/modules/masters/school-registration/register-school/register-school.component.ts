@@ -6,6 +6,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-register-school',
   templateUrl: './register-school.component.html',
@@ -22,6 +23,7 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
   lang!: string;
+  subscription!: Subscription;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   constructor
     (
@@ -35,7 +37,7 @@ export class RegisterSchoolComponent {
     ) { }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription=this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.data ? ( this.editFlag = true , this.getDistrict()):  this.getDistrict();
@@ -216,6 +218,10 @@ export class RegisterSchoolComponent {
   clearForm() {
     this.editFlag = false;
     this.formDirective.reset();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
 }
