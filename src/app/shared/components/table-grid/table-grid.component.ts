@@ -67,7 +67,7 @@ export class TableGridComponent implements OnInit {
   action(obj: any, label: string, i?:any) {
     label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;;  
     obj.label = label;
-    obj.pageNumber = obj.pageIndex + 1;
+    obj.pageNumber = label == 'Edit' ? this.pageNumber : obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
     this.recObjToChild.emit(obj);
   }
