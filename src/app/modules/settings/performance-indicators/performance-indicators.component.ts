@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewChild} from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { AddClassComponent } from './add-class/add-class.component';
 import { AddLevelComponent } from './add-level/add-level.component';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,7 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './performance-indicators.component.html',
   styleUrls: ['./performance-indicators.component.scss']
 })
-export class PerformanceIndicatorsComponent implements OnInit{
+export class PerformanceIndicatorsComponent implements OnInit {
 
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -25,11 +25,12 @@ export class PerformanceIndicatorsComponent implements OnInit{
   displayedColumns!: string[];
   dataSource: any;
   filterForm: FormGroup | any;
-  language:any;
-  getAllSubjectArray:any;
-  performanceIndicatorArray:any;
+  language: any;
+  getAllSubjectArray: any;
+  performanceIndicatorArray: any;
   filterEnglishLag = new FormControl(1);
-  classStandardArray = [{first:1}, {second:2}, {third:3},{fourth:4},{fifth:5},{sixth:6}, {seven:7}, {eight:8},{nine:9},{ten:10}];
+  classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seven: 7 }, { eight: 8 }, { nine: 9 }, { ten: 10 }];
+  checkedAssesmentArray: any[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -47,13 +48,11 @@ export class PerformanceIndicatorsComponent implements OnInit{
     this.getAllSubject();
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
-      // this.setTableData(); this.getUserTypeData(this.language);
     })
-
   }
 
   getAllSubject() {
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject' , true, false, false, 'baseUrl')
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', true, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -74,9 +73,28 @@ export class PerformanceIndicatorsComponent implements OnInit{
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.performanceIndicatorArray = res.responseData;
-          this.displayedColumns= Object.keys(this.performanceIndicatorArray[0]);
+          this.displayedColumns = Object.keys(this.performanceIndicatorArray[0]);
           this.dataSource = new MatTableDataSource(res.responseData);
-          this.dataSource.sort = this.sort; 
+          this.dataSource.sort = this.sort;
+          //........................ AssesmentArray code Start Here....................//
+          this.checkedAssesmentArray = []; //first Clear Array
+          this.performanceIndicatorArray.map((ele: any) => {
+            for (let x in ele) { // check key value data in Object
+              this.classStandardArray.find((eleClass: any) => {
+                let classKeyName: any = Object.keys(eleClass); //find class keyName
+                if (classKeyName == x) { //matched Value push in Object
+                  let obj: any = {
+                    "standardId": eleClass[classKeyName],
+                    "assesmentPerformanceId": ele.assesmentParameterId,
+                    "flag": ele[x],
+                  }
+                  this.checkedAssesmentArray.push(obj);
+                }
+              })
+            }
+          })
+          console.log(this.checkedAssesmentArray, 'Main checkedAssesmentArray Data');
+          //........................ AssesmentArray code End Here....................//
         } else {
           this.dataSource = [];
           this.performanceIndicatorArray = [];
@@ -87,47 +105,25 @@ export class PerformanceIndicatorsComponent implements OnInit{
     });
   }
 
-  checkedassesmentArray:any[]=[];
-
-  addCheckedassesment(event:any,objData:any,classType:any){
-
-    let classTypeObj:any; this.classStandardArray.map((ele:any)=>{ Object.keys(ele) == classType ? classTypeObj = ele : ''})
-
-    // this.performanceIndicatorArray.map((ele:any)=>{
-    //   let obj:any = {
-    //     "standardId": classTypeObj[classType],
-    //     "assesmentPerformanceId": ele.assesmentParameterId,
-    //     "flag": event.checked == true ? 1 : 0,
-    //   }
-  
-    // })
-
-    let obj:any = {
-      "standardId": classTypeObj[classType],
-      "assesmentPerformanceId": objData.assesmentParameterId,
-      "flag": event.checked == true ? 1 : 0,
-    }
-
-
-      this.checkedassesmentArray.push(obj);
-      this.checkedassesmentArray = Object.values(this.checkedassesmentArray.reduce((acc,cur)=>Object.assign(acc,{[cur.standardId || cur.assesmentPerformanceId]:cur}),{}))
-      console.log(this.checkedassesmentArray,'111')
-
+  addCheckedassesment(event: any, assmntParameterId: any, classType: any) {
+    let classValueName: any; this.classStandardArray.map((ele: any) => { Object.keys(ele) == classType ? classValueName = Object.values(ele).toString() : '' }) //get classValueName from classStandardArray
+    this.checkedAssesmentArray.map((ele: any) => {
+    (assmntParameterId == ele.assesmentPerformanceId && ele.standardId == classValueName) ? ele.flag = event.checked == true ? 1 : 0 : '';
+    })
+    console.log(this.checkedAssesmentArray, 'Final checked Assesment Data');
   }
 
   onSubmitPI() {
-    // let formData = this.addLevelForm.value;
-    if (!this.checkedassesmentArray.length) {
+    if (!this.checkedAssesmentArray.length) {
       this.commonMethod.snackBar('Please Update at least one Class', 1);
     } else {
-      let obj:any = {
+      let obj: any = {
         "subjectId": this.filterEnglishLag.value,
         "createdBy": this.webStorage.getUserId(),
         "createdDate": new Date(),
-        "assesment": this.checkedassesmentArray
+        "assesment": this.checkedAssesmentArray
       }
       this.spinner.show();
-      // let formType: string = !this.editFlag ? 'POST' : 'PUT';
       this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddPerformancesubject', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -147,15 +143,14 @@ export class PerformanceIndicatorsComponent implements OnInit{
     }
   }
 
-
-  addclass(){
+  addclass() {
     let data = {
-      language:this.language,
+      language: this.language,
     }
-    const dialogRef = this.dialog.open(AddClassComponent,{
-      width:'500px',
+    const dialogRef = this.dialog.open(AddClassComponent, {
+      width: '500px',
       data: data,
-      disableClose:true,
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
@@ -164,15 +159,15 @@ export class PerformanceIndicatorsComponent implements OnInit{
     })
   }
 
-  addlevel(){
+  addlevel() {
     let data = {
-      language:this.language,
-      subjectId:this.filterEnglishLag.value
+      language: this.language,
+      subjectId: this.filterEnglishLag.value
     }
-    const dialogRef = this.dialog.open(AddLevelComponent,{
-      width:'500px',
+    const dialogRef = this.dialog.open(AddLevelComponent, {
+      width: '500px',
       data: data,
-      disableClose:true,
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
@@ -180,6 +175,5 @@ export class PerformanceIndicatorsComponent implements OnInit{
       }
     })
   }
-
 
 }
