@@ -32,12 +32,13 @@
                 </div>
                 <div class="dropdown">
                     <button class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <mat-icon>translate</mat-icon>
+                        <img [src]="selLang == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
+                        <!-- <mat-icon>translate</mat-icon> -->
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <ng-container *ngFor="let getLag of lag">
                         <button class="dropdown-item" (click)="changeLanguage(getLag)" [class.active]="getLag == selLang">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-start">
                                 <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
                                 <span>{{getLag}}</span>
                             </div>

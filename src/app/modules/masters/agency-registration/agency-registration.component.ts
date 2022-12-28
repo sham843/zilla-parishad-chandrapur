@@ -9,7 +9,7 @@ import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-downloa
 import { WebStorageService } from 'src/app/core/services/web-storage.service'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { RegisterAgencyComponent } from './register-agency/register-agency.component'
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-agency-registration',
   templateUrl: './agency-registration.component.html',
@@ -26,7 +26,7 @@ export class AgencyRegistrationComponent {
   language: any;
   pageSize: number = 10;
   excelDowobj!:any;
-
+  subscription!: Subscription;
   constructor(
     public dialog: MatDialog,
     private excelPdf: ExcelPdfDownloadService,
@@ -39,7 +39,7 @@ export class AgencyRegistrationComponent {
 
   ngOnInit() {
     this.getAllAgencyData();
-    this.webStorage.setLanguage.subscribe((res: any) => {
+   this.subscription=this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
       this.setTableData();
     })
@@ -178,5 +178,9 @@ export class AgencyRegistrationComponent {
     let column: any;
     this.language == 'Marathi' ? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

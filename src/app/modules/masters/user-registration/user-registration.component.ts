@@ -185,6 +185,7 @@ setTableData(){
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 
+    // this.getAllAgencyData('excel');
     let pageName;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
@@ -193,5 +194,16 @@ setTableData(){
     this.lang=='mr-IN'?column=['srNo','m_UserType','name','mobileNo']:column=['srNo','userType', 'name', 'mobileNo'];
     this.excel.downloadExcel(this.tableDataArray,pageName,header,column);
   }
+  /* getAllAgencyData(arg0: string) {
+    throw new Error('Method not implemented.')
+  } */
+
+  /* let pageName: any;
+  this.language == 'Marathi' ? pageName = 'एजन्सी नोंदणी' : pageName = 'Agency Registration';
+  let header: any;
+  this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
+  let column: any;
+  this.language == 'Marathi' ? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
+  this.excelDowobj ={'pageName':pageName,'header':header,'column':column} */
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
 }

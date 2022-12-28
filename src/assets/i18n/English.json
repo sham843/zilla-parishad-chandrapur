@@ -233,6 +233,17 @@
         "At_least 1 Uppercase_Characters (A-Z)":"At least 1 Uppercase Characters (A-Z)",
         "At_least 1 Digits(0-9)":"At least 1 Digits(0-9)",
         "At_least 1 Special_Characters (*$@#)":"At least 1 Special Characters (*$@#)"
+      },
+      "performance_indicators":{
+        "English_Language_Level":"English Language Level",
+        "Add_Level_Model":{
+            "add_english_level":"Add English Level",
+            "add_marathi_level":"Add Marathi Level",
+            "add_english_level_is_required":"Add English Level is required.",
+            "enter_valid_add_english_level":"Enter Valid Add English Level",
+            "add_marathi_level_is_required":"Add Marathi Level is required.",
+            "enter_valid_add_marathi_level":"Enter Valid Add Marathi Level"
+        }
       }
 
 }

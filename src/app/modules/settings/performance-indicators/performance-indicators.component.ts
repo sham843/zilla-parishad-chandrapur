@@ -44,15 +44,15 @@ export class PerformanceIndicatorsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAllPerformanceIndicatorData();
-    this.getAllSubject();
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
+      this.getAllSubject();
     })
+    this.getAllPerformanceIndicatorData();
   }
-
+  
   getAllSubject() {
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', true, false, false, 'baseUrl')
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject?flag_lang='+ `${this.language}`, true, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -159,10 +159,15 @@ export class PerformanceIndicatorsComponent implements OnInit {
     })
   }
 
-  addlevel() {
+  editAddLevelData(obj:any){
+  console.log(obj)
+}
+
+  addUpdatelevel(editObj?:any) {
     let data = {
       language: this.language,
-      subjectId: this.filterEnglishLag.value
+      subjectId: this.filterEnglishLag.value,
+      editObjData:editObj
     }
     const dialogRef = this.dialog.open(AddLevelComponent, {
       width: '500px',

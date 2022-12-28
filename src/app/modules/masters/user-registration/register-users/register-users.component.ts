@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service'
   styleUrls: ['./register-users.component.scss']
 })
 export class RegisterUsersComponent {
-  userRegistrationForm!:FormGroup;
+  userRegistrationForm:FormGroup |any;
   userTypeArr=new Array();
   userLevelArr=new Array();
   designationArr=new Array();
@@ -48,26 +48,24 @@ export class RegisterUsersComponent {
     this.getUserType();
     this.getDistrict();
     this.getAgency();
-    this.getAllClassGroup();
+    this.getAllSubject();
   }
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
-      userType: [this.data?this.data.userTypeId:'', [Validators.required]],
-      userLevel: [this.data?this.data.designationLevelId:''],
-      designation: [this.data?this.data.designationId:''],
-      district: [this.data?this.data.districtId:'', [Validators.required]],
-      taluka: [this.data?this.data.talukaId:'', [Validators.required]],
-      kendra: [this.data?this.data.centerId:'', [Validators.required]],
-      school: [this.data?this.data.schoolId:''],
-      agency: [this.data?this.data.agencyId:''],
+      userTypeId: [this.data?this.data.userTypeId:0, [Validators.required]],
+      designationLevelId: [this.data?this.data.designationLevelId:0,[Validators.required]],
+      designationId: [this.data?this.data.designationId:0],
+      districtId: [this.data?this.data.districtId:0, [Validators.required]],
+      talukaId: [this.data?this.data.talukaId:0],
+      centerId: [this.data?this.data.centerId:0],
+      schoolId: [this.data?this.data.schoolId:0],
+      agencyId: [this.data?this.data.agencyId:0],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      mobile: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      email: [this.data?this.data.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
-      address: [this.data?this.data.agencyAddress:''],
+      mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
+      emailId: [this.data?this.data.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       class: [''],
-      subject: [''],
-
+      subject: ['']
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
@@ -76,10 +74,8 @@ export class RegisterUsersComponent {
       this.userTypeArr=res.responseData;
     })
     this.data?this.getUserLevel(this.data.userTypeId):'';
-    this.addRemoveValidation();
   }
-
-  getUserLevel(typeId:number) { 
+  getUserLevel(typeId:number) {
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -95,11 +91,11 @@ export class RegisterUsersComponent {
 }
 
   getDesignation(levelId:any) {
-    this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
       if(res.statusCode == "200"){
-        this.userLevelArr=res.responseData;
+        this.designationArr=res.responseData;
       }
     else{
         this.common.snackBar(res.statusMessage,1)
@@ -107,31 +103,36 @@ export class RegisterUsersComponent {
         error: ((err: any) => { this.errors.handelError(err) })
     })
   } 
+
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
-      this.userRegistrationForm.controls['district'].setValue(this.districtArr[0].id);
+      this.userRegistrationForm.controls['districtId'].setValue(this.districtArr[0].id);
       this.getTaluka(this.districtArr[0].id)
     })
     this.data?this.getTaluka(this.data.districtId):'';
   }
+
   getTaluka(distId:number) {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
     })
     this.data?this.getKendra(this.data.talukaId):'';
   }
+
   getKendra(talukaId:number) {
     this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
     })
     this.data?this.getSchoolName(this.data.centerId):'';
   }
+
   getSchoolName(centerId:number) {
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
       this.schoolArr=res.responseData;
     })
   }
+
   getAgency() {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -146,8 +147,8 @@ export class RegisterUsersComponent {
       })
     }
 
-  getAllClassGroup() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGroupClass?flag_lang='+this.lang, false, false, false, 'baseUrl');
+  getAllClassGroup(schoolId:number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang='+this.lang+'&SchoolId='+schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
        if(res.statusCode == "200"){
@@ -158,10 +159,9 @@ export class RegisterUsersComponent {
        }},
          error: ((err: any) => { this.errors.handelError(err) })
      })
-     this.data?this.getAllSubject(this.data):'';
   }
-  getAllSubject(classId:any) {
-    classId
+
+  getAllSubject() {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -174,50 +174,55 @@ export class RegisterUsersComponent {
          error: ((err: any) => { this.errors.handelError(err) })
      })
   }
+
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
 addRemoveValidation(){
-if(this.userRegistrationForm.value.userType==2){
-  this.userRegistrationForm.get('designation')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('designation')?.updateValueAndValidity();
-  this.userRegistrationForm.get('taluka')?.clearValidators();
-  this.userRegistrationForm.get('taluka')?.updateValueAndValidity();
-  this.userRegistrationForm.get('kendra')?.clearValidators();
-  this.userRegistrationForm.get('kendra')?.updateValueAndValidity();
-  this.userRegistrationForm.get('school')?.clearValidators();
-  this.userRegistrationForm.get('school')?.updateValueAndValidity();
+if(this.userRegistrationForm.value.userTypeId==2){
+  this.userRegistrationForm.get('designationId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('talukaId')?.clearValidators();
+  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('centerId')?.clearValidators();
+  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('schoolId')?.clearValidators();
+  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
   this.userRegistrationForm.get('class')?.clearValidators();
   this.userRegistrationForm.get('class')?.updateValueAndValidity();
   this.userRegistrationForm.get('subject')?.clearValidators();
   this.userRegistrationForm.get('subject')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-}else if(this.userRegistrationForm.value.userType==3){
-  this.userRegistrationForm.get('designation')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('designation')?.updateValueAndValidity();
-  this.userRegistrationForm.get('taluka')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('taluka')?.updateValueAndValidity();
-  this.userRegistrationForm.get('kendra')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('kendra')?.updateValueAndValidity();
-  this.userRegistrationForm.get('school')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('school')?.updateValueAndValidity();
+  this.userRegistrationForm.get('agencyId')?.clearValidators();
+  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
+}else if(this.userRegistrationForm.value.userTypeId==3){
+  this.userRegistrationForm.get('designationId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('talukaId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('centerId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('schoolId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
   this.userRegistrationForm.get('class')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('class')?.updateValueAndValidity();
   this.userRegistrationForm.get('subject')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('subject')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-}else if(this.userRegistrationForm.value.userType==4){
-  this.userRegistrationForm.get('agency')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
+  this.userRegistrationForm.get('agencyId')?.clearValidators();
+  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
+}else if(this.userRegistrationForm.value.userTypeId==4){
+  this.userRegistrationForm.get('agencyId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('talukaId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('centerId')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('designationId')?.clearValidators();
+  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('schoolId')?.clearValidators();
+  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
+  this.userRegistrationForm.get('class')?.clearValidators();
+  this.userRegistrationForm.get('class')?.updateValueAndValidity();
+  this.userRegistrationForm.get('subject')?.clearValidators();
+  this.userRegistrationForm.get('subject')?.updateValueAndValidity();
 }
 
   }
@@ -225,21 +230,22 @@ if(this.userRegistrationForm.value.userType==2){
   //#region--------------------------------------------clear dropdown--------------------------------------------------------------------------
   clearDropdown(flag:any){
     if(flag=='userType'){
-      this.userRegistrationForm.controls['userLevel'].setValue(' ');
-      this.userRegistrationForm.controls['designation'].setValue(' ');
+      this.userRegistrationForm.controls['designationLevelId'].setValue('');
+      this.userRegistrationForm.controls['designationId'].setValue('');
     }else if(flag=='userLevel'){
-      this.userRegistrationForm.controls['designation'].setValue(' ');
+      this.userRegistrationForm.value.userTypeId==4?this.userRegistrationForm.controls['agencyId'].setValue(''):'';
+      this.userRegistrationForm.controls['designationId'].setValue('');
     }else if(flag=='district'){
-      this.userRegistrationForm.controls['taluka'].setValue(' ');
-      this.userRegistrationForm.controls['kendra'].setValue(' ');
-      this.userRegistrationForm.controls['school'].setValue(' ');
+      this.userRegistrationForm.controls['talukaId'].setValue('');
+      this.userRegistrationForm.controls['centerId'].setValue('');
+      this.userRegistrationForm.controls['schoolId'].setValue('');
     }else if(flag=='taluka'){
-      this.userRegistrationForm.controls['kendra'].setValue(' ');
-      this.userRegistrationForm.controls['school'].setValue(' ');
-    }else if(flag=='kendra'){
-      this.userRegistrationForm.controls['school'].setValue(' ');
+      this.userRegistrationForm.controls['centerId'].setValue('');
+      this.userRegistrationForm.controls['schoolId'].setValue('');
+    }else if(flag=='centerId'){
+      this.userRegistrationForm.controls['schoolId'].setValue('');
     }else if(flag=='class'){
-     this.userRegistrationForm.controls['subject'].setValue(' ');
+     this.userRegistrationForm.controls['subject'].setValue('');
     }
   }
 
@@ -247,6 +253,56 @@ if(this.userRegistrationForm.value.userType==2){
     formDirective.resetForm();
   }
   registerUser(formDirective:any) {
-    formDirective
+    if(this.userRegistrationForm.invalid){
+        return;
+    }
+    else{
+      let standardModels:any=[],subjectModels:any=[];
+    if(this.userRegistrationForm.value.userTypeId==3){
+      this.userRegistrationForm.value.class.forEach((ele:any) => {
+        standardModels.push( {
+        "standardId":ele
+        })
+      });
+      this.userRegistrationForm.value.subject.forEach((ele:any) => {
+         subjectModels.push( {
+         "subjectId":ele
+         })
+       });
+    }
+      let obj=this.userRegistrationForm.value;
+      obj.createdBy=this.data?0:0;
+      obj.modifiedBy=this.data?0:0;
+      obj.createdDate=this.data?new Date():new Date();
+      obj.modifiedDate=this.data?new Date():new Date();
+      obj.isDeleted=false;
+      this.data?obj.id=this.data.id:0;
+      obj.userName="";
+      obj.password="";
+      obj.stateId=1;
+      obj.isBlock=false;
+      obj.blockDate="2022-12-28T09:42:55.883Z";
+      obj.blockBy=0;
+      obj.deviceTypeId=0;
+      obj.fcmId="";
+      obj.profilePhoto="";
+      obj.msg="";
+      obj.timestamp="";
+      obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
+      obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
+
+    this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == '200') {
+        this.common.snackBar(res.statusMessage,0);
+        this.dialogRef.close('Yes');
+        formDirective.resetForm();
+        console.log(res);
+      }
+    },
+    (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
   }
 }

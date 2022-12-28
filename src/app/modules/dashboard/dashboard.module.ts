@@ -8,10 +8,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    StudentProfileComponent
   ],
   imports: [
     CommonModule,

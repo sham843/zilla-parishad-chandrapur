@@ -1,10 +1,10 @@
-<form [formGroup]="designationForm" (ngSubmit)="onClickSubmit(formDirective)" #formDirective="ngForm">
+<form [formGroup]="designationForm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
             <div class="d-flex justify-content-between align-items-center w-100">
-                <h6 class="text-main mb-0 fw-bold" *ngIf="!editFlag">{{'designation_master.register_designation' |
+                <h6 class="text-main mb-0 fw-bold" *ngIf="!data">{{'designation_master.register_designation' |
                     translate}}</h6>
-                <h6 class="text-main mb-0 fw-bold" *ngIf="editFlag">{{'designation_master.update_designation' |
+                <h6 class="text-main mb-0 fw-bold" *ngIf="data">{{'designation_master.update_designation' |
                     translate}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>
@@ -18,7 +18,7 @@
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100"  [class.disabled-contenct]="userLoginDesignationLevelId != 1">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
-                    <mat-select formControlName="linkedToDesignationLevelId" (selectionChange)="clearFormDependancy();getDesignationType()" [class.disabled-contenct]="userLoginDesignationLevelId != 1">
+                    <mat-select formControlName="linkedToDesignationLevelId" (selectionChange)=" editFlag = false;clearFormDependancy();getDesignationType()" [class.disabled-contenct]="userLoginDesignationLevelId != 1">
                         <!-- [disabled]="designationForm.value.linkedToDesignationLevelId != upDesigLevel.id ? true : false" -->
                         <mat-option   *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.designation_type' | translate}}</mat-label>
-                    <mat-select formControlName="linkedToDesignationId" (selectionChange)="setDesignationLvl()">
+                    <mat-select formControlName="linkedToDesignationId" (selectionChange)="editFlag = false;setDesignationLvl()">
                         <mat-option *ngFor="let upDesigType of desigantionType"
                             [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
                     </mat-select>
@@ -71,9 +71,9 @@
             <div class="d-flex justify-content-end align-items-center w-100">
                 <button type="button" mat-flat-button class="btn-second me-2"
                     (click)="clearForm(formDirective)">{{'common.clear' | translate}}</button>
-                <button mat-flat-button type="submit" class="btn-main" *ngIf="!editFlag">{{'common.submit' |
+                <button mat-flat-button type="submit" class="btn-main" *ngIf="!data">{{'common.submit' |
                     translate}}</button>
-                <button mat-flat-button type="submit" class="btn-main" *ngIf="editFlag">{{'common.update' |
+                <button mat-flat-button type="submit" class="btn-main" *ngIf="data">{{'common.update' |
                     translate}}</button>
             </div>
         </mat-card-footer>
