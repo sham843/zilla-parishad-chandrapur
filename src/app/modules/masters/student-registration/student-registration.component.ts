@@ -10,6 +10,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-registration',
@@ -29,6 +30,7 @@ export class StudentRegistrationComponent {
   excelDowobj!:any;
   totalPages!:number;
   private formDirective!: NgForm;
+  subscription!: Subscription;
   
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
@@ -45,8 +47,9 @@ export class StudentRegistrationComponent {
   ngOnInit() {
     this.formData();
     this.getTableData();
+    console.log("rrrrrrrrrrr",this.commonMethod.getUserTypeID());
 
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription =this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
@@ -271,6 +274,10 @@ clearForm() {
     let column;
     column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   
 }
