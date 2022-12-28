@@ -6,6 +6,7 @@ import { SecureComponent } from './secure.component';
 const routes: Routes = [
   { path: '', component: SecureComponent },
   { path: 'dashboard', loadChildren: () => import('../../modules/dashboard/dashboard.module').then(m => m.DashboardModule), data: { breadcrumb: [{ title: 'Dashboard', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'student-profile', loadChildren: () => import('../../modules/dashboard/student-profile/student-profile.module').then(m => m.StudentProfileModule), data: { breadcrumb: [{ title: 'Student Profile', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'designation-master', loadChildren: () => import('../../modules/masters/designation-master/designation-master.module').then(m => m.DesignationMasterModule), data: { breadcrumb: [{ title: 'Designation Master', active: true }] } , canActivate: [ExpenseGuard] },
   { path: 'school-registration', loadChildren: () => import('../../modules/masters/school-registration/school-registration.module').then(m => m.SchoolRegistrationModule), data: { breadcrumb: [{ title: 'School Registration', active: true }] }, canActivate: [ExpenseGuard]   },
   { path: 'student-registration', loadChildren: () => import('../../modules/masters/student-registration/student-registration.module').then(m => m.StudentRegistrationModule), data: { breadcrumb: [{ title: 'Student Registration', active: true }] }, canActivate: [ExpenseGuard]  },
