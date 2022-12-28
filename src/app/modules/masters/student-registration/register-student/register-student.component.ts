@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -29,6 +30,7 @@ export class RegisterStudentComponent {
   editFlag: boolean = false;
   addData: any;
   todayDate = new Date();
+  subscription!: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -44,7 +46,7 @@ export class RegisterStudentComponent {
   ) { }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
@@ -287,5 +289,9 @@ export class RegisterStudentComponent {
         }
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }
