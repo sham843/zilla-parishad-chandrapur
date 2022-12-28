@@ -71,9 +71,6 @@
                             <mat-option *ngFor="let stand of standardArray" [value]="stand.id">{{stand.standard}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['standardId'].hasError('required')">
-                            {{'student.select_standard'|translate}}
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
