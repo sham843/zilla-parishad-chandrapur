@@ -72,7 +72,7 @@ export class RegisterStudentComponent {
       "talukaId": [data?.talukaId || '', Validators.required],
       "centerId": [data?.centerId || '',[Validators.required]],
       "schoolId": [data?.schoolId || '',[Validators.required]],
-      "standardId": [data?.standardId || '',[Validators.required]],
+      "standardId": [data?.standardId || ''],
       "saralId": [data?.saralId || '', [Validators.required,Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
       "dob": [data?.dob || ''],
