@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component,  ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './page-right-access.component.html',
   styleUrls: ['./page-right-access.component.scss']
 })
-export class PageRightAccessComponent implements OnInit {
+export class PageRightAccessComponent {
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   tableDataArray = new Array();
   totalItem: any;
