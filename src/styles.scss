@@ -254,3 +254,7 @@ a.text-main,
 .mat-mdc-paginator-page-size {
   display: none !important;
 }
+.disabled-contenct {
+  pointer-events: none;
+  opacity: .6;
+}

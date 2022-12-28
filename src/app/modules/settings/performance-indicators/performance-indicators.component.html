@@ -63,7 +63,7 @@
                         == 'mr-IN' ? (disCol == 'assesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : element[disCol]) : (disCol ==
                         'm_AssesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : element[disCol]) }}</span>
                     <span  *ngIf="disCol != 'assesmentParameterId' && disCol != 'assesmentParameter' && disCol != 'm_AssesmentParameter'">
-                        <mat-checkbox class="example-margin" [checked]=" element[disCol] == 1" (change)="addCheckedassesment($event,element,disCol)"></mat-checkbox></span>
+                        <mat-checkbox class="example-margin" [checked]=" element[disCol] == 1" (change)="addCheckedassesment($event,element?.assesmentParameterId,disCol)"></mat-checkbox></span>
                 </td>
             </ng-container>
 
@@ -109,8 +109,7 @@
                 </button>
 
                 <button mat-flat-button class="btn-main float-end" (click)="onSubmitPI()">
-                    <mat-icon>add</mat-icon>
-                    <span>Add</span>
+                    <span>Submit</span>
                 </button>
             </div>
         </div>
