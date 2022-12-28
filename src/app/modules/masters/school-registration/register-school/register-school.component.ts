@@ -200,9 +200,9 @@ export class RegisterSchoolComponent {
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
-            this.common.snackBar(res.statusMessage, 1);
+            this.common.snackBar(res.statusMessage, 0);
             this.registerForm.reset();
-            this.dialogRef.close();
+            this.dialogRef.close(this.editFlag ? 'post' : 'put');
           }else{
             this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
