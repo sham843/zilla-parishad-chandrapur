@@ -13,25 +13,25 @@
     <mat-card-content class="card-body">
         <div class="row">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Add English Level</mat-label>
-                <input matInput placeholder="Add English Level" formControlName="assesmentParameter">
+                <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
+                <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}" formControlName="assesmentParameter">
                 <mat-error *ngIf="f.assesmentParameter.errors">
                     <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
-                        Add English Level is required.</span>
+                        {{'performance_indicators.Add_Level_Model.add_english_level_is_required' | translate}}</span>
                         <span class="text-danger" *ngIf="f.assesmentParameter.errors?.pattern">
-                            Enter Valid Add English Level</span>
+                            {{'performance_indicators.Add_Level_Model.enter_valid_add_english_level' | translate}}</span>
                 </mat-error>
               </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Add Marathi Level</mat-label>
-                <input matInput placeholder="Add Marathi Level" formControlName="m_AssesmentParameter">
+                <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
+                <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}" formControlName="m_AssesmentParameter">
                 <mat-error *ngIf="f.m_AssesmentParameter.errors">
                     <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
-                        Add Marathi Level is required.</span>
+                        {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span>
                         <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.pattern">
-                            Enter Valid Add Marathi Level</span>
+                            {{'performance_indicators.Add_Level_Model.enter_valid_add_marathi_level' | translate}}</span>
                 </mat-error>
               </mat-form-field>
         </div>
