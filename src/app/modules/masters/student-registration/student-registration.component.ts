@@ -135,12 +135,15 @@ clearDropdown(flag: any) {
 
 clearForm() {
   this.filterFrm.reset();
-  this.filterFrm.setValue({
-    talukaId: 0,
-    centerId: 0,
-    schoolId: 0,
-    searchText: ''
-  });
+  this.formData();
+  this.centerArray=[];
+  this.schoolArray = [];
+  // this.filterFrm.setValue({
+  //   talukaId: 0,
+  //   centerId: 0,
+  //   schoolId: 0,
+  //   searchText: ''
+  // });
   // this.formDirective.resetForm({
   //     talukaId: 0,
   //     centerId: 0,
