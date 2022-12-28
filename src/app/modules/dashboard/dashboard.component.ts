@@ -23,7 +23,9 @@ export class DashboardComponent {
   schoolArray = new Array();
   graphInstance: any;
   barchartOptions!: any;
-  chartOptions:any;
+  piechartOptions: any;
+  piechartSecondOptions: any;
+  getSurveyedData: any;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -38,16 +40,13 @@ export class DashboardComponent {
       this.language = res;
     });
     this.mainFilterForm();
-    this.pieChart();
     this.getTaluka();
     this.cardCountData();
   }
 
   ngAfterViewInit() {
-
     this.getBarChart();
     this.showSvgMap(this.commonMethods.mapRegions());
-
     $(document).on('click', '#mapsvg  path', (e: any) => {
       let getClickedId = e.currentTarget;
       let distrctId = $(getClickedId).attr('id');
@@ -129,6 +128,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.cardInfoData = res.responseData;
+        this.getAssesmentPiChartData();
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -140,14 +140,82 @@ export class DashboardComponent {
 
   //#endregion ------------------------------------------top bar filter and card data info function's start heare ------------------------------//
 
-  //#region ------------------------------main conatnet svg map with graph-------------------------------------------------------//
-  pieChart() {
-    this.chartOptions = {
-      series: [44, 55, 13, 43, 22],
+  //#region ---------------------------------------------main contant api fn start heare-----------------------------------------------//
+
+  getAssesmentPiChartData(){//Explain Meaning of English Word //Explain Meaning of English Sentence
+    let filterFormData = this.topFilterForm.value;
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}`
+    this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.pieChart(res.responseData)
+        this.getSurveyDashboardDetails();
+      }
+      else {
+        this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
+
+  getSurveyDashboardDetails() {
+    let filterFormData = this.topFilterForm.value;
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}`
+    this.apiService.setHttp('get', 'dashboard/get-survey-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.getSurveyedData = res.responseData;
+      }
+      else {
+        this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
+
+
+  //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//
+
+  //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
+  pieChart(data:any) {
+    this.piechartOptions = {
+      series: [data[0].assesmentDetails[0].assesmentCalculationValue, data[0].assesmentDetails[1].assesmentCalculationValue],
       chart: {
-        type: "donut"
+        type: "donut",
+        height: 250,
       },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      labels: [data[0].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
+      legend: {
+        position: "bottom",
+      },
+
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this.piechartSecondOptions = {
+      series: [data[1].assesmentDetails[0].assesmentCalculationValue, data[0].assesmentDetails[1].assesmentCalculationValue],
+      chart: {
+        type: "donut",
+        height: 250,
+      },
+      labels: [data[1].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
+      legend: {
+        position: "bottom",
+      },
+
       responsive: [
         {
           breakpoint: 480,
@@ -163,7 +231,6 @@ export class DashboardComponent {
       ]
     };
   }
-
   getBarChart() {
     this.barchartOptions = {
       series: [
@@ -224,7 +291,7 @@ export class DashboardComponent {
         toolbar: {
           show: false
         },
-       
+
       },
       responsive: [
         {
@@ -272,9 +339,6 @@ export class DashboardComponent {
       }
     };
   }
-  //#endregion  -----------------------------main conatnet svg map with graph-----------------------------------------------------//
-
-  //#region ------------------------------------------svg map fun start heare -------------------------------------------------------//
   showSvgMap(data: any) {
     this.graphInstance ? this.graphInstance.destroy() : '';
     let createMap: any = document.getElementById("#mapsvg");
@@ -358,9 +422,7 @@ export class DashboardComponent {
     });
     // });
   }
-  //#endregion  ------------------------------------------svg map fun end heare -------------------------------------------------------//
-
-
+  //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
 
 
 }
