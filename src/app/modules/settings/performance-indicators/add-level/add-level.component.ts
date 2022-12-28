@@ -33,15 +33,14 @@ export class AddLevelComponent implements OnInit {
 
   ngOnInit() {
     this.defaultForm();
-    // this.data.language == 'mr-IN'
   }
 
   get f() { return this.addLevelForm.controls }
 
   defaultForm() {
     this.addLevelForm = this.fb.group({
-      assesmentParameter: ['', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
-      m_AssesmentParameter: ['', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
+      assesmentParameter: [this.data.editObjData? this.data.editObjData.assesmentParameter : '', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
+      m_AssesmentParameter: [this.data.editObjData? this.data.editObjData.m_AssesmentParameter : '', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
     });
   }
 
@@ -55,14 +54,14 @@ export class AddLevelComponent implements OnInit {
         "modifiedBy": this.webStorage.getUserId(),
         "createdDate": new Date(),
         "modifiedDate": new Date(),
-        "id": 0,
+        "id": this.data.editObjData? this.data.editObjData.assesmentParameterId : 0,
         "assesmentParameter": formData.assesmentParameter,
         "m_AssesmentParameter": formData.m_AssesmentParameter,
         "subjectId": this.data.subjectId,
         "isDeleted": false
       }
       this.spinner.show();
-      // let formType: string = !this.editFlag ? 'POST' : 'PUT';
+      // let formType: string = !this.editFlag ? 'POST' : 'PUT'; peeeennndddiiinnngggg...................
       this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddLanguageLevel', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
