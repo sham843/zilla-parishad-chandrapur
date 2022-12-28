@@ -5,7 +5,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-page-right-access',
   templateUrl: './page-right-access.component.html',
@@ -18,17 +18,18 @@ export class PageRightAccessComponent implements OnInit {
   tableData: any;
   pageNumber: number = 1;
   filterForm!: FormGroup;
-  language:any;
+  language: any;
+  subscription!: Subscription;
   resGetUserTypeData = new Array();
   constructor(private apiService: ApiService, private errors: ErrorsService,
     private masterService: MasterService, private fb: FormBuilder, private commonMethods: CommonMethodsService,
-    private webStorage:WebStorageService) { }
+    private webStorage: WebStorageService) { }
 
 
   ngOnInit(): void {
     this.callFilterForm();
-    this.webStorage.setLanguage.subscribe((res: any) => {
-      res=='Marathi'?this.language = 'mr-IN': this.language ='en-IN';
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
       this.setTableData(); this.getUserTypeData(this.language);
     })
   }
@@ -41,7 +42,7 @@ export class PageRightAccessComponent implements OnInit {
 
   }
 
-  getUserTypeData(lang:any) {
+  getUserTypeData(lang: any) {
     this.masterService.getUserType(lang).subscribe((res: any) => {
       if (res.statusCode == 200) {
         this.resGetUserTypeData = res.responseData;
@@ -66,17 +67,17 @@ export class PageRightAccessComponent implements OnInit {
           this.tableDataArray = [];
           this.totalItem = 0;
         }
-       this.setTableData();
+        this.setTableData();
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
   }
 
-  setTableData(){  
+  setTableData() {
     let displayedColumns;
-    this.language=='mr-IN'?displayedColumns=['srNo', 'pageName', 'pageURL', 'select']:displayedColumns=['srNo', 'pageName', 'pageURL', 'select'];
+    this.language == 'mr-IN' ? displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'] : displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'];
     let displayedheaders;
-    this.language=='mr-IN'?displayedheaders=['अनुक्रमणिका','पृष्ठाचे नाव','पृष्ठ Url','निवडा']:displayedheaders=['Sr. NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
+    this.language == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पृष्ठाचे नाव', 'पृष्ठ Url', 'निवडा'] : displayedheaders = ['Sr. NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
     this.tableData = {
       pageNumber: this.pageNumber, pagintion: true,
       img: '', blink: '', badge: '', isBlock: '', checkBox: 'select',
@@ -123,9 +124,14 @@ export class PageRightAccessComponent implements OnInit {
 
   clearForm() {
     this.formGroupDirective.resetForm({
-        DesignationtypeId:this.filterForm.value.DesignationtypeId,
-        Textsearch:'',
-      });
+      DesignationtypeId: this.filterForm.value.DesignationtypeId,
+      Textsearch: '',
+    });
     this.getAllPagesData();
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
 }
