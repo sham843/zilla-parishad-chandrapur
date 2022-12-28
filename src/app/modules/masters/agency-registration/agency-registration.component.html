@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-between align-items-center w-100">
           <h6 class="text-main mb-0">{{'agency.agency_registration' |translate}}</h6>
           <div class="d-flex align-items-center gap-2">
-            <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+            <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu" matTooltip="Download Excel">
               <mat-icon>
                 download
               </mat-icon>
@@ -21,7 +21,7 @@
                   <i class='bx bxs-file-pdf text-danger'></i>
                 </div>
               </button> -->
-              <button mat-menu-item (click)="excelDownload()">
+              <button mat-menu-item (click)="excelDownload()" >
                 <div class="d-flex align-items-center justify-content-between w-100">
                   <span>{{'common.excel' |translate}}</span>
                   <i class='bx bxs-file text-primary'></i>
