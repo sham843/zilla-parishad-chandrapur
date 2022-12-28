@@ -174,7 +174,7 @@ export class SchoolRegistrationComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      !result ? this.getTableData() : '';
+      result ? this.getTableData() : '';
     });
   }
 
