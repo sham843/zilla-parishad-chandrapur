@@ -65,23 +65,32 @@ input:-webkit-autofill:active {
     height: 36px !important;
     padding: 6px !important;
 }
+
 // .mat-mdc-form-field-subscript-wrapper{
 //     display:none;
 // }
-.mat-mdc-form-field-icon-prefix>.mat-icon{
+.mat-mdc-form-field-icon-prefix>.mat-icon {
     padding: 6px !important;
 }
+
 .mat-mdc-table .mat-mdc-header-row,
 .mat-mdc-table .mdc-data-table__row {
     height: 42px !important;
-  }
-  .mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper{
+}
+
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
     padding: 0 !important;
-  }
-  .mat-mdc-form-field-error{
+}
+
+.mat-mdc-form-field-error {
     margin: 0 !important;
     font-family: 'Noto Sans Devanagari', sans-serif !important;
     font-size: 0.7rem;
     letter-spacing: normal;
     line-height: 14px;
-  }
+}
+
+.mdc-button .mdc-button__label {
+    line-height: initial !important;
+}
