@@ -108,7 +108,9 @@
                 नकाशा
             </mat-card-header>
             <mat-card-content class="card-body">
-                <div id="mapsvg"></div>
+                <div id="mapsvg" class="text-center">
+                <img src="assets/chandrapur_dist.svg" style="height: 200px;" class="">
+            </div>
             </mat-card-content>
         </mat-card>
 
@@ -119,11 +121,10 @@
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
-                        <apx-chart
-                        [series]="chartOptions?.series"
-                        [chart]="chartOptions?.chart"
-                        [labels]="chartOptions?.labels"></apx-chart>
-                    </div>
+                            <apx-chart [series]="piechartOptions.series" [legend]="piechartOptions?.legend"
+                                [chart]="piechartOptions.chart" [labels]="piechartOptions.labels"
+                                [responsive]="piechartOptions.responsive"></apx-chart>
+                        </div>
                     </mat-card-content>
                 </mat-card></div>
             <div class="col-sm-6"> <mat-card class="plain-card">
@@ -131,12 +132,11 @@
                         Explaining the meaning of an English sentence
                     </mat-card-header>
                     <mat-card-content class="card-body">
-                        <!-- <apx-chart
-                        [series]="chartOptions?.series"
-                        [chart]="chartOptions?.chart"
-                        [labels]="chartOptions?.labels"
-                        [responsive]="chartOptions?.responsive"
-                      ></apx-chart> -->
+                        <div id="chart">
+                            <apx-chart [series]="piechartSecondOptions.series" [legend]="piechartSecondOptions?.legend"
+                                [chart]="piechartSecondOptions.chart" [labels]="piechartSecondOptions.labels"
+                                [responsive]="piechartSecondOptions.responsive"></apx-chart>
+                        </div>
                     </mat-card-content>
                 </mat-card></div>
         </div>
@@ -150,6 +150,18 @@
                 </div>
             </mat-card-header>
             <mat-card-content class="card-body">
+                <table class="table table-bordered table-sm mb-5">
+                    <thead>
+                        <tr class="table-success">
+                            <th  *ngFor="let surveyedData of getSurveyedData; let i = index">
+                                <input type="checkbox" *ngIf="i > 1">
+                                {{surveyedData?.text ? surveyedData?.text : '-'}}</th>
+                        </tr>
+                    </thead>
+                    <tr >
+                        <td *ngFor="let surveyedData of getSurveyedData">{{surveyedData?.data}}</td>
+                    </tr>
+                    </table>
                 <div class="row">
                     <div class="col-sm-4 border-end">
                         <h6 class="small fw-bold text-center mb-0">मराठी भाषा स्तर</h6>
