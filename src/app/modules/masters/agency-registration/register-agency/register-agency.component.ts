@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
+import { Subscription } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
@@ -19,6 +20,7 @@ export class RegisterAgencyComponent {
   districtArr = new Array();
   talukaArr = new Array();
   lang: any;
+  subscription!: Subscription;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   get f() {return this.agencyForm.controls}
   constructor(
@@ -35,7 +37,7 @@ export class RegisterAgencyComponent {
   ) {}
 
   ngOnInit() {
-    this.webstorage.setLanguage.subscribe((res:any)=>{
+   this.subscription= this.webstorage.setLanguage.subscribe((res:any)=>{
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
     this.getAgencyControl()
@@ -59,7 +61,7 @@ export class RegisterAgencyComponent {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
       this.agencyForm.controls['districtId'].setValue(this.districtArr[0].id);
-      this.data.obj?this.getTalukaArr(this.data.obj.districtId):'';
+      this.data.obj?this.getTalukaArr(this.data.obj.districtId):this.getTalukaArr(this.districtArr[0].id);;
     })
   }
   getTalukaArr(distId: number) {
@@ -97,5 +99,8 @@ export class RegisterAgencyComponent {
   }
   contactNo(){
     this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(' '):'';
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

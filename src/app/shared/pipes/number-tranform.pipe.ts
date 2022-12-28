@@ -3,7 +3,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Pipe({
   name: 'numberTranformPipe',
-  standalone:true
+  pure: false,
+  standalone:true,
 })
 
 export class NumberTransformPipe implements PipeTransform {

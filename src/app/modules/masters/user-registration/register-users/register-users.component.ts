@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service'
   styleUrls: ['./register-users.component.scss']
 })
 export class RegisterUsersComponent {
-  userRegistrationForm!:FormGroup;
+  userRegistrationForm:FormGroup |any;
   userTypeArr=new Array();
   userLevelArr=new Array();
   designationArr=new Array();
@@ -48,17 +48,17 @@ export class RegisterUsersComponent {
     this.getUserType();
     this.getDistrict();
     this.getAgency();
-    this.getAllClassGroup();
+    this.getAllSubject();
   }
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
       userType: [this.data?this.data.userTypeId:'', [Validators.required]],
-      userLevel: [this.data?this.data.designationLevelId:''],
+      userLevel: [this.data?this.data.designationLevelId:'',[Validators.required]],
       designation: [this.data?this.data.designationId:''],
       district: [this.data?this.data.districtId:'', [Validators.required]],
-      taluka: [this.data?this.data.talukaId:'', [Validators.required]],
-      kendra: [this.data?this.data.centerId:'', [Validators.required]],
+      taluka: [this.data?this.data.talukaId:''],
+      kendra: [this.data?this.data.centerId:''],
       school: [this.data?this.data.schoolId:''],
       agency: [this.data?this.data.agencyId:''],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
@@ -76,10 +76,8 @@ export class RegisterUsersComponent {
       this.userTypeArr=res.responseData;
     })
     this.data?this.getUserLevel(this.data.userTypeId):'';
-    this.addRemoveValidation();
   }
-
-  getUserLevel(typeId:number) { 
+  getUserLevel(typeId:number) {
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -95,11 +93,11 @@ export class RegisterUsersComponent {
 }
 
   getDesignation(levelId:any) {
-    this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
       if(res.statusCode == "200"){
-        this.userLevelArr=res.responseData;
+        this.designationArr=res.responseData;
       }
     else{
         this.common.snackBar(res.statusMessage,1)
@@ -107,6 +105,7 @@ export class RegisterUsersComponent {
         error: ((err: any) => { this.errors.handelError(err) })
     })
   } 
+
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
@@ -115,23 +114,27 @@ export class RegisterUsersComponent {
     })
     this.data?this.getTaluka(this.data.districtId):'';
   }
+
   getTaluka(distId:number) {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
     })
     this.data?this.getKendra(this.data.talukaId):'';
   }
+
   getKendra(talukaId:number) {
     this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
     })
     this.data?this.getSchoolName(this.data.centerId):'';
   }
+
   getSchoolName(centerId:number) {
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
       this.schoolArr=res.responseData;
     })
   }
+
   getAgency() {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -146,8 +149,8 @@ export class RegisterUsersComponent {
       })
     }
 
-  getAllClassGroup() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGroupClass?flag_lang='+this.lang, false, false, false, 'baseUrl');
+  getAllClassGroup(schoolId:number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang='+this.lang+'&SchoolId='+schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
        if(res.statusCode == "200"){
@@ -158,10 +161,9 @@ export class RegisterUsersComponent {
        }},
          error: ((err: any) => { this.errors.handelError(err) })
      })
-     this.data?this.getAllSubject(this.data):'';
   }
-  getAllSubject(classId:any) {
-    classId
+
+  getAllSubject() {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -174,6 +176,7 @@ export class RegisterUsersComponent {
          error: ((err: any) => { this.errors.handelError(err) })
      })
   }
+
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
 addRemoveValidation(){
@@ -210,14 +213,18 @@ if(this.userRegistrationForm.value.userType==2){
 }else if(this.userRegistrationForm.value.userType==4){
   this.userRegistrationForm.get('agency')?.setValidators([Validators.required]);
   this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agency')?.clearValidators();
-  this.userRegistrationForm.get('agency')?.updateValueAndValidity();
+  this.userRegistrationForm.get('taluka')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('taluka')?.updateValueAndValidity();
+  this.userRegistrationForm.get('kendra')?.setValidators([Validators.required]);
+  this.userRegistrationForm.get('kendra')?.updateValueAndValidity();
+  this.userRegistrationForm.get('designation')?.clearValidators();
+  this.userRegistrationForm.get('designation')?.updateValueAndValidity();
+  this.userRegistrationForm.get('school')?.clearValidators();
+  this.userRegistrationForm.get('school')?.updateValueAndValidity();
+  this.userRegistrationForm.get('class')?.clearValidators();
+  this.userRegistrationForm.get('class')?.updateValueAndValidity();
+  this.userRegistrationForm.get('subject')?.clearValidators();
+  this.userRegistrationForm.get('subject')?.updateValueAndValidity();
 }
 
   }
@@ -225,21 +232,22 @@ if(this.userRegistrationForm.value.userType==2){
   //#region--------------------------------------------clear dropdown--------------------------------------------------------------------------
   clearDropdown(flag:any){
     if(flag=='userType'){
-      this.userRegistrationForm.controls['userLevel'].setValue(' ');
-      this.userRegistrationForm.controls['designation'].setValue(' ');
+      this.userRegistrationForm.controls['userLevel'].setValue('');
+      this.userRegistrationForm.controls['designation'].setValue('');
     }else if(flag=='userLevel'){
-      this.userRegistrationForm.controls['designation'].setValue(' ');
+      this.userRegistrationForm.value.userType==4?this.userRegistrationForm.controls['agency'].setValue(''):'';
+      this.userRegistrationForm.controls['designation'].setValue('');
     }else if(flag=='district'){
-      this.userRegistrationForm.controls['taluka'].setValue(' ');
-      this.userRegistrationForm.controls['kendra'].setValue(' ');
-      this.userRegistrationForm.controls['school'].setValue(' ');
+      this.userRegistrationForm.controls['taluka'].setValue('');
+      this.userRegistrationForm.controls['kendra'].setValue('');
+      this.userRegistrationForm.controls['school'].setValue('');
     }else if(flag=='taluka'){
-      this.userRegistrationForm.controls['kendra'].setValue(' ');
-      this.userRegistrationForm.controls['school'].setValue(' ');
+      this.userRegistrationForm.controls['kendra'].setValue('');
+      this.userRegistrationForm.controls['school'].setValue('');
     }else if(flag=='kendra'){
-      this.userRegistrationForm.controls['school'].setValue(' ');
+      this.userRegistrationForm.controls['school'].setValue('');
     }else if(flag=='class'){
-     this.userRegistrationForm.controls['subject'].setValue(' ');
+     this.userRegistrationForm.controls['subject'].setValue('');
     }
   }
 

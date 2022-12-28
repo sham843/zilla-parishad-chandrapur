@@ -7,15 +7,14 @@
             </button>
         </div>
     </mat-card-header>
-
+    <form [formGroup]="userRegistrationForm" #formDirective="ngForm">
     <mat-card-content class="card-body">
-        <form [formGroup]="userRegistrationForm" #formDirective="ngForm" (ngSubmit)="registerUser(formDirective)">
             <div class="row g-4 mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
                         <mat-select formControlName="userType"
-                            (selectionChange)="getUserLevel(userRegistrationForm.value.userType);clearDropdown('userType')">
+                            (selectionChange)="getUserLevel(userRegistrationForm.value.userType);this.addRemoveValidation();clearDropdown('userType')">
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
@@ -47,7 +46,7 @@
                             <mat-label>{{'common.designation' |translate}}</mat-label>
                             <mat-select formControlName="designation" (selectionChange)="getDistrict()">
                                 <mat-option *ngFor="let designation of designationArr"
-                                    [value]="designation">{{designation}}</mat-option>
+                                    [value]="designation.id">{{designation.desingationTypes}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="f['designation'].errors">
                                 <span class="text-danger" *ngIf="f['designation'].hasError('required')">
@@ -61,7 +60,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.agency_name' |translate}}</mat-label>
-                            <mat-select formControlName="agencyName">
+                            <mat-select formControlName="agency">
                                 <mat-option *ngFor="let agency of agencyArr"
                                     [value]="agency.id">{{agency.agencyName}}</mat-option>
                             </mat-select>
@@ -126,7 +125,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <mat-select formControlName="school">
+                            <mat-select formControlName="school" (selectionChange)="getAllClassGroup(userRegistrationForm.value.school)">
                                 <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
@@ -145,6 +144,11 @@
                                 <mat-select formControlName="class" multiple (selectionChange)="clearDropdown('class')">
                                   <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.groupClass}}</mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="f['class'].errors">
+                                    <span class="text-danger" *ngIf="f['class'].hasError('required')">
+                                        Please Select class Name
+                                    </span>
+                                </mat-error>
                               </mat-form-field>
                         </div>
                     </ng-container>
@@ -155,6 +159,11 @@
                                 <mat-select formControlName="subject" multiple>
                                     <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="f['subject'].errors">
+                                    <span class="text-danger" *ngIf="f['subject'].hasError('required')">
+                                        Please Select School Name
+                                    </span>
+                                </mat-error>
                               </mat-form-field>
                         </div>
                     </ng-container>
@@ -198,12 +207,10 @@
                     </mat-form-field>
                 </div>
             </div>
-        </form>
+            <div class="d-flex justify-content-end align-items-center w-100">
+                <button mat-stroked-button type="button" class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.cancel' |translate}}</button>
+                <button mat-stroked-button type="submit" class="btn-main" (click)="registerUser(formDirective)">{{'common.submit' |translate}}</button>
+            </div>
     </mat-card-content>
-    <mat-card-footer class="card-footer">
-        <div class="d-flex justify-content-end align-items-center w-100">
-            <button mat-stroked-button class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.cancel' |translate}}</button>
-            <button mat-stroked-button class="btn-main">{{'common.submit' |translate}}</button>
-        </div>
-    </mat-card-footer>
+</form>
 </mat-card>
