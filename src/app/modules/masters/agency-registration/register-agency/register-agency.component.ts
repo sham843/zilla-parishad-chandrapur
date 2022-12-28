@@ -44,20 +44,21 @@ export class RegisterAgencyComponent {
  
   getAgencyControl() {
     this.agencyForm = this.fb.group({
-      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required]],
+      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'', [Validators.required]],
-      registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required]],
+      registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.minLength(5),Validators.maxLength(50)]],
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       districtId: [this.data.obj?this.data.obj.districtId:'', [Validators.required]],
       talukaId: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
-      contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      address: [this.data.obj?this.data.obj.address:'', [Validators.required]],
+      contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.pattern(this.validation.mobile_No)]],
+      emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
+      address: [this.data.obj?this.data.obj.address:''],
     })
   }
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
+      this.agencyForm.controls['districtId'].setValue(this.districtArr[0].id);
       this.data.obj?this.getTalukaArr(this.data.obj.districtId):'';
     })
   }

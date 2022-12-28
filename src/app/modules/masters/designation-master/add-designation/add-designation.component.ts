@@ -27,6 +27,7 @@ export class AddDesignationComponent {
   constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService, public validation: ValidationService,
     private errorHandler: ErrorHandler, @Inject(MAT_DIALOG_DATA) public data: any, private webStorage: WebStorageService,
     private master: MasterService, public dialogRef: MatDialogRef<DesignationMasterComponent>, private spinner: NgxSpinnerService) { }
+
   ngOnInit() {
     let localVal: any = this.webStorage.getLocalStorageData();
     let loginData = JSON.parse(localVal)
@@ -36,25 +37,35 @@ export class AddDesignationComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.controlForm();
-    this.data ? this.editMethod() : (this.getDesignationLevel(), this.getDesignationType(), this.setDesignationLvl());
+    this.data ? this.editMethod() : (this.getDesignationLevel());
   }
-
 
   get f() { return this.designationForm.controls };
 
-  controlForm() {
+  controlForm(data?:any) {
     this.designationForm = this.fb.group({
-      id: [this.data ? this.data.id : ''],
-      dummyDesigLvlkey: [!this.data ?  this.userLoginDesignationLevelId:'', Validators.required],
-      linkedToDesignationId: ['', Validators.required],
+      srNo: [data?.srNo || ''],
+      id: [data?.id || ''],
+      linkedToDesignationLevelId: [''],
       designationLevelId: ['', Validators.required],
-      designationName: [this.data ? this.data.designationName : '', Validators.required]
+      linkedToDesignationId: [this.userLoginDesignationLevelId, Validators.required],
+      linkedToDesignationName: [''],
+      designationName: [data?.designationName || '', Validators.required],
+      designationLevelName: [''],
+      linkedToDesignationLevelName: [''],
+      isDeleted: [true],
+      userId: [data?.userId || this.userLoginDesignationLevelId],
+      createdBy: [this.editFlag ? data?.createdBy : this.webStorage.getUserId()],
+      createdDate: [this.editFlag ? data?.createdDate : new Date()],
+      modifiedBy: [this.webStorage.getUserId()],
+      modifiedDate: [new Date()],
     })
   }
 
   editMethod() {
     this.editFlag = true;
-    this.getDesignationLevel()
+    this.controlForm(this.data)
+    this.getDesignationLevel();
   }
 
   clearForm(formDirective?: any) {
@@ -65,22 +76,20 @@ export class AddDesignationComponent {
   getDesignationLevel() {
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
-      this.editFlag ?( this.designationForm.controls['dummyDesigLvlkey'].setValue(this.data.linkedToDesignationLevelId) ,this.getDesignationType() ): '';
+      this.editFlag ? (this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.data.linkedToDesignationLevelId), this.getDesignationType()) :this.getDesignationType();
     })
   }
 
   getDesignationType() {
-
-    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + this.userLoginDesignationLevelId + '&flag=' + this.lang, false, false, false, 'baseUrl');
+    debugger;
+    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' +  this.designationForm.value.linkedToDesignationId + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.desigantionType = res.responseData;
           this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
         }
-      }, error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      }
+      }, error: ((err: any) => { this.errorHandler.handleError(err) })
     })
   }
 
@@ -92,9 +101,7 @@ export class AddDesignationComponent {
           this.setDesignationLevel = res.responseData;
           this.editFlag ? this.designationForm.controls['designationLevelId'].setValue(this.data.designationLevelId) : '';
         }
-      }, error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      }
+      }, error: ((err: any) => { this.errorHandler.handleError(err) })
     })
   }
   //#endregion---------------------------------------------dropdown api's end---------------------------------------------------
@@ -102,68 +109,9 @@ export class AddDesignationComponent {
   onClickSubmit(formDirective?: any) {
     if (!this.designationForm.valid) {
       return;
-    } else if (!this.editFlag) {
-      this.spinner.show();
-      let obj = {
-        createdBy: this.webStorage.getUserId(),
-        modifiedBy: this.webStorage.getUserId(),
-        createdDate: new Date(),
-        modifiedDate: new Date()
-      }
-      let postObj = {
-        // id: 0,
-        srNo: 0,
-        linkedToDesignationLevelId: this.userLoginDesignationLevelId,
-        linkedToDesignationId: this.designationForm.value.linkedToDesignationId,
-        designationLevelId: this.designationForm.value.designationLevelId,
-        designationName: this.designationForm.value.designationName,
-        linkedToDesignationLevelName: '',
-        linkedToDesignationName: '',
-        designationLevelName: '',
-        isDeleted: true,
-        userId: this.webStorage.getUserId(),
-      };
-      let finalData = { ...obj, ...postObj };
-      this.apiService.setHttp('POST', 'designation/save-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == '200') {
-            formDirective?.resetForm();
-            this.controlForm();
-            this.dialogRef.close();
-            this.commonMethod.snackBar(res.statusMessage, 0)
-          } else {
-            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
-        }
-      })
-    } else if (this.editFlag) {
-      this.spinner.show();
-      let obj = {
-        createdBy: this.data.createdBy,
-        modifiedBy: this.webStorage.getUserId(),
-        createdDate: this.data.createdDate,
-        modifiedDate: new Date()
-      }
-      let putObj = {
-        id: this.data.id,
-        linkedToDesignationLevelId: this.designationForm.value.dummyDesigLvlkey,
-        linkedToDesignationId: this.designationForm.value.linkedToDesignationId,
-        designationLevelId: this.designationForm.value.designationLevelId,
-        designationName: this.designationForm.value.designationName,
-        linkedToDesignationLevelName: '',
-        linkedToDesignationName: '',
-        designationLevelName: '',
-        isDeleted: false,
-        userId: this.webStorage.getUserId(),
-      };
-      let finalData = { ...obj, ...putObj }
-      this.apiService.setHttp('PUT', 'designation/update-designation-details?flag=' + this.lang, false, finalData, false, 'baseUrl');
+    } else {
+      let url = this.editFlag ? 'designation/update-designation-details' : 'designation/save-designation-details'
+      this.apiService.setHttp(this.editFlag ? 'PUT' : 'POST', url + '?flag=' + this.lang, false, this.designationForm.value, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -177,10 +125,7 @@ export class AddDesignationComponent {
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorHandler.handleError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
-        }
+        error: ((err: any) => { this.errorHandler.handleError(err) })
       })
     }
   }

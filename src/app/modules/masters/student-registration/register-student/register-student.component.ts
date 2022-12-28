@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -29,6 +30,7 @@ export class RegisterStudentComponent {
   editFlag: boolean = false;
   addData: any;
   todayDate = new Date();
+  subscription!: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -44,7 +46,7 @@ export class RegisterStudentComponent {
   ) { }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
@@ -63,21 +65,21 @@ export class RegisterStudentComponent {
    formData(data?: any) {
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
-      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "m_Name": [data?.m_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
+      "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
+      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
       "talukaId": [data?.talukaId || '', Validators.required],
-      "centerId": [data?.centerId || '', [Validators.required]],
-      "schoolId": [data?.schoolId || '', [Validators.required]],
-      "standardId": [data?.standardId || '', [Validators.required]],
+      "centerId": [data?.centerId || '',[Validators.required]],
+      "schoolId": [data?.schoolId || '',[Validators.required]],
+      "standardId": [data?.standardId || '',[Validators.required]],
       "saralId": [data?.saralId || '', [Validators.required,Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
-      "dob": [data?.dob || '', [Validators.required]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.pattern(this.validation.aadhar_card)]],
-      "religionId": [data?.religionId || '', [Validators.required]],
-      "cast": [data?.cast || '', [Validators.required, Validators.pattern(this.validation.fullName)]],
-      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.required, Validators.pattern(this.validation.mobile_No)]],
+      "dob": [data?.dob || ''],
+      "aadharNo": [data?.aadharNo || '',[Validators.pattern(this.validation.aadhar_card)]],
+      "religionId": [data?.religionId || ''],
+      "cast": [data?.cast || '', [Validators.minLength(2),Validators.pattern(this.validation.fullName)]],
+      "parentsMobileNo": [data?.parentsMobileNo || '',[Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
       "emailId": [''],
@@ -287,5 +289,9 @@ export class RegisterStudentComponent {
         }
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

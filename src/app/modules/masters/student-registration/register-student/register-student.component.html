@@ -1,8 +1,9 @@
-<mat-card class="plain-card">
-    <form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
+<form [formGroup]="studentFrm" (ngSubmit)="onClickSubmit()" #formDirective="ngForm">
+    <mat-card class="plain-card">
         <mat-card-header class="card-header">
             <div class="d-flex align-items-center justify-content-between w-100">
-                <h6 class="text-main mb-0 fw-bold">{{data ?  ('student.update_Student'|translate ) :  ('student.register_student'|translate)}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{data ? ('student.update_Student'|translate ) :
+                    ('student.register_student'|translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -15,15 +16,13 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district'|translate}}</mat-label>
-                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}" [class.disabled]="studentFrm.value.districtId" formControlName="districtId"
+                        <mat-select placeholder="{{'common.Please_Select_District'|translate}}"
+                            [class.disabled]="studentFrm.value.districtId" formControlName="districtId"
                             (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
                             <mat-option *ngFor="let district of districtArray"
                                 [value]="district.id">{{district.district}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2">
-                            {{'student.district_is_required'|translate}}
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -36,32 +35,32 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2">
-                            <span>{{'student.taluka_is_required'|translate}}</span>
+                            <span>{{'common.Please_Select_Taluka'|translate}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>{{'common.kendra'|translate}}</mat-label>
-                        <mat-select placeholder="{{'student.select_kendra'|translate}}" formControlName="centerId"
+                        <mat-select placeholder="{{'common.select_kendra'|translate}}" formControlName="centerId"
                             (selectionChange)="clearDropdown('centerId');getSchool(lang,studentFrm.value.centerId);">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
-                            {{'student.kendra_is_required'|translate}}
+                            {{'common.select_kendra'|translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>{{'common.school'|translate}}</mat-label>
-                        <mat-select placeholder="{{'student.select_school'|translate}}" formControlName="schoolId">
+                        <mat-select placeholder="{{'common.select_school'|translate}}" formControlName="schoolId">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
-                            {{'student.school_is_required'|translate}}
+                            {{'common.select_school'|translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -73,23 +72,20 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['standardId'].hasError('required')">
-                            {{'student.standard_is_required'|translate}}
+                            {{'student.select_standard'|translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.parent_contact_no'|translate}}</mat-label>
-                        <input matInput placeholder="{{'student.enter_parent_contact_number'|translate}}" formControlName="parentsMobileNo"
-                            (keypress)="validation.onlyDigits($event)"
+                        <input matInput placeholder="{{'student.enter_parent_contact_number'|translate}}"
+                            formControlName="parentsMobileNo" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
                         <mat-error *ngIf="f['parentsMobileNo']?.errors">
-                            <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('required')">
-                                {{'student.please_enter_contact_number'|translate}}
-                            </span>
                             <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('pattern')">
                                 {{'student.please_enter_valid_mobile_Number' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -97,15 +93,18 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.first_name'|translate}}</mat-label>
                         <input matInput placeholder="{{'student.enter_first_name'|translate}}" formControlName="f_Name"
-                        maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)" 
+                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['f_Name']?.errors">
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
                                 {{'student.please_enter_first_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['f_Name'].hasError('minlength')">
+                                {{'school.please_enter_minimum_2_character'|translate}}
+                            </span>
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_first_Name' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -113,15 +112,15 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.middle_name'|translate}}</mat-label>
                         <input matInput placeholder="{{'student.enter_middle_name'|translate}}" formControlName="m_Name"
-                        maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
+                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_Name']?.errors">
-                            <span class="text-danger" *ngIf="f['m_Name'].hasError('required')">
-                                {{'student.please_enter_middle_name'|translate}}
+                            <span class="text-danger" *ngIf="f['m_Name'].hasError('minlength')">
+                                {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['m_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_middle_Name' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -129,26 +128,32 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.last_name'|translate}}</mat-label>
                         <input matInput placeholder="{{'student.enter_last_name'|translate}}" formControlName="l_Name"
-                        maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
+                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['l_Name']?.errors">
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 {{'student.please_enter_last_name'|translate}}
                             </span>
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('minlength')">
+                                {{'school.please_enter_minimum_2_character'|translate}}
+                            </span>
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_last_Name' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
-                
+
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.saral_id'|translate}}</mat-label>
                         <input matInput placeholder="{{'student.enter_saral_id'|translate}}" formControlName="saralId"
-                        maxlength="20" (keypress)="validation.alphaNumeric($event)"
+                            maxlength="20" (keypress)="validation.alphaNumeric($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['saralId']?.errors">
+                            <span class="text-danger" *ngIf="f['saralId'].hasError('minlength')">
+                                {{'school.please_enter_atleast_2_alphanumeric'|translate}}
+                            </span>
                             <span class="text-danger" *ngIf="f['saralId'].hasError('required')">
                                 {{'student.please_enter_saral_id'|translate}}
                             </span>
@@ -163,7 +168,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error class="mt-2" *ngIf="f['genderId'].hasError('required')">
-                            {{'student.gender_is_required'|translate}}
+                            {{'student.select_gender'|translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -171,28 +176,22 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.birth_date'|translate}}</mat-label>
                         <input matInput [matDatepicker]="picker" [readonly]="true" [max]="todayDate"
-                            placeholder="{{'student.birth_date'|translate}}" formControlName="dob" (click)="picker.open()">
+                            placeholder="{{'student.birth_date'|translate}}" formControlName="dob"
+                            (click)="picker.open()">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error class="mt-2" *ngIf="f['dob'].hasError('required')">
-                            {{'student.birth_date_is_required'|translate}}
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.aadhar_card_number'|translate}}</mat-label>
-                        <input matInput  placeholder="{{'student.enter_aadhar_card_number'|translate}}"
+                        <input matInput placeholder="{{'student.enter_aadhar_card_number'|translate}}"
                             formControlName="aadharNo" (keyup)="validation.removeSpaceAtBegining($event)"
-                            (keypress)="validation.onlyDigits($event)"
-                            maxlength="12">
+                            (keypress)="validation.onlyDigits($event)" maxlength="12">
                         <mat-error *ngIf="f['aadharNo']?.errors">
-                            <span class="text-danger" *ngIf="f['aadharNo'].hasError('required')">
-                                {{'student.please_enter_aadhar_number'|translate}}
-                            </span>
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('pattern')">
                                 {{'student.please_enter_valid_aadhar_Number' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -204,24 +203,21 @@
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['religionId'].hasError('required')">
-                            {{'student.religion_is_required'|translate}}
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.caste'|translate}}</mat-label>
                         <input matInput placeholder="{{'student.enter_caste'|translate}}" formControlName="cast"
-                        maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
+                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['cast']?.errors">
-                            <span class="text-danger" *ngIf="f['cast'].hasError('required')">
-                                {{'student.please_enter_caste_name'|translate}}
+                            <span class="text-danger" *ngIf="f['cast'].hasError('minlength')">
+                                {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['cast'].hasError('pattern')">
                                 {{'student.please_enter_valid_Caste' | translate}}
-                             </span>
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -230,9 +226,11 @@
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
-                <button mat-stroked-button class="btn-second me-2" type="button" (click)="clearForm()">{{'common.cancel'|translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{data ? 'Update' : ('common.submit'|translate)}}</button>
+                <button mat-stroked-button class="btn-second me-2" type="button"
+                    (click)="clearForm()">{{'common.cancel'|translate}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{data ? 'Update' :
+                    ('common.submit'|translate)}}</button>
             </div>
         </mat-card-footer>
-    </form>
-</mat-card>
+    </mat-card>
+</form>

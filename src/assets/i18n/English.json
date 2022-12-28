@@ -9,7 +9,7 @@
         "select_kendra":"Please Select kendra",
         "school":"School",
         "select_school":" Please Select School",
-        "contact_person":"Contact Person",
+        "contact_person":"Contact Person Name",
         "email":"Email Id",
         "agency_name":"Agency/NGO Name",
         "Please_Select_District":"Please Select District",
@@ -59,10 +59,10 @@
     },
     "agency":{
         "register_agency":"Register Agency",
-        "please_enter_agency_name":"Please Enter Agency Name",
+        "please_enter_agency_name":"Please Enter Agency/NGO Name",
         "registration_number":"Registration Number",
         "please_enter_registration_number":"Please Enter Registration Number",
-        "please_enter_contact_person":"Please Enter Contact Person",
+        "please_enter_contact_person":"Please Enter Contact Person Name",
         "address":"Address",
         "please_enter_address":"Please Enter Address",
         "contact_number":"Contact Number",
@@ -71,7 +71,10 @@
         "Add_agency":"Add Agency",
         "agency_marathi_name":"Agency Marathi Name",
         "please_enter_valid_emailId":"Please Enter Valid Email Id",
-        "please_enter_valid_contact_no":"Please Enter Valid Contact No."
+        "please_enter_valid_contact_no":"Please Enter Valid Contact Number",
+        "please_enter_valid_agency_name":"Please Enter Valid Agency Name",
+        "please_enter_minimum 5 digit_registration_number":"Please Enter Minimum 5 Digit Registration Number",
+        "please_enter_maximum 50 digit_registration_number":"Please Enter Maximum 50 Digit Registration Number"
     },
      "login":{
         "officer_login":"Officer Login",
@@ -141,7 +144,7 @@
     "last_name":"Last Name",
     "enter_saral_id":"Enter Saral Id",
     "select_gender":"Please Select Gender",
-    "birth_date":"Birth Date",
+    "birth_date":"Date of Birth",
    "aadhar_card_number":"Aadhar Card Number",
      "enter_aadhar_card_number":"Enter Aadhar Card Number",
     "religion":"Religion",
@@ -206,7 +209,9 @@
         "school_name_required":"School Name is Required",
         "school_name_length_should_not_less_than_10": "School Name Length Should not Less Than 10",
         "please_enter_valid_school name":"Please Enter Valid School Name",
-        "update_school":"Update School"
+        "update_school":"Update School",
+        "please_enter_atleast_2_alphanumeric":"Please Enter Atleast Two Alphanumeric",
+        "please_enter_minimum_2_character":"Please Enter Atleast Two Characters"
       },
       "header":{
         "profile_name":"Mr. Sunil Rajaram Shinde",
