@@ -258,3 +258,43 @@ a.text-main,
   pointer-events: none;
   opacity: .6;
 }
+.apexcharts-yaxis-texts-g,
+.apexcharts-grid-borders,
+.apexcharts-grid{
+  display: none !important;
+}
+.apexcharts-legend-text{
+  font-family: "Noto Sans Devanagari", sans-serif !important;
+}
+.scrollbar {
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overscroll-behavior: contain;
+  scrollbar-color: #989ea6 transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+.scrollbar:hover::-webkit-scrollbar, .scrollbar:hover::-webkit-scrollbar-thumb, .scrollbar:hover:focus::-webkit-scrollbar, .scrollbar:hover:focus::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+.scrollbar::-webkit-scrollbar {
+  -webkit-appearance: none;
+  background-color: transparent;
+  height: 0.375rem;
+  visibility: hidden;
+  width: 0.375rem;
+}
+.scrollbar::-webkit-scrollbar-button, .scrollbar::-webkit-scrollbar-corner {
+  display: none;
+}
+.scrollbar::-webkit-scrollbar-button, .scrollbar::-webkit-scrollbar-corner {
+  display: none;
+}
+.scrollbar:hover::-webkit-scrollbar, .scrollbar:hover::-webkit-scrollbar-thumb, .scrollbar:hover:focus::-webkit-scrollbar, .scrollbar:hover:focus::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsla(214,7%,62%,.4);
+  border-radius: 3px;
+  visibility: hidden;
+}
