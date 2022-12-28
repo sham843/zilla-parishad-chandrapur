@@ -110,6 +110,7 @@ export class SchoolRegistrationComponent {
       centerId: [0],
       schoolName: ['']
     });
+    this.centerArray=[];
     this.getTableData();
   }
 
