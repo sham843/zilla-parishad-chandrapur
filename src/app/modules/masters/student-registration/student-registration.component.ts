@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -29,7 +29,7 @@ export class StudentRegistrationComponent {
   @ViewChild('formDirective')
   excelDowobj!:any;
   totalPages!:number;
-  private formDirective!: NgForm;
+  // private formDirective!: NgForm;
   subscription!: Subscription;
   
   constructor(public dialog: MatDialog,
@@ -134,12 +134,19 @@ clearDropdown(flag: any) {
 }
 
 clearForm() {
-  this.formDirective.resetForm({
-      talukaId: 0,
-      centerId: 0,
-      schoolId: 0,
-      searchText: ''
-    });
+  this.filterFrm.reset();
+  this.filterFrm.setValue({
+    talukaId: 0,
+    centerId: 0,
+    schoolId: 0,
+    searchText: ''
+  });
+  // this.formDirective.resetForm({
+  //     talukaId: 0,
+  //     centerId: 0,
+  //     schoolId: 0,
+  //     searchText: ''
+  //   });
    this.getTableData('filter');
 }
 //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//

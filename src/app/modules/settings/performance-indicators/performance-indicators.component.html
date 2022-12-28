@@ -40,42 +40,24 @@
         <table mat-table [dataSource]="dataSource" matSort class="dashboard-table w-100">
             <ng-container *ngFor="let disCol of displayedColumns; let colIndex = index" matColumnDef="{{disCol}}">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>{{language == 'mr-IN' ? (disCol ==
-                    'assesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? 'Sr No' : disCol) : (disCol == 'm_AssesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? 'Sr No' : disCol)}}</th>
+                    'assesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? 'Sr No' : disCol) : (disCol ==
+                    'm_AssesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? 'Sr No' : disCol)}}</th>
                 <td mat-cell *matCellDef="let element;let i=index">
-                    <span *ngIf="disCol == 'assesmentParameterId' || disCol == 'assesmentParameter' || disCol == 'm_AssesmentParameter'">{{language
-                        == 'mr-IN' ? (disCol == 'assesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : element[disCol]) : (disCol ==
-                        'm_AssesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : element[disCol]) }}</span>
-                    <span  *ngIf="disCol != 'assesmentParameterId' && disCol != 'assesmentParameter' && disCol != 'm_AssesmentParameter'">
-                        <mat-checkbox class="example-margin" [checked]=" element[disCol] == 1" (change)="addCheckedassesment($event,element?.assesmentParameterId,disCol)"></mat-checkbox></span>
+                    <span *ngIf="disCol == 'assesmentParameterId' || disCol == 'assesmentParameter' || disCol == 'm_AssesmentParameter'">
+
+                        <mat-icon class=" fs-5 text-main" *ngIf="language == 'mr-IN' ? disCol == 'm_AssesmentParameter' : language == 'en-IN' ? disCol == 'assesmentParameter' : ''" (click)="addUpdatelevel(element)"> edit </mat-icon>
+
+                        {{language == 'mr-IN' ? (disCol == 'assesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : 
+                        element[disCol]) : (disCol == 'm_AssesmentParameter') ? '' : (disCol == 'assesmentParameterId' ? i+1 : element[disCol]) }}
+                    </span>
+
+                    <span *ngIf="disCol != 'assesmentParameterId' && disCol != 'assesmentParameter' && disCol != 'm_AssesmentParameter'"> 
+                        <mat-checkbox class="example-margin" [checked]=" element[disCol] == 1"
+                            (change)="addCheckedassesment($event,element?.assesmentParameterId,disCol)"></mat-checkbox>
+                    </span>
                 </td>
             </ng-container>
-
-            <!-- <ng-container matColumnDef="assesmentParameter">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>English Language Level</th>
-                <td mat-cell *matCellDef="let element"> {{language == 'mr-IN' ? element.m_AssesmentParameter : element.assesmentParameter}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="first">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>1st</th>
-                <td mat-cell *matCellDef="let element"> <mat-checkbox class="example-margin"></mat-checkbox> </td>
-            </ng-container>
-
-            <ng-container matColumnDef="second">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>2nd</th>
-                <td mat-cell *matCellDef="let element"> <mat-checkbox class="example-margin"></mat-checkbox> </td>
-            </ng-container>
-            <ng-container matColumnDef="third">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>3rd</th>
-                <td mat-cell *matCellDef="let element"> <mat-checkbox class="example-margin"></mat-checkbox> </td>
-            </ng-container>
-            <ng-container matColumnDef="fourth">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>4th</th>
-                <td mat-cell *matCellDef="let element"> <mat-checkbox class="example-margin"></mat-checkbox> </td>
-            </ng-container>
-            <ng-container matColumnDef="fifth">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>5th</th>
-                <td mat-cell *matCellDef="let element"> <mat-checkbox class="example-margin"></mat-checkbox> </td>
-            </ng-container> -->
+            
             <tr class="mat-row p-2 w-100" *matNoDataRow col>
                 <td class="alert alert-danger text-center m-2 mt-2" colspan="12">No data found </td>
             </tr>
@@ -86,7 +68,7 @@
     <mat-card-content class="card-body">
         <div class="row w-100">
             <div class="col-sm-12">
-                <button mat-flat-button class="btn-main" (click)="addlevel()">
+                <button mat-flat-button class="btn-main" (click)="addUpdatelevel()">
                     <mat-icon>add</mat-icon>
                     <span>Add Level</span>
                 </button>

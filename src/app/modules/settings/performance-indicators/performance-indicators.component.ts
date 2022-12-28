@@ -159,10 +159,15 @@ export class PerformanceIndicatorsComponent implements OnInit {
     })
   }
 
-  addlevel() {
+  editAddLevelData(obj:any){
+  console.log(obj)
+}
+
+  addUpdatelevel(editObj?:any) {
     let data = {
       language: this.language,
-      subjectId: this.filterEnglishLag.value
+      subjectId: this.filterEnglishLag.value,
+      editObjData:editObj
     }
     const dialogRef = this.dialog.open(AddLevelComponent, {
       width: '500px',
