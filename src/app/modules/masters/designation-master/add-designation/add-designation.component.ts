@@ -67,13 +67,14 @@ export class AddDesignationComponent {
 
   clearForm(formDirective?: any) {
     formDirective?.resetForm();
+    this.data = null;
+    this.editFlag = false;
+    this.controlForm();
     if (this.userLoginDesignationLevelId != 1) {
       this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.userLoginDesignationLevelId);
       this.getDesignationType();
     }
-    this.data = null;
-    this.editFlag = false;
-    this.controlForm();
+
   }
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------

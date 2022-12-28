@@ -120,7 +120,12 @@ export class DesignationMasterComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
-      !result ? this.getTableData() : '';
+      if(result){
+        this.getTableData();
+      }else if(result == false) {
+        this.pageNumber = 1;
+        this.getTableData();
+      }
     });
   }
 
