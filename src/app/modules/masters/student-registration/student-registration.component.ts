@@ -162,7 +162,7 @@ clearForm() {
     let str =  flag != 'excel' ? `?pageno=${this.pageNumber}&pagesize=10` : `?pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
       '&TalukaId=' + (formData?.talukaId)  + '&CenterId=' + (formData?.centerId)
-      + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+      + '&SchoolId=' + (formData?.schoolId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
