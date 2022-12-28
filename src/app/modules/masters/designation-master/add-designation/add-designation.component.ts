@@ -45,7 +45,7 @@ export class AddDesignationComponent {
   controlForm(data?: any) {
     this.designationForm = this.fb.group({
       id: [data?.id || 0],
-      linkedToDesignationLevelId: [''],
+      linkedToDesignationLevelId: ['',Validators.required],
       designationLevelId: ['', Validators.required],
       linkedToDesignationId: [data?.linkedToDesignationId, Validators.required],
       linkedToDesignationName: [''],
