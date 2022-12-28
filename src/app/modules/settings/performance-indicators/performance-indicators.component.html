@@ -6,27 +6,10 @@
 </nav>
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-        <!-- <div class="row w-100 justify-content-between align-items-center">
-            <div class="col-sm-3">
-                <h6 class="text-main mb-0">Performance Indicators</h6>
-            </div>
-            <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>English Language Level</mat-label>
-                    <mat-select formControlName="districtId">
-                        <mat-option *ngFor="let subject of getAllSubjectArray"
-                            [disabled]="subject.id == 0" [value]="subject.id">
-                            {{subject.subject}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div> -->
-
         <div class="row align-items-center w-100">
             <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>English Language Level</mat-label>
+                    <mat-label>{{'performance_indicators.English_Language_Level' | translate}}</mat-label>
                     <mat-select [formControl]="filterEnglishLag">
                         <mat-option *ngFor="let subject of getAllSubjectArray" [value]="subject.id">
                             {{subject.subject}}
