@@ -9,32 +9,44 @@
             </button>
         </div>
     </mat-card-header>
-    <mat-dialog-content class="py-1">
+    <mat-dialog-content class="card-body card-height-full scrollbar table-without-error">
         <!-- <mat-card-content class="card-body p-0"> -->
-            <div class="row g-2" *ngFor="let standardMaster of getAllStandardMasterArray">
-                <div class="col-5">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>English Language Level</mat-label>
-                        <input matInput placeholder="" [readonly]="true" value={{standardMaster.standard}}>
-                    </mat-form-field>
-                </div>
-                <div class="col-5">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Marathi Language Level</mat-label>
-                        <input matInput placeholder="" [readonly]="true" value={{standardMaster.m_Standard}}>
-                    </mat-form-field>
-                </div>
-                <div class="col-2 text-center">
-                    <mat-checkbox class="example-margin" [checked]="standardMaster.isShow == 1" (change)="addStandard($event,standardMaster)"></mat-checkbox>
-                </div>
-            </div>
+        <table class="table dashboard-table table-bordered">
+            <thead>
+                <tr>
+                    <th>English Language Level</th>
+                    <th>Marathi Language Level</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let standardMaster of getAllStandardMasterArray">
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Level</mat-label>
+                            <input matInput placeholder="" [readonly]="true" value={{standardMaster.standard}}>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Level</mat-label>
+                            <input matInput placeholder="" [readonly]="true" value={{standardMaster.m_Standard}}>
+                        </mat-form-field>
+                    </td>
+                    <td class="text-center">
+                        <mat-checkbox class="example-margin" [checked]="standardMaster.isShow == 1"
+                            (change)="addStandard($event,standardMaster)"></mat-checkbox>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <!-- </mat-card-content> -->
     </mat-dialog-content>
-    
+
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-end gap-2">
             <!-- <button mat-stroked-button class="btn-second">Clear</button> -->
-            <button mat-stroked-button class="btn-main" type="submit" (click)="onSubmit()">Add</button>
+            <button mat-stroked-button class="btn-main" type="submit" (click)="onSubmit()">Add Class</button>
         </div>
     </mat-card-footer>
 </mat-card>
