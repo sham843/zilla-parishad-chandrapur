@@ -67,37 +67,7 @@ export class MyProfileComponent {
     this.getFormData();
     this.getLevel();
   }
-  // {
-  //   "createdBy": 0,
-  //   "modifiedBy": 0,
-  //   "createdDate": "2022-12-29T09:26:26.566Z",
-  //   "modifiedDate": "2022-12-29T09:26:26.566Z",
-  //   "isDeleted": true,
-  //   "id": 0,
-  //   "name": "fdjbjfdbj",
-  //   "mobileNo": "8574859687",
-  //   "districtId": 1,
-  //   "talukaId": 1,
-  //   "centerId": 1,
-  //   "schoolId": 1,
-  //   "emailId": "stringdfjhkjfd",
-  //   "designationLevelId": 1,
-  //   "designationId": 1,
-  //   "profilePhoto": "string",
-  //   "timestamp": "2022-12-29T09:26:26.566Z",
-  //   "UserName":"str",
-  //    "password":"",
-  //   "standardModels": [
-  //     {
-  //       "standardId": 0
-  //     }
-  //   ],
-  //   "subjectModels": [
-  //     {
-  //       "subjectId": 0
-  //     }
-  //   ]
-  // }
+ 
 
   getFormData(){
     this.profileForm=this.fb.group({
@@ -157,7 +127,8 @@ export class MyProfileComponent {
     if(this.profileForm.invalid){
       return
     }
-    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
+    // this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
+    this.fileUploaded()
   }
 
   fileUploaded() {
