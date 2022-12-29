@@ -57,7 +57,13 @@
         "enter_agency_address": "एजन्सीचा पत्ता प्रविष्ट करा",
         "class":"वर्ग",
         "subjects":"विषय",
-        "agency_name":"एजन्सीचे नाव"
+        "agency_name":"एजन्सीचे नाव",
+        "Please_select_agency_name":"कृपया एजन्सीचे नाव निवडा",
+        "Please_select_user_level":"कृपया वापरकर्ता स्तर निवडा",
+        "Please_select_standard":"कृपया वर्ग निवडा",
+        "Please_select_subject":"कृपया विषयाचे नाव निवडा",
+        "Please_enter_valid_name":"कृपया वैध नाव प्रविष्ट करा",
+        "Please_enter_name":"कृपया नाव प्रविष्ट करा"
     },
     "agency": {
         "register_agency": "नोंदणी एजन्सी",

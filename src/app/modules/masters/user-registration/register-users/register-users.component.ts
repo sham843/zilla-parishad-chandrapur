@@ -44,18 +44,18 @@ export class RegisterUsersComponent {
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
-    this.getUserControl();
+    this.getUserForm();
     this.getUserType();
     this.getDistrict();
     this.data?this.addRemoveValidation():'';
   }
 
-  getUserControl() {
+  getUserForm() {
     this.userRegistrationForm = this.fb.group({
       userTypeId: [this.data?this.data.userTypeId:'', [Validators.required]],
       designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
       designationId: [this.data?this.data.designationId:'', [Validators.required]],
-      districtId: [this.data?this.data.districtId:'', [Validators.required]],
+      districtId: [this.data?this.data.districtId:1, [Validators.required]],
       talukaId: [this.data?this.data.talukaId:'', [Validators.required]],
       centerId: [this.data?this.data.centerId:'', [Validators.required]],
       schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
@@ -256,6 +256,7 @@ if(this.userRegistrationForm.value.userTypeId==2){
 
   clearUserForm(formDirective:any){
     formDirective.resetForm();
+    this.getUserForm();
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
  //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
