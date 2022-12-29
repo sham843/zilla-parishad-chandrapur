@@ -14,7 +14,8 @@
         "Please_Select_District": "कृपया जिल्हा निवडा",
         "Please_Select_Taluka": "कृपया तालुका निवडा",
         "contact_number": "संपर्क क्रमांक",
-        "please_enter_contact_number": "कृपया संपर्क क्रमांक प्रविष्ट करा",
+        "please_enter_contact_number": "कृपया मोबाईल क्रमांक प्रविष्ट करा",
+        "please_enter_valid_contact_number":"कृपया वैध मोबाईल क्रमांक प्रविष्ट करा",
         "please_enter_email_id": "कृपया ईमेल आयडी प्रविष्ट करा",
         "cancel": "रद्द करा",
         "submit": "जतन करा",
@@ -31,7 +32,8 @@
         "mobile_number": "मोबाईल नंबर",
         "delete": "हटवा",
         "ok": "होय",
-        "update":"अद्यतन"
+        "update":"अद्यतन",
+        "select_designation": "पदनाम निवडा"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
@@ -161,7 +163,6 @@
         "add_designation": "पदनाम जोडा",
         "designation_name": "पदनाम नाव",
         "designation_level": "पदनाम स्तर",
-        "select_designation": "पदनाम निवडा",
         "admin": "प्रशासक",
         "designation_type": "पदनाम प्रकार",
         "set_designation_level": "पदनाम स्तर सेट करा",

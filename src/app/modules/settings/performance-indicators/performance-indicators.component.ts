@@ -31,6 +31,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
   filterEnglishLag = new FormControl(1);
   classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seven: 7 }, { eight: 8 }, { nine: 9 }, { ten: 10 }];
   checkedAssesmentArray: any[] = [];
+  copyCheckedAssesmentArray: any[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -93,7 +94,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
               })
             }
           })
-          console.log(this.checkedAssesmentArray, 'Main checkedAssesmentArray Data');
+          this.copyCheckedAssesmentArray = JSON.parse(JSON.stringify(this.checkedAssesmentArray));
           //........................ AssesmentArray code End Here....................//
         } else {
           this.dataSource = [];
@@ -110,11 +111,10 @@ export class PerformanceIndicatorsComponent implements OnInit {
     this.checkedAssesmentArray.map((ele: any) => {
     (assmntParameterId == ele.assesmentPerformanceId && ele.standardId == classValueName) ? ele.flag = event.checked == true ? 1 : 0 : '';
     })
-    console.log(this.checkedAssesmentArray, 'Final checked Assesment Data');
   }
 
   onSubmitPI() {
-    if (!this.checkedAssesmentArray.length) {
+    if (JSON.stringify(this.checkedAssesmentArray) === JSON.stringify(this.copyCheckedAssesmentArray)) {
       this.commonMethod.snackBar('Please Update at least one Class', 1);
     } else {
       let obj: any = {

@@ -14,13 +14,13 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
                         <mat-select formControlName="userTypeId"
-                            (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);this.addRemoveValidation();clearDropdown('userTypeId')">
+                            (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);this.addRemoveValidation();clearDropdown('userType')">
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="f['userTypeId'].errors">
                             <span class="text-danger" *ngIf="f['userTypeId'].hasError('required')">
-                                Please Select User Type
+                                {{'common.select_user_type' |translate}}
                             </span>
                         </mat-error>
                     </mat-form-field>
@@ -29,7 +29,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId" 
-                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevelId')">
+                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel')">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
@@ -50,7 +50,7 @@
                             </mat-select>
                             <mat-error *ngIf="f['designationId'].errors">
                                 <span class="text-danger" *ngIf="f['designationId'].hasError('required')">
-                                    Please Select Designation
+                                    {{'common.select_designation' |translate}}
                                 </span>
                             </mat-error>
                         </mat-form-field>
@@ -82,7 +82,7 @@
                         </mat-select>
                         <mat-error *ngIf="f['districtId'].errors">
                             <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
-                                Please Select District
+                                {{'common.Please_Select_District' |translate}}  
                             </span>
                         </mat-error>
                     </mat-form-field>
@@ -98,7 +98,7 @@
                             </mat-select>
                             <mat-error *ngIf="f['talukaId'].errors">
                                 <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
-                                    Please Select Taluka
+                                    {{'common.Please_Select_Taluka' |translate}}
                                 </span>
                             </mat-error>
                         </mat-form-field>
@@ -109,13 +109,13 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId"
-                                (selectionChange)="getSchoolName(userRegistrationForm.value.centerId)">
+                                (selectionChange)="getSchoolName(userRegistrationForm.value.centerId);clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="f['centerId'].errors">
                                 <span class="text-danger" *ngIf="f['centerId'].hasError('required')">
-                                    Please Select Kendra
+                                   {{'common.select_kendra' |translate}}
                                 </span>
                             </mat-error>
                         </mat-form-field>
@@ -125,13 +125,13 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.school)">
+                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
                                 <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="f['schoolId'].errors">
                                 <span class="text-danger" *ngIf="f['schoolId'].hasError('required')">
-                                    Please Select School Name
+                                    {{'common.select_school' |translate}}
                                 </span>
                             </mat-error>
                         </mat-form-field>
@@ -146,7 +146,7 @@
                                 </mat-select>
                                 <mat-error *ngIf="f['standardModels'].errors">
                                     <span class="text-danger" *ngIf="f['standardModels'].hasError('required')">
-                                        Please Select class Name
+                                        Please Select standard Name 
                                     </span>
                                 </mat-error>
                               </mat-form-field>
@@ -161,7 +161,7 @@
                                 </mat-select>
                                 <mat-error *ngIf="f['subjectModels'].errors">
                                     <span class="text-danger" *ngIf="f['subjectModels'].hasError('required')">
-                                        Please Select School Name
+                                        Please Select Subject Name
                                     </span>
                                 </mat-error>
                               </mat-form-field>
@@ -191,10 +191,10 @@
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
-                                Please Enter Mobile Number
+                                {{'common.please_enter_contact_number' |translate}}  
                             </span>
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
-                                Please Enter Valid Mobile Number
+                                {{'common.please_enter_valid_contact_number' |translate}}
                             </span>
                         </mat-error>
                     </mat-form-field>
@@ -206,6 +206,9 @@
                             formControlName="emailId" (keypress)="validation.emailRegex"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['emailId'].errors">
+                            <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
+                                Please Enter Email Id
+                            </span>
                             <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
                                 Please Enter Valid Email Id
                             </span>

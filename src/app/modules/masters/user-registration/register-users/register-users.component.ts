@@ -49,6 +49,7 @@ export class RegisterUsersComponent {
     this.getDistrict();
     this.getAgency();
     this.getAllSubject();
+    console.log(this.data);
   }
 
   getUserControl() {
@@ -63,9 +64,9 @@ export class RegisterUsersComponent {
       agencyId: [this.data?this.data.agencyId:0],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      emailId: [this.data?this.data.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [''],
-      subjectModels: ['']
+      emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
+      standardModels: [[]],
+      subjectModels: [[]]
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
@@ -76,6 +77,7 @@ export class RegisterUsersComponent {
     this.data?this.getUserLevel(this.data.userTypeId):'';
   }
   getUserLevel(typeId:number) {
+    debugger
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -86,8 +88,8 @@ export class RegisterUsersComponent {
       this.common.snackBar(res.statusMessage,1)
     }},
       error: ((err: any) => { this.errors.handelError(err) })
-  })
-  this.data?this.getDesignation(this.data.designationId):'';
+  }) 
+  this.data?this.getDesignation(this.userRegistrationForm.value.designationId):'';
 }
 
   getDesignation(levelId:any) {
@@ -232,20 +234,23 @@ if(this.userRegistrationForm.value.userTypeId==2){
     if(flag=='userType'){
       this.userRegistrationForm.controls['designationLevelId'].setValue('');
       this.userRegistrationForm.controls['designationId'].setValue('');
-    }else if(flag=='userLevel'){
+    }else if(flag=='designationLevel'){
       this.userRegistrationForm.value.userTypeId==4?this.userRegistrationForm.controls['agencyId'].setValue(''):'';
       this.userRegistrationForm.controls['designationId'].setValue('');
     }else if(flag=='district'){
       this.userRegistrationForm.controls['talukaId'].setValue('');
       this.userRegistrationForm.controls['centerId'].setValue('');
       this.userRegistrationForm.controls['schoolId'].setValue('');
+      this.userRegistrationForm.controls['standardModels'].setValue('');
     }else if(flag=='taluka'){
       this.userRegistrationForm.controls['centerId'].setValue('');
       this.userRegistrationForm.controls['schoolId'].setValue('');
-    }else if(flag=='centerId'){
+      this.userRegistrationForm.controls['standardModels'].setValue('');
+    }else if(flag=='center'){
       this.userRegistrationForm.controls['schoolId'].setValue('');
-    }else if(flag=='class'){
-     this.userRegistrationForm.controls['subjectModels'].setValue('');
+      this.userRegistrationForm.controls['standardModels'].setValue('');
+    }else if(flag=='school'){
+     this.userRegistrationForm.controls['standardModels'].setValue('');
     }
   }
 
@@ -270,9 +275,9 @@ if(this.userRegistrationForm.value.userTypeId==2){
          })
        });
     }
-    this.userRegistrationForm.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
-    this.userRegistrationForm.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
-      let obj=this.userRegistrationForm.value;
+    let obj=this.userRegistrationForm.value;
+    obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
+    obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
       obj.createdBy=this.data?0:0;
       obj.modifiedBy=this.data?0:0;
       obj.createdDate=this.data?new Date():new Date();
@@ -290,14 +295,12 @@ if(this.userRegistrationForm.value.userTypeId==2){
       obj.profilePhoto="";
       obj.msg="";
       // obj.timestamp="";
-    console.log(obj)
     this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.common.snackBar(res.statusMessage,0);
         this.dialogRef.close('Yes');
         formDirective.resetForm();
-        console.log(res);
       }
     },
     (error: any) => {
