@@ -105,12 +105,12 @@
     <div class="col-sm-4">
         <mat-card class="mb-3 plain-card">
             <mat-card-header class="card-header">
-                नकाशा
+                <h6 class="mb-0">नकाशा</h6>
             </mat-card-header>
             <mat-card-content class="card-body">
                 <div id="mapsvg" class="text-center">
-                <img src="assets/chandrapur_dist.svg" style="height: 200px;" class="">
-            </div>
+                    <img src="assets/chandrapur_dist.svg" style="height: 200px;" class="">
+                </div>
             </mat-card-content>
         </mat-card>
 
@@ -144,24 +144,27 @@
     <div class="col-sm-8">
         <mat-card class="plain-card h-100">
             <mat-card-header class="card-header">
-                <div class="d-flex align-items-center justify-content-between w-100">
+                <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
                     <div>सर्वेक्षण केलेल्या विद्यार्थ्यांची एकूण संख्या</div>
                     <div>निवडलेली संख्या : <span class="fw-bold">15,533</span></div>
-                </div>
+                </h6>
             </mat-card-header>
             <mat-card-content class="card-body">
-                <table class="table table-bordered table-sm mb-5">
+                <table class="table table-bordered inner-table">
                     <thead>
-                        <tr class="table-success">
-                            <th  *ngFor="let surveyedData of getSurveyedData; let i = index">
+                        <tr>
+                            <th *ngFor="let surveyedData of getSurveyedData; let i = index">
                                 <input type="checkbox" *ngIf="i > 1">
-                                {{surveyedData?.text ? surveyedData?.text : '-'}}</th>
+                                {{surveyedData?.text ? surveyedData?.text : '-'}}
+                            </th>
                         </tr>
                     </thead>
-                    <tr >
-                        <td *ngFor="let surveyedData of getSurveyedData">{{surveyedData?.data}}</td>
-                    </tr>
-                    </table>
+                    <tbody>
+                        <tr>
+                            <td *ngFor="let surveyedData of getSurveyedData">{{surveyedData?.data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="row">
                     <div class="col-sm-4 border-end">
                         <h6 class="small fw-bold text-center mb-0">मराठी भाषा स्तर</h6>
@@ -195,7 +198,7 @@
         <mat-card class="plain-card">
             <mat-card-header class="card-header">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                    <div>तालुका निहाय मूल्यांकन</div>
+                    <h6 class="mb-0">तालुका निहाय मूल्यांकन</h6>
                     <div class="d-flex align-items-center justify-content-between gap-3">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>मूल्यांकन</mat-label>
