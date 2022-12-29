@@ -1,3 +1,4 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
@@ -9,7 +10,7 @@
             </button>
         </div>
     </mat-card-header>
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
+  
     <mat-card-content class="card-body">
         <div class="text-center mb-3">
             <div class="upload-btn-wrapper">
@@ -104,5 +105,5 @@
             <button mat-flat-button class="btn-main" type="submit">Submit</button>
         </div>
     </mat-card-footer>
-  </form>
 </mat-card>
+</form>
