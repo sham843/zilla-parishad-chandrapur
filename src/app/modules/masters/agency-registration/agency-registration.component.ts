@@ -109,7 +109,7 @@ export class AgencyRegistrationComponent {
 
   registeragency(obj?: any) {
     const dialog = this.dialog.open(RegisterAgencyComponent, {
-      width: '750px',
+      width: '850px',
       disableClose: true,
       data: {
         cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ/एजन्सी' : 'Update NGO/Agency') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ/एजन्सी' : 'Register NGO/Agency'),
