@@ -77,6 +77,7 @@ export class RegisterUsersComponent {
     this.data?this.getUserLevel(this.data.userTypeId):'';
   }
   getUserLevel(typeId:number) {
+    debugger
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -87,8 +88,8 @@ export class RegisterUsersComponent {
       this.common.snackBar(res.statusMessage,1)
     }},
       error: ((err: any) => { this.errors.handelError(err) })
-  })
-  this.data?this.getDesignation(this.data.designationId):'';
+  }) 
+  this.data?this.getDesignation(this.userRegistrationForm.value.designationId):'';
 }
 
   getDesignation(levelId:any) {
