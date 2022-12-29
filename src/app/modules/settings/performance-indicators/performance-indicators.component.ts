@@ -148,7 +148,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
       language: this.language,
     }
     const dialogRef = this.dialog.open(AddClassComponent, {
-      width: '500px',
+      width: '600px',
       data: data,
       disableClose: true,
     });

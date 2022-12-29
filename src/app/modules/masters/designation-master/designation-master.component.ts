@@ -83,7 +83,7 @@ export class DesignationMasterComponent {
   setTableData() {
     let displayedColumns;
     ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
-    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'linkedToDesignationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'linkedToDesignationLevelName','linkedToDesignationName','action'];
+    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
     let displayedheaders;
     this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
     let tableData = {
@@ -107,6 +107,8 @@ export class DesignationMasterComponent {
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
+        break;
+      case 'Row':
         break;
     }
   }

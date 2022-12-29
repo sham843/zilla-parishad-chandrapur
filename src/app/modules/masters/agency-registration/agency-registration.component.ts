@@ -46,7 +46,7 @@ export class AgencyRegistrationComponent {
   }
   //--------------------------------------------------------get agency data-----------------------------------------------------------
   getAllAgencyData(flag?: string) {
-    // flag == 'excel' && this.totalItem ? (this.pageNumber = 1, this.pageSize = this.totalPages * 10) : 
+    // flag == 'excel' && this.totalItem ? (this.pageNumber = 1, this.pageSize = this.totalPages * 10) :
     flag == 'filter' ? this.pageNumber = 1 :'';
     this.spinner.show();
     let serchText = this.searchControl.value ? this.searchControl.value : ''
@@ -59,7 +59,7 @@ export class AgencyRegistrationComponent {
           this.tableDataArray = res.responseData.responseData1;
           this.totalItem = res.responseData.responseData2.pageCount;
           this.totalPages = res.responseData.responseData2.totalPages;
-  
+
         } else {
           this.spinner.hide();
           this.common.snackBar(res.statusMessage, 1);
@@ -76,7 +76,7 @@ export class AgencyRegistrationComponent {
     let displayedColumns;
     this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
-    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id', 'Action']
+    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No.', 'Email Id', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
       highlightedRow: '',
@@ -172,7 +172,7 @@ export class AgencyRegistrationComponent {
    excelDownload() {
     this.getAllAgencyData('excel');
     let pageName: any;
-    this.language == 'Marathi' ? pageName = 'एजन्सी नोंदणी' : pageName = 'Agency Registration';
+    this.language == 'Marathi' ? pageName = 'एनजीओ एजन्सी नोंदणी' : pageName = 'Agency Registration';
     let header: any;
     this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
     let column: any;

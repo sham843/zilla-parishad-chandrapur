@@ -196,7 +196,7 @@ clearForm() {
 //#endregion  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   registerStudent(obj?: any) {
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
-      width: '700px',
+      width: '850px',
       data: obj,
       disableClose: true
     });

@@ -4,7 +4,8 @@
         "excel":"Excel",
         "district":"District",
         "taluka":"Taluka",
-        "select_taluka":"Please Select Taluka",
+        "select_district":"Select District",
+        "select_taluka":"Select Taluka",
         "kendra":"Kendra",
         "select_kendra":"Please Select kendra",
         "school":"School",
@@ -55,7 +56,13 @@
         "please_select_user_type":"Please Select User Type",
         "class":"Class",
         "subjects":"Subjects",
-        "agency_name":"Agency Name"
+        "agency_name":"Agency Name",
+        "Please_select_agency_name":"Please Select Agency Name",
+        "Please_select_user_level":"Please Select User Level",
+        "Please_select_standard":"Please Select standard",
+        "Please_select_subject":"Please Select Subject Name",
+        "Please_enter_valid_name":"Please Enter Valid Name",
+        "Please_enter_name":"Please Enter Name"
     },
     "agency":{
         "register_agency":"Register Agency",
@@ -166,6 +173,7 @@
         "please_select_designation_type": "Please Select Designation Type",
         "please_set_designation_level": "Please Set Designation Level",
         "please_enter_designation_name": "Please Enter Designation Name",
+        "please_enter_valid_designation_name": "Please Enter Valid Designation Name",
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
         "linked_to":"Linked to",
         "register_designation":"Register Designation",
@@ -245,4 +253,4 @@
 }
 
 
-	
+

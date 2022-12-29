@@ -15,7 +15,7 @@
         </mat-card-header>
 
         <mat-card-content class="card-body">
-            <div class="mb-3">
+            <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100"  [class.disabled-contenct]="userLoginDesignationLevelId != 1">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
                     <mat-select formControlName="linkedToDesignationLevelId" (selectionChange)=" editFlag = false;clearFormDependancy();getDesignationType()" [class.disabled-contenct]="userLoginDesignationLevelId != 1">
@@ -23,47 +23,51 @@
                         <mat-option   *ngFor="let upDesigLevel of desigantionLevel"
                             [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2"
+                    <!-- <mat-error class="mt-2"
                         *ngIf="f['linkedToDesignationLevelId'].hasError('required')">{{'designation_master.please_select_designation_level'
                         | translate}}
-                    </mat-error>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
-            <div class="mb-3">
+            <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.designation_type' | translate}}</mat-label>
                     <mat-select formControlName="linkedToDesignationId" (selectionChange)="editFlag = false;setDesignationLvl()">
                         <mat-option *ngFor="let upDesigType of desigantionType"
                             [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2"
+                    <!-- <mat-error class="mt-2"
                         *ngIf="f['linkedToDesignationId'].hasError('required')">{{'designation_master.please_select_designation_type'
                         | translate}}
-                    </mat-error>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
-            <div class="mb-3">
+            <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.set_designation_level' | translate}}</mat-label>
                     <mat-select formControlName="designationLevelId">
                         <mat-option *ngFor="let setDesigLvl of setDesignationLevel"
                             [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
                     </mat-select>
-                    <mat-error class="mt-2"
+                    <!-- <mat-error class="mt-2"
                         *ngIf="f['designationLevelId'].hasError('required')">{{'designation_master.please_set_designation_level'
                         | translate}}
-                    </mat-error>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
-                    <input matInput placeholder="Add Designation" formControlName="designationName"
+                    <input matInput placeholder="Add Designation" formControlName="designationName"  type="text"
                         (keypress)="validation.noFirstSpaceAllow($event)">
-                    <mat-error class="mt-2"
-                        *ngIf="f['designationName'].hasError('required')">{{'designation_master.please_enter_designation_name'
-                        | translate}}
-                    </mat-error>
+                    <mat-error *ngIf="f['designationName'].errors">
+                      <!-- <span class="text-danger" *ngIf="f['designationName'].hasError('required')">
+                          {{'designation_master.please_enter_designation_name' |translate}}
+                      </span> -->
+                      <span class="text-danger" *ngIf="f['designationName'].hasError('pattern')">
+                          {{'designation_master.please_enter_valid_designation_name' |translate}}
+                      </span>
+                  </mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>

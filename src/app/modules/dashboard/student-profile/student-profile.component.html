@@ -1,20 +1,20 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page">Masters</li>
-      <li class="breadcrumb-item" aria-current="page">Student Registration</li>
-      <li class="breadcrumb-item active" aria-current="page">Student Profile</li>
+        <li class="breadcrumb-item" aria-current="page">Masters</li>
+        <li class="breadcrumb-item" aria-current="page">Student Registration</li>
+        <li class="breadcrumb-item active" aria-current="page">Student Profile</li>
     </ol>
-  </nav>
+</nav>
 <mat-card class="plain-card h-100">
     <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-          <h6 class="text-main mb-0 fw-bold">Student Profile</h6>
-          <div class="d-flex align-items-center gap-2">
-          </div>
+            <h6 class="text-main mb-0 fw-bold">Student Profile</h6>
+            <div class="d-flex align-items-center gap-2">
+            </div>
         </div>
-      </mat-card-header>
-    <mat-card-header class="card-header mb-0 border-0">
-        <div class="row">
+    </mat-card-header>
+    <mat-card-header class="card-header mb-0 border-0 pb-0">
+        <div class="row w-100">
             <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Student Full</mat-label>
@@ -44,72 +44,75 @@
         </div>
     </mat-card-header>
 
-    <mat-card-content class="card-body">
+    <mat-card-content class="card-body pt-0">
         <div class="row">
-            <div class="col-sm-6">
-                Table
+            <div class="col-sm-5">
+                <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
             </div>
-            <div class="col-sm-6">
-
-                <div class="student-profile">
+            <div class="col-sm-7">
+                <div class="student-bg">
                     <h5 class="text-primary">प्रोफाइल</h5>
                 </div>
-                <div class="container">
-                    <div class="student-details">
-                        <div class="d-flex gap-3">
-                            <div class="flex-shrink-0">
-                                <img src="../../../../../assets/images/user.jpg" alt="student-image" height="80px">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">Nayan Rajput</h6>
-                                <p>Male</p>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4">
-                                        <div class="form-label">वडीलांचे नावं:</div>
-                                        <div class="form-deta">
-                                            <!-- {{data.fatherFullName}} -->
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-label">मोबाईल क्रमांक:</div>
-                                        <div class="form-deta">
-                                            <!-- {{data.parentMobileNo}} -->
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-label">आधार क्रमांक:</div>
-                                        <div class="form-deta">
-                                            <!-- {{data.aadharNo}} -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-label">शाळेचे नाव:</div>
-                                        <div class="form-deta">
-                                            <!-- {{data.schoolName}} -->
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-label">वर्ग:</div>
-                                        <div class="form-deta">
-                                            <!-- {{data.standard}} -->
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-label">वर्ग शिक्षक :</div>
-                                        <div class="form-deta">
-                                            श्री.विनय गाडगे
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="student-details">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <img src="{{dataArray.profilePhoto}}" alt="Student Photo">
                         </div>
-                        <div class="report">
-                            <h6 class="text-main">Performance Report</h6>
-                            <div>
-                                Graph
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-bold">{{dataArray.f_Name}}</h5>
+                            <p class="text-muted mb-4">मुलगा</p>
+
+                            <div class="data-container">
+                                <div class="row mb-3 justify-content-between">
+                                    <div class="col-sm-4">
+                                        <span class="data-label">वडीलांचे नावं :</span>
+                                        <div class="data-text">{{dataArray.m_Name}}</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="data-label">मोबाईल क्रमांक :</span>
+                                        <div class="data-text">{{dataArray.parentsMobileNo}}</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="data-label">आधार क्रमांक :</span>
+                                        <div class="data-text">{{dataArray.aadharNo}}</div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 justify-content-between">
+                                    <div class="col-sm-4">
+                                        <span class="data-label">शाळेचे नाव :</span>
+                                        <div class="data-text">{{dataArray.schoolName}}</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="data-label">वर्ग :</span>
+                                        <div class="data-text">{{dataArray.standard}}</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="data-label">वर्ग शिक्षक :</span>
+                                        <div class="data-text">{{dataArray.teacherName}}</div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <mat-card class="plain-card border">
+                                <mat-card-header class="card-header pb-0 border-bottom-0">
+                                    <div class="d-flex justify-content-start align-items-center w-100">
+                                        <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
+                                       <div class="flex-fill">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Favorite food</mat-label>
+                                            <mat-select>
+                                              <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                       </div>
+                                    </div>
+                                </mat-card-header>
+                                <mat-card-content class="card-body">
+                                    chart
+                                </mat-card-content>
+                            </mat-card>
                         </div>
                     </div>
                 </div>

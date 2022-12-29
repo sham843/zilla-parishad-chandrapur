@@ -37,6 +37,8 @@ body {
   --main-color: rgb(67, 133, 255);
   --main-light-color: rgb(217, 231, 255);
   --main-dark-color: rgb(0, 66, 189);
+  --third-color:rgb(9, 204, 194);
+  --third-dark-color:rgb(2, 120, 114);
 }
 
 a.text-main {
@@ -75,6 +77,18 @@ a.text-main,
   color: #fff;
 }
 
+.btn-third {
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
+  background-color: var(--third-color) !important;
+  color: #fff !important;
+  font-size: 0.85rem;
+}
+
+.btn-third:hover {
+  background-color: var(--third-dark-color) !important;
+  color: #fff;
+}
+
 .btn-icon {
   width: 34px !important;
   min-width: 38px !important;
@@ -99,7 +113,6 @@ a.text-main,
   font-size: 0.85rem !important;
   color: #A8A8A8 !important;
   border: solid 1px #A8A8A8 !important;
-  border-radius: 0.375rem !important;
   background-color: transparent !important;
   font-family: 'Noto Sans Devanagari', sans-serif !important;
 }
@@ -268,6 +281,14 @@ a.text-main,
 .apexcharts-legend-text{
   font-family: "Noto Sans Devanagari", sans-serif !important;
 }
+.card-height-full{
+  max-height:81vh !important;
+  overflow-y: auto !important;
+}
+.card-height-mid {
+  max-height: 74vh !important;
+  overflow-y: auto !important;
+}
 .scrollbar {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -299,4 +320,14 @@ a.text-main,
   background-color: hsla(214,7%,62%,.4);
   border-radius: 3px;
   visibility: hidden;
+}
+.data-container .data-label{
+  color: #666;
+}
+.data-container .data-text{
+  color: #000;
+  font-size: 1rem;
+}
+.table-without-error .mat-mdc-form-field-subscript-wrapper{
+  display:none !important;
 }

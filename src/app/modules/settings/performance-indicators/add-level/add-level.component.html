@@ -1,46 +1,54 @@
-<mat-card class="plain-card">
-    <mat-card-header class="card-header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0 fw-bold">{{data.editObjData ? 'Update': 'Add'}} Level</h6>
-            <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-                <mat-icon>
-                    close
-                </mat-icon>
-            </button>
-        </div>
-    </mat-card-header>
-    <form [formGroup]="addLevelForm" #formDirective="ngForm" (ngSubmit)="onSubmit()"> 
-    <mat-card-content class="card-body">
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
-                <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}" formControlName="assesmentParameter">
-                <mat-error *ngIf="f.assesmentParameter.errors">
-                    <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
-                        {{'performance_indicators.Add_Level_Model.add_english_level_is_required' | translate}}</span>
+<form [formGroup]="addLevelForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
+    <mat-card class="plain-card">
+        <mat-card-header class="card-header">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h6 class="text-main mb-0 fw-bold">{{data.editObjData ? 'Update': 'Add'}} Level</h6>
+                <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+                    <mat-icon>
+                        close
+                    </mat-icon>
+                </button>
+            </div>
+        </mat-card-header>
+
+        <mat-card-content class="card-body">
+            <div class="mb-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
+                    <input matInput
+                        placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}"
+                        formControlName="assesmentParameter">
+                    <mat-error *ngIf="f.assesmentParameter.errors">
+                        <!-- <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
+                        {{'performance_indicators.Add_Level_Model.add_english_level_is_required' | translate}}</span> -->
                         <span class="text-danger" *ngIf="f.assesmentParameter.errors?.pattern">
-                            {{'performance_indicators.Add_Level_Model.enter_valid_add_english_level' | translate}}</span>
-                </mat-error>
-              </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
-                <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}" formControlName="m_AssesmentParameter">
-                <mat-error *ngIf="f.m_AssesmentParameter.errors">
-                    <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
-                        {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span>
+                            {{'performance_indicators.Add_Level_Model.enter_valid_add_english_level' |
+                            translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
+                    <input matInput
+                        placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}"
+                        formControlName="m_AssesmentParameter">
+                    <mat-error *ngIf="f.m_AssesmentParameter.errors">
+                        <!-- <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
+                        {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span> -->
                         <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.pattern">
-                            {{'performance_indicators.Add_Level_Model.enter_valid_add_marathi_level' | translate}}</span>
-                </mat-error>
-              </mat-form-field>
-        </div>
-    </mat-card-content>
-    <mat-card-footer class="card-footer">
-        <div class="d-flex justify-content-end gap-2">
-            <button mat-stroked-button class="btn-second" type="button" (click)="clearForm()">Clear</button>
-            <button mat-stroked-button class="btn-main" type="submit">{{data.editObjData ? 'Update': 'Add'}}</button>
-        </div>
-    </mat-card-footer>
+                            {{'performance_indicators.Add_Level_Model.enter_valid_add_marathi_level' |
+                            translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-footer class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                <button mat-stroked-button class="btn-second" type="button" (click)="clearForm()">Clear</button>
+                <button mat-stroked-button class="btn-main" type="submit">{{data.editObjData ? 'Update Level':
+                    'Add Level'}}</button>
+            </div>
+        </mat-card-footer>
+    </mat-card>
 </form>
-</mat-card>
