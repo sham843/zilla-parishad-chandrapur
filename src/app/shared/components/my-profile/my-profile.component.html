@@ -2,23 +2,26 @@
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="mb-0 text-main">My Profile</h6>
-            <button mat-icon-button mat-dialog-close class="btn-modal-close">
+            <button mat-icon-button  class="btn-modal-close" mat-dialog-close>
                 <mat-icon>
                     close
                 </mat-icon>
             </button>
         </div>
     </mat-card-header>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
     <mat-card-content class="card-body">
         <div class="text-center mb-3">
             <div class="upload-btn-wrapper">
-                <img src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
-                <input type="file" id="img-upload" />
+                <img *ngIf="!ImgUrl" src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
+                <img *ngIf="ImgUrl" src="{{ImgUrl}}" alt="profile-img" width="100" class="profile-image">
+
                 <div class="profile-buttons d-flex flex-column">
                     <button type="button" class="btn bg-light text-primary">
+                        <input type="file" *ngIf="!ImgUrl" (change)="documentUpload($event)" #fileInput />
                         <i class='bx bx-plus'></i>
                     </button>
-                    <button type="button" class="border border-0 btn bg-light text-danger">
+                    <button type="button" class="border border-0 btn bg-light text-danger" *ngIf="ImgUrl" (click)="deleteImg()">
                         <i class='bx bx-trash'></i>
                     </button>
                 </div>
@@ -28,58 +31,68 @@
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Full Name</mat-label>
-                    <input matInput placeholder="First Name">
+                    <input matInput placeholder="First Name" formControlName="name">
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Mobile No.</mat-label>
-                    <input matInput placeholder="Contact No.">
+                    <input matInput placeholder="Contact No." formControlName="mobileNo">
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email ID</mat-label>
-                    <input matInput placeholder="Email ID">
+                    <input matInput placeholder="Email ID" formControlName="emailId">
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Select Level</mat-label>
-                   <mat-select>
-                    <mat-option>option 1</mat-option>
+                   <mat-select formControlName="designationLevelId" (selectionChange)="getDesignation()">
+                    <mat-option *ngFor="let lev of levelArray" [value]="lev.id">
+                            {{lev.desingationLevel}}
+                    </mat-option>
                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Select Designation</mat-label>
-                   <mat-select>
-                    <mat-option>option 1</mat-option>
+                   <mat-select formControlName="designationId" (selectionChange)="getDistrict()">
+                    <mat-option *ngFor="let deg of designationArray" [value]="deg.id">
+                            {{deg.desingationTypes}}
+                    </mat-option>
                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Select District</mat-label>
-                   <mat-select>
-                    <mat-option>option 1</mat-option>
+                   <mat-select formControlName="districtId"  (selectionChange)="getTaluka()">
+                    <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
+                            {{dist.district}}
+                    </mat-option>
                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Select Taluka</mat-label>
-                   <mat-select>
-                    <mat-option>option 1</mat-option>
+                   <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
+                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                                {{tal.taluka}}
+                    </mat-option>
                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Select Kendra</mat-label>
-                   <mat-select>
-                    <mat-option>option 1</mat-option>
+                   <mat-select formControlName="centerId">
+                    <mat-option  *ngFor="let cen of centerArray" [value]="cen.id">
+                                {{cen.center}}
+                    </mat-option>
                    </mat-select>
                 </mat-form-field>
             </div>
@@ -87,8 +100,9 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex w-100 justify-content-end align-items-center">
-            <button mat-dialog-close mat-flat-button class="btn-second me-2">Cancel</button>
-            <button mat-flat-button class="btn-main">Submit</button>
+            <button mat-dialog-close mat-flat-button class="btn-second me-2" type="button">Cancel</button>
+            <button mat-flat-button class="btn-main" type="submit">Submit</button>
         </div>
     </mat-card-footer>
+  </form>
 </mat-card>
