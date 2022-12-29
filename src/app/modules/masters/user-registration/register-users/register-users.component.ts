@@ -69,7 +69,6 @@ export class RegisterUsersComponent {
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type
-    debugger
     this.master.getUserType(this.lang).subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
     })

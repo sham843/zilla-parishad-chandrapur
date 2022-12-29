@@ -111,7 +111,7 @@ export class UserRegistrationComponent {
       this.spinner.hide();
         this.tableDataArray = [];
         this.totalItem = 0;
-        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) :'';
        } 
        flag != 'excel' ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
@@ -209,17 +209,19 @@ setTableData(){     // table
     if(flag=='taluka'){
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
+      this.schoolArray=[];
     }else if(flag=='kendra'){
       this.serachUserForm.controls['SchoolId'].setValue('');
-    }else{
-      this.getAllUserData();
+    }
+  }
+
+  clearAllFilter(){
       this.serachUserForm.controls['UserTypeId'].setValue('');
       this.serachUserForm.controls['TalukaId'].setValue('');
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
       this.serachUserForm.controls['textSearch'].setValue('');
-    }
-   
+      this.getAllUserData();
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 
