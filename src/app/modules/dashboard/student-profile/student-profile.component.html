@@ -47,7 +47,7 @@
     <mat-card-content class="card-body pt-0">
         <div class="row">
             <div class="col-sm-5">
-                Table
+                <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
             </div>
             <div class="col-sm-7">
                 <div class="student-bg">
@@ -56,39 +56,39 @@
                 <div class="student-details">
                     <div class="d-flex">
                         <div class="flex-shrink-0">
-                            <img src="../../../../assets/images/user.jpg" alt="Student Photo">
+                            <img src="{{dataArray.profilePhoto}}" alt="Student Photo">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">नयन राजपूत</h5>
+                            <h5 class="mb-1 fw-bold">{{dataArray.f_Name}}</h5>
                             <p class="text-muted mb-4">मुलगा</p>
 
                             <div class="data-container">
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
                                         <span class="data-label">वडीलांचे नावं :</span>
-                                        <div class="data-text">लक्ष्मण शिंदे</div>
+                                        <div class="data-text">{{dataArray.m_Name}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">मोबाईल क्रमांक :</span>
-                                        <div class="data-text">8888888888</div>
+                                        <div class="data-text">{{dataArray.parentsMobileNo}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">आधार क्रमांक :</span>
-                                        <div class="data-text">88888888885896</div>
+                                        <div class="data-text">{{dataArray.aadharNo}}</div>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
                                         <span class="data-label">शाळेचे नाव :</span>
-                                        <div class="data-text">चैतन्य विद्यालय</div>
+                                        <div class="data-text">{{dataArray.schoolName}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">वर्ग :</span>
-                                        <div class="data-text">1st</div>
+                                        <div class="data-text">{{dataArray.standard}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">वर्ग शिक्षक :</span>
-                                        <div class="data-text">श्री.विनय गाडगे</div>
+                                        <div class="data-text">{{dataArray.teacherName}}</div>
                                     </div>
                                 </div>
                             </div>
