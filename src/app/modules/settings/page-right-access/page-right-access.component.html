@@ -7,9 +7,9 @@
 <form [formGroup]="filterForm">
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
-            <h6 class="text-main mb-0">{{'page_right_access.page_right_access' | translate}}</h6>
+            <h6 class="text-main mb-0 fw-bold">{{'page_right_access.page_right_access' | translate}}</h6>
         </mat-card-header>
-        <mat-card-header class="card-header">
+        <mat-card-header class="card-header pb-0 border-bottom-0">
             <div class="row w-100 gx-2">
                 <div class="col-sm-3">
                     <mat-form-field appearance="outline" class="w-100">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </mat-card-header>
-        <mat-card-content class="card-body">
+        <mat-card-content class="card-body pt-0">
             <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
         </mat-card-content>
     </mat-card>
