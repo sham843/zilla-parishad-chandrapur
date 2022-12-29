@@ -281,6 +281,14 @@ a.text-main,
 .apexcharts-legend-text{
   font-family: "Noto Sans Devanagari", sans-serif !important;
 }
+.card-height-full{
+  max-height:81vh !important;
+  overflow-y: auto !important;
+}
+.card-height-mid {
+  max-height: 74vh !important;
+  overflow-y: auto !important;
+}
 .scrollbar {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -319,4 +327,7 @@ a.text-main,
 .data-container .data-text{
   color: #000;
   font-size: 1rem;
+}
+.table-without-error .mat-mdc-form-field-subscript-wrapper{
+  display:none !important;
 }
