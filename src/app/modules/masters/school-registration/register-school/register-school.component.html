@@ -9,7 +9,7 @@
             </div>
         </mat-card-header>
         <mat-card-content class="card-body">
-            <div class="row g-4">
+            <div class="row">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district' |translate}}</mat-label>
@@ -18,9 +18,9 @@
                                 {{dist.district}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['districtId'].hasError('required')">{{'common.Please_Select_District'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -31,9 +31,9 @@
                                 {{tal.taluka}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['talukaId'].hasError('required')">{{'common.Please_Select_Taluka'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -44,9 +44,9 @@
                                 {{cet.center}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['centerId'].hasError('required')">{{'school.kendra_required'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-8">
@@ -56,8 +56,8 @@
                             formControlName="schoolName"
                             (keyup)="validator.alphaNumeric($event);validator.removeSpaceAtBegining($event)"
                             minlength="10" maxlength="500">
-                        <mat-error
-                            *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error>
+                        <!-- <mat-error
+                            *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error> -->
                         <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
                         <mat-error *ngIf="registerForm.controls['schoolName'].hasError('pattern')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
                     </mat-form-field>
@@ -70,9 +70,9 @@
                                 {{cat.categoryName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['s_CategoryId'].hasError('required')">{{'school.please_select_school_category'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -83,9 +83,9 @@
                                 {{type.schoolType}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['s_TypeId'].hasError('required')">{{'school.please_select_school_type'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -96,13 +96,13 @@
                                 {{gen.gender}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['g_GenderId'].hasError('required')">{{'school.please_select_gender_allowed'
-                            |translate}}</mat-error>
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <!-- <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.group_class' |translate}}</mat-label>
                         <mat-select formControlName="g_ClassId">
                             <mat-option *ngFor="let gr of groupArray" [value]="gr.id">
@@ -112,7 +112,7 @@
                         <mat-error
                             *ngIf="registerForm.controls['g_ClassId'].hasError('required')">{{'school.please_select_group_class'
                             |translate}}</mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </div>
             </div>
         </mat-card-content>
