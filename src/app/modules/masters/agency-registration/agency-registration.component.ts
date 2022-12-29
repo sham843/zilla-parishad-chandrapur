@@ -76,7 +76,7 @@ export class AgencyRegistrationComponent {
     let displayedColumns;
     this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
-    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id', 'Action']
+    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr.No.', 'NGO/Agency Name', 'Contact No.', 'Email Id', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
       highlightedRow: '',
@@ -172,7 +172,7 @@ export class AgencyRegistrationComponent {
    excelDownload() {
     this.getAllAgencyData('excel');
     let pageName: any;
-    this.language == 'Marathi' ? pageName = '(एनजीओ)एजन्सी नोंदणी' : pageName = 'Agency Registration';
+    this.language == 'Marathi' ? pageName = 'एनजीओ एजन्सी नोंदणी' : pageName = 'Agency Registration';
     let header: any;
     this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
     let column: any;
