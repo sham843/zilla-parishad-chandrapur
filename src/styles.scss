@@ -331,3 +331,10 @@ a.text-main,
 .table-without-error .mat-mdc-form-field-subscript-wrapper{
   display:none !important;
 }
+.inner-table{
+  border: solid 2px var(--main-light-color);
+  font-size: 0.85rem;
+}
+.inner-table thead th{
+  background-color: var(--main-light-color);
+}
