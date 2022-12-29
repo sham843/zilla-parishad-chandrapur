@@ -167,6 +167,7 @@
         "please_select_designation_type": "Please Select Designation Type",
         "please_set_designation_level": "Please Set Designation Level",
         "please_enter_designation_name": "Please Enter Designation Name",
+        "please_enter_valid_designation_name": "Please Enter Valid Designation Name",
         "do_you_want_to_delete_selected_designation_record?":"Do You Want To Delete Selected Designation Record",
         "linked_to":"Linked to",
         "register_designation":"Register Designation",
@@ -246,4 +247,4 @@
 }
 
 
-	
+
