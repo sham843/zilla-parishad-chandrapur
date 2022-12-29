@@ -127,8 +127,7 @@ export class MyProfileComponent {
     if(this.profileForm.invalid){
       return
     }
-    // this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
-    this.fileUploaded()
+    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
   }
 
   fileUploaded() {
@@ -247,7 +246,6 @@ export class MyProfileComponent {
   // zp_chandrapur/user-registration/AddRecord
   submitProfileData(){
     let formObj=this.profileForm.value;
-   formObj.profilePhoto=this.ImgUrl;
     this.service.setHttp('post','zp_chandrapur/user-registration/AddRecord', false, formObj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
