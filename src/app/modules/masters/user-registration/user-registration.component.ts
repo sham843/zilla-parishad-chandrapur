@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
+import { NgxSpinnerService } from 'ngx-spinner'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
@@ -20,7 +21,9 @@ export class UserRegistrationComponent {
   tableData: any
   tableDataArray = new Array();
   totalItem!: number;
+  totalPages!: number;
   pageNumber: number = 1;
+  excelDowobj:any;
   lang: string = 'English';
   userTypeArray = new Array();
   talukaArray = new Array();
@@ -35,7 +38,8 @@ export class UserRegistrationComponent {
     private fb: FormBuilder,
     private excel:ExcelPdfDownloadService,
     private errors:ErrorsService,
-    private common:CommonMethodsService
+    private common:CommonMethodsService,
+    private spinner:NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -77,21 +81,35 @@ export class UserRegistrationComponent {
       this.schoolArray = res.responseData;
     })
   }
-  getAllUserData() {
-    let obj = `pageno=${this.pageNumber}&pagesize=10&UserTypeId=${this.serachUserForm.value.UserTypeId}&TalukaId=${this.serachUserForm.value.TalukaId}
-    &CenterId=${this.serachUserForm.value.CenterId}&SchoolId=${this.serachUserForm.value.SchoolId}&textSearch=${this.serachUserForm.value.textSearch}`
-    this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetAll?' + obj, false, false, false, 'baseUrl')
+  getAllUserData(flag?:any) {
+    flag == 'filter' ? this.pageNumber = 1 :'';
+    this.spinner.show();
+    let userTypeId=this.serachUserForm.value.UserTypeId?this.serachUserForm.value.UserTypeId:0;
+    let taluka=this.serachUserForm.value.TalukaId?this.serachUserForm.value.TalukaId:0;
+    let school=this.serachUserForm.value.SchoolId?this.serachUserForm.value.SchoolId:0;
+    let center=this.serachUserForm.value.CenterId?this.serachUserForm.value.CenterId:0;
+    let text=this.serachUserForm.value.textSearch?this.serachUserForm.value.textSearch:'';
+
+    let serchText = `&UserTypeId=${userTypeId}&TalukaId=${taluka}
+    &CenterId=${center}&SchoolId=${school}&textSearch=${text}`
+
+    let obj =  flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
+    this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetAll?' +  `${obj}${serchText}`, false, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
        if(res.statusCode == "200"){
+        this.spinner.hide();
         this.tableDataArray = res.responseData.responseData1;
         this.totalItem = res.responseData.responseData2.pageCount;
+        this.totalPages = res.responseData.responseData2.totalPages;
        }
      else{
+      this.spinner.hide();
         this.tableDataArray = []
         this.totalItem = 0
          this.common.snackBar(res.statusMessage,1)
-       }  this.setTableData();
+       } 
+       flag != 'excel' ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
          error: ((err: any) => { this.errors.handelError(err) })
      })
@@ -120,14 +138,26 @@ setTableData(){
       this.apiService.tableData.next(this.tableData)
 }
   childCompInfo(obj: any) {
-    obj.label == 'Edit' ? this.registerusers(obj) : this.deleteDialog(obj)
+    if (obj.label == 'Pagination') {
+    this.pageNumber = obj.pageNumber
+    this.getAllUserData();
+  } else if (obj.label == 'Edit') {
+    this.registerusers(obj);
+  } else {
+    this.deleteDialog(obj);
+  }
   }
   //----------------------------------------------------------Add update modal open------------------------------------------------------------
   registerusers(editObj?: any) {
-    this.dialog.open(RegisterUsersComponent, {
+    const dialog =this.dialog.open(RegisterUsersComponent, {
       width: '700px',
       disableClose: true,
       data: editObj,
+    })
+    dialog.afterClosed().subscribe((res:any) => {
+      if (res == 'Yes') {
+        this.getAllUserData();
+      }
     })
   }
   // ----------------------------------------------------------Delete modal-------------------------------------------------------------
@@ -176,34 +206,25 @@ setTableData(){
     }else if(flag=='kendra'){
       this.serachUserForm.controls['SchoolId'].setValue('');
     }else{
+      this.getAllUserData();
       this.serachUserForm.controls['UserTypeId'].setValue('');
       this.serachUserForm.controls['TalukaId'].setValue('');
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
       this.serachUserForm.controls['textSearch'].setValue('');
     }
+    this.getAllUserData();
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 
-    // this.getAllAgencyData('excel');
-    let pageName;
+    this.getAllUserData('excel');
+    let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
     this.lang=='mr-IN'?header=['अनुक्रमांक','वापरकर्ता प्रकार','नाव','मोबाईल नंबर']:header=['Sr. No.','User Type', 'Name', 'Mobile No'];
     let column:any;
     this.lang=='mr-IN'?column=['srNo','m_UserType','name','mobileNo']:column=['srNo','userType', 'name', 'mobileNo'];
-    this.excel.downloadExcel(this.tableDataArray,pageName,header,column);
+    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
-  /* getAllAgencyData(arg0: string) {
-    throw new Error('Method not implemented.')
-  } */
-
-  /* let pageName: any;
-  this.language == 'Marathi' ? pageName = 'एजन्सी नोंदणी' : pageName = 'Agency Registration';
-  let header: any;
-  this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
-  let column: any;
-  this.language == 'Marathi' ? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
-  this.excelDowobj ={'pageName':pageName,'header':header,'column':column} */
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
 }
