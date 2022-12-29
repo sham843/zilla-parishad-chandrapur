@@ -7,27 +7,38 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex justify-content-between align-items-center w-100">
-      <h6 class="text-main mb-0">{{'school.school_list' | translate}}</h6>
+      <h6 class="text-main mb-0 fw-bold">{{'school.school_list' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+        <button mat-flat-button class="btn-third btn-icon" title="Table View">
+          <mat-icon>
+            table_view
+          </mat-icon>
+        </button>
+
+        <button mat-flat-button class="btn-second btn-icon" title="Card View">
+          <mat-icon>
+            grid_view
+          </mat-icon>
+        </button>
+
+        <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel" (click)="excelDownload()">
+          <mat-icon>
+            description
+          </mat-icon>
+        </button>
+        <!-- <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
           <mat-icon>
             download
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <!-- <button mat-menu-item (click)="excelPdfDownload('pdf')">
-            <div class="d-flex align-items-center justify-content-between w-100">
-              <span>PDF</span>
-              <i class='bx bxs-file-pdf text-danger'></i>
-            </div>
-          </button> -->
           <button mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>Excel</span>
               <i class='bx bxs-file text-primary'></i>
             </div>
           </button>
-        </mat-menu>
+        </mat-menu> -->
         <button mat-flat-button class="btn-main" (click)="addSchoolData()">
           <mat-icon>add</mat-icon>
           <span>
@@ -38,7 +49,7 @@
     </div>
   </mat-card-header>
   <form [formGroup]="filterForm" #formGroupDirective="ngForm">
-    <mat-card-header class="card-header">
+    <mat-card-header class="card-header pb-0 border-bottom-0">
       <div class="row w-100">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
@@ -68,13 +79,14 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter' |translate}}</button>
+          <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
+            |translate}}</button>
           <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
         </div>
       </div>
     </mat-card-header>
   </form>
-  <mat-card-content class="card-body">
+  <mat-card-content class="card-body pt-0">
     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
   </mat-card-content>
 </mat-card>

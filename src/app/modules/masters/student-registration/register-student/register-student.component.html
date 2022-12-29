@@ -12,7 +12,7 @@
         <mat-card-content class="card-body">
 
 
-            <div class="row g-4 mb-0">
+            <div class="row gy-2">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district'|translate}}</mat-label>
@@ -34,9 +34,9 @@
                             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2">
+                        <!-- <mat-error class="mt-2">
                             <span>{{'common.Please_Select_Taluka'|translate}}</span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -47,9 +47,9 @@
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
+                        <!-- <mat-error class="mt-2" *ngIf="f['centerId'].hasError('required')">
                             {{'common.select_kendra'|translate}}
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -59,9 +59,9 @@
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
+                        <!-- <mat-error class="mt-2" *ngIf="f['schoolId'].hasError('required')">
                             {{'common.select_school'|translate}}
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -93,9 +93,9 @@
                             maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['f_Name']?.errors">
-                            <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
+                            <!-- <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
                                 {{'student.please_enter_first_name'|translate}}
-                            </span>
+                            </span> -->
                             <span class="text-danger" *ngIf="f['f_Name'].hasError('minlength')">
                                 {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
@@ -128,9 +128,9 @@
                             maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['l_Name']?.errors">
-                            <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
+                            <!-- <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 {{'student.please_enter_last_name'|translate}}
-                            </span>
+                            </span> -->
                             <span class="text-danger" *ngIf="f['l_Name'].hasError('minlength')">
                                 {{'school.please_enter_minimum_2_character'|translate}}
                             </span>
@@ -151,9 +151,9 @@
                             <span class="text-danger" *ngIf="f['saralId'].hasError('minlength')">
                                 {{'school.please_enter_atleast_2_alphanumeric'|translate}}
                             </span>
-                            <span class="text-danger" *ngIf="f['saralId'].hasError('required')">
+                            <!-- <span class="text-danger" *ngIf="f['saralId'].hasError('required')">
                                 {{'student.please_enter_saral_id'|translate}}
-                            </span>
+                            </span> -->
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -164,9 +164,9 @@
                             <mat-option *ngFor="let gender of genderArray" [value]="gender.id">{{gender.gender}}
                             </mat-option>
                         </mat-select>
-                        <mat-error class="mt-2" *ngIf="f['genderId'].hasError('required')">
+                        <!-- <mat-error class="mt-2" *ngIf="f['genderId'].hasError('required')">
                             {{'student.select_gender'|translate}}
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
