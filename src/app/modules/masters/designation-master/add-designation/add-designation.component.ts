@@ -45,11 +45,11 @@ export class AddDesignationComponent {
   controlForm(data?: any) {
     this.designationForm = this.fb.group({
       id: [data?.id || 0],
-      linkedToDesignationLevelId: ['',Validators.required],
+      linkedToDesignationLevelId: ['', Validators.required],
       designationLevelId: ['', Validators.required],
       linkedToDesignationId: [data?.linkedToDesignationId, Validators.required],
       linkedToDesignationName: [''],
-      designationName: [data?.designationName || '', Validators.required],
+      designationName: [data?.designationName || '', [Validators.required, Validators.pattern(this.validation.alphabetsAndNumber)]],
       designationLevelName: [''],
       linkedToDesignationLevelName: [''],
       isDeleted: [false],
@@ -69,6 +69,8 @@ export class AddDesignationComponent {
     formDirective?.resetForm();
     this.data = null;
     this.editFlag = false;
+    this.desigantionType = [];
+    this.setDesignationLevel = [];
     this.controlForm();
     if (this.userLoginDesignationLevelId != 1) {
       this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.userLoginDesignationLevelId);
@@ -134,7 +136,7 @@ export class AddDesignationComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == '200') {
-            let isUpdate= this.data ? true : false
+            let isUpdate = this.data ? true : false
             this.dialogRef.close(isUpdate);
             this.clearForm();
             this.commonMethod.snackBar(res.statusMessage, 0)
