@@ -102,8 +102,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'agency.contact_number' |translate}}</mat-label>
                         <input matInput placeholder="{{'agency.contact_number' |translate}}" formControlName="contactNo"
-                            (blur)="contactNo()" maxlength="10" (keypress)="validation.onlyDigits($event)"
-                            (keyup)="validation.noFirstSpaceAllow($event)">
+                            (blur)="contactNo()" maxlength="10" (keypress)="validation.onlyDigits($event);validation.noFirstSpaceAllow($event)">
                         <!-- <mat-error *ngIf="f['contactNo'].errors">
                             <span class="text-danger" *ngIf="f['contactNo'].hasError('pattern')">
                                 {{'agency.please_enter_valid_contact_no' |translate}}

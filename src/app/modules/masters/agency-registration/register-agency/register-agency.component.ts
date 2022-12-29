@@ -50,7 +50,7 @@ export class RegisterAgencyComponent {
       m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'', [Validators.required]],
       registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.minLength(5),Validators.maxLength(50)]],
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      districtId: [this.data.obj?this.data.obj.districtId:'', [Validators.required]],
+      districtId: [this.data.obj?this.data.obj.districtId:1, [Validators.required]],
       talukaId: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
       contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
@@ -96,6 +96,7 @@ export class RegisterAgencyComponent {
   }
   clearForm(formDirective:any){
     formDirective.resetForm();
+    this.getAgencyControl();
   }
   contactNo(){
     this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(' '):'';

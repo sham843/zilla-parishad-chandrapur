@@ -66,7 +66,7 @@
         "Please_enter_name":"कृपया नाव प्रविष्ट करा"
     },
     "agency": {
-        "register_agency": "नोंदणी एजन्सी",
+        "register_agency": "एनजीओ/एजन्सी नोंदणी",
         "please_enter_agency_name": "कृपया एजन्सीचे नाव प्रविष्ट करा",
         "registration_number": "नोंदणी क्रमांक",
         "please_enter_registration_number": "कृपया नोंदणी क्रमांक प्रविष्ट करा",
@@ -75,8 +75,8 @@
         "please_enter_address": "कृपया पत्ता प्रविष्ट करा",
         "contact_number": "संपर्क क्रमांक",
         "please_enter_contact_number": "कृपया संपर्क क्रमांक प्रविष्ट करा",
-        "agency_registration": "एजन्सी नोंदणी",
-        "Add_agency": "एजन्सी जोडा",
+        "agency_registration": "एजन्सी/एनजीओची नोंदणी",
+        "Add_agency": "एनजीओ/एजन्सी जोडा",
         "agency_marathi_name": "एजन्सीचे मराठी नाव",
         "please_enter_valid_emailId": "कृपया वैध ईमेल आयडी प्रविष्ट करा",
         "please_enter_valid_contact_no": "कृपया वैध संपर्क क्रमांक प्रविष्ट करा",

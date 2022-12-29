@@ -76,7 +76,7 @@ export class AgencyRegistrationComponent {
     let displayedColumns;
     this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
-    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No.', 'Email Id', 'Action']
+    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एनजीओ/एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No.', 'Email Id', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
       highlightedRow: '',
@@ -112,7 +112,7 @@ export class AgencyRegistrationComponent {
       width: '750px',
       disableClose: true,
       data: {
-        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एजन्सी' : 'Update Agency') : (this.language == 'Marathi' ? 'नोंदणी एजन्सी' : 'Register Agency'),
+        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ/एजन्सी' : 'Update NGO/Agency') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ/एजन्सी' : 'Register NGO/Agency'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
