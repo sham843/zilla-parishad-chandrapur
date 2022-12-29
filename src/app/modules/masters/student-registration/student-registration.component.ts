@@ -47,9 +47,8 @@ export class StudentRegistrationComponent {
   ngOnInit() {
     this.formData();
     this.getTableData();
-    console.log("rrrrrrrrrrr",this.commonMethod.getUserTypeID());
-
-    this.subscription =this.webStorage.setLanguage.subscribe((res: any) => {
+    // console.log("rrrrrrrrrrr",this.commonMethod.getUserTypeID());
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
@@ -138,19 +137,7 @@ clearForm() {
   this.formData();
   this.centerArray=[];
   this.schoolArray = [];
-  // this.filterFrm.setValue({
-  //   talukaId: 0,
-  //   centerId: 0,
-  //   schoolId: 0,
-  //   searchText: ''
-  // });
-  // this.formDirective.resetForm({
-  //     talukaId: 0,
-  //     centerId: 0,
-  //     schoolId: 0,
-  //     searchText: ''
-  //   });
-   this.getTableData('filter');
+  this.getTableData('filter');
 }
 //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
 
@@ -162,7 +149,7 @@ clearForm() {
     let str =  flag != 'excel' ? `?pageno=${this.pageNumber}&pagesize=10` : `?pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
       '&TalukaId=' + (formData?.talukaId)  + '&CenterId=' + (formData?.centerId)
-      + '&SchoolId=' + (formData?.centerId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+      + '&SchoolId=' + (formData?.schoolId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

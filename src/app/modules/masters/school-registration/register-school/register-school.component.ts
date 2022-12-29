@@ -6,6 +6,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-register-school',
   templateUrl: './register-school.component.html',
@@ -22,6 +23,7 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
   lang!: string;
+  subscription!: Subscription;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   constructor
     (
@@ -35,10 +37,11 @@ export class RegisterSchoolComponent {
     ) { }
 
   ngOnInit() {
-    this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.data ? ( this.editFlag = true , this.getDistrict()):  this.getDistrict();
+    // this.data ? (this.editFlag = true, this.getDistrict()) : this.getDistrict();
+    this.editFlag =  this.data ?  true : false
     this.getFormData();
   }
 
@@ -46,24 +49,16 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     obj = this.data;
     this.registerForm = this.fb.group({
-      createdBy: [obj ? obj.createdBy : this.webStorage.getUserId()],
-      modifiedBy:[obj ? obj.modifiedBy :  this.webStorage.getUserId()],
-      createdDate: [obj ? obj.createdDate : new Date()],
-      modifiedDate: [new Date()],
-      isDeleted: true,
-      id: [obj ? obj.id : 0],
-      schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
-      m_SchoolName: [''],
-      stateId: [obj?.stateId || this.service.stateId, Validators.required],
-      districtId: [obj?.districtId ||this.service.disId, Validators.required],
+      schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],   
+      districtId: ['', Validators.required],
       talukaId: [obj?.talukaId || '', Validators.required],
       centerId: [obj?.centerId || '', Validators.required],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || '', Validators.required],
       g_GenderId: [obj?.g_GenderId || '', Validators.required],
-      g_ClassId: [obj?.g_ClassId || '', Validators.required],
-      lan:[ this.lang]
+      g_ClassId: [obj?.g_ClassId || '', Validators.required],       
     })
+    this.getDistrict();
   }
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
@@ -71,6 +66,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.districtArray = res.responseData;
+          this.registerForm.controls['districtId'].setValue(this.service.disId)
           this.editFlag ? (this.registerForm.controls['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
         } else {
           this.districtArray = [];
@@ -80,7 +76,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-  
+
   }
 
   getTaluka() {
@@ -99,7 +95,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
- 
+
   }
 
   getCenter() {
@@ -153,7 +149,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    
+
   }
 
   getGenderAllow() {
@@ -171,7 +167,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-   
+
   }
 
   getGroupClass() {
@@ -196,14 +192,26 @@ export class RegisterSchoolComponent {
       return;
     } else {
       //  let api= !this.editFlag ?'zp_chandrapur/School/Add' :'zp_chandrapur/School/Update'
-      this.service.setHttp(!this.editFlag ? 'post' : 'put', 'zp_chandrapur/School/' + (!this.editFlag ? 'Add' : 'Update'), false, formData, false, 'baseUrl');
+      let obj = {
+        ... formData,
+        createdBy: this.data ? this.data.createdBy : this.webStorage.getUserId(),
+        modifiedBy: this.data ? this.data.modifiedBy : this.webStorage.getUserId(),
+        createdDate: this.data ? this.data.createdDate : new Date(),
+        modifiedDate: new Date(),
+        isDeleted: true,
+        id: this.data ? this.data.id : 0,
+        stateId: 1,
+        lan: this.lang,
+        m_SchoolName: '',
+      }
+      this.service.setHttp(!this.data ? 'post' : 'put', 'zp_chandrapur/School/' + (!this.data ? 'Add' : 'Update'), false, obj, false, 'baseUrl');
       this.service.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
             this.common.snackBar(res.statusMessage, 0);
             this.registerForm.reset();
-            this.dialogRef.close(this.editFlag ? 'post' : 'put');
-          }else{
+            this.dialogRef.close(this.data ? 'post' : 'put');
+          } else {
             this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }), error: (error: any) => {
@@ -216,6 +224,12 @@ export class RegisterSchoolComponent {
   clearForm() {
     this.editFlag = false;
     this.formDirective.reset();
+    this.getFormData();
+    this.getDistrict();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
 }

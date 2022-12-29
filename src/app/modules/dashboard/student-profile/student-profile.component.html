@@ -1,1 +1,121 @@
-<p>student-profile works!</p>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" aria-current="page">Masters</li>
+      <li class="breadcrumb-item" aria-current="page">Student Registration</li>
+      <li class="breadcrumb-item active" aria-current="page">Student Profile</li>
+    </ol>
+  </nav>
+<mat-card class="plain-card h-100">
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <h6 class="text-main mb-0 fw-bold">Student Profile</h6>
+          <div class="d-flex align-items-center gap-2">
+          </div>
+        </div>
+      </mat-card-header>
+    <mat-card-header class="card-header mb-0 border-0">
+        <div class="row">
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Student Name</mat-label>
+                    <input matInput placeholder="Enter student name">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Class</mat-label>
+                    <mat-select>
+                        <mat-option>Option 1</mat-option>
+                        <mat-option>Option 2</mat-option>
+                        <mat-option>Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select School</mat-label>
+                    <mat-select>
+                        <mat-option>Option 1</mat-option>
+                        <mat-option>Option 2</mat-option>
+                        <mat-option>Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                Table
+            </div>
+            <div class="col-sm-6">
+
+                <div class="student-profile">
+                    <h5 class="text-primary">प्रोफाइल</h5>
+                </div>
+                <div class="container">
+                    <div class="student-details">
+                        <div class="d-flex gap-3">
+                            <div class="flex-shrink-0">
+                                <img src="../../../../../assets/images/user.jpg" alt="student-image" height="80px">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Nayan Rajput</h6>
+                                <p>Male</p>
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <div class="form-label">वडीलांचे नावं:</div>
+                                        <div class="form-deta">
+                                            <!-- {{data.fatherFullName}} -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-label">मोबाईल क्रमांक:</div>
+                                        <div class="form-deta">
+                                            <!-- {{data.parentMobileNo}} -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-label">आधार क्रमांक:</div>
+                                        <div class="form-deta">
+                                            <!-- {{data.aadharNo}} -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-label">शाळेचे नाव:</div>
+                                        <div class="form-deta">
+                                            <!-- {{data.schoolName}} -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-label">वर्ग:</div>
+                                        <div class="form-deta">
+                                            <!-- {{data.standard}} -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-label">वर्ग शिक्षक :</div>
+                                        <div class="form-deta">
+                                            श्री.विनय गाडगे
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report">
+                            <h6 class="text-main">Performance Report</h6>
+                            <div>
+                                Graph
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
