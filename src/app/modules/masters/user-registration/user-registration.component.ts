@@ -54,10 +54,10 @@ export class UserRegistrationComponent {
   }
   getFormControl() {
     this.serachUserForm = this.fb.group({
-      UserTypeId: [0],
-      TalukaId: [0],
-      CenterId: [0],
-      SchoolId: [0],
+      UserTypeId: [''],
+      TalukaId: [''],
+      CenterId: [''],
+      SchoolId: [''],
       textSearch: [''],
     })
   }
@@ -209,6 +209,7 @@ setTableData(){     // table
     if(flag=='taluka'){
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
+      // this.centerArray=[];
       this.schoolArray=[];
     }else if(flag=='kendra'){
       this.serachUserForm.controls['SchoolId'].setValue('');
@@ -221,6 +222,8 @@ setTableData(){     // table
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
       this.serachUserForm.controls['textSearch'].setValue('');
+      this.centerArray=[];
+      this.schoolArray=[];
       this.getAllUserData();
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------

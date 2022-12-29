@@ -171,8 +171,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.name' |translate}}</mat-label>
                             <input matInput placeholder="{{'user_Registration.enter_name' |translate}}"
-                                formControlName="name" (keypress)="validation.alphabetsWithSpaces($event)"
-                                (keyup)="validation.removeSpaceAtBegining($event)">
+                                formControlName="name" (keypress)="validation.alphabetsWithSpaces($event);validation.noFirstSpaceAllow($event)">
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('required')">
                                     Please Enter Name
@@ -187,8 +186,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.mobile_number' |translate}}"
-                            formControlName="mobileNo" (keypress)="validation.onlyDigits($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
+                            formControlName="mobileNo" 
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
                                 {{'common.please_enter_contact_number' |translate}}  
@@ -203,8 +202,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.email' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.email' |translate}}"
-                            formControlName="emailId" (keypress)="validation.emailRegex"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            formControlName="emailId" 
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
                         <mat-error *ngIf="f['emailId'].errors">
                             <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
                                 Please Enter Email Id

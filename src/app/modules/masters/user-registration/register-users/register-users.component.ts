@@ -47,24 +47,24 @@ export class RegisterUsersComponent {
     this.getUserControl();
     this.getUserType();
     this.getDistrict();
-    console.log(this.data);
+    this.data?this.addRemoveValidation():'';
   }
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
-      userTypeId: [this.data?this.data.userTypeId:0, [Validators.required]],
-      designationLevelId: [this.data?this.data.designationLevelId:0,[Validators.required]],
-      designationId: [this.data?this.data.designationId:0],
-      districtId: [this.data?this.data.districtId:0, [Validators.required]],
-      talukaId: [this.data?this.data.talukaId:0],
-      centerId: [this.data?this.data.centerId:0],
-      schoolId: [this.data?this.data.schoolId:0],
-      agencyId: [this.data?this.data.agencyId:0],
+      userTypeId: [this.data?this.data.userTypeId:'', [Validators.required]],
+      designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
+      designationId: [this.data?this.data.designationId:'', [Validators.required]],
+      districtId: [this.data?this.data.districtId:'', [Validators.required]],
+      talukaId: [this.data?this.data.talukaId:'', [Validators.required]],
+      centerId: [this.data?this.data.centerId:'', [Validators.required]],
+      schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
+      agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [this.data?this.data.standardModels:[]],
-      subjectModels: [this.data?this.data.subjectModels:[]]
+      standardModels: [this.data?this.data.standardModels:[], [Validators.required]],
+      subjectModels: [this.data?this.data.subjectModels:[], [Validators.required]]
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
@@ -277,27 +277,38 @@ registerUser(formDirective:any) {
          })
        });
     }
-    let obj=this.userRegistrationForm.value;
-    obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[];
-    obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[];
-      obj.createdBy=this.data?0:0;
-      obj.modifiedBy=this.data?0:0;
-      obj.createdDate=this.data?new Date():new Date();
-      obj.modifiedDate=this.data?new Date():new Date();
-      obj.isDeleted=false;
-      this.data?obj.id=this.data.id:0;
-      obj.userName="";
-      obj.password="";
-      obj.stateId=1;
-      obj.isBlock=false;
-      obj.blockDate="2022-12-28T09:42:55.883Z";
-      obj.blockBy=0;
-      obj.deviceTypeId=0;
-      obj.fcmId="";
-      obj.profilePhoto="";
-      obj.msg="";
-      // obj.timestamp="";
-    this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
+   let obj= {
+      "createdBy":this.data?0:0,
+      "modifiedBy":this.data?0:0,
+      "createdDate":this.data?new Date():new Date(),
+      "modifiedDate":this.data?new Date():new Date(),
+      "isDeleted": false,
+      "id":this.data?this.data.id:0,
+      "name":this.userRegistrationForm.value.name,
+      "userName": "",
+      "password": "",
+      "mobileNo":this.userRegistrationForm.value.mobileNo,
+      "stateId":this.userRegistrationForm.value.stateId?this.userRegistrationForm.value.stateId:0,
+      "districtId":this.userRegistrationForm.value.districtId?this.userRegistrationForm.value.districtId:0,
+      "talukaId":this.userRegistrationForm.value.talukaId?this.userRegistrationForm.value.talukaId:0,
+      "centerId":this.userRegistrationForm.value.centerId?this.userRegistrationForm.value.centerId:0,
+      "schoolId":this.userRegistrationForm.value.schoolId?this.userRegistrationForm.value.schoolId:0,
+      "agencyId":this.userRegistrationForm.value.agencyId?this.userRegistrationForm.value.agencyId:0,
+      "emailId":this.userRegistrationForm.value.emailId,
+      "userTypeId":this.userRegistrationForm.value.userTypeId?this.userRegistrationForm.value.userTypeId:0,
+      "designationLevelId":this.userRegistrationForm.value.designationLevelId?this.userRegistrationForm.value.designationLevelId:0,
+      "designationId":this.userRegistrationForm.value.designationId?this.userRegistrationForm.value.designationId:0,
+      "isBlock": false,
+      "blockDate": "2022-12-29T09:07:47.318Z",
+      "blockBy": 0,
+      "deviceTypeId": 0,
+      "fcmId": "",
+      "profilePhoto": "",
+      "msg": "",
+      "standardModels":this.userRegistrationForm.value.userTypeId==3?standardModels:[] ,
+      "subjectModels":this.userRegistrationForm.value.userTypeId==3?subjectModels:[]
+    }
+    this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration/UpdateRecord':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.common.snackBar(res.statusMessage,0);
