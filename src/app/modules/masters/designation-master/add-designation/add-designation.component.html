@@ -58,12 +58,16 @@
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
-                    <input matInput placeholder="Add Designation" formControlName="designationName"
+                    <input matInput placeholder="Add Designation" formControlName="designationName"  type="text"
                         (keypress)="validation.noFirstSpaceAllow($event)">
-                    <mat-error class="mt-2"
-                        *ngIf="f['designationName'].hasError('required')">{{'designation_master.please_enter_designation_name'
-                        | translate}}
-                    </mat-error>
+                    <mat-error *ngIf="f['designationName'].errors">
+                      <span class="text-danger" *ngIf="f['designationName'].hasError('required')">
+                          {{'designation_master.please_enter_designation_name' |translate}}
+                      </span>
+                      <span class="text-danger" *ngIf="f['designationName'].hasError('pattern')">
+                          {{'designation_master.please_enter_valid_designation_name' |translate}}
+                      </span>
+                  </mat-error>
                 </mat-form-field>
             </div>
         </mat-card-content>
