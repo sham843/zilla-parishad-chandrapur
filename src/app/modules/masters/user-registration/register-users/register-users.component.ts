@@ -52,19 +52,19 @@ export class RegisterUsersComponent {
 
   getUserControl() {
     this.userRegistrationForm = this.fb.group({
-      userTypeId: [this.data?this.data.userTypeId:0, [Validators.required]],
-      designationLevelId: [this.data?this.data.designationLevelId:0,[Validators.required]],
-      designationId: [this.data?this.data.designationId:0],
-      districtId: [this.data?this.data.districtId:0, [Validators.required]],
-      talukaId: [this.data?this.data.talukaId:0],
-      centerId: [this.data?this.data.centerId:0],
-      schoolId: [this.data?this.data.schoolId:0],
-      agencyId: [this.data?this.data.agencyId:0],
+      userTypeId: [this.data?this.data.userTypeId:'', [Validators.required]],
+      designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
+      designationId: [this.data?this.data.designationId:'', [Validators.required]],
+      districtId: [this.data?this.data.districtId:'', [Validators.required]],
+      talukaId: [this.data?this.data.talukaId:'', [Validators.required]],
+      centerId: [this.data?this.data.centerId:'', [Validators.required]],
+      schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
+      agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [this.data?this.data.standardModels:[]],
-      subjectModels: [this.data?this.data.subjectModels:[]]
+      standardModels: [this.data?this.data.standardModels:[], [Validators.required]],
+      subjectModels: [this.data?this.data.subjectModels:[], [Validators.required]]
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
