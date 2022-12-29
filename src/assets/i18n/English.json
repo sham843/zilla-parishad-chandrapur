@@ -56,7 +56,13 @@
         "please_select_user_type":"Please Select User Type",
         "class":"Class",
         "subjects":"Subjects",
-        "agency_name":"Agency Name"
+        "agency_name":"Agency Name",
+        "Please_select_agency_name":"Please Select Agency Name",
+        "Please_select_user_level":"Please Select User Level",
+        "Please_select_standard":"Please Select standard",
+        "Please_select_subject":"Please Select Subject Name",
+        "Please_enter_valid_name":"Please Enter Valid Name",
+        "Please_enter_name":"Please Enter Name"
     },
     "agency":{
         "register_agency":"Register Agency",
