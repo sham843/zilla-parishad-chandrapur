@@ -111,6 +111,7 @@ export class UserRegistrationComponent {
       this.spinner.hide();
         this.tableDataArray = [];
         this.totalItem = 0;
+        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
        } 
        flag != 'excel' ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },

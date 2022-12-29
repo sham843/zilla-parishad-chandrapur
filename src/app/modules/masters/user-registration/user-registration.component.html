@@ -41,7 +41,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_user_type'|translate}}</mat-label>
-            <mat-select formControlName="UserTypeId" (selectionChange)="getAllUserData()">
+            <mat-select formControlName="UserTypeId">
               <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userType}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -49,7 +49,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.Please_Select_Taluka'|translate}}</mat-label>
-            <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllClearData('taluka');getAllUserData()">
+            <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllClearData('taluka')">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -57,7 +57,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
-            <mat-select formControlName="CenterId" (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra');getAllUserData()">
+            <mat-select formControlName="CenterId" (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra')">
               <mat-option *ngFor="let kendra of centerArray" [value]="kendra.id">{{kendra.center}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -65,7 +65,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_school'|translate}}</mat-label>
-            <mat-select formControlName="SchoolId" (selectionChange)="getAllUserData()">
+            <mat-select formControlName="SchoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>
             </mat-select>
           </mat-form-field>
