@@ -9,35 +9,34 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">Designation Master</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-main btn-icon">
+        <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
             table_view
           </mat-icon>
         </button>
-        <button mat-flat-button class="btn-second btn-icon">
+        <button mat-flat-button class="btn-second btn-icon" title="Chart View">
           <mat-icon>
-            grid_view
+            account_tree
           </mat-icon>
         </button>
-        <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+        <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel" (click)="excelDownload()">
+          <mat-icon>
+              description
+          </mat-icon>
+        </button>
+        <!-- <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
           <mat-icon>
             download
           </mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-          <!-- <button type="button" mat-menu-item>
-            <div class="d-flex align-items-center justify-content-between w-100">
-              <span>{{'common.pdf' | translate}}</span>
-              <i class='bx bxs-file-pdf text-danger'></i>
-            </div>
-          </button> -->
           <button type="button" mat-menu-item (click)="excelDownload()">
             <div class="d-flex align-items-center justify-content-between w-100">
               <span>{{'common.excel' | translate}}</span>
               <i class='bx bxs-file text-primary'></i>
             </div>
           </button>
-        </mat-menu>
+        </mat-menu> -->
         <button mat-flat-button class="btn-main" (click)="addDesignation()">
           <mat-icon>add</mat-icon>
           <span>
