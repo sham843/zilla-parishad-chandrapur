@@ -17,14 +17,14 @@
                         <mat-label>{{'common.agency_name' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.agency_name' |translate}}" formControlName="agencyName"
                             (keyup)="validation.noFirstSpaceAllow($event)" (keypress)="validation.alphabetsWithSpaces($event)">
-                        <mat-error *ngIf="f['agencyName'].errors">
+                        <!-- <mat-error *ngIf="f['agencyName'].errors">
                             <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
                                 {{'agency.please_enter_agency_name' |translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['agencyName'].hasError('pattern')">
                                 {{'agency.please_enter_valid_agency_name' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -32,11 +32,11 @@
                         <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
                         <input matInput placeholder="{{'agency.agency_marathi_name' |translate}}" (keypress)="validation.unicodeMarathiValidation($event)"
                             formControlName="m_AgencyName" (keyup)="validation.noFirstSpaceAllow($event)">
-                        <mat-error *ngIf="f['m_AgencyName'].errors">
+                        <!-- <mat-error *ngIf="f['m_AgencyName'].errors">
                             <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
                                 {{'agency.agency_marathi_name' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -44,7 +44,7 @@
                         <mat-label>{{'agency.registration_number' |translate}}</mat-label>
                         <input matInput placeholder="{{'agency.registration_number' |translate}}"
                             formControlName="registrationNo" (keyup)="validation.noFirstSpaceAllow($event)">
-                        <mat-error *ngIf="f['registrationNo'].errors">
+                        <!-- <mat-error *ngIf="f['registrationNo'].errors">
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('required')">
                                 {{'agency.please_enter_registration_number' |translate}}
                             </span>
@@ -54,7 +54,7 @@
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('maxlength')">
                                 {{'agency.please_enter_maximum 50 digit_registration_number' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -63,11 +63,11 @@
                         <input matInput placeholder="{{'common.contact_person' |translate}}"
                             formControlName="contactPersonName" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.noFirstSpaceAllow($event)">
-                        <mat-error *ngIf="f['contactPersonName'].errors">
+                        <!-- <mat-error *ngIf="f['contactPersonName'].errors">
                             <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
                                 {{'agency.please_enter_contact_person' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -78,11 +78,11 @@
                             <mat-option *ngFor="let dist of districtArr"
                                 [value]="dist.id">{{dist.district}}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="f['districtId'].errors">
+                        <!-- <mat-error *ngIf="f['districtId'].errors">
                             <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
                                 {{'common.Please_Select_District' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -91,11 +91,11 @@
                         <mat-select formControlName="talukaId">
                             <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="f['talukaId'].errors">
+                        <!-- <mat-error *ngIf="f['talukaId'].errors">
                             <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
                                 {{'common.Please_Select_Taluka' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -104,11 +104,11 @@
                         <input matInput placeholder="{{'agency.contact_number' |translate}}" formControlName="contactNo"
                             (blur)="contactNo()" maxlength="10" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.noFirstSpaceAllow($event)">
-                        <mat-error *ngIf="f['contactNo'].errors">
+                        <!-- <mat-error *ngIf="f['contactNo'].errors">
                             <span class="text-danger" *ngIf="f['contactNo'].hasError('pattern')">
                                 {{'agency.please_enter_valid_contact_no' |translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -116,11 +116,11 @@
                         <mat-label>{{'common.email' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.email' |translate}}" formControlName="emailId"
                             (keyup)="validation.noFirstSpaceAllow($event)">
-                        <mat-error *ngIf="f['emailId'].errors">
+                        <!-- <mat-error *ngIf="f['emailId'].errors">
                             <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
                                 {{'agency.please_enter_valid_emailId' | translate}}
                             </span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
