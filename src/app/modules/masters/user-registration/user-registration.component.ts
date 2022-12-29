@@ -24,7 +24,7 @@ export class UserRegistrationComponent {
   totalPages!: number;
   pageNumber: number = 1;
   excelDowobj:any;
-  lang: string = 'English';
+  lang: string = '';
   userTypeArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
@@ -61,6 +61,7 @@ export class UserRegistrationComponent {
       textSearch: [''],
     })
   }
+  //#region--------------------------------------------------------Drop down methods start-------------------------------------------------
   getUserType() {
     this.master.getUserType(this.lang).subscribe((res: any) => {
       this.userTypeArray = res.responseData;
@@ -81,6 +82,9 @@ export class UserRegistrationComponent {
       this.schoolArray = res.responseData;
     })
   }
+  //#endregion---------------------------------------dropdown method end--------------------------------------------------------------------
+  
+  //#region------------------------------------------get all user data method start------------------------------------------------------------
   getAllUserData(flag?:any) {
     flag == 'filter' ? this.pageNumber = 1 :'';
     this.spinner.show();
@@ -115,8 +119,8 @@ export class UserRegistrationComponent {
      })
   
     }
-
-setTableData(){
+//#endregion------------------------------------------------get all user method end----------------------------------------------------------
+setTableData(){     // table 
   let displayedColumns:any;
   this.lang=='mr-IN'?displayedColumns=['srNo','m_UserType','name','mobileNo','action']:displayedColumns= ['srNo','userType', 'name', 'mobileNo', 'action']
       let displayedheaders:any;
@@ -137,7 +141,8 @@ setTableData(){
       }
       this.apiService.tableData.next(this.tableData)
 }
-  childCompInfo(obj: any) {
+
+  childCompInfo(obj: any) {     //table functionality
     if (obj.label == 'Pagination') {
     this.pageNumber = obj.pageNumber
     this.getAllUserData();
@@ -159,19 +164,19 @@ setTableData(){
         this.getAllUserData();
       }
     })
-  }
-  // ----------------------------------------------------------Delete modal-------------------------------------------------------------
+  } 
+  //#region----------------------------------------------------------Delete modal start-------------------------------------------------------------
   deleteDialog(deleteObj: any) {
     const dialog = this.dialog.open(GlobalDialogComponent, {
       width: '700px',
       disableClose: true,
       data:{
-        p1: this.lang='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
         p2: '',
-        cardTitle: this.lang='mr-IN' ? 'हटवा' : 'Delete',
-        successBtnText: this.lang='mr-IN' ? 'हटवा' : 'Delete',
+        cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
+        successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
         dialogIcon: 'assets/images/logout.gif',
-        cancelBtnText: this.lang='mr-IN' ? 'रद्द करा' : 'Cancel',
+        cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
       },
     })
     dialog.afterClosed().subscribe((res) => {
@@ -180,6 +185,7 @@ setTableData(){
       }
     })
   }
+
   removeUser(deleteData:any) {
     let obj={
       "id":deleteData.id,
@@ -197,9 +203,9 @@ setTableData(){
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
-
   }
-  getAllClearData(flag?:any){
+
+  getAllClearData(flag?:any){    //clear 
     if(flag=='taluka'){
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
@@ -213,7 +219,7 @@ setTableData(){
       this.serachUserForm.controls['SchoolId'].setValue('');
       this.serachUserForm.controls['textSearch'].setValue('');
     }
-    this.getAllUserData();
+   
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 

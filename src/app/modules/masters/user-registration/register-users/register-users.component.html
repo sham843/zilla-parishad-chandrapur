@@ -186,7 +186,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number' |translate}}</mat-label>
-                        <input matInput placeholder="{{'user_Registration.enter_mobile_number' |translate}}"
+                        <input matInput placeholder="{{'common.mobile_number' |translate}}"
                             formControlName="mobileNo" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
@@ -202,7 +202,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.email' |translate}}</mat-label>
-                        <input matInput placeholder="{{'common.enter_email_id' |translate}}"
+                        <input matInput placeholder="{{'common.email' |translate}}"
                             formControlName="emailId" (keypress)="validation.emailRegex"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['emailId'].errors">

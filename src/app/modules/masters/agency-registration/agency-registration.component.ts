@@ -172,7 +172,7 @@ export class AgencyRegistrationComponent {
    excelDownload() {
     this.getAllAgencyData('excel');
     let pageName: any;
-    this.language == 'Marathi' ? pageName = 'एजन्सी नोंदणी' : pageName = 'Agency Registration';
+    this.language == 'Marathi' ? pageName = '(एनजीओ)एजन्सी नोंदणी' : pageName = 'Agency Registration';
     let header: any;
     this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
     let column: any;

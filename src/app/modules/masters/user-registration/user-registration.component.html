@@ -48,7 +48,7 @@
         </div>
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.select_taluka'|translate}}</mat-label>
+            <mat-label>{{'common.Please_Select_Taluka'|translate}}</mat-label>
             <mat-select formControlName="TalukaId" (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllClearData('taluka');getAllUserData()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}</mat-option>
             </mat-select>

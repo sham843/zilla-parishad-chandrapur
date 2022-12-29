@@ -47,8 +47,6 @@ export class RegisterUsersComponent {
     this.getUserControl();
     this.getUserType();
     this.getDistrict();
-    this.getAgency();
-    this.getAllSubject();
     console.log(this.data);
   }
 
@@ -65,19 +63,19 @@ export class RegisterUsersComponent {
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [[]],
-      subjectModels: [[]]
+      standardModels: [this.data?this.data.standardModels:[]],
+      subjectModels: [this.data?this.data.subjectModels:[]]
     })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
-  getUserType() {
+  getUserType() {  //get user type
+    debugger
     this.master.getUserType(this.lang).subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
     })
     this.data?this.getUserLevel(this.data.userTypeId):'';
   }
-  getUserLevel(typeId:number) {
-    debugger
+  getUserLevel(typeId:number) {  //get user level
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -89,10 +87,12 @@ export class RegisterUsersComponent {
     }},
       error: ((err: any) => { this.errors.handelError(err) })
   }) 
-  this.data?this.getDesignation(this.userRegistrationForm.value.designationId):'';
+  this.data?this.getDesignation(this.userRegistrationForm.value.designationLevelId):'';
+  this.userRegistrationForm.value.userTypeId==3?this.getAllSubject():this.userRegistrationForm.value.userTypeId==4?this.getAgency():'';
+
 }
 
-  getDesignation(levelId:any) {
+  getDesignation(levelId:any) {  //get user designation
     this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -106,7 +106,7 @@ export class RegisterUsersComponent {
     })
   } 
 
-  getDistrict() {
+  getDistrict() {   //get district
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
       this.userRegistrationForm.controls['districtId'].setValue(this.districtArr[0].id);
@@ -115,27 +115,27 @@ export class RegisterUsersComponent {
     this.data?this.getTaluka(this.data.districtId):'';
   }
 
-  getTaluka(distId:number) {
+  getTaluka(distId:number) {   //get taluka
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
     })
     this.data?this.getKendra(this.data.talukaId):'';
   }
 
-  getKendra(talukaId:number) {
+  getKendra(talukaId:number) {  //get kendra
     this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
     })
     this.data?this.getSchoolName(this.data.centerId):'';
   }
 
-  getSchoolName(centerId:number) {
+  getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
       this.schoolArr=res.responseData;
     })
   }
 
-  getAgency() {
+  getAgency() {    //get agency
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
        next: (res: any) => {
@@ -149,7 +149,7 @@ export class RegisterUsersComponent {
       })
     }
 
-  getAllClassGroup(schoolId:number) {
+  getAllClassGroup(schoolId:number) {    //get class group
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang='+this.lang+'&SchoolId='+schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -163,7 +163,7 @@ export class RegisterUsersComponent {
      })
   }
 
-  getAllSubject() {
+  getAllSubject() {    //get subject 
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -229,7 +229,8 @@ if(this.userRegistrationForm.value.userTypeId==2){
 
   }
   //#endregion-----------------------------------------add and remove validation end----------------------------------------------------
-  //#region--------------------------------------------clear dropdown--------------------------------------------------------------------------
+ 
+  //#region------------------------------------------------clear dropdown method start--------------------------------------------------------------------------
   clearDropdown(flag:any){
     if(flag=='userType'){
       this.userRegistrationForm.controls['designationLevelId'].setValue('');
@@ -257,7 +258,9 @@ if(this.userRegistrationForm.value.userTypeId==2){
   clearUserForm(formDirective:any){
     formDirective.resetForm();
   }
-  registerUser(formDirective:any) {
+//#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
+ //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
+registerUser(formDirective:any) {
     if(this.userRegistrationForm.invalid){
         return;
     }
@@ -308,4 +311,5 @@ if(this.userRegistrationForm.value.userTypeId==2){
     })
   }
   }
+  //#endregion-----------------------------------------------add/update user method end-------------------------------------------------
 }

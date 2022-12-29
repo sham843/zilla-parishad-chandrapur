@@ -102,8 +102,6 @@ export class ExcelPdfDownloadService {
       headersArray.forEach((column: any) => {
         eachRow.push(element[column]);
       })
-
-// if (element.isDeleted === 'Y') {
       const deletedRow = worksheet.addRow(eachRow);
       deletedRow.eachCell((cell: any) => {
         cell.font = {
