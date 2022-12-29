@@ -108,13 +108,13 @@ export class DesignationMasterComponent {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
+      case 'Row':
+        break;
     }
   }
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
   addDesignation(obj?: any) {
-    console.log(obj);
-
     const dialogRef = this.dialog.open(AddDesignationComponent, {
       width: '420px',
       data: obj,
