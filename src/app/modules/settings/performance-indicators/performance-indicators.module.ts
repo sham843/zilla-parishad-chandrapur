@@ -16,6 +16,7 @@ import { AddLevelComponent } from './add-level/add-level.component';
 import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NumberTransformPipe } from 'src/app/shared/pipes/number-tranform.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     MatSortModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    NumberTransformPipe
   ]
 })
 export class PerformanceIndicatorsModule { }
