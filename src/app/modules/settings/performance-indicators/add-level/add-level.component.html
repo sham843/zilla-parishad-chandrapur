@@ -9,30 +9,30 @@
             </button>
         </div>
     </mat-card-header>
-    <form [formGroup]="addLevelForm" #formDirective="ngForm" (ngSubmit)="onSubmit()"> 
+    <form [formGroup]="addLevelForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
     <mat-card-content class="card-body">
         <div class="row">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
                 <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}" formControlName="assesmentParameter">
-                <mat-error *ngIf="f.assesmentParameter.errors">
+                <!-- <mat-error *ngIf="f.assesmentParameter.errors">
                     <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
                         {{'performance_indicators.Add_Level_Model.add_english_level_is_required' | translate}}</span>
                         <span class="text-danger" *ngIf="f.assesmentParameter.errors?.pattern">
                             {{'performance_indicators.Add_Level_Model.enter_valid_add_english_level' | translate}}</span>
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
                 <input matInput placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}" formControlName="m_AssesmentParameter">
-                <mat-error *ngIf="f.m_AssesmentParameter.errors">
+                <!-- <mat-error *ngIf="f.m_AssesmentParameter.errors">
                     <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
                         {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span>
                         <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.pattern">
                             {{'performance_indicators.Add_Level_Model.enter_valid_add_marathi_level' | translate}}</span>
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
         </div>
     </mat-card-content>
