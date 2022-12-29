@@ -141,7 +141,7 @@ export class SchoolRegistrationComponent {
 
   setTableData() {
     let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr.No.', 'School Name', 'Kendra', 'Taluka', 'Action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -176,7 +176,7 @@ export class SchoolRegistrationComponent {
 
   addSchoolData(obj?: any) {
     const dialogRef = this.dialog.open(RegisterSchoolComponent, {
-      width: '700px',
+      width: '800px',
       data: obj,
       disableClose: true,
       autoFocus: false,

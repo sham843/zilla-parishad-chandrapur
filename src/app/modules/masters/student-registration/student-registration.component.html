@@ -7,27 +7,26 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex justify-content-between align-items-center w-100">
-      <h6 class="text-main mb-0">{{'student.student_list'|translate}}</h6>
+      <h6 class="text-main mb-0 fw-bold">{{'student.student_list'|translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
+        <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
-            download
+            table_view
           </mat-icon>
         </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <!-- <button mat-menu-item>
-            <div class="d-flex align-items-center justify-content-between w-100">
-              <span>PDF</span>
-              <i class='bx bxs-file-pdf text-danger'></i>
-            </div>
-          </button> -->
-          <button mat-menu-item (click)="excelDownload()">
-            <div class="d-flex align-items-center justify-content-between w-100">
-              <span>{{'common.excel'|translate}}</span>
-              <i class='bx bxs-file text-primary'></i>
-            </div>
-          </button>
-        </mat-menu>
+
+        <button mat-flat-button class="btn-second btn-icon" title="Card View">
+          <mat-icon>
+            grid_view
+          </mat-icon>
+        </button>
+
+        <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel"
+          (click)="excelDownload()">
+          <mat-icon>
+            description
+          </mat-icon>
+        </button>
         <button mat-flat-button class="btn-main" (click)="registerStudent()">
           <mat-icon>add</mat-icon>
           <span>
@@ -37,31 +36,34 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-card-header class="card-header">
-    <form [formGroup]="filterFrm" #formDirective="ngForm" class="d-flex" >
-      <div class="row">
+  <form [formGroup]="filterFrm" #formDirective="ngForm">
+    <mat-card-header class="card-header pb-0 border-bottom-0">
 
-        <div class="col-sm">
+      <div class="row w-100 gx-2">
+
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId" (selectionChange)="clearDropdown('talukaId');getCenter()">
+            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId"
+              (selectionChange)="clearDropdown('talukaId');getCenter()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.kendra'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.select_kendra'|translate}}" [disabled]="true" formControlName="centerId" (selectionChange)="clearDropdown('centerId');getSchool()">
+            <mat-select placeholder="{{'common.select_kendra'|translate}}" [disabled]="true" formControlName="centerId"
+              (selectionChange)="clearDropdown('centerId');getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school'|translate}}</mat-label>
             <mat-select placeholder="{{'common.select_school'|translate}}" formControlName="schoolId">
@@ -72,20 +74,22 @@
         </div>
 
 
-        <div class="col-sm">
+        <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'student.search_by_saralid_name_mobileno'|translate}}</mat-label>
-            <input matInput placeholder="{{'student.search_by_saralid_name_mobileno'|translate}}" formControlName="searchText">
+            <input matInput placeholder="{{'student.search_by_saralid_name_mobileno'|translate}}"
+              formControlName="searchText">
           </mat-form-field>
         </div>
-        <div class="col-sm">
-          <button (click)="getTableData('filter')" type="submit" mat-flat-button class="btn-main me-2">{{'common.filter'|translate}}</button>
+        <div class="col-sm-auto">
+          <button (click)="getTableData('filter')" type="submit" mat-flat-button
+            class="btn-main me-2">{{'common.filter'|translate}}</button>
           <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
         </div>
-      </div>     
-    </form>
+      </div>
 
-  </mat-card-header>
+    </mat-card-header>
+  </form>
   <mat-card-content class="card-body">
     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
   </mat-card-content>
