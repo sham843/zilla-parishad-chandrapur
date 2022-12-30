@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { CardGridComponent } from 'src/app/shared/components/card-grid/card-grid.component';
-
 
 @NgModule({
   declarations: [
@@ -12,8 +10,7 @@ import { CardGridComponent } from 'src/app/shared/components/card-grid/card-grid
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    CardGridComponent
+    HomeRoutingModule
   ]
 })
 export class HomeModule { }
