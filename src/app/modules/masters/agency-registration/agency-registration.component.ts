@@ -76,7 +76,7 @@ export class AgencyRegistrationComponent {
     let displayedColumns;
     this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
-    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमणिका', 'एनजीओ/एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No.', 'Email Id', 'Action']
+    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमांक', 'एनजीओ/एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No.', 'Email Id', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
       highlightedRow: '',
@@ -130,7 +130,7 @@ export class AgencyRegistrationComponent {
       width: '750px',
       disableClose: true,
       data: {
-        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected Agency?',
         p2: '',
         cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'हटवा' : 'Delete',
