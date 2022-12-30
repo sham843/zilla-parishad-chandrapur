@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,7 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   standalone: true,
   selector: 'app-my-profile',
@@ -50,6 +51,8 @@ export class MyProfileComponent {
   getObj: any;
 
   constructor(
+    public dialogRef: MatDialogRef<MyProfileComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private commonMethod: CommonMethodsService,
     private uploadFilesService: FileUploadService,
@@ -66,6 +69,7 @@ export class MyProfileComponent {
     this.getFormData()
     this.getLevel();
     this.getDataByID();
+    this.getLoginData();
 
   }
 
@@ -101,9 +105,8 @@ export class MyProfileComponent {
         }
       ]]
     })
-
     this.getLevel();
-    // profilePhoto:[obj?.profilePhoto ||''],
+    // profilePhoto:[obj?.profilePhoto ||'']
 
 
   }
@@ -151,11 +154,11 @@ export class MyProfileComponent {
 
   }
 
-  onSubmitData() { //onSubmit
+  onSubmitData(FormDirective: any) { //onSubmit
     if (this.profileForm.invalid) {
       return
     }
-    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
+    this.ImgUrl ? this.fileUploaded() : this.submitProfileData(FormDirective);
   }
 
   fileUploaded() {
@@ -276,14 +279,15 @@ export class MyProfileComponent {
     })
   }
   // zp_chandrapur/user-registration/AddRecord
-  submitProfileData() {
+  submitProfileData(formDirective?: any) {
     let formObj = this.profileForm.value;
     this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateRecord', false, formObj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.profileForm.reset();
+          formDirective.resetForm();
+          this.dialogRef.close('Yes');
         } else {
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -294,7 +298,21 @@ export class MyProfileComponent {
     console.log(formObj)
 
   }
+  clearForm(formDirective: any) {
+    formDirective.resetForm();
+    this.profileForm.controls['districtId'].setValue(1);
+  }
+  onClick(flag: any) {
+    if (flag == 'No') {
+      this.dialogRef.close('No');
+    }
+  }
 
+  getLoginData(){
+    let obj=this.webStorage.getLoginData;
+    console.log(obj);
+    
+  }
 }
 
 
