@@ -109,7 +109,7 @@
         "resend_otp":"Resend OTP",
         "login":"Login",
         "enter_username/Mobile_number":"Enter Username/Mobile Number",
-        "enter_password":"Enter Password",
+        "enter_password":"Password",
         "enter_captcha":"Captcha",
         "username_required":"User Name is Required",
         "please_enter_valid_username":"Please Enter Valid Username",
@@ -227,7 +227,7 @@
         "6th_8th":"6th-8th",
         "school_category":"School Category",
         "school_type":"School Type",
-        "gender_selected":"Gender Selected",
+        "gender_selected":"Gender Allowed",
         "school_name_required":"School Name is Required",
         "school_name_length_should_not_less_than_10": "School Name Length Should not Less Than 10",
         "please_enter_valid_school name":"Please Enter Valid School Name",
@@ -269,6 +269,10 @@
             "enter_valid_add_english_level":"Enter Valid Add English Level",
             "add_marathi_level_is_required":"Add Marathi Level is required.",
             "enter_valid_add_marathi_level":"Enter Valid Add Marathi Level"
+        },
+        "Add_Class_Model":{
+            "marathi_language_level":"Marathi Language Level",
+            "english_language_level":"English Language Level"
         }
       }
 
