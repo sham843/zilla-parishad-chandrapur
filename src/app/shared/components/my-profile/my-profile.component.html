@@ -1,4 +1,4 @@
-<form [formGroup]="profileForm" #formDirective="ngForm" (ngSubmit)="onSubmitData(formDirective)">
+<form [formGroup]="profileForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
@@ -35,22 +35,25 @@
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Full Name</mat-label>
-                    <input matInput placeholder="First Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event)">
-                <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Please Select Full Name</mat-error> 
+                    <input matInput placeholder="First Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Full Name Required</mat-error> 
+                <mat-error *ngIf="profileForm.controls['name'].hasError('pattern')" class="mt-2">Please Enter Valid Full Name</mat-error> -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Mobile No.</mat-label>
-                    <input matInput placeholder="Contact No." formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)">
-                <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">Please Select Full Name</mat-error> 
+                    <input matInput placeholder="Contact No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)"(keypress)="validator.onlyDigits($event)">
+                <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">Mobile Number Required</mat-error> 
+                <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('pattern')">Please Enter Valid Mobile Number</mat-error>  -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email ID</mat-label>
-                    <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event)">
-                <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">Please Select Full Name</mat-error> 
+                    <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
+                <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">Email ID Required</mat-error> 
+                <mat-error *ngIf="profileForm.controls['emailId'].hasError('email')">Please Enter Valid Email ID</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
