@@ -14,12 +14,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule,MatTooltipModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
 
 })
 export class TableGridComponent implements OnInit {
