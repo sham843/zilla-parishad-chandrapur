@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'agency.agency_registration' |translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-third btn-icon" title="Table View">
+        <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
             table_view
           </mat-icon>
@@ -19,7 +19,7 @@
           <mat-icon>
             grid_view
           </mat-icon>
-        </button>
+        </button> -->
 
         <button mat-flat-button class="bg-danger btn-icon text-white" title="{{'common.download_excel' | translate}}"
           (click)="excelDownload()">
@@ -42,7 +42,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
           <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" [formControl]="searchControl">
-        </mat-form-field>        
+        </mat-form-field>
       </div>
       <div class="col-sm-auto">
         <button (click)="getAllAgencyData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
