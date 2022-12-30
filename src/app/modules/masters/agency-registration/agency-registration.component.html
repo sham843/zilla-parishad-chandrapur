@@ -1,59 +1,57 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page">{{'common.masters' |translate}}</li>
-      <li class="breadcrumb-item active" aria-current="page">{{'common.designation' |translate}}</li>
-    </ol>
-  </nav>
-  <mat-card class="plain-card">
-    <mat-card-header class="card-header">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <h6 class="text-main mb-0">{{'agency.agency_registration' |translate}}</h6>
-          <div class="d-flex align-items-center gap-2">
-            <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu" matTooltip="Download Excel">
-              <mat-icon>
-                download
-              </mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-             <!--  <button mat-menu-item (click)="pdfDownload()">
-                <div class="d-flex align-items-center justify-content-between w-100">
-                  <span>{{'common.pdf' |translate}}</span>
-                  <i class='bx bxs-file-pdf text-danger'></i>
-                </div>
-              </button> -->
-              <button mat-menu-item (click)="excelDownload()" >
-                <div class="d-flex align-items-center justify-content-between w-100">
-                  <span>{{'common.excel' |translate}}</span>
-                  <i class='bx bxs-file text-primary'></i>
-                </div>
-              </button>
-            </mat-menu>
-            <button mat-flat-button class="btn-main" (click)="registeragency()">
-              <mat-icon>add</mat-icon>
-              <span>
-                {{'agency.Add_agency' |translate}}
-              </span>
-            </button>
-          </div>
-        </div>
-      </mat-card-header>
-      <mat-card-header class="card-header">
-        <div class="row w-100">
-            <div class="col-sm-3 d-flex">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
-                    <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" [formControl]="searchControl">
-                  </mat-form-field>
-                  <div class="col-sm-auto">
-                    <button (click)="getAllAgencyData('filter')" mat-flat-button class="btn-main mx-2">{{'common.filter' |translate}}</button>
-                    <!-- <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' |translate}}</button> -->
-                  </div>
-            </div>
-        </div>
-      </mat-card-header>
-      <mat-card-content class="card-body">
-        <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-      </mat-card-content>
-  </mat-card>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">{{'common.masters' |translate}}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{'agency.agency_registration' |translate}}</li>
+  </ol>
+</nav>
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <h6 class="text-main mb-0 fw-bold">{{'agency.agency_registration' |translate}}</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button mat-flat-button class="btn-third btn-icon" title="Table View">
+          <mat-icon>
+            table_view
+          </mat-icon>
+        </button>
 
+        <button mat-flat-button class="btn-second btn-icon" title="Card View">
+          <mat-icon>
+            grid_view
+          </mat-icon>
+        </button>
 
+        <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel"
+          (click)="excelDownload()">
+          <mat-icon>
+            description
+          </mat-icon>
+        </button>
+        <button mat-flat-button class="btn-main" (click)="registeragency()">
+          <mat-icon>add</mat-icon>
+          <span>
+            {{'agency.Add_agency' |translate}}
+          </span>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-header class="card-header pb-0 border-bottom-0">
+    <div class="row w-100">
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
+          <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" [formControl]="searchControl">
+        </mat-form-field>        
+      </div>
+      <div class="col-sm-auto">
+        <button (click)="getAllAgencyData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
+          |translate}}</button>
+        <button mat-flat-button class="btn-second">{{'common.clear' |translate}}</button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body pt-0">
+    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+  </mat-card-content>
+</mat-card>
