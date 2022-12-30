@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'school.school_list' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-third btn-icon" title="Table View">
+        <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
             table_view
           </mat-icon>
@@ -19,7 +19,7 @@
           <mat-icon>
             grid_view
           </mat-icon>
-        </button>
+        </button> -->
 
         <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel" (click)="excelDownload()">
           <mat-icon>
@@ -74,8 +74,13 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school' |translate}}</mat-label>
-            <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName"
-              (keyup)="validator.alphaNumeric($event);validator.removeSpaceAtBegining($event)">
+            <input matInput  formControlName="schoolName"
+            (keyup)="validator.alphaNumeric($event)" (keypress)="validator.noFirstSpaceAllow($event)"
+            minlength="10" maxlength="500">
+               <!-- <mat-error
+                            *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error> -->
+                        <!-- <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('pattern')">{{'school.please_enter_valid_school name'|translate}}</mat-error> -->
           </mat-form-field>
         </div>
         <div class="col-sm-auto">

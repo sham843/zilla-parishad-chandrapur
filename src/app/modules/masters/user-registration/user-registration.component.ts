@@ -143,12 +143,13 @@ setTableData(){     // table
 }
 
   childCompInfo(obj: any) {     //table functionality
+    console.log(obj);
     if (obj.label == 'Pagination') {
     this.pageNumber = obj.pageNumber
     this.getAllUserData();
   } else if (obj.label == 'Edit') {
     this.registerusers(obj);
-  } else {
+  } else if(obj.label =='Delete'){
     this.deleteDialog(obj);
   }
   }

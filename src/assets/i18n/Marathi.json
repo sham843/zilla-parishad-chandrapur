@@ -10,6 +10,7 @@
         "select_taluka":"तालुका निवडा",
         "kendra": "केंद्र",
         "school": "शाळा",
+        "school_name":"शाळेचे नाव",
         "contact_person": "कृपया संपर्क व्यक्तीचे नाव प्रविष्ट करा",
         "email": "ईमेल आयडी",
         "agency_name": "एजन्सी/एनजीओचे नाव",
@@ -35,7 +36,8 @@
         "delete": "हटवा",
         "ok": "होय",
         "update":"अद्यतन",
-        "select_designation": "पदनाम निवडा"
+        "select_designation": "पदनाम निवडा",
+        "download_excel":"एक्सेल डाउनलोड करा"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
@@ -44,6 +46,7 @@
         "progress_indicator": "प्रगती सूचक ",
         "teacher": "शिक्षक ",
         "first": "प्रथम ",
+        "class_teacher":"वर्ग शिक्षक",
         "officer": "अधिकारी ",
         "story": "गोष्ट ",
         "paragraph": "परिच्छेद ",
@@ -56,6 +59,7 @@
     },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
+        "update_user":"वापरकर्ता अद्यतनित करा",
         "add_user": "वापरकर्ता जोडा",
         "user_registration": "वापरकर्ता नोंदणी",
         "office_users": "वापरकर्ता नोंदणी",
@@ -232,7 +236,11 @@
         "school_name_required": "शाळेचे नाव आवश्यक आहे",
         "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
         "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा",
-        "update_school":"शाळा अद्यतनित करा"
+        "update_school":"शाळा अद्यतनित करा",
+        "class_from":"पासून वर्ग",
+        "class_to":"वर्गापर्यंत",
+        "please_select_from_class":"कृपया वर्ग निवडा",
+        "please_select_to_class":"कृपया  वर्गापर्यंत निवडा"
     },
     "header": {
         "profile_name": "श्री सुनील राजाराम शिंदे",
