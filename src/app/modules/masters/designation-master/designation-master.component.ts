@@ -64,6 +64,8 @@ export class DesignationMasterComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
+          console.log(this.tableDataArray);
+
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.setTableData();
         } else {
@@ -83,12 +85,12 @@ export class DesignationMasterComponent {
   setTableData() {
     let displayedColumns;
     ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
-    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedToDesignationName','action'];
+    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedDesignationDetails','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedDesignationDetails','action'];
     let displayedheaders;
     this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize> 10? true :false,
+      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize> 10? true :false,isArray:"linkedDesignationDetails", nestedArray :'linkedToDesignationName',
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
