@@ -151,7 +151,7 @@ export class DesignationMasterComponent {
     deleteDialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
         let designationId = obj.id;
-        let userId = obj.userId;
+        let userId = this.webStorage.getUserId();
         this.apiService.setHttp('DELETE', 'designation/delete-designation-details?designationId=' + designationId + '&userId=' + userId + '&flag=' + this.lang, false, false, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
