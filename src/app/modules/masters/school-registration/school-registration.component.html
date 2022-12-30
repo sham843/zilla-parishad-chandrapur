@@ -74,7 +74,7 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school' |translate}}</mat-label>
-            <input matInput placeholder="{{'school.please_select_school_name' |translate}}" formControlName="schoolName"
+            <input matInput  formControlName="schoolName"
             (keyup)="validator.alphaNumeric($event)" (keypress)="validator.noFirstSpaceAllow($event)"
             minlength="10" maxlength="500">
                <!-- <mat-error
