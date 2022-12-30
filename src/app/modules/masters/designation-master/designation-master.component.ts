@@ -169,10 +169,17 @@ export class DesignationMasterComponent {
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
-
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To'];
-    let column = ['srNo', 'designationName', 'linkedToDesignationLevelName', 'designationLevelName'];
+    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To']; 
+    let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
+      
+    this.tableDataArray.map((ele:any)=>{
+      let myArray:any=[];
+      ele.linkedDesignationDetails.map((ele1:any)=>{
+         myArray.push(ele1.linkedToDesignationName);
+      })
+      ele['newLinkedToDesignationName'] = myArray.toString();
+    })
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 }
