@@ -29,10 +29,12 @@ export class PerformanceIndicatorsComponent implements OnInit {
   getAllSubjectArray: any;
   performanceIndicatorArray: any;
   filterEnglishLag = new FormControl(1);
-  classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seventh: 7 }, { eighth: 8 }, { nineth: 9 }, { tenth: 10 }];
+  classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seventh: 7 },
+     { eighth: 8 }, { ninth: 9 }, { tenth: 10 }, { eleventh: 11 }, { twelth: 12 }]; //Add Required When Api Side Changes
   checkedAssesmentArray: any[] = [];
   copyCheckedAssesmentArray: any[] = [];
   english_MarathiHeadingArray:any;
+  allcheckClass = new FormControl();
 
 
   constructor(
@@ -50,8 +52,10 @@ export class PerformanceIndicatorsComponent implements OnInit {
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
       this.getAllSubject();
       this.english_MarathiHeadingArray = this.language == 'en-IN' ?  
-      [{ assesmentParameterId: 'Sr. No.' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'First' }, { second: 'Second' }, { third: 'Third' }, { fourth: 'Fourth' }, { fifth: 'Fifth' }, { sixth: 'Sixth' }, { seventh: 'Seventh' }] :
-      [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवा' }, { sixth: 'सहावा' }, { seventh: 'सातवा' }];
+      [{ assesmentParameterId: 'Sr. No.' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'First' }, { second: 'Second' }, { third: 'Third' }, { fourth: 'Fourth' }, { fifth: 'Fifth' }, { sixth: 'Sixth' }, { seventh: 'Seventh' },
+      { eighth: 'Eighth' }, { ninth: 'Ninth' }, { tenth: 'Tenth' }, { eleventh: 'Eleventh' }, { twelth: 'Twelth' }] :
+      [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवा' }, { sixth: 'सहावा' }, { seventh: 'सातवा' },
+      { eighth: 'आठवा' }, { ninth: 'नववा' }, { tenth: 'दहावा' }, { eleventh: 'अकरावा' }, { twelth: 'बारावा' }];
       this.getAllPerformanceIndicatorData();
     })
   }
@@ -103,7 +107,9 @@ export class PerformanceIndicatorsComponent implements OnInit {
               })
             }
           })
+          this.checkedOrNotCondtn();
           this.copyCheckedAssesmentArray = JSON.parse(JSON.stringify(this.checkedAssesmentArray));
+
           //........................ AssesmentArray code End Here....................//
         } else {
           this.dataSource = [];
@@ -115,17 +121,43 @@ export class PerformanceIndicatorsComponent implements OnInit {
     });
   }
 
-  addCheckedassesment(event: any, assmntParameterId: any, classType: any) {
+  checkedOrNotCondtn(){
+    this.checkedAssesmentArray.some((ele: any) => { //  check all Class checked or not condition for true(1) false(0)
+      if (ele.flag == 1) { this.allcheckClass.setValue(1); return } else { this.allcheckClass.setValue(0); return true }
+    })
+  }
+
+  addCheckedassesment(event: any, assmntParameterId: any, classType: any) { //Single Check
     let classValueName: any; this.classStandardArray.map((ele: any) => { Object.keys(ele) == classType ? classValueName = Object.values(ele).toString() : '' }) //get classValueName from classStandardArray
     this.checkedAssesmentArray.map((ele: any) => {
     (assmntParameterId == ele.assesmentPerformanceId && ele.standardId == classValueName) ? ele.flag = event.checked == true ? 1 : 0 : '';
     })
+
+    this.checkedOrNotCondtn();
+  }
+
+  checkAllClass(event: any) { //All Check
+    this.performanceIndicatorArray.map((ele: any) => {   // code for Show only Table true Value 
+      for (let x in ele) { // check key value data in Object
+        this.classStandardArray.find((eleClass: any) => {
+          let classKeyName: any = Object.keys(eleClass); //find class keyName
+          if (classKeyName == x) {
+            ele[x] = event.checked == true ? 1 : 0;
+          }
+        })
+      }
+    })
+
+    this.checkedAssesmentArray.map((ele: any) => {
+      ele.flag = event.checked == true ? 1 : 0;
+    })
+
   }
 
   onSubmitPI() {
-    if (JSON.stringify(this.checkedAssesmentArray) === JSON.stringify(this.copyCheckedAssesmentArray)) {
-      this.commonMethod.snackBar('Please Update at least one Class', 1);
-    } else {
+    // if (JSON.stringify(this.checkedAssesmentArray) === JSON.stringify(this.copyCheckedAssesmentArray)) {
+    //   this.commonMethod.snackBar('Please Update at least one Class', 1);
+    // } else {
       let obj: any = {
         "subjectId": this.filterEnglishLag.value,
         "createdBy": this.webStorage.getUserId(),
@@ -149,7 +181,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
           this.commonMethod.checkEmptyData(error.statusMessage) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
         }
       })
-    }
+    // }
   }
 
   addclass() {

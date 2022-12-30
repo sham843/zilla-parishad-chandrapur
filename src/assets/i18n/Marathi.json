@@ -272,6 +272,10 @@
             "enter_valid_add_english_level":"वैध जोडा इंग्रजी स्तर प्रविष्ट करा",
             "add_marathi_level_is_required":"मराठी स्तर जोडणे आवश्यक आहे.",
             "enter_valid_add_marathi_level":"वैध जोडा मराठी स्तर प्रविष्ट करा"
+        },
+        "Add_Class_Model":{
+            "marathi_language_level":"मराठी भाषेची पातळी",
+            "english_language_level":"इंग्रजी भाषा स्तर"
         }
       }
 }
