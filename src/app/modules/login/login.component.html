@@ -37,12 +37,12 @@
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
-                                    <mat-error *ngIf="loginFormControls.password.errors">
+                                    <!-- <mat-error *ngIf="loginFormControls.password.errors">
                                         <span class="text-danger" *ngIf="loginFormControls.password.hasError('required')">{{'login.password_required'|translate}}</span>
                                         <span class="text-danger"
                                             *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">
                                         {{'login.password_format'|translate}}</span>
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </div>
                         </div>
