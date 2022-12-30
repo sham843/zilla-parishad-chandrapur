@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import { FileUploadService } from 'src/app/core/services/file-upload.service';im
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   standalone:true,
   selector: 'app-my-profile',
@@ -45,8 +45,10 @@ export class MyProfileComponent {
   talukaArray=new Array();
   centerArray=new Array();
   subscription!: Subscription;
-  lang!: string;;
-
+  lang!: string;
+  userId!:number;
+  getObj:any;
+  editFlag:boolean=false;
 
 
   constructor(
@@ -56,38 +58,39 @@ export class MyProfileComponent {
       private service:ApiService,
       private error:ErrorsService,
       private webStorage: WebStorageService,
-      
-
+      public validator:ValidationService
     ) { }
 
   ngOnInit(){
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData();
     this.getLevel();
+    this.getDataByID();
+    this.getFormData();
   }
  
-
-  getFormData(){
+  getFormData(obj?:any){
+    this.getObj ? this.editFlag =true : false;
+    obj=this.getObj
     this.profileForm=this.fb.group({
         createdBy:[this.webStorage.getUserId()],
         modifiedBy:[ this.webStorage.getUserId()],
         createdDate:[new Date()],
         modifiedDate:[new Date()],
         isDeleted: true,
-        id: 0,
-        mobileNo: [''],
-        emailId: [''],
-        designationLevelId:[''],
-        designationId:[''],
-        districtId:[''],
-        talukaId:[''],
-        centerId:[''],
-        profilePhoto:[''],
-        UserName:[''],
-        password: [''],
-        name:[''],
+        id:[obj?.id],
+        mobileNo: [obj?.mobileNo || '',[Validators.required]],
+        emailId: [obj?.emailId ||'',[Validators.required]],
+        designationLevelId:[obj?.designationLevelId ||'',[Validators.required]],
+        designationId:[obj?.designationId ||'',[Validators.required]],
+        districtId:[obj?.districtId ||'',[Validators.required]],
+        talukaId:[obj?.talukaId ||'',[Validators.required]],
+        centerId:[obj?.centerId ||'',[Validators.required]],
+        profilePhoto:[obj?.profilePhoto ||''],
+        UserName:[obj?.UserName ||'',],
+        password: [obj?.password ||'',],
+        name:[obj?.name ||'',[Validators.required]],
         standardModels: [[
           {
             standardId: 0
@@ -98,6 +101,27 @@ export class MyProfileComponent {
             subjectId: 0
           }
         ]]
+    })
+    this.getLevel();
+
+  }
+
+  getDataByID(){
+    this.userId=this.commonMethod.getUserTypeID();
+    console.log(this.userId);
+    this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id='+this.userId+'&lan='+this.lang, false, false, false, 'baseUrl');
+    this.service.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == '200') {
+          this.getObj = res.responseData;
+          console.log(this.getObj);
+        } else {
+          this.centerArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }), error: (error: any) => {
+        this.error.handelError(error.status);
+      }
     })
   }
 
@@ -127,8 +151,7 @@ export class MyProfileComponent {
     if(this.profileForm.invalid){
       return
     }
-    // this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
-    this.fileUploaded()
+    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
   }
 
   fileUploaded() {
@@ -247,7 +270,6 @@ export class MyProfileComponent {
   // zp_chandrapur/user-registration/AddRecord
   submitProfileData(){
     let formObj=this.profileForm.value;
-   formObj.profilePhoto=this.ImgUrl;
     this.service.setHttp('post','zp_chandrapur/user-registration/AddRecord', false, formObj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
