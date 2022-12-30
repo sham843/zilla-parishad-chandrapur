@@ -110,7 +110,7 @@ this.studentId=res.id
   }
 
   displayData(id?:any){
-  this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id='+id,false, false, false, 'baseUrl');
+  this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetStudentProfileById?Id='+id+'&lan='+this.lang,false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
          if (res.statusCode == "200") {
