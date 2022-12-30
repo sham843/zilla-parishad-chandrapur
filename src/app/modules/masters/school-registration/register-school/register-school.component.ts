@@ -23,6 +23,8 @@ export class RegisterSchoolComponent {
   groupArray = new Array();
   editFlag: boolean = false;
   lang!: string;
+  fromClassArray = new Array();
+  toClassArray = new Array();
   subscription!: Subscription;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   constructor
@@ -49,14 +51,16 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     obj = this.data;
     this.registerForm = this.fb.group({
-      schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],   
+      schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]],   
       districtId: ['', Validators.required],
       talukaId: [obj?.talukaId || '', Validators.required],
       centerId: [obj?.centerId || '', Validators.required],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
-      s_TypeId: [obj?.s_TypeId || '', Validators.required],
-      g_GenderId: [obj?.g_GenderId || '', Validators.required],
-      g_ClassId: [obj?.g_ClassId || '', Validators.required],       
+      s_TypeId: [obj?.s_TypeId || ''],
+      g_GenderId: [obj?.g_GenderId || ''],
+      // g_ClassId: [obj?.g_ClassId || '', Validators.required],   
+      classFrom:[obj?.classFrom || '', Validators.required],
+      classTo:[obj?.classTo || '', Validators.required],
     })
     this.getDistrict();
   }
@@ -158,7 +162,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.genderAllowArray = res.responseData;
-          this.editFlag ? this.getGroupClass() : '';
+          this.editFlag ? this.getFromClass() : '';
         } else {
           this.genderAllowArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -170,14 +174,31 @@ export class RegisterSchoolComponent {
 
   }
 
-  getGroupClass() {
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllGroupClass?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+  getFromClass(status?:any) {
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
-          this.groupArray = res.responseData;
+          status == 'fromClass' ? this.fromClassArray = res.responseData : '' 
+          this.editFlag ? this.getToClass() : '';
         } else {
-          this.groupArray = [];
+          this.fromClassArray = [];
+          this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+        }
+      }), error: (error: any) => {
+        this.error.handelError(error.status);
+      }
+    })
+  }
+
+  getToClass() {
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang='+this.lang, false, false, false, 'baseUrl');
+    this.service.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == '200') {
+          this.toClassArray = res.responseData
+        } else {
+          this.toClassArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
       }), error: (error: any) => {
@@ -187,6 +208,7 @@ export class RegisterSchoolComponent {
   }
 
   onSubmitData() {
+    debugger
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
       return;
@@ -231,7 +253,9 @@ export class RegisterSchoolComponent {
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
+ 
   //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
+
 }
 
 

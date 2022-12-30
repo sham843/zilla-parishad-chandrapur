@@ -39,7 +39,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="centerId" (selectionChange)="getSchoolCategory()">
+                        <mat-select  formControlName="centerId" (selectionChange)="getSchoolCategory()"
+                        [class.disabled-contenct]="!registerForm.value.talukaId" >
                             <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
                                 {{cet.center}}
                             </mat-option>
@@ -54,12 +55,12 @@
                         <mat-label>{{'common.school' |translate}}</mat-label>
                         <input matInput placeholder="{{'school.please_select_school_name' |translate}}"
                             formControlName="schoolName"
-                            (keyup)="validator.alphaNumeric($event);validator.removeSpaceAtBegining($event)"
+                            (keyup)="validator.alphaNumeric($event)" (keypress)="validator.noFirstSpaceAllow($event)"
                             minlength="10" maxlength="500">
                         <!-- <mat-error
                             *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error> -->
-                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
-                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('pattern')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
+                        <!-- <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
+                        <mat-error *ngIf="registerForm.controls['schoolName'].hasError('pattern')">{{'school.please_enter_valid_school name'|translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -91,7 +92,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.gender_selected' |translate}}</mat-label>
-                        <mat-select formControlName="g_GenderId" (selectionChange)="getGroupClass()">
+                        <mat-select formControlName="g_GenderId" (selectionChange)="getFromClass('fromClass')">
                             <mat-option *ngFor="let gen of genderAllowArray" [value]="gen.id">
                                 {{gen.gender}}
                             </mat-option>
@@ -102,17 +103,30 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <!-- <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'school.group_class' |translate}}</mat-label>
-                        <mat-select formControlName="g_ClassId">
-                            <mat-option *ngFor="let gr of groupArray" [value]="gr.id">
-                                {{gr.groupClass}}
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'school.class_from' |translate}}</mat-label>
+                        <mat-select formControlName="classFrom" (selectionChange)="getToClass()">
+                            <mat-option *ngFor="let gr of fromClassArray" [value]="gr.id">
+                                {{gr.standard}}
                             </mat-option>
                         </mat-select>
-                        <mat-error
-                            *ngIf="registerForm.controls['g_ClassId'].hasError('required')">{{'school.please_select_group_class'
-                            |translate}}</mat-error>
-                    </mat-form-field> -->
+                        <!-- <mat-error
+                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_select_from_class'
+                            |translate}}</mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'school.class_to' |translate}}</mat-label>
+                        <mat-select formControlName="classTo">
+                            <mat-option *ngFor="let gr of toClassArray" [value]="gr.id" [disabled]="gr.id <= registerForm.value.classFrom">
+                                {{gr.standard}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error
+                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_select_to_class'
+                            |translate}}</mat-error> -->
+                    </mat-form-field>
                 </div>
             </div>
         </mat-card-content>
