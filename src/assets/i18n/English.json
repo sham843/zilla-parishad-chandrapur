@@ -109,7 +109,7 @@
         "resend_otp":"Resend OTP",
         "login":"Login",
         "enter_username/Mobile_number":"Enter Username/Mobile Number",
-        "enter_password":"Enter Password",
+        "enter_password":"Password",
         "enter_captcha":"Captcha",
         "username_required":"User Name is Required",
         "please_enter_valid_username":"Please Enter Valid Username",
