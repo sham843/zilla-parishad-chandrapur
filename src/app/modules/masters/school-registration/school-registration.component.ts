@@ -5,7 +5,7 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
@@ -62,10 +62,11 @@ export class SchoolRegistrationComponent {
 
   //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
   getFilterFormData() {
+    // [Validators.required, Validators.minLength(10), Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0],
-      schoolName: ['']
+      schoolName: ['',[Validators.minLength(10), Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]]
     })
   }
 

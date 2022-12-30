@@ -26,6 +26,7 @@ export class RegisterUsersComponent {
   classArr=new Array();
   subjectArr=new Array();
   lang:string |any='English';
+  loginData:any;
   get f(){return this.userRegistrationForm.controls}
   constructor(
     private webStorage:WebStorageService,
@@ -37,8 +38,7 @@ export class RegisterUsersComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService:ApiService,
     private errors:ErrorsService,
-    private common:CommonMethodsService
-  ) {}
+    private common:CommonMethodsService) {}
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
@@ -48,6 +48,8 @@ export class RegisterUsersComponent {
     this.getUserType();
     this.getDistrict();
     this.data?this.addRemoveValidation():'';
+  this.loginData=this.webStorage.getLoginData();
+  console.log(this.loginData.designationLevelId);
   }
 
   getUserForm() {
@@ -256,7 +258,8 @@ if(this.userRegistrationForm.value.userTypeId==2){
 
   clearUserForm(formDirective:any){
     formDirective.resetForm();
-    this.getUserForm();
+    this.designationArr=[];
+    this.data?'':this.getUserForm();
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
  //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
@@ -277,12 +280,12 @@ registerUser(formDirective:any) {
          "subjectId":ele
          })
        });
-    }
+    } 
    let obj= {
-      "createdBy":this.data?0:0,
-      "modifiedBy":this.data?0:0,
-      "createdDate":this.data?new Date():new Date(),
-      "modifiedDate":this.data?new Date():new Date(),
+      "createdBy":this.data?this.data.createdBy:this.webStorage.getUserId(),
+      "modifiedBy":this.data?this.data.modifiedBy : this.webStorage.getUserId(),
+      "createdDate":this.data?this.data.createdDate:new Date(),
+      "modifiedDate":new Date(),
       "isDeleted": false,
       "id":this.data?this.data.id:0,
       "name":this.userRegistrationForm.value.name,
