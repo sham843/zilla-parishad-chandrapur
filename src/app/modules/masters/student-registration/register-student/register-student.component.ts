@@ -25,6 +25,7 @@ export class RegisterStudentComponent {
   standardArray = new Array();
   genderArray = new Array();
   religionArray = new Array();
+  casteArray=new Array();
   @ViewChild('formDirective')
   private formDirective!: NgForm;
   editFlag: boolean = false;
@@ -78,7 +79,7 @@ export class RegisterStudentComponent {
       "dob": [data?.dob || ''],
       "aadharNo": [data?.aadharNo || '',[Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || ''],
-      "cast": [data?.cast || '', [Validators.minLength(2),Validators.pattern(this.validation.fullName)]],
+      "casteId": [data?.casteId || ''],
       "parentsMobileNo": [data?.parentsMobileNo || '',[Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
@@ -104,6 +105,7 @@ export class RegisterStudentComponent {
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
+    this.casteArray=[];
     this.formData();
   }
 
@@ -116,6 +118,9 @@ export class RegisterStudentComponent {
         break;
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
+        break;
+        case 'religionId':
+        this.studentFrm.controls['casteId'].setValue('');
         break;
     }
   }
@@ -241,10 +246,31 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
+          this.editFlag ? (this.studentFrm.controls['religionId'].setValue(this.data.religionId), this.getCaste(this.lang, this.studentFrm.value.religionId)) : '';
+    
           this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
         }
         else {
           this.religionArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+      }
+    })
+  }
+
+  getCaste(strPara: string,religionId:number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCastByReligion?flag_lang=' + strPara+'&ReligionId='+religionId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.casteArray = res.responseData;
+          this.editFlag ? this.studentFrm.controls['casteId'].setValue(this.data.casteId) : '';
+        }
+        else {
+          this.casteArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }),
