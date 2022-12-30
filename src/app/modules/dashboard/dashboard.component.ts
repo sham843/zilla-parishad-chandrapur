@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -33,7 +34,8 @@ export class DashboardComponent {
     private webStorage: WebStorageService,
     private commonMethods: CommonMethodsService,
     private fb: FormBuilder, private master: MasterService,
-    public validation: ValidationService) { }
+    public validation: ValidationService,
+    private router:Router) { }
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
@@ -423,6 +425,8 @@ export class DashboardComponent {
     // });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
-
+  displayProfile(id:number){
+    this.router.navigateByUrl('/student-profile/'+id);
+  }
 
 }
