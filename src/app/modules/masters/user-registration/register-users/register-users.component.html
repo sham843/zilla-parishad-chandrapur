@@ -18,29 +18,19 @@
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userType}}</mat-option>
                         </mat-select>
-                        <!-- <mat-error *ngIf="f['userTypeId'].errors">
-                            <span class="text-danger" *ngIf="f['userTypeId'].hasError('required')">
-                                {{'common.select_user_type' |translate}}
-                            </span>
-                        </mat-error> -->
                     </mat-form-field>
                 </div>
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!userRegistrationForm.value.userTypeId">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId" 
                                 (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel')">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
-                           <!--  <mat-error *ngIf="f['designationLevelId'].errors">
-                                <span class="text-danger" *ngIf="f['designationLevelId'].hasError('required')">
-                                    {{'user_Registration.Please_select_user_level' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4">
+                    <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4" [class.disabled-contenct]="!userRegistrationForm.value.designationLevelId">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.designation' |translate}}</mat-label>
@@ -48,11 +38,6 @@
                                 <mat-option *ngFor="let designation of designationArr"
                                     [value]="designation.id">{{designation.desingationTypes}}</mat-option>
                             </mat-select>
-                            <!-- <mat-error *ngIf="f['designationId'].errors">
-                                <span class="text-danger" *ngIf="f['designationId'].hasError('required')">
-                                    {{'common.select_designation' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
@@ -64,16 +49,11 @@
                                 <mat-option *ngFor="let agency of agencyArr"
                                     [value]="agency.id">{{agency.agencyName}}</mat-option>
                             </mat-select>
-                          <!--   <mat-error *ngIf="f['agencyId'].errors">
-                                <span class="text-danger" *ngIf="f['agencyId'].hasError('required')">
-                                   {{'user_Registration.Please_select_agency_name' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" 
                             (selectionChange)="getTaluka(userRegistrationForm.value.districtId);clearDropdown('district')"
@@ -81,11 +61,6 @@
                             <mat-option *ngFor="let dist of districtArr"
                                 [value]="dist.id">{{dist.district}}</mat-option>
                         </mat-select>
-                        <!-- <mat-error *ngIf="f['districtId'].errors">
-                            <span class="text-danger" *ngIf="f['districtId'].hasError('required')">
-                                {{'common.Please_Select_District' |translate}}  
-                            </span>
-                        </mat-error> -->
                     </mat-form-field>
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && userRegistrationForm.value.designationLevelId!=2">
@@ -97,59 +72,39 @@
                                 <mat-option *ngFor="let taluka of talukaArr"
                                     [value]="taluka.id">{{taluka.taluka}}</mat-option>
                             </mat-select>
-                           <!--  <mat-error *ngIf="f['talukaId'].errors">
-                                <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
-                                    {{'common.Please_Select_Taluka' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && (userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5)">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100"  >
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId"
                                 (selectionChange)="getSchoolName(userRegistrationForm.value.centerId);clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
                             </mat-select>
-                           <!--  <mat-error *ngIf="f['centerId'].errors">
-                                <span class="text-danger" *ngIf="f['centerId'].hasError('required')">
-                                   {{'common.select_kendra' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!userRegistrationForm.value.centerId">
                             <mat-label>{{'common.school' |translate}}</mat-label>
                             <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
                                 <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
                             </mat-select>
-                           <!--  <mat-error *ngIf="f['schoolId'].errors">
-                                <span class="text-danger" *ngIf="f['schoolId'].hasError('required')">
-                                    {{'common.select_school' |translate}}
-                                </span>
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
                     <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
                         <div class="col-sm-4">
-                            <mat-form-field  appearance="outline" class="w-100">
+                            <mat-form-field  appearance="outline" class="w-100" [class.disabled-contenct]="!userRegistrationForm.value.schoolId">
                                 <mat-label>{{'user_Registration.class' |translate}}</mat-label>
                                 <mat-select formControlName="standardModels" multiple (selectionChange)="clearDropdown('class')">
                                   <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.standard}}</mat-option>
                                 </mat-select>
-                               <!--  <mat-error *ngIf="f['standardModels'].errors">
-                                    <span class="text-danger" *ngIf="f['standardModels'].hasError('required')">
-                                        {{'user_Registration.Please_select_standard' |translate}}
-                                    </span>
-                                </mat-error> -->
                               </mat-form-field>
                         </div>
                     </ng-container>
@@ -160,11 +115,6 @@
                                 <mat-select formControlName="subjectModels" multiple>
                                     <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
                                 </mat-select>
-                              <!--   <mat-error *ngIf="f['subjectModels'].errors">
-                                    <span class="text-danger" *ngIf="f['subjectModels'].hasError('required')">
-                                       {{'user_Registration.Please_select_subject' |translate}}
-                                    </span>
-                                </mat-error> -->
                               </mat-form-field>
                         </div>
                     </ng-container>
@@ -174,9 +124,6 @@
                             <input matInput placeholder="{{'common.name' |translate}}"
                                 formControlName="name" (keypress)="validation.alphabetsWithSpaces($event);validation.noFirstSpaceAllow($event)">
                             <mat-error *ngIf="f['name'].errors">
-                               <!--  <span class="text-danger" *ngIf="f['name'].hasError('required')">
-                                    {{'user_Registration.Please_enter_name' |translate}}
-                                </span> -->
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
                                   {{'common.Please_enter_valid_name' |translate}}
                                 </span> 
@@ -190,9 +137,6 @@
                             formControlName="mobileNo" 
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
-                           <!--  <span class="text-danger" *ngIf="f['mobileNo'].hasError('required')">
-                                {{'common.please_enter_contact_number' |translate}}  
-                            </span> -->
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
                                 {{'common.please_enter_valid_contact_number' |translate}}
                             </span>
@@ -206,9 +150,6 @@
                             formControlName="emailId" 
                             (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
                         <mat-error *ngIf="f['emailId'].errors">
-                          <!--   <span class="text-danger" *ngIf="f['emailId'].hasError('required')">
-                                {{'common.please_enter_email_id' |translate}}
-                            </span> -->
                             <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
                               {{'agency.please_enter_valid_emailId' |translate}}
                             </span>
