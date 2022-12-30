@@ -130,7 +130,7 @@ export class AgencyRegistrationComponent {
       width: '750px',
       disableClose: true,
       data: {
-        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected Agency?',
         p2: '',
         cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'हटवा' : 'Delete',
