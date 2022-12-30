@@ -258,6 +258,7 @@ if(this.userRegistrationForm.value.userTypeId==2){
 
   clearUserForm(formDirective:any){
     formDirective.resetForm();
+    this.designationArr=[];
     this.data?'':this.getUserForm();
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------

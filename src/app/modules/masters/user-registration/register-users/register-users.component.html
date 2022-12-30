@@ -30,11 +30,11 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4" [class.disabled-contenct]="!userRegistrationForm.value.designationLevelId">
+                    <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!userRegistrationForm.value.designationLevelId">
                             <mat-label>{{'common.designation' |translate}}</mat-label>
-                            <mat-select formControlName="designationId" [class.disabled]="!userRegistrationForm.value.designationLevelId">
+                            <mat-select formControlName="designationId">
                                 <mat-option *ngFor="let designation of designationArr"
                                     [value]="designation.id">{{designation.desingationTypes}}</mat-option>
                             </mat-select>
