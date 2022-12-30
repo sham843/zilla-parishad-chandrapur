@@ -38,6 +38,10 @@ getUserId(){
   let userId=this.getLocalStorageData();
   return JSON.parse(userId).responseData.userTypeId;
 }
+getLoginData(){
+  let userId=this.getLocalStorageData();
+  return JSON.parse(userId).responseData;
+}
   getAllPageName(){
     if (this.checkUserIsLoggedIn() == true) {
       let getAllPageName = JSON.parse(this.getLocalStorageData());

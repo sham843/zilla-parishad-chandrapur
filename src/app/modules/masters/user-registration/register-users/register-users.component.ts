@@ -26,6 +26,7 @@ export class RegisterUsersComponent {
   classArr=new Array();
   subjectArr=new Array();
   lang:string |any='English';
+  loginData:any;
   get f(){return this.userRegistrationForm.controls}
   constructor(
     private webStorage:WebStorageService,
@@ -37,8 +38,7 @@ export class RegisterUsersComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService:ApiService,
     private errors:ErrorsService,
-    private common:CommonMethodsService
-  ) {}
+    private common:CommonMethodsService) {}
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
@@ -48,6 +48,8 @@ export class RegisterUsersComponent {
     this.getUserType();
     this.getDistrict();
     this.data?this.addRemoveValidation():'';
+  this.loginData=this.webStorage.getLoginData();
+  console.log(this.loginData.designationLevelId);
   }
 
   getUserForm() {

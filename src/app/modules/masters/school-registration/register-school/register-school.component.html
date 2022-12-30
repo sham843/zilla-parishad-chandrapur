@@ -37,10 +37,9 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!registerForm.value.talukaId">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select  formControlName="centerId" (selectionChange)="getSchoolCategory()"
-                        [class.disabled-contenct]="!registerForm.value.talukaId" >
+                        <mat-select  formControlName="centerId">
                             <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
                                 {{cet.center}}
                             </mat-option>
@@ -66,7 +65,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.school_category' |translate}}</mat-label>
-                        <mat-select formControlName="s_CategoryId" (selectionChange)="getSchoolType()">
+                        <mat-select formControlName="s_CategoryId">
                             <mat-option *ngFor="let cat of schoolcategoryArray" [value]="cat.id">
                                 {{cat.categoryName}}
                             </mat-option>
@@ -79,7 +78,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.school_type' |translate}}</mat-label>
-                        <mat-select formControlName="s_TypeId" (selectionChange)="getGenderAllow()">
+                        <mat-select formControlName="s_TypeId">
                             <mat-option *ngFor="let type of schooltypeArray" [value]="type.id">
                                 {{type.schoolType}}
                             </mat-option>
@@ -92,7 +91,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.gender_selected' |translate}}</mat-label>
-                        <mat-select formControlName="g_GenderId" (selectionChange)="getFromClass('fromClass')">
+                        <mat-select formControlName="g_GenderId">
                             <mat-option *ngFor="let gen of genderAllowArray" [value]="gen.id">
                                 {{gen.gender}}
                             </mat-option>
@@ -105,7 +104,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.class_from' |translate}}</mat-label>
-                        <mat-select formControlName="classFrom" (selectionChange)="getToClass()">
+                        <mat-select formControlName="classFrom">
                             <mat-option *ngFor="let gr of fromClassArray" [value]="gr.id">
                                 {{gr.standard}}
                             </mat-option>

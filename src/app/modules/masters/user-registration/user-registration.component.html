@@ -54,7 +54,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
             <mat-select formControlName="CenterId"
               (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra')">
@@ -63,7 +63,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.CenterId">
             <mat-label>{{'common.select_school'|translate}}</mat-label>
             <mat-select formControlName="SchoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>
