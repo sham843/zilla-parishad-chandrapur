@@ -261,6 +261,10 @@
             "enter_valid_add_english_level":"Enter Valid Add English Level",
             "add_marathi_level_is_required":"Add Marathi Level is required.",
             "enter_valid_add_marathi_level":"Enter Valid Add Marathi Level"
+        },
+        "Add_Class_Model":{
+            "marathi_language_level":"Marathi Language Level",
+            "english_language_level":"English Language Level"
         }
       }
 
