@@ -36,7 +36,8 @@
         "delete":"Delete",
         "ok":"Ok",
         "update":"Update",
-        "select_designation": "Please Select Designation"
+        "select_designation": "Please Select Designation",
+        "download_excel":"Download as Excel"
     },
     "dashboard":{
         "dashboard":"Dashboard"

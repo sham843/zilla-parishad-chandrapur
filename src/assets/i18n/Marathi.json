@@ -35,7 +35,8 @@
         "delete": "हटवा",
         "ok": "होय",
         "update":"अद्यतन",
-        "select_designation": "पदनाम निवडा"
+        "select_designation": "पदनाम निवडा",
+        "download_excel":"एक्सेल डाउनलोड करा"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
