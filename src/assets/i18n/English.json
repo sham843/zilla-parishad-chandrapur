@@ -227,7 +227,7 @@
         "6th_8th":"6th-8th",
         "school_category":"School Category",
         "school_type":"School Type",
-        "gender_selected":"Gender Selected",
+        "gender_selected":"Gender Allowed",
         "school_name_required":"School Name is Required",
         "school_name_length_should_not_less_than_10": "School Name Length Should not Less Than 10",
         "please_enter_valid_school name":"Please Enter Valid School Name",
