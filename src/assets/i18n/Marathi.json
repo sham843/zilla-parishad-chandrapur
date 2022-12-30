@@ -40,6 +40,20 @@
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
     },
+    "student_profile": {
+        "progress_indicator": "प्रगती सूचक ",
+        "teacher": "शिक्षक ",
+        "first": "प्रथम ",
+        "officer": "अधिकारी ",
+        "story": "गोष्ट ",
+        "paragraph": "परिच्छेद ",
+        "word": "शब्द ",
+        "letter": "अक्षर",
+        "initially": " प्रारंभीक",
+        "pre_test": " पूर्व चाचणी",
+        "mid_test": "मध्य चाचणी",
+        "final_test": "अंतिम  चाचणी"
+    },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
         "add_user": "वापरकर्ता जोडा",

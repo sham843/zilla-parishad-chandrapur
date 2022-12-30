@@ -41,7 +41,21 @@
     "dashboard":{
         "dashboard":"Dashboard"
     },
-    "user_Registration":{
+    "student_profile": {
+        "progress_indicator": "Progress Indicator",
+        "teacher": "Teacher",
+        "first": "First",
+        "officer": "Officer",
+        "story": "Story ",
+        "paragraph": "Paragraph",
+        "word": "Word ",
+        "letter": "Letter",
+        "initially": " Initially",
+        "pre_test": "Pre Test",
+        "mid_test": "Mid Test",
+        "final_test": "Final  Test"
+    },
+   "user_Registration":{
         "register_users":"Register Users",
         "add_user":"Add User",
         "user_registration":"User Registration",
