@@ -18,10 +18,10 @@
             <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100"  [class.disabled-contenct]="userLoginDesignationLevelId != 1">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
-                    <mat-select formControlName="linkedToDesignationLevelId" (selectionChange)=" editFlag = false;clearFormDependancy();getDesignationType()" [class.disabled-contenct]="userLoginDesignationLevelId != 1">
+                    <mat-select formControlName="linkedToDesignationLevelId" (selectionChange)=" editFlag = false;clearFormDependancy();getDesignationType()" >
                         <!-- [disabled]="designationForm.value.linkedToDesignationLevelId != upDesigLevel.id ? true : false" -->
                         <mat-option   *ngFor="let upDesigLevel of desigantionLevel"
-                            [value]="upDesigLevel.id">{{upDesigLevel.desingationLevel}}</mat-option>
+                            [value]="upDesigLevel.id" >{{upDesigLevel.desingationLevel}}</mat-option>
                     </mat-select>
                     <!-- <mat-error class="mt-2"
                         *ngIf="f['linkedToDesignationLevelId'].hasError('required')">{{'designation_master.please_select_designation_level'
@@ -32,9 +32,9 @@
             <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.designation_type' | translate}}</mat-label>
-                    <mat-select formControlName="linkedToDesignationId" (selectionChange)="editFlag = false;setDesignationLvl()">
+                    <mat-select formControlName="linkedToDesignationId" (selectionChange)="editFlag = false;setDesignationLvl() ;test($event)" multiple>
                         <mat-option *ngFor="let upDesigType of desigantionType"
-                            [value]="upDesigType.id">{{upDesigType.desingationTypes}}</mat-option>
+                            [value]="upDesigType.id" >{{upDesigType.desingationTypes}}</mat-option>
                     </mat-select>
                     <!-- <mat-error class="mt-2"
                         *ngIf="f['linkedToDesignationId'].hasError('required')">{{'designation_master.please_select_designation_type'
