@@ -45,6 +45,7 @@
     },
     "student_profile": {
         "progress_indicator": "Progress Indicator",
+        "class_teacher":"Class Teacher",
         "teacher": "Teacher",
         "first": "First",
         "officer": "Officer",
