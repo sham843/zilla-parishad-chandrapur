@@ -122,9 +122,9 @@ export class UserRegistrationComponent {
 //#endregion------------------------------------------------get all user method end----------------------------------------------------------
 setTableData(){     // table 
   let displayedColumns:any;
-  this.lang=='mr-IN'?displayedColumns=['srNo','m_UserType','name','mobileNo','action']:displayedColumns= ['srNo','userType', 'name', 'mobileNo', 'action']
+  this.lang=='mr-IN'?displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','वापरकर्ता प्रकार','नाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.','User Type', 'Name', 'Mobile No', 'Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No', 'Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         img: '',
@@ -232,9 +232,9 @@ setTableData(){     // table
     let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
-    this.lang=='mr-IN'?header=['अनुक्रमांक','वापरकर्ता प्रकार','नाव','मोबाईल नंबर']:header=['Sr. No.','User Type', 'Name', 'Mobile No'];
+    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर']:header=['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No'];
     let column:any;
-    this.lang=='mr-IN'?column=['srNo','m_UserType','name','mobileNo']:column=['srNo','userType', 'name', 'mobileNo'];
+    this.lang=='mr-IN'?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
