@@ -57,6 +57,7 @@
     },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
+        "update_user":"वापरकर्ता अद्यतनित करा",
         "add_user": "वापरकर्ता जोडा",
         "user_registration": "वापरकर्ता नोंदणी",
         "office_users": "वापरकर्ता नोंदणी",
@@ -233,7 +234,11 @@
         "school_name_required": "शाळेचे नाव आवश्यक आहे",
         "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
         "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा",
-        "update_school":"शाळा अद्यतनित करा"
+        "update_school":"शाळा अद्यतनित करा",
+        "class_from":"पासून वर्ग",
+        "class_to":"वर्गापर्यंत",
+        "please_select_from_class":"कृपया वर्ग निवडा",
+        "please_select_to_class":"कृपया  वर्गापर्यंत निवडा"
     },
     "header": {
         "profile_name": "श्री सुनील राजाराम शिंदे",

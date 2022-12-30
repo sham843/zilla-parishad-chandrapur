@@ -58,6 +58,7 @@
     },
    "user_Registration":{
         "register_users":"Register Users",
+        "update_user":"Update User",
         "add_user":"Add User",
         "user_registration":"User Registration",
         "office_users":"User Registration",
@@ -230,7 +231,11 @@
         "please_enter_valid_school name":"Please Enter Valid School Name",
         "update_school":"Update School",
         "please_enter_atleast_2_alphanumeric":"Please Enter Atleast Two Alphanumeric",
-        "please_enter_minimum_2_character":"Please Enter Atleast Two Characters"
+        "please_enter_minimum_2_character":"Please Enter Atleast Two Characters",
+        "class_from":"Class From",
+        "class_to": "Class To",
+        "please_select_from_class":"Please Select From Class",
+        "please_select_to_class":"Please Select To Class"
       },
       "header":{
         "profile_name":"Mr. Sunil Rajaram Shinde",

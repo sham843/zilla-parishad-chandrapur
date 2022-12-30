@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0 fw-bold">{{'user_Registration.register_users' | translate}}</h6>
+            <h6 class="text-main mb-0 fw-bold">{{this.data?('user_Registration.update_user'| translate):('user_Registration.register_users' | translate)}}</h6>
             <button class="btn-modal-close" [mat-dialog-close]="true" mat-icon-button>
                 <mat-icon>close</mat-icon>
             </button>
@@ -44,7 +44,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.designation' |translate}}</mat-label>
-                            <mat-select formControlName="designationId" (selectionChange)="getDistrict()">
+                            <mat-select formControlName="designationId" [class.disabled]="!userRegistrationForm.value.designationLevelId">
                                 <mat-option *ngFor="let designation of designationArr"
                                     [value]="designation.id">{{designation.desingationTypes}}</mat-option>
                             </mat-select>
@@ -76,7 +76,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" 
-                            (selectionChange)="getTaluka(userRegistrationForm.value.districtId);clearDropdown('district')">
+                            (selectionChange)="getTaluka(userRegistrationForm.value.districtId);clearDropdown('district')"
+                           >
                             <mat-option *ngFor="let dist of districtArr"
                                 [value]="dist.id">{{dist.district}}</mat-option>
                         </mat-select>
@@ -87,7 +88,7 @@
                         </mat-error> -->
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2">
+                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && userRegistrationForm.value.designationLevelId!=2">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.taluka' |translate}}</mat-label>
@@ -104,7 +105,7 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2">
+                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && (userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5)">
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
@@ -217,7 +218,7 @@
             </div>
             <div class="d-flex justify-content-end align-items-center w-100">
                 <button mat-stroked-button type="button" class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.cancel' |translate}}</button>
-                <button mat-stroked-button type="submit" class="btn-main" (click)="registerUser(formDirective)">{{'common.submit' |translate}}</button>
+                <button mat-stroked-button type="submit" class="btn-main" (click)="registerUser(formDirective)">{{this.data?('common.update' |translate | translate):('common.submit' |translate | translate)}}</button>
             </div>
     </mat-card-content>
 </form>
