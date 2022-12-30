@@ -40,7 +40,7 @@ export class StudentProfileComponent {
   }
 
   ngOnInit() {
-    // this.formData();
+    this.formData();
     this.getTableData();
     // console.log("rrrrrrrrrrr",this.commonMethod.getUserTypeID());
    this.webStorage.setLanguage.subscribe((res: any) => {
@@ -48,7 +48,7 @@ export class StudentProfileComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
-    // this.getSchool(this.lang,);
+    this.getSchool(this.lang,2713010002);
 this.router.params.subscribe((res:any)=>{
 this.studentId=res.id
 });
@@ -63,11 +63,13 @@ this.studentId=res.id
     })
   }
 
-  getTableData() {
+  getTableData(flag?:any) {
     this.spinner.show();
-    // let formData = this.filterFrm.value;
+    flag == 'filter' ? this.pageNumber = 1 :'';
+    let formData = this.filterFrm.value;
+    // (formData?.talukaId)
     let str =`?pageno=${this.pageNumber}&pagesize=10`
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str ,false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str+'&SchoolId='+(formData?.schoolId)+'&standardid='+(formData?.standardId)+'&searchText='+(formData?.searchText),false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -146,6 +148,7 @@ this.studentId=res.id
     next: ((res: any) => {
       if (res.statusCode == "200") {
         this.schoolArray = res.responseData;
+        this.getStandard(this.lang,this.filterFrm.value?.schoolId);
          }
       else {
         this.schoolArray = [];
@@ -158,9 +161,8 @@ this.studentId=res.id
   })
 }
 
-// 
 getStandard(strPara: string, schoolId: number) {
-  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + strPara + 'SchoolId=' + schoolId, false, false, false, 'baseUrl');
+  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + strPara + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: ((res: any) => {
       if (res.statusCode == "200") {
@@ -177,6 +179,12 @@ getStandard(strPara: string, schoolId: number) {
   })
 }
 
+clearForm() {
+  this.filterFrm.reset();
+  this.formData();
+  this.standardArray = [];
+  this.getTableData('filter');
+}
 
 
 
