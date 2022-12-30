@@ -2,7 +2,8 @@
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
             <div class="d-flex justify-content-between align-items-center w-100">
-                <h6 class="text-main mb-0 fw-bold">{{editFlag ?('school.update_school' |translate) : ('school.school_registration' |translate)}}</h6>
+                <h6 class="text-main mb-0 fw-bold">{{editFlag ?('school.update_school' |translate) :
+                    ('school.school_registration' |translate)}}</h6>
                 <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -13,7 +14,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.district' |translate}}</mat-label>
-                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()"[disabled]="registerForm.value.districtId == 1">
+                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+                            [disabled]="registerForm.value.districtId == 1">
                             <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
                                 {{dist.district}}
                             </mat-option>
@@ -37,9 +39,10 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!registerForm.value.talukaId">
+                    <mat-form-field appearance="outline" class="w-100"
+                        [class.disabled-contenct]="!registerForm.value.talukaId">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select  formControlName="centerId">
+                        <mat-select formControlName="centerId">
                             <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
                                 {{cet.center}}
                             </mat-option>
@@ -49,13 +52,11 @@
                             |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.school' |translate}}</mat-label>
-                        <input matInput placeholder="{{'school.please_select_school_name' |translate}}"
-                            formControlName="schoolName"
-                            (keyup)="validator.alphaNumeric($event)" (keypress)="validator.noFirstSpaceAllow($event)"
-                            minlength="10" maxlength="500">
+                        <input matInput formControlName="schoolName" (keyup)="validator.alphaNumeric($event)"
+                            (keypress)="validator.noFirstSpaceAllow($event)" minlength="10" maxlength="500">
                         <!-- <mat-error
                             *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error> -->
                         <!-- <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
@@ -118,7 +119,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.class_to' |translate}}</mat-label>
                         <mat-select formControlName="classTo">
-                            <mat-option *ngFor="let gr of toClassArray" [value]="gr.id" [disabled]="gr.id <= registerForm.value.classFrom">
+                            <mat-option *ngFor="let gr of toClassArray" [value]="gr.id"
+                                [disabled]="gr.id <= registerForm.value.classFrom">
                                 {{gr.standard}}
                             </mat-option>
                         </mat-select>
@@ -127,13 +129,32 @@
                             |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>ID</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1">Option 1</mat-radio-button>
+                        <mat-radio-button value="2">Option 2</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-sm-8">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                </div>
             </div>
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
                 <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear'
                     |translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? ('common.submit'|translate):('common.update'| translate)}}</button>
+                <button mat-flat-button class="btn-main" type="submit">{{!editFlag ?
+                    ('common.submit'|translate):('common.update'| translate)}}</button>
             </div>
         </mat-card-footer>
     </mat-card>
