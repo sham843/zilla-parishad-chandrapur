@@ -214,7 +214,6 @@ export class RegisterSchoolComponent {
   }
 
   onSubmitData() {
-    debugger
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
       return;

@@ -65,9 +65,12 @@ export class RegisterUsersComponent {
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [this.data?this.data.standardModels:[], [Validators.required]],
-      subjectModels: [this.data?this.data.subjectModels:[], [Validators.required]]
+      standardModels: [this.data?this.data.standardId:[], [Validators.required]],
+      subjectModels: [this.data?this.data.subjectId:[], [Validators.required]]
     })
+    console.log("class",this.data?.standardId,"subject",this.data?.subjectId)
+    this.userRegistrationForm.controls['standardModels'].setValue(this.data?.standardId.split(',').map(Number));
+    this.userRegistrationForm.controls['subjectModels'].setValue(this.data?.subjectId.split(',').map(Number));
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type

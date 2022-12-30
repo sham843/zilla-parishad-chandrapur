@@ -1,16 +1,15 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
+<form [formGroup]="profileForm" #formDirective="ngForm" (ngSubmit)="onSubmitData(formDirective)">
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
             <h6 class="mb-0 text-main">My Profile</h6>
-            <button mat-icon-button  class="btn-modal-close" mat-dialog-close>
+            <button mat-icon-button  class="btn-modal-close" type="button" mat-dialog-close (click)="onClick('No')">
                 <mat-icon>
                     close
                 </mat-icon>
             </button>
         </div>
     </mat-card-header>
-
     <mat-card-content class="card-body">
         <div class="text-center mb-3">
             <div class="upload-btn-wrapper">
@@ -18,13 +17,17 @@
                 <img *ngIf="ImgUrl" src="{{ImgUrl}}" alt="profile-img" width="100" class="profile-image">
 
                 <div class="profile-buttons d-flex flex-column">
+                   <ng-container *ngIf="!ImgUrl">
                     <button type="button" class="btn bg-light text-primary">
                         <input type="file" *ngIf="!ImgUrl" (change)="documentUpload($event)" #fileInput />
                         <i class='bx bx-plus'></i>
                     </button>
-                    <button type="button" class="border border-0 btn bg-light text-danger" *ngIf="ImgUrl" (click)="deleteImg()">
+                   </ng-container>
+                   <ng-container *ngIf="ImgUrl">
+                    <button type="button" class="border border-0 btn bg-light text-danger"  (click)="deleteImg()">
                         <i class='bx bx-trash'></i>
                     </button>
+                   </ng-container>
                 </div>
             </div>
         </div>
@@ -32,20 +35,22 @@
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Full Name</mat-label>
-                    <input matInput placeholder="First Name" formControlName="name">
+                    <input matInput placeholder="First Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event)">
+                <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
-                <mat-error *ngIf=""></mat-error>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Mobile No.</mat-label>
-                    <input matInput placeholder="Contact No." formControlName="mobileNo">
+                    <input matInput placeholder="Contact No." formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)">
+                <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email ID</mat-label>
-                    <input matInput placeholder="Email ID" formControlName="emailId">
+                    <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event)">
+                <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
@@ -56,6 +61,7 @@
                             {{lev.desingationLevel}}
                     </mat-option>
                    </mat-select>
+                <mat-error *ngIf="profileForm.controls['designationLevelId'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
@@ -66,6 +72,7 @@
                             {{deg.desingationTypes}}
                     </mat-option>
                    </mat-select>
+                <mat-error *ngIf="profileForm.controls['designationId'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
@@ -76,6 +83,7 @@
                             {{dist.district}}
                     </mat-option>
                    </mat-select>
+                <mat-error *ngIf="profileForm.controls['districtId'].hasError('required')">Please Select Full Name</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
@@ -86,6 +94,7 @@
                                 {{tal.taluka}}
                     </mat-option>
                    </mat-select>
+                <mat-error *ngIf="profileForm.controls['talukaId'].hasError('required')">Please Select Taluka</mat-error> 
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
@@ -96,13 +105,14 @@
                                 {{cen.center}}
                     </mat-option>
                    </mat-select>
+                <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">Please Select Center</mat-error> 
                 </mat-form-field>
             </div>
         </div>
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex w-100 justify-content-end align-items-center">
-            <button mat-dialog-close mat-flat-button class="btn-second me-2" type="button">Cancel</button>
+            <button mat-dialog-close mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">Cancel</button>
             <button mat-flat-button class="btn-main" type="submit">Update</button>
         </div>
     </mat-card-footer>

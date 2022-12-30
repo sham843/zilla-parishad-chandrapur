@@ -5,8 +5,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
  import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
-
-// import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -18,56 +16,49 @@ export class StudentProfileComponent {
   filterFrm!: FormGroup;
   standardArray = new Array();
   schoolArray = new Array();
-  foods=new Array();
-  pageNumber: number = 1;
-  lang!:string;
   tableDataArray = new Array();
+  StudentDataArray:any;
+  pageNumber: number = 1;
   tableDatasize!:number;
   totalPages!:number;
-  dataArray:any;//for view
   studentId!:number;
+  lang!:string;
 
   constructor(
     private webStorage: WebStorageService,
     private apiService: ApiService,
-     private commonMethod: CommonMethodsService,
-    // private master: MasterService,
+    private commonMethod: CommonMethodsService,
     private errorService: ErrorsService,
     private fb: FormBuilder,
-   private spinner: NgxSpinnerService,
-   private router:ActivatedRoute
-  ) {
-  }
+    private spinner: NgxSpinnerService,
+    private router:ActivatedRoute) {}
 
   ngOnInit() {
-    this.formData();
-    this.getTableData();
-    // console.log("rrrrrrrrrrr",this.commonMethod.getUserTypeID());
    this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
-    this.getSchool(this.lang,2713010002);
-this.router.params.subscribe((res:any)=>{
-this.studentId=res.id
-});
-   this.displayData(this.studentId);
+    this.router.params.subscribe((res:any)=>{
+    this.studentId=res.id});
+    this.getformControl();
+    this.studentDataById(this.studentId);
+    this.getAllStudentData();
+    // this.getSchool();
   }
 
-  formData() {
+  getformControl() {
     this.filterFrm = this.fb.group({
-      schoolId: [0],
+      schoolId: [2],
       standardId: [0],
       searchText: ['']
     })
   }
 
-  getTableData(flag?:any) {
+  getAllStudentData(flag?:any) {
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 :'';
     let formData = this.filterFrm.value;
-    // (formData?.talukaId)
     let str =`?pageno=${this.pageNumber}&pagesize=10`
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str+'&SchoolId='+(formData?.schoolId)+'&standardid='+(formData?.standardId)+'&searchText='+(formData?.searchText),false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -109,18 +100,21 @@ this.studentId=res.id
     this.apiService.tableData.next(tableData);
   }
 
-  displayData(id?:any){
-  this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetStudentProfileById?Id='+id+'&lan='+this.lang,false, false, false, 'baseUrl');
+  studentDataById(id?:any){
+  this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id='+id+'&lan='+this.lang,false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
          if (res.statusCode == "200") {
-          this.dataArray = res.responseData;
-          this.dataArray?.map((ele: any) => {
+          this.StudentDataArray = res.responseData;
+          this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
+          this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
+          this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
+         /*  this.StudentDataArray?.map((ele: any) => {
             ele.fatherName = ele.m_Name + ' ' + ele.l_Name;
-          })
+          }) */
          } 
          else {
-          this.dataArray = [];
+          this.StudentDataArray = [];
           }
      },
       error: ((err: any) => {
@@ -134,21 +128,21 @@ this.studentId=res.id
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.getTableData();
+        this.getAllStudentData();
         break;
-        case 'Row':this.displayData(obj?.id)
+        case 'Row':this.studentDataById(obj?.id)
           break
        }
       //  console.log(obj);
  }
 
- getSchool(strPara:string,centerId: number) {
-  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+ getSchool(centerId?: number) {
+  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: ((res: any) => {
       if (res.statusCode == "200") {
         this.schoolArray = res.responseData;
-        this.getStandard(this.lang,this.filterFrm.value?.schoolId);
+        this.getStandard(this.filterFrm.value?.schoolId);
          }
       else {
         this.schoolArray = [];
@@ -161,8 +155,8 @@ this.studentId=res.id
   })
 }
 
-getStandard(strPara: string, schoolId: number) {
-  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + strPara + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
+getStandard(schoolId?: number) {
+  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: ((res: any) => {
       if (res.statusCode == "200") {
@@ -181,9 +175,9 @@ getStandard(strPara: string, schoolId: number) {
 
 clearForm() {
   this.filterFrm.reset();
-  this.formData();
+  this.getformControl();
   this.standardArray = [];
-  this.getTableData('filter');
+  this.getAllStudentData('filter');
 }
 
 
