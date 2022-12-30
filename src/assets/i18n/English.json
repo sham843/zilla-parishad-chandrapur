@@ -57,6 +57,7 @@
     },
    "user_Registration":{
         "register_users":"Register Users",
+        "update_user":"Update User",
         "add_user":"Add User",
         "user_registration":"User Registration",
         "office_users":"User Registration",

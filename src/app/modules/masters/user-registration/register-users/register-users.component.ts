@@ -256,7 +256,7 @@ if(this.userRegistrationForm.value.userTypeId==2){
 
   clearUserForm(formDirective:any){
     formDirective.resetForm();
-    this.getUserForm();
+    this.data?'':this.getUserForm();
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
  //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
@@ -277,12 +277,12 @@ registerUser(formDirective:any) {
          "subjectId":ele
          })
        });
-    }
+    } 
    let obj= {
-      "createdBy":this.data?0:0,
-      "modifiedBy":this.data?0:0,
-      "createdDate":this.data?new Date():new Date(),
-      "modifiedDate":this.data?new Date():new Date(),
+      "createdBy":this.data?this.data.createdBy:this.webStorage.getUserId(),
+      "modifiedBy":this.data?this.data.modifiedBy : this.webStorage.getUserId(),
+      "createdDate":this.data?this.data.createdDate:new Date(),
+      "modifiedDate":new Date(),
       "isDeleted": false,
       "id":this.data?this.data.id:0,
       "name":this.userRegistrationForm.value.name,
