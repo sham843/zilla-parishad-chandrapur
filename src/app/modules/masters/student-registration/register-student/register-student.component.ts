@@ -58,8 +58,9 @@ export class RegisterStudentComponent {
     } else {
       this.getDistrict();
       this.getStandard(this.lang);
-      this.getReligion(this.lang);
       this.getGender(this.lang);
+      this.getReligion(this.lang);
+      this.getCaste(this.lang)
     }
   }
    //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
@@ -79,14 +80,14 @@ export class RegisterStudentComponent {
       "dob": [data?.dob || ''],
       "aadharNo": [data?.aadharNo || '',[Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || ''],
-      "casteId": [data?.casteId || ''],
+      "castId": [data?.castId || ''],
       "parentsMobileNo": [data?.parentsMobileNo || '',[Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
       "emailId": [''],
     })
   }
-
+  
   get f() {
     return this.studentFrm.controls;
   }
@@ -98,6 +99,7 @@ export class RegisterStudentComponent {
     this.getStandard(this.lang);
     this.getReligion(this.lang);
     this.getGender(this.lang);
+    this.getCaste(this.lang)
   }
 
   clearForm() {
@@ -105,7 +107,6 @@ export class RegisterStudentComponent {
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
-    this.casteArray=[];
     this.formData();
   }
 
@@ -119,10 +120,7 @@ export class RegisterStudentComponent {
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
         break;
-        case 'religionId':
-        this.studentFrm.controls['casteId'].setValue('');
-        break;
-    }
+      }
   }
 
   //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
@@ -246,9 +244,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['religionId'].setValue(this.data.religionId), this.getCaste(this.lang, this.studentFrm.value.religionId)) : '';
-    
-          this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
+       this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
         }
         else {
           this.religionArray = [];
@@ -261,13 +257,13 @@ export class RegisterStudentComponent {
     })
   }
 
-  getCaste(strPara: string,religionId:number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCastByReligion?flag_lang=' + strPara+'&ReligionId='+religionId, false, false, false, 'baseUrl');
+  getCaste(strPara: string) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCast?flag_lang=' + strPara, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.casteArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['casteId'].setValue(this.data.casteId) : '';
+          this.editFlag ? this.studentFrm.controls['castId'].setValue(this.data.castId) : '';
         }
         else {
           this.casteArray = [];

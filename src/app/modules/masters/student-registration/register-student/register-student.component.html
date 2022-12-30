@@ -105,7 +105,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.middle_name'|translate}}</mat-label>
-                        <input matInput placeholder="{{'student.enter_middle_name'|translate}}" formControlName="m_Name"
+                        <input matInput placeholder="{{'student.enter_middle_name'|translate}}" formControlName="castId"
                             maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_Name']?.errors">
@@ -186,9 +186,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>{{'student.religion'|translate}}</mat-label>
-                        <mat-select placeholder="{{'student.select_religion'|translate}}" formControlName="religionId"
-                        (selectionChange)="clearDropdown('religionId');getCaste(lang,studentFrm.value.religionId);">
-                            <mat-option *ngFor="let religion of religionArray"
+                        <mat-select placeholder="{{'student.select_religion'|translate}}" formControlName="religionId">
+                       <mat-option *ngFor="let religion of religionArray"
                                 [value]="religion.id">{{religion.religion}}
                             </mat-option>
                         </mat-select>
@@ -197,7 +196,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>{{'student.caste'|translate}}</mat-label>
-                        <mat-select placeholder="{{'student.select_caste'|translate}}" formControlName="casteId">
+                        <mat-select placeholder="{{'student.select_caste'|translate}}" formControlName="castId">
                             <mat-option *ngFor="let caste of casteArray"
                                 [value]="caste.id">{{caste.castName}}
                             </mat-option>
