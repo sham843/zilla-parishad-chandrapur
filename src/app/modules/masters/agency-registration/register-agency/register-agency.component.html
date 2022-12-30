@@ -17,8 +17,8 @@
                         <mat-label>{{'common.agency_name' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.agency_name' |translate}}" formControlName="agencyName"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)">
-                        <!-- <mat-error *ngIf="f['agencyName'].errors">
-                            <span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
+                         <mat-error *ngIf="f['agencyName'].errors">
+                            <!--<span class="text-danger" *ngIf="f['agencyName'].hasError('required')">
                             (keyup)="validation.noFirstSpaceAllow($event)" (keypress)="validation.alphabetsWithSpaces($event)">
                         <mat-error *ngIf="f['agencyName'].errors">
                             -->
