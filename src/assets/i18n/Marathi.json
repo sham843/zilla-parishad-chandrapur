@@ -10,7 +10,7 @@
         "select_taluka":"तालुका निवडा",
         "kendra": "केंद्र",
         "school": "शाळा",
-        "contact_person": "संपर्क व्यक्तीचे नाव",
+        "contact_person": "कृपया संपर्क व्यक्तीचे नाव प्रविष्ट करा",
         "email": "ईमेल आयडी",
         "agency_name": "एजन्सी/एनजीओचे नाव",
         "Please_Select_District": "कृपया जिल्हा निवडा",
@@ -35,7 +35,8 @@
         "delete": "हटवा",
         "ok": "होय",
         "update":"अद्यतन",
-        "select_designation": "पदनाम निवडा"
+        "select_designation": "पदनाम निवडा",
+        "download_excel":"एक्सेल डाउनलोड करा"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"

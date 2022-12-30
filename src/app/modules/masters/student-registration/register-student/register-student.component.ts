@@ -25,6 +25,7 @@ export class RegisterStudentComponent {
   standardArray = new Array();
   genderArray = new Array();
   religionArray = new Array();
+  casteArray=new Array();
   @ViewChild('formDirective')
   private formDirective!: NgForm;
   editFlag: boolean = false;
@@ -57,8 +58,9 @@ export class RegisterStudentComponent {
     } else {
       this.getDistrict();
       this.getStandard(this.lang);
-      this.getReligion(this.lang);
       this.getGender(this.lang);
+      this.getReligion(this.lang);
+      this.getCaste(this.lang)
     }
   }
    //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
@@ -78,14 +80,14 @@ export class RegisterStudentComponent {
       "dob": [data?.dob || ''],
       "aadharNo": [data?.aadharNo || '',[Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || ''],
-      "cast": [data?.cast || '', [Validators.minLength(2),Validators.pattern(this.validation.fullName)]],
+      "castId": [data?.castId || ''],
       "parentsMobileNo": [data?.parentsMobileNo || '',[Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
       "emailId": [''],
     })
   }
-
+  
   get f() {
     return this.studentFrm.controls;
   }
@@ -97,6 +99,7 @@ export class RegisterStudentComponent {
     this.getStandard(this.lang);
     this.getReligion(this.lang);
     this.getGender(this.lang);
+    this.getCaste(this.lang)
   }
 
   clearForm() {
@@ -117,7 +120,7 @@ export class RegisterStudentComponent {
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
         break;
-    }
+      }
   }
 
   //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
@@ -241,10 +244,29 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
+       this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
         }
         else {
           this.religionArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+      }
+    })
+  }
+
+  getCaste(strPara: string) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCast?flag_lang=' + strPara, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.casteArray = res.responseData;
+          this.editFlag ? this.studentFrm.controls['castId'].setValue(this.data.castId) : '';
+        }
+        else {
+          this.casteArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }),
