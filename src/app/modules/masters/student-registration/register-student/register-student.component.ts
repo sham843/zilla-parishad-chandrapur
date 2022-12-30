@@ -102,6 +102,8 @@ export class RegisterStudentComponent {
   clearForm() {
     this.formDirective.resetForm();
     this.editFlag = false;
+    this.centerArray = [];
+    this.schoolArray = [];
     this.formData();
   }
 

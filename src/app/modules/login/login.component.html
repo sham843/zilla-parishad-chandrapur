@@ -18,7 +18,7 @@
                             <div class="mb-2">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>person</mat-icon>
-                                    <input matInput placeholder="{{'login.enter_mobile_number'|translate}}"
+                                    <input matInput placeholder="{{'common.please_enter_contact_number'|translate}}"
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                                         <mat-error *ngIf="loginFormControls.userName.errors"> 

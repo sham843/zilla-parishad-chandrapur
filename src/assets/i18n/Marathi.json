@@ -10,7 +10,7 @@
         "select_taluka":"तालुका निवडा",
         "kendra": "केंद्र",
         "school": "शाळा",
-        "contact_person": "संपर्क व्यक्तीचे नाव",
+        "contact_person": "कृपया संपर्क व्यक्तीचे नाव प्रविष्ट करा",
         "email": "ईमेल आयडी",
         "agency_name": "एजन्सी/एनजीओचे नाव",
         "Please_Select_District": "कृपया जिल्हा निवडा",
@@ -39,6 +39,20 @@
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ"
+    },
+    "student_profile": {
+        "progress_indicator": "प्रगती सूचक ",
+        "teacher": "शिक्षक ",
+        "first": "प्रथम ",
+        "officer": "अधिकारी ",
+        "story": "गोष्ट ",
+        "paragraph": "परिच्छेद ",
+        "word": "शब्द ",
+        "letter": "अक्षर",
+        "initially": " प्रारंभीक",
+        "pre_test": " पूर्व चाचणी",
+        "mid_test": "मध्य चाचणी",
+        "final_test": "अंतिम  चाचणी"
     },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",

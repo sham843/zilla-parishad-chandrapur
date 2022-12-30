@@ -40,7 +40,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!studentFrm.value.talukaId">
                         <mat-label>{{'common.kendra'|translate}}</mat-label>
                         <mat-select placeholder="{{'common.select_kendra'|translate}}" formControlName="centerId"
                             (selectionChange)="clearDropdown('centerId');getSchool(lang,studentFrm.value.centerId);">
@@ -53,7 +53,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!studentFrm.value.centerId">
                         <mat-label>{{'common.school'|translate}}</mat-label>
                         <mat-select placeholder="{{'common.select_school'|translate}}" formControlName="schoolId">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
@@ -96,13 +96,10 @@
                             <!-- <span class="text-danger" *ngIf="f['f_Name'].hasError('required')">
                                 {{'student.please_enter_first_name'|translate}}
                             </span> -->
-                            <span class="text-danger" *ngIf="f['f_Name'].hasError('minlength')">
-                                {{'school.please_enter_minimum_2_character'|translate}}
-                            </span>
-                            <span class="text-danger" *ngIf="f['f_Name'].hasError('pattern')">
+                            <span class="text-danger" *ngIf="f['f_Name'].hasError('minlength') && f['f_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_first_Name' | translate}}
                             </span>
-                        </mat-error>
+                          </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -112,10 +109,7 @@
                             maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
                             (keyup)="validation.removeSpaceAtBegining($event)">
                         <mat-error *ngIf="f['m_Name']?.errors">
-                            <span class="text-danger" *ngIf="f['m_Name'].hasError('minlength')">
-                                {{'school.please_enter_minimum_2_character'|translate}}
-                            </span>
-                            <span class="text-danger" *ngIf="f['m_Name'].hasError('pattern')">
+                            <span class="text-danger" *ngIf="f['m_Name'].hasError('minlength') && f['m_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_middle_Name' | translate}}
                             </span>
                         </mat-error>
@@ -131,10 +125,7 @@
                             <!-- <span class="text-danger" *ngIf="f['l_Name'].hasError('required')">
                                 {{'student.please_enter_last_name'|translate}}
                             </span> -->
-                            <span class="text-danger" *ngIf="f['l_Name'].hasError('minlength')">
-                                {{'school.please_enter_minimum_2_character'|translate}}
-                            </span>
-                            <span class="text-danger" *ngIf="f['l_Name'].hasError('pattern')">
+                            <span class="text-danger" *ngIf="f['l_Name'].hasError('minlength') && f['l_Name'].hasError('pattern')">
                                 {{'student.please_enter_valid_last_Name' | translate}}
                             </span>
                         </mat-error>
