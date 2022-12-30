@@ -49,20 +49,31 @@ export class AddLevelComponent implements OnInit {
     if (this.addLevelForm.invalid) {
       return;
     } else {
-      let obj:any = {
+      let addObj:any = { // For Add Obj
         "createdBy": this.webStorage.getUserId(),
         "modifiedBy": this.webStorage.getUserId(),
         "createdDate": new Date(),
         "modifiedDate": new Date(),
-        "id": this.data.editObjData? this.data.editObjData.assesmentParameterId : 0,
+        "id": 0,
         "assesmentParameter": formData.assesmentParameter,
         "m_AssesmentParameter": formData.m_AssesmentParameter,
         "subjectId": this.data.subjectId,
         "isDeleted": false
       }
+
+      let editObj:any = { // For Update Obj
+        "assesmentParameterId": this.data?.editObjData?.assesmentParameterId,
+        "assesmentParameter": formData.assesmentParameter,
+        "m_AssesmentParameter": formData.m_AssesmentParameter,
+        "subjectId": this.data.subjectId,
+        "createdBy": this.webStorage.getUserId()
+      }
+
       this.spinner.show();
-      // let formType: string = !this.editFlag ? 'POST' : 'PUT'; peeeennndddiiinnngggg...................
-      this.apiService.setHttp('POST', 'zp_chandrapur/PerformanceIndicator/AddLanguageLevel', false, obj, false, 'baseUrl');
+      let url:any = this.data.editObjData ? 'zp_chandrapur/PerformanceIndicator/UpdateAssesmentParameter' : 'zp_chandrapur/PerformanceIndicator/AddLanguageLevel'; 
+      let obj:any = this.data.editObjData ? editObj : addObj;
+
+      this.apiService.setHttp('POST', url, false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();

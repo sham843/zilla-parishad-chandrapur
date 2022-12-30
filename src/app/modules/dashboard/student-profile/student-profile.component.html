@@ -19,7 +19,7 @@
             <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100 ">
                     <mat-label>{{'common.select_school'|translate}}</mat-label>
-                    <mat-select formControlName="schoolId"   (selectionChange)="getStandard(lang,filterFrm.value.schoolId);">
+                    <mat-select formControlName="schoolId"   (selectionChange)="getStandard(filterFrm.value.schoolId);">
                         <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                         </mat-option>
                     </mat-select>
@@ -42,7 +42,7 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-auto">
-                <button (click)="getTableData('filter')" type="submit" mat-flat-button
+                <button (click)="getAllStudentData('filter')" type="submit" mat-flat-button
                   class="btn-main me-2">{{'common.filter'|translate}}</button>
                 <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
               </div>
@@ -62,39 +62,39 @@
                 <div class="student-details">
                     <div class="d-flex">
                         <div class="flex-shrink-0">
-                            <img src="{{dataArray?.profilePhoto}}" alt="Student Photo">
+                            <img src="{{StudentDataArray?.profilePhoto}}" alt="Student Photo">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">{{dataArray?.f_Name}}</h5>
+                            <h5 class="mb-1 fw-bold">{{StudentDataArray?.f_Name}}</h5>
                             <p class="text-muted mb-4">{{'common.name'|translate}}</p>
 
                             <div class="data-container">
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student.middle_name'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.m_Name}}</div>
+                                        <div class="data-text">{{StudentDataArray?.m_Name}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'common.mobile_number'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.parentsMobileNo}}</div>
+                                        <div class="data-text">{{StudentDataArray?.parentsMobileNo}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.aadharNo}}</div>
+                                        <div class="data-text">{{StudentDataArray?.aadharNo}}</div>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'common.school_name'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.schoolName}}</div>
+                                        <div class="data-text">{{StudentDataArray?.schoolName}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student.standard'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.standard}}</div>
+                                        <div class="data-text">{{StudentDataArray?.standard}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
-                                        <div class="data-text">{{dataArray?.teacherName}}</div>
+                                        <div class="data-text">{{StudentDataArray?.teacherName}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -107,8 +107,8 @@
                                         <mat-form-field appearance="outline" class="w-100">
                                             <mat-label>Favorite food</mat-label>
                                             <mat-select>
-                                              <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                {{food.viewValue}}
+                                              <mat-option>
+                                             
                                               </mat-option>
                                             </mat-select>
                                           </mat-form-field>
