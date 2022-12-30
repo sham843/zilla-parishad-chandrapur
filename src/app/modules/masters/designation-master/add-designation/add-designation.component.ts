@@ -8,6 +8,8 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { DesignationMasterComponent } from '../designation-master.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ValidationService } from 'src/app/core/services/validation.service';
+// import { MatSelectChange } from '@angular/material/select';
+// import { MatCheckboxChange } from '@angular/material/checkbox';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -43,26 +45,32 @@ export class AddDesignationComponent {
   get f() { return this.designationForm.controls };
 
   controlForm(data?: any) {
+
+    console.log(data);
+
     this.designationForm = this.fb.group({
       id: [data?.id || 0],
       linkedToDesignationLevelId: ['', Validators.required],
       designationLevelId: ['', Validators.required],
-      linkedToDesignationId: [data?.linkedToDesignationId, Validators.required],
+      linkedToDesignationId: ['' , Validators.required],
       linkedToDesignationName: [''],
-      designationName: [data?.designationName || '', [Validators.required, Validators.pattern(this.validation.alphabetsAndNumber)]],
+      designationName: ['', [Validators.required, Validators.pattern(this.validation.alphabetsAndNumber)]],
       designationLevelName: [''],
       linkedToDesignationLevelName: [''],
       isDeleted: [false],
       userId: [data?.userId || this.userLoginDesignationLevelId],
-      createdBy: [this.editFlag ? data?.createdBy : this.webStorage.getUserId()],
-      createdDate: [this.editFlag ? data?.createdDate : new Date()],
+      createdBy: [data ? data?.createdBy : this.webStorage.getUserId()],
+      createdDate: [data ? data?.createdDate : new Date()],
+      modifiedBy: [this.webStorage.getUserId()],
+      modifiedDate: [new Date()]
     });
   }
 
   editMethod() {
     this.editFlag = true;
     this.controlForm(this.data)
-    this.getDesignationLevel();
+    this.getDesignationLevel();//
+    this.designationForm.controls['designationName'].setValue(this.data?.designationName);
   }
 
   clearForm(formDirective?: any) {
@@ -87,7 +95,7 @@ export class AddDesignationComponent {
         this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.userLoginDesignationLevelId);
         this.getDesignationType();
       }
-      this.editFlag ? (this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.data.linkedToDesignationLevelId), this.getDesignationType()) : this.getDesignationType();
+      this.editFlag ? (this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.data?.linkedDesignationDetails[0].linkedToDesignationLevelId), this.getDesignationType()) : this.getDesignationType();
     })
   }
 
@@ -98,7 +106,14 @@ export class AddDesignationComponent {
         next: (res: any) => {
           if (res.statusCode == '200') {
             this.desigantionType = res.responseData;
-            this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(this.data.linkedToDesignationId), this.setDesignationLvl()) : '';
+            let  linkedToDesignation :any=[]
+            if( this.editFlag){
+              linkedToDesignation= this.data?.linkedDesignationDetails.map((ele:any)=> {
+              return   +ele.linkedToDesignationId
+              } )
+            }
+
+            this.editFlag ? (this.designationForm.controls['linkedToDesignationId'].setValue(linkedToDesignation), this.setDesignationLvl()) : '';
           }
         }, error: ((err: any) => { this.errorHandler.handleError(err) })
       })
@@ -124,19 +139,36 @@ export class AddDesignationComponent {
       return;
     } else {
       let formData = this.designationForm.value;
-      let data1 = this.desigantionLevel.find((ele: any) => formData.linkedToDesignationLevelId == ele.id);
-      let data2 = this.desigantionType.find((ele: any) => formData.linkedToDesignationId == ele.id);
-      let data3 = this.setDesignationLevel.find((ele: any) => formData.designationLevelId == ele.id);
-      formData.linkedToDesignationName = data2.desingationTypes;
-      formData.designationLevelName = data3.desingationLevel;
-      formData.linkedToDesignationLevelName = data1.desingationLevel;
+      let desigantionObj = this.desigantionLevel.find((ele: any) => formData.linkedToDesignationLevelId == ele.id);
+      let setDesignationObj = this.setDesignationLevel.find((ele: any) => formData.designationLevelId == ele.id);
+      formData.designationLevelName = desigantionObj.desingationLevel;
+      formData.linkedToDesignationLevelName = setDesignationObj.desingationLevel;
+      let linkedDesignationDetailsArray :any =[];
+      if(formData.linkedToDesignationId.length){
+        this.desigantionType.forEach((ele:any)=>{
+          formData.linkedToDesignationId.forEach((res:any)=>{
+            if(ele.id == res){
+              let obj= {
+                "linkedToDesignationId": ele.id,
+                "linkedToDesignationLevelId": formData.linkedToDesignationLevelId,
+                "linkedToDesignationLevelName": desigantionObj.desingationLevel,
+                "linkedToDesignationName": ele.desingationTypes
+              }
+              linkedDesignationDetailsArray.push(obj);
+            }
+          })
+
+        });
+      }
+      formData["linkedDesignationDetails"] =linkedDesignationDetailsArray;
+      delete formData["linkedToDesignationId"]
       let url = this.data ? 'designation/update-designation-details' : 'designation/save-designation-details'
       this.apiService.setHttp(this.data ? 'PUT' : 'POST', url + '?flag=' + this.lang, false, this.designationForm.value, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == '200') {
-            let isUpdate = this.data ? true : false
+            let isUpdate = this.data ? true : false;
             this.dialogRef.close(isUpdate);
             this.clearForm();
             this.commonMethod.snackBar(res.statusMessage, 0)
@@ -152,5 +184,9 @@ export class AddDesignationComponent {
   clearFormDependancy() {
     this.designationForm.controls['linkedToDesignationId'].setValue('');
     this.designationForm.controls['designationLevelId'].setValue('');
+  }
+
+  test(event: any) {
+    console.log(event.value);
   }
 }
