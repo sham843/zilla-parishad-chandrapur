@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'user_Registration.office_users' |translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-third btn-icon" title="Table View">
+        <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
             table_view
           </mat-icon>
@@ -18,7 +18,7 @@
           <mat-icon>
             grid_view
           </mat-icon>
-        </button>
+        </button> -->
         <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel"
           (click)="excelDownload()">
           <mat-icon>
@@ -54,7 +54,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
             <mat-select formControlName="CenterId"
               (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra')">
@@ -63,7 +63,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.CenterId">
             <mat-label>{{'common.select_school'|translate}}</mat-label>
             <mat-select formControlName="SchoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>

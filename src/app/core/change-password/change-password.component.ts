@@ -49,9 +49,9 @@ export class ChangePasswordComponent {
 
   changePassControls(){
     this.changePassForm=this.fb.group({
-      newPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,20}$')]],
-      reTypePwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,20}$')]]
-    })
+      newPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]],
+      reTypePwd:['',[Validators.required, Validators.pattern('(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]]
+    })                                    
   }
   onChangePassword(formDirective?:any){
     if(this.changePassForm.invalid){
@@ -84,6 +84,10 @@ export class ChangePasswordComponent {
         this.errors.handelError(error.status);
       })
     }
+  }
+
+  clearForm(formDirective:any){
+    formDirective.resetForm();
   }
 
     onNoClick(flag: any): void {

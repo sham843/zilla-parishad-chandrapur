@@ -29,9 +29,11 @@ export class PerformanceIndicatorsComponent implements OnInit {
   getAllSubjectArray: any;
   performanceIndicatorArray: any;
   filterEnglishLag = new FormControl(1);
-  classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seven: 7 }, { eight: 8 }, { nine: 9 }, { ten: 10 }];
+  classStandardArray = [{ first: 1 }, { second: 2 }, { third: 3 }, { fourth: 4 }, { fifth: 5 }, { sixth: 6 }, { seventh: 7 }, { eighth: 8 }, { nineth: 9 }, { tenth: 10 }];
   checkedAssesmentArray: any[] = [];
   copyCheckedAssesmentArray: any[] = [];
+  english_MarathiHeadingArray:any;
+
 
   constructor(
     private apiService: ApiService,
@@ -43,13 +45,15 @@ export class PerformanceIndicatorsComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-
   ngOnInit(): void {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
       this.getAllSubject();
+      this.english_MarathiHeadingArray = this.language == 'en-IN' ?  
+      [{ assesmentParameterId: 'Sr. No.' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'First' }, { second: 'Second' }, { third: 'Third' }, { fourth: 'Fourth' }, { fifth: 'Fifth' }, { sixth: 'Sixth' }, { seventh: 'Seventh' }] :
+      [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Level Name' }, { m_AssesmentParameter: 'स्तराचे नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवा' }, { sixth: 'सहावा' }, { seventh: 'सातवा' }];
+      this.getAllPerformanceIndicatorData();
     })
-    this.getAllPerformanceIndicatorData();
   }
   
   getAllSubject() {
@@ -74,8 +78,13 @@ export class PerformanceIndicatorsComponent implements OnInit {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.performanceIndicatorArray = res.responseData;
+
           this.displayedColumns = Object.keys(this.performanceIndicatorArray[0]);
-          this.dataSource = new MatTableDataSource(res.responseData);
+          this.displayedColumns.map((ele: any, index: any) => { // Add Remove English Marathi Level Name Field 
+            return (this.language == 'mr-IN' && ele == 'assesmentParameter') ? this.displayedColumns.splice(index, 1) : ele == 'm_AssesmentParameter' ? this.displayedColumns.splice(index, 1) : ''
+          })
+
+          this.dataSource = new MatTableDataSource(this.performanceIndicatorArray);
           this.dataSource.sort = this.sort;
           //........................ AssesmentArray code Start Here....................//
           this.checkedAssesmentArray = []; //first Clear Array
@@ -158,10 +167,6 @@ export class PerformanceIndicatorsComponent implements OnInit {
       }
     })
   }
-
-  editAddLevelData(obj:any){
-  console.log(obj)
-}
 
   addUpdatelevel(editObj?:any) {
     let data = {

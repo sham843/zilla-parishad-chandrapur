@@ -15,10 +15,13 @@
                 <div>
                     <div class="row gx-1">
                         <div class="col-sm-12 col-12">
+                            <div class="mb-4 text-center">
+                                <h2 class="text-main fw-bold">Login</h2>
+                            </div>
                             <div class="mb-2">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>person</mat-icon>
-                                    <input matInput placeholder="{{'login.enter_mobile_number'|translate}}"
+                                    <input matInput placeholder="{{'common.please_enter_contact_number'|translate}}"
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                                         <mat-error *ngIf="loginFormControls.userName.errors"> 
@@ -37,12 +40,12 @@
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
-                                    <mat-error *ngIf="loginFormControls.password.errors">
+                                    <!-- <mat-error *ngIf="loginFormControls.password.errors">
                                         <span class="text-danger" *ngIf="loginFormControls.password.hasError('required')">{{'login.password_required'|translate}}</span>
                                         <span class="text-danger"
                                             *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">
                                         {{'login.password_format'|translate}}</span>
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </div>
                         </div>
@@ -52,14 +55,14 @@
                             <div class="w-100" id="captcha"></div>
                         </div>
                         <div class="col-sm text-center">
-                            <button mat-flat-button class="btn-main btn-icon" type="button" (click)="commonMethods.createCaptchaCarrerPage()">
+                            <button mat-flat-button class="btn-main btn-icon" type="button" (click)="commonMethods.createCaptchaCarrerPage()" matTooltip="Refresh">
                                 <mat-icon>sync</mat-icon>
                             </button>
                         </div>
                         <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>{{'login.enter_captcha'|translate}}</mat-label>
-                                <input matInput placeholder="Enter Captcha"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off">
+                                <input matInput placeholder="Enter Captcha"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
                                 <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">{{'login.captcha_required'|translate}}
                                 </mat-error>
                             </mat-form-field>

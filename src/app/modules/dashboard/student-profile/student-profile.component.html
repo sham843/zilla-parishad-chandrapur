@@ -14,34 +14,40 @@
         </div>
     </mat-card-header>
     <mat-card-header class="card-header mb-0 border-0 pb-0">
+        <form [formGroup]="filterFrm">
         <div class="row w-100">
             <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Student Full</mat-label>
-                    <input matInput placeholder="Enter student name">
-                </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select Class</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>{{'common.select_school'|translate}}</mat-label>
+                    <mat-select formControlName="schoolId"   (selectionChange)="getStandard(lang,filterFrm.value.schoolId);">
+                        <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select School</mat-label>
-                    <mat-select>
-                        <mat-option>Option 1</mat-option>
-                        <mat-option>Option 2</mat-option>
-                        <mat-option>Option 3</mat-option>
+                    <mat-label>{{'student.select_standard'|translate}}</mat-label>
+                    <mat-select formControlName="standardId">
+                        <mat-option *ngFor="let standard of standardArray" [value]="standard.id">
+                            {{standard.standard}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'student.fullName'|translate}}</mat-label>
+                    <input matInput placeholder="Enter student name" formControlName="searchText">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+                <button (click)="getTableData('filter')" type="submit" mat-flat-button
+                  class="btn-main me-2">{{'common.filter'|translate}}</button>
+                <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
+              </div>
         </div>
+    </form>
     </mat-card-header>
 
     <mat-card-content class="card-body pt-0">
@@ -56,39 +62,39 @@
                 <div class="student-details">
                     <div class="d-flex">
                         <div class="flex-shrink-0">
-                            <img src="{{dataArray.profilePhoto}}" alt="Student Photo">
+                            <img src="{{dataArray?.profilePhoto}}" alt="Student Photo">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">{{dataArray.f_Name}}</h5>
-                            <p class="text-muted mb-4">मुलगा</p>
+                            <h5 class="mb-1 fw-bold">{{dataArray?.f_Name}}</h5>
+                            <p class="text-muted mb-4">{{'common.name'|translate}}</p>
 
                             <div class="data-container">
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
-                                        <span class="data-label">वडीलांचे नावं :</span>
-                                        <div class="data-text">{{dataArray.m_Name}}</div>
+                                        <span class="data-label">{{'student.middle_name'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.m_Name}}</div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span class="data-label">मोबाईल क्रमांक :</span>
-                                        <div class="data-text">{{dataArray.parentsMobileNo}}</div>
+                                        <span class="data-label">{{'common.mobile_number'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.parentsMobileNo}}</div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span class="data-label">आधार क्रमांक :</span>
-                                        <div class="data-text">{{dataArray.aadharNo}}</div>
+                                        <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.aadharNo}}</div>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
-                                        <span class="data-label">शाळेचे नाव :</span>
-                                        <div class="data-text">{{dataArray.schoolName}}</div>
+                                        <span class="data-label">{{'common.school_name'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.schoolName}}</div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span class="data-label">वर्ग :</span>
-                                        <div class="data-text">{{dataArray.standard}}</div>
+                                        <span class="data-label">{{'student.standard'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.standard}}</div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span class="data-label">वर्ग शिक्षक :</span>
-                                        <div class="data-text">{{dataArray.teacherName}}</div>
+                                        <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
+                                        <div class="data-text">{{dataArray?.teacherName}}</div>
                                     </div>
                                 </div>
                             </div>
