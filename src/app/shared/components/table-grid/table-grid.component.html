@@ -15,8 +15,8 @@
                 <ng-container *ngIf="tableInfo?.isArray == columns"  >
 
 
-                  <ng-container *ngFor="let a of element[tableInfo?.isArray] ">
-                    {{element[tableInfo?.isArray].length == 1? a[tableInfo.nestedArray]:a[tableInfo.nestedArray] +' ,'}}
+                  <ng-container *ngFor="let a of element[tableInfo?.isArray] ; let ind = index">
+                    {{element[tableInfo?.isArray].length == ind+1? a[tableInfo.nestedArray]:a[tableInfo.nestedArray] +','}}
                   </ng-container>
                 </ng-container>
                 <ng-container *ngIf="tableInfo?.checkBox == columns" >
