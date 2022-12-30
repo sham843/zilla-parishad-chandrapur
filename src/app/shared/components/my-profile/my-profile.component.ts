@@ -66,16 +66,13 @@ export class MyProfileComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData()
-    this.getLevel();
+    this.getFormData();
     this.getDataByID();
-    this.getLoginData();
-
   }
-
-  getFormData(obj?: any) {
-    // this.getObj ? this.editFlag = true : false;
-    obj = this.getObj
+  
+  getFormData() {
+   let  obj = this.getObj;
+   console.log('this.getObj',this.getObj);
     this.profileForm = this.fb.group({
       createdBy: [this.webStorage.getUserId()],
       modifiedBy: [this.webStorage.getUserId()],
@@ -83,31 +80,18 @@ export class MyProfileComponent {
       modifiedDate: [new Date()],
       isDeleted: true,
       id: [obj?.id],
-      mobileNo: [obj?.mobileNo || '', [Validators.required]],
-      emailId: [obj?.emailId || '', [Validators.required]],
+      mobileNo: [obj?.mobileNo || '', [Validators.required,Validators.pattern('[7-9]\\d{9}'),Validators.maxLength(10)]],
+      emailId: [obj?.emailId || '', [Validators.required,Validators.email]],
       designationLevelId: [obj?.designationLevelId || '', [Validators.required]],
       designationId: [obj?.designationId || '', [Validators.required]],
       districtId: [obj?.districtId || '', [Validators.required]],
       talukaId: [obj?.talukaId || '', [Validators.required]],
       centerId: [obj?.centerId || '', [Validators.required]],
-      profilePhoto: [''],
-      UserName: [obj?.UserName || '',],
-      password: [obj?.password || '',],
-      name: [obj?.name || '', [Validators.required]],
-      standardModels: [[
-        {
-          standardId: 0
-        }
-      ]],
-      subjectModels: [[
-        {
-          subjectId: 0
-        }
-      ]]
+      profilePhoto: [obj?.profilePhoto || ''],
+      name: [obj?.name || '', [Validators.required,Validators.pattern('^[a-zA-Z][a-zA-Z\\s]+$')]],
     })
-    this.getLevel();
-    // profilePhoto:[obj?.profilePhoto ||'']
-
+    this.getObj ? this.getLevel() : '';
+    this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
 
   }
 
@@ -120,10 +104,8 @@ export class MyProfileComponent {
         if (res.statusCode == '200') {
           this.getObj = res.responseData;
           this.getFormData();
-          this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
-          console.log(this.getObj);
         } else {
-          this.centerArray = [];
+          this.getObj = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }), error: (error: any) => {
@@ -154,11 +136,11 @@ export class MyProfileComponent {
 
   }
 
-  onSubmitData(FormDirective: any) { //onSubmit
+  onSubmitData() { //onSubmit
     if (this.profileForm.invalid) {
       return
     }
-    this.ImgUrl ? this.fileUploaded() : this.submitProfileData(FormDirective);
+    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
   }
 
   fileUploaded() {
@@ -205,8 +187,7 @@ export class MyProfileComponent {
   }
 
   getDesignation() {
-    let formData = this.profileForm.value.designationLevelId
-    this.service.setHttp('get', 'designation/get-set-designation-types?designationLevelId=' + formData + '&flag=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'designation/get-set-designation-types?designationLevelId=' +this.profileForm.value?.designationLevelId+ '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -279,15 +260,15 @@ export class MyProfileComponent {
     })
   }
   // zp_chandrapur/user-registration/AddRecord
-  submitProfileData(formDirective?: any) {
+  submitProfileData() {
     let formObj = this.profileForm.value;
-    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateRecord', false, formObj, false, 'baseUrl');
+    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, formObj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          formDirective.resetForm();
-          this.dialogRef.close('Yes');
+          this.dialogRef.close();
+          // formDirective.resetForm();
         } else {
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -308,11 +289,6 @@ export class MyProfileComponent {
     }
   }
 
-  getLoginData(){
-    let obj=this.webStorage.getLoginData;
-    console.log(obj);
-    
-  }
 }
 
 
