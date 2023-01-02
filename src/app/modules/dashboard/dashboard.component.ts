@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,6 +28,7 @@ export class DashboardComponent {
   piechartOptions: any;
   piechartSecondOptions: any;
   getSurveyedData: any;
+  globalTalId:any;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -49,12 +51,9 @@ export class DashboardComponent {
   ngAfterViewInit() {
     this.getBarChart();
     this.showSvgMap(this.commonMethods.mapRegions());
-    $(document).on('click', '#mapsvg  path', (e: any) => {
-      let getClickedId = e.currentTarget;
-      let distrctId = $(getClickedId).attr('id');
-      console.log(distrctId);
-    })
+    this.clickOnSvgMap();
   }
+
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
 
@@ -183,14 +182,15 @@ export class DashboardComponent {
   //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
   pieChart(data:any) {
     this.piechartOptions = {
-      series: [data[0].assesmentDetails[0].assesmentCalculationValue, data[0].assesmentDetails[1].assesmentCalculationValue],
+      series: [data[0]?.assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
       chart: {
         type: "donut",
         height: 250,
       },
-      labels: [data[0].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
+      labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
         position: "bottom",
+        fontSize: "11px"
       },
 
       responsive: [
@@ -216,6 +216,7 @@ export class DashboardComponent {
       labels: [data[1].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
       legend: {
         position: "bottom",
+        fontSize: "11px"
       },
 
       responsive: [
@@ -422,6 +423,24 @@ export class DashboardComponent {
       responsive: true
     });
     // });
+  }
+
+  clickOnSvgMap(flag?:string){
+    if(flag == 'select'){
+      let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
+      checkTalActiveClass?  $('#mapsvg   path#' +this.globalTalId).removeClass("lessThanFive") : '';
+
+      this.talukaArray.find(() => {
+        this.globalTalId = this.topFilterForm?.value?.talukaId;
+        $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
+      });
+    }
+
+    $(document).on('click', '#mapsvg  path', (e: any) => {
+      let getClickedId = e.currentTarget;
+      let talId = $(getClickedId).attr('id');
+      console.log(talId);
+    })
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
   displayProfile(id:number){

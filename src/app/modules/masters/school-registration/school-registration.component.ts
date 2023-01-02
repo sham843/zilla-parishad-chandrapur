@@ -11,6 +11,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -27,8 +28,8 @@ export class SchoolRegistrationComponent {
   filterForm!: FormGroup;
   tableDataArray = new Array();
   tableDatasize!: number;
-  totalPages!:number;
-  excelDowobj:any;
+  totalPages!: number;
+  excelDowobj: any;
   subscription!: Subscription;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
@@ -41,13 +42,13 @@ export class SchoolRegistrationComponent {
     private master: MasterService,
     private commonMethod: CommonMethodsService,
     private excelPdf: ExcelPdfDownloadService,
-    public validator: ValidationService
+    public validator: ValidationService,
+    private spinner: NgxSpinnerService
   ) { }
-  
+
   ngOnInit() {
     this.getFilterFormData();
     this.getTableData();
-
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res == 'Marathi' ? 'mr-IN' : 'en';
       this.setTableData();
@@ -59,7 +60,7 @@ export class SchoolRegistrationComponent {
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0],
-      schoolName: ['',[Validators.minLength(10), Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]]
+      schoolName: ['', [Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]]
     })
   }
 
@@ -104,7 +105,7 @@ export class SchoolRegistrationComponent {
       centerId: [0],
       schoolName: ['']
     });
-    this.centerArray=[];
+    this.centerArray = [];
     this.getTableData();
   }
 
@@ -112,24 +113,30 @@ export class SchoolRegistrationComponent {
 
   //#region -------------------------------------Fetch Table Data------------------------------------------------------------------------
   getTableData(flag?: string) {
+    this.spinner.show();
     let formValue = this.filterForm.value || '';
-    flag == 'filter' ? this.pageNumber = 1 :'';
+    flag == 'filter' ? this.pageNumber = 1 : '';
     this.tableDataArray = [];
-    let str =  flag != 'excel' ?  `pageno=${this.pageNumber}&pagesize=10` :  `pageno=1&pagesize=${this.totalPages * 10}`;
+    let str = flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&textSearch=' + formValue.schoolName + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
+        this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.totalPages = res.responseData.responseData2.totalPages;
         } else {
+          this.spinner.hide();
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
         flag != 'excel' ? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
-      error: ((err: any) => { this.errorService.handelError(err) })
+      error: ((err: any) => {
+        this.spinner.hide();
+        this.errorService.handelError(err)
+      })
     });
   }
 
@@ -151,7 +158,7 @@ export class SchoolRegistrationComponent {
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
     let header = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
     let column = this.lang == 'mr-IN' ? ['srNo', 'schoolName', 'center', 'taluka'] : ['srNo', 'schoolName', 'center', 'taluka'];
-    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+    this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
   childCompInfo(obj?: any) {
@@ -222,7 +229,7 @@ export class SchoolRegistrationComponent {
   clearDropDrown(status: any) {
     if (status == 'taluka') {
       this.filterForm.controls['centerId'].setValue(0);
-      this.filterForm.controls['schoolName'].setValue('');   
+      this.filterForm.controls['schoolName'].setValue('');
     } else if (status == 'center') {
       this.filterForm.controls['schoolName'].setValue('');
     }

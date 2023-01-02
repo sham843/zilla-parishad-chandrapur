@@ -15,8 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { TranslateModule } from '@ngx-translate/core';
 import {MatRadioModule} from '@angular/material/radio';
-
-
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     SchoolRegistrationComponent,
@@ -35,7 +34,8 @@ import {MatRadioModule} from '@angular/material/radio';
     ReactiveFormsModule,
     TableGridComponent,
     TranslateModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxSpinnerModule
   ]
 })
 export class SchoolRegistrationModule { }
