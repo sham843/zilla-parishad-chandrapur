@@ -170,24 +170,9 @@
                     </tbody>
                 </table>
                 <div class="row">
-                    <div class="col-sm-4 border-end">
-                        <h6 class="small fw-bold text-center mb-0">मराठी भाषा स्तर</h6>
-                        <apx-chart [series]="barchartOptions?.series[0]" [chart]="barchartOptions?.chart"
-                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
-                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
-                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
-                    </div>
-                    <div class="col-sm-4 border-end">
-                        <h6 class="small fw-bold text-center mb-0">गणित स्तर निवडा</h6>
-                        <apx-chart [series]="barchartOptions?.series[1]" [chart]="barchartOptions?.chart"
-                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
-                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
-                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
-                    </div>
-                    <div class="col-sm-4">
-                        <h6 class="small fw-bold text-center mb-0">इंग्रजी स्तर निवडा</h6>
-                        <apx-chart [series]="barchartOptions?.series[2]" [chart]="barchartOptions?.chart"
-                            [dataLabels]="barchartOptions?.dataLabels" [plotOptions]="barchartOptions?.plotOptions"
+                    <div class="col-sm-4 border-end" *ngFor="let barchart of barchartOptions?.series; let i = index">
+                        <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
+                        <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"  [plotOptions]="barchartOptions?.plotOptions"
                             [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
                             [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
                     </div>
