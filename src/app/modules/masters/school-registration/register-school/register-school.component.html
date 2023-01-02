@@ -105,7 +105,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.class_from' |translate}}</mat-label>
-                        <mat-select formControlName="classFrom" (selectionChange)="getToClass()">
+                        <mat-select formControlName="classFrom">
                             <mat-option *ngFor="let gr of fromClassArray" [value]="gr.id">
                                 {{gr.standard}}
                             </mat-option>
@@ -137,8 +137,8 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button value="1">Option 1</mat-radio-button>
-                        <mat-radio-button value="2">Option 2</mat-radio-button>
+                        <mat-radio-button *ngFor="let radio of radioArray"
+                            [value]="radio.id">{{radio.type}}</mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <div class="col-sm-8">
