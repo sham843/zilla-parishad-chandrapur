@@ -302,23 +302,6 @@ export class MyProfileComponent {
       this.dialogRef.close('No');
     }
   }
-
-  ob={
-    "my_profile":"माझे प्रोफाइल",
-    "select_designation":"पदनाम निवडा",
-    "full_name":"पूर्ण नाव",
-    "select_level":"स्तर निवडा",
-    "select_school":"शाळा निवडा",
-    "full_name_required":"",
-    "please_enter_valid_full_name":"कृपया वैध पूर्ण नाव प्रविष्ट करा",
-    "please_enter_mobile_number_required":"कृपया मोबाईल नंबर आवश्यक",
-    "please_enter_valid_mobile_number_required":"कृपया वैध मोबाईल प्रविष्ट करा",
-    "please_enter_email_id":"कृपया ईमेल आयडी टाका",
-    "please_enter_valid_email_id":"कृपया वैध ईमेल आयडी प्रविष्ट करा"
-
-
-  }
-
 }
 
 
