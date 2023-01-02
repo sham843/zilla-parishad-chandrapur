@@ -27,7 +27,7 @@ export class RegisterSchoolComponent {
   toClassArray = new Array();
   subscription!: Subscription;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
-  radioArray = [{ id: 1, type: 'Urban' }, { id: 2, type: 'Rural' }]
+  radioArray = [{id: 1, type:'Rural'}, {id: 2, type: 'Urban'}]
   constructor
     (
       private fb: FormBuilder,
@@ -60,6 +60,9 @@ export class RegisterSchoolComponent {
       g_GenderId: [obj?.g_GenderId || ''],
       classFrom: [obj?.classFrom || '', Validators.required],
       classTo: [obj?.classTo || '', Validators.required],
+      udiseCode:[obj?.udiseCode || '',[Validators.required]],
+      schoolLocationId:[obj?.schoolLocationId  || '',[Validators.required]],
+      schoolAddress:[obj?.schoolAddress || '',[Validators.required]],
     })
     if (flag != 'clear') {
       this.getDistrict();
@@ -209,8 +212,15 @@ export class RegisterSchoolComponent {
   onSubmitData() {
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
-      // return;
+      return;
     } else {
+      let radiovalue=this.registerForm.value.schoolLocationId;
+      if(radiovalue == 'Rural'){
+        console.log('radiovalue',radiovalue);  
+        this.registerForm.controls['schoolLocationId'].setValue(1);  
+      }else{
+        this.registerForm.controls['schoolLocationId'].setValue(2);
+      }
       let obj = {
         ...formData,
         createdBy: this.data ? this.data.createdBy : this.webStorage.getUserId(),
@@ -237,6 +247,7 @@ export class RegisterSchoolComponent {
           this.error.handelError(error.status);
         }
       })
+      console.log('obj',obj);
     }
   }
 
@@ -251,7 +262,26 @@ export class RegisterSchoolComponent {
   }
 
   //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
+ob={
+  // "address":"पत्ता",
+  //  "id":"आयडी",
+  //  "urban":"शहरी",
+  //  "rural":"ग्रामीण",
+  //  "please_enter_id":"कृपया आयडी टाका",
+  //  "please_enter_school_address":"कृपया शाळेचा पत्ता प्रविष्ट करा",
+  //  "please_select_school_location_type":"कृपया शाळा स्थान प्रकार निवडा"
 
+
+   ///////////
+
+  //  "address":"Address",
+  //  "id":"Id",
+  //  "urban":"Urban",
+  //  "rural":"Rural",
+  //  "please_enter_id":"Please Enter Id",
+  //  "please_enter_school_address":"Please Enter School Address",
+  //  "please_select_school_location_type":"Please Select School Location Type"
+}
 }
 
 

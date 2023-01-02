@@ -131,20 +131,29 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>ID</mat-label>
-                        <input matInput>
+                        <mat-label>Udi Code ID{{'school.id' |translate}}</mat-label>
+                        <input matInput formControlName="udiseCode" (keypress)="validator.onlyDigits($event)">
+                          <!-- <mat-error
+                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_enter_id'
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button *ngFor="let radio of radioArray"
+                    <mat-radio-group aria-label="Select an option" formControlName="schoolLocationId">
+                        <mat-radio-button  *ngFor="let radio of radioArray"
                             [value]="radio.id">{{radio.type}}</mat-radio-button>
+                              <!-- <mat-error
+                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_select_school_location_type'
+                            |translate}}</mat-error> -->
                     </mat-radio-group>
                 </div>
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address</mat-label>
-                        <textarea matInput></textarea>
+                        <mat-label>{{'school.school_address' |translate}}</mat-label>
+                        <textarea matInput formControlName="schoolAddress" (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
+                          <!-- <mat-error
+                            *ngIf="registerForm.controls['schoolAddress'].hasError('required')">{{'school.please_enter_school_address'
+                            |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
             </div>

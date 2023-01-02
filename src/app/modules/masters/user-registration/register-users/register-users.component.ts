@@ -60,7 +60,7 @@ export class RegisterUsersComponent {
       designationId: [this.data?this.data.designationId:'', [Validators.required]],
       districtId: [this.data?this.data.districtId:1, [Validators.required]],
       talukaId: [this.data?this.data.designationId:this.loginData.talukaId,[Validators.required]],
-      centerId: [this.data?this.data.centerId:'', [Validators.required]],
+      centerId: [this.data?this.data.centerId:this.loginData.centerId, [Validators.required]],
       schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
       agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
@@ -72,7 +72,6 @@ export class RegisterUsersComponent {
     // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.standardId? this.data?.standardId.split(',').map(Number):[]):[];
     // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.subjectId? this.data?.subjectId.split(',').map(Number):[]):[];
     console.log(this.loginData);
-    this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId);
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type

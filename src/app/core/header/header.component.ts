@@ -112,6 +112,7 @@ export class HeaderComponent {
   openMyProfileDialog() {
     this.dialog.open(MyProfileComponent,{
       width: '500px',
+      disableClose: true,
     });
   }
 }
