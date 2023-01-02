@@ -134,6 +134,12 @@
                         <mat-label>{{'student.mar_first_name'|translate}}</mat-label>
                         <input matInput  formControlName="f_Name_Mar"
                         maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+                        <!-- <mat-error *ngIf="f['f_Name_Mar']?.errors">
+                            <span class="text-danger"
+                                 *ngIf="f['f_Name_Mar'].hasError('pattern')">
+                                 {{'student.please_enter_valid_first_Name' | translate}}
+                             </span>
+                         </mat-error> -->
                      </mat-form-field>
                 </div>
                 <div class="col-sm-4">

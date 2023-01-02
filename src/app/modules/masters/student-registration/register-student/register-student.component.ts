@@ -105,10 +105,12 @@ export class RegisterStudentComponent {
 
   clearForm() {
     this.formDirective.resetForm();
+    this.data=null;
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
     this.formData();
+
   }
 
   clearDropdown(flag: any) {
@@ -318,8 +320,8 @@ export class RegisterStudentComponent {
       }
       let mainData = { ...obj, ...data};
       let url;
-      this.editFlag ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
-      this.apiService.setHttp(this.editFlag ? 'put' : 'post', url, false, mainData, false, 'baseUrl');
+      this.data ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
+      this.apiService.setHttp(this.data ? 'put' : 'post', url, false, mainData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.ngxspinner.hide();
