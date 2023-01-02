@@ -72,7 +72,6 @@ export class MyProfileComponent {
   
   getFormData() {
    let  obj = this.getObj;
-   console.log('this.getObj',this.getObj);
     this.profileForm = this.fb.group({
       createdBy: [this.webStorage.getUserId()],
       modifiedBy: [this.webStorage.getUserId()],
@@ -97,7 +96,7 @@ export class MyProfileComponent {
 
   getDataByID() {
     this.userId = this.commonMethod.getUserTypeID();
-    console.log(this.userId);
+    console.log("userId",this.userId);
     this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id=' + this.userId + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
@@ -276,7 +275,6 @@ export class MyProfileComponent {
         this.error.handelError(error.status);
       }
     })
-    console.log(formObj)
 
   }
   clearForm(formDirective: any) {

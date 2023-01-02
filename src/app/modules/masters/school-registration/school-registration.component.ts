@@ -43,12 +43,7 @@ export class SchoolRegistrationComponent {
     private excelPdf: ExcelPdfDownloadService,
     public validator: ValidationService
   ) { }
-
-  // this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-  //   res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
-  //   this.setTableData(); this.getUserTypeData(this.language);
-  // })
-
+  
   ngOnInit() {
     this.getFilterFormData();
     this.getTableData();
@@ -59,10 +54,8 @@ export class SchoolRegistrationComponent {
     })
     this.getTaluka();
   }
-
   //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
   getFilterFormData() {
-    // [Validators.required, Validators.minLength(10), Validators.maxLength(500),Validators.pattern('^[-_., a-zA-Z0-9]+$')]
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0],
