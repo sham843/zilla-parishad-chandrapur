@@ -28,9 +28,10 @@ export class DashboardComponent {
   piechartOptions: any;
   piechartSecondOptions: any;
   getSurveyedData: any;
-  globalTalId:any;
-  selNumber!:number;
+  globalTalId: any;
+  selNumber!: number;
   getAssesmentData: any;
+  selStdArray = new Array();
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -39,7 +40,7 @@ export class DashboardComponent {
     private commonMethods: CommonMethodsService,
     private fb: FormBuilder, private master: MasterService,
     public validation: ValidationService,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
@@ -143,7 +144,7 @@ export class DashboardComponent {
 
   //#region ---------------------------------------------main contant api fn start heare-----------------------------------------------//
 
-  getAssesmentPiChartData(){//Explain Meaning of English Word //Explain Meaning of English Sentence
+  getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
     let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
@@ -167,8 +168,9 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        this.getAssesmentDashboardDetails();
         this.checkBoxChecked('default');
+        this.getAssesmentDashboardDetails();
+   
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -180,7 +182,7 @@ export class DashboardComponent {
 
   getAssesmentDashboardDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=1`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}`
     this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -199,6 +201,7 @@ export class DashboardComponent {
     if (val) {
       this.selNumber = label.target.checked ? this.selNumber + val : this.selNumber - val;
     } else {
+      this.selStdArray.push('1')
       this.getSurveyedData.find((ele: any) => {
         if (ele.text == '1st' && label == 'default') {
           ele.checked = true;
@@ -211,7 +214,7 @@ export class DashboardComponent {
   //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//
 
   //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
-  pieChart(data:any) {
+  pieChart(data: any) {
     this.piechartOptions = {
       series: [data[0]?.assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
       chart: {
@@ -267,64 +270,21 @@ export class DashboardComponent {
   }
 
   getBarChart() {
-    // let seriesData:any[] = [];
-    // this.getAssesmentData.find((ele:any)=>{
-    //   console.log(ele);
-    //  seriesData.push([{name:ele.subjectName, data}])
-    // });
+    let seriesData: any[] = [];
+    this.getAssesmentData.find((ele: any) => {
+      var arr = new Array();
+      for (var i = 0; i < ele.assesmentDetails.length; i++) {
+        let obj: any = {
+          'name': ele['assesmentDetails'][i].assessmentParamenterName,
+          'data': [ele['assesmentDetails'][i].assesmentCalculationValue]
+        }
+        arr.push(obj)
+      }
+      seriesData.push(arr)
+    });
 
     this.barchartOptions = {
-      series: [
-        [{
-          name: "PRODUCT A",
-          data: [44]
-        },
-        {
-          name: "PRODUCT B",
-          data: [13]
-        },
-        {
-          name: "PRODUCT C",
-          data: [11]
-        }
-      ],
-        [{
-          name: "PRODUCT A",
-          data: [24]
-        },
-        {
-          name: "PRODUCT B",
-          data: [10]
-        },
-        {
-          name: "PRODUCT C",
-          data: [48]
-        }],
-        [{
-          name: "PRODUCT A",
-          data: [65]
-        },
-        {
-          name: "PRODUCT B",
-          data: [10]
-        },
-        {
-          name: "PRODUCT C",
-          data: [37]
-        }],
-        [{
-          name: "PRODUCT A",
-          data: [65, 36, 25, 15]
-        },
-        {
-          name: "PRODUCT B",
-          data: [10, 70, 25, 42]
-        },
-        {
-          name: "PRODUCT C",
-          data: [37, 65, 74, 20]
-        }],
-      ],
+      series: seriesData,
       chart: {
         type: "bar",
         height: 350,
@@ -335,15 +295,19 @@ export class DashboardComponent {
         },
 
       },
+      bar: {
+        horizontal: true,
+        barHeight: '80%',
+        borderRadiusOnAllStackedSeries: true,
+      },
       responsive: [
         {
-          breakpoint: 480,
           options: {
             legend: {
               position: "bottom",
               offsetX: -10,
               offsetY: 0
-            }
+            },
           }
         }
       ],
@@ -351,11 +315,8 @@ export class DashboardComponent {
         labels: {
           show: false,
         },
-        categories: [
-          "2011 Q1",
-        ]
+        categories: ["2022"]
       },
-
       yaxis: {
         show: false,
         showAlways: false,
@@ -369,15 +330,31 @@ export class DashboardComponent {
         labels: {
           show: false
         },
-
       },
       fill: {
-        opacity: 1
+        opacity: 1,
+        colors: ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'],
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 15,
+          borderRadiusApplication: 'end',
+          borderRadiusWhenStacked: "last", // "all"/"last",
+          columnWidth: 30,
+        },
       },
       legend: {
-        position: "bottom",
-        offsetX: 0,
-        offsetY: 50
+        position: 'bottom',
+        fontSize: '12px',
+        show: true,
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: '#fff',
+          fillColors: ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'],
+        }
       }
     };
   }
@@ -463,13 +440,13 @@ export class DashboardComponent {
     // });
   }
 
-  clickOnSvgMap(flag?:string){
-    if(flag == 'select'){
+  clickOnSvgMap(flag?: string) {
+    if (flag == 'select') {
       let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
       checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
     }
-    
+
     $(document).on('click', '#mapsvg  path', (e: any) => {
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
@@ -478,17 +455,16 @@ export class DashboardComponent {
     })
   }
 
-  svgMapAddOrRemoveClass(){
+  svgMapAddOrRemoveClass() {
     let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
-    checkTalActiveClass?  $('#mapsvg   path#' +this.globalTalId).removeClass("talActive") : '';
+    checkTalActiveClass ? $('#mapsvg   path#' + this.globalTalId).removeClass("talActive") : '';
     this.talukaArray.find(() => {
       this.globalTalId = this.topFilterForm?.value?.talukaId;
       $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
     });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
-  displayProfile(id:number){
-    this.router.navigateByUrl('/student-profile/'+id);
+  displayProfile(id: number) {
+    this.router.navigateByUrl('/student-profile/' + id);
   }
-
 }

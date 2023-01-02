@@ -2,7 +2,7 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
-            <h6 class="mb-0 text-main">My Profile</h6>
+            <h6 class="mb-0 text-main">{{'header.my_profile' | translate}}</h6>
             <button mat-icon-button  class="btn-modal-close" type="button" mat-dialog-close (click)="onClick('No')">
                 <mat-icon>
                     close
@@ -34,91 +34,94 @@
         <div class="row">
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Full Name</mat-label>
+                    <mat-label>{{'header.full_name' | translate}}</mat-label>
                     <input matInput placeholder="First Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('required')">Full Name Required</mat-error> --> 
-                <mat-error *ngIf="profileForm.controls['name'].hasError('pattern')" class="mt-2">Please Enter Valid Full Name</mat-error>
+                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('required')">{{'header.full_name_required' | translate}}</mat-error> --> 
+                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('pattern')" class="mt-2">{{'header.please_enter_valid_full_name' | translate}}</mat-error> -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Mobile No.</mat-label>
+                    <mat-label>{{'common.mobile_number' | translate}}</mat-label>
                     <input matInput placeholder="Contact No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)"(keypress)="validator.onlyDigits($event)">
-                <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">Mobile Number Required</mat-error> -->
-                <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('pattern')">Please Enter Valid Mobile Number</mat-error>  
+                <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">{{'header.please_enter_mobile_number' | translate}}</mat-error> -->
+                <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('pattern')">{{'header.please_enter_valid_mobile_number' | translate}}</mat-error>   -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Email ID</mat-label>
+                    <mat-label>{{'common.email' | translate}}</mat-label>
                     <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
-                <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">Email ID Required</mat-error>  -->
-                <mat-error *ngIf="profileForm.controls['emailId'].hasError('email')">Please Enter Valid Email ID</mat-error>
+                <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">{{'header.please_enter_email_id' | translate}}</mat-error>  -->
+                <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('email')">{{'header.please_enter_valid_email_id' | translate}}</mat-error> -->
                 </mat-form-field>
             </div>    
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                    <mat-label>Select Level</mat-label>
+                    <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>
                    <mat-select formControlName="designationLevelId" (selectionChange)="getDesignation()">
                     <mat-option *ngFor="let level of levelArray" [value]="level.id">
                             {{level.desingationLevel}}
                     </mat-option>
                    </mat-select>
-                <!-- <mat-error *ngIf="profileForm.controls['designationLevelId'].hasError('required')">Please Select Full Name</mat-error>  -->
+                <!-- <mat-error *ngIf="profileForm.controls['designationLevelId'].hasError('required')">{{'designation_master.please_select_designation_level' | translate}}</mat-error>  -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                    <mat-label>Select Designation</mat-label>
+                    <mat-label>{{'header.select_designation' | translate}}</mat-label>
                    <mat-select formControlName="designationId" (selectionChange)="getDistrict()">
                     <mat-option *ngFor="let deg of designationArray" [value]="deg.id">
                             {{deg.desingationTypes}}
                     </mat-option>
                    </mat-select>
-                <!-- <mat-error *ngIf="profileForm.controls['designationId'].hasError('required')">Please Select Full Name</mat-error>  -->
+                <!-- <mat-error *ngIf="profileForm.controls['designationId'].hasError('required')">{{'designation_master.please_enter_designation_name' | translate}}</mat-error>  -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                    <mat-label>Select District</mat-label>
+                    <mat-label>{{'common.district' | translate}}</mat-label>
                    <mat-select formControlName="districtId"  (selectionChange)="getTaluka()">
                     <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
                             {{dist.district}}
                     </mat-option>
                    </mat-select>
-                <!-- <mat-error *ngIf="profileForm.controls['districtId'].hasError('required')">Please Select Full Name</mat-error>  -->
+                <!-- <mat-error *ngIf="profileForm.controls['districtId'].hasError('required')">{{'common.Please_Select_District'
+                            |translate}}</mat-error>  -->
                 </mat-form-field>
             </div>
             <ng-container *ngIf="(this.levelId ==3) || (this.levelId == 4) ||(this.levelId == 5)">
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                        <mat-label>Select Taluka</mat-label>
+                        <mat-label>{{'common.taluka' | translate}}</mat-label>
                        <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
                         <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                                     {{tal.taluka}}
                         </mat-option>
                        </mat-select>
-                    <!-- <mat-error *ngIf="profileForm.controls['talukaId'].hasError('required')">Please Select Taluka</mat-error>  -->
+                    <!-- <mat-error *ngIf="profileForm.controls['talukaId'].hasError('required')">{{'common.Please_Select_Taluka'
+                            |translate}}</mat-error>  -->
                     </mat-form-field>
                 </div>
             </ng-container>
             <ng-container *ngIf="(this.levelId == 4) ||(this.levelId == 5)">
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                        <mat-label>Select Kendra</mat-label>
+                        <mat-label>{{'common.kendra' | translate}}</mat-label>
                        <mat-select formControlName="centerId" (selectionChange)="getSchoolName(this.profileForm.value.centerId)">
                         <mat-option  *ngFor="let cen of centerArray" [value]="cen.id">
                                     {{cen.center}}
                         </mat-option>
                        </mat-select>
-                    <!-- <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">Please Select Center</mat-error>  -->
+                    <!-- <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">{{'school.kendra_required'
+                            |translate}}</mat-error>  -->
                     </mat-form-field>
                 </div>
             </ng-container>
             <ng-container *ngIf="(this.levelId == 5)">
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
-                        <mat-label>Select School</mat-label>
+                        <mat-label>{{'school.select_school' | translate}}</mat-label>
                        <mat-select formControlName="schoolId">
                         <mat-option  *ngFor="let school of schoolArr" [value]="school.id">
                                     {{school}}
@@ -131,8 +134,8 @@
     </mat-card-content>
     <mat-card-footer class="card-footer">
         <div class="d-flex w-100 justify-content-end align-items-center">
-            <button mat-dialog-close mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">Cancel</button>
-            <button mat-flat-button class="btn-main" type="submit">Update</button>
+            <button mat-dialog-close mat-flat-button class="btn-second me-2" type="button" (click)="clearForm(formDirective)">{{'common.cancel' | translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{'common.update' | translate}}</button>
         </div>
     </mat-card-footer>
 </mat-card>

@@ -16,6 +16,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   standalone: true,
   selector: 'app-my-profile',
@@ -29,7 +30,8 @@ import { MasterService } from 'src/app/core/services/master.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class MyProfileComponent {
@@ -300,7 +302,6 @@ export class MyProfileComponent {
       this.dialogRef.close('No');
     }
   }
-
 }
 
 
