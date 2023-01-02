@@ -26,6 +26,7 @@ export class RegisterSchoolComponent {
   fromClassArray = new Array();
   toClassArray = new Array();
   subscription!: Subscription;
+  showRedio:boolean=false;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   radioArray = [{id: 1, type:'Rural'}, {id: 2, type: 'Urban'}]
   constructor
@@ -45,6 +46,7 @@ export class RegisterSchoolComponent {
     })
     this.editFlag = this.data ? true : false
     this.getFormData()
+    // this.setValidation();
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
@@ -73,6 +75,10 @@ export class RegisterSchoolComponent {
       this.getToClass();
     }
   }
+
+  // setValidation(){
+  //   this.registerForm.controls['schoolLocationId'].setValidators(Validators.required);
+  //   }
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
@@ -182,7 +188,6 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.fromClassArray = res.responseData
-
         } else {
           this.fromClassArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -212,11 +217,13 @@ export class RegisterSchoolComponent {
   onSubmitData() {
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
+      if(this.registerForm.controls['schoolLocationId'].invalid){
+        this.showRedio = true
+      }
       return;
     } else {
       let radiovalue=this.registerForm.value.schoolLocationId;
       if(radiovalue == 'Rural'){
-        console.log('radiovalue',radiovalue);  
         this.registerForm.controls['schoolLocationId'].setValue(1);  
       }else{
         this.registerForm.controls['schoolLocationId'].setValue(2);
@@ -247,11 +254,11 @@ export class RegisterSchoolComponent {
           this.error.handelError(error.status);
         }
       })
-      console.log('obj',obj);
     }
   }
 
   clearForm() {
+    this.showRedio = false;
     this.editFlag = false;
     this.formDirective.reset();
     this.getFormData('clear');
@@ -262,26 +269,8 @@ export class RegisterSchoolComponent {
   }
 
   //#endregion ---------------------------------------Get Register Form Data------------------------------------------------------------
-ob={
-  // "address":"पत्ता",
-  //  "id":"आयडी",
-  //  "urban":"शहरी",
-  //  "rural":"ग्रामीण",
-  //  "please_enter_id":"कृपया आयडी टाका",
-  //  "please_enter_school_address":"कृपया शाळेचा पत्ता प्रविष्ट करा",
-  //  "please_select_school_location_type":"कृपया शाळा स्थान प्रकार निवडा"
 
 
-   ///////////
-
-  //  "address":"Address",
-  //  "id":"Id",
-  //  "urban":"Urban",
-  //  "rural":"Rural",
-  //  "please_enter_id":"Please Enter Id",
-  //  "please_enter_school_address":"Please Enter School Address",
-  //  "please_select_school_location_type":"Please Select School Location Type"
-}
 }
 
 

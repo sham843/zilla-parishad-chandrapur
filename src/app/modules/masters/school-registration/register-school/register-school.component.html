@@ -131,19 +131,19 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Udi Code ID{{'school.id' |translate}}</mat-label>
+                        <mat-label>{{'school.id' |translate}}</mat-label>
                         <input matInput formControlName="udiseCode" (keypress)="validator.onlyDigits($event)">
                           <!-- <mat-error
-                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_enter_id'
+                            *ngIf="registerForm.controls['udiseCode'].hasError('required')">{{'school.please_enter_id'
                             |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-radio-group aria-label="Select an option" formControlName="schoolLocationId">
                         <mat-radio-button  *ngFor="let radio of radioArray"
-                            [value]="radio.id">{{radio.type}}</mat-radio-button>
-                              <!-- <mat-error
-                            *ngIf="registerForm.controls['classFrom'].hasError('required')">{{'school.please_select_school_location_type'
+                            [value]="radio.id">{{radio.type == 'Rural' ? ('school.rural' |translate) : ('school.urban' |translate)}}</mat-radio-button>
+                              <!-- <mat-error 
+                            *ngIf="registerForm.controls['schoolLocationId'].hasError('required') && showRedio">{{'school.please_select_school_location_type'
                             |translate}}</mat-error> -->
                     </mat-radio-group>
                 </div>
