@@ -253,7 +253,18 @@
         "profile_name":"Mr. Sunil Rajaram Shinde",
         "profile":"Profile",
         "change_password":"Change Password",
-        "logout":"Logout"
+        "logout":"Logout",
+        "my_profile":"My Profile",
+        "select_designation":"Select Designation",
+        "full_name":"Full Name",
+        "select_level":"Select Level",
+        "select_school":"Select School",
+        "full_name_required":"Full Name Required",
+        "please_enter_valid_full_name":"Please Enter Valid Full Name",
+        "please_enter_mobile_number":"Please Enter Mobile Number",
+        "please_enter_valid_mobile_number_required":"Please Enter Valid Mobile Number",
+        "please_enter_email_id":"Please Enter Email Id",
+        "please_enter_valid_email_id":"Please Enter Valid Email Id"
       },
       "change_password":{
         "new_password":"New Password",
