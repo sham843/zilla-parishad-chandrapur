@@ -53,7 +53,7 @@
                     </div>
                 </ng-container>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" 
                             (selectionChange)="getTaluka(userRegistrationForm.value.districtId);clearDropdown('district')"
@@ -63,9 +63,9 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && userRegistrationForm.value.designationLevelId!=2">
+                <ng-container *ngIf="userRegistrationForm.value.designationLevelId!=2">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==3 || levelId==4 || levelId==5)">
                             <mat-label>{{'common.taluka' |translate}}</mat-label>
                             <mat-select formControlName="talukaId"
                                 (selectionChange)="getKendra(userRegistrationForm.value.talukaId);clearDropdown('taluka')">
@@ -75,9 +75,9 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId!=2 && (userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5)">
+                <ng-container *ngIf="userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100"  >
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5)">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId"
                                 (selectionChange)="getSchoolName(userRegistrationForm.value.centerId);clearDropdown('center')">
@@ -89,7 +89,7 @@
                 </ng-container>
                 <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==5">
                             <mat-label>{{'common.school' |translate}}</mat-label>
                             <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
                                 <mat-option *ngFor="let school of schoolArr"

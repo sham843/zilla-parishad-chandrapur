@@ -106,12 +106,24 @@
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                         <mat-label>Select Kendra</mat-label>
-                       <mat-select formControlName="centerId">
+                       <mat-select formControlName="centerId" (selectionChange)="getSchoolName(this.profileForm.value.centerId)">
                         <mat-option  *ngFor="let cen of centerArray" [value]="cen.id">
                                     {{cen.center}}
                         </mat-option>
                        </mat-select>
                     <!-- <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">Please Select Center</mat-error>  -->
+                    </mat-form-field>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="(this.levelId == 5)">
+                <div class="col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
+                        <mat-label>Select School</mat-label>
+                       <mat-select formControlName="schoolId">
+                        <mat-option  *ngFor="let school of schoolArr" [value]="school.id">
+                                    {{school}}
+                        </mat-option>
+                       </mat-select>
                     </mat-form-field>
                 </div>
             </ng-container>
