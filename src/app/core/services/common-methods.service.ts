@@ -101,188 +101,68 @@ export class CommonMethodsService {
 
   mapRegions() {
     let regions_m = {
-      'path3109': {
-        id: "1",
-        tooltip: "पुणे",
+      "271301":{
+        "taluka": "CHANDRAPUR",
+        "taluka_m":"चंद्रपूर"
       },
-      'path3121': {
-        id: "2",
-        tooltip: "सांगली",
-
+      "271302":{
+        "taluka": "BHADRAWATI",
+        "taluka_m":"भद्रावत"
       },
-      'path3117': {
-        id: "3",
-        tooltip: "सातारा",
-
+      "271303":{
+        "taluka": "WARORA",
+        "taluka_m":"वरोरा"
       },
-      'path3193': {
-        id: "5",
-        tooltip: "परभणी",
-
+      "271304":{
+        "taluka": "BALLARPUR",
+        "taluka_m":"बल्लारपूर"
       },
-      'path3209': {
-        id: "6",
-        tooltip: "यवतमाळ",
-
+      "271305":{
+        "taluka": "RAJURA",
+        "taluka_m":"राजुर",
       },
-      'path3113': {
-        id: "7",
-        tooltip: "सोलापूर",
-
+      "271306":{
+        "taluka": "GONDPIPARI",
+        "taluka_m":"गोंडपिंपर"
       },
-      'path3157': {
-        id: "8",
-        tooltip: "अहमदनगर",
-
+      "271307":{
+        "taluka": "KORPANA",
+        "taluka_m":"कोरपना"
       },
-      'path3125': {
-        id: "9",
-        tooltip: "कोल्हापूर",
-
+      "271308":{
+        "taluka": "MUL",
+        "taluka_m":"मूल"
       },
-      'path3169': {
-        id: "10",
-        tooltip: "औरंगाबाद",
-
+      "271309":{
+        "taluka": "SINDEWAHI",
+        "taluka_m":"सिंदेवाही"
       },
-      'path3181': {
-        id: "11",
-        tooltip: "बीड",
-
+      "271310":{
+        "taluka": "NAGBHID",
+        "taluka_m":"नागभीड"
       },
-      'path3197': {
-        id: "12",
-        tooltip: "हिंगोली",
-
+      "271311":{
+        "taluka": "BRAMHAPURI",
+        "taluka_m":"ब्रम्हपूरी"
       },
-      'path3173': {
-        id: "13",
-        tooltip: "जालना",
-
+      "271312":{
+        "taluka": "CHIMUR",
+        "taluka_m":"चिमूर"
       },
-      'path3185': {
-        id: "14",
-        tooltip: "लातूर",
-
+      "271313":{
+        "taluka": "SAOLI",
+        "taluka_m":"सावली"
       },
-      'path3177': {
-        id: "15",
-        tooltip: "नांदेड",
-
+      "271314":{
+        "taluka": "POMBURNA",
+        "taluka_m":"पोंभुर्णा"
       },
-      'path3189': {
-        id: "16",
-        tooltip: "उस्मानाबाद",
-
-      },
-      'path3213': {
-        id: "17",
-        tooltip: "अकोला",
-
-      },
-      'path3201': {
-        id: "18",
-        tooltip: "अमरावती",
-
-      },
-      'path3205': {
-        id: "19",
-        tooltip: "बुलडाणा",
-
-      },
-      'path3217': {
-        id: "20",
-        tooltip: "वाशिम",
-
-      },
-      'path3165': {
-        id: "21",
-        tooltip: "धुळे",
-
-      },
-      'path3149': {
-        id: "22",
-        tooltip: "जळगाव",
-
-      },
-      'path3161': {
-        id: "23",
-        tooltip: "नंदुरबार",
-
-      },
-      'path3153': {
-        id: "24",
-        tooltip: "नाशिक",
-
-      },
-      'path3237': {
-        id: "25",
-        tooltip: "भंडारा",
-
-      },
-      'path3233': {
-        id: "26",
-        tooltip: "चंद्रपूर",
-
-      },
-      'path3229': {
-        id: "27",
-        tooltip: "गडचिरोली",
-
-      },
-      'path3241': {
-        id: "28",
-        tooltip: "गोंदिया",
-
-      },
-      'path3221': {
-        id: "29",
-        tooltip: "नागपूर",
-
-      },
-      'path3225': {
-        id: "30",
-        tooltip: "वर्धा",
-
-      },
-      'path3129': {
-        id: "31",
-        tooltip: "मुंबई उपनगर",
-
-      },
-      'path3137': {
-        id: "32",
-        tooltip: "रायगड",
-
-      },
-      'path3133': {
-        id: "33",
-        tooltip: "रत्नागिरी",
-
-      },
-      'path3141': {
-        id: "34",
-        tooltip: "सिंधुदुर्ग",
-
-      },
-      'path1022': {
-        id: "35",
-        tooltip: "ठाणे",
-
-      },
-      'path1026': {
-        id: "36",
-        tooltip: "मुंबई शहर",
-
-      },
-      'path3145': {
-        id: "37",
-        tooltip: "पालघर",
-
+      "271315":{
+        "taluka": "JIWATI",
+        "taluka_m":"जिवती"
       },
     }
-
-
+    
     return regions_m;
   }
   getUserTypeID() {

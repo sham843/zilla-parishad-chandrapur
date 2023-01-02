@@ -233,6 +233,7 @@ export class DashboardComponent {
       ]
     };
   }
+
   getBarChart() {
     this.barchartOptions = {
       series: [
@@ -335,19 +336,17 @@ export class DashboardComponent {
         opacity: 1
       },
       legend: {
-        position: "right",
+        position: "bottom",
         offsetX: 0,
         offsetY: 50
       }
     };
   }
+
   showSvgMap(data: any) {
     this.graphInstance ? this.graphInstance.destroy() : '';
-    let createMap: any = document.getElementById("#mapsvg");
 
-    this.graphInstance = createMap?.mapSvg({
-      width: 550,
-      height: 430,
+    this.graphInstance = $("#mapsvg").mapSvg({
       colors: {
         baseDefault: "#bfddff",
         background: "#fff",

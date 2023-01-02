@@ -44,7 +44,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.Please_Select_Taluka'|translate}}" formControlName="talukaId"
+            <mat-select formControlName="talukaId"
               (selectionChange)="clearDropdown('talukaId');getCenter()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
@@ -55,7 +55,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.kendra'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.select_kendra'|translate}}" [disabled]="true" formControlName="centerId"
+            <mat-select [disabled]="true" formControlName="centerId"
               (selectionChange)="clearDropdown('centerId');getSchool()">
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
@@ -66,7 +66,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school'|translate}}</mat-label>
-            <mat-select placeholder="{{'common.select_school'|translate}}" formControlName="schoolId">
+            <mat-select  formControlName="schoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
               </mat-option>
             </mat-select>
@@ -77,8 +77,7 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'student.search_by_saralid_name_mobileno'|translate}}</mat-label>
-            <input matInput placeholder="{{'student.search_by_saralid_name_mobileno'|translate}}"
-              formControlName="searchText">
+            <input matInput formControlName="searchText">
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
