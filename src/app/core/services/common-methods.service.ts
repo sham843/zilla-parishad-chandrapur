@@ -165,7 +165,7 @@ export class CommonMethodsService {
     
     return regions_m;
   }
-  getUserTypeID() {
+  getUserID() {
     let userTypeId = JSON.parse(this.webStorage.getLocalStorageData())
     return userTypeId.responseData.id;
   }
