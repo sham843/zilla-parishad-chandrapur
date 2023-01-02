@@ -428,19 +428,25 @@ export class DashboardComponent {
   clickOnSvgMap(flag?:string){
     if(flag == 'select'){
       let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
-      checkTalActiveClass?  $('#mapsvg   path#' +this.globalTalId).removeClass("lessThanFive") : '';
-
-      this.talukaArray.find(() => {
-        this.globalTalId = this.topFilterForm?.value?.talukaId;
-        $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
-      });
+      checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
+      this.svgMapAddOrRemoveClass();
     }
-
+    
     $(document).on('click', '#mapsvg  path', (e: any) => {
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
-      console.log(talId);
+      this.topFilterForm.controls['talukaId'].setValue(+talId);
+      this.svgMapAddOrRemoveClass();
     })
+  }
+
+  svgMapAddOrRemoveClass(){
+    let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
+    checkTalActiveClass?  $('#mapsvg   path#' +this.globalTalId).removeClass("talActive") : '';
+    this.talukaArray.find(() => {
+      this.globalTalId = this.topFilterForm?.value?.talukaId;
+      $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
+    });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
   displayProfile(id:number){
