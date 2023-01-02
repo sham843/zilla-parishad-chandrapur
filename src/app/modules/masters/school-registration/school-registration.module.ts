@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     ReactiveFormsModule,
     TableGridComponent,
-    TranslateModule
+    TranslateModule,
+    MatRadioModule
   ]
 })
 export class SchoolRegistrationModule { }
