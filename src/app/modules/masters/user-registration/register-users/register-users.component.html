@@ -24,7 +24,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId" 
-                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel')">
+                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');(userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5)?getKendra(userRegistrationForm.value.talukaId):'';userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):'';userRegistrationForm.value.designationLevelId==5?getSchoolName(userRegistrationForm.value.centerId):''">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
@@ -56,7 +56,7 @@
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" 
-                            (selectionChange)="getTaluka(userRegistrationForm.value.districtId);clearDropdown('district')"
+                            (selectionChange)="clearDropdown('district')"
                            >
                             <mat-option *ngFor="let dist of districtArr"
                                 [value]="dist.id">{{dist.district}}</mat-option>
@@ -68,7 +68,7 @@
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==3 || levelId==4 || levelId==5)">
                             <mat-label>{{'common.taluka' |translate}}</mat-label>
                             <mat-select formControlName="talukaId"
-                                (selectionChange)="getKendra(userRegistrationForm.value.talukaId);clearDropdown('taluka')">
+                                (selectionChange)="clearDropdown('taluka')">
                                 <mat-option *ngFor="let taluka of talukaArr"
                                     [value]="taluka.id">{{taluka.taluka}}</mat-option>
                             </mat-select>
@@ -80,7 +80,7 @@
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5)">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId"
-                                (selectionChange)="getSchoolName(userRegistrationForm.value.centerId);clearDropdown('center')">
+                                (selectionChange)="clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
                             </mat-select>
@@ -125,7 +125,7 @@
                                 formControlName="name" (keypress)="validation.alphabetsWithSpaces($event);validation.noFirstSpaceAllow($event)">
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
-                                  {{'common.Please_enter_valid_name' |translate}}
+                                  {{'user_Registration.Please_enter_valid_name' |translate}}
                                 </span> 
                             </mat-error>
                         </mat-form-field>
