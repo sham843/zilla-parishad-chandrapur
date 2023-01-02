@@ -68,8 +68,7 @@ export class DashboardComponent {
   }
 
   getTaluka() {
-    let formData = this.topFilterForm?.value;
-    this.master.getAllTaluka(formData?.flag, 1).subscribe({
+    this.master.getAllTaluka('en', 1).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
@@ -268,9 +267,12 @@ export class DashboardComponent {
   }
 
   getBarChart() {
-    this.getAssesmentData.find((ele:any)=>{
-      console.log(ele)
-    })
+    // let seriesData:any[] = [];
+    // this.getAssesmentData.find((ele:any)=>{
+    //   console.log(ele);
+    //  seriesData.push([{name:ele.subjectName, data}])
+    // });
+
     this.barchartOptions = {
       series: [
         [{
