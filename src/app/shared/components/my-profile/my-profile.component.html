@@ -55,20 +55,20 @@
                 <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">Email ID Required</mat-error>  -->
                 <mat-error *ngIf="profileForm.controls['emailId'].hasError('email')">Please Enter Valid Email ID</mat-error>
                 </mat-form-field>
-            </div>
+            </div>    
             <div class="col-sm-6">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                     <mat-label>Select Level</mat-label>
                    <mat-select formControlName="designationLevelId" (selectionChange)="getDesignation()">
-                    <mat-option *ngFor="let lev of levelArray" [value]="lev.id">
-                            {{lev.desingationLevel}}
+                    <mat-option *ngFor="let level of levelArray" [value]="level.id">
+                            {{level.desingationLevel}}
                     </mat-option>
                    </mat-select>
                 <!-- <mat-error *ngIf="profileForm.controls['designationLevelId'].hasError('required')">Please Select Full Name</mat-error>  -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                     <mat-label>Select Designation</mat-label>
                    <mat-select formControlName="designationId" (selectionChange)="getDistrict()">
                     <mat-option *ngFor="let deg of designationArray" [value]="deg.id">
@@ -79,7 +79,7 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                     <mat-label>Select District</mat-label>
                    <mat-select formControlName="districtId"  (selectionChange)="getTaluka()">
                     <mat-option *ngFor="let dist of districtArray" [value]="dist.id">
@@ -89,28 +89,32 @@
                 <!-- <mat-error *ngIf="profileForm.controls['districtId'].hasError('required')">Please Select Full Name</mat-error>  -->
                 </mat-form-field>
             </div>
-            <div class="col-sm-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select Taluka</mat-label>
-                   <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
-                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
-                                {{tal.taluka}}
-                    </mat-option>
-                   </mat-select>
-                <!-- <mat-error *ngIf="profileForm.controls['talukaId'].hasError('required')">Please Select Taluka</mat-error>  -->
-                </mat-form-field>
-            </div>
-            <div class="col-sm-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select Kendra</mat-label>
-                   <mat-select formControlName="centerId">
-                    <mat-option  *ngFor="let cen of centerArray" [value]="cen.id">
-                                {{cen.center}}
-                    </mat-option>
-                   </mat-select>
-                <!-- <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">Please Select Center</mat-error>  -->
-                </mat-form-field>
-            </div>
+            <ng-container *ngIf="(this.levelId ==3) || (this.levelId == 4) ||(this.levelId == 5)">
+                <div class="col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
+                        <mat-label>Select Taluka</mat-label>
+                       <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
+                        <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                                    {{tal.taluka}}
+                        </mat-option>
+                       </mat-select>
+                    <!-- <mat-error *ngIf="profileForm.controls['talukaId'].hasError('required')">Please Select Taluka</mat-error>  -->
+                    </mat-form-field>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="(this.levelId == 4) ||(this.levelId == 5)">
+                <div class="col-sm-6">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
+                        <mat-label>Select Kendra</mat-label>
+                       <mat-select formControlName="centerId">
+                        <mat-option  *ngFor="let cen of centerArray" [value]="cen.id">
+                                    {{cen.center}}
+                        </mat-option>
+                       </mat-select>
+                    <!-- <mat-error *ngIf="profileForm.controls['centerId'].hasError('required')">Please Select Center</mat-error>  -->
+                    </mat-form-field>
+                </div>
+            </ng-container>
         </div>
     </mat-card-content>
     <mat-card-footer class="card-footer">

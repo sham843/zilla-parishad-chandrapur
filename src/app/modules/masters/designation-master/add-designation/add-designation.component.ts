@@ -45,9 +45,6 @@ export class AddDesignationComponent {
   get f() { return this.designationForm.controls };
 
   controlForm(data?: any) {
-
-    console.log(data);
-
     this.designationForm = this.fb.group({
       id: [data?.id || 0],
       linkedToDesignationLevelId: ['', Validators.required],
@@ -187,6 +184,6 @@ export class AddDesignationComponent {
   }
 
   test(event: any) {
-    console.log(event.value);
+event
   }
 }

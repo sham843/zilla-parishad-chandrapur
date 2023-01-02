@@ -47,8 +47,8 @@ export class MyProfileComponent {
   centerArray = new Array();
   subscription!: Subscription;
   lang!: string;
-  userId!: number;
   getObj: any;
+  levelId!:number;
 
   constructor(
     public dialogRef: MatDialogRef<MyProfileComponent>,
@@ -66,19 +66,12 @@ export class MyProfileComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData();
     this.getDataByID();
+    this.getFormData();
   }
   
-  getFormData() {
-   let  obj = this.getObj;
+  getFormData(obj?:any) {
     this.profileForm = this.fb.group({
-      createdBy: [this.webStorage.getUserId()],
-      modifiedBy: [this.webStorage.getUserId()],
-      createdDate: [new Date()],
-      modifiedDate: [new Date()],
-      isDeleted: true,
-      id: [obj?.id],
       mobileNo: [obj?.mobileNo || '', [Validators.required,Validators.pattern('[7-9]\\d{9}'),Validators.maxLength(10)]],
       emailId: [obj?.emailId || '', [Validators.required,Validators.email]],
       designationLevelId: [obj?.designationLevelId || '', [Validators.required]],
@@ -91,18 +84,17 @@ export class MyProfileComponent {
     })
     this.getObj ? this.getLevel() : '';
     this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
-
   }
 
   getDataByID() {
-    this.userId = this.commonMethod.getUserTypeID();
-    console.log("userId",this.userId);
-    this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id=' + this.userId + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    let Id = this.commonMethod.getUserTypeID();
+    this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id=' + Id+ '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.getObj = res.responseData;
-          this.getFormData();
+          this.levelId =this.getObj.designationLevelId;
+          this.getFormData(this.getObj);
         } else {
           this.getObj = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -260,8 +252,15 @@ export class MyProfileComponent {
   }
   // zp_chandrapur/user-registration/AddRecord
   submitProfileData() {
-    let formObj = this.profileForm.value;
-    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, formObj, false, 'baseUrl');
+    let obj;
+    obj=this.profileForm.value;
+    obj.createdBy=this.webStorage.getUserId();
+    obj.modifiedBy=this.webStorage.getUserId();
+    obj.createdDate=new Date();
+    obj.modifiedDate=new Date();
+    obj.isDeleted=false,
+    obj.id=this.getObj.id,
+    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, obj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
