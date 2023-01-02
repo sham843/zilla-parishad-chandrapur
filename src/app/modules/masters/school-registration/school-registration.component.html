@@ -76,7 +76,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.school' |translate}}</mat-label>
             <input matInput formControlName="schoolName" (keyup)="validator.alphaNumeric($event)"
-              (keypress)="validator.noFirstSpaceAllow($event)" minlength="10" maxlength="500">
+              (keypress)="validator.noFirstSpaceAllow($event)">
             <!-- <mat-error
                             *ngIf="registerForm.controls['schoolName'].hasError('required')">{{'common.select_school'|translate}}</mat-error> -->
             <!-- <mat-error *ngIf="registerForm.controls['schoolName'].hasError('minlength') || registerForm.controls['schoolName'].hasError('maxlength')">{{'school.please_enter_valid_school name'|translate}}</mat-error>
