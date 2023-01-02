@@ -151,7 +151,7 @@ export class DesignationMasterComponent {
     deleteDialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
         let designationId = obj.id;
-        let userId = obj.userId;
+        let userId = this.webStorage.getUserId();
         this.apiService.setHttp('DELETE', 'designation/delete-designation-details?designationId=' + designationId + '&userId=' + userId + '&flag=' + this.lang, false, false, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
@@ -169,10 +169,17 @@ export class DesignationMasterComponent {
   }
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
-
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To'];
-    let column = ['srNo', 'designationName', 'linkedToDesignationLevelName', 'designationLevelName'];
+    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To']; 
+    let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
+      
+    this.tableDataArray.map((ele:any)=>{
+      let myArray:any=[];
+      ele.linkedDesignationDetails.map((ele1:any)=>{
+         myArray.push(ele1.linkedToDesignationName);
+      })
+      ele['newLinkedToDesignationName'] = myArray.toString();
+    })
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 }

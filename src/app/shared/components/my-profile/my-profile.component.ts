@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,7 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   standalone: true,
   selector: 'app-my-profile',
@@ -50,6 +51,8 @@ export class MyProfileComponent {
   getObj: any;
 
   constructor(
+    public dialogRef: MatDialogRef<MyProfileComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private commonMethod: CommonMethodsService,
     private uploadFilesService: FileUploadService,
@@ -63,15 +66,13 @@ export class MyProfileComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData()
-    this.getLevel();
+    this.getFormData();
     this.getDataByID();
-
   }
-
-  getFormData(obj?: any) {
-    // this.getObj ? this.editFlag = true : false;
-    obj = this.getObj
+  
+  getFormData() {
+   let  obj = this.getObj;
+   console.log('this.getObj',this.getObj);
     this.profileForm = this.fb.group({
       createdBy: [this.webStorage.getUserId()],
       modifiedBy: [this.webStorage.getUserId()],
@@ -79,32 +80,18 @@ export class MyProfileComponent {
       modifiedDate: [new Date()],
       isDeleted: true,
       id: [obj?.id],
-      mobileNo: [obj?.mobileNo || '', [Validators.required]],
-      emailId: [obj?.emailId || '', [Validators.required]],
+      mobileNo: [obj?.mobileNo || '', [Validators.required,Validators.pattern('[7-9]\\d{9}'),Validators.maxLength(10)]],
+      emailId: [obj?.emailId || '', [Validators.required,Validators.email]],
       designationLevelId: [obj?.designationLevelId || '', [Validators.required]],
       designationId: [obj?.designationId || '', [Validators.required]],
       districtId: [obj?.districtId || '', [Validators.required]],
       talukaId: [obj?.talukaId || '', [Validators.required]],
       centerId: [obj?.centerId || '', [Validators.required]],
-      profilePhoto: [''],
-      UserName: [obj?.UserName || '',],
-      password: [obj?.password || '',],
-      name: [obj?.name || '', [Validators.required]],
-      standardModels: [[
-        {
-          standardId: 0
-        }
-      ]],
-      subjectModels: [[
-        {
-          subjectId: 0
-        }
-      ]]
+      profilePhoto: [obj?.profilePhoto || ''],
+      name: [obj?.name || '', [Validators.required,Validators.pattern('^[a-zA-Z][a-zA-Z\\s]+$')]],
     })
-
-    this.getLevel();
-    // profilePhoto:[obj?.profilePhoto ||''],
-
+    this.getObj ? this.getLevel() : '';
+    this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
 
   }
 
@@ -117,10 +104,8 @@ export class MyProfileComponent {
         if (res.statusCode == '200') {
           this.getObj = res.responseData;
           this.getFormData();
-          this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
-          console.log(this.getObj);
         } else {
-          this.centerArray = [];
+          this.getObj = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }), error: (error: any) => {
@@ -202,8 +187,7 @@ export class MyProfileComponent {
   }
 
   getDesignation() {
-    let formData = this.profileForm.value.designationLevelId
-    this.service.setHttp('get', 'designation/get-set-designation-types?designationLevelId=' + formData + '&flag=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'designation/get-set-designation-types?designationLevelId=' +this.profileForm.value?.designationLevelId+ '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -278,12 +262,13 @@ export class MyProfileComponent {
   // zp_chandrapur/user-registration/AddRecord
   submitProfileData() {
     let formObj = this.profileForm.value;
-    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateRecord', false, formObj, false, 'baseUrl');
+    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, formObj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.profileForm.reset();
+          this.dialogRef.close();
+          // formDirective.resetForm();
         } else {
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -293,6 +278,15 @@ export class MyProfileComponent {
     })
     console.log(formObj)
 
+  }
+  clearForm(formDirective: any) {
+    formDirective.resetForm();
+    this.profileForm.controls['districtId'].setValue(1);
+  }
+  onClick(flag: any) {
+    if (flag == 'No') {
+      this.dialogRef.close('No');
+    }
   }
 
 }
