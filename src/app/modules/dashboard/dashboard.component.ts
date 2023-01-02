@@ -29,6 +29,8 @@ export class DashboardComponent {
   piechartSecondOptions: any;
   getSurveyedData: any;
   globalTalId:any;
+  selNumber!:number;
+  getAssesmentData: any;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -49,7 +51,6 @@ export class DashboardComponent {
   }
 
   ngAfterViewInit() {
-    this.getBarChart();
     this.showSvgMap(this.commonMethods.mapRegions());
     this.clickOnSvgMap();
   }
@@ -167,6 +168,8 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
+        this.getAssesmentDashboardDetails();
+        this.checkBoxChecked('default');
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -176,6 +179,35 @@ export class DashboardComponent {
     })
   }
 
+  getAssesmentDashboardDetails() {
+    let filterFormData = this.topFilterForm.value;
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=1`
+    this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.getAssesmentData = res.responseData;
+        this.getBarChart();
+      }
+      else {
+        this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
+
+  checkBoxChecked(label: any, val?: any) {
+    if (val) {
+      this.selNumber = label.target.checked ? this.selNumber + val : this.selNumber - val;
+    } else {
+      this.getSurveyedData.find((ele: any) => {
+        if (ele.text == '1st' && label == 'default') {
+          ele.checked = true;
+          this.selNumber = ele?.data
+        }
+      });
+    }
+  }
 
   //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//
 
@@ -236,6 +268,9 @@ export class DashboardComponent {
   }
 
   getBarChart() {
+    this.getAssesmentData.find((ele:any)=>{
+      console.log(ele)
+    })
     this.barchartOptions = {
       series: [
         [{
@@ -249,7 +284,8 @@ export class DashboardComponent {
         {
           name: "PRODUCT C",
           data: [11]
-        }],
+        }
+      ],
         [{
           name: "PRODUCT A",
           data: [24]
