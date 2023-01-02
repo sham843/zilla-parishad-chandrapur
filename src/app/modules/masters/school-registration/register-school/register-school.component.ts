@@ -61,16 +61,13 @@ export class RegisterSchoolComponent {
       classFrom:[obj?.classFrom || '', Validators.required],
       classTo:[obj?.classTo || '', Validators.required],
     })
-      
        if(flag != 'clear'){
         this.getDistrict();
         this.getSchoolCategory();
         this.getSchoolType();
         this.getGenderAllow();
         this.getFromClass();
-        this.getToClass();
        }
-      
   }
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
@@ -218,7 +215,6 @@ export class RegisterSchoolComponent {
     if (this.registerForm.invalid) {
       return;
     } else {
-      //  let api= !this.editFlag ?'zp_chandrapur/School/Add' :'zp_chandrapur/School/Update'
       let obj = {
         ... formData,
         createdBy: this.data ? this.data.createdBy : this.webStorage.getUserId(),
