@@ -18,6 +18,10 @@ export class ValidationService {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
     return maskSeperator.test(event.key);
   }
+  onlyAlphabetsWithSpace(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z])', 'g');
+    return maskSeperator.test(event.key);
+  }
   noSpacesAtStart(event: any) {
     const maskSeperator = new RegExp('^[ ]+|[ ]+$', 'm');
     return !maskSeperator.test(event.key);
