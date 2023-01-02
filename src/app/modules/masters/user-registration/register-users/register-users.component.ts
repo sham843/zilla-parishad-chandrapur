@@ -45,7 +45,6 @@ export class RegisterUsersComponent {
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
-    this.data?this.addRemoveValidation():'';
   this.loginData=this.webStorage.getLoginData();
   this.levelId=this.loginData.designationLevelId;
   this.getUserForm();
@@ -59,27 +58,27 @@ export class RegisterUsersComponent {
       designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
       designationId: [this.data?this.data.designationId:'', [Validators.required]],
       districtId: [this.data?this.data.districtId:1, [Validators.required]],
-      talukaId: [this.data?this.data.designationId:this.loginData.talukaId,[Validators.required]],
+      talukaId: [this.data?this.data.talukaId:this.loginData.talukaId,[Validators.required]],
       centerId: [this.data?this.data.centerId:this.loginData.centerId, [Validators.required]],
-      schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
+      schoolId: [this.data?this.data.schoolId:this.loginData.schoolId, [Validators.required]],
       agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [Validators.required],
-      subjectModels: [Validators.required]
+      standardModels: [this.data?this.data.standardModels:[],Validators.required],
+      subjectModels: [this.data?this.data.subjectModels:[],Validators.required]
     })
-    // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.standardId? this.data?.standardId.split(',').map(Number):[]):[];
-    // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.subjectId? this.data?.subjectId.split(',').map(Number):[]):[];
-    console.log(this.loginData);
+    this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.standardId? this.data?.standardId.split(',').map(Number):[]):[];
+    this.data?this.userRegistrationForm.controls['subjectModels'].setValue(this.data.subjectId? this.data?.subjectId.split(',').map(Number):[]):[];
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type
     this.master.getUserType(this.lang).subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
     })
-    this.data?this.getUserLevel(this.data.userTypeId):'';
+    this.data?(this.getUserLevel(this.data.userTypeId),this.addRemoveValidation()):'';
   }
+
   getUserLevel(typeId:number) {  //get user level
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
@@ -115,7 +114,6 @@ export class RegisterUsersComponent {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
       this.userRegistrationForm.controls['districtId'].setValue(this.districtArr[0].id);
-      this.getTaluka(this.districtArr[0].id)
     })
     this.data?this.getTaluka(this.data.districtId):'';
   }
@@ -124,7 +122,9 @@ export class RegisterUsersComponent {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
     })
-    this.data?this.getKendra(this.data.talukaId):'';
+    if(this.userRegistrationForm.value.designationLevelId==4 || this.userRegistrationForm.value.designationLevelId==5){
+      this.data?this.getKendra(this.data.talukaId):this.getKendra(this.loginData.talukaId);
+    }
   }
 
   getKendra(talukaId:number) {  //get kendra
@@ -138,6 +138,7 @@ export class RegisterUsersComponent {
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
       this.schoolArr=res.responseData;
     })
+    this.data?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
   }
 
   getAgency() {    //get agency

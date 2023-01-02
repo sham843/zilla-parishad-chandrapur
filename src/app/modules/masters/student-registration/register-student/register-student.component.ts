@@ -318,6 +318,7 @@ export class RegisterStudentComponent {
       }
       let mainData = { ...obj, ...data};
       let url;
+      debugger
       this.editFlag ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
       this.apiService.setHttp(this.editFlag ? 'put' : 'post', url, false, mainData, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
