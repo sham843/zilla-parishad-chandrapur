@@ -3,4 +3,6 @@
 }
 .main-content{
     padding: 15px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
 }
