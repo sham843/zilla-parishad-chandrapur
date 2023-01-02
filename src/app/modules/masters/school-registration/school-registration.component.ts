@@ -5,7 +5,7 @@ import { RegisterSchoolComponent } from './register-school/register-school.compo
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
@@ -60,7 +60,7 @@ export class SchoolRegistrationComponent {
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0],
-      schoolName: ['', [Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]]
+      schoolName: ['',]
     })
   }
 
@@ -141,8 +141,8 @@ export class SchoolRegistrationComponent {
   }
 
   setTableData() {
-    let displayedColumns = ['srNo', 'schoolName', 'center', 'taluka', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
+    let displayedColumns = ['udiseCode','srNo', 'schoolName', 'center', 'taluka', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['आयडी','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Udise Code','Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -156,8 +156,8 @@ export class SchoolRegistrationComponent {
   excelDownload() {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
-    let header = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Sr.No.', 'School Name', 'Kendra', 'Taluka'];
-    let column = this.lang == 'mr-IN' ? ['srNo', 'schoolName', 'center', 'taluka'] : ['srNo', 'schoolName', 'center', 'taluka'];
+    let header = this.lang == 'mr-IN' ? ['आयडी','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Udise Code','Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+    let column = this.lang == 'mr-IN' ? ['udiseCode','srNo', 'schoolName', 'center', 'taluka'] : ['udiseCode','srNo', 'schoolName', 'center', 'taluka'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
