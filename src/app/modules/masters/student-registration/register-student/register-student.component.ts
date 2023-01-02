@@ -70,6 +70,9 @@ export class RegisterStudentComponent {
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
+      // "f_Name_Mar":[data?.f_Name_Mar || ''],
+      // "m_Name_Mar":[data?.m_Name_Mar || ''],
+      // "l_Name_Mar":[data?.l_Name_Mar || ''],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
       "talukaId": [data?.talukaId || '', Validators.required],
       "centerId": [data?.centerId || '',[Validators.required]],
@@ -116,10 +119,15 @@ export class RegisterStudentComponent {
       case 'talukaId':
         this.studentFrm.controls['centerId'].setValue('');
         this.studentFrm.controls['schoolId'].setValue('');
+        // this.studentFrm.controls['standardId'].setValue(''); 
         break;
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
+        // this.studentFrm.controls['standardId'].setValue(''); 
         break;
+        // case 'schoolId':
+        //   this.studentFrm.controls['standardId'].setValue(''); 
+        //   break;
       }
   }
 
