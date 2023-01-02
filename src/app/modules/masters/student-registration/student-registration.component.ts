@@ -154,9 +154,9 @@ clearForm() {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData;
-          this.tableDataArray?.map((ele: any) => {
-            ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
-          })
+          // this.tableDataArray?.map((ele: any) => {
+          //   ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
+          // })
           this.tableDatasize = res.responseData1?.pageCount;
           this.totalPages = res.responseData1.totalPages;
         } else {
@@ -175,7 +175,7 @@ clearForm() {
 
   setTableData() {
     let displayedColumns;
-    displayedColumns =  this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+    displayedColumns =  this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
     displayedheaders =  this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action']
      let tableData = {
