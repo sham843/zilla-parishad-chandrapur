@@ -49,7 +49,8 @@
                     <mat-form-field appearance="outline" class="w-100 "
                         [class.disabled-contenct]="!studentFrm.value.centerId">
                         <mat-label>{{'common.school'|translate}}</mat-label>
-                        <mat-select formControlName="schoolId">
+                        <mat-select formControlName="schoolId"
+                        (selectionChange)="clearDropdown('schoolId');getStandard(lang,studentFrm.value.schoolId);">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
@@ -68,7 +69,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number'|translate}}</mat-label>
                         <input matInput formControlName="parentsMobileNo" (keypress)="validation.onlyDigits($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)" maxlength="10">
+                            (keyup)="validation.noFirstSpaceAllow($event)" maxlength="10">
                         <mat-error *ngIf="f['parentsMobileNo']?.errors">
                             <span class="text-danger" *ngIf="f['parentsMobileNo'].hasError('pattern')">
                                 {{'student.please_enter_valid_mobile_Number' | translate}}
@@ -80,7 +81,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.saral_id'|translate}}</mat-label>
                         <input matInput formControlName="saralId" maxlength="20" (keypress)="validation.alphaNumeric($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keyup)="validation.noFirstSpaceAllow($event)">
                         <mat-error *ngIf="f['saralId']?.errors">
                             <span class="text-danger" *ngIf="f['saralId'].hasError('minlength')">
                                 {{'school.please_enter_atleast_2_alphanumeric'|translate}}
@@ -92,7 +93,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.first_name'|translate}}</mat-label>
                         <input matInput formControlName="f_Name" maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keyup)="validation.noFirstSpaceAllow($event)">
                         <mat-error *ngIf="f['f_Name']?.errors">
                           <span class="text-danger"
                                 *ngIf="f['f_Name'].hasError('minlength') && f['f_Name'].hasError('pattern')">
@@ -105,7 +106,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.middle_name'|translate}}</mat-label>
                         <input matInput formControlName="m_Name" maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keyup)="validation.noFirstSpaceAllow($event)">
                         <mat-error *ngIf="f['m_Name']?.errors">
                             <span class="text-danger"
                                 *ngIf="f['m_Name'].hasError('minlength') && f['m_Name'].hasError('pattern')">
@@ -118,7 +119,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.last_name'|translate}}</mat-label>
                         <input matInput formControlName="l_Name" maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
+                            (keyup)="validation.noFirstSpaceAllow($event)">
                         <mat-error *ngIf="f['l_Name']?.errors">
                            <span class="text-danger"
                                 *ngIf="f['l_Name'].hasError('minlength') && f['l_Name'].hasError('pattern')">
@@ -128,48 +129,27 @@
                     </mat-form-field>
                 </div>
                 <!-- marathi -->
-                <!-- <div class="col-sm-4">
+                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student.first_name'|translate}}</mat-label>
-                        <input matInput  formControlName="f_Name"
-                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['f_Name']?.errors">
-                           <span class="text-danger"
-                                *ngIf="f['f_Name'].hasError('minlength') && f['f_Name'].hasError('pattern')">
-                                {{'student.please_enter_valid_first_Name' | translate}}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="col-sm-4">
+                        <mat-label>{{'student.mar_first_name'|translate}}</mat-label>
+                        <input matInput  formControlName="f_Name_Mar"
+                        maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+                     </mat-form-field>
+                </div>
+                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student.middle_name'|translate}}</mat-label>
-                        <input matInput formControlName="castId"
-                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['m_Name']?.errors">
-                            <span class="text-danger"
-                                *ngIf="f['m_Name'].hasError('minlength') && f['m_Name'].hasError('pattern')">
-                                {{'student.please_enter_valid_middle_Name' | translate}}
-                            </span>
-                        </mat-error>
+                        <mat-label>{{'student.mar_middle_name'|translate}}</mat-label>
+                        <input matInput formControlName="m_Name_Mar"
+                        maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
                     </mat-form-field>
-                </div> -->
-                <!-- <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student.last_name'|translate}}</mat-label>
-                        <input matInput formControlName="l_Name"
-                            maxlength="20" (keypress)="validation.alphabetsWithSpaces($event)"
-                            (keyup)="validation.removeSpaceAtBegining($event)">
-                        <mat-error *ngIf="f['l_Name']?.errors">
-                           <span class="text-danger"
-                                *ngIf="f['l_Name'].hasError('minlength') && f['l_Name'].hasError('pattern')">
-                                {{'student.please_enter_valid_last_Name' | translate}}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
-                </div> -->
+                        <mat-label>{{'student.mar_last_name'|translate}}</mat-label>
+                        <input matInput formControlName="l_Name_Mar"
+                        maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+                     </mat-form-field>
+                </div>
 
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
@@ -192,7 +172,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.aadhar_card_number'|translate}}</mat-label>
-                        <input matInput formControlName="aadharNo" (keyup)="validation.removeSpaceAtBegining($event)"
+                        <input matInput formControlName="aadharNo" (keyup)="validation.noFirstSpaceAllow($event)"
                             (keypress)="validation.onlyDigits($event)" maxlength="12">
                         <mat-error *ngIf="f['aadharNo']?.errors">
                             <span class="text-danger" *ngIf="f['aadharNo'].hasError('pattern')">

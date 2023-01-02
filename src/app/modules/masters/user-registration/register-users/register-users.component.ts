@@ -27,6 +27,7 @@ export class RegisterUsersComponent {
   subjectArr=new Array();
   lang:string |any='English';
   loginData:any;
+  levelId!:number;
   get f(){return this.userRegistrationForm.controls}
   constructor(
     private webStorage:WebStorageService,
@@ -44,12 +45,12 @@ export class RegisterUsersComponent {
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
-    this.getUserForm();
-    this.getUserType();
-    this.getDistrict();
     this.data?this.addRemoveValidation():'';
   this.loginData=this.webStorage.getLoginData();
-  console.log(this.loginData.designationLevelId);
+  this.levelId=this.loginData.designationLevelId;
+  this.getUserForm();
+  this.getUserType();
+  this.getDistrict();
   }
 
   getUserForm() {
@@ -58,19 +59,19 @@ export class RegisterUsersComponent {
       designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
       designationId: [this.data?this.data.designationId:'', [Validators.required]],
       districtId: [this.data?this.data.districtId:1, [Validators.required]],
-      talukaId: [this.data?this.data.talukaId:'', [Validators.required]],
-      centerId: [this.data?this.data.centerId:'', [Validators.required]],
+      talukaId: [this.data?this.data.designationId:this.loginData.talukaId,[Validators.required]],
+      centerId: [this.data?this.data.centerId:this.loginData.centerId, [Validators.required]],
       schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
       agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data?this.data.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
-      standardModels: [this.data?this.data.standardId:[], [Validators.required]],
-      subjectModels: [this.data?this.data.subjectId:[], [Validators.required]]
+      standardModels: [Validators.required],
+      subjectModels: [Validators.required]
     })
-    console.log("class",this.data?.standardId,"subject",this.data?.subjectId)
-    this.userRegistrationForm.controls['standardModels'].setValue(this.data?.standardId.split(',').map(Number));
-    this.userRegistrationForm.controls['subjectModels'].setValue(this.data?.subjectId.split(',').map(Number));
+    // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.standardId? this.data?.standardId.split(',').map(Number):[]):[];
+    // this.data?this.userRegistrationForm.controls['standardModels'].setValue(this.data.subjectId? this.data?.subjectId.split(',').map(Number):[]):[];
+    console.log(this.loginData);
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type
@@ -292,7 +293,7 @@ registerUser(formDirective:any) {
       "isDeleted": false,
       "id":this.data?this.data.id:0,
       "name":this.userRegistrationForm.value.name,
-      "userName": "",
+      "userName": this.userRegistrationForm.value.mobileNo,
       "password": "",
       "mobileNo":this.userRegistrationForm.value.mobileNo,
       "stateId":this.userRegistrationForm.value.stateId?this.userRegistrationForm.value.stateId:0,

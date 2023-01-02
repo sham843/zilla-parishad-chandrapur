@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,6 +28,9 @@ export class DashboardComponent {
   piechartOptions: any;
   piechartSecondOptions: any;
   getSurveyedData: any;
+  globalTalId:any;
+  selNumber!:number;
+  getAssesmentData: any;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -47,14 +51,10 @@ export class DashboardComponent {
   }
 
   ngAfterViewInit() {
-    this.getBarChart();
     this.showSvgMap(this.commonMethods.mapRegions());
-    $(document).on('click', '#mapsvg  path', (e: any) => {
-      let getClickedId = e.currentTarget;
-      let distrctId = $(getClickedId).attr('id');
-      console.log(distrctId);
-    })
+    this.clickOnSvgMap();
   }
+
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
 
@@ -168,6 +168,8 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
+        this.getAssesmentDashboardDetails();
+        this.checkBoxChecked('default');
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -177,20 +179,50 @@ export class DashboardComponent {
     })
   }
 
+  getAssesmentDashboardDetails() {
+    let filterFormData = this.topFilterForm.value;
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=1`
+    this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.getAssesmentData = res.responseData;
+        this.getBarChart();
+      }
+      else {
+        this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
+
+  checkBoxChecked(label: any, val?: any) {
+    if (val) {
+      this.selNumber = label.target.checked ? this.selNumber + val : this.selNumber - val;
+    } else {
+      this.getSurveyedData.find((ele: any) => {
+        if (ele.text == '1st' && label == 'default') {
+          ele.checked = true;
+          this.selNumber = ele?.data
+        }
+      });
+    }
+  }
 
   //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//
 
   //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
   pieChart(data:any) {
     this.piechartOptions = {
-      series: [data[0].assesmentDetails[0].assesmentCalculationValue, data[0].assesmentDetails[1].assesmentCalculationValue],
+      series: [data[0]?.assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
       chart: {
         type: "donut",
         height: 250,
       },
-      labels: [data[0].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
+      labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
         position: "bottom",
+        fontSize: "11px"
       },
 
       responsive: [
@@ -216,6 +248,7 @@ export class DashboardComponent {
       labels: [data[1].assesmentDetails[0].assessmentParamenterName, data[0].assesmentDetails[1].assessmentParamenterName],
       legend: {
         position: "bottom",
+        fontSize: "11px"
       },
 
       responsive: [
@@ -235,6 +268,9 @@ export class DashboardComponent {
   }
 
   getBarChart() {
+    this.getAssesmentData.find((ele:any)=>{
+      console.log(ele)
+    })
     this.barchartOptions = {
       series: [
         [{
@@ -248,7 +284,8 @@ export class DashboardComponent {
         {
           name: "PRODUCT C",
           data: [11]
-        }],
+        }
+      ],
         [{
           name: "PRODUCT A",
           data: [24]
@@ -422,6 +459,30 @@ export class DashboardComponent {
       responsive: true
     });
     // });
+  }
+
+  clickOnSvgMap(flag?:string){
+    if(flag == 'select'){
+      let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
+      checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
+      this.svgMapAddOrRemoveClass();
+    }
+    
+    $(document).on('click', '#mapsvg  path', (e: any) => {
+      let getClickedId = e.currentTarget;
+      let talId = $(getClickedId).attr('id');
+      this.topFilterForm.controls['talukaId'].setValue(+talId);
+      this.svgMapAddOrRemoveClass();
+    })
+  }
+
+  svgMapAddOrRemoveClass(){
+    let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
+    checkTalActiveClass?  $('#mapsvg   path#' +this.globalTalId).removeClass("talActive") : '';
+    this.talukaArray.find(() => {
+      this.globalTalId = this.topFilterForm?.value?.talukaId;
+      $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
+    });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
   displayProfile(id:number){

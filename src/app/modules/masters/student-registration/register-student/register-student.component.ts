@@ -57,7 +57,6 @@ export class RegisterStudentComponent {
       this.onEdit()
     } else {
       this.getDistrict();
-      this.getStandard(this.lang);
       this.getGender(this.lang);
       this.getReligion(this.lang);
       this.getCaste(this.lang)
@@ -70,9 +69,9 @@ export class RegisterStudentComponent {
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
-      // "f_Name_Mar":[data?.f_Name_Mar || ''],
-      // "m_Name_Mar":[data?.m_Name_Mar || ''],
-      // "l_Name_Mar":[data?.l_Name_Mar || ''],
+      "f_Name_Mar":[data?.f_Name_Mar || ''],
+       "m_Name_Mar":[data?.m_Name_Mar || ''],
+       "l_Name_Mar":[data?.l_Name_Mar || ''],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
       "talukaId": [data?.talukaId || '', Validators.required],
       "centerId": [data?.centerId || '',[Validators.required]],
@@ -99,7 +98,6 @@ export class RegisterStudentComponent {
     this.editFlag = true;
     this.formData(this.data);
     this.getDistrict();
-    this.getStandard(this.lang);
     this.getReligion(this.lang);
     this.getGender(this.lang);
     this.getCaste(this.lang)
@@ -119,15 +117,15 @@ export class RegisterStudentComponent {
       case 'talukaId':
         this.studentFrm.controls['centerId'].setValue('');
         this.studentFrm.controls['schoolId'].setValue('');
-        // this.studentFrm.controls['standardId'].setValue(''); 
+         this.studentFrm.controls['standardId'].setValue(''); 
         break;
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
-        // this.studentFrm.controls['standardId'].setValue(''); 
+        this.studentFrm.controls['standardId'].setValue(''); 
         break;
-        // case 'schoolId':
-        //   this.studentFrm.controls['standardId'].setValue(''); 
-        //   break;
+         case 'schoolId':
+        this.studentFrm.controls['standardId'].setValue(''); 
+         break;
       }
   }
 
@@ -195,7 +193,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['schoolId'].setValue(this.data.schoolId) : '';
+          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId) , this.getStandard(this.lang,this.studentFrm.value.schoolId)): '';
         }
         else {
           this.schoolArray = [];
@@ -208,13 +206,13 @@ export class RegisterStudentComponent {
     })
   }
 
-  getStandard(strPara: string) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + strPara, false, false, false, 'baseUrl');
+  getStandard(strPara: string, schoolId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + strPara+ '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-            this.editFlag ?   this.studentFrm.controls['standardId'].setValue(this.data.standardId) : '';
+          this.editFlag ? this.studentFrm.controls['standardId'].setValue(this.data.standardId) : '';
         }
         else {
           this.standardArray = [];
@@ -226,6 +224,25 @@ export class RegisterStudentComponent {
       }
     })
   }
+
+  // getStandard(strPara: string) {
+  //   this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + strPara, false, false, false, 'baseUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200") {
+  //         this.standardArray = res.responseData;
+  //           this.editFlag ?   this.studentFrm.controls['standardId'].setValue(this.data.standardId) : '';
+  //       }
+  //       else {
+  //         this.standardArray = [];
+  //         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+  //     }
+  //   })
+  // }
 
   getGender(strPara: string) {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang=' + strPara, false, false, false, 'baseUrl');

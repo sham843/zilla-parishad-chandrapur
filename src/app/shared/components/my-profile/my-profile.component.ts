@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MasterService } from 'src/app/core/services/master.service';
 @Component({
   standalone: true,
   selector: 'app-my-profile',
@@ -45,10 +46,12 @@ export class MyProfileComponent {
   districtArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
+  schoolArr = new Array();
   subscription!: Subscription;
   lang!: string;
-  userId!: number;
   getObj: any;
+  levelId!:number;
+  imageFlag:boolean=false;
 
   constructor(
     public dialogRef: MatDialogRef<MyProfileComponent>,
@@ -59,26 +62,20 @@ export class MyProfileComponent {
     private service: ApiService,
     private error: ErrorsService,
     private webStorage: WebStorageService,
-    public validator: ValidationService
+    public validator: ValidationService,
+    private master:MasterService
   ) { }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.getFormData();
     this.getDataByID();
+    this.getFormData();
   }
   
-  getFormData() {
-   let  obj = this.getObj;
+  getFormData(obj?:any) {
     this.profileForm = this.fb.group({
-      createdBy: [this.webStorage.getUserId()],
-      modifiedBy: [this.webStorage.getUserId()],
-      createdDate: [new Date()],
-      modifiedDate: [new Date()],
-      isDeleted: true,
-      id: [obj?.id],
       mobileNo: [obj?.mobileNo || '', [Validators.required,Validators.pattern('[7-9]\\d{9}'),Validators.maxLength(10)]],
       emailId: [obj?.emailId || '', [Validators.required,Validators.email]],
       designationLevelId: [obj?.designationLevelId || '', [Validators.required]],
@@ -86,23 +83,23 @@ export class MyProfileComponent {
       districtId: [obj?.districtId || '', [Validators.required]],
       talukaId: [obj?.talukaId || '', [Validators.required]],
       centerId: [obj?.centerId || '', [Validators.required]],
+      schoolId:[obj?.centerId || '', [Validators.required]],
       profilePhoto: [obj?.profilePhoto || ''],
       name: [obj?.name || '', [Validators.required,Validators.pattern('^[a-zA-Z][a-zA-Z\\s]+$')]],
     })
     this.getObj ? this.getLevel() : '';
-    this.profileForm.controls['profilePhoto'].setValue(this.getObj?.profilePhoto);
-
+    this.ImgUrl =obj?.profilePhoto;
   }
 
   getDataByID() {
-    this.userId = this.commonMethod.getUserTypeID();
-    console.log("userId",this.userId);
-    this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id=' + this.userId + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    let Id = this.commonMethod.getUserID();
+    this.service.setHttp('get', 'zp_chandrapur/user-registration/GetById?Id=' + Id+ '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.getObj = res.responseData;
-          this.getFormData();
+          this.levelId =this.getObj.designationLevelId;
+          this.getFormData(this.getObj);
         } else {
           this.getObj = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -123,6 +120,7 @@ export class MyProfileComponent {
       if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
         reader.onload = (event: any) => {
+          this.imageFlag=true;
           this.ImgUrl = event.target.result;
         }
         reader.readAsDataURL(event.target.files[0]);
@@ -130,6 +128,7 @@ export class MyProfileComponent {
       }
     }
     else {
+      this.imageFlag=false;
       this.commonMethod.snackBar("Profile image allowed only jpg or png format", 1);
     }
 
@@ -139,7 +138,7 @@ export class MyProfileComponent {
     if (this.profileForm.invalid) {
       return
     }
-    this.ImgUrl ? this.fileUploaded() : this.submitProfileData();
+    this.ImgUrl && this.imageFlag==true ? this.fileUploaded() : this.submitProfileData();
   }
 
   fileUploaded() {
@@ -162,6 +161,7 @@ export class MyProfileComponent {
   deleteImg() {
     this.file = "";
     this.ImgUrl = '';
+    this.imageFlag=false;
     this.fileInput.nativeElement.value = '';
     this.profileForm.controls['profilePhoto'].setValue('');
   }
@@ -258,10 +258,24 @@ export class MyProfileComponent {
       }
     })
   }
+
+  getSchoolName(centerId:number) {    //get school
+    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
+      this.schoolArr=res.responseData;
+    })
+  }
+
   // zp_chandrapur/user-registration/AddRecord
   submitProfileData() {
-    let formObj = this.profileForm.value;
-    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, formObj, false, 'baseUrl');
+    let obj;
+    obj=this.profileForm.value;
+    obj.createdBy=this.webStorage.getUserId();
+    obj.modifiedBy=this.webStorage.getUserId();
+    obj.createdDate=new Date();
+    obj.modifiedDate=new Date();
+    obj.isDeleted=false,
+    obj.id=this.getObj.id,
+    this.service.setHttp('put', 'zp_chandrapur/user-registration/UpdateUserProfile', false, obj, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
