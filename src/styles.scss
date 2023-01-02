@@ -338,3 +338,6 @@ a.text-main,
 .inner-table thead th{
   background-color: var(--main-light-color);
 }
+.mapsvg-scrollpane svg {
+  margin-top: -75px !important;
+}

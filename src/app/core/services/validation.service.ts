@@ -12,7 +12,7 @@ export class ValidationService {
   mobile_No = ('[6-9]\\d{9}');
   age = ('[0-9]{2,}|[5-9]{1}$');
   aadhar_card = ('^[2-9][0-9]{11}$');
-  alphabetsAndNumber = ('^[a-zA-Z0-9\\s]+$');
+  alphabetsAndBracket= ('^[a-zA-Z() ]+$');
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
