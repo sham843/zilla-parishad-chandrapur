@@ -111,8 +111,8 @@
                 <h6 class="mb-0">नकाशा</h6>
             </mat-card-header>
             <mat-card-content class="card-body">
-                <div id="mapsvg" class="text-center">
-                    <img src="assets/chandrapur_dist.svg" style="height: 200px;" class="">
+                <div id="mapsvg" class="text-center" >
+                    <!-- <img src="assets/chandrapur_dist.svg" style="height: 200px;" class=""> -->
                 </div>
             </mat-card-content>
         </mat-card>
@@ -124,9 +124,9 @@
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
-                            <apx-chart [series]="piechartOptions.series" [legend]="piechartOptions?.legend"
-                                [chart]="piechartOptions.chart" [labels]="piechartOptions.labels"
-                                [responsive]="piechartOptions.responsive"></apx-chart>
+                            <apx-chart [series]="piechartOptions?.series" [legend]="piechartOptions?.legend"
+                                [chart]="piechartOptions?.chart" [labels]="piechartOptions?.labels"
+                                [responsive]="piechartOptions?.responsive"></apx-chart>
                         </div>
                     </mat-card-content>
                 </mat-card></div>
@@ -136,9 +136,9 @@
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
-                            <apx-chart [series]="piechartSecondOptions.series" [legend]="piechartSecondOptions?.legend"
-                                [chart]="piechartSecondOptions.chart" [labels]="piechartSecondOptions.labels"
-                                [responsive]="piechartSecondOptions.responsive"></apx-chart>
+                            <apx-chart [series]="piechartSecondOptions?.series" [legend]="piechartSecondOptions?.legend"
+                                [chart]="piechartSecondOptions?.chart" [labels]="piechartSecondOptions?.labels"
+                                [responsive]="piechartSecondOptions?.responsive"></apx-chart>
                         </div>
                     </mat-card-content>
                 </mat-card></div>
