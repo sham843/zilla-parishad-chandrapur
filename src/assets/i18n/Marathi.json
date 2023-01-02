@@ -250,7 +250,8 @@
         "rural":"ग्रामीण",
         "please_enter_id":"कृपया आयडी टाका",
         "please_enter_school_address":"कृपया शाळेचा पत्ता प्रविष्ट करा",
-        "please_select_school_location_type":"कृपया शाळा स्थान प्रकार निवडा"
+        "please_select_school_location_type":"कृपया शाळा स्थान प्रकार निवडा",
+        "school_address":"शाळेचा पत्ता"
     },
     "header": {
         "profile_name": "श्री सुनील राजाराम शिंदे",
