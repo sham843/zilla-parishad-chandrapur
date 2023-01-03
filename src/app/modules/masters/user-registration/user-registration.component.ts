@@ -31,6 +31,7 @@ export class UserRegistrationComponent {
   talukaArray = new Array();
   centerArray = new Array();
   schoolArray = new Array();
+  
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -82,8 +83,7 @@ export class UserRegistrationComponent {
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
-      this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId):'';
-      this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
+      this.levelId==4 || this.levelId==5 ? (this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId), this.getSchoolList(this.loginData.centerId)):'';
     })
   }
   getSchoolList(centerId: number) {
@@ -121,9 +121,9 @@ export class UserRegistrationComponent {
       this.spinner.hide();
         this.tableDataArray = [];
         this.totalItem = 0;
-        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) :'';
+        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
        } 
-       flag != 'excel' ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+       flag != 'excel' && this.tableDataArray ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
          error: ((err: any) => { this.errors.handelError(err) })
      })

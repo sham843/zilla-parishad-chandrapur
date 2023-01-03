@@ -357,3 +357,6 @@ a.text-main,
 .apexcharts-legend.apx-legend-position-right{
   width: 100px;
 }
+button[disabled] {
+  opacity: 0.4;
+}
