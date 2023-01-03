@@ -24,7 +24,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId" 
-                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');(userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5)?getKendra(userRegistrationForm.value.talukaId):'';userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):'';userRegistrationForm.value.designationLevelId==5?getSchoolName(userRegistrationForm.value.centerId):''">
+                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>

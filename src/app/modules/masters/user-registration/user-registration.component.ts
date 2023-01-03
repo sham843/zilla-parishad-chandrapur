@@ -51,6 +51,7 @@ export class UserRegistrationComponent {
     })
     this.loginData=this.webStorage.getLoginData();
     this.levelId=this.loginData.designationLevelId;
+    console.log(this.loginData);
     this.getFormControl();
     this.getAllUserData();
     this.getUserType();
@@ -59,9 +60,9 @@ export class UserRegistrationComponent {
   getFormControl() {
     this.serachUserForm = this.fb.group({
       UserTypeId: [''],
-      TalukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:''],
-      CenterId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:''],
-      SchoolId: [this.levelId==5 ?this.loginData.SchoolId:''],
+      TalukaId: [''],
+      CenterId: [''],
+      SchoolId: [''],
       textSearch: [''],
     })
   }
@@ -74,18 +75,21 @@ export class UserRegistrationComponent {
   getTaluka() {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
+      this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['TalukaId'].setValue(this.loginData.talukaId):'';
+      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
     })
-    this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
   }
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
+      this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId):'';
+      this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
     })
-    this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
   }
   getSchoolList(centerId: number) {
     this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
       this.schoolArray = res.responseData;
+      this.levelId==5 ?this.serachUserForm.controls['SchoolId'].setValue(this.loginData.schoolId):'';
     })
   }
   //#endregion---------------------------------------dropdown method end--------------------------------------------------------------------
