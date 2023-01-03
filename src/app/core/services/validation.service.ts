@@ -82,7 +82,7 @@ export class ValidationService {
   }
 
   alphaNumericWithSpacesAndSpecChars(event: any) {
-    const maskSeperator = new RegExp('^([a-zA-Z0-9(,)+-@#$])', 'g');
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 (,)+-@#$])', 'g');
     return maskSeperator.test(event.key);
   }
   noSpaceAllow(event: any) {  // for All Space Not Allow
