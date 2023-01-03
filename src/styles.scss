@@ -369,3 +369,9 @@ button[disabled] {
 .ml-45{
   margin-left: -80px;
 }
+
+.w-mat-form-field .mat-mdc-text-field-wrapper {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 1px 5px #46464629;
+}
