@@ -54,7 +54,7 @@
     text-align: center;
     border-left: solid 5px transparent;
   }
-  .sidebar .nav-links li:hover{
+  .sidebar .nav-links li:hover, .sidebar .nav-links li.active{
     background: var(--main-light-color);
     border-left: solid 5px var(--main-color);
   }
