@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,9 +23,12 @@ export class DesignationMasterComponent {
   pageNumber: number = 1;
   searchdesignationLvl = new FormControl('');
   desigantionLevelArray = new Array();
+  _designationLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
   userLoginDesignationLevelId!:number;
+  @ViewChild('multiUserSearch')
+  multiUserSearchInput!: ElementRef;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
@@ -45,13 +48,25 @@ export class DesignationMasterComponent {
 
   clearFilter() {
     this.searchdesignationLvl.reset();
+    this.multiUserSearchInput.nativeElement.value= '';
+    this.desigantionLevelArray = this._designationLevelArray;
     this.getTableData();
   }
 
   getDesignationLevel() {//error handling / handled in masters table
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevelArray = res.responseData;
+      this._designationLevelArray = res.responseData;
     })
+  }
+
+  onInputChange(){
+    // console.log(this.multiUserSearchInput.nativeElement.value,'value1');
+    const searchInput = this.multiUserSearchInput.nativeElement.value ? this.multiUserSearchInput.nativeElement.value.toLowerCase() : '';
+    this.desigantionLevelArray = this._designationLevelArray.filter(u => {
+       const designationLevel:String = u.desingationLevel.toLowerCase();
+       return designationLevel.indexOf(searchInput) > -1
+    }) 
   }
 
   getTableData(flag?: string) {

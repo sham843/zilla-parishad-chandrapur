@@ -17,7 +17,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class RegisterStudentComponent {
   studentFrm!: FormGroup;
-  lang: string  = 'English';
+  lang: string = 'English';
   districtArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
@@ -25,15 +25,16 @@ export class RegisterStudentComponent {
   standardArray = new Array();
   genderArray = new Array();
   religionArray = new Array();
-  casteArray=new Array();
+  casteArray = new Array();
   @ViewChild('formDirective')
   private formDirective!: NgForm;
   editFlag: boolean = false;
   addData: any;
   todayDate = new Date();
   subscription!: Subscription;
-  loginData:any;
-  levelId!:number;
+  loginData: any;
+  levelId!: number;
+  disabledTaluka: boolean = false;
   constructor(
     private apiService: ApiService,
     private errorService: ErrorsService,
@@ -52,10 +53,12 @@ export class RegisterStudentComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
-    this.loginData=this.webStorage.getLoginData();
-   this.levelId=this.loginData.designationLevelId;
+    this.loginData = this.webStorage.getLoginData();
+    console.log(this.loginData);
+
+    this.levelId = this.loginData.designationLevelId;
     this.formData();
-    
+
     if (this.data) {
       this.onEdit()
     } else {
@@ -65,34 +68,34 @@ export class RegisterStudentComponent {
       this.getCaste()
     }
   }
-   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
-   formData(data?: any) {
+  //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
+  formData(data?: any) {
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
-      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
-      "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
-      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
-      "f_Name_Mar":[data?.f_Name_Mar || '' ,[Validators.pattern(this.validation.marathi)]],
-       "m_Name_Mar":[data?.m_Name_Mar || '',[Validators.pattern(this.validation.marathi)]],
-       "l_Name_Mar":[data?.l_Name_Mar || '',[Validators.pattern(this.validation.marathi)]],
+      "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
+      "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
+      "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
+      "f_Name_Mar": [data?.f_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
+      "m_Name_Mar": [data?.m_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
+      "l_Name_Mar": [data?.l_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
-      "talukaId": [data?.talukaId || this.loginData.talukaId, Validators.required],
-      "centerId": [data?.centerId || this.loginData.centerId,[Validators.required]],
-      "schoolId": [data?.schoolId || this.loginData.schoolId,[Validators.required]],
+      "talukaId": [data?.talukaId || '', Validators.required],
+      "centerId": [data?.centerId || '', [Validators.required]],
+      "schoolId": [data?.schoolId || '', [Validators.required]],
       "standardId": [data?.standardId || ''],
-      "saralId": [data?.saralId || '', [Validators.required,Validators.minLength(2)]],
+      "saralId": [data?.saralId || '', [Validators.required, Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
       "dob": [data?.dob || ''],
-      "aadharNo": [data?.aadharNo || '',[Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": [data?.aadharNo || '', [Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || ''],
       "castId": [data?.castId || ''],
-      "parentsMobileNo": [data?.parentsMobileNo || '',[Validators.pattern(this.validation.mobile_No)]],
+      "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
       "emailId": [''],
     })
   }
-  
+
   get f() {
     return this.studentFrm.controls;
   }
@@ -108,14 +111,12 @@ export class RegisterStudentComponent {
 
   clearForm() {
     this.formDirective.resetForm();
-    this.data=null;
+    this.data = null;
     this.formData();
-    this.levelId==3 || this.levelId==4 || this.levelId==5?this.getTaluka(1):'';
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
-   
-
+    this.getDistrict();
   }
 
   clearDropdown(flag: any) {
@@ -124,16 +125,16 @@ export class RegisterStudentComponent {
       case 'talukaId':
         this.studentFrm.controls['centerId'].setValue('');
         this.studentFrm.controls['schoolId'].setValue('');
-         this.studentFrm.controls['standardId'].setValue(''); 
+        this.studentFrm.controls['standardId'].setValue('');
         break;
       case 'centerId':
         this.studentFrm.controls['schoolId'].setValue('');
-        this.studentFrm.controls['standardId'].setValue(''); 
+        this.studentFrm.controls['standardId'].setValue('');
         break;
-         case 'schoolId':
-        this.studentFrm.controls['standardId'].setValue(''); 
-         break;
-      }
+      case 'schoolId':
+        this.studentFrm.controls['standardId'].setValue('');
+        break;
+    }
   }
 
   //#endregion -----------------------------------------------------form Fun end heare ---------------------------------------------------//
@@ -153,7 +154,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
@@ -164,6 +165,7 @@ export class RegisterStudentComponent {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
           this.editFlag ? (this.studentFrm.controls['talukaId'].setValue(this.data.talukaId), this.getCenter(this.studentFrm.value.talukaId)) : '';
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.loginData.talukaId), this.disabledTaluka = true, this.getCenter(this.loginData.talukaId)) : ''
         }
         else {
           this.talukaArray = [];
@@ -171,10 +173,9 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
-    })
-    this.levelId==4 || this.levelId==5? this.getCenter(this.loginData.talukaId):'';
+    });
   }
 
   getCenter(talukaId: number) {
@@ -183,6 +184,7 @@ export class RegisterStudentComponent {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
           this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
+          this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.loginData.centerId), this.getSchool(this.loginData.centerId)) : '';
         }
         else {
           this.centerArray = [];
@@ -190,10 +192,9 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
-    this.levelId==4 || this.levelId==5? this.getSchool(this.loginData.centerId):'';
   }
 
   getSchool(centerId: number) {
@@ -202,7 +203,8 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId) , this.getStandard(this.studentFrm.value.schoolId)): '';
+          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId), this.getStandard(this.studentFrm.value.schoolId)) : '';
+          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) : this.studentFrm.controls['schoolId'].setValue('');
         }
         else {
           this.schoolArray = [];
@@ -210,13 +212,13 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
 
   getStandard(schoolId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang+ '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -229,12 +231,12 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
 
-  
+
 
   getGender() {
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang=' + this.lang, false, false, false, 'baseUrl');
@@ -250,7 +252,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
@@ -261,7 +263,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-       this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
+          this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
         }
         else {
           this.religionArray = [];
@@ -269,7 +271,7 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
@@ -288,14 +290,15 @@ export class RegisterStudentComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+        this.errorService.handelError(error.status);
       }
     })
   }
   //#endregion -----------------------------------------------------dropdown fun end heare ----------------------------------------//
 
- 
+
   onClickSubmit() {
+    console.log("this.studentFrm", this.studentFrm.value)
     if (!this.studentFrm.valid) {
       return;
     } else {
@@ -304,11 +307,11 @@ export class RegisterStudentComponent {
       let obj = {
         "createdBy": !this.editFlag ? this.webStorage.getUserId() : this.data.createdBy,
         "modifiedBy": this.webStorage.getUserId(),
-        "createdDate": !this.editFlag ? new Date() :  this.data.createdDate,
+        "createdDate": !this.editFlag ? new Date() : this.data.createdDate,
         "modifiedDate": new Date(),
         "isDeleted": false,
       }
-      let mainData = { ...obj, ...data};
+      let mainData = { ...obj, ...data };
       let url;
       this.data ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
       this.apiService.setHttp(this.data ? 'put' : 'post', url, false, mainData, false, 'baseUrl');
