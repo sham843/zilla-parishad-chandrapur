@@ -181,7 +181,7 @@ setTableData(){     // table
   //#region----------------------------------------------------------Delete modal start-------------------------------------------------------------
   deleteDialog(deleteObj: any) {
     const dialog = this.dialog.open(GlobalDialogComponent, {
-      width: '700px',
+      width: '350px',
       disableClose: true,
       data:{
         p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',

@@ -46,7 +46,6 @@ export class AgencyRegistrationComponent {
   }
   //--------------------------------------------------------get agency data-----------------------------------------------------------
   getAllAgencyData(flag?: string) {
-    // flag == 'excel' && this.totalItem ? (this.pageNumber = 1, this.pageSize = this.totalPages * 10) :
     flag == 'filter' ? this.pageNumber = 1 :'';
     this.spinner.show();
     let serchText = this.searchControl.value ? this.searchControl.value : ''
@@ -66,7 +65,7 @@ export class AgencyRegistrationComponent {
           this.tableDataArray = []
           this.totalItem = 0
         }
-        flag != 'excel' ? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+        flag != 'excel' && this.tableDataArray? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
@@ -76,7 +75,7 @@ export class AgencyRegistrationComponent {
     let displayedColumns;
     this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
-    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमांक', 'एनजीओ/एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO/ Agency Name', 'Contact No', 'Email Id', 'Action']
+    this.language == 'Marathi' ? displayedheaders = ['अनुक्रमांक', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO Name', 'Contact No', 'Email Id', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
       highlightedRow: '',
@@ -112,7 +111,7 @@ export class AgencyRegistrationComponent {
       width: '850px',
       disableClose: true,
       data: {
-        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ/एजन्सी' : 'Update NGO/Agency') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ/एजन्सी' : 'Register NGO/Agency'),
+        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'Register NGO'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
@@ -127,7 +126,7 @@ export class AgencyRegistrationComponent {
   //----------------------------------------------------delete functionality---------------------------------------------------------
   deleteAgencyModalOpen(obj?: any) {
     const dialog = this.dialog.open(GlobalDialogComponent, {
-      width: '750px',
+      width: '350px',
       disableClose: true,
       data: {
         p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected Agency?',
@@ -165,16 +164,20 @@ export class AgencyRegistrationComponent {
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
+  }
 
+  clearSearch(){
+    this.searchControl.setValue('');
+    this.getAllAgencyData();
   }
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
 
    excelDownload() {
     this.getAllAgencyData('excel');
     let pageName: any;
-    this.language == 'Marathi' ? pageName = 'एनजीओ एजन्सी नोंदणी' : pageName = 'Agency Registration';
+    this.language == 'Marathi' ? pageName = 'एनजीओ नोंदणी' : pageName = 'NGO Registration';
     let header: any;
-    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एजन्सीचे नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'Agency Name', 'Contact No.', 'Email Id'];
+    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'NGo Name', 'Contact No.', 'Email Id'];
     let column: any;
     this.language == 'Marathi' ? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}

@@ -112,6 +112,11 @@ export class SchoolRegistrationComponent {
       schoolName: ['']
     });
     this.centerArray = [];
+    this.pageNumber = 1
+    console.log(this.loginData);
+    
+    this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
+    this.getCenter()
     this.getTableData();
   }
 

@@ -24,6 +24,7 @@ export class AddDesignationComponent {
   desigantionType = new Array();
   setDesignationLevel = new Array();
   userLoginDesignationLevelId!: number;
+  addDesignationFlag!:boolean;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(private fb: FormBuilder, public commonMethod: CommonMethodsService, private apiService: ApiService, public validation: ValidationService,
@@ -74,6 +75,7 @@ export class AddDesignationComponent {
     formDirective?.resetForm();
     this.data = null;
     this.editFlag = false;
+    this.addDesignationFlag = false;
     this.desigantionType = [];
     this.setDesignationLevel = [];
     this.controlForm();
@@ -128,6 +130,10 @@ export class AddDesignationComponent {
         }
       }, error: ((err: any) => { this.errorHandler.handleError(err) })
     })
+  }
+
+  addDesignationCond(){
+    this.addDesignationFlag = true;
   }
   //#endregion---------------------------------------------dropdown api's end---------------------------------------------------
 
