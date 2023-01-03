@@ -83,6 +83,7 @@ getTaluka() {
       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
     }
   })
+  this.levelId==4 || this.levelId==5 ? this.getCenter():'';
 }
 
 getCenter() {
@@ -101,6 +102,7 @@ getCenter() {
       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
     }
   })
+  this.levelId==4 || this.levelId==5 ? this.getSchool():'';
 }
 
 getSchool() {
@@ -137,6 +139,7 @@ clearDropdown(flag: any) {
 clearForm() {
   this.filterFrm.reset();
   this.formData();
+  this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.getTaluka():'';
   this.centerArray=[];
   this.schoolArray = [];
   this.getTableData('filter');
