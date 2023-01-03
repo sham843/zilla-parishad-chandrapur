@@ -143,7 +143,6 @@ export class RegisterUsersComponent {
       this.schoolArr=res.responseData;
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
       this.data && this.userRegistrationForm.value.designationLevelId==5?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
-      // this.userRegistrationForm.value.designationLevelId==5?this.getAllClassGroup(this.userRegistrationForm.value.schoolId):'';
     })
   }
 
@@ -249,7 +248,6 @@ clearValidation(formControl:any){
  //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
 registerUser(formDirective:any) {
     if(this.userRegistrationForm.invalid){
-      alert();
         return;
     }
     else{
