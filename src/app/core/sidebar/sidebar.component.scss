@@ -54,7 +54,7 @@
     text-align: center;
     border-left: solid 5px transparent;
   }
-  .sidebar .nav-links li:hover{
+  .sidebar .nav-links li:hover, .sidebar .nav-links li.active{
     background: var(--main-light-color);
     border-left: solid 5px var(--main-color);
   }
@@ -139,6 +139,8 @@
   .sidebar.close .nav-links li .sub-menu li a{
     padding: 10px 20px;
   }
+  .sidebar.close .nav-links li .sub-menu li a:active,
+  .sidebar.close .nav-links li .sub-menu li a.active,
   .sidebar.close .nav-links li .sub-menu li a:hover{
     color:var(--main-color);
   }

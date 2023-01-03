@@ -14,7 +14,7 @@
 
             <div class="row gy-2">
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.district'|translate}}</mat-label>
                         <mat-select [class.disabled]="studentFrm.value.districtId" formControlName="districtId"
                             (selectionChange)="getTaluka(this.studentFrm.value.districtId)">
@@ -25,7 +25,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.taluka'|translate}}</mat-label>
                         <mat-select formControlName="talukaId"
                             (selectionChange)="clearDropdown('talukaId');getCenter(studentFrm.value.talukaId);">
@@ -36,10 +36,10 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 "
-                        [class.disabled-contenct]="!studentFrm.value.talukaId">
+                        [class.disabled-contenct]="!studentFrm.value.talukaId || this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.kendra'|translate}}</mat-label>
                         <mat-select formControlName="centerId"
-                            (selectionChange)="clearDropdown('centerId');getSchool(lang,studentFrm.value.centerId);">
+                            (selectionChange)="clearDropdown('centerId');getSchool(studentFrm.value.centerId);">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
@@ -50,7 +50,7 @@
                         [class.disabled-contenct]="!studentFrm.value.centerId">
                         <mat-label>{{'common.school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId"
-                        (selectionChange)="clearDropdown('schoolId');getStandard(lang,studentFrm.value.schoolId);">
+                        (selectionChange)="clearDropdown('schoolId');getStandard(studentFrm.value.schoolId);">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>

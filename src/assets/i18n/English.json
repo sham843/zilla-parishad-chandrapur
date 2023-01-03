@@ -248,7 +248,8 @@
         "rural":"Rural",
         "please_enter_id":"Please Enter Id",
         "please_enter_school_address":"Please Enter School Address",
-        "please_select_school_location_type":"Please Select School Location Type"
+        "please_select_school_location_type":"Please Select School Location Type",
+        "school_address":"School Address"
       },
       "header":{
         "profile_name":"Mr. Sunil Rajaram Shinde",
