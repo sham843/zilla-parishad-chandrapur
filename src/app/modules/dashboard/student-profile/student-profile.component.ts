@@ -122,12 +122,11 @@ export class StudentProfileComponent {
       next: (res: any) => {
          if (res.statusCode == "200") {
           this.StudentDataArray = res.responseData;
+          this.StudentDataArray.f_Name1 =  this.StudentDataArray.m_Name + ' ' +  this.StudentDataArray.l_Name
           this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
           this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
           this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
-         /*  this.StudentDataArray?.map((ele: any) => {
-            ele.fatherName = ele.m_Name + ' ' + ele.l_Name;
-          }) */
+         
          } 
          else {
           this.StudentDataArray = [];
