@@ -93,7 +93,7 @@ export class ExcelPdfDownloadService {
       worksheet.getColumn(index).width = header[index - 1].length < 20 ? 20 : header[index - 1].length;
       worksheet.getColumn(1).width = 15;
       worksheet.getColumn(3).width = 20;
-      worksheet.getColumn(4).width = 50;
+      worksheet.getColumn(4).width = 80;
     });
 
     //Add Data Conditional Formating

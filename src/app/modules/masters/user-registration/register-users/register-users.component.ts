@@ -140,11 +140,10 @@ export class RegisterUsersComponent {
 
   getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
-      // 2370
       this.schoolArr=res.responseData;
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
       this.data && this.userRegistrationForm.value.designationLevelId==5?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
-      this.userRegistrationForm.value.designationLevelId==5?this.getAllClassGroup(this.userRegistrationForm.value.schoolId):'';
+      // this.userRegistrationForm.value.designationLevelId==5?this.getAllClassGroup(this.userRegistrationForm.value.schoolId):'';
     })
   }
 
