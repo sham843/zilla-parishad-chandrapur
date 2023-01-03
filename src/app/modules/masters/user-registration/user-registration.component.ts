@@ -18,11 +18,13 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 })
 export class UserRegistrationComponent {
   serachUserForm!: FormGroup;
-  tableData: any
+  tableData: any;
+  loginData: any;
   tableDataArray = new Array();
   totalItem!: number;
   totalPages!: number;
   pageNumber: number = 1;
+  levelId!: number;
   excelDowobj:any;
   lang: string = '';
   userTypeArray = new Array();
@@ -47,6 +49,9 @@ export class UserRegistrationComponent {
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
       this.setTableData();
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+    console.log("levelId",this.levelId)
     this.getFormControl();
     this.getAllUserData();
     this.getUserType();
@@ -55,9 +60,9 @@ export class UserRegistrationComponent {
   getFormControl() {
     this.serachUserForm = this.fb.group({
       UserTypeId: [''],
-      TalukaId: [''],
-      CenterId: [''],
-      SchoolId: [''],
+      TalukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:''],
+      CenterId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:''],
+      SchoolId: [this.levelId==5 ?this.loginData.SchoolId:''],
       textSearch: [''],
     })
   }
@@ -71,11 +76,13 @@ export class UserRegistrationComponent {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
     })
+    this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
   }
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
     })
+   this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
   }
   getSchoolList(centerId: number) {
     this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
@@ -219,13 +226,13 @@ setTableData(){     // table
 
   clearAllFilter(){
       this.serachUserForm.controls['UserTypeId'].setValue('');
-      this.serachUserForm.controls['TalukaId'].setValue('');
-      this.serachUserForm.controls['CenterId'].setValue('');
-      this.serachUserForm.controls['SchoolId'].setValue('');
+      this.serachUserForm.controls['TalukaId'].setValue(this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:'');
+      this.serachUserForm.controls['CenterId'].setValue(this.levelId==4 || this.levelId==5 ?this.loginData.centerId:'');
+      this.serachUserForm.controls['SchoolId'].setValue(this.levelId==5 ?this.loginData.SchoolId:'');
       this.serachUserForm.controls['textSearch'].setValue('');
       this.centerArray=[];
       this.schoolArray=[];
-      this.getAllUserData();
+      this.getAllUserData();this.getTaluka()
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 
