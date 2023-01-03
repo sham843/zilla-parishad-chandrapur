@@ -362,6 +362,7 @@ export class DashboardComponent {
       },
       bar: {
         horizontal: true,
+        columnWidth: "10%",
         barHeight: '80%',
         borderRadiusOnAllStackedSeries: true,
       },
@@ -379,14 +380,16 @@ export class DashboardComponent {
       xaxis: {
         labels: {
           show: false,
+          
         },
         categories: ['2022']
       },
       
       yaxis: {
-        show: false,
+        show: true,
         showAlways: false,
         floating: false,
+    
         axisTicks: {
           show: false
         },
@@ -394,7 +397,8 @@ export class DashboardComponent {
           show: false
         },
         labels: {
-          show: false
+          show: false,
+       
         },
       },
       fill: {
