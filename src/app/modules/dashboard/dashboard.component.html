@@ -10,7 +10,7 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Year</mat-label>
                 <mat-select formControlName="year">
-                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
+                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.year">
                         {{year.year}}
                     </mat-option>
                 </mat-select>
@@ -20,9 +20,10 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>तालुका निवडा</mat-label>
 
-                <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
+                <mat-select formControlName="talukaId"
+                    (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
-                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.year">
+                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                         {{tal.taluka}}
                     </mat-option>
                 </mat-select>
@@ -31,7 +32,8 @@
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>केंद्र निवडा</mat-label>
-                <mat-select formControlName="kendraId" [disabled]="topFilterForm.value.talukaId==0 ? true : false"
+                <mat-select formControlName="kendraId"
+                    [disabled]="topFilterForm.value.talukaId==0 ? true : enbCenterDropFlag ? true: false"
                     (selectionChange)="getSchools();cardCountData();">
                     <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                         {{cen.center}}
@@ -42,7 +44,7 @@
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>शाळा निवडा</mat-label>
-                <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId"
+                <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId || enbSchoolDropFlag"
                     (selectionChange)="cardCountData()">
                     <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
                         {{schools.schoolName}}
@@ -63,35 +65,7 @@
     </div>
 </form>
 <div class="row mb-3" id="dash-stats">
-    <div class="col-sm-3">
-        <div class="card card-body bg-blue h-100">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="position-relative">
-                    <img src="assets/images/statistical-icons/School-white.svg" class="bg-image">
-                    <p>School</p>
-                    <h3>{{cardInfoData?.totalSchools}}</h3>
-                </div>
-                <div class="right-img">
-                    <img src="assets/images/statistical-icons/School.svg">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card card-body bg-cyan h-100">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="position-relative">
-                    <img src="assets/images/statistical-icons/Teacher-white.svg" class="bg-image">
-                    <p>Teachers</p>
-                    <h3>{{cardInfoData?.totalTeachers}}</h3>
-                </div>
-                <div class="right-img">
-                    <img src="assets/images/statistical-icons/Teacher.svg">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
+    <div [ngClass]="{'col-sm-6':topFilterForm.value.schoolId, 'col-sm-3':topFilterForm.value.schoolId==0}">
         <div class="card card-body bg-voilet h-100">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
@@ -105,7 +79,35 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div [ngClass]="{'col-sm-6':topFilterForm.value.schoolId, 'col-sm-3':topFilterForm.value.schoolId ==0}">
+        <div class="card card-body bg-cyan h-100">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="position-relative">
+                    <img src="assets/images/statistical-icons/Teacher-white.svg" class="bg-image">
+                    <p>Teachers</p>
+                    <h3>{{cardInfoData?.totalTeachers}}</h3>
+                </div>
+                <div class="right-img">
+                    <img src="assets/images/statistical-icons/Teacher.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'d-none':topFilterForm.value.schoolId, 'col-sm-3':topFilterForm.value.schoolId ==0}">
+        <div class="card card-body bg-blue h-100">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="position-relative">
+                    <img src="assets/images/statistical-icons/School-white.svg" class="bg-image">
+                    <p>School</p>
+                    <h3>{{cardInfoData?.totalSchools}}</h3>
+                </div>
+                <div class="right-img">
+                    <img src="assets/images/statistical-icons/School.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'d-none':topFilterForm.value.schoolId, 'col-sm-3':topFilterForm.value.schoolId ==0}">
         <div class="card card-body bg-magenta h-100">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
@@ -138,26 +140,27 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                      <small>  Meaning of English words</small>
+                        <small> Meaning of English words</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
                             <apx-chart [series]="piechartOptions?.series" [legend]="piechartOptions?.legend"
                                 [chart]="piechartOptions?.chart" [labels]="piechartOptions?.labels"
-                                [responsive]="piechartOptions?.responsive"></apx-chart>
+                                [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
                     </mat-card-content>
                 </mat-card>
             </div>
             <div class="col-sm-6"> <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <small>  Meaning of  English sentence</small>
+                        <small> Meaning of English sentence</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
                             <apx-chart [series]="piechartSecondOptions?.series" [legend]="piechartSecondOptions?.legend"
                                 [chart]="piechartSecondOptions?.chart" [labels]="piechartSecondOptions?.labels"
-                                [responsive]="piechartSecondOptions?.responsive"></apx-chart>
+                                [responsive]="piechartSecondOptions?.responsive"
+                                [fill]="piechartSecondOptions?.fill"></apx-chart>
                         </div>
                     </mat-card-content>
                 </mat-card></div>
@@ -194,8 +197,7 @@
                         </table>
                     </div>
                     <div class="d-flex ml-45">
-                        <div class="border-end pt-5"
-                        *ngFor="let barchart of barchartOptions?.series; let i = index">
+                        <div class="border-end pt-5" *ngFor="let barchart of barchartOptions?.series; let i = index">
                             <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
                             <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
                                 [plotOptions]="barchartOptions?.plotOptions" [responsive]="barchartOptions?.responsive"
@@ -220,7 +222,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Select Subject</mat-label>
                             <mat-select>
-                                <mat-option *ngFor="let subjects of getAllSubjectArray">{{subjects?.subject}}</mat-option>
+                                <mat-option
+                                    *ngFor="let subjects of getAllSubjectArray">{{subjects?.subject}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -229,36 +232,39 @@
             <mat-card-content class="card-body">
                 <table class="table">
                     <thead>
-                      <tr>
-                        <th scope="col">Sr. No.</th>
-                        <th scope="col">Taluka</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Total Students</th>
-                        <th scope="col">Evaluated</th>
-                        <th scope="col">Pending Assessment</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Taluka</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Total Students</th>
+                            <th scope="col">Evaluated</th>
+                            <th scope="col">Pending Assessment</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Ballarpur</td>
-                        <td class="w-50">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 15%;" [style.background-color]="progressBarcolors[0]" aria-valuenow="15" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                                <div class="progress-bar" role="progressbar" style="width: 30%" [style.background-color]="progressBarcolors[1]" aria-valuenow="30"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="progress-bar" role="progressbar" style="width: 20%" [style.background-color]="progressBarcolors[2]"  aria-valuenow="20" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                        </td>
-                        <td>5963</td>
-                        <td>5963</td>
-                        <td>1523</td>
-                    </tr>
-                      
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Ballarpur</td>
+                            <td class="w-50">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 15%;"
+                                        [style.background-color]="progressBarcolors[0]" aria-valuenow="15"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: 30%"
+                                        [style.background-color]="progressBarcolors[1]" aria-valuenow="30"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: 20%"
+                                        [style.background-color]="progressBarcolors[2]" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <td>5963</td>
+                            <td>5963</td>
+                            <td>1523</td>
+                        </tr>
+
                     </tbody>
-                  </table>
+                </table>
 
             </mat-card-content>
         </mat-card>

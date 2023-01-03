@@ -31,6 +31,8 @@ export class SchoolRegistrationComponent {
   totalPages!: number;
   excelDowobj: any;
   subscription!: Subscription;
+  loginData: any;
+  levelId!: number;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -53,6 +55,8 @@ export class SchoolRegistrationComponent {
       this.lang = res == 'Marathi' ? 'mr-IN' : 'en';
       this.setTableData();
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
     this.getTaluka();
   }
   //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
@@ -69,6 +73,7 @@ export class SchoolRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
+          this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter(),this.getTableData('filter')):'';
         }
         else {
           this.talukaArray = [];
@@ -87,6 +92,7 @@ export class SchoolRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
+          this.levelId==4 || this.levelId==5 ? (this.filterForm.controls['centerId'].setValue(this.loginData.centerId),this.getTableData('filter')):'';
         }
         else {
           this.centerArray = [];

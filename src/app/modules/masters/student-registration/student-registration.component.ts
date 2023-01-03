@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -23,16 +23,16 @@ export class StudentRegistrationComponent {
   centerArray = new Array();
   schoolArray = new Array();
   pageNumber: number = 1;
-  lang!:string;
+  lang!: string;
   tableDataArray = new Array();
-  tableDatasize!:number;
+  tableDatasize!: number;
   @ViewChild('formDirective')
-  excelDowobj!:any;
-  totalPages!:number;
-  levelId!:number;
+  excelDowobj!: any;
+  totalPages!: number;
+  levelId!: number;
   subscription!: Subscription;
-  loginData:any;
-  
+  loginData: any;
+
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -51,118 +51,122 @@ export class StudentRegistrationComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
-    this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
+    this.loginData = this.webStorage.getLoginData();
+    this.levelId = this.loginData.designationLevelId;
     this.formData();
     this.getTableData();
     this.getTaluka();
   }
 
-//#region  -----------------------------------------------------Filter form Fun start here ---------------------------------------------------//
-formData() {
-  this.filterFrm = this.fb.group({
-    talukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:0],
-    centerId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:0],
-    schoolId: [this.levelId==5 ?this.loginData.SchoolId:0],
-    searchText: ['']
-  })
-}
-
-getTaluka() {
-  this.master.getAllTaluka(this.lang, 1).subscribe({
-    next: ((res: any) => {
-      if (res.statusCode == "200") {
-        this.talukaArray = res.responseData;
-      }
-      else {
-        this.talukaArray = [];
-        this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-      }
-    }),
-    error: (error: any) => {
-      this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-    }
-  })
-  this.levelId==4 || this.levelId==5 ? this.getCenter():'';
-}
-
-getCenter() {
-  let talukaId = this.filterFrm.value.talukaId;
-  this.master.getAllCenter(this.lang, talukaId).subscribe({
-    next: ((res: any) => {
-      if (res.statusCode == "200") {
-        this.centerArray = res.responseData;
-      }
-      else {
-        this.centerArray = [];
-        this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-      }
-    }),
-    error: (error: any) => {
-      this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-    }
-  })
-  this.levelId==4 || this.levelId==5 ? this.getSchool():'';
-}
-
-getSchool() {
-  let centerId = this.filterFrm.value.centerId;
-  this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
-  this.apiService.getHttp().subscribe({
-    next: ((res: any) => {
-      if (res.statusCode == "200") {
-        this.schoolArray = res.responseData;
-      }
-      else {
-        this.schoolArray = [];
-        this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-      }
-    }),
-    error: (error: any) => {
-      this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-    }
-  })
-}
-
-clearDropdown(flag: any) {
-  switch (flag) {
-    case 'talukaId':
-      this.filterFrm.controls['centerId'].setValue(0);
-      this.filterFrm.controls['schoolId'].setValue(0);
-      break;
-    case 'centerId':
-      this.filterFrm.controls['schoolId'].setValue(0);
-      break;
+  //#region  -----------------------------------------------------Filter form Fun start here ---------------------------------------------------//
+  formData() {
+    this.filterFrm = this.fb.group({
+      talukaId: [this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? this.loginData.talukaId : 0],
+      centerId: [this.levelId == 4 || this.levelId == 5 ? this.loginData.centerId : 0],
+      schoolId: [this.levelId == 5 ? this.loginData.SchoolId : 0],
+      searchText: ['']
+    })
   }
-}
 
-clearForm() {
-  this.filterFrm.reset();
-  this.formData();
-  this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.getTaluka():'';
-  this.centerArray=[];
-  this.schoolArray = [];
-  this.getTableData('filter');
-}
-//#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
+  getTaluka() {
+    this.master.getAllTaluka(this.lang, 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.talukaArray = res.responseData;
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId) : '';
+          this.levelId == 4 || this.levelId == 5 ? this.getCenter() : '';
+          this.levelId == 3 ? this.getTableData('filter') : '';
+        }
+        else {
+          this.talukaArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+  }
 
-//#region  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
+  getCenter() {
+    let talukaId = this.filterFrm.value.talukaId;
+    this.master.getAllCenter(this.lang, talukaId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.centerArray = res.responseData;
+          this.levelId == 4 || this.levelId == 5 ? this.filterFrm.controls['centerId'].setValue(this.loginData.centerId) : '';
+          this.levelId == 5 ? this.getSchool() : '';
+          this.levelId == 4 ? this.getTableData('filter') : '';
+        }
+        else {
+          this.centerArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+
+  }
+
+  getSchool() {
+    let centerId = this.filterFrm.value.centerId;
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.schoolArray = res.responseData;
+          this.levelId == 5 ? (this.filterFrm.controls['SchoolId'].setValue(this.loginData.schoolId), this.getTableData('filter')) : '';
+
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      }
+    })
+  }
+
+  clearDropdown(flag: any) {
+    switch (flag) {
+      case 'talukaId':
+        this.filterFrm.controls['centerId'].setValue(0);
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+      case 'centerId':
+        this.filterFrm.controls['schoolId'].setValue(0);
+        break;
+    }
+  }
+
+  clearForm() {
+    this.filterFrm.reset();
+    this.formData();
+    this.centerArray = [];
+    this.schoolArray = [];
+    this.getTableData('filter');
+    this.getTaluka();
+  }
+  //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
+
+  //#region  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   getTableData(flag?: string) {
     this.spinner.show();
-    flag == 'filter' ? this.pageNumber = 1 :'';
+    flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
-    let str =  flag != 'excel' ? `?pageno=${this.pageNumber}&pagesize=10` : `?pageno=1&pagesize=${this.totalPages * 10}`;
+    let str = flag != 'excel' ? `?pageno=${this.pageNumber}&pagesize=10` : `?pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str +
-      '&TalukaId=' + (formData?.talukaId)  + '&CenterId=' + (formData?.centerId)
-      + '&SchoolId=' + (formData?.schoolId) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+      '&TalukaId=' + (formData?.talukaId) + '&CenterId=' + (formData?.centerId)
+      + '&SchoolId=' + (formData?.schoolId || 0) + '&lan=' + this.lang + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData;
-          // this.tableDataArray?.map((ele: any) => {
-          //   ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
-          // })
           this.tableDatasize = res.responseData1?.pageCount;
           this.totalPages = res.responseData1.totalPages;
         } else {
@@ -181,10 +185,10 @@ clearForm() {
 
   setTableData() {
     let displayedColumns;
-    displayedColumns =  this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
-    displayedheaders =  this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action']
-     let tableData = {
+    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action']
+    let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
@@ -198,7 +202,7 @@ clearForm() {
     this.pageNumber = pageNo;
     this.getTableData()
   }
-//#endregion  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
+  //#endregion  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   registerStudent(obj?: any) {
     let dialogRef = this.dialog.open(RegisterStudentComponent, {
       width: '850px',
@@ -209,7 +213,7 @@ clearForm() {
       result == 'Yes' ? this.getTableData() : '';
     });
   }
- childCompInfo(obj: any) {
+  childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
@@ -266,21 +270,21 @@ clearForm() {
     });
   }
 
- 
+
   excelDownload() {
     this.getTableData('excel')
     let pageName;
     this.lang == 'mr-IN' ? pageName = 'विद्यार्थी नोंदणी' : pageName = 'Student Registration';
     let header: any;
-    this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender' , 'Standard', 'Parent Contact No.'];
+    this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender', 'Standard', 'Parent Contact No.'];
     let column;
     column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
-    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+    this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
-  
+
 }
 
