@@ -68,7 +68,7 @@
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==3 || levelId==4 || levelId==5)">
                             <mat-label>{{'common.taluka' |translate}}</mat-label>
                             <mat-select formControlName="talukaId"
-                                (selectionChange)="clearDropdown('taluka')">
+                                (selectionChange)="this.levelId==2?this.getKendra(userRegistrationForm.value.talukaId):'';clearDropdown('taluka')">
                                 <mat-option *ngFor="let taluka of talukaArr"
                                     [value]="taluka.id">{{taluka.taluka}}</mat-option>
                             </mat-select>
@@ -80,7 +80,7 @@
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5)">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId"
-                                (selectionChange)="clearDropdown('center')">
+                                (selectionChange)="this.levelId==1 || this.levelId==2 ||userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
                             </mat-select>
@@ -122,7 +122,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.name' |translate}}</mat-label>
                             <input matInput placeholder="{{'common.name' |translate}}"
-                                formControlName="name" (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                                formControlName="name" (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
                                   {{'user_Registration.Please_enter_valid_name' |translate}}

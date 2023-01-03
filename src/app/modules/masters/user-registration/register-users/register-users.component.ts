@@ -122,7 +122,7 @@ export class RegisterUsersComponent {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId): 
+      this.levelId==3 ||this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId): 
       this.data? this.getKendra(this.data.talukaId):'';
     })
   }
@@ -140,8 +140,9 @@ export class RegisterUsersComponent {
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
       // 2370
       this.schoolArr=res.responseData;
-      this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId)
-      this.data?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
+      this.data && this.userRegistrationForm.value.designationLevelId==5?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      this.userRegistrationForm.value.designationLevelId==5?this.getAllClassGroup(this.userRegistrationForm.value.schoolId):'';
     })
   }
 
