@@ -58,9 +58,9 @@ export class RegisterUsersComponent {
       designationLevelId: [this.data?this.data.designationLevelId:'',[Validators.required]],
       designationId: [this.data?this.data.designationId:'', [Validators.required]],
       districtId: [this.data?this.data.districtId:1, [Validators.required]],
-      talukaId: [this.data?this.data.talukaId:this.loginData.talukaId,[Validators.required]],
-      centerId: [this.data?this.data.centerId:this.loginData.centerId, [Validators.required]],
-      schoolId: [this.data?this.data.schoolId:this.loginData.schoolId, [Validators.required]],
+      talukaId: [this.data?this.data.talukaId:'',[Validators.required]],
+      centerId: [this.data?this.data.centerId:'', [Validators.required]],
+      schoolId: [this.data?this.data.schoolId:'', [Validators.required]],
       agencyId: [this.data?this.data.agencyId:'', [Validators.required]],
       name: [this.data?this.data.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [this.data?this.data.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
@@ -121,24 +121,28 @@ export class RegisterUsersComponent {
   getTaluka(distId:number) {   //get taluka
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
+      this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
+      this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId): 
+      this.data? this.getKendra(this.data.talukaId):'';
     })
-    if(this.userRegistrationForm.value.designationLevelId==4 || this.userRegistrationForm.value.designationLevelId==5){
-      this.data?this.getKendra(this.data.talukaId):this.getKendra(this.loginData.talukaId);
-    }
   }
 
   getKendra(talukaId:number) {  //get kendra
     this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
+      this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['centerId'].setValue(this.loginData.centerId):'';
+      (this.levelId==4 || this.levelId==5 && this.userRegistrationForm.value.designationLevelId==5) ? this.getSchoolName(this.loginData.centerId):
+      this.data?this.getSchoolName(this.data.centerId):'';
     })
-    this.data?this.getSchoolName(this.data.centerId):'';
   }
 
   getSchoolName(centerId:number) {    //get school
-    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
+    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
+      // 2370
       this.schoolArr=res.responseData;
+      this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId)
+      this.data?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
-    this.data?(this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
   }
 
   getAgency() {    //get agency
