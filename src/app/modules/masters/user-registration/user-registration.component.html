@@ -45,7 +45,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.Please_Select_Taluka'|translate}}</mat-label>
             <mat-select formControlName="TalukaId"
               (selectionChange)="getCenter(serachUserForm.value.TalukaId);getAllClearData('taluka')">
@@ -54,7 +54,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
             <mat-select formControlName="CenterId"
               (selectionChange)="getSchoolList(serachUserForm.value.CenterId);getAllClearData('kendra')">
@@ -63,7 +63,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.CenterId">
+          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.CenterId || levelId==5">
             <mat-label>{{'common.select_school'|translate}}</mat-label>
             <mat-select formControlName="SchoolId">
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>

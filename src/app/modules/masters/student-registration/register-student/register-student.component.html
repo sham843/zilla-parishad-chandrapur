@@ -134,12 +134,12 @@
                         <mat-label>{{'student.mar_first_name'|translate}}</mat-label>
                         <input matInput  formControlName="f_Name_Mar"
                         maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-                        <!-- <mat-error *ngIf="f['f_Name_Mar']?.errors">
+                        <mat-error *ngIf="f['f_Name_Mar']?.errors">
                             <span class="text-danger"
                                  *ngIf="f['f_Name_Mar'].hasError('pattern')">
                                  {{'student.please_enter_valid_first_Name' | translate}}
                              </span>
-                         </mat-error> -->
+                         </mat-error>
                      </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -147,14 +147,26 @@
                         <mat-label>{{'student.mar_middle_name'|translate}}</mat-label>
                         <input matInput formControlName="m_Name_Mar"
                         maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-                    </mat-form-field>
+                        <mat-error *ngIf="f['m_Name_Mar']?.errors">
+                            <span class="text-danger"
+                                 *ngIf="f['m_Name_Mar'].hasError('pattern')">
+                                 {{'student.please_enter_valid_middle_Name' | translate}}
+                             </span>
+                         </mat-error>
+                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.mar_last_name'|translate}}</mat-label>
                         <input matInput formControlName="l_Name_Mar"
                         maxlength="20" (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-                     </mat-form-field>
+                        <mat-error *ngIf="f['l_Name_Mar']?.errors">
+                            <span class="text-danger"
+                                 *ngIf="f['l_Name_Mar'].hasError('pattern')">
+                                 {{'student.please_enter_valid_last_Name' | translate}}
+                             </span>
+                         </mat-error>
+                    </mat-form-field>
                 </div>
 
                 <div class="col-sm-4">

@@ -18,11 +18,13 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 })
 export class UserRegistrationComponent {
   serachUserForm!: FormGroup;
-  tableData: any
+  tableData: any;
+  loginData: any;
   tableDataArray = new Array();
   totalItem!: number;
   totalPages!: number;
   pageNumber: number = 1;
+  levelId!: number;
   excelDowobj:any;
   lang: string = '';
   userTypeArray = new Array();
@@ -47,6 +49,8 @@ export class UserRegistrationComponent {
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
       this.setTableData();
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
     this.getFormControl();
     this.getAllUserData();
     this.getUserType();
@@ -55,9 +59,9 @@ export class UserRegistrationComponent {
   getFormControl() {
     this.serachUserForm = this.fb.group({
       UserTypeId: [''],
-      TalukaId: [''],
-      CenterId: [''],
-      SchoolId: [''],
+      TalukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:''],
+      CenterId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:''],
+      SchoolId: [this.levelId==5 ?this.loginData.SchoolId:''],
       textSearch: [''],
     })
   }
@@ -71,11 +75,13 @@ export class UserRegistrationComponent {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
     })
+    this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
   }
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
     })
+    this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
   }
   getSchoolList(centerId: number) {
     this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
@@ -201,6 +207,9 @@ setTableData(){     // table
           this.common.snackBar(res.statusMessage, 0);
           this.getAllUserData();
         }
+        else{
+          this.common.snackBar(res.statusMessage, 1);
+        }
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
@@ -210,7 +219,6 @@ setTableData(){     // table
     if(flag=='taluka'){
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
-      // this.centerArray=[];
       this.schoolArray=[];
     }else if(flag=='kendra'){
       this.serachUserForm.controls['SchoolId'].setValue('');
@@ -218,14 +226,10 @@ setTableData(){     // table
   }
 
   clearAllFilter(){
-      this.serachUserForm.controls['UserTypeId'].setValue('');
-      this.serachUserForm.controls['TalukaId'].setValue('');
-      this.serachUserForm.controls['CenterId'].setValue('');
-      this.serachUserForm.controls['SchoolId'].setValue('');
-      this.serachUserForm.controls['textSearch'].setValue('');
+      this.getFormControl();
       this.centerArray=[];
       this.schoolArray=[];
-      this.getAllUserData();
+      this.getAllUserData();this.getTaluka()
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() { 

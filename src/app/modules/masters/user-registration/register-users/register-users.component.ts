@@ -324,6 +324,10 @@ registerUser(formDirective:any) {
         this.dialogRef.close('Yes');
         formDirective.resetForm();
       }
+      else{
+        this.common.snackBar(res.statusMessage,1);
+        this.dialogRef.close('No');
+      }
     },
     (error: any) => {
       this.errors.handelError(error.status);

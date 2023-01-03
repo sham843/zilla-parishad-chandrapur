@@ -96,6 +96,7 @@
         "agency_registration": "एजन्सी/एनजीओची नोंदणी",
         "Add_agency": "एनजीओ/एजन्सी जोडा",
         "agency_marathi_name": "एजन्सीचे मराठी नाव",
+        "agency_marathi_name_pattern": "कृपया वैध एजन्सी मराठी नाव प्रविष्ट करा",
         "please_enter_valid_emailId": "कृपया वैध ईमेल आयडी प्रविष्ट करा",
         "please_enter_valid_contact_no": "कृपया वैध संपर्क क्रमांक प्रविष्ट करा",
         "please_enter_valid_agency_name":"कृपया वैध एजन्सी नाव प्रविष्ट करा",
