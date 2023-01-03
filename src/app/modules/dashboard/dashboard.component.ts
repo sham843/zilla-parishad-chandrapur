@@ -32,6 +32,12 @@ export class DashboardComponent {
   selNumber!: number;
   getAssesmentData: any;
   selStdArray = new Array();
+  educationYearArray= new Array();
+  getAllSubjectArray= new Array();;
+  progressBarcolors:any =  ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
+  loginData!:any;
+  levelId!:number;
+  enbTalDropFlag:boolean = false;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -43,28 +49,54 @@ export class DashboardComponent {
     private router: Router) { }
 
   ngOnInit() {
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
     });
     this.mainFilterForm();
-    this.getTaluka();
+    this.educationYear();
     this.cardCountData();
+    this.getAllSubject();
   }
 
   ngAfterViewInit() {
     this.showSvgMap(this.commonMethods.mapRegions());
     this.clickOnSvgMap();
+    this.getTaluka();
   }
+
 
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
 
   mainFilterForm() {
     this.topFilterForm = this.fb.group({
+      year:[''],
       talukaId: [0],
       kendraId: [0],
       schoolId: [0],
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
+    })
+  }
+
+  educationYear() {
+    this.apiService.setHttp('get', 'zp_chandrapur/master/get-all-educationyear-details', false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.educationYearArray = res.responseData;
+          this.topFilterForm.controls['year'].setValue(this.educationYearArray[0].year)
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errors.handelError(error.status);
+      }
     })
   }
 
@@ -73,6 +105,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
+          this.levelId==3 || this.levelId==4 || this.levelId==5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.enbTalDropFlag=true,this.clickOnSvgMap('select'), this.getKendra()) : '';
         }
         else {
           this.talukaArray = [];
@@ -80,7 +113,7 @@ export class DashboardComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethods.checkEmptyData(error.statusText) == false ? this.errors.handelError(error.statusCode) : this.commonMethods.snackBar(error.statusText, 1);
+        this.errors.handelError(error.status);
       }
     })
   }
@@ -98,7 +131,7 @@ export class DashboardComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethods.checkEmptyData(error.statusText) == false ? this.errors.handelError(error.statusCode) : this.commonMethods.snackBar(error.statusText, 1);
+        this.errors.handelError(error.status);
       }
     })
   }
@@ -118,7 +151,7 @@ export class DashboardComponent {
         }
       }),
       error: (error: any) => {
-        this.commonMethods.checkEmptyData(error.statusText) ? this.errors.handelError(error.statusCode) : this.commonMethods.snackBar(error.statusText, 1);
+        this.errors.handelError(error.status);
       }
     })
   }
@@ -140,6 +173,25 @@ export class DashboardComponent {
     })
   }
 
+  
+  getAllSubject(){
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.getAllSubjectArray = res.responseData;
+          console.log(this.getAllSubjectArray)
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errors.handelError(error.status);
+      }
+    })
+  }
   //#endregion ------------------------------------------top bar filter and card data info function's start heare ------------------------------//
 
   //#region ---------------------------------------------main contant api fn start heare-----------------------------------------------//
@@ -169,7 +221,6 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
         this.checkBoxChecked('default');
-        this.getAssesmentDashboardDetails();
    
       }
       else {
@@ -199,9 +250,18 @@ export class DashboardComponent {
 
   checkBoxChecked(label: any, val?: any) {
     if (val) {
-      this.selNumber = label.target.checked ?  (this.selStdArray.push(val), this.selNumber + val) : this.selNumber - val; // not working
+      if (label.target.checked) {
+        this.selStdArray.push(val.standardId);
+        this.selNumber = this.selNumber + val.data
+      } else {
+        let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
+        this.selStdArray.splice(selIndex, 1);
+        this.selNumber = this.selNumber - val.data;
+      }
+      this.getAssesmentDashboardDetails();
     } else {
-      this.selStdArray.push('1')
+      this.selStdArray.push('1');
+      this.getAssesmentDashboardDetails();
       this.getSurveyedData.find((ele: any) => {
         if (ele.text == '1st' && label == 'default') {
           ele.checked = true;
@@ -226,7 +286,6 @@ export class DashboardComponent {
         position: "bottom",
         fontSize: "11px"
       },
-
       responsive: [
         {
           breakpoint: 480,
@@ -276,7 +335,7 @@ export class DashboardComponent {
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
         let obj: any = {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [ele['assesmentDetails'][i].assesmentCalculationValue]
+          'data': [parseInt(ele['assesmentDetails'][i].assesmentCalculationValue)]
         }
         arr.push(obj)
       }
@@ -288,15 +347,22 @@ export class DashboardComponent {
       chart: {
         type: "bar",
         height: 350,
+        width: 300,
+        columnWidth: '45%',
         stacked: true,
         stackType: "100%",
         toolbar: {
           show: false
         },
-
+        events: {
+          dataPointSelection: (event: any, chartContext: any, config: any) => {
+            console.log(event, chartContext, config.seriesIndex)
+          }
+        }
       },
       bar: {
         horizontal: true,
+        columnWidth: "10%",
         barHeight: '80%',
         borderRadiusOnAllStackedSeries: true,
       },
@@ -314,13 +380,16 @@ export class DashboardComponent {
       xaxis: {
         labels: {
           show: false,
+          
         },
-        categories: ["2022"]
+        categories: ['2022']
       },
+      
       yaxis: {
-        show: false,
+        show: true,
         showAlways: false,
         floating: false,
+    
         axisTicks: {
           show: false
         },
@@ -328,7 +397,8 @@ export class DashboardComponent {
           show: false
         },
         labels: {
-          show: false
+          show: false,
+       
         },
       },
       fill: {
@@ -337,16 +407,17 @@ export class DashboardComponent {
       },
       plotOptions: {
         bar: {
+          distributed: false,
           horizontal: false,
-          borderRadius: 40,
+          borderRadius: 10,
           borderRadiusApplication: 'end',
           borderRadiusWhenStacked: "last", // "all"/"last",
-          columnWidth:80,
+           columnWidth:40,
         },
       },
       legend: {
         position: 'right',
-        fontSize: '10px',
+        fontSize: '11px',
         show: true,
         markers: {
           width: 12,
@@ -442,6 +513,7 @@ export class DashboardComponent {
 
   clickOnSvgMap(flag?: string) {
     if (flag == 'select') {
+      this.enbTalDropFlag ? $('#mapsvg path').addClass('disabledAll'): '';
       let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
       checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();

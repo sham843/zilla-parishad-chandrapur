@@ -31,6 +31,7 @@ export class UserRegistrationComponent {
   talukaArray = new Array();
   centerArray = new Array();
   schoolArray = new Array();
+  
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -122,7 +123,7 @@ export class UserRegistrationComponent {
       this.spinner.hide();
         this.tableDataArray = [];
         this.totalItem = 0;
-        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) :'';
+        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
        } 
        flag != 'excel' && this.tableDataArray ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
