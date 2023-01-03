@@ -22,7 +22,7 @@
 
                 <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
-                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
+                    <mat-option *ngFor="let tal of talukaArray" [value]="tal.year">
                         {{tal.taluka}}
                     </mat-option>
                 </mat-select>
@@ -217,14 +217,6 @@
                 <div class="d-flex align-items-center justify-content-between w-100">
                     <h6 class="mb-0">Taluka wise Assessment</h6>
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Assessment</mat-label>
-                            <mat-select>
-                                <mat-option>Option 1</mat-option>
-                                <mat-option>Option 2</mat-option>
-                                <mat-option>Option 3</mat-option>
-                            </mat-select>
-                        </mat-form-field>
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Select Subject</mat-label>
                             <mat-select>
