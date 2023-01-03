@@ -350,4 +350,10 @@ a.text-main,
   pointer-events: auto;
   fill: rgb(39, 40, 72)!important;
 }
-
+.chart-container{
+  max-width: 61vw;
+  overflow-x: auto;
+}
+.apexcharts-legend.apx-legend-position-right{
+  width: 100px;
+}
