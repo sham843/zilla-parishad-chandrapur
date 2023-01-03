@@ -79,7 +79,7 @@ export class RegisterUsersComponent {
     this.data?(this.getUserLevel(this.data.userTypeId),this.addRemoveValidation()):'';
   }
 
-  getUserLevel(typeId:number) {  //get user level
+  getUserLevel(typeId:number) {  //get user level   
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
