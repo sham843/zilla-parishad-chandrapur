@@ -53,7 +53,7 @@
     <mat-card-header class="card-header pb-0 border-bottom-0">
       <div class="row w-100">
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.Please_Select_Taluka' |translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getCenter();clearDropDrown('taluka')">
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
@@ -63,7 +63,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==4 || this.levelId==5">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_kendra' | translate}}</mat-label>
             <mat-select formControlName="centerId" (selectionChange)="clearDropDrown('center')">
               <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
