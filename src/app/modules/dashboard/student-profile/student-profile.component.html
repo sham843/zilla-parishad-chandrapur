@@ -104,14 +104,13 @@
                                     <div class="d-flex justify-content-start align-items-center w-100">
                                         <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
                                        <div class="flex-fill">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>Favorite food</mat-label>
-                                            <mat-select>
-                                              <mat-option>
-                                             
-                                              </mat-option>
+                                        <!-- <mat-form-field appearance="outline" class="w-100 ">
+                                            <mat-label>{{'common.select_subject'|translate}}</mat-label>
+                                            <mat-select [formControl]="searchFilter">
+                                                <mat-option *ngFor="let subject of subjectArray" [value]="subject.id">{{subject.subject}}
+                                                </mat-option>
                                             </mat-select>
-                                          </mat-form-field>
+                                        </mat-form-field> -->
                                        </div>
                                     </div>
                                 </mat-card-header>

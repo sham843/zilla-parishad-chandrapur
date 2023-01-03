@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+// import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
  import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -17,13 +18,15 @@ export class StudentProfileComponent {
   standardArray = new Array();
   schoolArray = new Array();
   tableDataArray = new Array();
+  // subjectArray=new Array();
   StudentDataArray:any;
   pageNumber: number = 1;
   tableDatasize!:number;
   totalPages!:number;
   studentId!:number;
   lang!:string;
-
+  searchFilter = new FormControl();
+  
   constructor(
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -44,8 +47,21 @@ export class StudentProfileComponent {
     this.getformControl();
     this.studentDataById(this.studentId);
     this.getAllStudentData();
-    // this.getSchool();
+    this.getSchool(2713010002);
+    // this.getSubject(this.lang);
   }
+
+  // ngAfterViewInit() {
+  //   let formValue = this.searchFilter.valueChanges;
+  //   formValue.pipe(
+  //     filter(() => this.searchFilter.valid),
+  //     debounceTime(1000),
+  //     distinctUntilChanged())
+  //     .subscribe(() => {
+  //       this.clearForm()
+  //       this.getAllStudentData();
+  //     })
+  // }
 
   getformControl() {
     this.filterFrm = this.fb.group({
@@ -136,7 +152,7 @@ export class StudentProfileComponent {
       //  console.log(obj);
  }
 
- getSchool(centerId?: number) {
+ getSchool(centerId: number) {
   this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: ((res: any) => {
@@ -155,7 +171,7 @@ export class StudentProfileComponent {
   })
 }
 
-getStandard(schoolId?: number) {
+getStandard(schoolId: number) {
   this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: ((res: any) => {
@@ -172,6 +188,24 @@ getStandard(schoolId?: number) {
     }
   })
 }
+
+// getSubject(strPara: string) {
+//   this.apiService.setHttp('GET', 'zzp_chandrapur/master/GetAllSubject?flag_lang=' + strPara, false, false, false, 'baseUrl');
+//   this.apiService.getHttp().subscribe({
+//     next: ((res: any) => {
+//       if (res.statusCode == "200") {
+//         this.subjectArray = res.responseData;
+//       }
+//       else {
+//         this.subjectArray = [];
+//         this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+//       }
+//     }),
+//     error: (error: any) => {
+//       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+//     }
+//   })
+// }
 
 clearForm() {
   this.filterFrm.reset();
