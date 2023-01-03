@@ -32,7 +32,7 @@ export class StudentRegistrationComponent {
   levelId!: number;
   subscription!: Subscription;
   loginData: any;
-
+  disabledTaluka:boolean=false;
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -61,9 +61,9 @@ export class StudentRegistrationComponent {
   //#region  -----------------------------------------------------Filter form Fun start here ---------------------------------------------------//
   formData() {
     this.filterFrm = this.fb.group({
-      talukaId: [this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? this.loginData.talukaId : 0],
-      centerId: [this.levelId == 4 || this.levelId == 5 ? this.loginData.centerId : 0],
-      schoolId: [this.levelId == 5 ? this.loginData.SchoolId : 0],
+      talukaId: [0],
+      centerId: [0],
+      schoolId: [0],
       searchText: ['']
     })
   }
@@ -73,9 +73,8 @@ export class StudentRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId) : '';
-          this.levelId == 4 || this.levelId == 5 ? this.getCenter() : '';
-          this.levelId == 3 ? this.getTableData('filter') : '';
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
+           this.levelId == 3 ? this.getTableData('filter') : '';
         }
         else {
           this.talukaArray = [];
@@ -94,10 +93,9 @@ export class StudentRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.levelId == 4 || this.levelId == 5 ? this.filterFrm.controls['centerId'].setValue(this.loginData.centerId) : '';
-          this.levelId == 5 ? this.getSchool() : '';
+          this.levelId == 4 || this.levelId == 5 ? (this.filterFrm.controls['centerId'].setValue(this.loginData.centerId), this.getSchool()) : '';
           this.levelId == 4 ? this.getTableData('filter') : '';
-        }
+         }
         else {
           this.centerArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -117,7 +115,7 @@ export class StudentRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.levelId == 5 ? (this.filterFrm.controls['SchoolId'].setValue(this.loginData.schoolId), this.getTableData('filter')) : '';
+          this.levelId == 5 ? (this.filterFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getTableData('filter')) : '';
 
         }
         else {
