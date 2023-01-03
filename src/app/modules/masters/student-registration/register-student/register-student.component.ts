@@ -109,10 +109,12 @@ export class RegisterStudentComponent {
   clearForm() {
     this.formDirective.resetForm();
     this.data=null;
+    this.formData();
+    this.levelId==3 || this.levelId==4 || this.levelId==5?this.getTaluka(1):'';
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
-    this.formData();
+   
 
   }
 
@@ -172,6 +174,7 @@ export class RegisterStudentComponent {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
+    this.levelId==4 || this.levelId==5? this.getCenter(this.loginData.talukaId):'';
   }
 
   getCenter(talukaId: number) {
@@ -179,7 +182,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.lang, this.studentFrm.value.centerId)) : '';
+          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
         }
         else {
           this.centerArray = [];
@@ -190,10 +193,11 @@ export class RegisterStudentComponent {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
+    this.levelId==4 || this.levelId==5? this.getSchool(this.loginData.centerId):'';
   }
 
-  getSchool(strPara: string, centerId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+  getSchool(centerId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
