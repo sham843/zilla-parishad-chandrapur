@@ -12,7 +12,7 @@
         <mat-card-content class="card-body">
             <div class="row">
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
                             [disabled]="registerForm.value.districtId == 1">
@@ -26,7 +26,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
                             <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100"
-                        [class.disabled-contenct]="!registerForm.value.talukaId">
+                        [class.disabled-contenct]="!registerForm.value.talukaId || this.levelId==4 || this.levelId==5">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="centerId">
                             <mat-option *ngFor="let cet of centerArray" [value]="cet.id">
