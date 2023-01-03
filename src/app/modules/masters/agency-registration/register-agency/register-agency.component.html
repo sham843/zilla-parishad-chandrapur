@@ -33,11 +33,11 @@
                         <mat-label>{{'agency.agency_marathi_name' |translate}}</mat-label>
                         <input matInput (keypress)="validation.unicodeMarathiValidation($event)"
                             formControlName="m_AgencyName" (keyup)="validation.noFirstSpaceAllow($event)">
-                        <!-- <mat-error *ngIf="f['m_AgencyName'].errors">
-                            <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('required')">
-                                {{'agency.agency_marathi_name' |translate}}
+                         <mat-error *ngIf="f['m_AgencyName'].errors">
+                            <span class="text-danger" *ngIf="f['m_AgencyName'].hasError('pattern')">
+                                {{'agency.agency_marathi_name_pattern' |translate}}
                             </span>
-                        </mat-error> -->
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
