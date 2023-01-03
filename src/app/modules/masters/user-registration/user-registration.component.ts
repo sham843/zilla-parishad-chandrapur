@@ -49,6 +49,8 @@ export class UserRegistrationComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
       this.setTableData();
+      this.getUserType();
+      this.getTaluka();
     })
     this.loginData=this.webStorage.getLoginData();
     this.levelId=this.loginData.designationLevelId;
