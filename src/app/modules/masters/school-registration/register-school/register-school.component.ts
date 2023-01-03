@@ -27,6 +27,8 @@ export class RegisterSchoolComponent {
   toClassArray = new Array();
   subscription!: Subscription;
   showRedio:boolean=false;
+  loginData:any;
+  levelId!:number;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   radioArray = [{id: 1, type:'Rural'}, {id: 2, type: 'Urban'}]
   constructor
@@ -44,9 +46,10 @@ export class RegisterSchoolComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
     this.editFlag = this.data ? true : false
     this.getFormData()
-    // this.setValidation();
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
@@ -55,9 +58,9 @@ export class RegisterSchoolComponent {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
       districtId: ['', Validators.required],
-      talukaId: [obj?.talukaId || '', Validators.required],
-      centerId: [obj?.centerId || '', Validators.required],
-      s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
+      talukaId: [obj?.talukaId || this.loginData.talukaId, Validators.required],
+      centerId: [obj?.centerId || this.loginData.centerId, Validators.required],
+      s_CategoryId: [obj?.s_CategoryId ||'', Validators.required],
       s_TypeId: [obj?.s_TypeId || ''],
       g_GenderId: [obj?.g_GenderId || ''],
       classFrom: [obj?.classFrom || '', Validators.required],
@@ -76,9 +79,6 @@ export class RegisterSchoolComponent {
     }
   }
 
-  // setValidation(){
-  //   this.registerForm.controls['schoolLocationId'].setValidators(Validators.required);
-  //   }
   getDistrict() {
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
@@ -113,6 +113,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
+    this.registerForm.controls['talukaId'].setValue(this.loginData?.talukaId),this.getCenter();
   }
 
   getCenter() {
@@ -132,6 +133,7 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
+    this.registerForm.controls['talukaId'].setValue(this.loginData?.talukaId);
   }
 
   getSchoolCategory() {
