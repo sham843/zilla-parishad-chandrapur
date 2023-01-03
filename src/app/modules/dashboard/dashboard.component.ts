@@ -32,12 +32,14 @@ export class DashboardComponent {
   selNumber!: number;
   getAssesmentData: any;
   selStdArray = new Array();
-  educationYearArray= new Array();
-  getAllSubjectArray= new Array();;
-  progressBarcolors:any =  ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
-  loginData!:any;
-  levelId!:number;
-  enbTalDropFlag:boolean = false;
+  educationYearArray = new Array();
+  getAllSubjectArray = new Array();;
+  progressBarcolors: any = ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
+  loginData!: any;
+  levelId!: number;
+  enbTalDropFlag: boolean = false;
+  enbCenterDropFlag: boolean = false;
+  enbSchoolDropFlag: boolean = false;
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -49,21 +51,21 @@ export class DashboardComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
+    this.loginData = this.webStorage.getLoginData();
+    this.levelId = this.loginData.designationLevelId; // admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
 
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
     });
     this.mainFilterForm();
     this.educationYear();
-    this.cardCountData();
+    this.levelId == 1 || this.levelId == 2 ? this.cardCountData() : '';
     this.getAllSubject();
   }
 
   ngAfterViewInit() {
     this.showSvgMap(this.commonMethods.mapRegions());
-    this.clickOnSvgMap();
+    this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? '' : this.clickOnSvgMap();
     this.getTaluka();
   }
 
@@ -73,7 +75,7 @@ export class DashboardComponent {
 
   mainFilterForm() {
     this.topFilterForm = this.fb.group({
-      year:[''],
+      year: [''],
       talukaId: [0],
       kendraId: [0],
       schoolId: [0],
@@ -81,13 +83,15 @@ export class DashboardComponent {
     })
   }
 
+ 
+
   educationYear() {
     this.apiService.setHttp('get', 'zp_chandrapur/master/get-all-educationyear-details', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.educationYearArray = res.responseData;
-          this.topFilterForm.controls['year'].setValue(this.educationYearArray[0].year)
+          this.topFilterForm.controls['year'].setValue(this.educationYearArray[0].year);
         }
         else {
           this.schoolArray = [];
@@ -105,7 +109,9 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.levelId==3 || this.levelId==4 || this.levelId==5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.enbTalDropFlag=true,this.clickOnSvgMap('select'), this.getKendra()) : '';
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
+          this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? this.cardCountData() : '';
+
         }
         else {
           this.talukaArray = [];
@@ -124,6 +130,8 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
+          this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
+          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? this.cardCountData() : '';;
         }
         else {
           this.centerArray = [];
@@ -144,6 +152,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
+          this.levelId == 5 ? (this.topFilterForm.controls['schoolId'].setValue(this.loginData.schoolId), this.enbSchoolDropFlag = true, this.cardCountData()) : '';
         }
         else {
           this.schoolArray = [];
@@ -173,14 +182,13 @@ export class DashboardComponent {
     })
   }
 
-  
-  getAllSubject(){
+
+  getAllSubject() {
     this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.getAllSubjectArray = res.responseData;
-          console.log(this.getAllSubjectArray)
         }
         else {
           this.schoolArray = [];
@@ -221,7 +229,6 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
         this.checkBoxChecked('default');
-   
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -286,6 +293,9 @@ export class DashboardComponent {
         position: "bottom",
         fontSize: "11px"
       },
+      fill: {
+        colors: ['#4284FD', '#02CCC0'],
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -311,7 +321,9 @@ export class DashboardComponent {
         position: "bottom",
         fontSize: "11px"
       },
-
+      fill: {
+        colors: ['#4284FD', '#02CCC0'],
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -380,16 +392,16 @@ export class DashboardComponent {
       xaxis: {
         labels: {
           show: false,
-          
+
         },
         categories: ['2022']
       },
-      
+
       yaxis: {
         show: true,
         showAlways: false,
         floating: false,
-    
+
         axisTicks: {
           show: false
         },
@@ -398,7 +410,7 @@ export class DashboardComponent {
         },
         labels: {
           show: false,
-       
+
         },
       },
       fill: {
@@ -412,7 +424,7 @@ export class DashboardComponent {
           borderRadius: 10,
           borderRadiusApplication: 'end',
           borderRadiusWhenStacked: "last", // "all"/"last",
-           columnWidth:40,
+          columnWidth: 40,
         },
       },
       legend: {
@@ -512,8 +524,9 @@ export class DashboardComponent {
   }
 
   clickOnSvgMap(flag?: string) {
+    console.log('ok');
     if (flag == 'select') {
-      this.enbTalDropFlag ? $('#mapsvg path').addClass('disabledAll'): '';
+      this.enbTalDropFlag ? $('#mapsvg path').addClass('disabledAll') : '';
       let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
       checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
@@ -523,6 +536,7 @@ export class DashboardComponent {
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
       this.topFilterForm.controls['talukaId'].setValue(+talId);
+      this.getKendra();
       this.svgMapAddOrRemoveClass();
     })
   }
