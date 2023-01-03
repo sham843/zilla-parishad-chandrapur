@@ -66,6 +66,7 @@ export class AddDesignationComponent {
 
   editMethod() {
     this.editFlag = true;
+    this.addDesignationFlag = true;
     this.controlForm(this.data)
     this.getDesignationLevel();//
     this.designationForm.controls['designationName'].setValue(this.data?.designationName);
