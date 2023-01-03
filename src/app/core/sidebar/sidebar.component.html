@@ -47,7 +47,7 @@
           </div>
           <ul class="sub-menu">
               <li><a class="link_name">{{pages.pageNameView}}</a></li>
-              <li><a routerlinkactive="active" ng-reflect-router-link-active="active"
+              <li><a routerLinkActive="active"
                 routerLink="/{{pages.pageURL}}">{{pages.pageName}}</a>
               </li>
           </ul>
@@ -64,7 +64,7 @@
           <ul class="sub-menu">
               <li><a class="link_name">{{pages.pageNameView}}</a></li>
               <li *ngFor="let page of pages.pageURL; let pageUrlIndex = index">
-                <a routerlinkactive="active" ng-reflect-router-link-active="active" routerLink="/{{page}}">
+                <a routerLinkActive="active" routerLink="/{{page}}">
                   <ng-container *ngFor="let pageName of pages.pageName; let pageNameIndex = index">
                     <ng-container *ngIf="pageNameIndex == pageUrlIndex">{{pageName}}</ng-container>
                   </ng-container>

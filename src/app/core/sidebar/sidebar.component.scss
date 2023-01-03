@@ -139,6 +139,8 @@
   .sidebar.close .nav-links li .sub-menu li a{
     padding: 10px 20px;
   }
+  .sidebar.close .nav-links li .sub-menu li a:active,
+  .sidebar.close .nav-links li .sub-menu li a.active,
   .sidebar.close .nav-links li .sub-menu li a:hover{
     color:var(--main-color);
   }
