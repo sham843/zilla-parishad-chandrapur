@@ -29,8 +29,9 @@ export class StudentRegistrationComponent {
   @ViewChild('formDirective')
   excelDowobj!:any;
   totalPages!:number;
-  // private formDirective!: NgForm;
+  levelId!:number;
   subscription!: Subscription;
+  loginData:any;
   
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
@@ -45,22 +46,24 @@ export class StudentRegistrationComponent {
   }
 
   ngOnInit() {
-    this.formData();
-    this.getTableData();
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+    this.formData();
+    this.getTableData();
     this.getTaluka();
   }
 
 //#region  -----------------------------------------------------Filter form Fun start here ---------------------------------------------------//
 formData() {
   this.filterFrm = this.fb.group({
-    talukaId: [0],
-    centerId: [0],
-    schoolId: [0],
+    talukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:0],
+    centerId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:0],
+    schoolId: [this.levelId==5 ?this.loginData.SchoolId:0],
     searchText: ['']
   })
 }
@@ -80,6 +83,7 @@ getTaluka() {
       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
     }
   })
+  this.levelId==4 || this.levelId==5 ? this.getCenter():'';
 }
 
 getCenter() {
@@ -98,6 +102,7 @@ getCenter() {
       this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
     }
   })
+  this.levelId==4 || this.levelId==5 ? this.getSchool():'';
 }
 
 getSchool() {
@@ -134,6 +139,7 @@ clearDropdown(flag: any) {
 clearForm() {
   this.filterFrm.reset();
   this.formData();
+  this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.getTaluka():'';
   this.centerArray=[];
   this.schoolArray = [];
   this.getTableData('filter');

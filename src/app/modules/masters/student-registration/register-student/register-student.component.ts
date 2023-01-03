@@ -32,7 +32,8 @@ export class RegisterStudentComponent {
   addData: any;
   todayDate = new Date();
   subscription!: Subscription;
-
+  loginData:any;
+  levelId!:number;
   constructor(
     private apiService: ApiService,
     private errorService: ErrorsService,
@@ -51,6 +52,8 @@ export class RegisterStudentComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
     this.formData();
     
     if (this.data) {
@@ -69,13 +72,13 @@ export class RegisterStudentComponent {
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "m_Name": [data?.m_Name || '', [Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
       "l_Name": [data?.l_Name || '', [Validators.required, Validators.pattern(this.validation.fullName),Validators.minLength(2)]],
-      "f_Name_Mar":[data?.f_Name_Mar || ''],
-       "m_Name_Mar":[data?.m_Name_Mar || ''],
-       "l_Name_Mar":[data?.l_Name_Mar || ''],
+      "f_Name_Mar":[data?.f_Name_Mar || '' ,[Validators.pattern(this.validation.marathi)]],
+       "m_Name_Mar":[data?.m_Name_Mar || '',[Validators.pattern(this.validation.marathi)]],
+       "l_Name_Mar":[data?.l_Name_Mar || '',[Validators.pattern(this.validation.marathi)]],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
-      "talukaId": [data?.talukaId || '', Validators.required],
-      "centerId": [data?.centerId || '',[Validators.required]],
-      "schoolId": [data?.schoolId || '',[Validators.required]],
+      "talukaId": [data?.talukaId || this.loginData.talukaId, Validators.required],
+      "centerId": [data?.centerId || this.loginData.centerId,[Validators.required]],
+      "schoolId": [data?.schoolId || this.loginData.schoolId,[Validators.required]],
       "standardId": [data?.standardId || ''],
       "saralId": [data?.saralId || '', [Validators.required,Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
@@ -106,10 +109,12 @@ export class RegisterStudentComponent {
   clearForm() {
     this.formDirective.resetForm();
     this.data=null;
+    this.formData();
+    this.levelId==3 || this.levelId==4 || this.levelId==5?this.getTaluka(1):'';
     this.editFlag = false;
     this.centerArray = [];
     this.schoolArray = [];
-    this.formData();
+   
 
   }
 
@@ -169,6 +174,7 @@ export class RegisterStudentComponent {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
+    this.levelId==4 || this.levelId==5? this.getCenter(this.loginData.talukaId):'';
   }
 
   getCenter(talukaId: number) {
@@ -176,7 +182,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.lang, this.studentFrm.value.centerId)) : '';
+          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
         }
         else {
           this.centerArray = [];
@@ -187,10 +193,11 @@ export class RegisterStudentComponent {
         this.commonMethod.checkEmptyData(error.statusText) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
       }
     })
+    this.levelId==4 || this.levelId==5? this.getSchool(this.loginData.centerId):'';
   }
 
-  getSchool(strPara: string, centerId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+  getSchool(centerId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {

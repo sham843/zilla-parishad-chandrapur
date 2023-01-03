@@ -199,7 +199,7 @@ export class DashboardComponent {
 
   checkBoxChecked(label: any, val?: any) {
     if (val) {
-      this.selNumber = label.target.checked ? this.selNumber + val : this.selNumber - val;
+      this.selNumber = label.target.checked ?  (this.selStdArray.push(val), this.selNumber + val) : this.selNumber - val; // not working
     } else {
       this.selStdArray.push('1')
       this.getSurveyedData.find((ele: any) => {
@@ -338,15 +338,15 @@ export class DashboardComponent {
       plotOptions: {
         bar: {
           horizontal: false,
-          borderRadius: 15,
+          borderRadius: 40,
           borderRadiusApplication: 'end',
           borderRadiusWhenStacked: "last", // "all"/"last",
-          columnWidth: 30,
+          columnWidth:80,
         },
       },
       legend: {
-        position: 'bottom',
-        fontSize: '12px',
+        position: 'right',
+        fontSize: '10px',
         show: true,
         markers: {
           width: 12,

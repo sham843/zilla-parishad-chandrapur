@@ -95,6 +95,7 @@
         "agency_registration":"Agency Registration",
         "Add_agency":"Add NGO/Agency",
         "agency_marathi_name":"Agency Marathi Name",
+        "agency_marathi_name_pattern":"Please Enter Valid Agency Marathi Name",
         "please_enter_valid_emailId":"Please Enter Valid Email Id",
         "please_enter_valid_contact_no":"Please Enter Valid Contact Number",
         "please_enter_valid_agency_name":"Please Enter Valid Agency Name",

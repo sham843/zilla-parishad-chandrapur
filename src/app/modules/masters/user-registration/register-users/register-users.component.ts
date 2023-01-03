@@ -79,7 +79,7 @@ export class RegisterUsersComponent {
     this.data?(this.getUserLevel(this.data.userTypeId),this.addRemoveValidation()):'';
   }
 
-  getUserLevel(typeId:number) {  //get user level
+  getUserLevel(typeId:number) {  //get user level   
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -323,6 +323,10 @@ registerUser(formDirective:any) {
         this.common.snackBar(res.statusMessage,0);
         this.dialogRef.close('Yes');
         formDirective.resetForm();
+      }
+      else{
+        this.common.snackBar(res.statusMessage,1);
+        this.dialogRef.close('No');
       }
     },
     (error: any) => {

@@ -5,8 +5,18 @@
     </ol>
 </nav>
 <form [formGroup]="topFilterForm">
-    <div class="row d-flex">
-        <div class="col-sm-4">
+    <div class="row">
+        <div class="col-sm">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Year</mat-label>
+                <mat-select>
+                    <mat-option>Option 1</mat-option>
+                    <mat-option>Option 2</mat-option>
+                    <mat-option>Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>तालुका निवडा</mat-label>
 
@@ -18,7 +28,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>केंद्र निवडा</mat-label>
                 <mat-select formControlName="kendraId" [disabled]="topFilterForm.value.talukaId==0 ? true : false"
@@ -29,7 +39,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>शाळा निवडा</mat-label>
                 <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId"
@@ -40,9 +50,16 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <!-- <div class="col-sm-auto">
-            <button class="btn  btn-primary" (click)="displayProfile(61)">student profile</button>
-        </div> -->
+        <div class="col-sm">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Assessment</mat-label>
+                <mat-select>
+                    <mat-option>Option 1</mat-option>
+                    <mat-option>Option 2</mat-option>
+                    <mat-option>Option 3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
 </form>
 <div class="row mb-3" id="dash-stats">
@@ -158,7 +175,7 @@
                     <thead>
                         <tr>
                             <th *ngFor="let surveyedData of getSurveyedData; let i = index">
-                                <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"  (change)="checkBoxChecked($event, surveyedData?.data)">
+                                <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"  (change)="checkBoxChecked($event, surveyedData?.standardId)">
                                 {{surveyedData?.text ? surveyedData?.text : '-'}}
                             </th>
                         </tr>
@@ -189,14 +206,6 @@
                 <div class="d-flex align-items-center justify-content-between w-100">
                     <h6 class="mb-0">तालुका निहाय मूल्यांकन</h6>
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>मूल्यांकन</mat-label>
-                            <mat-select>
-                                <mat-option>Option 1</mat-option>
-                                <mat-option>Option 2</mat-option>
-                                <mat-option>Option 3</mat-option>
-                            </mat-select>
-                        </mat-form-field>
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>कामगिरी</mat-label>
                             <mat-select>
