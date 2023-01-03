@@ -36,7 +36,7 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>key</mat-icon>
                                     <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{'login.enter_password'|translate}}" formControlName="password">
-                                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
@@ -55,7 +55,7 @@
                             <div class="w-100" id="captcha"></div>
                         </div>
                         <div class="col-sm text-center">
-                            <button mat-flat-button class="btn-main btn-icon" type="button" (click)="commonMethods.createCaptchaCarrerPage()" matTooltip="Refresh">
+                            <button type="button" mat-flat-button class="btn-main btn-icon" (click)="commonMethods.createCaptchaCarrerPage()" matTooltip="Refresh">
                                 <mat-icon>sync</mat-icon>
                             </button>
                         </div>
