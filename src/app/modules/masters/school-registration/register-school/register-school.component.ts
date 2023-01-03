@@ -66,7 +66,7 @@ export class RegisterSchoolComponent {
       classFrom: [obj?.classFrom || '', Validators.required],
       classTo: [obj?.classTo || '', Validators.required],
       udiseCode:[obj?.udiseCode || '',[Validators.required]],
-      schoolLocationId:[obj?.schoolLocationId  || '',[Validators.required]],
+      schoolLocationId:[obj?.schoolLocationId  || 1,[Validators.required]],
       schoolAddress:[obj?.schoolAddress || '',[Validators.required]],
     })
     if (flag != 'clear') {
@@ -104,6 +104,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.talukaArray = res.responseData;
+          this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.registerForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter()):'';
           this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
         } else {
           this.talukaArray = [];
@@ -113,7 +114,6 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.registerForm.controls['talukaId'].setValue(this.loginData?.talukaId),this.getCenter();
   }
 
   getCenter() {
@@ -124,6 +124,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.centerArray = res.responseData;
+          this.levelId==4 || this.levelId==5 ?this.registerForm.controls['centerId'].setValue(this.loginData.centerId):'';
           this.editFlag ? (this.registerForm.controls['centerId'].setValue(this.data?.centerId)) : ''
         } else {
           this.centerArray = [];
@@ -133,7 +134,6 @@ export class RegisterSchoolComponent {
         this.error.handelError(error.status);
       }
     })
-    this.registerForm.controls['talukaId'].setValue(this.loginData?.talukaId);
   }
 
   getSchoolCategory() {
