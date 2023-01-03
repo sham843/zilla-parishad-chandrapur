@@ -227,6 +227,10 @@ a.text-main,
   opacity: 0.6;
 }
 
+.disabledAll {
+  pointer-events: none;
+}
+
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
