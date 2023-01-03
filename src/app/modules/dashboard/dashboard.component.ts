@@ -87,7 +87,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.educationYearArray = res.responseData;
-          this.topFilterForm.controls['year'].setValue(this.educationYearArray[0].id)
+          this.topFilterForm.controls['year'].setValue(this.educationYearArray[0].year)
         }
         else {
           this.schoolArray = [];
@@ -105,7 +105,6 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          debugger;
           this.levelId==3 || this.levelId==4 || this.levelId==5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.enbTalDropFlag=true,this.clickOnSvgMap('select'), this.getKendra()) : '';
         }
         else {
@@ -336,7 +335,7 @@ export class DashboardComponent {
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
         let obj: any = {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [ele['assesmentDetails'][i].assesmentCalculationValue]
+          'data': [parseInt(ele['assesmentDetails'][i].assesmentCalculationValue)]
         }
         arr.push(obj)
       }
@@ -348,12 +347,18 @@ export class DashboardComponent {
       chart: {
         type: "bar",
         height: 350,
+        width: 300,
+        columnWidth: '45%',
         stacked: true,
         stackType: "100%",
         toolbar: {
           show: false
         },
-
+        events: {
+          dataPointSelection: (event: any, chartContext: any, config: any) => {
+            console.log(event, chartContext, config.seriesIndex)
+          }
+        }
       },
       bar: {
         horizontal: true,
@@ -375,7 +380,7 @@ export class DashboardComponent {
         labels: {
           show: false,
         },
-        categories: ["2022"]
+        categories: ['2022']
       },
       
       yaxis: {
@@ -398,17 +403,17 @@ export class DashboardComponent {
       },
       plotOptions: {
         bar: {
-          distributed: true,
+          distributed: false,
           horizontal: false,
-          borderRadius: 40,
+          borderRadius: 10,
           borderRadiusApplication: 'end',
           borderRadiusWhenStacked: "last", // "all"/"last",
-          // columnWidth:80,
+           columnWidth:40,
         },
       },
       legend: {
         position: 'right',
-        fontSize: '10px',
+        fontSize: '11px',
         show: true,
         markers: {
           width: 12,

@@ -53,7 +53,7 @@ export class RegisterStudentComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
     this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
+   this.levelId=this.loginData.designationLevelId;
     this.formData();
     
     if (this.data) {
