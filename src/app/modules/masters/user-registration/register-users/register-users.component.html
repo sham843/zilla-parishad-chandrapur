@@ -122,7 +122,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.name' |translate}}</mat-label>
                             <input matInput placeholder="{{'common.name' |translate}}"
-                                formControlName="name" (keypress)="validation.alphabetsWithSpaces($event);validation.noFirstSpaceAllow($event)">
+                                formControlName="name" (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
                                   {{'user_Registration.Please_enter_valid_name' |translate}}

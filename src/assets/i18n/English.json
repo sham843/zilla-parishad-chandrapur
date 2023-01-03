@@ -33,7 +33,7 @@
         "action":"Action",
         "select_user_type":"Please Select User Type",
         "name":"Name",
-        "mobile_number":"Parent's Contact Number",
+        "mobile_number":"Mobile Number",
         "delete":"Delete",
         "ok":"Ok",
         "update":"Update",
