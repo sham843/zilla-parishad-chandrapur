@@ -47,11 +47,11 @@ export class RegisterUsersComponent {
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
-  this.loginData=this.webStorage.getLoginData();
-  this.levelId=this.loginData.designationLevelId;
-  this.getUserForm();
-  this.getUserType();
-  this.getDistrict();
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+    this.getUserForm();
+    this.getUserType();
+    this.getDistrict();
   }
 
   getUserForm() {
@@ -293,8 +293,7 @@ registerUser(formDirective:any) {
    obj.msg="",
    obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[],
    obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[],
- 
-    console.log(this.userRegistrationForm.value);
+
     this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration/UpdateRecord':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {

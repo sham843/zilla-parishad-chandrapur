@@ -78,8 +78,7 @@ export class UserRegistrationComponent {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['TalukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
-      this.levelId==3?this.getAllUserData('filter'):'';
+      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):this.levelId==3?this.getAllUserData('filter'):'';
     })
   }
   getCenter(talukaId: number) {
