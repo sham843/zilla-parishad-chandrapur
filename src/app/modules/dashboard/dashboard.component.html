@@ -138,7 +138,7 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        Explain the meaning of English words
+                      <small>  Meaning of English words</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
@@ -151,7 +151,7 @@
             </div>
             <div class="col-sm-6"> <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        Explaining the meaning of an English sentence
+                        <small>  Meaning of  English sentence</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart">
@@ -193,8 +193,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex chart-container scrollbar">
-                        <div class="border-end"
+                    <div class="d-flex ml-45">
+                        <div class="border-end pt-5"
                         *ngFor="let barchart of barchartOptions?.series; let i = index">
                             <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
                             <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
