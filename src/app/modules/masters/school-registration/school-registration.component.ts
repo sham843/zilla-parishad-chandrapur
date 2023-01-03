@@ -31,8 +31,6 @@ export class SchoolRegistrationComponent {
   totalPages!: number;
   excelDowobj: any;
   subscription!: Subscription;
-  levelId!:number;
-  loginData:any;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -49,8 +47,6 @@ export class SchoolRegistrationComponent {
   ) { }
 
   ngOnInit() {
-    this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
     this.getFilterFormData();
     this.getTableData();
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -62,8 +58,8 @@ export class SchoolRegistrationComponent {
   //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
   getFilterFormData() {
     this.filterForm = this.fb.group({
-      talukaId: [this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.loginData.talukaId:0],
-      centerId: [this.levelId==4 || this.levelId==5 ?this.loginData.centerId:0],
+      talukaId: [0],
+      centerId: [0],
       schoolName: ['',]
     })
   }
@@ -83,7 +79,6 @@ export class SchoolRegistrationComponent {
         this.errorService.handelError(error.status);
       }
     })
-    this.levelId==4 || this.levelId==5 ? this.getCenter():'';
   }
 
   getCenter() {

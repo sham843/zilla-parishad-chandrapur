@@ -49,10 +49,11 @@ export class UserRegistrationComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
       this.setTableData();
+      this.getUserType();
+      this.getTaluka();
     })
     this.loginData=this.webStorage.getLoginData();
     this.levelId=this.loginData.designationLevelId;
-    console.log(this.loginData);
     this.getFormControl();
     this.getAllUserData();
     this.getUserType();
@@ -77,19 +78,21 @@ export class UserRegistrationComponent {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['TalukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):'';
+      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):this.levelId==3?this.getAllUserData('filter'):'';
     })
   }
   getCenter(talukaId: number) {
     this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
-      this.levelId==4 || this.levelId==5 ? (this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId), this.getSchoolList(this.loginData.centerId)):'';
+      this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId):'';
+      this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
+      this.levelId==4?this.getAllUserData('filter'):'';
     })
   }
   getSchoolList(centerId: number) {
     this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
       this.schoolArray = res.responseData;
-      this.levelId==5 ?this.serachUserForm.controls['SchoolId'].setValue(this.loginData.schoolId):'';
+      this.levelId==5 ?(this.serachUserForm.controls['SchoolId'].setValue(this.loginData.schoolId),this.getAllUserData('filter')):'';
     })
   }
   //#endregion---------------------------------------dropdown method end--------------------------------------------------------------------
@@ -98,14 +101,14 @@ export class UserRegistrationComponent {
   getAllUserData(flag?:any) {
     flag == 'filter' ? this.pageNumber = 1 :'';
     this.spinner.show();
-    let userTypeId=this.serachUserForm.value.UserTypeId?this.serachUserForm.value.UserTypeId:0;
-    let taluka=this.serachUserForm.value.TalukaId?this.serachUserForm.value.TalukaId:0;
-    let school=this.serachUserForm.value.SchoolId?this.serachUserForm.value.SchoolId:0;
-    let center=this.serachUserForm.value.CenterId?this.serachUserForm.value.CenterId:0;
-    let text=this.serachUserForm.value.textSearch?this.serachUserForm.value.textSearch:'';
+    this.serachUserForm.value.UserTypeId=this.serachUserForm.value.UserTypeId?this.serachUserForm.value.UserTypeId:0;
+    this.serachUserForm.value.TalukaId=this.serachUserForm.value.TalukaId?this.serachUserForm.value.TalukaId:0;
+    this.serachUserForm.value.SchoolId=this.serachUserForm.value.SchoolId?this.serachUserForm.value.SchoolId:0;
+    this.serachUserForm.value.CenterId=this.serachUserForm.value.CenterId?this.serachUserForm.value.CenterId:0;
+    this.serachUserForm.value.textSearch=this.serachUserForm.value.textSearch?this.serachUserForm.value.textSearch:'';
 
-    let serchText = `&UserTypeId=${userTypeId}&TalukaId=${taluka}
-    &CenterId=${center}&SchoolId=${school}&textSearch=${text}`
+    let serchText = `&UserTypeId=${this.serachUserForm.value.UserTypeId}&TalukaId=${this.serachUserForm.value.TalukaId}
+    &CenterId=${this.serachUserForm.value.CenterId}&SchoolId=${this.serachUserForm.value.SchoolId}&textSearch=${this.serachUserForm.value.textSearch}`
 
     let obj =  flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
     this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetAll?' +  `${obj}${serchText}`, false, false, false, 'baseUrl')
@@ -153,7 +156,6 @@ setTableData(){     // table
 }
 
   childCompInfo(obj: any) {     //table functionality
-    console.log(obj);
     if (obj.label == 'Pagination') {
     this.pageNumber = obj.pageNumber
     this.getAllUserData();

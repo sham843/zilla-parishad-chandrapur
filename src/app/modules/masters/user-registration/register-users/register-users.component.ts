@@ -25,6 +25,8 @@ export class RegisterUsersComponent {
   schoolArr=new Array();
   classArr=new Array();
   subjectArr=new Array();
+  addValidation=new Array();
+  clearArr=new Array();
   lang:string |any='English';
   loginData:any;
   levelId!:number;
@@ -45,11 +47,11 @@ export class RegisterUsersComponent {
     this.webStorage.setLanguage.subscribe((res:any)=>{
      res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
-  this.loginData=this.webStorage.getLoginData();
-  this.levelId=this.loginData.designationLevelId;
-  this.getUserForm();
-  this.getUserType();
-  this.getDistrict();
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+    this.getUserForm();
+    this.getUserType();
+    this.getDistrict();
   }
 
   getUserForm() {
@@ -190,52 +192,37 @@ export class RegisterUsersComponent {
 
 //#endregion-------------------------------------------dropdown methods end----------------------------------------------------------------
  //#region---------------------------------------------add and remove validation start-------------------------------------------------
-addRemoveValidation(){
-if(this.userRegistrationForm.value.userTypeId==2){
-  this.userRegistrationForm.get('designationId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('talukaId')?.clearValidators();
-  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('centerId')?.clearValidators();
-  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('schoolId')?.clearValidators();
-  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('standardModels')?.clearValidators();
-  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subjectModels')?.clearValidators();
-  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agencyId')?.clearValidators();
-  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
-}else if(this.userRegistrationForm.value.userTypeId==3){
-  this.userRegistrationForm.get('designationId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('talukaId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('centerId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('schoolId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('standardModels')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subjectModels')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
-  this.userRegistrationForm.get('agencyId')?.clearValidators();
-  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
-}else if(this.userRegistrationForm.value.userTypeId==4){
-  this.userRegistrationForm.get('agencyId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('agencyId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('talukaId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('talukaId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('centerId')?.setValidators([Validators.required]);
-  this.userRegistrationForm.get('centerId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('designationId')?.clearValidators();
-  this.userRegistrationForm.get('designationId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('schoolId')?.clearValidators();
-  this.userRegistrationForm.get('schoolId')?.updateValueAndValidity();
-  this.userRegistrationForm.get('standardModels')?.clearValidators();
-  this.userRegistrationForm.get('standardModels')?.updateValueAndValidity();
-  this.userRegistrationForm.get('subjectModels')?.clearValidators();
-  this.userRegistrationForm.get('subjectModels')?.updateValueAndValidity();
+setValidation(formControl:any){
+  this.userRegistrationForm.get(formControl)?.setValidators([Validators.required]);
+  this.userRegistrationForm.get(formControl)?.updateValueAndValidity();
+}
+clearValidation(formControl:any){
+  this.userRegistrationForm.get(formControl)?.clearValidators();
+  this.userRegistrationForm.get(formControl)?.updateValueAndValidity();
+}
+
+ addRemoveValidation(){
+ if(this.userRegistrationForm.value.userTypeId==2){
+    this.setValidation('designationId');
+    this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','agencyId'];
+    this.clearArr.forEach(ele=>{
+        this.clearValidation(ele);
+    }) 
+  }else if(this.userRegistrationForm.value.userTypeId==3){
+    this.addValidation=['designationId','talukaId','centerId','schoolId','standardModels','subjectModels'];
+    this.addValidation.forEach(ele=>{
+      this.setValidation(ele);
+    })
+    this.clearValidation('agencyId');
+  }else if(this.userRegistrationForm.value.userTypeId==4){
+    this.addValidation=['agencyId','talukaId','centerId'];
+    this.addValidation.forEach(ele=>{
+      this.setValidation(ele);
+    })
+    this.clearArr=['designationId','schoolId','standardModels','subjectModels'];
+    this.clearArr.forEach(ele=>{
+        this.clearValidation(ele);
+    })
 }
 
   }
@@ -243,29 +230,17 @@ if(this.userRegistrationForm.value.userTypeId==2){
  
   //#region------------------------------------------------clear dropdown method start--------------------------------------------------------------------------
   clearDropdown(flag:any){
-    if(flag=='userType'){
-      this.userRegistrationForm.controls['designationLevelId'].setValue('');
-      this.userRegistrationForm.controls['designationId'].setValue('');
-    }else if(flag=='designationLevel'){
-      this.userRegistrationForm.value.userTypeId==4?this.userRegistrationForm.controls['agencyId'].setValue(''):'';
-      this.userRegistrationForm.controls['designationId'].setValue('');
-    }else if(flag=='district'){
-      this.userRegistrationForm.controls['talukaId'].setValue('');
-      this.userRegistrationForm.controls['centerId'].setValue('');
-      this.userRegistrationForm.controls['schoolId'].setValue('');
-      this.userRegistrationForm.controls['standardModels'].setValue('');
-    }else if(flag=='taluka'){
-      this.userRegistrationForm.controls['centerId'].setValue('');
-      this.userRegistrationForm.controls['schoolId'].setValue('');
-      this.userRegistrationForm.controls['standardModels'].setValue('');
-    }else if(flag=='center'){
-      this.userRegistrationForm.controls['schoolId'].setValue('');
-      this.userRegistrationForm.controls['standardModels'].setValue('');
-    }else if(flag=='school'){
-     this.userRegistrationForm.controls['standardModels'].setValue('');
-    }
+    let setvalueArr;
+    flag=='userType'?setvalueArr=['designationLevelId','designationId']:flag=='designationLevel'?setvalueArr=['agencyId','designationId']:
+    flag=='district'?setvalueArr=['talukaId','centerId','schoolId','standardModels']: flag=='taluka'?setvalueArr=['centerId','schoolId','standardModels']:
+    flag=='center'?setvalueArr=['schoolId','standardModels']:flag=='center'?setvalueArr=['standardModels']:'';
+    setvalueArr?.forEach(ele=>{
+      this.setValueFun(ele)
+    })
   }
-
+  setValueFun(formControlname:any){
+    this.userRegistrationForm.controls[formControlname].setValue('');
+  }
   clearUserForm(formDirective:any){
     formDirective.resetForm();
     this.designationArr=[];
@@ -275,6 +250,7 @@ if(this.userRegistrationForm.value.userTypeId==2){
  //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
 registerUser(formDirective:any) {
     if(this.userRegistrationForm.invalid){
+      alert();
         return;
     }
     else{
@@ -291,37 +267,33 @@ registerUser(formDirective:any) {
          })
        });
     } 
-   let obj= {
-      "createdBy":this.data?this.data.createdBy:this.webStorage.getUserId(),
-      "modifiedBy":this.data?this.data.modifiedBy : this.webStorage.getUserId(),
-      "createdDate":this.data?this.data.createdDate:new Date(),
-      "modifiedDate":new Date(),
-      "isDeleted": false,
-      "id":this.data?this.data.id:0,
-      "name":this.userRegistrationForm.value.name,
-      "userName": this.userRegistrationForm.value.mobileNo,
-      "password": "",
-      "mobileNo":this.userRegistrationForm.value.mobileNo,
-      "stateId":this.userRegistrationForm.value.stateId?this.userRegistrationForm.value.stateId:0,
-      "districtId":this.userRegistrationForm.value.districtId?this.userRegistrationForm.value.districtId:0,
-      "talukaId":this.userRegistrationForm.value.talukaId?this.userRegistrationForm.value.talukaId:0,
-      "centerId":this.userRegistrationForm.value.centerId?this.userRegistrationForm.value.centerId:0,
-      "schoolId":this.userRegistrationForm.value.schoolId?this.userRegistrationForm.value.schoolId:0,
-      "agencyId":this.userRegistrationForm.value.agencyId?this.userRegistrationForm.value.agencyId:0,
-      "emailId":this.userRegistrationForm.value.emailId,
-      "userTypeId":this.userRegistrationForm.value.userTypeId?this.userRegistrationForm.value.userTypeId:0,
-      "designationLevelId":this.userRegistrationForm.value.designationLevelId?this.userRegistrationForm.value.designationLevelId:0,
-      "designationId":this.userRegistrationForm.value.designationId?this.userRegistrationForm.value.designationId:0,
-      "isBlock": false,
-      "blockDate": "2022-12-29T09:07:47.318Z",
-      "blockBy": 0,
-      "deviceTypeId": 0,
-      "fcmId": "",
-      "profilePhoto": "",
-      "msg": "",
-      "standardModels":this.userRegistrationForm.value.userTypeId==3?standardModels:[] ,
-      "subjectModels":this.userRegistrationForm.value.userTypeId==3?subjectModels:[]
-    }
+
+   let obj=this.userRegistrationForm.value;
+   obj.createdBy=this.data?this.data.createdBy:this.webStorage.getUserId(),
+   obj.modifiedBy=this.data?this.data.modifiedBy : this.webStorage.getUserId(),
+   obj.createdDate=this.data?this.data.createdDate:new Date(),
+   obj.modifiedBy=this.data?this.data.modifiedBy : this.webStorage.getUserId(),
+   obj.modifiedDate=new Date(),
+   obj.isDeleted=false,
+   obj.id=this.data?this.data.id:0,
+   obj.userName=this.userRegistrationForm.value.mobileNo,
+   obj.password='',
+   obj.stateId=this.userRegistrationForm.value.stateId?this.userRegistrationForm.value.stateId:0,
+   obj.talukaId=this.userRegistrationForm.value.talukaId?this.userRegistrationForm.value.talukaId:0,
+   obj.centerId=this.userRegistrationForm.value.centerId?this.userRegistrationForm.value.centerId:0,
+   obj.schoolId=this.userRegistrationForm.value.schoolId?this.userRegistrationForm.value.schoolId:0,
+   obj.agencyId=this.userRegistrationForm.value.agencyId?this.userRegistrationForm.value.agencyId:0,
+   obj.designationId=this.userRegistrationForm.value.designationId?this.userRegistrationForm.value.designationId:0,
+   obj.isBlock=false,
+   obj.blockDate="2022-12-29T09:07:47.318Z",
+   obj.blockBy=0,
+   obj.deviceTypeId=0,
+   obj.fcmId="",
+   obj.profilePhoto="",
+   obj.msg="",
+   obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[],
+   obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[],
+
     this.apiService.setHttp((this.data? 'put':'post'),(this.data?'zp_chandrapur/user-registration/UpdateRecord':'zp_chandrapur/user-registration/AddRecord'),false,obj,false, 'baseUrl')
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
