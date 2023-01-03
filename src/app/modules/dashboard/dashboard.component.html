@@ -20,7 +20,8 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>तालुका निवडा</mat-label>
 
-                <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')">
+                <mat-select formControlName="talukaId"
+                    (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
                     <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                         {{tal.taluka}}
@@ -128,14 +129,14 @@
                 <h6 class="mb-0">नकाशा</h6>
             </mat-card-header>
             <mat-card-content class="card-body">
-                <div id="mapsvg" class="text-center" >
+                <div id="mapsvg" class="text-center">
                     <!-- <img src="assets/chandrapur_dist.svg" style="height: 200px;" class=""> -->
                 </div>
             </mat-card-content>
         </mat-card>
 
         <div class="row">
-            <div class="col-sm-6"> 
+            <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
                         Explain the meaning of English words
@@ -147,7 +148,8 @@
                                 [responsive]="piechartOptions?.responsive"></apx-chart>
                         </div>
                     </mat-card-content>
-                </mat-card></div>
+                </mat-card>
+            </div>
             <div class="col-sm-6"> <mat-card class="plain-card">
                     <mat-card-header class="card-header">
                         Explaining the meaning of an English sentence
@@ -171,29 +173,37 @@
                 </h6>
             </mat-card-header>
             <mat-card-content class="card-body">
-                <table class="table table-bordered inner-table">
-                    <thead>
-                        <tr>
-                            <th *ngFor="let surveyedData of getSurveyedData; let i = index">
-                                <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"  (change)="checkBoxChecked($event, surveyedData?.standardId)">
-                                {{surveyedData?.text ? surveyedData?.text : '-'}}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td *ngFor="let surveyedData of getSurveyedData">{{surveyedData?.data}}</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <div class="row">
-                    <div class="col-sm-4 border-end" *ngFor="let barchart of barchartOptions?.series; let i = index">
-                        <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
-                        <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"  [plotOptions]="barchartOptions?.plotOptions"
-                            [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
-                            [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                    <div class="col-sm-12">
+                        <table class="table table-bordered inner-table">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let surveyedData of getSurveyedData; let i = index">
+                                        <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
+                                            (change)="checkBoxChecked($event, surveyedData?.standardId)">
+                                        {{surveyedData?.text ? surveyedData?.text : '-'}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td *ngFor="let surveyedData of getSurveyedData">{{surveyedData?.data}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex chart-container scrollbar">
+                        <div class="border-end"
+                        *ngFor="let barchart of barchartOptions?.series; let i = index">
+                            <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
+                            <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
+                                [plotOptions]="barchartOptions?.plotOptions" [responsive]="barchartOptions?.responsive"
+                                [xaxis]="barchartOptions?.xaxis" [legend]="barchartOptions?.legend"
+                                [fill]="barchartOptions?.fill"></apx-chart>
+                        </div>
                     </div>
                 </div>
+
             </mat-card-content>
         </mat-card>
     </div>
