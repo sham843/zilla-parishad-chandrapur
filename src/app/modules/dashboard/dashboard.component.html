@@ -9,10 +9,10 @@
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Year</mat-label>
-                <mat-select>
-                    <mat-option>Option 1</mat-option>
-                    <mat-option>Option 2</mat-option>
-                    <mat-option>Option 3</mat-option>
+                <mat-select formControlName="year">
+                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
+                        {{year.year}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -20,7 +20,7 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>तालुका निवडा</mat-label>
 
-                <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')">
+                <mat-select formControlName="talukaId" (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
                     <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                         {{tal.taluka}}
@@ -166,8 +166,10 @@
         <mat-card class="plain-card h-100">
             <mat-card-header class="card-header">
                 <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
-                    <div>सर्वेक्षण केलेल्या विद्यार्थ्यांची एकूण संख्या</div>
-                    <div>निवडलेली संख्या : <span class="fw-bold">{{selNumber}}</span></div>
+                    <!-- <div>सर्वेक्षण केलेल्या विद्यार्थ्यांची एकूण संख्या</div> -->
+                    <div>Number of students surveyed</div>
+                    <!-- <div>निवडलेली संख्या : <span class="fw-bold">{{selNumber}}</span></div> -->
+                    <div>Selected Number : <span class="fw-bold">{{selNumber}}</span></div>
                 </h6>
             </mat-card-header>
             <mat-card-content class="card-body">
@@ -175,7 +177,7 @@
                     <thead>
                         <tr>
                             <th *ngFor="let surveyedData of getSurveyedData; let i = index">
-                                <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"  (change)="checkBoxChecked($event, surveyedData?.standardId)">
+                                <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"  (change)="checkBoxChecked($event, surveyedData)">
                                 {{surveyedData?.text ? surveyedData?.text : '-'}}
                             </th>
                         </tr>
@@ -204,10 +206,10 @@
         <mat-card class="plain-card">
             <mat-card-header class="card-header">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                    <h6 class="mb-0">तालुका निहाय मूल्यांकन</h6>
+                    <h6 class="mb-0">Taluka wise Assessment</h6>
                     <div class="d-flex align-items-center justify-content-between gap-3">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>कामगिरी</mat-label>
+                            <mat-label>Assessment</mat-label>
                             <mat-select>
                                 <mat-option>Option 1</mat-option>
                                 <mat-option>Option 2</mat-option>
@@ -215,17 +217,47 @@
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>भाषा निवडा</mat-label>
+                            <mat-label>Select Subject</mat-label>
                             <mat-select>
-                                <mat-option>Option 1</mat-option>
-                                <mat-option>Option 2</mat-option>
-                                <mat-option>Option 3</mat-option>
+                                <mat-option *ngFor="let subjects of getAllSubjectArray">{{subjects?.subject}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-card-header>
             <mat-card-content class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr. No.</th>
+                        <th scope="col">Taluka</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Total Students</th>
+                        <th scope="col">Evaluated</th>
+                        <th scope="col">Pending Assessment</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Ballarpur</td>
+                        <td class="w-50">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 15%;" [style.background-color]="progressBarcolors[0]" aria-valuenow="15" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 30%" [style.background-color]="progressBarcolors[1]" aria-valuenow="30"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 20%" [style.background-color]="progressBarcolors[2]"  aria-valuenow="20" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </td>
+                        <td>5963</td>
+                        <td>5963</td>
+                        <td>1523</td>
+                    </tr>
+                      
+                    </tbody>
+                  </table>
 
             </mat-card-content>
         </mat-card>
