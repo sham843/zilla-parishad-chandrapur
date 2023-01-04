@@ -75,7 +75,7 @@ export class RegisterSchoolComponent {
       this.getSchoolType();
       this.getGenderAllow();
       this.getFromClass();
-      this.getToClass();
+      // this.getToClass();
     }
   }
 
@@ -189,7 +189,8 @@ export class RegisterSchoolComponent {
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
-          this.fromClassArray = res.responseData
+          this.fromClassArray = res.responseData;
+          this.toClassArray = res.responseData
         } else {
           this.fromClassArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -200,21 +201,21 @@ export class RegisterSchoolComponent {
     })
   }
 
-  getToClass() {
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
-    this.service.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == '200') {
-          this.toClassArray = res.responseData
-        } else {
-          this.toClassArray = [];
-          this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-        }
-      }), error: (error: any) => {
-        this.error.handelError(error.status);
-      }
-    })
-  }
+  // getToClass() {
+  //   this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+  //   this.service.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == '200') {
+  //         this.toClassArray = res.responseData
+  //       } else {
+  //         this.toClassArray = [];
+  //         this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+  //       }
+  //     }), error: (error: any) => {
+  //       this.error.handelError(error.status);
+  //     }
+  //   })
+  // }
 
   onSubmitData() {
     let formData = this.registerForm.value;
