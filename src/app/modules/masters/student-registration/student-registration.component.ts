@@ -54,7 +54,7 @@ export class StudentRegistrationComponent {
     this.loginData = this.webStorage.getLoginData();
     this.levelId = this.loginData.designationLevelId;
     this.formData();
-    this.getTableData();
+    this.levelId == 1 || this.levelId == 2 ? this.getTableData() : ''; // temp
     this.getTaluka();
   }
 
@@ -146,7 +146,7 @@ export class StudentRegistrationComponent {
     this.formData();
     this.centerArray = [];
     this.schoolArray = [];
-    this.getTableData('filter');
+    // this.getTableData('filter'); // temp
     this.getTaluka();
   }
   //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
