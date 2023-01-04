@@ -98,7 +98,7 @@ export class RegisterUsersComponent {
           this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }},
           error: ((err: any) => { this.errors.handelError(err) })
-      }) 
+      })
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type
@@ -108,7 +108,7 @@ export class RegisterUsersComponent {
     })
   }
 
-  getUserLevel(typeId:number) {  //get user level   
+  getUserLevel(typeId:number) {  //get user level
   this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -121,7 +121,7 @@ export class RegisterUsersComponent {
       this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
     }},
       error: ((err: any) => { this.errors.handelError(err) })
-  }) 
+  })
 }
 
   getDesignation(levelId:any) {  //get user designation
@@ -136,7 +136,7 @@ export class RegisterUsersComponent {
       }}),
         error: ((err: any) => { this.errors.handelError(err) })
     })
-  } 
+  }
 
   getDistrict() {   //get district
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
@@ -150,7 +150,7 @@ export class RegisterUsersComponent {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==3 ||this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId): 
+      this.levelId==3 ||this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId):
       this.data.flag!='Add'? this.getKendra(this.userRegistrationForm.value.talukaId):'';
     })
   }
@@ -165,7 +165,7 @@ export class RegisterUsersComponent {
   }
 
   getSchoolName(centerId:number) {    //get school
-    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
+    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{
       this.schoolArr=res.responseData;
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
       (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
@@ -200,7 +200,7 @@ export class RegisterUsersComponent {
      })
   }
 
-  getAllSubject() {    //get subject 
+  getAllSubject() {    //get subject
     this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -231,7 +231,7 @@ clearValidation(formControl:any){
     this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','agencyId'];
     this.clearArr.forEach(ele=>{
         this.clearValidation(ele);
-    }) 
+    })
   }else if(this.userRegistrationForm.value.userTypeId==3){
     this.addValidation=['designationId','talukaId','centerId','schoolId','standardModels','subjectModels'];
     this.addValidation.forEach(ele=>{
@@ -251,7 +251,7 @@ clearValidation(formControl:any){
 
   }
   //#endregion-----------------------------------------add and remove validation end----------------------------------------------------
- 
+
   //#region------------------------------------------------clear dropdown method start--------------------------------------------------------------------------
   clearDropdown(flag:any){
     let setvalueArr;
@@ -289,7 +289,7 @@ registerUser(formDirective:any) {
          "subjectId":ele
          })
        });
-    } 
+    }
 
    let obj=this.userRegistrationForm.value;
    obj.createdBy=this.data.obj?this.data.obj.createdBy:this.webStorage.getUserId(),
