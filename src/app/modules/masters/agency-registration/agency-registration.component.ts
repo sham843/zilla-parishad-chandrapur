@@ -133,7 +133,7 @@ export class AgencyRegistrationComponent {
         p2: '',
         cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'हटवा' : 'Delete',
-        dialogIcon: 'assets/images/logout.gif',
+        dialogIcon: 'assets/images/trash.gif',
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
       },
     })

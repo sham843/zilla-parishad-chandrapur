@@ -209,7 +209,7 @@ export class SchoolRegistrationComponent {
       p2: '',
       cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-      dialogIcon: 'assets/images/logout.gif'
+      dialogIcon: 'assets/images/trash.gif'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',

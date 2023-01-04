@@ -188,7 +188,7 @@ setTableData(){     // table
         p2: '',
         cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
         successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
-        dialogIcon: 'assets/images/logout.gif',
+        dialogIcon: 'assets/images/trash.gif',
         cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
       },
     })

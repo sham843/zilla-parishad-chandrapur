@@ -226,7 +226,7 @@ export class RegisterSchoolComponent {
     } else {
       let radiovalue=this.registerForm.value.schoolLocationId;
       if(radiovalue == 'Rural'){
-        this.registerForm.controls['schoolLocationId'].setValue(1);  
+        this.registerForm.controls['schoolLocationId'].setValue(1);
       }else{
         this.registerForm.controls['schoolLocationId'].setValue(2);
       }
