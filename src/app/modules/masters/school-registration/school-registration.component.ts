@@ -118,7 +118,8 @@ export class SchoolRegistrationComponent {
     this.centerArray = [];
     this.pageNumber = 1    
     this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
-    this.getCenter()
+    this.getCenter();
+    this.getTableData();
   }
 
   //#endregion-----------------------------------Filter Form Data Ends--------------------------------------------------------------------
