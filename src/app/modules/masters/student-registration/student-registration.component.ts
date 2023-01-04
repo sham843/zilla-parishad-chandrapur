@@ -146,8 +146,7 @@ export class StudentRegistrationComponent {
     this.formData();
     this.centerArray = [];
     this.schoolArray = [];
-    // this.getTableData('filter'); // temp
-    this.getTaluka();
+   this.getTaluka();
   }
   //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
 
@@ -276,7 +275,7 @@ export class StudentRegistrationComponent {
     let header: any;
     this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender', 'Standard', 'Parent Contact No.'];
     let column;
-    column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
+    column = this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 

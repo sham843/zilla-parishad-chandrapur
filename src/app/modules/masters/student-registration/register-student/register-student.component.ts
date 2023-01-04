@@ -82,13 +82,13 @@ export class RegisterStudentComponent {
       "talukaId": [data?.talukaId || (this.loginData.talukaId ==0 ? '': this.loginData.talukaId), Validators.required],
       "centerId": [data?.centerId || (this.loginData.centerId ==0 ? '': this.loginData.centerId) , [Validators.required]],
       "schoolId": [data?.schoolId || (this.loginData.schoolId ==0 ? '': this.loginData.schoolId), [Validators.required]],
-      "standardId": [data?.standardId || ''],
+      "standardId": [data?.standardId || 0,[Validators.required]],
       "saralId": [data?.saralId || '', [Validators.required, Validators.minLength(2)]],
-      "genderId": [data?.genderId || '', [Validators.required]],
+      "genderId": [data?.genderId || 0, [Validators.required]],
       "dob": [data?.dob || ''],
       "aadharNo": [data?.aadharNo || '', [Validators.pattern(this.validation.aadhar_card)]],
-      "religionId": [data?.religionId || ''],
-      "castId": [data?.castId || ''],
+      "religionId": [data?.religionId || 0],
+      "castId": [data?.castId || 0],
       "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
       "lan": ['' || this.lang],
@@ -104,18 +104,12 @@ export class RegisterStudentComponent {
   onEdit() {
     this.editFlag = true;
     this.formData(this.data);
-    // this.getReligion(); // temp
-    // this.getGender(); // temp
-    // this.getCaste(); // temp
   }
 
   clearForm() {
     this.formDirective.resetForm();
-    // this.data = null;
     this.formData();
     this.editFlag = false;
-    // this.centerArray = [];
-    // this.schoolArray = [];
      this.getDistrict();
      this.disabledTaluka = false;
   }
@@ -165,7 +159,6 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          // this.editFlag ? (this.studentFrm.controls['talukaId'].setValue(this.data.talukaId), this.getCenter(this.studentFrm.value.talukaId)) : '';
           this.editFlag  || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
         }
         else {
@@ -180,12 +173,10 @@ export class RegisterStudentComponent {
   }
 
   getCenter() {
-    debugger;
-    this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
+     this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          // this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
           this.editFlag  ||this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.studentFrm.value.centerId), this.getSchool()) : '';
         }
         else {
@@ -313,6 +304,8 @@ export class RegisterStudentComponent {
         "modifiedDate": new Date(),
         "isDeleted": false,
       }
+      data.aadharNo=data.aadharNo? data.aadharNo : 0;
+     data.dob=data.dob? data.dob : null;
       let mainData = { ...obj, ...data };
       let url;
       this.data ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
