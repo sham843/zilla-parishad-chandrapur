@@ -8,7 +8,6 @@ import { StudentProfileComponent } from './student-profile.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -24,8 +23,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     TableGridComponent,
     MatCardModule,
     MatInputModule,
-    MatSelectModule,
-    NgApexchartsModule
+    MatSelectModule
   ]
 })
 export class StudentProfileModule { }
