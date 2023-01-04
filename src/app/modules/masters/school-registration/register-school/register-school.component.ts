@@ -7,6 +7,7 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-register-school',
   templateUrl: './register-school.component.html',
@@ -34,6 +35,7 @@ export class RegisterSchoolComponent {
 
   constructor
     (
+      private spinner: NgxSpinnerService,
       private fb: FormBuilder,
       private service: ApiService,
       public dialogRef: MatDialogRef<RegisterSchoolComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
@@ -90,7 +92,6 @@ export class RegisterSchoolComponent {
   }
 
   getDistrict() {
-    debugger;
     let formData = this.registerForm.value.districtId;
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
@@ -237,13 +238,16 @@ export class RegisterSchoolComponent {
   // }
 
   onSubmitData() {
+    this.spinner.show();
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
+      this.spinner.hide();
       if (this.registerForm.controls['schoolLocationId'].invalid) {
         this.showRedio = true
       }
       return;
     } else {
+      this.spinner.hide();
       let radiovalue = this.registerForm.value.schoolLocationId;
       if (radiovalue == 'Rural') {
         this.registerForm.controls['schoolLocationId'].setValue(1);
