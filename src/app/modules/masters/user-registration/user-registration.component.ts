@@ -56,8 +56,8 @@ export class UserRegistrationComponent {
     this.levelId=this.loginData.designationLevelId;
     this.getFormControl();
     this.getAllUserData();
-    this.getUserType();
-    this.getTaluka();
+    // this.getUserType();
+    // this.getTaluka();
   }
   getFormControl() {
     this.serachUserForm = this.fb.group({
@@ -78,7 +78,7 @@ export class UserRegistrationComponent {
     this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['TalukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):this.levelId==3?this.getAllUserData('filter'):'';
+      this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):this.levelId==3?(this.getAllUserData('filter')):'';
     })
   }
   getCenter(talukaId: number) {
@@ -86,7 +86,7 @@ export class UserRegistrationComponent {
       this.centerArray = res.responseData;
       this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId):'';
       this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
-      this.levelId==4?this.getAllUserData('filter'):'';
+      this.levelId==4?(this.getAllUserData('filter')):'';
     })
   }
   getSchoolList(centerId: number) {
@@ -167,10 +167,26 @@ setTableData(){     // table
   }
   //----------------------------------------------------------Add update modal open------------------------------------------------------------
   registerusers(editObj?: any) {
-    const dialog =this.dialog.open(RegisterUsersComponent, {
+    /* const dialog =this.dialog.open(RegisterUsersComponent, {
       width: '850px',
       disableClose: true,
       data: editObj,
+    })
+    dialog.afterClosed().subscribe((res:any) => {
+      if (res == 'Yes') {
+        this.getAllUserData();
+      }
+    }) */
+    const dialog =this.dialog.open(RegisterUsersComponent, {
+      width: '850px',
+      disableClose: true,
+      data:{
+        cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अद्यतनित करा':'वापरकर्ता जोडा'):(editObj?'Update User':'Add User'),
+        obj:editObj,
+        flag:editObj?'Update':'Add',
+        successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
+        cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+      },
     })
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
@@ -214,7 +230,7 @@ setTableData(){     // table
           this.getAllUserData();
         }
         else{
-          this.common.snackBar(res.statusMessage, 1);
+          this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
       },
       error: ((err: any) => { this.errors.handelError(err) })

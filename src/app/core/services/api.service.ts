@@ -8,7 +8,7 @@ export class ApiService {
   tableData = new Subject<any>(); //all table set and set data using BehaviorSubject
   stateId:number = 1; // maharashta
   disId:number = 1 // 1 for Chandrapur
-
+  translateLang:boolean=true;
   userObj = new Array();
 
   private httpObj: any = {

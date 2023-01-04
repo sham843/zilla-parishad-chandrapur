@@ -3,8 +3,8 @@ import { Component, HostBinding } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
-import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
-import { MyProfileComponent } from 'src/app/shared/components/my-profile/my-profile.component'
+import { RegisterUsersComponent } from 'src/app/modules/masters/user-registration/register-users/register-users.component'
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component'
 import { WebStorageService } from '../services/web-storage.service'
 
@@ -17,7 +17,9 @@ export class HeaderComponent {
   @HostBinding('class') className = ''
   language: string = 'English'
   lag = ['English', 'Marathi']
-  selLang!: string
+  selLang!: string;
+  loginData!: any;
+
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -29,6 +31,7 @@ export class HeaderComponent {
     translate.setDefaultLang('English')
   }
   ngOnInit(): void {
+    this.loginData = this.webStorage.getLoginData();
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
@@ -83,14 +86,15 @@ export class HeaderComponent {
       }
     })
   }
-  openChangePassModal(){
+  openChangePassModal() {
     let lang;
     this.webStorage.setLanguage.subscribe((res: any) => {
       lang = res
     })
-      const dialogRef = this.dialog.open(ChangePasswordComponent, {
-        width: '700px',
-        data:{ p1:'',
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '700px',
+      data: {
+        p1: '',
         p2: '',
         cardTitle: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
         successBtnText: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
@@ -110,9 +114,23 @@ export class HeaderComponent {
   }
 
   openMyProfileDialog() {
-    this.dialog.open(MyProfileComponent,{
-      width: '500px',
+    let lang;
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      lang = res
+    })
+    const dialog = this.dialog.open(RegisterUsersComponent,{
+      width: '850px',
       disableClose: true,
-    });
+      data:{
+        cardTitle: lang=='mr-IN' ?'माझे प्रोफाइल':'My Profile',
+        successBtnText: lang=='mr-IN' ? 'प्रोफाइल बदला' : 'Update Profile',
+        flag:'profile',
+        cancelBtnText:lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+      }
+    })
+    dialog.afterClosed().subscribe((res:any) => {
+      if (res == 'Yes') {
+      }
+    })
   }
 }
