@@ -4,13 +4,13 @@
         <!-- <li class="breadcrumb-item active" aria-current="page">Library</li> -->
     </ol>
 </nav>
-<form [formGroup]="topFilterForm">
+<form [formGroup]="topFilterForm" class="w-mat-form-field">
     <div class="row">
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Year</mat-label>
-                <mat-select formControlName="year">
-                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.year">
+                <mat-label>Year </mat-label>
+                <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
+                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.id" >
                         {{year.year}}
                     </mat-option>
                 </mat-select>
@@ -21,7 +21,7 @@
                 <mat-label>तालुका निवडा</mat-label>
 
                 <mat-select formControlName="talukaId"
-                    (selectionChange)="getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
+                    (selectionChange)="clearFilterForm('taluka');getKendra();cardCountData();clickOnSvgMap('select')" [disabled]="enbTalDropFlag">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
                     <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                         {{tal.taluka}}
@@ -34,7 +34,7 @@
                 <mat-label>केंद्र निवडा</mat-label>
                 <mat-select formControlName="kendraId"
                     [disabled]="topFilterForm.value.talukaId==0 ? true : enbCenterDropFlag ? true: false"
-                    (selectionChange)="getSchools();cardCountData();">
+                    (selectionChange)="clearFilterForm('kendra');getSchools();cardCountData();">
                     <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                         {{cen.center}}
                     </mat-option>
@@ -56,9 +56,9 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Assessment</mat-label>
                 <mat-select>
-                    <mat-option>Option 1</mat-option>
-                    <mat-option>Option 2</mat-option>
-                    <mat-option>Option 3</mat-option>
+                    <mat-option *ngFor="let ssessments of assessmentsArray" [value]="ssessments.id">
+                        {{ssessments.examName}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -143,11 +143,14 @@
                         <small> Meaning of English words</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
-                        <div id="chart">
+                        <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
                             <apx-chart [series]="piechartOptions?.series" [legend]="piechartOptions?.legend"
                                 [chart]="piechartOptions?.chart" [labels]="piechartOptions?.labels"
                                 [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
+                        <ng-template #elseBlock>
+                            <p>No Data Found</p>
+                        </ng-template>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -156,12 +159,15 @@
                         <small> Meaning of English sentence</small>
                     </mat-card-header>
                     <mat-card-content class="card-body">
-                        <div id="chart">
+                        <div id="chart"  *ngIf="piechartSecondOptionsData?.length; else elseBlock">
                             <apx-chart [series]="piechartSecondOptions?.series" [legend]="piechartSecondOptions?.legend"
                                 [chart]="piechartSecondOptions?.chart" [labels]="piechartSecondOptions?.labels"
                                 [responsive]="piechartSecondOptions?.responsive"
                                 [fill]="piechartSecondOptions?.fill"></apx-chart>
                         </div>
+                        <ng-template #elseBlock>
+                            <p>No Data Found</p>
+                        </ng-template>
                     </mat-card-content>
                 </mat-card></div>
         </div>

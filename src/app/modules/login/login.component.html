@@ -16,7 +16,7 @@
                     <div class="row gx-1">
                         <div class="col-sm-12 col-12">
                             <div class="mb-4 text-center">
-                                <h2 class="text-main fw-bold">Login</h2>
+                                <h4 class="text-main fw-bold">Login</h4>
                             </div>
                             <div class="mb-2">
                                 <mat-form-field appearance="outline" class="w-100">
@@ -25,7 +25,7 @@
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                                         <mat-error *ngIf="loginFormControls.userName.errors"> 
-                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')">{{'login.username_required'|translate}}</span>
+                                            <!-- <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')">{{'login.username_required'|translate}}</span> -->
                                            
                                             <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">{{'login.please_enter_valid_username'|translate}}</span>
                                         </mat-error>
@@ -37,7 +37,7 @@
                                     <mat-icon matPrefix>key</mat-icon>
                                     <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{'login.enter_password'|translate}}" formControlName="password">
                                     <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
-                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?'Hide':'Show'">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                     <!-- <mat-error *ngIf="loginFormControls.password.errors">
@@ -62,9 +62,9 @@
                         <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>{{'login.enter_captcha'|translate}}</mat-label>
-                                <input matInput placeholder="Enter Captcha"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
-                                <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">{{'login.captcha_required'|translate}}
-                                </mat-error>
+                                <input matInput placeholder="{{'login.captcha'|translate}}"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
+                                <!-- <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">{{'login.captcha_required'|translate}} -->
+                                <!-- </mat-error> -->
                             </mat-form-field>
                         </div>
                     </div>

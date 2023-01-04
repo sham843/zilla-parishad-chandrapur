@@ -14,6 +14,7 @@ export class ValidationService {
   aadhar_card = ('^[2-9][0-9]{11}$');
   alphabetsAndBracket= ('^[a-zA-Z() ]+$');
   marathi=('^[\u0900-\u0965 ]+$');
+  addDesignation = ('^[a-zA-Z() =.,-]+$');
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
