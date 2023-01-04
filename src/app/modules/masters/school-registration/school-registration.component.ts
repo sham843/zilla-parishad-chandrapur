@@ -78,6 +78,7 @@ export class SchoolRegistrationComponent {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
           this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter()):'';
+          this.levelId==3 ? this.getTableData('filter') : '';
         }
         else {
           this.talukaArray = [];
@@ -196,7 +197,7 @@ export class SchoolRegistrationComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      result ? this.getTableData() : '';
+      result == 'post' ||  result == 'put'   ? this.getTableData() : '';
     });
   }
 

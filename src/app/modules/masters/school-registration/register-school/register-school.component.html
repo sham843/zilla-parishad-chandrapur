@@ -105,7 +105,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.class_from' |translate}}</mat-label>
-                        <mat-select formControlName="classFrom">
+                        <mat-select formControlName="classFrom" (selectionChange)="registerForm.controls['classTo'].setValue('')">
                             <mat-option *ngFor="let gr of fromClassArray" [value]="gr.id">
                                 {{gr.standard}}
                             </mat-option>
@@ -160,7 +160,7 @@
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
-                <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear'
+                <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm()">{{'common.clear'
                     |translate}}</button>
                 <button mat-flat-button class="btn-main" type="submit">{{!editFlag ?
                     ('common.submit'|translate):('common.update'| translate)}}</button>
