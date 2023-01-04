@@ -92,6 +92,9 @@ export class RegisterAgencyComponent {
           this.dialogRef.close('Yes');
           formDirective.resetForm();
         }
+        else{
+            this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+           }
       },
       (error: any) => {
         this.errors.handelError(error.status);

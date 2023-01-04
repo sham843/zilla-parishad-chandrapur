@@ -10,6 +10,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service'
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
 import { RegisterAgencyComponent } from './register-agency/register-agency.component'
 import { Subscription } from 'rxjs';
+import { ValidationService } from 'src/app/core/services/validation.service'
 @Component({
   selector: 'app-agency-registration',
   templateUrl: './agency-registration.component.html',
@@ -34,7 +35,8 @@ export class AgencyRegistrationComponent {
     private webStorage: WebStorageService,
     private errors: ErrorsService,
     private spinner: NgxSpinnerService,
-    private common: CommonMethodsService
+    private common: CommonMethodsService,
+    public validation:ValidationService,
   ) { }
 
   ngOnInit() {
@@ -63,13 +65,14 @@ export class AgencyRegistrationComponent {
           this.spinner.hide();
           this.common.snackBar(res.statusMessage, 1);
           this.tableDataArray = []
-          this.totalItem = 0
+          this.totalItem = 0;
+          this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
         flag != 'excel' && this.tableDataArray? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
-  }
+  } 
 
   setTableData() {
     let displayedColumns;
@@ -161,6 +164,9 @@ export class AgencyRegistrationComponent {
           this.common.snackBar(res.statusMessage, 0);
           this.getAllAgencyData();
         }
+         else{
+          this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+         }
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
