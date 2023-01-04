@@ -70,7 +70,6 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
-    console.log("data",data)
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -299,8 +298,7 @@ export class RegisterStudentComponent {
 
 
   onClickSubmit() {
-    console.log("this.studentFrm", this.studentFrm.value)
-    if (!this.studentFrm.valid) {
+   if (!this.studentFrm.valid) {
       return;
     } else {
       this.ngxspinner.show();
