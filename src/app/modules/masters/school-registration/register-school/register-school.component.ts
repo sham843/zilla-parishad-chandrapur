@@ -50,6 +50,7 @@ export class RegisterSchoolComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.loginData = this.webStorage.getLoginData();
+ 
     this.levelId = this.loginData.designationLevelId;
   
     if(this.data){
