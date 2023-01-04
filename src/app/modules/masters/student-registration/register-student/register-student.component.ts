@@ -69,7 +69,6 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
-    console.log("data",data)
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -79,10 +78,10 @@ export class RegisterStudentComponent {
       "m_Name_Mar": [data?.m_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
       "l_Name_Mar": [data?.l_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
-      "talukaId": [data?.talukaId || (this.loginData.talukaId ==0 ? '': this.loginData.talukaId), Validators.required],
-      "centerId": [data?.centerId || (this.loginData.centerId ==0 ? '': this.loginData.centerId) , [Validators.required]],
-      "schoolId": [data?.schoolId || (this.loginData.schoolId ==0 ? '': this.loginData.schoolId), [Validators.required]],
-      "standardId": [data?.standardId || 0,[Validators.required]],
+      "talukaId": [data?.talukaId || (this.loginData.talukaId == 0 ? '' : this.loginData.talukaId), Validators.required],
+      "centerId": [data?.centerId || (this.loginData.centerId == 0 ? '' : this.loginData.centerId), [Validators.required]],
+      "schoolId": [data?.schoolId || (this.loginData.schoolId == 0 ? '' : this.loginData.schoolId), [Validators.required]],
+      "standardId": [data?.standardId || 0, [Validators.required]],
       "saralId": [data?.saralId || '', [Validators.required, Validators.minLength(2)]],
       "genderId": [data?.genderId || 0, [Validators.required]],
       "dob": [data?.dob || ''],
@@ -110,8 +109,8 @@ export class RegisterStudentComponent {
     this.formDirective.resetForm();
     this.formData();
     this.editFlag = false;
-     this.getDistrict();
-     this.disabledTaluka = false;
+    this.getDistrict();
+    this.disabledTaluka = false;
   }
 
   clearDropdown(flag: any) {
@@ -141,7 +140,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.studentFrm.value.districtId), this.getTaluka()) :this.getTaluka();
+          this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.studentFrm.value.districtId), this.getTaluka()) : this.getTaluka();
         }
         else {
           this.districtArray = [];
@@ -159,7 +158,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.editFlag  || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
+          this.editFlag || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
         }
         else {
           this.talukaArray = [];
@@ -173,11 +172,11 @@ export class RegisterStudentComponent {
   }
 
   getCenter() {
-     this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
+    this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.editFlag  ||this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.studentFrm.value.centerId), this.getSchool()) : '';
+          this.editFlag || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.studentFrm.value.centerId), this.getSchool()) : '';
         }
         else {
           this.centerArray = [];
@@ -197,7 +196,7 @@ export class RegisterStudentComponent {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
           // this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
-          this.editFlag || this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.studentFrm.value.schoolId), this.getStandard()) :'';
+          this.editFlag || this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.studentFrm.value.schoolId), this.getStandard()) : '';
         }
         else {
           this.schoolArray = [];
@@ -216,7 +215,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['standardId'].setValue(this.data.standardId), this.getGender()): '';
+          this.editFlag ? (this.studentFrm.controls['standardId'].setValue(this.data.standardId), this.getGender()) : '';
         }
         else {
           this.standardArray = [];
@@ -256,7 +255,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['religionId'].setValue(this.data.religionId), this.getCaste() ): '';
+          this.editFlag ? (this.studentFrm.controls['religionId'].setValue(this.data.religionId), this.getCaste()) : '';
         }
         else {
           this.religionArray = [];
@@ -291,7 +290,6 @@ export class RegisterStudentComponent {
 
 
   onClickSubmit() {
-    console.log("this.studentFrm", this.studentFrm.value)
     if (!this.studentFrm.valid) {
       return;
     } else {
@@ -304,8 +302,8 @@ export class RegisterStudentComponent {
         "modifiedDate": new Date(),
         "isDeleted": false,
       }
-      data.aadharNo=data.aadharNo? data.aadharNo : 0;
-     data.dob=data.dob? data.dob : null;
+      data.aadharNo = data.aadharNo ? data.aadharNo : 0;
+      data.dob = data.dob ? data.dob : null;
       let mainData = { ...obj, ...data };
       let url;
       this.data ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
