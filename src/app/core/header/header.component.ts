@@ -17,7 +17,9 @@ export class HeaderComponent {
   @HostBinding('class') className = ''
   language: string = 'English'
   lag = ['English', 'Marathi']
-  selLang!: string
+  selLang!: string;
+  loginData!: any;
+
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -29,6 +31,7 @@ export class HeaderComponent {
     translate.setDefaultLang('English')
   }
   ngOnInit(): void {
+    this.loginData = this.webStorage.getLoginData();
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
@@ -66,9 +69,10 @@ export class HeaderComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       modalLang = res
     })
-      const dialogRef = this.dialog.open(GlobalDialogComponent, {
-        width: '350px',
-        data:{ p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '350px',
+      data: {
+        p1: modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?' : 'Are You Sure?',
         p2: '',
         cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
@@ -83,14 +87,15 @@ export class HeaderComponent {
       }
     })
   }
-  openChangePassModal(){
+  openChangePassModal() {
     let lang;
     this.webStorage.setLanguage.subscribe((res: any) => {
       lang = res
     })
-      const dialogRef = this.dialog.open(ChangePasswordComponent, {
-        width: '700px',
-        data:{ p1:'',
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '700px',
+      data: {
+        p1: '',
         p2: '',
         cardTitle: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
         successBtnText: lang == 'Marathi' ? 'पासवर्ड बदला' : 'Change Password',
@@ -110,10 +115,6 @@ export class HeaderComponent {
   }
 
   openMyProfileDialog() {
-   /*  this.dialog.open(MyProfileComponent,{
-      width: '500px',
-      disableClose: true,
-    }); */
     let lang;
     this.webStorage.setLanguage.subscribe((res: any) => {
       lang = res

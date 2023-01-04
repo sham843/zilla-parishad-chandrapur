@@ -17,7 +17,7 @@
                     <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
                     <input matInput
                         placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}"
-                        formControlName="assesmentParameter">
+                       (keypress)="valiService.noFirstSpaceAllow($event)" formControlName="assesmentParameter">
                     <mat-error *ngIf="f.assesmentParameter.errors">
                         <!-- <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
                         {{'performance_indicators.Add_Level_Model.add_english_level_is_required' | translate}}</span> -->
@@ -32,7 +32,7 @@
                     <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
                     <input matInput
                         placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}"
-                        formControlName="m_AssesmentParameter">
+                        (keypress)="valiService.noFirstSpaceAllow($event)" formControlName="m_AssesmentParameter">
                     <mat-error *ngIf="f.m_AssesmentParameter.errors">
                         <!-- <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
                         {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span> -->

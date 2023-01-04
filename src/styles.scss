@@ -358,7 +358,7 @@ a.text-main,
   width: 100px;
 }
 button[disabled] {
-  opacity: 0.4;
+  opacity: 0.9;
 }
 
 .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
@@ -370,8 +370,7 @@ button[disabled] {
   margin-left: -80px;
 }
 
-.w-mat-form-field .mat-mdc-text-field-wrapper {
-  width: 100%;
-  background: #fff;
-  box-shadow: 0px 1px 5px #46464629;
-}
+// .w-mat-form-field .mat-mdc-text-field-wrapper {
+//   width: 100%;
+//   background: #fff;
+// }

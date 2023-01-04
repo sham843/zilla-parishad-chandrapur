@@ -9,37 +9,12 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'school.school_list' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
-          <mat-icon>
-            table_view
-          </mat-icon>
-        </button>
-
-        <button mat-flat-button class="btn-second btn-icon" title="Card View">
-          <mat-icon>
-            grid_view
-          </mat-icon>
-        </button> -->
-
         <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel"
-          (click)="excelDownload()">
+          (click)="excelDownload()" [disabled]="!tableDataArray.length">
           <mat-icon>
             description
           </mat-icon>
         </button>
-        <!-- <button mat-flat-button class="btn-main btn-icon" [matMenuTriggerFor]="menu">
-          <mat-icon>
-            download
-          </mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="excelDownload()">
-            <div class="d-flex align-items-center justify-content-between w-100">
-              <span>Excel</span>
-              <i class='bx bxs-file text-primary'></i>
-            </div>
-          </button>
-        </mat-menu> -->
         <button mat-flat-button class="btn-main" (click)="addSchoolData()">
           <mat-icon>add</mat-icon>
           <span>
@@ -53,9 +28,11 @@
     <mat-card-header class="card-header pb-0 border-bottom-0">
       <div class="row w-100">
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100"  [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
+          <mat-form-field appearance="outline" class="w-100"
+            [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.Please_Select_Taluka' |translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getCenter();clearDropDrown('taluka')">
+              <mat-option value="0">All Taluka</mat-option>
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                 {{tal.taluka}}
               </mat-option>
@@ -63,9 +40,11 @@
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterForm.value.talukaId || levelId==4 || levelId==5">
+          <mat-form-field appearance="outline" class="w-100"
+            [class.disabled-contenct]="!filterForm.value.talukaId || levelId==4 || levelId==5">
             <mat-label>{{'common.select_kendra' | translate}}</mat-label>
             <mat-select formControlName="centerId" (selectionChange)="clearDropDrown('center')">
+              <mat-option value="0">All Kendra</mat-option>
               <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                 {{cen.center}}
               </mat-option>

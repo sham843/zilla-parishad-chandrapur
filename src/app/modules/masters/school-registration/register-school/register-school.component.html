@@ -12,7 +12,8 @@
         <mat-card-content class="card-body">
             <div class="row">
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="registerForm.value.districtId">
+                    <mat-form-field appearance="outline" class="w-100"
+                        [class.disabled-contenct]="registerForm.value.districtId">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
                             [disabled]="registerForm.value.districtId == 1">
@@ -26,7 +27,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==3 || levelId==4 || levelId==5">
+                    <mat-form-field appearance="outline" class="w-100"
+                        [class.disabled-contenct]="levelId==3 || levelId==4 || levelId==5">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="talukaId" (selectionChange)="getCenter()">
                             <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
@@ -105,7 +107,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.class_from' |translate}}</mat-label>
-                        <mat-select formControlName="classFrom">
+                        <mat-select formControlName="classFrom"
+                            (selectionChange)="registerForm.controls['classTo'].setValue('')">
                             <mat-option *ngFor="let gr of fromClassArray" [value]="gr.id">
                                 {{gr.standard}}
                             </mat-option>
@@ -133,16 +136,16 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.id' |translate}}</mat-label>
                         <input matInput formControlName="udiseCode" (keypress)="validator.onlyDigits($event)">
-                          <!-- <mat-error
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['udiseCode'].hasError('required')">{{'school.please_enter_id'
                             |translate}}</mat-error> -->
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <mat-radio-group aria-label="Select an option" formControlName="schoolLocationId">
-                        <mat-radio-button  *ngFor="let radio of radioArray"
-                            [value]="radio.id">{{radio.type == 'Rural' ? ('school.rural' |translate) : ('school.urban' |translate)}}</mat-radio-button>
-                              <!-- <mat-error 
+                        <mat-radio-button *ngFor="let radio of radioArray" [value]="radio.id">{{radio.type == 'Rural' ?
+                            ('school.rural' |translate) : ('school.urban' |translate)}}</mat-radio-button>
+                        <!-- <mat-error 
                             *ngIf="registerForm.controls['schoolLocationId'].hasError('required') && showRedio">{{'school.please_select_school_location_type'
                             |translate}}</mat-error> -->
                     </mat-radio-group>
@@ -150,8 +153,9 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.school_address' |translate}}</mat-label>
-                        <textarea matInput formControlName="schoolAddress" (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
-                          <!-- <mat-error
+                        <textarea matInput formControlName="schoolAddress"
+                            (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
+                        <!-- <mat-error
                             *ngIf="registerForm.controls['schoolAddress'].hasError('required')">{{'school.please_enter_school_address'
                             |translate}}</mat-error> -->
                     </mat-form-field>
@@ -160,7 +164,7 @@
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
-                <button mat-flat-button class="btn-second me-2" type="reset" (click)="clearForm()">{{'common.clear'
+                <button mat-flat-button class="btn-second me-2" type="button" (click)="clearForm()">{{'common.clear'
                     |translate}}</button>
                 <button mat-flat-button class="btn-main" type="submit">{{!editFlag ?
                     ('common.submit'|translate):('common.update'| translate)}}</button>
