@@ -15,7 +15,14 @@ export class WebStorageService {
   setTheme(className: any) {
     this.theme.next(className)
   }
-
+//profile photo
+  private profile=new BehaviorSubject('');
+  getProfile() {
+    return this.profile.asObservable()
+  }
+  setProfile(photo: any) {
+    this.profile.next(photo)
+  }
   // change language
   setLanguage = new BehaviorSubject('')
 

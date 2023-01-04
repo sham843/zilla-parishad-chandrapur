@@ -10,17 +10,28 @@
     <form [formGroup]="userRegistrationForm" #formDirective="ngForm">
     <mat-card-content class="card-body">
        <ng-container *ngIf="this.data?.flag=='profile'">
-        <div  class="text-center mb-3">
-            <div class="upload-btn-wrapper">
-                <img src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image ng-star-inserted">
-                <div class="profile-buttons d-flex flex-column">
-                    <button type="button" class="btn bg-light text-primary ng-star-inserted">
-                        <input type="file" class="ng-star-inserted">
-                        <i class="bx bx-plus"></i></button>
-                </div>
+       <div class="text-center">
+        <div class="upload-btn-wrapper">
+            <img *ngIf="!profilePhoto" src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
+            <img *ngIf="profilePhoto" src="{{profilePhoto}}" alt="profile-img" width="100" class="profile-image">
+
+            <div class="profile-buttons d-flex flex-column">
+                <input type="file" #profileUpload name="myfile" accept=".jpg,.jpeg,.png"
+                style="display:none" (change)="profilePhotoMethod($event)"/>
+               <ng-container *ngIf="!profilePhoto">
+                <button type="button" class="btn bg-light text-primary" (click)="profileUpload.click()">
+                    <i class='bx bx-plus'></i>
+                </button>
+               </ng-container>
+               <ng-container *ngIf="profilePhoto">
+                <button type="button" class="border border-0 btn bg-light text-danger" (click)="clearProfile()">
+                    <i class='bx bx-trash'></i>
+                </button>
+               </ng-container>
             </div>
-        </div> 
-       </ng-container>  
+        </div>
+       </div>
+    </ng-container>  
         <div class="row mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">

@@ -19,7 +19,7 @@ export class HeaderComponent {
   lag = ['English', 'Marathi']
   selLang!: string;
   loginData!: any;
-
+  profilePhoto!:string;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -39,6 +39,7 @@ export class HeaderComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
     })
+    this.profilePhoto=this.loginData.profilePhoto;
   }
 
   changeTheme(darkMode: any) {
@@ -131,6 +132,9 @@ export class HeaderComponent {
     })
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
+        this.webStorage.getProfile().subscribe(res=>{
+          this.profilePhoto=res;
+        })
       }
     })
   }
