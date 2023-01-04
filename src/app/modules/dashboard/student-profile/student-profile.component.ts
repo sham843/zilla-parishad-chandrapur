@@ -1,28 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-<<<<<<< HEAD
-=======
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip, ApexYAxis } from 'ng-apexcharts';
->>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
-<<<<<<< HEAD
-=======
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  yaxis:ApexYAxis;
-  stroke: ApexStroke;
-  tooltip: ApexTooltip;
-  dataLabels: ApexDataLabels;
-};
->>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -209,62 +193,11 @@ export class StudentProfileComponent {
     })
   }
 
-<<<<<<< HEAD
   clearForm() {
     this.filterFrm.reset();
     this.getformControl();
     this.standardArray = [];
     this.getAllStudentData('filter');
-=======
-
-  //#region  -----------------------------------------------------Apex Chart Fun start here ---------------------------------------------------//
-  getChart() {
-    this.ChartOptions = {
-      series: [
-        {
-          name: "series1",
-          data: [31, 40, 28]
-        },
-        {
-          name: "series2",
-          data: [11, 32, 45]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "area"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "smooth"
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-        ]
-      },
-      yaxis: {
-        type: "level",
-        categories: [
-          "Story",
-          "Paragraph",
-          "Words",
-          "Letter",
-          "Initial"
-        ]
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm"
-        }
-      }
-    };
->>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
   }
 
 }

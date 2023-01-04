@@ -55,7 +55,7 @@ export class RegisterStudentComponent {
     })
     this.loginData = this.webStorage.getLoginData();
     this.levelId = this.loginData.designationLevelId;
-    
+
 
     if (this.data) {
       this.onEdit();
@@ -69,11 +69,7 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
-<<<<<<< HEAD
     console.log("data",data)
-=======
-    console.log(data);
->>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -304,14 +300,8 @@ export class RegisterStudentComponent {
 
 
   onClickSubmit() {
-<<<<<<< HEAD
     console.log("this.studentFrm", this.studentFrm.value)
     if (!this.studentFrm.valid) {
-=======
-    this.ngxspinner.show();
-   if (!this.studentFrm.valid) {
-    this.ngxspinner.hide();
->>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
       return;
     } else {
 
