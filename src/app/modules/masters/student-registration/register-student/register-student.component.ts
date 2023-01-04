@@ -70,6 +70,7 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
+    console.log("data",data)
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -203,8 +204,8 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId), this.getStandard(this.studentFrm.value.schoolId)) : '';
-          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) : this.studentFrm.controls['schoolId'].setValue('');
+          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
+          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) :'';
         }
         else {
           this.schoolArray = [];
