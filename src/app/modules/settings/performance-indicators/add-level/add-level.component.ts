@@ -39,8 +39,8 @@ export class AddLevelComponent implements OnInit {
 
   defaultForm() {
     this.addLevelForm = this.fb.group({
-      assesmentParameter: [this.data.editObjData? this.data.editObjData.assesmentParameter : '', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
-      m_AssesmentParameter: [this.data.editObjData? this.data.editObjData.m_AssesmentParameter : '', [Validators.required,Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
+      assesmentParameter: [this.data.editObjData? this.data.editObjData.assesmentParameter : '', [Validators.required,Validators.pattern(this.valiService.fullName)]],
+      m_AssesmentParameter: [this.data.editObjData? this.data.editObjData.m_AssesmentParameter : '', [Validators.required,Validators.pattern(this.valiService.marathi)]],
     });
   }
 
@@ -55,7 +55,7 @@ export class AddLevelComponent implements OnInit {
         "createdDate": new Date(),
         "modifiedDate": new Date(),
         "id": 0,
-        "assesmentParameter": formData.assesmentParameter,
+        "assesmentParameter": formData.assesmentParameter,                         
         "m_AssesmentParameter": formData.m_AssesmentParameter,
         "subjectId": this.data.subjectId,
         "isDeleted": false
