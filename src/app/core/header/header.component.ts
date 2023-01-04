@@ -68,7 +68,7 @@ export class HeaderComponent {
     })
       const dialogRef = this.dialog.open(GlobalDialogComponent, {
         width: '350px',
-        data:{ p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure?',
+        data:{ p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure,You want To Logout?',
         p2: '',
         cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',

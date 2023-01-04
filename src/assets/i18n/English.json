@@ -38,7 +38,8 @@
         "ok":"Ok",
         "update":"Update",
         "select_designation": "Please Select Designation",
-        "download_excel":"Download as Excel"
+        "download_excel":"Download as Excel",
+        "copyright": "Copyright © 2022 Education Chandrapur All Rights Reserved"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -92,7 +93,7 @@
         "please_enter_address":"Please Enter Address",
         "contact_number":"Contact Number",
         "please_enter_contact_number":"Please Enter Contact Number",
-        "agency_registration":"NGO Registration",
+        "agency_registration":"Register NGO",
         "Add_agency":"Add NGO",
         "agency_marathi_name":"Agency Marathi Name",
         "agency_marathi_name_pattern":"Please Enter Valid Agency Marathi Name",

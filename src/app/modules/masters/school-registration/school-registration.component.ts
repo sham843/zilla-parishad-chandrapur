@@ -114,7 +114,7 @@ export class SchoolRegistrationComponent {
     this.centerArray = [];
     this.pageNumber = 1
     console.log(this.loginData);
-    
+
     this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
     this.getCenter()
     this.getTableData();
@@ -153,7 +153,7 @@ export class SchoolRegistrationComponent {
 
   setTableData() {
     let displayedColumns = ['udiseCode','srNo', 'schoolName', 'center', 'taluka', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['आयडी','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Udise Code','Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['यूडीआयएसइ','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Udise Code','Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
@@ -167,7 +167,7 @@ export class SchoolRegistrationComponent {
   excelDownload() {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
-    let header = this.lang == 'mr-IN' ? ['आयडी','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Udise Code','Sr.No.', 'School Name', 'Kendra', 'Taluka'];
+    let header = this.lang == 'mr-IN' ? ['यूडीआयएसइ','अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Udise Code','Sr.No.', 'School Name', 'Kendra', 'Taluka'];
     let column = this.lang == 'mr-IN' ? ['udiseCode','srNo', 'schoolName', 'center', 'taluka'] : ['udiseCode','srNo', 'schoolName', 'center', 'taluka'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
