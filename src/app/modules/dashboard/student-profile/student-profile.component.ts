@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip, ApexYAxis } from 'ng-apexcharts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -12,6 +12,7 @@ export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis:ApexYAxis;
   stroke: ApexStroke;
   tooltip: ApexTooltip;
   dataLabels: ApexDataLabels;
@@ -246,6 +247,16 @@ export class StudentProfileComponent {
           "2018-09-19T00:00:00.000Z",
           "2018-09-19T01:30:00.000Z",
           "2018-09-19T02:30:00.000Z",
+        ]
+      },
+      yaxis: {
+        type: "level",
+        categories: [
+          "Story",
+          "Paragraph",
+          "Words",
+          "Letter",
+          "Initial"
         ]
       },
       tooltip: {
