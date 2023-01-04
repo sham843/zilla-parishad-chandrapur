@@ -68,7 +68,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId"
                             (selectionChange)="getTalukaArr(agencyForm.value.districtId)">
@@ -83,7 +83,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId!=1 && this.levelId!=2">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="talukaId">
                             <mat-option *ngFor="let tal of talukaArr" [value]="tal.id">{{tal.taluka}}</mat-option>

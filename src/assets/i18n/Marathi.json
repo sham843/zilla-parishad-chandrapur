@@ -13,7 +13,7 @@
         "school_name":"शाळेचे नाव",
         "contact_person": "कृपया संपर्क व्यक्तीचे नाव प्रविष्ट करा",
         "email": "ईमेल आयडी",
-        "agency_name": "एनजीओचे नाव",
+        "agency_name": "एनजीओचे इंग्रजी नाव",
         "Please_Select_District": "कृपया जिल्हा निवडा",
         "Please_Select_Taluka": "कृपया तालुका निवडा",
         "contact_number": "संपर्क क्रमांक",
@@ -96,10 +96,10 @@
         "agency_registration": "एनजीओची नोंदणी",
         "Add_agency": "एनजीओ जोडा",
         "agency_marathi_name": "एनजीओ मराठी नाव",
-        "agency_marathi_name_pattern": "कृपया वैध एजन्सी मराठी नाव प्रविष्ट करा",
+        "agency_marathi_name_pattern": "कृपया वैध एनजीओ मराठी नाव प्रविष्ट करा",
         "please_enter_valid_emailId": "कृपया वैध ईमेल आयडी प्रविष्ट करा",
         "please_enter_valid_contact_no": "कृपया वैध संपर्क क्रमांक प्रविष्ट करा",
-        "please_enter_valid_agency_name":"कृपया वैध एजन्सी नाव प्रविष्ट करा",
+        "please_enter_valid_agency_name":"कृपया वैध एजन्सी इंग्रजी नाव प्रविष्ट करा",
         "please_enter_maximum 50 digit_registration_number":"कृपया कमाल ५० अंकी नोंदणी क्रमांक प्रविष्ट करा"
     },
     "login": {
