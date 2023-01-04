@@ -1,12 +1,10 @@
-import { Component, Inject, ViewChild } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
-import { NgxSpinnerService } from 'ngx-spinner'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
-import { FileUploadService } from 'src/app/core/services/file-upload.service'
 import { MasterService } from 'src/app/core/services/master.service'
 import { ValidationService } from 'src/app/core/services/validation.service'
 import { WebStorageService } from 'src/app/core/services/web-storage.service'
@@ -33,12 +31,7 @@ export class RegisterUsersComponent {
   lang:string |any='English';
   loginData:any;
   levelId!:number;
-  profilePhoto: string | any;
-  profilePhotoupd!:string;
-  file: any;
-  ImgUrl: any;
-  selectedFile: any;
-  @ViewChild('profileUpload') profileUpload: any;
+  profileFlag:boolean=false;
   get f(){return this.userRegistrationForm.controls}
   constructor(
     private webStorage:WebStorageService,
@@ -50,9 +43,7 @@ export class RegisterUsersComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService:ApiService,
     private errors:ErrorsService,
-    private common:CommonMethodsService,
-    private spinner:NgxSpinnerService,
-    private uploadService:FileUploadService) {}
+    private common:CommonMethodsService) {}
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
@@ -83,7 +74,6 @@ export class RegisterUsersComponent {
       standardModels: [obj?obj.standardId:[],Validators.required],
       subjectModels: [obj?obj.subjectId:[],Validators.required]
     })
-    this.data.flag=='profile'?this.profilePhoto = obj ? obj.profilePhoto : this.profilePhoto = '':'';
     }
 
   getUpdatedData(){
@@ -247,8 +237,7 @@ clearValidation(formControl:any){
     this.addValidation.forEach(ele=>{
       this.setValidation(ele);
     })
-    this.clearArr=['agencyId'];
-    this.clearValidation(this.clearArr);
+    this.clearValidation('agencyId');
   }else if(this.userRegistrationForm.value.userTypeId==4){
     this.addValidation=['agencyId','talukaId','centerId'];
     this.addValidation.forEach(ele=>{
@@ -265,66 +254,25 @@ clearValidation(formControl:any){
 
   //#region------------------------------------------------clear dropdown method start--------------------------------------------------------------------------
   clearDropdown(flag:any){
-    if(flag=='userType'){
-      this.userRegistrationForm.controls['designationLevelId'].setValue('');
-      this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
-      this.userRegistrationForm.controls['centerId'].setValue('');
-      // this.userRegistrationForm.controls['designationId'].setValue('');
-    }else if(flag=='designationLevel'){
-      this.userRegistrationForm.controls['agencyId'].setValue('');
-      this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
-    }else if(flag=='taluka'){
-      this.userRegistrationForm.controls['centerId'].setValue('');
-      this.userRegistrationForm.controls['schoolId'].setValue('');this.schoolArr=[];
-      this.userRegistrationForm.controls['standardModels'].setValue('');this.classArr=[];
-    }else if(flag=='center'){
-      this.userRegistrationForm.controls['schoolId'].setValue('');
-      this.userRegistrationForm.controls['standardModels'].setValue('');this.classArr=[];
-    }else if(flag=='school'){
-      this.userRegistrationForm.controls['standardModels'].setValue('');
-    }
+    let setvalueArr;
+    flag=='userType'?setvalueArr=['designationLevelId','designationId']:flag=='designationLevel'?setvalueArr=['agencyId','designationId']:
+    flag=='district'?setvalueArr=['talukaId','centerId','schoolId','standardModels']: flag=='taluka'?setvalueArr=['centerId','schoolId','standardModels']:
+    flag=='center'?setvalueArr=['schoolId','standardModels']:flag=='center'?setvalueArr=['standardModels']:'';
+    setvalueArr?.forEach(ele=>{
+      this.setValueFun(ele)
+    })
   }
-
+  setValueFun(formControlname:any){
+    this.userRegistrationForm.controls[formControlname].setValue('');
+  }
   clearUserForm(formDirective:any){
     formDirective.resetForm();
     this.designationArr=[];
     this.data.obj?'':this.getUserForm();
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
- //#region-------------------------------------------------profile photo upload methods start-----------------------------------------------
- profilePhotoMethod(event: any) {
-  this.spinner.show();
-  let documentUrl: any = this.uploadService.uploadDocuments(event, 'profile', "png,jpg,jpeg,JPEG,PNG,JPG");
-  documentUrl.subscribe({
-    next: (ele: any) => {
-      if (ele.statusCode == "200") {
-        this.spinner.hide();
-        if (event.target.files && event.target.files[0]) {
-          if(10485760 > event.target.files[0].size){
-           var reader = new FileReader();
-           reader.onload = (event: any) => {
-             this.profilePhoto = event.target.result;
-           }
-           reader.readAsDataURL(event.target.files[0]);
-          }
-         }
-        this.profilePhotoupd = ele.responseData;
-      }else{
-        this.spinner.hide();
-      }
-    }
-  },
-    (error: any) => {
-      this.spinner.hide();
-      this.errors.handelError(error.status);
-    })
-}
-clearProfile(){
- this.profilePhotoupd = '', this.profilePhoto = '';
-}
-//#endregion---------------------------------------------profile photo upload methods start----------------------------------------------------
-//#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
-registerUser(formDirective?:any) {
+ //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
+registerUser(formDirective:any) {
     if(this.userRegistrationForm.invalid){
         return;
     }
@@ -344,7 +292,6 @@ registerUser(formDirective?:any) {
     }
 
    let obj=this.userRegistrationForm.value;
-   obj.profilePhoto=this.profilePhotoupd != 'assets/images/user.jpg' ? this.profilePhotoupd : '';
    obj.createdBy=this.data.obj?this.data.obj.createdBy:this.webStorage.getUserId(),
    obj.modifiedBy=this.data.obj?this.data.obj.modifiedBy : this.webStorage.getUserId(),
    obj.createdDate=this.data.obj?this.data.obj.createdDate:new Date(),
@@ -365,6 +312,7 @@ registerUser(formDirective?:any) {
    obj.blockBy=0,
    obj.deviceTypeId=0,
    obj.fcmId="",
+   obj.profilePhoto="",
    obj.msg="",
    obj.standardModels=this.userRegistrationForm.value.userTypeId==3?standardModels:[],
    obj.subjectModels=this.userRegistrationForm.value.userTypeId==3?subjectModels:[],
@@ -374,10 +322,10 @@ registerUser(formDirective?:any) {
         this.common.snackBar(res.statusMessage,0);
         this.dialogRef.close('Yes');
         formDirective.resetForm();
-        this.data.flag=='profile'?this.webStorage.setProfile(this.profilePhotoupd != 'assets/images/user.jpg' ? this.profilePhotoupd:''):'';
       }
       else{
         this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+        this.dialogRef.close('No');
       }
     },
     (error: any) => {

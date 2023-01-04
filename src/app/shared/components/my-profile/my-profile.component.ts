@@ -133,6 +133,7 @@ export class MyProfileComponent {
       this.imageFlag=false;
       this.commonMethod.snackBar("Profile image allowed only jpg or png format", 1);
     }
+
   }
 
   onSubmitData() { //onSubmit
