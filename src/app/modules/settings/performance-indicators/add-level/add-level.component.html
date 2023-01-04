@@ -32,7 +32,7 @@
                     <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
                     <input matInput
                         placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}"
-                        (keypress)="valiService.noFirstSpaceAllow($event)" formControlName="m_AssesmentParameter">
+                        (keypress)="valiService.noFirstSpaceAllow($event);valiService.unicodeMarathiValidation($event)" formControlName="m_AssesmentParameter">
                     <mat-error *ngIf="f.m_AssesmentParameter.errors">
                         <!-- <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">
                         {{'performance_indicators.Add_Level_Model.add_marathi_level_is_required' | translate}}</span> -->
