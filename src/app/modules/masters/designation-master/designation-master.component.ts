@@ -148,7 +148,7 @@ export class DesignationMasterComponent {
 
   globalDialogOpen(obj?: any) {
     let dialoObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you Want To Delete Selected Designation Record?',
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
