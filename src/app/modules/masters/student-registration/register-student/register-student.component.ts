@@ -54,14 +54,13 @@ export class RegisterStudentComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
     })
     this.loginData = this.webStorage.getLoginData();
-    console.log(this.loginData);
-
     this.levelId = this.loginData.designationLevelId;
-    this.formData();
+    
 
     if (this.data) {
-      this.onEdit()
+      this.onEdit();
     } else {
+      this.formData();
       this.getDistrict();
       this.getGender();
       this.getReligion();
@@ -70,7 +69,11 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
+<<<<<<< HEAD
     console.log("data",data)
+=======
+    console.log(data);
+>>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -80,9 +83,9 @@ export class RegisterStudentComponent {
       "m_Name_Mar": [data?.m_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
       "l_Name_Mar": [data?.l_Name_Mar || '', [Validators.pattern(this.validation.marathi)]],
       "districtId": [data?.districtId || this.apiService.disId, [Validators.required]],
-      "talukaId": [data?.talukaId || '', Validators.required],
-      "centerId": [data?.centerId || '', [Validators.required]],
-      "schoolId": [data?.schoolId || '', [Validators.required]],
+      "talukaId": [data?.talukaId || (this.loginData.talukaId ==0 ? '': this.loginData.talukaId), Validators.required],
+      "centerId": [data?.centerId || (this.loginData.centerId ==0 ? '': this.loginData.centerId) , [Validators.required]],
+      "schoolId": [data?.schoolId || (this.loginData.schoolId ==0 ? '': this.loginData.schoolId), [Validators.required]],
       "standardId": [data?.standardId || ''],
       "saralId": [data?.saralId || '', [Validators.required, Validators.minLength(2)]],
       "genderId": [data?.genderId || '', [Validators.required]],
@@ -95,6 +98,7 @@ export class RegisterStudentComponent {
       "lan": ['' || this.lang],
       "emailId": [''],
     })
+    this.getDistrict();
   }
 
   get f() {
@@ -104,20 +108,20 @@ export class RegisterStudentComponent {
   onEdit() {
     this.editFlag = true;
     this.formData(this.data);
-    this.getDistrict();
-    this.getReligion();
-    this.getGender();
-    this.getCaste()
+    // this.getReligion(); // temp
+    // this.getGender(); // temp
+    // this.getCaste(); // temp
   }
 
   clearForm() {
     this.formDirective.resetForm();
-    this.data = null;
+    // this.data = null;
     this.formData();
     this.editFlag = false;
-    this.centerArray = [];
-    this.schoolArray = [];
-    this.getDistrict();
+    // this.centerArray = [];
+    // this.schoolArray = [];
+     this.getDistrict();
+     this.disabledTaluka = false;
   }
 
   clearDropdown(flag: any) {
@@ -147,7 +151,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.data.districtId), this.getTaluka(this.studentFrm.value.districtId)) : this.getTaluka(this.studentFrm.value.districtId);
+          this.editFlag ? (this.studentFrm.controls['districtId'].setValue(this.studentFrm.value.districtId), this.getTaluka()) :this.getTaluka();
         }
         else {
           this.districtArray = [];
@@ -160,13 +164,13 @@ export class RegisterStudentComponent {
     })
   }
 
-  getTaluka(districtId: any) {
-    this.master.getAllTaluka(this.lang, districtId).subscribe({
+  getTaluka() {
+    this.master.getAllTaluka(this.lang, this.studentFrm.value.districtId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['talukaId'].setValue(this.data.talukaId), this.getCenter(this.studentFrm.value.talukaId)) : '';
-          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.loginData.talukaId), this.disabledTaluka = true, this.getCenter(this.loginData.talukaId)) : ''
+          // this.editFlag ? (this.studentFrm.controls['talukaId'].setValue(this.data.talukaId), this.getCenter(this.studentFrm.value.talukaId)) : '';
+          this.editFlag  || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
         }
         else {
           this.talukaArray = [];
@@ -179,13 +183,14 @@ export class RegisterStudentComponent {
     });
   }
 
-  getCenter(talukaId: number) {
-    this.master.getAllCenter(this.lang, talukaId).subscribe({
+  getCenter() {
+    debugger;
+    this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
-          this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.loginData.centerId), this.getSchool(this.loginData.centerId)) : '';
+          // this.editFlag ? (this.studentFrm.controls['centerId'].setValue(this.data.centerId), this.getSchool(this.studentFrm.value.centerId)) : '';
+          this.editFlag  ||this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['centerId'].setValue(this.studentFrm.value.centerId), this.getSchool()) : '';
         }
         else {
           this.centerArray = [];
@@ -198,14 +203,14 @@ export class RegisterStudentComponent {
     })
   }
 
-  getSchool(centerId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+  getSchool() {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + this.studentFrm.value.centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
-          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) :'';
+          // this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
+          this.editFlag || this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.studentFrm.value.schoolId), this.getStandard()) :'';
         }
         else {
           this.schoolArray = [];
@@ -218,13 +223,13 @@ export class RegisterStudentComponent {
     })
   }
 
-  getStandard(schoolId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
+  getStandard() {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + this.studentFrm.value.schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['standardId'].setValue(this.data.standardId) : '';
+          this.editFlag ? (this.studentFrm.controls['standardId'].setValue(this.data.standardId), this.getGender()): '';
         }
         else {
           this.standardArray = [];
@@ -245,7 +250,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.genderArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['genderId'].setValue(this.data.genderId) : '';
+          this.editFlag ? (this.studentFrm.controls['genderId'].setValue(this.data.genderId), this.getReligion()) : '';
         }
         else {
           this.genderArray = [];
@@ -264,7 +269,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.religionArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['religionId'].setValue(this.data.religionId) : '';
+          this.editFlag ? (this.studentFrm.controls['religionId'].setValue(this.data.religionId), this.getCaste() ): '';
         }
         else {
           this.religionArray = [];
@@ -299,11 +304,17 @@ export class RegisterStudentComponent {
 
 
   onClickSubmit() {
+<<<<<<< HEAD
     console.log("this.studentFrm", this.studentFrm.value)
     if (!this.studentFrm.valid) {
+=======
+    this.ngxspinner.show();
+   if (!this.studentFrm.valid) {
+    this.ngxspinner.hide();
+>>>>>>> 5bd7e10ded748a69e5402dbb0d307cf47ee4d3c7
       return;
     } else {
-      this.ngxspinner.show();
+
       let data = this.studentFrm.value;
       let obj = {
         "createdBy": !this.editFlag ? this.webStorage.getUserId() : this.data.createdBy,
@@ -325,12 +336,13 @@ export class RegisterStudentComponent {
             this.clearForm();
             this.editFlag = false;
           } else {
+            this.ngxspinner.hide();
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
         error: (error: any) => {
           this.ngxspinner.hide();
-          this.commonMethod.checkEmptyData(error.statusMessage) == false ? this.errorService.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusMessage, 1);
+          this.errorService.handelError(error.status);
         }
       })
     }

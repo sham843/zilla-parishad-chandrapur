@@ -165,7 +165,7 @@ export class AddDesignationComponent {
         });
       }
       formData["linkedDesignationDetails"] =linkedDesignationDetailsArray;
-      delete formData["linkedToDesignationId"]
+      // delete formData["linkedToDesignationId"]
       let url = this.data ? 'designation/update-designation-details' : 'designation/save-designation-details'
       this.apiService.setHttp(this.data ? 'PUT' : 'POST', url + '?flag=' + this.lang, false, this.designationForm.value, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
