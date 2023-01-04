@@ -52,11 +52,11 @@ export class RegisterSchoolComponent {
     this.loginData = this.webStorage.getLoginData();
  
     this.levelId = this.loginData.designationLevelId;
-  
-    if(this.data){
-      this.editFlag  = true;
+
+    if (this.data) {
+      this.editFlag = true;
       this.getFormData(this.data);
-    }else{
+    } else {
       this.getFormData();
       this.getSchoolCategory();
       this.getSchoolType();
@@ -66,7 +66,7 @@ export class RegisterSchoolComponent {
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
-  getFormData(obj?:any) {
+  getFormData(obj?: any) {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
       districtId: [obj?.districtId || this.loginData.districtId, Validators.required],
@@ -82,14 +82,6 @@ export class RegisterSchoolComponent {
       schoolAddress: [obj?.schoolAddress || '', [Validators.required]],
     })
     this.getDistrict();
-    // if (flag != 'clear') {
-    //   this.getDistrict();
-    //   this.getSchoolCategory();
-    //   this.getSchoolType();
-    //   this.getGenderAllow();
-    //   this.getFromClass();
-    //   // this.getToClass();
-    // }
   }
 
   getDistrict() {
@@ -118,7 +110,6 @@ export class RegisterSchoolComponent {
         if (res.statusCode == '200') {
           this.talukaArray = res.responseData;
           this.levelId == 3 || this.levelId == 4 || this.levelId == 5 || this.editFlag ? (this.registerForm.controls['talukaId'].setValue(formData.talukaId), this.getCenter()) : '';
-          // this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
         } else {
           this.talukaArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -137,8 +128,8 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.centerArray = res.responseData;
-          this.levelId == 4 || this.levelId == 5 || this.editFlag  ? this.registerForm.controls['centerId'].setValue(formData.centerId) : '';
-           this.editFlag ? this.getSchoolCategory() : ' '
+          this.levelId == 4 || this.levelId == 5 || this.editFlag ? this.registerForm.controls['centerId'].setValue(formData.centerId) : '';
+          this.editFlag ? this.getSchoolCategory() : ' '
         } else {
           this.centerArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -222,22 +213,6 @@ export class RegisterSchoolComponent {
     })
   }
 
-  // getToClass() {
-  //   this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
-  //   this.service.getHttp().subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == '200') {
-  //         this.toClassArray = res.responseData
-  //       } else {
-  //         this.toClassArray = [];
-  //         this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-  //       }
-  //     }), error: (error: any) => {
-  //       this.error.handelError(error.status);
-  //     }
-  //   })
-  // }
-
   onSubmitData() {
     this.spinner.show();
     let formData = this.registerForm.value;
@@ -290,11 +265,10 @@ export class RegisterSchoolComponent {
     this.editFlag = false;
     this.formDirective.resetForm({
       schoolLocationId: 1,
-      districtId:formData.districtId,
-      talukaId:formData.talukaId,
-      centerId:formData.centerId,
+      districtId: formData.districtId,
+      talukaId: formData.talukaId,
+      centerId: formData.centerId,
     });
-    // this.getFormData('clear');
   }
 
   ngOnDestroy() {
