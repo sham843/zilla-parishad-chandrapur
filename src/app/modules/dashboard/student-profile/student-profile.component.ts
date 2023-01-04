@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip } from 'ng-apexcharts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  dataLabels: ApexDataLabels;
+};
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -26,6 +35,9 @@ export class StudentProfileComponent {
   lang!: string;
   searchFilter = new FormControl();
 
+  @ViewChild("chart") chart!: any;
+  ChartOptions: any;
+
   constructor(
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -33,7 +45,9 @@ export class StudentProfileComponent {
     private errorService: ErrorsService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private router: ActivatedRoute) { }
+    private router: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res: any) => {
@@ -49,8 +63,9 @@ export class StudentProfileComponent {
     this.getAllStudentData();
     this.getSchool(2713010002);
     this.getAllSubject();
+    this.getChart();
   }
-
+  //#region  -----------------------------------------------------Filter form Fun start here ---------------------------------------------------//
   getformControl() {
     this.filterFrm = this.fb.group({
       schoolId: [2],
@@ -59,6 +74,52 @@ export class StudentProfileComponent {
     })
   }
 
+  getSchool(centerId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.schoolArray = res.responseData;
+          this.getStandard(this.filterFrm.value?.schoolId);
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
+  }
+
+  getStandard(schoolId: number) {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.standardArray = res.responseData;
+        }
+        else {
+          this.standardArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
+  }
+
+  clearForm() {
+    this.filterFrm.reset();
+    this.getformControl();
+    this.standardArray = [];
+    this.getAllStudentData('filter');
+  }
+  //#endregion  -----------------------------------------------------Filter form Fun end here ---------------------------------------------------//
+
+  //#region  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   getAllStudentData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
@@ -103,7 +164,7 @@ export class StudentProfileComponent {
     };
     this.apiService.tableData.next(tableData);
   }
-
+  //#endregion  -----------------------------------------------------Table Fun start here ---------------------------------------------------//
   studentDataById(id?: any) {
     this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id=' + id + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -114,7 +175,6 @@ export class StudentProfileComponent {
           this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
           this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
           this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
-
         }
         else {
           this.StudentDataArray = [];
@@ -138,43 +198,6 @@ export class StudentProfileComponent {
     }
   }
 
-  getSchool(centerId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.schoolArray = res.responseData;
-          this.getStandard(this.filterFrm.value?.schoolId);
-        }
-        else {
-          this.schoolArray = [];
-          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.errorService.handelError(error.status);
-      }
-    })
-  }
-
-  getStandard(schoolId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.standardArray = res.responseData;
-        }
-        else {
-          this.standardArray = [];
-          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.errorService.handelError(error.status);
-      }
-    })
-  }
-
   getAllSubject() {
     this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
@@ -193,11 +216,61 @@ export class StudentProfileComponent {
     })
   }
 
-  clearForm() {
-    this.filterFrm.reset();
-    this.getformControl();
-    this.standardArray = [];
-    this.getAllStudentData('filter');
+
+  //#region  -----------------------------------------------------Apex Chart Fun start here ---------------------------------------------------//
+  getChart() {
+    this.ChartOptions = {
+      series: [
+        {
+          name: "series1",
+          data: [31, 40, 28]
+        },
+        {
+          name: "series2",
+          data: [11, 32, 45]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "area"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00.000Z",
+          "2018-09-19T01:30:00.000Z",
+          "2018-09-19T02:30:00.000Z",
+        ]
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm"
+        }
+      }
+    };
   }
 
+  public generateData(_baseval: any, count: any, yrange: any) {
+    var i = 0;
+    var series = [];
+    while (i < count) {
+      var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
+      var y =
+        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+      var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
+      series.push([x, y, z]);
+      // baseval += 86400000;
+      i++;
+    }
+    return series;
+  }
+  //#endregion  -----------------------------------------------------Apex Chart Fun end here ---------------------------------------------------//
+
 }
+

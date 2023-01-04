@@ -203,8 +203,8 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId), this.getStandard(this.studentFrm.value.schoolId)) : '';
-          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) : this.studentFrm.controls['schoolId'].setValue('');
+          this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
+          this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.loginData.schoolId), this.getStandard(this.loginData.schoolId)) :'';
         }
         else {
           this.schoolArray = [];
@@ -298,8 +298,7 @@ export class RegisterStudentComponent {
 
 
   onClickSubmit() {
-    console.log("this.studentFrm", this.studentFrm.value)
-    if (!this.studentFrm.valid) {
+   if (!this.studentFrm.valid) {
       return;
     } else {
       this.ngxspinner.show();
