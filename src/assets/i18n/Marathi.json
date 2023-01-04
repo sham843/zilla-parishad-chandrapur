@@ -247,7 +247,7 @@
         "please_select_from_class":"कृपया वर्ग निवडा",
         "please_select_to_class":"कृपया  वर्गापर्यंत निवडा",
         "address":"पत्ता",
-        "id":"आयडी",
+        "id":"यूडीआयएसइ",
         "urban":"शहरी",
         "rural":"ग्रामीण",
         "please_enter_id":"कृपया आयडी टाका",
@@ -271,7 +271,7 @@
         "please_enter_valid_mobile_number":"कृपया वैध मोबाईल प्रविष्ट करा",
         "please_enter_email_id":"कृपया ईमेल आयडी टाका",
         "please_enter_valid_email_id":"कृपया वैध ईमेल आयडी प्रविष्ट करा"
-        
+
     },
     "change_password":{
         "new_password":"नवीन पासवर्ड",

@@ -37,7 +37,7 @@
         "delete":"Delete",
         "ok":"Ok",
         "update":"Update",
-        "select_designation": "Please Select Designation",
+        "select_designation": "Select Designation",
         "download_excel":"Download as Excel",
         "copyright": "Copyright © 2022 Education Chandrapur All Rights Reserved"
     },
@@ -245,7 +245,7 @@
         "please_select_from_class":"Please Select From Class",
         "please_select_to_class":"Please Select To Class",
         "address":"Address",
-        "id":"Id",
+        "id":"UDISE",
         "urban":"Urban",
         "rural":"Rural",
         "please_enter_id":"Please Enter Id",
