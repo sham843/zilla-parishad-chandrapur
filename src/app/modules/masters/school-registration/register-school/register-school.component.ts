@@ -48,48 +48,49 @@ export class RegisterSchoolComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
-    this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
-    this.editFlag = this.data ? true : false
-    this.getFormData()
+    this.loginData = this.webStorage.getLoginData();
+ 
+    this.levelId = this.loginData.designationLevelId;
+
+    if (this.data) {
+      this.editFlag = true;
+      this.getFormData(this.data);
+    } else {
+      this.getFormData();
+      this.getSchoolCategory();
+      this.getSchoolType();
+      this.getGenderAllow();
+      this.getFromClass();
+    }
   }
 
   //#region ---------------------------------------Get Register Form Data------------------------------------------------------------
-  getFormData(flag?: any) {
-    let obj = this.data;
+  getFormData(obj?: any) {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
       districtId: [obj?.districtId || this.loginData.districtId, Validators.required],
       talukaId: [obj?.talukaId || this.loginData.talukaId, Validators.required],
       centerId: [obj?.centerId || this.loginData.centerId, Validators.required],
-      s_CategoryId: [obj?.s_CategoryId ||'', Validators.required],
+      s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || ''],
       g_GenderId: [obj?.g_GenderId || ''],
       classFrom: [obj?.classFrom || '', Validators.required],
       classTo: [obj?.classTo || '', Validators.required],
-      udiseCode:[obj?.udiseCode || '',[Validators.required]],
-      schoolLocationId:[obj?.schoolLocationId  || 1,[Validators.required]],
-      schoolAddress:[obj?.schoolAddress || '',[Validators.required]],
+      udiseCode: [obj?.udiseCode || '', [Validators.required]],
+      schoolLocationId: [obj?.schoolLocationId || 1, [Validators.required]],
+      schoolAddress: [obj?.schoolAddress || '', [Validators.required]],
     })
-    if (flag != 'clear') {
-      this.getDistrict();
-      this.getSchoolCategory();
-      this.getSchoolType();
-      this.getGenderAllow();
-      this.getFromClass();
-      this.getToClass();
-    }
+    this.getDistrict();
   }
 
   getDistrict() {
-    // let formData = this.registerForm.value.districtId;
+    let formData = this.registerForm.value.districtId;
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.districtArray = res.responseData;
-          this.registerForm.controls['districtId'].setValue(this.service.disId)
-          this.editFlag ? (this.registerForm.controls['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
+          this.editFlag || this.levelId != 1 ? (this.registerForm.controls['districtId'].setValue(formData), this.getTaluka()) : this.getTaluka();
         } else {
           this.districtArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -107,8 +108,7 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.talukaArray = res.responseData;
-          this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.registerForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter()):'';
-          this.editFlag ? (this.registerForm.controls['talukaId'].setValue(this.data?.talukaId), this.getCenter()) : ''
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 || this.editFlag ? (this.registerForm.controls['talukaId'].setValue(formData.talukaId), this.getCenter()) : '';
         } else {
           this.talukaArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -127,8 +127,8 @@ export class RegisterSchoolComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.centerArray = res.responseData;
-          this.levelId==4 || this.levelId==5 ?this.registerForm.controls['centerId'].setValue(this.loginData.centerId):'';
-          this.editFlag ? (this.registerForm.controls['centerId'].setValue(this.data?.centerId)) : ''
+          this.levelId == 4 || this.levelId == 5 || this.editFlag ? this.registerForm.controls['centerId'].setValue(formData.centerId) : '';
+          this.editFlag ? this.getSchoolCategory() : ' '
         } else {
           this.centerArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -194,30 +194,16 @@ export class RegisterSchoolComponent {
   }
 
   getFromClass() {
-    // let formData = this.registerForm.value;
+    let formData = this.registerForm.value;
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
-          this.fromClassArray = res.responseData
+          this.fromClassArray = res.responseData;
+          this.toClassArray = res.responseData;
+          this.editFlag ? (this.registerForm.controls['classFrom'].setValue(formData.classFrom), this.registerForm.controls['classTo'].setValue(formData.classTo)) : ' '
         } else {
           this.fromClassArray = [];
-          this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-        }
-      }), error: (error: any) => {
-        this.error.handelError(error.status);
-      }
-    })
-  }
-
-  getToClass() {
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
-    this.service.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == '200') {
-          this.toClassArray = res.responseData
-        } else {
-          this.toClassArray = [];
           this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
       }), error: (error: any) => {
@@ -230,15 +216,17 @@ export class RegisterSchoolComponent {
     this.spinner.show();
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
-      if(this.registerForm.controls['schoolLocationId'].invalid){
+      this.spinner.hide();
+      if (this.registerForm.controls['schoolLocationId'].invalid) {
         this.showRedio = true
       }
       return;
     } else {
-      let radiovalue=this.registerForm.value.schoolLocationId;
-      if(radiovalue == 'Rural'){
+      this.spinner.hide();
+      let radiovalue = this.registerForm.value.schoolLocationId;
+      if (radiovalue == 'Rural') {
         this.registerForm.controls['schoolLocationId'].setValue(1);
-      }else{
+      } else {
         this.registerForm.controls['schoolLocationId'].setValue(2);
       }
       let obj = {
@@ -271,11 +259,15 @@ export class RegisterSchoolComponent {
   }
 
   clearForm() {
-    // let formData = this.registerForm.value;
+    let formData = this.registerForm.value;
     this.showRedio = false;
     this.editFlag = false;
-    this.formDirective.reset();
-    this.getFormData('clear');
+    this.formDirective.resetForm({
+      schoolLocationId: 1,
+      districtId: formData.districtId,
+      talukaId: formData.talukaId,
+      centerId: formData.centerId,
+    });
   }
 
   ngOnDestroy() {
