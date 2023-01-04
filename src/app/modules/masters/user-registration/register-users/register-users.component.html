@@ -10,17 +10,28 @@
     <form [formGroup]="userRegistrationForm" #formDirective="ngForm">
     <mat-card-content class="card-body">
        <ng-container *ngIf="this.data?.flag=='profile'">
-        <div  class="text-center mb-3">
-            <div class="upload-btn-wrapper">
-                <img src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image ng-star-inserted">
-                <div class="profile-buttons d-flex flex-column">
-                    <button type="button" class="btn bg-light text-primary ng-star-inserted">
-                        <input type="file" class="ng-star-inserted">
-                        <i class="bx bx-plus"></i></button>
-                </div>
+       <div class="text-center">
+        <div class="upload-btn-wrapper">
+            <img *ngIf="!profilePhoto" src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
+            <img *ngIf="profilePhoto" src="{{profilePhoto}}" alt="profile-img" width="100" class="profile-image">
+
+            <div class="profile-buttons d-flex flex-column">
+                <input type="file" #profileUpload name="myfile" accept=".jpg,.jpeg,.png"
+                style="display:none" (change)="profilePhotoMethod($event)"/>
+               <ng-container *ngIf="!profilePhoto">
+                <button type="button" class="btn bg-light text-primary" (click)="profileUpload.click()">
+                    <i class='bx bx-plus'></i>
+                </button>
+               </ng-container>
+               <ng-container *ngIf="profilePhoto">
+                <button type="button" class="border border-0 btn bg-light text-danger" (click)="clearProfile()">
+                    <i class='bx bx-trash'></i>
+                </button>
+               </ng-container>
             </div>
         </div>
-       </ng-container>
+       </div>
+    </ng-container>  
         <div class="row mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
@@ -35,7 +46,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
-                            <mat-select formControlName="designationLevelId"
+                            <mat-select formControlName="designationLevelId" 
                                 (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
@@ -67,7 +78,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId || this.data.flag=='profile'">
                         <mat-label>{{'common.district' |translate}}</mat-label>
-                        <mat-select formControlName="districtId"
+                        <mat-select formControlName="districtId" 
                             (selectionChange)="clearDropdown('district')"
                            >
                             <mat-option *ngFor="let dist of districtArr"
@@ -138,7 +149,7 @@
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
                                   {{'user_Registration.Please_enter_valid_name' |translate}}
-                                </span>
+                                </span> 
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -146,7 +157,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.mobile_number' |translate}}"
-                            formControlName="mobileNo"
+                            formControlName="mobileNo" 
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
@@ -159,7 +170,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.email' |translate}}</mat-label>
                         <input matInput placeholder="{{'common.email' |translate}}"
-                            formControlName="emailId"
+                            formControlName="emailId" 
                             (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
                         <mat-error *ngIf="f['emailId'].errors">
                             <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
