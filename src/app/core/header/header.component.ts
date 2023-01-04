@@ -3,8 +3,8 @@ import { Component, HostBinding } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
-import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component'
-import { MyProfileComponent } from 'src/app/shared/components/my-profile/my-profile.component'
+import { RegisterUsersComponent } from 'src/app/modules/masters/user-registration/register-users/register-users.component'
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component'
 import { WebStorageService } from '../services/web-storage.service'
 
@@ -115,9 +115,23 @@ export class HeaderComponent {
   }
 
   openMyProfileDialog() {
-    this.dialog.open(MyProfileComponent, {
-      width: '500px',
+    let lang;
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      lang = res
+    })
+    const dialog = this.dialog.open(RegisterUsersComponent,{
+      width: '850px',
       disableClose: true,
-    });
+      data:{
+        cardTitle: lang=='mr-IN' ?'माझे प्रोफाइल':'My Profile',
+        successBtnText: lang=='mr-IN' ? 'प्रोफाइल बदला' : 'Update Profile',
+        flag:'profile',
+        cancelBtnText:lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+      }
+    })
+    dialog.afterClosed().subscribe((res:any) => {
+      if (res == 'Yes') {
+      }
+    })
   }
 }

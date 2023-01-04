@@ -61,7 +61,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
   }
   
   getAllSubject() {
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject?flag_lang='+ `${this.language}`, true, false, false, 'baseUrl')
+   this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAllSubjectforPI?flag_lang='+ `${this.language}`, true, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
