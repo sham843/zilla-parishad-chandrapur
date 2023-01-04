@@ -49,14 +49,18 @@ export class SchoolRegistrationComponent {
   ) { }
 
   ngOnInit() {
+    this.loginData=this.webStorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
+
     this.getFilterFormData();
-    this.getTableData();
+
+    this.levelId==3 || this.levelId==4 || this.levelId==5  ? '' : this.getTableData();
+    
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res == 'Marathi' ? 'mr-IN' : 'en';
       this.setTableData();
     })
-    this.loginData=this.webStorage.getLoginData();
-    this.levelId=this.loginData.designationLevelId;
+  
     this.getTaluka();
   }
   //#region ---------------------------------------Filter Form Data Starts-----------------------------------------------------------------
@@ -64,7 +68,7 @@ export class SchoolRegistrationComponent {
     this.filterForm = this.fb.group({
       talukaId: [0],
       centerId: [0],
-      schoolName: ['',]
+      schoolName: ['']
     })
   }
 
@@ -73,7 +77,7 @@ export class SchoolRegistrationComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter(),this.getTableData('filter')):'';
+          this.levelId==3 || this.levelId==4 || this.levelId==5 ?(this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId),this.getCenter()):'';
         }
         else {
           this.talukaArray = [];
@@ -112,12 +116,9 @@ export class SchoolRegistrationComponent {
       schoolName: ['']
     });
     this.centerArray = [];
-    this.pageNumber = 1
-    console.log(this.loginData);
-    
+    this.pageNumber = 1    
     this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
     this.getCenter()
-    this.getTableData();
   }
 
   //#endregion-----------------------------------Filter Form Data Ends--------------------------------------------------------------------
