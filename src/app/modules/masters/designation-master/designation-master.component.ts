@@ -65,8 +65,14 @@ export class DesignationMasterComponent {
     const searchInput = this.multiUserSearchInput.nativeElement.value ? this.multiUserSearchInput.nativeElement.value.toLowerCase() : '';
     this.desigantionLevelArray = this._designationLevelArray.filter(u => {
        const designationLevel:String = u.desingationLevel.toLowerCase();
+       console.log(designationLevel.indexOf(searchInput));
+       
        return designationLevel.indexOf(searchInput) > -1
     })
+    this.desigantionLevelArray = this.desigantionLevelArray.length == 0 ? [{
+      "id": null,
+      "desingationLevel": "no match found"
+  }] : this.desigantionLevelArray
   }
 
   getTableData(flag?: string) {
@@ -80,6 +86,9 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
+          this.searchdesignationLvl.reset();
+          this.multiUserSearchInput.nativeElement.value = '';
+          this.desigantionLevelArray = this._designationLevelArray;
           this.setTableData();
         } else {
           this.spinner.hide();
@@ -148,7 +157,7 @@ export class DesignationMasterComponent {
 
   globalDialogOpen(obj?: any) {
     let dialoObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you want to delete selected designation record?',
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you Want To Delete Selected Designation Record?',
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
