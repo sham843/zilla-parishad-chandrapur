@@ -10,7 +10,7 @@
         "select_kendra":"Select kendra",
         "school":"School",
         "school_name":"School Name",
-        "select_school":" Please Select School",
+        "select_school":"Select School",
         "contact_person":"Contact Person Name",
         "email":"Email ID",
         "agency_name":"NGO Name",
@@ -31,14 +31,15 @@
         "contact_n":"Contact No.",
         "email_id":"Email ID",
         "action":"Action",
-        "select_user_type":"Please Select User Type",
+        "select_user_type":"User Type",
         "name":"Name",
         "mobile_number":"Mobile Number",
         "delete":"Delete",
         "ok":"Ok",
         "update":"Update",
-        "select_designation": "Please Select Designation",
-        "download_excel":"Download as Excel"
+        "select_designation": "Select Designation",
+        "download_excel":"Download as Excel",
+        "copyright": "Copyright © 2022 Education Chandrapur All Rights Reserved"
     },
     "dashboard":{
         "dashboard":"Dashboard"
@@ -92,7 +93,7 @@
         "please_enter_address":"Please Enter Address",
         "contact_number":"Contact Number",
         "please_enter_contact_number":"Please Enter Contact Number",
-        "agency_registration":"NGO Registration",
+        "agency_registration":"Register NGO",
         "Add_agency":"Add NGO",
         "agency_marathi_name":"Agency Marathi Name",
         "agency_marathi_name_pattern":"Please Enter Valid Agency Marathi Name",
@@ -183,7 +184,8 @@
     "please_enter_valid_aadhar_Number":"Please Enter Valid Aadhar Number",
     "please_enter_valid_Caste":"Please Enter Valid Caste Name",
     "please_enter_valid_mobile_Number":"Please Enter Valid Parent Mobile Number",
-    "update_Student":"Update Student"
+    "update_Student":"Update Student",
+    "do_you_want_to_delete_selected_School_record?":"Do You Want To Delete Selected School Record"
     },
     "designation_master": {
         "add_designation": "Add Designation",
@@ -244,7 +246,7 @@
         "please_select_from_class":"Please Select From Class",
         "please_select_to_class":"Please Select To Class",
         "address":"Address",
-        "id":"Id",
+        "id":"UDISE",
         "urban":"Urban",
         "rural":"Rural",
         "please_enter_id":"Please Enter Id",
