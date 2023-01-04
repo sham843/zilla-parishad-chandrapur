@@ -31,7 +31,7 @@
         "contact_n":"Contact No.",
         "email_id":"Email ID",
         "action":"Action",
-        "select_user_type":"Please Select User Type",
+        "select_user_type":"User Type",
         "name":"Name",
         "mobile_number":"Mobile Number",
         "delete":"Delete",
@@ -184,7 +184,8 @@
     "please_enter_valid_aadhar_Number":"Please Enter Valid Aadhar Number",
     "please_enter_valid_Caste":"Please Enter Valid Caste Name",
     "please_enter_valid_mobile_Number":"Please Enter Valid Parent Mobile Number",
-    "update_Student":"Update Student"
+    "update_Student":"Update Student",
+    "do_you_want_to_delete_selected_School_record?":"Do You Want To Delete Selected School Record"
     },
     "designation_master": {
         "add_designation": "Add Designation",

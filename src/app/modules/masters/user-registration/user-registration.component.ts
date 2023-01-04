@@ -31,7 +31,7 @@ export class UserRegistrationComponent {
   talukaArray = new Array();
   centerArray = new Array();
   schoolArray = new Array();
-  
+
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -96,7 +96,7 @@ export class UserRegistrationComponent {
     })
   }
   //#endregion---------------------------------------dropdown method end--------------------------------------------------------------------
-  
+
   //#region------------------------------------------get all user data method start------------------------------------------------------------
   getAllUserData(flag?:any) {
     flag == 'filter' ? this.pageNumber = 1 :'';
@@ -125,15 +125,15 @@ export class UserRegistrationComponent {
         this.tableDataArray = [];
         this.totalItem = 0;
         this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-       } 
+       }
        flag != 'excel' && this.tableDataArray ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
       },
          error: ((err: any) => { this.errors.handelError(err) })
      })
-  
+
     }
 //#endregion------------------------------------------------get all user method end----------------------------------------------------------
-setTableData(){     // table 
+setTableData(){     // table
   let displayedColumns:any;
   this.lang=='mr-IN'?displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
       let displayedheaders:any;
@@ -177,14 +177,14 @@ setTableData(){     // table
         this.getAllUserData();
       }
     })
-  } 
+  }
   //#region----------------------------------------------------------Delete modal start-------------------------------------------------------------
   deleteDialog(deleteObj: any) {
     const dialog = this.dialog.open(GlobalDialogComponent, {
       width: '350px',
       disableClose: true,
       data:{
-        p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Agency?',
+        p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Are You Sure You Want To Delete User Registration Record?',
         p2: '',
         cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
         successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
@@ -221,7 +221,7 @@ setTableData(){     // table
     });
   }
 
-  getAllClearData(flag?:any){    //clear 
+  getAllClearData(flag?:any){    //clear
     if(flag=='taluka'){
       this.serachUserForm.controls['CenterId'].setValue('');
       this.serachUserForm.controls['SchoolId'].setValue('');
@@ -238,7 +238,7 @@ setTableData(){     // table
       this.getAllUserData();this.getTaluka()
   }
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
-  excelDownload() { 
+  excelDownload() {
     this.getAllUserData('excel');
     let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
