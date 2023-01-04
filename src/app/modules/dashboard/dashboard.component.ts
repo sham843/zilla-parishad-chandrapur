@@ -34,11 +34,12 @@ export class DashboardComponent {
   selStdArray = new Array();
   educationYearArray = new Array();
   getAllSubjectArray = new Array();
-  assessmentsArray= new Array();
+  assessmentsArray = new Array();
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
+  talukaWiseAssData: any;
 
-;
+  ;
   progressBarcolors: any = ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
   loginData!: any;
   levelId!: number;
@@ -65,6 +66,7 @@ export class DashboardComponent {
     this.mainFilterForm();
     this.educationYear();
     this.getAllSubject();
+    this.getDynamicDetails()//demo
   }
 
   ngAfterViewInit() {
@@ -79,19 +81,21 @@ export class DashboardComponent {
 
   mainFilterForm() {
     this.topFilterForm = this.fb.group({
-      yearId: [''],
+      yearId: [0],
       talukaId: [0],
       kendraId: [0],
       schoolId: [0],
+      assesmentId: [0],
+      subjectId: [0],
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
     })
   }
 
-  clearFilterForm(flag:string){
-    if(flag == 'taluka'){
+  clearFilterForm(flag: string) {
+    if (flag == 'taluka') {
       this.topFilterForm.controls['kendraId'].setValue(0);
       this.topFilterForm.controls['schoolId'].setValue(0);
-    }else if(flag == 'kendra'){
+    } else if (flag == 'kendra') {
       this.topFilterForm.controls['schoolId'].setValue(0);
     }
   }
@@ -144,7 +148,7 @@ export class DashboardComponent {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
           this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
-          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? this.cardCountData() : '';;
+          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? this.cardCountData() : this.cardCountData();
         }
         else {
           this.centerArray = [];
@@ -241,14 +245,14 @@ export class DashboardComponent {
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.piechartOptionstData = res.responseData[0].assesmentDetails;
         this.piechartSecondOptionsData = res.responseData[1].assesmentDetails;
-        this.piechartOptionstData.length ?  this.pieChart(res.responseData) : [];
-        this.piechartSecondOptionsData.length ?  this.pieChart(res.responseData) : [];
+        this.piechartOptionstData.length ? this.pieChart(res.responseData) : [];
+        this.piechartSecondOptionsData.length ? this.pieChart(res.responseData) : [];
         this.getSurveyDashboardDetails();
       }
       else {
@@ -261,12 +265,11 @@ export class DashboardComponent {
 
   getSurveyDashboardDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-survey-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        console.log(this.getSurveyedData);
         this.checkBoxChecked('default');
       }
       else {
@@ -279,7 +282,7 @@ export class DashboardComponent {
 
   getAssesmentDashboardDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -297,19 +300,19 @@ export class DashboardComponent {
   checkBoxChecked(label: any, val?: any) {
     if (val) {
       if (label.target.checked) {
+        this.selStdArray.push(val.standardId);
         this.selNumber = this.selNumber + val.data
       } else {
-        let selIndex =  this.selStdArray.findIndex((ele: any) => ele == val?.standardId);
+        let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
         this.selStdArray.splice(selIndex, 1);
         this.selNumber = this.selNumber - val.data;
-       
       }
       this.getAssesmentDashboardDetails();
     } else {
-      this.selStdArray.length ?  '' :    this.selStdArray.push('1');
+      this.selStdArray.push('1');
       this.getAssesmentDashboardDetails();
-      this.getSurveyedData.find((ele: any, i:any) => {
-        if (i ==2) {
+      this.getSurveyedData.find((ele: any) => {
+        if (ele.text == '1st' && label == 'default') {
           ele.checked = true;
           this.selNumber = ele?.data
         }
@@ -460,9 +463,9 @@ export class DashboardComponent {
         bar: {
           distributed: false,
           horizontal: false,
-          borderRadius: 10,
-          borderRadiusApplication: 'end',
-          borderRadiusWhenStacked: "last", // "all"/"last",
+          // borderRadius: 10,
+          // borderRadiusApplication: 'end',
+          // borderRadiusWhenStacked: "all", // "all"/"last",
           columnWidth: 40,
         },
       },
@@ -589,7 +592,75 @@ export class DashboardComponent {
     });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
+
+  getDynamicDetails() {
+    let filterFormData = this.topFilterForm.value;
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=1&pageSize=10`
+    this.apiService.setHttp('get', 'dashboard/get-dashboard-dynamic-details?talukaId=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.talukaWiseAssData = res.responseData.responseData1;
+        this.talukaWiseAssData[0]['assesmentDetails'] = [
+          {
+            "assessmentId": 1,
+            "assessmentParamenterName": "Initiala",
+            "assesmentCalculationValue": 11.11
+          },
+          {
+            "assessmentId": 2,
+            "assessmentParamenterName": "Letter",
+            "assesmentCalculationValue": 11.11
+          },
+          {
+            "assessmentId": 3,
+            "assessmentParamenterName": "Wordspp",
+            "assesmentCalculationValue": 11.11
+          },
+          {
+            "assessmentId": 4,
+            "assessmentParamenterName": "Paragraph",
+            "assesmentCalculationValue":11.11
+          },
+          {
+            "assessmentId": 5,
+            "assessmentParamenterName": "Story",
+            "assesmentCalculationValue":11.11
+          },
+          {
+            "assessmentId": 20,
+            "assessmentParamenterName": "Standard",
+            "assesmentCalculationValue":11.11
+          },
+          {
+            "assessmentId": 21,
+            "assessmentParamenterName": "Standard Test 1",
+            "assesmentCalculationValue": 11.11
+          },
+          {
+            "assessmentId": 22,
+            "assessmentParamenterName": "writings",
+            "assesmentCalculationValue": 11.11
+          },
+          {
+            "assessmentId": 23,
+            "assessmentParamenterName": "honest",
+            "assesmentCalculationValue": 11.11
+          }]//demo
+          console.log( this.talukaWiseAssData);
+      }
+      else {
+        this.talukaWiseAssData=[];
+        // this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errors.handelError(error.status);
+    })
+  }
   displayProfile(id: number) {
     this.router.navigateByUrl('/student-profile/' + id);
+  }
+
+  ngOnDestroy() {
+    this.graphInstance.destroy();
   }
 }
