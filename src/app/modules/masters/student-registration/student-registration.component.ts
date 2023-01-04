@@ -32,7 +32,7 @@ export class StudentRegistrationComponent {
   levelId!: number;
   subscription!: Subscription;
   loginData: any;
-  disabledTaluka:boolean=false;
+  disabledTaluka: boolean = false;
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -54,7 +54,7 @@ export class StudentRegistrationComponent {
     this.loginData = this.webStorage.getLoginData();
     this.levelId = this.loginData.designationLevelId;
     this.formData();
-    this.getTableData();
+    this.levelId == 1 || this.levelId == 2 ? this.getTableData() : ''; // temp
     this.getTaluka();
   }
 
@@ -74,7 +74,7 @@ export class StudentRegistrationComponent {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
           this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
-           this.levelId == 3 ? this.getTableData('filter') : '';
+          this.levelId == 3 ? this.getTableData('filter') : '';
         }
         else {
           this.talukaArray = [];
@@ -95,7 +95,7 @@ export class StudentRegistrationComponent {
           this.centerArray = res.responseData;
           this.levelId == 4 || this.levelId == 5 ? (this.filterFrm.controls['centerId'].setValue(this.loginData.centerId), this.getSchool()) : '';
           this.levelId == 4 ? this.getTableData('filter') : '';
-         }
+        }
         else {
           this.centerArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -146,7 +146,6 @@ export class StudentRegistrationComponent {
     this.formData();
     this.centerArray = [];
     this.schoolArray = [];
-    this.getTableData('filter');
     this.getTaluka();
   }
   //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
@@ -276,7 +275,7 @@ export class StudentRegistrationComponent {
     let header: any;
     this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender', 'Standard', 'Parent Contact No.'];
     let column;
-    column = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'fullName', 'gender', 'standard', 'parentsMobileNo']
+    column = this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 

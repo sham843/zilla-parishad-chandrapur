@@ -44,6 +44,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
+
           <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
             <mat-select formControlName="CenterId"
@@ -63,7 +64,8 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.search_by_name_contact' |translate}}</mat-label>
-            <input matInput placeholder="{{'common.search_by_name_contact' |translate}}" formControlName="textSearch">
+            <input matInput formControlName="textSearch">
+            <!-- placeholder="{{'common.search_by_name_contact' |translate}}" -->
           </mat-form-field>
         </div>
         <div class="col-sm-auto">

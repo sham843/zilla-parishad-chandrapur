@@ -9,7 +9,6 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { NgApexchartsModule } from "ng-apexcharts";
-
 @NgModule({
   declarations: [
     StudentProfileComponent,

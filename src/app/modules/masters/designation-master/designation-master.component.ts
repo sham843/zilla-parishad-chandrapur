@@ -66,7 +66,7 @@ export class DesignationMasterComponent {
     this.desigantionLevelArray = this._designationLevelArray.filter(u => {
        const designationLevel:String = u.desingationLevel.toLowerCase();
        return designationLevel.indexOf(searchInput) > -1
-    }) 
+    })
   }
 
   getTableData(flag?: string) {
@@ -152,7 +152,7 @@ export class DesignationMasterComponent {
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-      dialogIcon: 'assets/images/logout.gif',
+      dialogIcon: 'assets/images/trash.gif',
       cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
@@ -183,9 +183,9 @@ export class DesignationMasterComponent {
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
   excelDownload() {
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To']; 
+    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To'];
     let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
-      
+
     this.tableDataArray.map((ele:any)=>{
       let myArray:any=[];
       ele.linkedDesignationDetails.map((ele1:any)=>{
