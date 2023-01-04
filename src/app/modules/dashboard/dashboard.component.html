@@ -6,14 +6,14 @@
 <form [formGroup]="topFilterForm" class="w-mat-form-field">
     <div class="row">
         <div class="col-sm">
-            <!-- <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Year </mat-label>
                 <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
                     <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
                         {{year.year}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
         </div>
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
@@ -67,7 +67,7 @@
 <div class="row mb-3" id="dash-stats">
     <div [ngClass]="{'col-sm-6':topFilterForm.value.schoolId, 'col-sm-3':topFilterForm.value.schoolId==0}">
         <div class="card card-body bg-voilet h-100">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex  justify-content-between align-items-center">
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/Student-white.svg" class="bg-image">
                     <p>Students</p>
@@ -203,9 +203,9 @@
                         </table>
                     </div>
                     <ng-container *ngIf="getAssesmentData?.length; else elseBlock">
-                        <div class="d-flex ml-45">
+                        <div class="d-flex  ml-45">
 
-                            <div class="pt-5"
+                            <div class="border-end pt-5"
                                 *ngFor="let barchart of barchartOptions?.series; let i = index">
                                 <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
 

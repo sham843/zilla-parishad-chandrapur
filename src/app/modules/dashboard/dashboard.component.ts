@@ -282,7 +282,7 @@ export class DashboardComponent {
 
   getAssesmentDashboardDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId${filterFormData.assesmentId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -300,19 +300,19 @@ export class DashboardComponent {
   checkBoxChecked(label: any, val?: any) {
     if (val) {
       if (label.target.checked) {
-        this.selStdArray.push(val.standardId);
         this.selNumber = this.selNumber + val.data
       } else {
-        let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
+        let selIndex =  this.selStdArray.findIndex((ele: any) => ele == val?.standardId);
         this.selStdArray.splice(selIndex, 1);
         this.selNumber = this.selNumber - val.data;
+       
       }
       this.getAssesmentDashboardDetails();
     } else {
-      this.selStdArray.push('1');
+      this.selStdArray.length ?  '' :    this.selStdArray.push('1');
       this.getAssesmentDashboardDetails();
-      this.getSurveyedData.find((ele: any) => {
-        if (ele.text == '1st' && label == 'default') {
+      this.getSurveyedData.find((ele: any, i:any) => {
+        if (i ==2) {
           ele.checked = true;
           this.selNumber = ele?.data
         }
