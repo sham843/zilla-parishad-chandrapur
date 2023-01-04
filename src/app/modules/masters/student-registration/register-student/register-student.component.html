@@ -39,7 +39,7 @@
                         [class.disabled-contenct]="(levelId==4 || levelId==5)">
                         <mat-label>{{'common.kendra'|translate}}</mat-label>
                         <mat-select formControlName="centerId"
-                            (selectionChange)="clearDropdown('centerId');">
+                            (selectionChange)="clearDropdown('centerId');getSchool(studentFrm.value.centerId);">
                             <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
                             </mat-option>
                         </mat-select>
