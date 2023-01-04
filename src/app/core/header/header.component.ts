@@ -44,10 +44,7 @@ export class HeaderComponent {
 
   changeTheme(darkMode: any) {
     let darkClassName: any
-    this.className =
-      darkMode == 'light'
-        ? (darkClassName = 'lightMode')
-        : (darkClassName = 'darkMode')
+    this.className =darkMode == 'light'? (darkClassName = 'lightMode'): (darkClassName = 'darkMode');
     this.webStorage.setTheme(darkClassName)
     if (darkMode == 'light') {
       this.overlay.getContainerElement().classList.add('lightMode')
@@ -66,7 +63,7 @@ export class HeaderComponent {
   }
 
   openLogoutModal() {
-    let modalLang;
+    let modalLang=this.language;
     this.webStorage.setLanguage.subscribe((res: any) => {
       modalLang = res
     })
