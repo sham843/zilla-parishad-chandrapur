@@ -15,7 +15,7 @@
             <img *ngIf="!profilePhoto" src="assets/images/user.jpg" alt="profile-img" width="100" class="profile-image">
             <img *ngIf="profilePhoto" src="{{profilePhoto}}" alt="profile-img" width="100" class="profile-image">
 
-            <div class="profile-buttons d-flex flex-column">
+            <div class="profile-buttons">
                 <input type="file" #profileUpload name="myfile" accept=".jpg,.jpeg,.png"
                 style="display:none" (change)="profilePhotoMethod($event)"/>
                <ng-container *ngIf="!profilePhoto">
