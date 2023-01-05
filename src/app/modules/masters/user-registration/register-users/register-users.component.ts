@@ -194,8 +194,8 @@ export class RegisterUsersComponent {
   getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'),centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
-      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolName):'';
-      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolName),this.getAllClassGroup(this.data.obj.schoolId),this.getAllSubject()):'';
+      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
+      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
   }
 
@@ -280,14 +280,33 @@ clearValidation(formControl:any){
     this.clearArr=['agencyId'];
     this.clearValidation(this.clearArr);
   }else if(this.userRegistrationForm.value.userTypeId==4){
-    this.addValidation=['agencyId','talukaId','centerId'];
+    if(this.userRegistrationForm.value.designationLevelId==3){
+      this.addValidation=['agencyId','talukaId'];
+      this.clearArr=['centerId','schoolId','standardModels','subjectModels','designationId'];
+    }
+    else if(this.userRegistrationForm.value.designationLevelId==4){
+      this.addValidation=['agencyId','talukaId','centerId'];
+      this.clearArr=['schoolId','standardModels','subjectModels','designationId'];
+    }
+    else if(this.userRegistrationForm.value.designationLevelId==2){
+      this.addValidation=['agencyId'];
+      this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','designationId'];
+    }
     this.addValidation.forEach(ele=>{
+      this.setValidation(ele);
+    })
+      this.clearArr.forEach(ele=>{
+          this.clearValidation(ele);
+      }) 
+
+    // this.addValidation=['agencyId','talukaId','centerId'];
+   /*  this.addValidation.forEach(ele=>{
       this.setValidation(ele);
     })
     this.clearArr=['designationId','schoolId','standardModels','subjectModels'];
     this.clearArr.forEach(ele=>{
         this.clearValidation(ele);
-    })
+    }) */
 }
 this.addValidation=[];
 this.clearArr=[];
@@ -356,6 +375,7 @@ clearProfile(){
 //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
 registerUser(formDirective?:any) {
     if(this.userRegistrationForm.invalid){
+      console.log("validation",this.userRegistrationForm.controls)
         return;
     }
     else{
@@ -372,7 +392,13 @@ registerUser(formDirective?:any) {
          })
        });
     } 
-
+   /*  "m_Standard": null,
+        "standard": null,
+        "standardId": null,
+        "subjectId": null,
+        "subject": null,
+        "m_Subject": null, */
+console.log("njdfgdgf",this.userRegistrationForm.value);
    let obj=this.userRegistrationForm.value;
    delete obj.standardId;
    delete obj.subjectId

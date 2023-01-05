@@ -28,19 +28,12 @@ export class DesignationMasterComponent {
   desigantionLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
-  userLoginDesignationLevelId!: number;
-  hideFlowChartDig: boolean = false;
-  designTreeViewArray: any[] = [];
-
-
-  constructor(public dialog: MatDialog,
-    private apiService: ApiService,
-    private master: MasterService,
-    private errors: ErrorsService,
-    private webStorage: WebStorageService,
-    private commonMethod: CommonMethodsService,
-    private spinner: NgxSpinnerService,
-    private excelPdf: ExcelPdfDownloadService
+  userLoginDesignationLevelId!:number;
+  designTreeViewArray: any;
+  hideFlowChartDig :boolean = false
+  constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
+    private errors: ErrorsService, private webStorage: WebStorageService,
+    private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
   ) {
     this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
       startWith(''),
@@ -178,7 +171,7 @@ export class DesignationMasterComponent {
 
   globalDialogOpen(obj?: any) {
     let dialoObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you Want To Delete Selected Designation Record?',
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected Designation Record?',
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
