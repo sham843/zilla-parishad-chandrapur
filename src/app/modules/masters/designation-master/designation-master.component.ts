@@ -50,6 +50,7 @@ export class DesignationMasterComponent {
     })
     this.getDesignationLevel();
     this.getTableData()
+    console.log("de",this.searchdesignationLvl)
   }
 
 

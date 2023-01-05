@@ -30,7 +30,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_user_type'|translate}}</mat-label>
             <mat-select formControlName="UserTypeId">
-              <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userType}}</mat-option>
+              <mat-option *ngFor="let type of userTypeArray" [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
