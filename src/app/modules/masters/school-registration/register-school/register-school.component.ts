@@ -177,7 +177,7 @@ export class RegisterSchoolComponent {
 
   getGenderAllow() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllGender?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolGender?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
