@@ -72,10 +72,14 @@ export class RegisterUsersComponent {
  
    this.filterSchoolArr = this.userRegistrationForm.get('schoolId').valueChanges.pipe(
     startWith(''),
-    map((ele:any) => (ele ? this.common.filterInDropdown(ele,this.schoolArr) : this.schoolArr.slice())),
+    map((ele:any) => (ele ? this.filterInDropdown(ele,this.schoolArr) : this.schoolArr.slice())),
   );
   }
 
+  filterInDropdown(value: string,filterArray:any){
+    const filterValue = value.toLowerCase();
+    return filterArray.filter((value:any) => value.schoolName.toLowerCase().includes(filterValue));
+  }
   getUserForm() {
     let obj=this.updatedData;
     this.userRegistrationForm = this.fb.group({
