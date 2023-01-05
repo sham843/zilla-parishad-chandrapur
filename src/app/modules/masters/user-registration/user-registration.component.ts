@@ -165,16 +165,6 @@ setTableData(){     // table
   }
   //----------------------------------------------------------Add update modal open------------------------------------------------------------
   registerusers(editObj?: any) {
-    /* const dialog =this.dialog.open(RegisterUsersComponent, {
-      width: '850px',
-      disableClose: true,
-      data: editObj,
-    })
-    dialog.afterClosed().subscribe((res:any) => {
-      if (res == 'Yes') {
-        this.getAllUserData();
-      }
-    }) */
     const dialog =this.dialog.open(RegisterUsersComponent, {
       width: '850px',
       disableClose: true,
