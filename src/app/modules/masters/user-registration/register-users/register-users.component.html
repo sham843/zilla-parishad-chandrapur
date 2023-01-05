@@ -114,14 +114,14 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <input type="text" placeholder="Select School" formControlName="schoolId"  matInput [matAutocomplete]="auto">
-                            <!-- <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')"> -->
-                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                                    <mat-option *ngFor="let school of filterArray | async"
+                            <!-- <input type="text" placeholder="Select School" formControlName="schoolId"  matInput [matAutocomplete]="auto"> -->
+                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
+                                <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"> -->
+                                    <mat-option *ngFor="let school of schoolArr"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
-                                  </mat-autocomplete>
+                                  <!-- </mat-autocomplete> -->
                               
-                            <!-- </mat-select> -->
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </ng-container>

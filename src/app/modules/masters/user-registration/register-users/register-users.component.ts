@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { NgxSpinnerService } from 'ngx-spinner'
-import { map, Observable, startWith } from 'rxjs'
+import {Observable} from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
@@ -60,7 +60,7 @@ export class RegisterUsersComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
-     res=='Marathi' && this.apiService.translateLang ? this.lang='mr-IN' : this.lang='en';
+     res=='Marathi' ? this.lang='mr-IN' : this.lang='en';
     })
     this.loginData=this.webStorage.getLoginData();
     this.levelId=this.loginData.designationLevelId;
@@ -70,10 +70,6 @@ export class RegisterUsersComponent {
     this.getDistrict();
    
   }
- /* this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
-      startWith(''),
-      map(state => (state ? this.commonMethod.filterInDropdown(state,this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
-    );*/
 
   getUserForm() {
     let obj=this.updatedData;
@@ -121,14 +117,14 @@ export class RegisterUsersComponent {
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
   getUserType() {  //get user type
-    this.master.getUserType(this.lang).subscribe((res:any)=>{
+    this.master.getUserType(this.apiService.translateLang?this.lang:'en').subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
       this.data.flag!='Add'?(this.getUserLevel(this.userRegistrationForm.value.userTypeId),this.addRemoveValidation()):'';
     })
   }
 
   getUserLevel(typeId:number) {  //get user level   
-  this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+this.lang, false, false, false, 'baseUrl');
+  this.apiService.setHttp('GET', 'designation/get-designation-levels-userTypes?userTypeId='+typeId+'&flag='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
     if(res.statusCode == "200"){
@@ -144,7 +140,7 @@ export class RegisterUsersComponent {
 }
 
   getDesignation(levelId:any) {  //get user designation
-    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
       if(res.statusCode == "200"){
@@ -158,7 +154,7 @@ export class RegisterUsersComponent {
   } 
 
   getDistrict() {   //get district
-    this.master.getAllDistrict(this.lang).subscribe((res: any) => {
+    this.master.getAllDistrict(this.apiService.translateLang?this.lang:'en').subscribe((res: any) => {
       this.districtArr = res.responseData;
       this.userRegistrationForm.controls['districtId'].setValue(this.districtArr[0].id);
       this.data.flag!='Add'?this.getTaluka(this.userRegistrationForm.value.districtId):'';
@@ -166,7 +162,7 @@ export class RegisterUsersComponent {
   }
 
   getTaluka(distId:number) {   //get taluka
-     this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
+     this.master.getAllTaluka(this.apiService.translateLang?this.lang:'en',distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
       this.levelId==3 ||this.levelId==4 || this.levelId==5  || this.userRegistrationForm.value.designationLevelId==5? this.getKendra(this.loginData.talukaId): 
@@ -175,7 +171,7 @@ export class RegisterUsersComponent {
   }
 
   getKendra(talukaId:number) {  //get kendra
-    this.master.getAllCenter(this.lang,talukaId).subscribe((res: any) => {
+    this.master.getAllCenter(this.apiService.translateLang?this.lang:'en',talukaId).subscribe((res: any) => {
       this.kendraArr = res.responseData;
       this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['centerId'].setValue(this.loginData.centerId):'';
       (this.levelId==4 || this.levelId==5 && this.userRegistrationForm.value.designationLevelId==5) ? this.getSchoolName(this.loginData.centerId):
@@ -184,19 +180,15 @@ export class RegisterUsersComponent {
   }
 
   getSchoolName(centerId:number) {    //get school
-    this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
+    this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'),centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
-      this.filterArray = this.userRegistrationForm.value.schoolId.valueChanges.pipe(
-        startWith(''),
-        map((value:any) => value?this.common.filterInDropdown(value,this.schoolArr):this.schoolArr.slice()),
-      );
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
       (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
   }
 
   getAgency() {    //get agency
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllAgency?flag_lang='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
        next: (res: any) => {
         if(res.statusCode == "200"){
@@ -210,7 +202,7 @@ export class RegisterUsersComponent {
     }
 
   getAllClassGroup(schoolId:number) {    //get class group
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang='+this.lang+'&SchoolId='+schoolId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang='+(this.apiService.translateLang?this.lang:'en')+'&SchoolId='+schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
        if(res.statusCode == "200"){
@@ -224,7 +216,7 @@ export class RegisterUsersComponent {
   }
 
   getAllSubject() {    //get subject 
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSubject?flag_lang='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
        if(res.statusCode == "200"){
