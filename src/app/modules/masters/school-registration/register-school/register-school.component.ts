@@ -85,7 +85,7 @@ export class RegisterSchoolComponent {
 
   getDistrict() {
     let formData = this.registerForm.value.districtId;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -103,7 +103,7 @@ export class RegisterSchoolComponent {
 
   getTaluka() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang=' + this.lang + '&DistrictId=' + formData.districtId, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang='+(this.service.translateLang?this.lang:'en') + '&DistrictId=' + formData.districtId, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -122,7 +122,7 @@ export class RegisterSchoolComponent {
   getCenter() {
     this.centerArray = [];
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang=' + this.lang + '&TalukaId=' + formData.talukaId, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang='+(this.service.translateLang?this.lang:'en') + '&TalukaId=' + formData.talukaId, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -141,7 +141,7 @@ export class RegisterSchoolComponent {
 
   getSchoolCategory() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetSchoolCategory?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetSchoolCategory?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -159,7 +159,7 @@ export class RegisterSchoolComponent {
 
   getSchoolType() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolType?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolType?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -177,7 +177,7 @@ export class RegisterSchoolComponent {
 
   getGenderAllow() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllGender?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllGender?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -195,7 +195,7 @@ export class RegisterSchoolComponent {
 
   getFromClass() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
