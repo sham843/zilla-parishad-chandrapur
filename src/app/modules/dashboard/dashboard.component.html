@@ -26,7 +26,7 @@
                 <mat-label>तालुका निवडा</mat-label>
 
                 <mat-select formControlName="talukaId"
-                    (selectionChange)="clearFilterForm('taluka');getDynamicDetails();getKendra();cardCountData();clickOnSvgMap('select')"
+                    (selectionChange)="clearFilterForm('taluka');getKendra();cardCountData();clickOnSvgMap('select');getDynamicDetails();"
                     [disabled]="enbTalDropFlag">
                     <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
                     <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
@@ -146,7 +146,7 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <h6 class="mb-0"> Meaning of English words</h6>
+                        <h6 class="mb-0"><small> Meaning of English words</small></h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
@@ -163,7 +163,7 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <h6 class="mb-0"> Meaning of English Sentence</h6>
+                        <h6 class="mb-0"><small>Meaning of English Sentence</small></h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartSecondOptionsData?.length; else elseBlock">
@@ -243,7 +243,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Select Subject</mat-label>
                             <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
-                                <mat-option value="0">All Subject</mat-option>
+                                <!-- <mat-option value="0">All Subject</mat-option> -->
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
                                     [value]="subjects?.id">{{subjects?.subject}}</mat-option>
                             </mat-select>
@@ -272,7 +272,7 @@
                             <td scope="row">{{res?.textValue}}</td>
                             <td class="w-50">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar"
+                                    <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" 
                                         *ngFor="let pro of res?.assesmentDetails; let j = index"
                                         [style.width]="pro?.assesmentCalculationValue+'%'"
                                         [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
