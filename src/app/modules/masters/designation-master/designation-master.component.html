@@ -56,7 +56,7 @@
            aria-label="State"
            [matAutocomplete]="auto"
            [formControl]="searchdesignationLvl">
-           <mat-autocomplete #auto="matAutocomplete">
+           <mat-autocomplete optionActivated #auto="matAutocomplete">
             <!-- <mat-select [formControl]="searchdesignationLvl"> -->
               <mat-option *ngFor="let desigLevels of filteredStates | async" [value]="desigLevels.desingationLevel" (click)="getDesignationLevelId(desigLevels.id)">{{desigLevels.desingationLevel}}</mat-option>
             <!-- </mat-select> -->
