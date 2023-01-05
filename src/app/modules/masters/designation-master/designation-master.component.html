@@ -15,7 +15,7 @@
           </mat-icon>
         </button> --> 
         <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second': hideFlowChartDig == false, 'bg-primary' : hideFlowChartDig == true }" title="Chart View"
-         (click)="(hideFlowChartDig == false ? hideFlowChartDig = true : hideFlowChartDig = false);hideFlowChartDig == true ? getDesignTreeView() : ''">
+         (click)="(hideFlowChartDig == false ? hideFlowChartDig = true : hideFlowChartDig = false);hideFlowChartDig == true ? getDesignTreeView() : getTableData()">
           <mat-icon>
             account_tree 
           </mat-icon>
