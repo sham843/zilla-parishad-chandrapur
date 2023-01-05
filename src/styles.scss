@@ -126,6 +126,9 @@ a.text-main,
   font-size: 0.85rem;
   font-weight: 500;
 }
+.breadcrumb .mat-mdc-form-field-subscript-wrapper{
+  display: none !important;
+}
 
 // .dashboard-table {
 //   font-family: 'Noto Sans Devanagari', sans-serif !important;
@@ -176,14 +179,18 @@ a.text-main,
 
 .plain-card {
   box-shadow: none !important;
-  border-radius: 10px;
+  border-radius: 10px !important;
 }
 
 .plain-card .card-header {
-  border-bottom: 1px solid #eee;
+  border-bottom: none;
   padding: 10px 15px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+}
+.plain-card .card-header h6{
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .plain-card .card-footer {
@@ -348,12 +355,15 @@ a.text-main,
   background-color: var(--main-light-color);
 }
 .mapsvg-scrollpane svg {
-  margin-top: -75px !important;
+  margin-top: -100px !important;
+  transform: scale(0.60) !important;
 }
-
+#mapsvg{
+  padding-bottom: 68.5633% !important;
+}
 .talActive{
   pointer-events: auto;
-  fill: rgb(39, 40, 72)!important;
+  fill: var(--main-dark-color) !important;
 }
 .chart-container{
   max-width: 100vw;
@@ -366,14 +376,14 @@ button[disabled] {
   opacity: 0.9;
 }
 
-.apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
+// .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
 
-  right: 40px !important;
-}
+//   right: 40px !important;
+// }
 
-.ml-45{
-  margin-left: -80px;
-}
+// .ml-45{
+//   margin-left: -80px;
+// }
 
 // .w-mat-form-field .mat-mdc-text-field-wrapper {
 //   width: 100%;
@@ -381,4 +391,11 @@ button[disabled] {
 // }
 .cdk-column-udiseCode {
   text-transform: uppercase;
+}
+.apexcharts-legend{
+  right: 30px !important;
+  width: 100px !important;
+}
+.apexcharts-canvas{
+  width: 260px !important;
 }
