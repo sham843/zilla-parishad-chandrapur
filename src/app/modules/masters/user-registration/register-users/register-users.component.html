@@ -118,7 +118,7 @@
                             <!-- <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')"> -->
                                 <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option *ngFor="let school of filterSchoolArr | async"
-                                    [value]="school.schoolName" (click)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">{{school.schoolName}}</mat-option>
+                                    [value]="school.schoolName" (click)="getSchoolId(school.id);getAllClassGroup(school.id);clearDropdown('school')">{{school.schoolName}}</mat-option>
                                   </mat-autocomplete>
                             <!-- </mat-select> -->
                         </mat-form-field>
