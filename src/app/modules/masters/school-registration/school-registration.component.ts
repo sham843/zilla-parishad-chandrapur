@@ -156,7 +156,7 @@ export class SchoolRegistrationComponent {
 
   setTableData() {
     let displayedColumns = ['udiseCode', 'srNo', 'schoolName', 'center', 'taluka', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['आयडी', 'अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Udise Code', 'Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['यूडीआयएसइ कोड', 'अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Udise Code', 'Sr. No.', 'School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
