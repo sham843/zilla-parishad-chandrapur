@@ -32,7 +32,7 @@ export class DesignationMasterComponent {
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
-  ) { 
+  ) {
     this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this.commonMethod.filterInDropdown(state,this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
@@ -149,7 +149,7 @@ export class DesignationMasterComponent {
 
   globalDialogOpen(obj?: any) {
     let dialoObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do you Want To Delete Selected Designation Record?',
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected Designation Record?',
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
