@@ -108,7 +108,7 @@ export class UserRegistrationComponent {
     let serchText = `&UserTypeId=${this.serachUserForm.value.UserTypeId}&TalukaId=${this.serachUserForm.value.TalukaId}
     &CenterId=${this.serachUserForm.value.CenterId}&SchoolId=${this.serachUserForm.value.SchoolId}&textSearch=${this.serachUserForm.value.textSearch}`
 
-    let obj =  flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
+    let obj =  flag == 'excel' ?  `pageno=1&pagesize=${this.totalPages * 10}`:`pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('get', 'zp_chandrapur/user-registration/GetAll?' +  `${obj}${serchText}`, false, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -124,7 +124,7 @@ export class UserRegistrationComponent {
         this.totalItem = 0;
         this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
        }
-       flag != 'excel' && this.tableDataArray ? this.setTableData() : this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+       flag != 'excel' && this.tableDataArray ? this.setTableData() : (this.excel.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),  this.getAllUserData());
       },
          error: ((err: any) => { this.errors.handelError(err) })
      })
