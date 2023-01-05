@@ -51,7 +51,7 @@ export class DesignationMasterComponent {
     })
     this.getDesignationLevel();
     this.getTableData();
-    this.getDesignTreeView();
+    // this.getDesignTreeView();
   }
 
   getDesignTreeView() {
@@ -159,6 +159,7 @@ export class DesignationMasterComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getDesignTreeView();
       if (result) {
         this.getTableData();
       } else if (result == false) {
