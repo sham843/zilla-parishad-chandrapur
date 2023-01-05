@@ -146,6 +146,8 @@ export class StudentRegistrationComponent {
     this.formData();
     this.centerArray = [];
     this.schoolArray = [];
+    this.getTableData();
+    // this.pageNumber = 1
     this.getTaluka();
   }
   //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
@@ -171,7 +173,7 @@ export class StudentRegistrationComponent {
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        flag != 'excel' ? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+        flag != 'excel' ? this.setTableData() : (this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),this.getTableData());
       },
       error: ((err: any) => {
         this.spinner.hide();

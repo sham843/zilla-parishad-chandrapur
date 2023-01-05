@@ -68,7 +68,7 @@ export class AgencyRegistrationComponent {
           this.totalItem = 0;
           this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
         }
-        flag != 'excel' && this.tableDataArray? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+        flag != 'excel' && this.tableDataArray? this.setTableData() :( this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),this.getAllAgencyData());
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
