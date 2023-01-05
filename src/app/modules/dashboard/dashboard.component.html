@@ -213,7 +213,7 @@
                     <div class="chart-container">
                         <ng-container *ngIf="getAssesmentData?.length; else elseBlock">
                             <div class="d-flex">
-                                <div *ngFor="let barchart of barchartOptions?.series; let i = index" class="border-end">
+                                <div *ngFor="let barchart of barchartOptions?.series; let i = index">
                                     <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
                                     <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
                                         [plotOptions]="barchartOptions?.plotOptions"
