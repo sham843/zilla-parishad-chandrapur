@@ -171,7 +171,7 @@ export class SchoolRegistrationComponent {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
     let header = this.lang == 'mr-IN' ? ['आयडी', 'अनुक्रमणिका', 'शाळेचे नाव', 'केंद्र', 'तालुका'] : ['Udise Code', 'Sr.No.', 'School Name', 'Kendra', 'Taluka'];
-    let column = this.lang == 'mr-IN' ? ['udiseCode', 'srNo', 'schoolName', 'center', 'taluka'] : ['udiseCode', 'srNo', 'schoolName', 'center', 'taluka'];
+    let column = this.lang == 'mr-IN' && this.apiService.translateLang ? ['udiseCode', 'srNo', 'schoolName', 'center', 'taluka'] : ['udiseCode', 'srNo', 'schoolName', 'center', 'taluka'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
