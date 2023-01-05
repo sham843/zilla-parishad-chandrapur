@@ -34,7 +34,7 @@ export class RegisterStudentComponent {
   subscription!: Subscription;
   loginData: any;
   levelId!: number;
- 
+
   constructor(
     private apiService: ApiService,
     private errorService: ErrorsService,
