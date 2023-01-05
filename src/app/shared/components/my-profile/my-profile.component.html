@@ -35,15 +35,15 @@
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'header.full_name' | translate}}</mat-label>
-                    <input matInput placeholder="First Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('required')">{{'header.full_name_required' | translate}}</mat-error> --> 
+                    <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+                <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('required')">{{'header.full_name_required' | translate}}</mat-error> -->
                 <!-- <mat-error *ngIf="profileForm.controls['name'].hasError('pattern')" class="mt-2">{{'header.please_enter_valid_full_name' | translate}}</mat-error> -->
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.mobile_number' | translate}}</mat-label>
-                    <input matInput placeholder="Contact No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)"(keypress)="validator.onlyDigits($event)">
+                    <input matInput maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event)"(keypress)="validator.onlyDigits($event)">
                 <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('required')">{{'header.please_enter_mobile_number' | translate}}</mat-error> -->
                 <!-- <mat-error *ngIf="profileForm.controls['mobileNo'].hasError('pattern')">{{'header.please_enter_valid_mobile_number' | translate}}</mat-error>   -->
                 </mat-form-field>
@@ -51,11 +51,11 @@
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.email' | translate}}</mat-label>
-                    <input matInput placeholder="Email ID" formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
+                    <input matInput formControlName="emailId" (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
                 <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('required')">{{'header.please_enter_email_id' | translate}}</mat-error>  -->
                 <!-- <mat-error *ngIf="profileForm.controls['emailId'].hasError('email')">{{'header.please_enter_valid_email_id' | translate}}</mat-error> -->
                 </mat-form-field>
-            </div>    
+            </div>
             <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                     <mat-label>{{'designation_master.designation_level' | translate}}</mat-label>

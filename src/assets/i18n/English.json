@@ -134,6 +134,7 @@
         "select":"Select"
     },
     "student":{
+        "parent_name":"Parent Name",
         "search_by_saralid_name_mobileno":"Search by Saral Id/Name/Contact",
         "saral_id":"Saral Id",
         "gender":"Gender",
