@@ -56,8 +56,6 @@ export class UserRegistrationComponent {
     this.levelId=this.loginData.designationLevelId;
     this.getFormControl();
     this.getAllUserData();
-    // this.getUserType();
-    // this.getTaluka();
   }
   getFormControl() {
     this.serachUserForm = this.fb.group({

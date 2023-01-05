@@ -19,7 +19,7 @@ export class HeaderComponent {
   lag = ['English', 'Marathi']
   selLang!: string;
   loginData!: any;
-
+  profilePhoto!:string;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -39,14 +39,12 @@ export class HeaderComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
     })
+    this.profilePhoto=this.loginData.profilePhoto;
   }
 
   changeTheme(darkMode: any) {
     let darkClassName: any
-    this.className =
-      darkMode == 'light'
-        ? (darkClassName = 'lightMode')
-        : (darkClassName = 'darkMode')
+    this.className =darkMode == 'light'? (darkClassName = 'lightMode'): (darkClassName = 'darkMode');
     this.webStorage.setTheme(darkClassName)
     if (darkMode == 'light') {
       this.overlay.getContainerElement().classList.add('lightMode')
@@ -65,13 +63,14 @@ export class HeaderComponent {
   }
 
   openLogoutModal() {
-    let modalLang;
+    let modalLang=this.language;
     this.webStorage.setLanguage.subscribe((res: any) => {
       modalLang = res
     })
-      const dialogRef = this.dialog.open(GlobalDialogComponent, {
-        width: '350px',
-        data:{ p1:modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?': 'Are You Sure,You want To Logout?',
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '350px',
+      data: {
+        p1: modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?' : 'Are You Sure?',
         p2: '',
         cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
         successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
@@ -130,6 +129,9 @@ export class HeaderComponent {
     })
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
+        this.webStorage.getProfile().subscribe(res=>{
+          this.profilePhoto=res;
+        })
       }
     })
   }

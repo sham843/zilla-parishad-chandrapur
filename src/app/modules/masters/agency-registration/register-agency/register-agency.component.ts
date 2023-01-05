@@ -19,7 +19,9 @@ export class RegisterAgencyComponent {
   agencyForm: FormGroup | any;
   districtArr = new Array();
   talukaArr = new Array();
+  levelId!:number;
   lang: any;
+  loginData:any;
   subscription!: Subscription;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   get f() {return this.agencyForm.controls}
@@ -40,6 +42,8 @@ export class RegisterAgencyComponent {
    this.subscription= this.webstorage.setLanguage.subscribe((res:any)=>{
       res=='Marathi'?this.lang='mr-IN':this.lang='en';
     })
+    this.loginData=this.webstorage.getLoginData();
+    this.levelId=this.loginData.designationLevelId;
     this.getAgencyControl()
     this.getDistrict();
   }
@@ -59,13 +63,14 @@ export class RegisterAgencyComponent {
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
-      this.agencyForm.controls['districtId'].setValue(this.districtArr[0].id);
+      this.agencyForm.controls['districtId'].setValue(this.loginData.districtId);
       this.data.obj?this.getTalukaArr(this.data.obj.districtId):this.getTalukaArr(this.districtArr[0].id);;
     })
   }
   getTalukaArr(distId: number) {
     this.master.getAllTaluka(this.lang, distId).subscribe((res: any) => {
       this.talukaArr = res.responseData
+      this.levelId!=1 && this.levelId!=2 ?this.agencyForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
     })
   }
   agencyRegister(formDirective:any) {
@@ -87,6 +92,9 @@ export class RegisterAgencyComponent {
           this.dialogRef.close('Yes');
           formDirective.resetForm();
         }
+        else{
+            this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+           }
       },
       (error: any) => {
         this.errors.handelError(error.status);
