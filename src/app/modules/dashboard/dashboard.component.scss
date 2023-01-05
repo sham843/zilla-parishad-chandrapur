@@ -48,5 +48,17 @@
 .bg-magenta{
     background-color:#9442B0;
 }
-
-  
+.chart-container{
+    max-width: 61vw;
+    overflow-x: auto;
+}
+.progress-bar{
+    font-size: 0.6rem !important;
+    font-weight: 600;
+    color: #000;
+} 
+.progress-bar span{
+    margin-top: 30px;
+    position: absolute;
+    margin-left: 0px;
+} 

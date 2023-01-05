@@ -400,8 +400,10 @@ export class DashboardComponent {
       series: seriesData,
       chart: {
         type: "bar",
-        height: 350,
+        height: 420,
         width: 300,
+        horizontal: false,
+        borderRadius: 10, 
         columnWidth: '45%',
         stacked: true,
         stackType: "100%",
@@ -416,7 +418,7 @@ export class DashboardComponent {
       },
       bar: {
         horizontal: true,
-        columnWidth: "10%",
+        columnWidth: "30%",
         barHeight: '80%',
         borderRadiusOnAllStackedSeries: true,
       },
@@ -466,7 +468,7 @@ export class DashboardComponent {
           // borderRadius: 10,
           // borderRadiusApplication: 'end',
           // borderRadiusWhenStacked: "all", // "all"/"last",
-          columnWidth: 40,
+          columnWidth: 60,
         },
       },
       legend: {
@@ -489,11 +491,11 @@ export class DashboardComponent {
 
     this.graphInstance = $("#mapsvg").mapSvg({
       colors: {
-        baseDefault: "#bfddff",
+        baseDefault: "#0042bd",
         background: "#fff",
-        selected: "#272848",
-        hover: "#ebebeb",
-        directory: "#bfddff",
+        selected: "#0042bd",
+        hover: "#0042bd",
+        directory: "#0042bd",
         status: {}
       },
       regions: data,
