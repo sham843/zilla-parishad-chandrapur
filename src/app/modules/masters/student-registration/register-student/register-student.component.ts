@@ -34,7 +34,7 @@ export class RegisterStudentComponent {
   subscription!: Subscription;
   loginData: any;
   levelId!: number;
-  disabledTaluka: boolean = false;
+ 
   constructor(
     private apiService: ApiService,
     private errorService: ErrorsService,
@@ -110,7 +110,6 @@ export class RegisterStudentComponent {
     this.formData();
     this.editFlag = false;
     this.getDistrict();
-    this.disabledTaluka = false;
   }
 
   clearDropdown(flag: any) {
@@ -158,7 +157,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.editFlag || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId), this.disabledTaluka = true, this.getCenter()) : ''
+          this.editFlag || this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.studentFrm.controls['talukaId'].setValue(this.studentFrm.value.talukaId),this.getCenter()) :'';
         }
         else {
           this.talukaArray = [];

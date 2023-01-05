@@ -8,7 +8,7 @@ export class ValidationService {
   constructor() { }
   name = ('^[a-zA-Z]+$');
   fullName = ('^[a-zA-Z][a-zA-Z ]*$');
-  email = ('^[a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z0-9.]+[.])+[a-z]{2,5}$');
+  email = ('^[a-zA-Z][a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z0-9.]+[.])+[a-z]{2,5}$');
   mobile_No = ('[6-9]\\d{9}');
   age = ('[0-9]{2,}|[5-9]{1}$');
   aadhar_card = ('^[2-9][0-9]{11}$');

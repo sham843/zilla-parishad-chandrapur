@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { NgxSpinnerService } from 'ngx-spinner'
+import { map, Observable, startWith } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
@@ -24,10 +25,11 @@ export class RegisterUsersComponent {
   talukaArr=new Array();
   kendraArr=new Array();
   agencyArr=new Array();
-  schoolArr=new Array();
+  filterArray: Observable<string[]> |any;
   classArr=new Array();
   subjectArr=new Array();
   addValidation=new Array();
+  schoolArr=new Array();
   clearArr=new Array();
   updatedData:any;
   lang:string |any='English';
@@ -56,7 +58,7 @@ export class RegisterUsersComponent {
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
-     res=='Marathi'?this.lang='mr-IN':this.lang='en';
+     res=='Marathi' && this.apiService.translateLang ? this.lang='mr-IN' : this.lang='en';
     })
     this.loginData=this.webStorage.getLoginData();
     this.levelId=this.loginData.designationLevelId;
@@ -64,7 +66,20 @@ export class RegisterUsersComponent {
     this.getUserForm();
     this.getUserType();
     this.getDistrict();
+    this.filterArray = this.userRegistrationForm.value.schoolId.valueChanges.pipe(
+      startWith(''),
+      map((value:any) => value?this.common.filterInDropdown(value,this.schoolArr):this.schoolArr.slice()),
+    );
   }
+ /*  this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
+    startWith(''),
+    map(state => (state ? this._filterStates(state) : this.desigantionLevelArray.slice())),
+  );
+  
+   private _filterStates(value: string): any {
+    const filterValue = value.toLowerCase();
+    return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
+  }*/
 
   getUserForm() {
     let obj=this.updatedData;
@@ -79,7 +94,7 @@ export class RegisterUsersComponent {
       agencyId: [obj?obj.agencyId:'', [Validators.required]],
       name: [obj?obj.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [obj?obj.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
-      emailId: [obj?obj.emailId:'', [Validators.required,Validators.email,Validators.pattern(this.validation.email)]],
+      emailId: [obj?obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       standardModels: [obj?obj.standardId:[],Validators.required],
       subjectModels: [obj?obj.subjectId:[],Validators.required]
     })
@@ -93,7 +108,7 @@ export class RegisterUsersComponent {
       next:(res: any) => {
         if(res.statusCode == "200"){
          this.updatedData=res.responseData;
-         this.updatedData['standardId']=[];
+         this.updatedData['standardId']=[]; 
          this.updatedData?.standardDetailsForUsers.forEach((ele:any)=>{
           this.updatedData.standardId.push(ele.standardId);
          })
@@ -357,6 +372,8 @@ registerUser(formDirective?:any) {
     } 
 
    let obj=this.userRegistrationForm.value;
+   delete obj.standardId;
+   delete obj.subjectId
    obj.profilePhoto=this.profilePhotoupd != 'assets/images/user.jpg' ? this.profilePhotoupd : '';
    obj.createdBy=this.data.obj?this.data.obj.createdBy:this.webStorage.getUserId(),
    obj.modifiedBy=this.data.obj?this.data.obj.modifiedBy : this.webStorage.getUserId(),

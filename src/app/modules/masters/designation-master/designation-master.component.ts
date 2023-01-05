@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { map, Observable, startWith } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -20,17 +21,24 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
 export class DesignationMasterComponent {
 
   lang!: string;
+  searchId!:number;
   pageNumber: number = 1;
   searchdesignationLvl = new FormControl('');
+  filteredStates: Observable<any>;
   desigantionLevelArray = new Array();
-  _designationLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
   userLoginDesignationLevelId!:number;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
-  ) { }
+  ) { 
+    this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
+      startWith(''),
+      map(state => (state ? this._filterStates(state) : this.desigantionLevelArray.slice())),
+    );
+  }
+
 
   ngOnInit() {
     let localVal: any = this.webStorage.getLocalStorageData();
@@ -44,24 +52,31 @@ export class DesignationMasterComponent {
     this.getTableData()
   }
 
+  private _filterStates(value: string): any {
+    const filterValue = value.toLowerCase();
+    return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
+  }
+
   clearFilter() {
     this.searchdesignationLvl.reset();
-    this.desigantionLevelArray = this._designationLevelArray;
+    this.searchId = 0;
     this.getTableData();
   }
 
   getDesignationLevel() {//error handling / handled in masters table
     this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
       this.desigantionLevelArray = res.responseData;
-      this._designationLevelArray = res.responseData;
     })
   }
 
+  getDesignationLevelId(id:number){
+    this.searchId = id;
+  }
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
-    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchdesignationLvl.value) + '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + this.lang , false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + (this.searchId ? this.searchId : 0) + '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + this.lang , false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -69,7 +84,6 @@ export class DesignationMasterComponent {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.searchdesignationLvl.reset();
-          this.desigantionLevelArray = this._designationLevelArray;
           this.setTableData();
         } else {
           this.spinner.hide();
