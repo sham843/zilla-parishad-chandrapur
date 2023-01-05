@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -36,6 +37,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
     TranslateModule,
     TableGridComponent,
     GlobalDialogComponent,
+    MatAutocompleteModule
   ]
 })
 export class UserRegistrationModule { }

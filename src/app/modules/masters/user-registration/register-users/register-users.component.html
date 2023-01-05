@@ -39,7 +39,7 @@
                         <mat-select formControlName="userTypeId"
                             (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);this.addRemoveValidation();clearDropdown('userType')">
                             <mat-option *ngFor="let type of userTypeArr"
-                                [value]="type.userTypeId">{{type.userType}}</mat-option>
+                                [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5)">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
-                            <mat-select formControlName="centerId"
+                            <mat-select formControlName="centerId" 
                                 (selectionChange)="this.levelId==1 || this.levelId==2 || userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
@@ -114,10 +114,14 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
-                                <mat-option *ngFor="let school of schoolArr"
+                            <input type="text" placeholder="Select School" formControlName="schoolId"  matInput [matAutocomplete]="auto">
+                            <!-- <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')"> -->
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let school of filterArray | async"
                                     [value]="school.id">{{school.schoolName}}</mat-option>
-                            </mat-select>
+                                  </mat-autocomplete>
+                              
+                            <!-- </mat-select> -->
                         </mat-form-field>
                     </div>
                 </ng-container>
