@@ -1,21 +1,27 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">{{'dashboard.dashboard' | translate}}</li>
-    </ol>
-</nav>
-<form [formGroup]="topFilterForm" class="w-mat-form-field">
-    <div class="row">
-        <div class="col-sm">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Year </mat-label>
-                <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
-                    <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
-                        {{year.year}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-sm">
+<form [formGroup]="topFilterForm" class="w-mat-form-field w-100">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item w-100" aria-current="page">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <span>{{'dashboard.dashboard' | translate}}</span>
+                    <div class="d-flex justify-content-end align-items-center gap-2">
+                        <div>Educational Year</div>
+                        <mat-form-field appearance="outline" class="w-50">
+                            <!-- <mat-label>Year </mat-label> -->
+                            <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
+                                <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
+                                    {{year.year}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="row g-2">
+        <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>तालुका निवडा</mat-label>
 
@@ -29,7 +35,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>केंद्र निवडा</mat-label>
                 <mat-select formControlName="kendraId"
@@ -52,7 +58,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Assessment</mat-label>
                 <mat-select formControlName="assesmentId" (selectionChange)="cardCountData()">
@@ -123,24 +129,24 @@
     </div>
 </div>
 
-<div class="row mb-3">
+<div class="row mb-3 g-2">
     <div class="col-sm-4">
         <mat-card class="mb-3 plain-card">
-            <mat-card-header class="card-header">
+            <mat-card-header class="card-header pb-0">
                 <h6 class="mb-0">नकाशा</h6>
             </mat-card-header>
-            <mat-card-content class="card-body">
+            <mat-card-content class="card-body pt-0">
                 <div id="mapsvg" class="text-center">
                     <!-- <img src="assets/chandrapur_dist.svg" style="height: 200px;" class=""> -->
                 </div>
             </mat-card-content>
         </mat-card>
 
-        <div class="row">
+        <div class="row g-2">
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <small> Meaning of English words</small>
+                        <h6 class="mb-0"> Meaning of English words</h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
@@ -154,9 +160,10 @@
                     </mat-card-content>
                 </mat-card>
             </div>
-            <div class="col-sm-6"> <mat-card class="plain-card">
+            <div class="col-sm-6">
+                <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <small> Meaning of English sentence</small>
+                        <h6 class="mb-0"> Meaning of English Sentence</h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartSecondOptionsData?.length; else elseBlock">
@@ -169,7 +176,8 @@
                             <p>No Data Found</p>
                         </ng-template>
                     </mat-card-content>
-                </mat-card></div>
+                </mat-card>
+            </div>
         </div>
     </div>
     <div class="col-sm-8">
@@ -177,7 +185,7 @@
             <mat-card-header class="card-header">
                 <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
                     <!-- <div>सर्वेक्षण केलेल्या विद्यार्थ्यांची एकूण संख्या</div> -->
-                    <div>Number of students surveyed</div>
+                    <div>Number of Students Surveyed</div>
                     <!-- <div>निवडलेली संख्या : <span class="fw-bold">{{selNumber}}</span></div> -->
                     <div>Selected Number : <span class="fw-bold">{{selNumber}}</span></div>
                 </h6>
@@ -202,23 +210,23 @@
                             </tbody>
                         </table>
                     </div>
-                    <ng-container *ngIf="getAssesmentData?.length; else elseBlock">
-                        <div class="d-flex ml-45">
-
-                            <div class="pt-5"
-                                *ngFor="let barchart of barchartOptions?.series; let i = index">
-                                <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
-
-                                <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
-                                    [plotOptions]="barchartOptions?.plotOptions"
-                                    [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
-                                    [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                    <div class="chart-container">
+                        <ng-container *ngIf="getAssesmentData?.length; else elseBlock">
+                            <div class="d-flex">
+                                <div *ngFor="let barchart of barchartOptions?.series; let i = index" class="border-end">
+                                    <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
+                                    <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
+                                        [plotOptions]="barchartOptions?.plotOptions"
+                                        [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
+                                        [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                                </div>
                             </div>
-                        </div>
-                    </ng-container>
-                    <ng-template #elseBlock>
-                        <p class="text-center ml-5">No Data Found</p>
-                    </ng-template>
+                        </ng-container>
+
+                        <ng-template #elseBlock>
+                            <p class="text-center ml-5">No Data Found</p>
+                        </ng-template>
+                    </div>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -228,29 +236,30 @@
 <div class="row">
     <div class="col-sm-12">
         <mat-card class="plain-card">
-            <mat-card-header class="card-header">
+            <mat-card-header class="card-header pb-0">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                    <h6 class="mb-0">Taluka wise Assessment</h6>
-                    <div class="d-flex align-items-center justify-content-between gap-3" [formGroup]="topFilterForm" >
+                    <h6 class="mb-0">Taluka Wise Assessment</h6>
+                    <div [formGroup]="topFilterForm">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Select Subject</mat-label>
-                         
                             <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
                                 <mat-option value="0">All Subject</mat-option>
-                                <mat-option
-                                    *ngFor="let subjects of getAllSubjectArray" [value]="subjects?.id">{{subjects?.subject}}</mat-option>
+                                <mat-option *ngFor="let subjects of getAllSubjectArray"
+                                    [value]="subjects?.id">{{subjects?.subject}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-card-header>
-            <mat-card-content class="card-body">
+            <mat-card-content class="card-body pt-0">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Sr. No.</th>
                             <!-- <th scope="col">{{topFilterForm.value.talukaId ? Taluka : topFilterForm.value.talukaId &&topFilterForm.value.talukaId : 'Kendra':''}}</th> -->
-                            <th scope="col">{{!topFilterForm.value.talukaId ? 'Taluka' :topFilterForm.value.talukaId ? 'Kendra': topFilterForm.value.talukaId && topFilterForm.value.kendraId ? 'School':''}}</th>
+                            <th scope="col">{{!topFilterForm.value.talukaId ? 'Taluka' :topFilterForm.value.talukaId ?
+                                'Kendra': topFilterForm.value.talukaId && topFilterForm.value.kendraId ? 'School':''}}
+                            </th>
                             <th scope="col">Current Status</th>
                             <th scope="col">Total Students</th>
                             <th scope="col">Evaluated</th>
@@ -261,11 +270,15 @@
                         <tr *ngFor="let res of talukaWiseAssData">
                             <td scope="row">{{res?.srNo}}</td>
                             <td scope="row">{{res?.textValue}}</td>
-                            <td  class="w-50">
+                            <td class="w-50">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" *ngFor="let pro of res?.assesmentDetails; let j = index"
-                                     [style.width]="pro?.assesmentCalculationValue+'%'"  [style.background-color]="progressBarcolors[j]"
-                                     aria-valuenow="15"  aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">{{pro?.assesmentCalculationValue+'%'}}</div>  
+                                    <div class="progress-bar" role="progressbar"
+                                        *ngFor="let pro of res?.assesmentDetails; let j = index"
+                                        [style.width]="pro?.assesmentCalculationValue+'%'"
+                                        [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
+                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                        <span>{{pro?.assesmentCalculationValue+'%'}}</span>    
+                                    </div>
                                 </div>
                             </td>
                             <td scope="row">{{res?.totalStudent}}</td>
