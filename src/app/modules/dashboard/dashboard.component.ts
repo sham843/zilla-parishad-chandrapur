@@ -66,7 +66,7 @@ export class DashboardComponent {
     this.mainFilterForm();
     this.educationYear();
     this.getAllSubject();
-    this.getDynamicDetails()//demo
+    //this.getDynamicDetails()//demo
   }
 
   ngAfterViewInit() {
@@ -190,6 +190,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.assessmentsArray = res.responseData;
+          this.topFilterForm.controls['assesmentId'].setValue(this.assessmentsArray[0].id);
         }
         else {
           this.schoolArray = [];
@@ -228,6 +229,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.getAllSubjectArray = res.responseData;
+          this.topFilterForm.controls['subjectId'].setValue(this.getAllSubjectArray[0].id);
         }
         else {
           this.schoolArray = [];
@@ -282,7 +284,7 @@ export class DashboardComponent {
 
   getAssesmentDashboardDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId${filterFormData.assesmentId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -309,14 +311,16 @@ export class DashboardComponent {
       }
       this.getAssesmentDashboardDetails();
     } else {
-      this.selStdArray.push('1');
-      this.getAssesmentDashboardDetails();
       this.getSurveyedData.find((ele: any, i:number) => {
-        if (i ==2) {
+        if (i == 2) {
           ele.checked = true;
-          this.selNumber = ele?.data
+          this.selNumber = ele?.data;
+          let checkStaIndex = !this.selStdArray.length ? false : this.selStdArray.includes(ele.standardId);
+          !checkStaIndex ? this.selStdArray.push(ele.standardId):'';
         }
       });
+      console.log(this.getSurveyedData);
+      this.getAssesmentDashboardDetails();
     }
   }
 
@@ -482,6 +486,7 @@ export class DashboardComponent {
         }
       }
     };
+    this.getDynamicDetails();
   }
 
   showSvgMap(data: any) {
