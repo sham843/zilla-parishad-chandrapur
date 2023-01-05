@@ -146,6 +146,8 @@ export class StudentRegistrationComponent {
     this.formData();
     this.centerArray = [];
     this.schoolArray = [];
+    this.getTableData();
+    // this.pageNumber = 1
     this.getTaluka();
   }
   //#endregion -----------------------------------------------------Filter form Fun End here ---------------------------------------------------//
