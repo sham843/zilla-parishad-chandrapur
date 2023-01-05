@@ -25,7 +25,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 " [class.disabled]="disabledTaluka || !studentFrm.value.districtId">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled]="(this.levelId == 3 || this.levelId == 4 || this.levelId == 5 || !studentFrm.value.districtId)">
                         <mat-label>{{'common.taluka'|translate}}</mat-label>
                         <mat-select formControlName="talukaId"
                             (selectionChange)="clearDropdown('talukaId');getCenter();">
