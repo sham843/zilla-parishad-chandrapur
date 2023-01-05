@@ -112,7 +112,7 @@ export class CommonMethodsService {
     const filterValue = value.toLowerCase();
     return filterArray.filter((value:any) => value.schoolName.toLowerCase().includes(filterValue));
   }
- /*  private _filterStates(value: string): any {
+/*  private _filterStates(value: string): any {
     const filterValue = value.toLowerCase();
     return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
   } */

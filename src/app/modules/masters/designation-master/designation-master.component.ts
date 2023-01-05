@@ -35,7 +35,7 @@ export class DesignationMasterComponent {
   ) { 
     this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
       startWith(''),
-      map(state => (state ? this._filterStates(state) : this.desigantionLevelArray.slice())),
+      map(state => (state ? this.commonMethod.filterInDropdown(state,this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
     );
   }
 
@@ -45,17 +45,13 @@ export class DesignationMasterComponent {
     let loginData = JSON.parse(localVal)
     this.userLoginDesignationLevelId = loginData.responseData.designationLevelId;
     this.webStorage.setLanguage.subscribe((res: any) => {
-      res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
+     this.apiService.translateLang?res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en'):this.lang='en';
       this.setTableData();
     })
     this.getDesignationLevel();
     this.getTableData()
   }
 
-  private _filterStates(value: string): any {
-    const filterValue = value.toLowerCase();
-    return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
-  }
 
   clearFilter() {
     this.searchdesignationLvl.reset();
