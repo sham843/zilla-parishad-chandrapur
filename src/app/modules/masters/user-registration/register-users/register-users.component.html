@@ -37,7 +37,7 @@
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                         <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
                         <mat-select formControlName="userTypeId"
-                            (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);this.addRemoveValidation();clearDropdown('userType')">
+                            (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);clearDropdown('userType')">
                             <mat-option *ngFor="let type of userTypeArr"
                                 [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
                         </mat-select>
@@ -47,7 +47,7 @@
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId"
-                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
+                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);this.addRemoveValidation();clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
                             </mat-select>
@@ -114,13 +114,13 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
                             <mat-label>{{'common.school' |translate}}</mat-label>
-                            <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto">
-                            <!-- <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')"> -->
-                                <mat-autocomplete  #auto="matAutocomplete">
-                                    <mat-option *ngFor="let school of filterSchoolArr | async"
-                                    [value]="school.schoolName" (click)="getSchoolId(school.id);getAllClassGroup(school.id);clearDropdown('school')">{{school.schoolName}}</mat-option>
-                                  </mat-autocomplete>
-                            <!-- </mat-select> -->
+                            <!-- <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto"> -->
+                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
+                                <!-- <mat-autocomplete  #auto="matAutocomplete"> -->
+                                    <mat-option *ngFor="let school of schoolArr"
+                                    [value]="school.id">{{school.schoolName}}</mat-option>
+                                  <!-- </mat-autocomplete> -->
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </ng-container>
