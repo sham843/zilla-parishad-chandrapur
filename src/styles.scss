@@ -393,6 +393,9 @@ button[disabled] {
   text-transform: uppercase;
 }
 .apexcharts-legend{
-  right: 15px !important;
-  width: auto !important;
+  right: 30px !important;
+  width: 100px !important;
+}
+.apexcharts-canvas{
+  width: 260px !important;
 }
