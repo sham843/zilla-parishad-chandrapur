@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -27,8 +27,6 @@ export class DesignationMasterComponent {
   tableDataArray = new Array();
   tableDatasize!: number;
   userLoginDesignationLevelId!:number;
-  @ViewChild('multiUserSearch')
-  multiUserSearchInput!: ElementRef;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
@@ -48,7 +46,6 @@ export class DesignationMasterComponent {
 
   clearFilter() {
     this.searchdesignationLvl.reset();
-    this.multiUserSearchInput.nativeElement.value= '';
     this.desigantionLevelArray = this._designationLevelArray;
     this.getTableData();
   }
@@ -58,21 +55,6 @@ export class DesignationMasterComponent {
       this.desigantionLevelArray = res.responseData;
       this._designationLevelArray = res.responseData;
     })
-  }
-
-  onInputChange(){
-    // console.log(this.multiUserSearchInput.nativeElement.value,'value1');
-    const searchInput = this.multiUserSearchInput.nativeElement.value ? this.multiUserSearchInput.nativeElement.value.toLowerCase() : '';
-    this.desigantionLevelArray = this._designationLevelArray.filter(u => {
-       const designationLevel:String = u.desingationLevel.toLowerCase();
-       console.log(designationLevel.indexOf(searchInput));
-       
-       return designationLevel.indexOf(searchInput) > -1
-    })
-    this.desigantionLevelArray = this.desigantionLevelArray.length == 0 ? [{
-      "id": null,
-      "desingationLevel": "no match found"
-  }] : this.desigantionLevelArray
   }
 
   getTableData(flag?: string) {
@@ -87,7 +69,6 @@ export class DesignationMasterComponent {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.searchdesignationLvl.reset();
-          this.multiUserSearchInput.nativeElement.value = '';
           this.desigantionLevelArray = this._designationLevelArray;
           this.setTableData();
         } else {
