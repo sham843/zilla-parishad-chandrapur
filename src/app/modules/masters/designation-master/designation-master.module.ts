@@ -11,7 +11,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { TranslateModule } from '@ngx-translate/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -34,6 +34,7 @@ import { NgxOrgChartModule } from 'ngx-org-chart';
     MatMenuModule,
     MatButtonModule,
     TableGridComponent,
+    FormsModule,
     ReactiveFormsModule,
     TranslateModule,
     MatAutocompleteModule,
