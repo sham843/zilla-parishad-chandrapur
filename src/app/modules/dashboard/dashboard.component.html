@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <span>{{'dashboard.dashboard' | translate}}</span>
                     <div class="d-flex justify-content-end align-items-center gap-2">
-                        <div>Educational Year</div>
+                        <div>{{'dashboard.edu_year' | translate}}</div>
                         <mat-form-field appearance="outline" class="w-50">
                             <!-- <mat-label>Year </mat-label> -->
                             <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
@@ -23,12 +23,11 @@
     <div class="row g-2">
         <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>तालुका निवडा</mat-label>
-
+                <mat-label>{{'common.taluka' |translate}}</mat-label>
                 <mat-select formControlName="talukaId"
                     (selectionChange)="clearFilterForm('taluka');getKendra();cardCountData();clickOnSvgMap('select');getDynamicDetails();"
                     [disabled]="enbTalDropFlag">
-                    <!-- <mat-option value="0">{{ language != "Marathi"? "All Taluka":'सर्व तालुका'}}</mat-option> -->
+                    <mat-option value="0">All Taluka</mat-option>
                     <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                         {{tal.taluka}}
                     </mat-option>
@@ -37,10 +36,11 @@
         </div>
         <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>केंद्र निवडा</mat-label>
+                <mat-label>{{'common.kendra' |translate}}</mat-label>
                 <mat-select formControlName="kendraId"
                     [disabled]="topFilterForm.value.talukaId==0 ? true : enbCenterDropFlag ? true: false"
                     (selectionChange)="clearFilterForm('kendra');getDynamicDetails();getSchools();cardCountData();">
+                    <mat-option value="0">All Kendra</mat-option>
                     <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                         {{cen.center}}
                     </mat-option>
@@ -49,9 +49,10 @@
         </div>
         <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>शाळा निवडा</mat-label>
+                <mat-label>{{'common.school' |translate}}</mat-label>
                 <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId || enbSchoolDropFlag"
                     (selectionChange)="cardCountData();getDynamicDetails();">
+                    <mat-option value="0">All School</mat-option>
                     <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
                         {{schools.schoolName}}
                     </mat-option>
@@ -60,7 +61,7 @@
         </div>
         <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Assessment</mat-label>
+                <mat-label>{{'common.assessment' |translate}}</mat-label>
                 <mat-select formControlName="assesmentId" (selectionChange)="cardCountData()">
                     <mat-option *ngFor="let ssessments of assessmentsArray" [value]="ssessments.id">
                         {{ssessments.examName}}
@@ -76,7 +77,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/Student-white.svg" class="bg-image">
-                    <p>Students</p>
+                    <p>{{'dashboard.students' |translate}}</p>
                     <h3>{{cardInfoData?.totalStudents}}</h3>
                 </div>
                 <div class="right-img">
@@ -90,7 +91,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/Teacher-white.svg" class="bg-image">
-                    <p>Teachers</p>
+                    <p>{{'dashboard.teachers' |translate}}</p>
                     <h3>{{cardInfoData?.totalTeachers}}</h3>
                 </div>
                 <div class="right-img">
@@ -104,7 +105,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/School-white.svg" class="bg-image">
-                    <p>School</p>
+                    <p>{{'user_Registration.school' |translate}}</p>
                     <h3>{{cardInfoData?.totalSchools}}</h3>
                 </div>
                 <div class="right-img">
@@ -118,7 +119,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="position-relative">
                     <img src="assets/images/statistical-icons/ZP-Officer-white.svg" class="bg-image">
-                    <p>ZP Officers</p>
+                    <p>{{'dashboard.zpOfficers' |translate}}</p>
                     <h3>{{cardInfoData?.totalUsers}}</h3>
                 </div>
                 <div class="right-img">
@@ -133,11 +134,10 @@
     <div class="col-sm-4">
         <mat-card class="mb-3 plain-card">
             <mat-card-header class="card-header pb-0">
-                <h6 class="mb-0">नकाशा</h6>
+                <h6 class="mb-0">{{'dashboard.map' | translate}}</h6>
             </mat-card-header>
             <mat-card-content class="card-body pt-0">
                 <div id="mapsvg" class="text-center">
-                    <!-- <img src="assets/chandrapur_dist.svg" style="height: 200px;" class=""> -->
                 </div>
             </mat-card-content>
         </mat-card>
@@ -146,7 +146,7 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <h6 class="mb-0"><small> Meaning of English words</small></h6>
+                        <h6 class="mb-0"><small> {{'dashboard.meaning_of_english_words' | translate}}</small></h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
@@ -155,7 +155,7 @@
                                 [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
-                            <p>No Data Found</p>
+                            <div class="alert alert-danger text-center py-2" >No Data Found</div>
                         </ng-template>
                     </mat-card-content>
                 </mat-card>
@@ -163,7 +163,7 @@
             <div class="col-sm-6">
                 <mat-card class="plain-card">
                     <mat-card-header class="card-header">
-                        <h6 class="mb-0"><small>Meaning of English Sentence</small></h6>
+                        <h6 class="mb-0"><small>{{'dashboard.meaning_of_english_sentence' | translate}}</small></h6>
                     </mat-card-header>
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartSecondOptionsData?.length; else elseBlock">
@@ -173,7 +173,7 @@
                                 [fill]="piechartSecondOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
-                            <p>No Data Found</p>
+                            <div class="alert alert-danger text-center py-2">No Data Found</div>
                         </ng-template>
                     </mat-card-content>
                 </mat-card>
@@ -184,10 +184,8 @@
         <mat-card class="plain-card h-100">
             <mat-card-header class="card-header">
                 <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
-                    <!-- <div>सर्वेक्षण केलेल्या विद्यार्थ्यांची एकूण संख्या</div> -->
-                    <div>Number of Students Surveyed</div>
-                    <!-- <div>निवडलेली संख्या : <span class="fw-bold">{{selNumber}}</span></div> -->
-                    <div>Selected Number : <span class="fw-bold">{{selNumber}}</span></div>
+                    <div>{{'dashboard.number_of_students_surveyed' |translate}} </div>
+                    <div>{{'dashboard.sel_no' |translate}} : <span class="fw-bold">{{selNumber}}</span></div>
                 </h6>
             </mat-card-header>
             <mat-card-content class="card-body">
@@ -224,7 +222,7 @@
                         </ng-container>
 
                         <ng-template #elseBlock>
-                            <p class="text-center ml-5">No Data Found</p>
+                            <div class="text-center ml-5 alert alert-danger text-center m-2 mt-2">No Data Found</div>
                         </ng-template>
                     </div>
                 </div>
@@ -238,10 +236,10 @@
         <mat-card class="plain-card">
             <mat-card-header class="card-header pb-0">
                 <div class="d-flex align-items-center justify-content-between w-100">
-                    <h6 class="mb-0">Taluka Wise Assessment</h6>
+                    <h6 class="mb-0">{{'dashboard.taluka_wise_assessment' |translate}}</h6>
                     <div [formGroup]="topFilterForm">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Select Subject</mat-label>
+                            <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
                             <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
                                 <!-- <mat-option value="0">All Subject</mat-option> -->
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
@@ -255,7 +253,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Sr. No.</th>
+                            <th scope="col">{{'common.Sr.no.' |translate}}</th>
                             <!-- <th scope="col">{{topFilterForm.value.talukaId ? Taluka : topFilterForm.value.talukaId &&topFilterForm.value.talukaId : 'Kendra':''}}</th> -->
                             <th scope="col">{{!topFilterForm.value.talukaId ? 'Taluka' :topFilterForm.value.talukaId ?
                                 'Kendra': topFilterForm.value.talukaId && topFilterForm.value.kendraId ? 'School':''}}
@@ -274,7 +272,7 @@
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" 
                                         *ngFor="let pro of res?.assesmentDetails; let j = index"
-                                        [style.width]="pro?.assesmentCalculationValue+'%'"
+                                        [style.width]="pro?.assesmentCalculationValue+'%'" bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
                                         [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
                                         aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                                         <span>{{pro?.assesmentCalculationValue+'%'}}</span>    
@@ -286,7 +284,7 @@
                             <td scope="row">{{res?.pendingStudent}}</td>
                         </tr>
                         <tr *ngIf="!talukaWiseAssData?.length">
-                            <td scope="row" colspan="6">No Data Found</td>
+                            <td scope="row" colspan="6"><div class="alert alert-danger text-center py-2">No Data Found</div></td>
                         </tr>
                     </tbody>
                 </table>
