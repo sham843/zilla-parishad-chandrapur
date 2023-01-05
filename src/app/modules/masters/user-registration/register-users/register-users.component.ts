@@ -54,7 +54,9 @@ export class RegisterUsersComponent {
     private errors:ErrorsService,
     private common:CommonMethodsService,
     private spinner:NgxSpinnerService,
-    private uploadService:FileUploadService) {}
+    private uploadService:FileUploadService) {
+     
+    }
 
   ngOnInit() {
     this.webStorage.setLanguage.subscribe((res:any)=>{
@@ -66,20 +68,12 @@ export class RegisterUsersComponent {
     this.getUserForm();
     this.getUserType();
     this.getDistrict();
-    this.filterArray = this.userRegistrationForm.value.schoolId.valueChanges.pipe(
-      startWith(''),
-      map((value:any) => value?this.common.filterInDropdown(value,this.schoolArr):this.schoolArr.slice()),
-    );
+   
   }
- /*  this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
-    startWith(''),
-    map(state => (state ? this._filterStates(state) : this.desigantionLevelArray.slice())),
-  );
-  
-   private _filterStates(value: string): any {
-    const filterValue = value.toLowerCase();
-    return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
-  }*/
+ /* this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
+      startWith(''),
+      map(state => (state ? this.commonMethod.filterInDropdown(state,this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
+    );*/
 
   getUserForm() {
     let obj=this.updatedData;
@@ -175,7 +169,7 @@ export class RegisterUsersComponent {
      this.master.getAllTaluka(this.lang,distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==3 ||this.levelId==4 || this.levelId==5 ? this.getKendra(this.loginData.talukaId): 
+      this.levelId==3 ||this.levelId==4 || this.levelId==5  || this.userRegistrationForm.value.designationLevelId==5? this.getKendra(this.loginData.talukaId): 
       this.data.flag!='Add'? this.getKendra(this.userRegistrationForm.value.talukaId):'';
     })
   }
@@ -192,6 +186,10 @@ export class RegisterUsersComponent {
   getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter(this.lang,centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
+      this.filterArray = this.userRegistrationForm.value.schoolId.valueChanges.pipe(
+        startWith(''),
+        map((value:any) => value?this.common.filterInDropdown(value,this.schoolArr):this.schoolArr.slice()),
+      );
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
       (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
