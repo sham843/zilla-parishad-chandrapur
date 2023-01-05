@@ -68,19 +68,19 @@ export class UserRegistrationComponent {
   }
   //#region--------------------------------------------------------Drop down methods start-------------------------------------------------
   getUserType() {
-    this.master.getUserType(this.lang).subscribe((res: any) => {
+    this.master.getUserType(this.apiService.translateLang?this.lang:'en').subscribe((res: any) => {
       this.userTypeArray = res.responseData;
     })
   }
   getTaluka() {
-    this.master.getAllTaluka(this.lang, 1).subscribe((res: any) => {
+    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en'), 1).subscribe((res: any) => {
       this.talukaArray = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['TalukaId'].setValue(this.loginData.talukaId):'';
       this.levelId==4 || this.levelId==5 ? this.getCenter(this.loginData.talukaId):this.levelId==3?(this.getAllUserData('filter')):'';
     })
   }
   getCenter(talukaId: number) {
-    this.master.getAllCenter(this.lang, talukaId).subscribe((res: any) => {
+    this.master.getAllCenter((this.apiService.translateLang?this.lang:'en'), talukaId).subscribe((res: any) => {
       this.centerArray = res.responseData;
       this.levelId==4 || this.levelId==5 ?this.serachUserForm.controls['CenterId'].setValue(this.loginData.centerId):'';
       this.levelId==4 || this.levelId==5 ? this.getSchoolList(this.loginData.centerId):'';
@@ -88,7 +88,7 @@ export class UserRegistrationComponent {
     })
   }
   getSchoolList(centerId: number) {
-    this.master.getSchoolByCenter(this.lang, centerId).subscribe((res: any) => {
+    this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'), centerId).subscribe((res: any) => {
       this.schoolArray = res.responseData;
       this.levelId==5 ?(this.serachUserForm.controls['SchoolId'].setValue(this.loginData.schoolId),this.getAllUserData('filter')):'';
     })
@@ -133,7 +133,7 @@ export class UserRegistrationComponent {
 //#endregion------------------------------------------------get all user method end----------------------------------------------------------
 setTableData(){     // table
   let displayedColumns:any;
-  this.lang=='mr-IN'?displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
+  this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
       let displayedheaders:any;
       this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No', 'Action']
       this.tableData = {
@@ -220,7 +220,7 @@ setTableData(){     // table
       "modifiedDate":new Date(),
       "lan": ""
     }
-    this.apiService.setHttp('delete', 'zp_chandrapur/user-registration/DeleteUser?lan=' + this.lang, false, obj, false, 'baseUrl')
+    this.apiService.setHttp('delete', 'zp_chandrapur/user-registration/DeleteUser?lan=' + (this.apiService.translateLang?this.lang:'en'), false, obj, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -259,7 +259,7 @@ setTableData(){     // table
     let header:any;
     this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर']:header=['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No'];
     let column:any;
-    this.lang=='mr-IN'?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo'];
+    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------

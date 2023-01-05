@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { NgxSpinnerService } from 'ngx-spinner'
-import {Observable} from 'rxjs'
+import {map, Observable, startWith} from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service'
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service'
 import { ErrorsService } from 'src/app/core/services/errors.service'
@@ -37,6 +37,7 @@ export class RegisterUsersComponent {
   levelId!:number;
   profilePhoto: string | any;
   profilePhotoupd!:string;
+  filterSchoolArr: Observable<string[]> |any;
   file: any;
   ImgUrl: any;
   selectedFile: any;
@@ -55,7 +56,6 @@ export class RegisterUsersComponent {
     private common:CommonMethodsService,
     private spinner:NgxSpinnerService,
     private uploadService:FileUploadService) {
-     
     }
 
   ngOnInit() {
@@ -68,7 +68,11 @@ export class RegisterUsersComponent {
     this.getUserForm();
     this.getUserType();
     this.getDistrict();
-   
+   console.log(this.userRegistrationForm.value.schoolId);
+   this.filterSchoolArr = this.userRegistrationForm.get('schoolId').valueChanges.pipe(
+    startWith(''),
+    map((ele:any) => (ele ? this.common.filterInDropdown(ele,this.schoolArr) : this.schoolArr.slice())),
+  );
   }
 
   getUserForm() {
@@ -80,7 +84,7 @@ export class RegisterUsersComponent {
       districtId: [obj?obj.districtId:1, [Validators.required]],
       talukaId: [obj?obj.talukaId:'',[Validators.required]],
       centerId: [obj?obj.centerId:'', [Validators.required]],
-      schoolId: [obj?obj.schoolId:'', [Validators.required]],
+      schoolId: [obj?obj.schoolName:'', [Validators.required]],
       agencyId: [obj?obj.agencyId:'', [Validators.required]],
       name: [obj?obj.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       mobileNo: [obj?obj.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
@@ -182,8 +186,8 @@ export class RegisterUsersComponent {
   getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'),centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
-      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
-      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolName):'';
+      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolName),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
   }
 
