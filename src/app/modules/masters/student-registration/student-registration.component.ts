@@ -173,7 +173,7 @@ export class StudentRegistrationComponent {
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        flag != 'excel' ? this.setTableData() : this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column);
+        flag != 'excel' ? this.setTableData() : (this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),this.getTableData());
       },
       error: ((err: any) => {
         this.spinner.hide();
