@@ -30,6 +30,7 @@ export class DesignationMasterComponent {
   tableDatasize!: number;
   userLoginDesignationLevelId!:number;
   designTreeViewArray: any;
+  hideFlowChartDig :boolean = false
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
