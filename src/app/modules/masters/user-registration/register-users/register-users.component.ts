@@ -35,6 +35,7 @@ export class RegisterUsersComponent {
   lang:string |any='English';
   loginData:any;
   levelId!:number;
+  schoolId!:number;
   profilePhoto: string | any;
   profilePhotoupd!:string;
   filterSchoolArr: Observable<string[]> |any;
@@ -120,6 +121,9 @@ export class RegisterUsersComponent {
       }) 
   }
   //#region----------------------------------------------all dropdown methods start---------------------------------------------------
+  getSchoolId(id:number){
+    this.schoolId=id;
+  }
   getUserType() {  //get user type
     this.master.getUserType(this.apiService.translateLang?this.lang:'en').subscribe((res:any)=>{
       this.userTypeArr=res.responseData;
@@ -187,7 +191,7 @@ export class RegisterUsersComponent {
     this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'),centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
       this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolName):'';
-      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolName),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolName),this.getAllClassGroup(this.data.obj.schoolId),this.getAllSubject()):'';
     })
   }
 
