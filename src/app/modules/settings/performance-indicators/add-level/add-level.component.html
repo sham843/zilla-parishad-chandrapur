@@ -16,7 +16,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}</mat-label>
                     <input matInput
-                        placeholder="{{'performance_indicators.Add_Level_Model.add_english_level' | translate}}"
+                        placeholder="{{'' | translate}}"
                        (keypress)="valiService.noFirstSpaceAllow($event)" formControlName="assesmentParameter">
                     <mat-error *ngIf="f.assesmentParameter.errors">
                         <!-- <span class="text-danger" *ngIf="f.assesmentParameter.errors?.required">
@@ -31,7 +31,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}</mat-label>
                     <input matInput
-                        placeholder="{{'performance_indicators.Add_Level_Model.add_marathi_level' | translate}}"
+                        placeholder="{{'' | translate}}"
                         (keypress)="valiService.noFirstSpaceAllow($event);valiService.unicodeMarathiValidation($event)" formControlName="m_AssesmentParameter">
                     <mat-error *ngIf="f.m_AssesmentParameter.errors">
                         <!-- <span class="text-danger" *ngIf="f.m_AssesmentParameter.errors?.required">

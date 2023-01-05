@@ -116,7 +116,7 @@
                             <mat-label>{{'common.school' |translate}}</mat-label>
                             <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto">
                             <!-- <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')"> -->
-                                <mat-autocomplete #auto="matAutocomplete">
+                                <mat-autocomplete  #auto="matAutocomplete">
                                     <mat-option *ngFor="let school of filterSchoolArr | async"
                                     [value]="school.schoolName" (click)="getSchoolId(school.id);getAllClassGroup(school.id);clearDropdown('school')">{{school.schoolName}}</mat-option>
                                   </mat-autocomplete>

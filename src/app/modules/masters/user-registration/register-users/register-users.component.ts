@@ -69,7 +69,7 @@ export class RegisterUsersComponent {
     this.getUserForm();
     this.getUserType();
     this.getDistrict();
-   console.log(this.userRegistrationForm.value.schoolId);
+ 
    this.filterSchoolArr = this.userRegistrationForm.get('schoolId').valueChanges.pipe(
     startWith(''),
     map((ele:any) => (ele ? this.common.filterInDropdown(ele,this.schoolArr) : this.schoolArr.slice())),
