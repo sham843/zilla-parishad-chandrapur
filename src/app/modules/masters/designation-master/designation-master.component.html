@@ -14,7 +14,7 @@
             table_view
           </mat-icon>
         </button> -->
-        <button mat-flat-button class="btn-second btn-icon" title="Chart View">
+        <button mat-flat-button class="btn-second btn-icon" title="Chart View" (click)="hideFlowChartDig = true">
           <mat-icon>
             account_tree
           </mat-icon>
@@ -71,6 +71,13 @@
     </ng-container>
   </mat-card-header>
   <mat-card-content class="card-body pt-0">
-    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+    <div *ngIf="!hideFlowChartDig">
+      <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+    </div>
+    <div *ngIf="hideFlowChartDig">
+      <ngx-org-chart [nodes]="designTreeViewArray" direction="vertical"></ngx-org-chart>
+    </div>
   </mat-card-content>
 </mat-card>
+
+

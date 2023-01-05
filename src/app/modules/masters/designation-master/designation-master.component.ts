@@ -21,38 +21,63 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
 export class DesignationMasterComponent {
 
   lang!: string;
-  searchId!:number;
+  searchId!: number;
   pageNumber: number = 1;
   searchdesignationLvl = new FormControl('');
   filteredStates: Observable<any>;
   desigantionLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
-  userLoginDesignationLevelId!:number;
-  constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
-    private errors: ErrorsService, private webStorage: WebStorageService,
-    private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
-  ) { 
+  userLoginDesignationLevelId!: number;
+  hideFlowChartDig: boolean = false;
+  designTreeViewArray: any[] = [];
+
+
+  constructor(public dialog: MatDialog,
+    private apiService: ApiService,
+    private master: MasterService,
+    private errors: ErrorsService,
+    private webStorage: WebStorageService,
+    private commonMethod: CommonMethodsService,
+    private spinner: NgxSpinnerService,
+    private excelPdf: ExcelPdfDownloadService
+  ) {
     this.filteredStates = this.searchdesignationLvl.valueChanges.pipe(
       startWith(''),
-      map(state => (state ? this.commonMethod.filterInDropdown(state,this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
+      map(state => (state ? this.commonMethod.filterInDropdown(state, this.desigantionLevelArray) : this.desigantionLevelArray.slice())),
     );
   }
-
 
   ngOnInit() {
     let localVal: any = this.webStorage.getLocalStorageData();
     let loginData = JSON.parse(localVal)
     this.userLoginDesignationLevelId = loginData.responseData.designationLevelId;
     this.webStorage.setLanguage.subscribe((res: any) => {
-     this.apiService.translateLang?res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en'):this.lang='en';
+      this.apiService.translateLang ? res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en') : this.lang = 'en';
       this.setTableData();
     })
     this.getDesignationLevel();
-    this.getTableData()
-    console.log("de",this.searchdesignationLvl)
+    this.getTableData();
+    this.getDesignTreeView();
   }
 
+  getDesignTreeView() {
+    this.apiService.setHttp('GET', 'designation/get-designation-tree-view?flag=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          this.designTreeViewArray = res.responseData?.childs;
+          // ele['cssClass'] = 'bg-info text-white border-0';
+        } else {
+          this.designTreeViewArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      },
+      error: ((err: any) => {
+        this.errors.handelError(err)
+      })
+    });
+  }
 
   clearFilter() {
     this.searchdesignationLvl.reset();
@@ -66,14 +91,15 @@ export class DesignationMasterComponent {
     })
   }
 
-  getDesignationLevelId(id:number){
+  getDesignationLevelId(id: number) {
     this.searchId = id;
   }
+
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
     let str = `pageno=${this.pageNumber}&pagesize=10`;
-    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + (this.searchId ? this.searchId : 0) + '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + this.lang , false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + (this.searchId ? this.searchId : 0) + '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -96,15 +122,16 @@ export class DesignationMasterComponent {
       })
     });
   }
+
   setTableData() {
     let displayedColumns;
     ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
-    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedDesignationDetails','action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName','linkedDesignationDetails','action'];
+    this.lang == 'mr-IN' ? displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'linkedDesignationDetails', 'action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'linkedDesignationDetails', 'action'];
     let displayedheaders;
-    this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level','Linked to', 'Action'];
+    this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level', 'Linked to', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize> 10? true :false,isArray:"linkedDesignationDetails", nestedArray :'linkedToDesignationName',
+      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize > 10 ? true : false, isArray: "linkedDesignationDetails", nestedArray: 'linkedToDesignationName',
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
@@ -130,6 +157,7 @@ export class DesignationMasterComponent {
   }
 
   //#region -------------------------------------------dialog box open function's start heare----------------------------------------//
+
   addDesignation(obj?: any) {
     const dialogRef = this.dialog.open(AddDesignationComponent, {
       width: '420px',
@@ -138,9 +166,9 @@ export class DesignationMasterComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.getTableData();
-      }else if(result == false) {
+      } else if (result == false) {
         this.pageNumber = 1;
         this.getTableData();
       }
@@ -181,19 +209,22 @@ export class DesignationMasterComponent {
       }
     })
   }
+
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
+
   excelDownload() {
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name','Designation Level', 'Linked To'];
+    let header = ['Sr.No.', 'Designation Name', 'Designation Level', 'Linked To'];
     let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
 
-    this.tableDataArray.map((ele:any)=>{
-      let myArray:any=[];
-      ele.linkedDesignationDetails.map((ele1:any)=>{
-         myArray.push(ele1.linkedToDesignationName);
+    this.tableDataArray.map((ele: any) => {
+      let myArray: any = [];
+      ele.linkedDesignationDetails.map((ele1: any) => {
+        myArray.push(ele1.linkedToDesignationName);
       })
       ele['newLinkedToDesignationName'] = myArray.toString();
     })
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
+
 }
