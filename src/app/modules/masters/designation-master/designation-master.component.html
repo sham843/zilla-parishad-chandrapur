@@ -53,9 +53,6 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_designation' | translate}}</mat-label>
             <mat-select [formControl]="searchdesignationLvl">
-              <mat-form-field class="example-full-width" style="width: 100%;">
-                <input matInput #multiUserSearch (input)="onInputChange()" placeholder="Search by name">
-               </mat-form-field>
               <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
             </mat-select>
           </mat-form-field>
