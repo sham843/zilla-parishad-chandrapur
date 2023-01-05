@@ -57,8 +57,7 @@
         "initially": " Initially",
         "pre_test": "Pre Test",
         "mid_test": "Mid Test",
-        "final_test": "Final  Test",
-        "parent_name":"Parent Name"
+        "final_test": "Final  Test"
     },
    "user_Registration":{
         "register_users":"Register Users",
@@ -135,6 +134,7 @@
         "select":"Select"
     },
     "student":{
+        "parent_name":"Parent Name",
         "search_by_saralid_name_mobileno":"Search by Saral Id/Name/Contact",
         "saral_id":"Saral Id",
         "gender":"Gender",
