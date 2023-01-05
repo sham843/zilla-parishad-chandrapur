@@ -135,7 +135,7 @@ export class RegisterStudentComponent {
 
   //#region -------------------------------------------------------dropdown fun start heare-----------------------------------------//
   getDistrict() {
-    this.master.getAllDistrict(this.lang).subscribe({
+    this.master.getAllDistrict(this.apiService.translateLang?this.lang:'en').subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.districtArray = res.responseData;
@@ -153,7 +153,7 @@ export class RegisterStudentComponent {
   }
 
   getTaluka() {
-    this.master.getAllTaluka(this.lang, this.studentFrm.value.districtId).subscribe({
+    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en'), this.studentFrm.value.districtId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
@@ -171,7 +171,7 @@ export class RegisterStudentComponent {
   }
 
   getCenter() {
-    this.master.getAllCenter(this.lang, this.studentFrm.value.talukaId).subscribe({
+    this.master.getAllCenter((this.apiService.translateLang?this.lang:'en'), this.studentFrm.value.talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -189,7 +189,7 @@ export class RegisterStudentComponent {
   }
 
   getSchool() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + this.studentFrm.value.centerId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + (this.apiService.translateLang?this.lang:'en') + '&CenterId=' + this.studentFrm.value.centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -209,7 +209,7 @@ export class RegisterStudentComponent {
   }
 
   getStandard() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + this.studentFrm.value.schoolId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang?this.lang:'en') + '&SchoolId=' + this.studentFrm.value.schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -230,7 +230,7 @@ export class RegisterStudentComponent {
 
 
   getGender() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllGender?flag_lang=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -249,7 +249,7 @@ export class RegisterStudentComponent {
   }
 
   getReligion() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllReligion?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllReligion?flag_lang=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -268,7 +268,7 @@ export class RegisterStudentComponent {
   }
 
   getCaste() {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCast?flag_lang=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCast?flag_lang=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
