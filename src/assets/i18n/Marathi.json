@@ -55,7 +55,9 @@
         "initially": " प्रारंभीक",
         "pre_test": " पूर्व चाचणी",
         "mid_test": "मध्य चाचणी",
-        "final_test": "अंतिम  चाचणी"
+        "final_test": "अंतिम  चाचणी",
+        "parent_name":"वडिलांचे नाव"
+        
     },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",

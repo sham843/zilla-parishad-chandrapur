@@ -57,7 +57,8 @@
         "initially": " Initially",
         "pre_test": "Pre Test",
         "mid_test": "Mid Test",
-        "final_test": "Final  Test"
+        "final_test": "Final  Test",
+        "parent_name":"Parent Name"
     },
    "user_Registration":{
         "register_users":"Register Users",
