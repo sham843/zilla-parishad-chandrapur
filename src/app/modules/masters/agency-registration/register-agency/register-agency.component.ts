@@ -51,9 +51,9 @@ export class RegisterAgencyComponent {
     this.agencyForm = this.fb.group({
       agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern('^([a-zA-Z0-9 /(,)&.+-@#$]+)')]],
       m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'',[Validators.pattern(this.validation.marathi)]],
-      registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.minLength(5),Validators.maxLength(50)]],
+      registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.pattern(/^\S*$/),Validators.minLength(5),Validators.maxLength(50)]],
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
-      districtId: [this.data.obj?this.data.obj.districtId:1, [Validators.required]],
+      districtId: [this.data.obj?this.data.obj.districtId:this.apiService.disId, [Validators.required]],
       talukaId: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
       contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
@@ -63,7 +63,7 @@ export class RegisterAgencyComponent {
   getDistrict() {
     this.master.getAllDistrict(this.lang).subscribe((res: any) => {
       this.districtArr = res.responseData;
-      this.agencyForm.controls['districtId'].setValue(this.loginData.districtId);
+      this.agencyForm.controls['districtId'].setValue(this.apiService.disId);
       this.data.obj?this.getTalukaArr(this.data.obj.districtId):this.getTalukaArr(this.districtArr[0].id);;
     })
   }
