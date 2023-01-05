@@ -311,8 +311,8 @@ export class DashboardComponent {
     } else {
       this.selStdArray.push('1');
       this.getAssesmentDashboardDetails();
-      this.getSurveyedData.find((ele: any) => {
-        if (ele.text == '1st' && label == 'default') {
+      this.getSurveyedData.find((ele: any, i:number) => {
+        if (i ==2) {
           ele.checked = true;
           this.selNumber = ele?.data
         }
@@ -646,7 +646,6 @@ export class DashboardComponent {
             "assessmentParamenterName": "honest",
             "assesmentCalculationValue": 11.11
           }]//demo
-          console.log( this.talukaWiseAssData);
       }
       else {
         this.talukaWiseAssData=[];

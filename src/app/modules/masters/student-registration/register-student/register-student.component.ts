@@ -81,9 +81,9 @@ export class RegisterStudentComponent {
       "talukaId": [data?.talukaId || (this.loginData.talukaId == 0 ? '' : this.loginData.talukaId), Validators.required],
       "centerId": [data?.centerId || (this.loginData.centerId == 0 ? '' : this.loginData.centerId), [Validators.required]],
       "schoolId": [data?.schoolId || (this.loginData.schoolId == 0 ? '' : this.loginData.schoolId), [Validators.required]],
-      "standardId": [data?.standardId || 0, [Validators.required]],
+      "standardId": [data?.standardId || '', Validators.required],
       "saralId": [data?.saralId || '', [Validators.required, Validators.minLength(2)]],
-      "genderId": [data?.genderId || 0, [Validators.required]],
+      "genderId": [data?.genderId || '',Validators.required],
       "dob": [data?.dob || ''],
       "aadharNo": [data?.aadharNo || '', [Validators.pattern(this.validation.aadhar_card)]],
       "religionId": [data?.religionId || 0],
@@ -303,6 +303,8 @@ export class RegisterStudentComponent {
         "isDeleted": false,
       }
       data.aadharNo = data.aadharNo ? data.aadharNo : 0;
+      data.standardId=data.standardId?data.standardId:0;
+      data.genderId=data.genderId?data.genderId:0;
       data.dob = data.dob ? data.dob : null;
       let mainData = { ...obj, ...data };
       let url;

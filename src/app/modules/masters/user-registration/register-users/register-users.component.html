@@ -31,7 +31,7 @@
             </div>
         </div>
        </div>
-    </ng-container>  
+    </ng-container>
         <div class="row mb-3">
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
@@ -46,7 +46,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
-                            <mat-select formControlName="designationLevelId" 
+                            <mat-select formControlName="designationLevelId"
                                 (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
                                 <mat-option *ngFor="let level of userLevelArr"
                                     [value]="level.id">{{level.desingationLevel}}</mat-option>
@@ -78,7 +78,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId || this.data.flag=='profile'">
                         <mat-label>{{'common.district' |translate}}</mat-label>
-                        <mat-select formControlName="districtId" 
+                        <mat-select formControlName="districtId"
                             (selectionChange)="clearDropdown('district')"
                            >
                             <mat-option *ngFor="let dist of districtArr"
@@ -148,20 +148,20 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'common.name' |translate}}</mat-label>
-                            <input matInput placeholder="{{'common.name' |translate}}"
+                            <input matInput placeholder="{{'' |translate}}"
                                 formControlName="name" (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                             <mat-error *ngIf="f['name'].errors">
                                 <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
                                   {{'user_Registration.Please_enter_valid_name' |translate}}
-                                </span> 
+                                </span>
                             </mat-error>
                         </mat-form-field>
                     </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number' |translate}}</mat-label>
-                        <input matInput placeholder="{{'common.mobile_number' |translate}}"
-                            formControlName="mobileNo" 
+                        <input matInput placeholder="{{'' |translate}}"
+                            formControlName="mobileNo"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" maxlength="10">
                         <mat-error *ngIf="f['mobileNo'].errors">
                             <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
@@ -173,8 +173,8 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.email' |translate}}</mat-label>
-                        <input matInput placeholder="{{'common.email' |translate}}"
-                            formControlName="emailId" 
+                        <input matInput placeholder="{{'' |translate}}"
+                            formControlName="emailId"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
                         <mat-error *ngIf="f['emailId'].errors">
                             <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">

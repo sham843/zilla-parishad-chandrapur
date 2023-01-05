@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,7 +6,17 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip, ApexYAxis } from 'ng-apexcharts';
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis:ApexYAxis;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  dataLabels: ApexDataLabels;
+};
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -25,6 +35,8 @@ export class StudentProfileComponent {
   studentId!: number;
   lang!: string;
   searchFilter = new FormControl();
+  @ViewChild("chart") chart!: any;
+  ChartOptions: any;
 
   constructor(
     private webStorage: WebStorageService,
@@ -49,6 +61,7 @@ export class StudentProfileComponent {
     this.getAllStudentData();
     this.getSchool(2713010002);
     this.getAllSubject();
+    this.getChart();
   }
 
   getformControl() {
@@ -110,7 +123,8 @@ export class StudentProfileComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.StudentDataArray = res.responseData;
-          this.StudentDataArray.f_Name1 = this.StudentDataArray.m_Name + ' ' + this.StudentDataArray.l_Name
+          this.StudentDataArray.m_Name1 = this.StudentDataArray.m_Name + ' ' + this.StudentDataArray.l_Name;
+          this.StudentDataArray.f_Name1 = this.StudentDataArray.f_Name + ' ' + this.StudentDataArray.l_Name
           this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
           this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
           this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
@@ -199,5 +213,70 @@ export class StudentProfileComponent {
     this.standardArray = [];
     this.getAllStudentData('filter');
   }
+//#region  -----------------------------------------------------Apex Chart Fun start here ---------------------------------------------------//
+getChart() {
+  this.ChartOptions = {
+    series: [
+      {
+        name: "series1",
+        data: [31, 40, 28]
+      },
+      {
+        name: "series2",
+        data: [11, 32, 45]
+      }
+    ],
+    chart: {
+      height: 350,
+      type: "area"
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: "smooth"
+    },
+    xaxis: {
+      type: "datetime",
+      categories: [
+        "2018-09-19T00:00:00.000Z",
+        "2018-09-19T01:30:00.000Z",
+        "2018-09-19T02:30:00.000Z",
+      ]
+    },
+    yaxis: {
+      type: "level",
+      categories: [
+        "Story",
+        "Paragraph",
+        "Words",
+        "Letter",
+        "Initial"
+      ]
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm"
+      }
+    }
+  };
+}
+
+public generateData(_baseval: any, count: any, yrange: any) {
+  var i = 0;
+  var series = [];
+  while (i < count) {
+    var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
+    var y =
+      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+    var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
+    series.push([x, y, z]);
+    // baseval += 86400000;
+    i++;
+  }
+  return series;
+}
+//#endregion  -----------------------------------------------------Apex Chart Fun end here ---------------------------------------------------//
+
 
 }

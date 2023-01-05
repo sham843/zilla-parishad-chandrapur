@@ -67,14 +67,14 @@
                             <img src="{{StudentDataArray?.profilePhoto}}" alt="Student Photo">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">{{StudentDataArray?.f_Name}}</h5>
+                            <h5 class="mb-1 fw-bold">{{StudentDataArray?.f_Name1}}</h5>
                             <p class="text-muted mb-4">{{'common.name'|translate}}</p>
 
                             <div class="data-container">
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
-                                        <span class="data-label">{{'student.middle_name'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.f_Name1}}</div>
+                                        <span class="data-label">{{'student.parent_name'|translate}}</span>
+                                        <div class="data-text">{{StudentDataArray?.m_Name1}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'common.mobile_number'|translate}}</span>
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-between">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         <span class="data-label">{{'common.school_name'|translate}}</span>
                                         <div class="data-text">{{StudentDataArray?.schoolName}}</div>
                                     </div>
@@ -94,10 +94,10 @@
                                         <span class="data-label">{{'student.standard'|translate}}</span>
                                         <div class="data-text">{{StudentDataArray?.standard}}</div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <!-- <div class="col-sm-4">
                                         <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
                                         <div class="data-text">{{StudentDataArray?.teacherName}}</div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
@@ -132,7 +132,17 @@
                                     </div>
                                 </mat-card-header>
                                 <mat-card-content class="card-body">
-                                    chart
+                                    <div id="chart">
+                                        <apx-chart
+                                          [series]="ChartOptions.series"
+                                          [chart]="ChartOptions.chart"
+                                          [xaxis]="ChartOptions.xaxis"
+                                          [yaxis]="ChartOptions.yaxis"
+                                          [stroke]="ChartOptions.stroke"
+                                          [tooltip]="ChartOptions.tooltip"
+                                          [dataLabels]="ChartOptions.dataLabels">
+                                    </apx-chart>
+                                      </div>
                                 </mat-card-content>
                             </mat-card>
                         </div>
