@@ -93,7 +93,7 @@ export class SchoolRegistrationComponent {
 
   getCenter() {
     let formData = this.filterForm.value.talukaId;
-    this.master.getAllCenter(this.lang, formData).subscribe({
+    this.master.getAllCenter(this.apiService.translateLang?this.lang:'en', formData).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -132,7 +132,7 @@ export class SchoolRegistrationComponent {
     flag == 'filter' ? this.pageNumber = 1 : '';
     this.tableDataArray = [];
     let str = flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&textSearch=' + formValue.schoolName + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&textSearch=' + formValue.schoolName + '&lan='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -222,9 +222,9 @@ export class SchoolRegistrationComponent {
           id: delObj.id,
           modifiedBy: 0,
           modifiedDate: new Date(),
-          lan: this.lang
+          lan:this.apiService.translateLang?this.lang:'en'
         }
-        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=' + this.lang, false, deleteObj, false, 'baseUrl');
+        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=' +(this.apiService.translateLang?this.lang:'en'), false, deleteObj, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: ((res: any) => {
             if (res.statusCode == '200') {

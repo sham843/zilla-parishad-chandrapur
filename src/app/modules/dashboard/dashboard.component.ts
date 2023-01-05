@@ -38,8 +38,6 @@ export class DashboardComponent {
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
   talukaWiseAssData: any;
-
-  ;
   progressBarcolors: any = ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
   loginData!: any;
   levelId!: number;
@@ -75,10 +73,8 @@ export class DashboardComponent {
     this.getTaluka();
   }
 
-
-
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
-
+  
   mainFilterForm() {
     this.topFilterForm = this.fb.group({
       yearId: [0],
@@ -111,7 +107,7 @@ export class DashboardComponent {
           this.getAssessments();
         }
         else {
-          this.schoolArray = [];
+          this.educationYearArray = [];
           this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
         }
       }),
@@ -148,7 +144,7 @@ export class DashboardComponent {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
           this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
-          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? this.cardCountData() : this.cardCountData();
+          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : this.cardCountData();
         }
         else {
           this.centerArray = [];
@@ -319,7 +315,6 @@ export class DashboardComponent {
           !checkStaIndex ? this.selStdArray.push(ele.standardId):'';
         }
       });
-      console.log(this.getSurveyedData);
       this.getAssesmentDashboardDetails();
     }
   }
@@ -332,7 +327,7 @@ export class DashboardComponent {
       series: [data[0]?.assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
       chart: {
         type: "donut",
-        height: 250,
+        height: 200,
       },
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -360,7 +355,7 @@ export class DashboardComponent {
       series: [data[1].assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
       chart: {
         type: "donut",
-        height: 250,
+        height: 200,
       },
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -404,7 +399,7 @@ export class DashboardComponent {
       series: seriesData,
       chart: {
         type: "bar",
-        height: 420,
+        height: 360,
         width: 300,
         horizontal: false,
         borderRadius: 10, 
@@ -415,8 +410,8 @@ export class DashboardComponent {
           show: false
         },
         events: {
-          dataPointSelection: (event: any, chartContext: any, config: any) => {
-            console.log(event, chartContext, config.seriesIndex)
+          dataPointSelection: () => {
+            this.topFilterForm.value.schoolId ?   this.router.navigateByUrl('/student-profile/' + this.topFilterForm.value.schoolId) : '';
           }
         }
       },
@@ -607,52 +602,6 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
-        this.talukaWiseAssData[0]['assesmentDetails'] = [
-          {
-            "assessmentId": 1,
-            "assessmentParamenterName": "Initiala",
-            "assesmentCalculationValue": 11.11
-          },
-          {
-            "assessmentId": 2,
-            "assessmentParamenterName": "Letter",
-            "assesmentCalculationValue": 11.11
-          },
-          {
-            "assessmentId": 3,
-            "assessmentParamenterName": "Wordspp",
-            "assesmentCalculationValue": 11.11
-          },
-          {
-            "assessmentId": 4,
-            "assessmentParamenterName": "Paragraph",
-            "assesmentCalculationValue":11.11
-          },
-          {
-            "assessmentId": 5,
-            "assessmentParamenterName": "Story",
-            "assesmentCalculationValue":11.11
-          },
-          {
-            "assessmentId": 20,
-            "assessmentParamenterName": "Standard",
-            "assesmentCalculationValue":11.11
-          },
-          {
-            "assessmentId": 21,
-            "assessmentParamenterName": "Standard Test 1",
-            "assesmentCalculationValue": 11.11
-          },
-          {
-            "assessmentId": 22,
-            "assessmentParamenterName": "writings",
-            "assesmentCalculationValue": 11.11
-          },
-          {
-            "assessmentId": 23,
-            "assessmentParamenterName": "honest",
-            "assesmentCalculationValue": 11.11
-          }]//demo
       }
       else {
         this.talukaWiseAssData=[];

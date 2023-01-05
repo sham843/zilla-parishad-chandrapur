@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { TranslateModule } from '@ngx-translate/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import { NgxOrgChartModule } from 'ngx-org-chart';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     TableGridComponent,
     ReactiveFormsModule,
     TranslateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgxOrgChartModule
   ],
   providers:[]
 })
