@@ -13,10 +13,11 @@
           <mat-icon>
             table_view
           </mat-icon>
-        </button> -->
-        <button mat-flat-button class="btn-second btn-icon" title="Chart View" (click)="hideFlowChartDig = true">
+        </button> --> 
+        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second': hideFlowChartDig == false, 'bg-primary' : hideFlowChartDig == true }" title="Chart View"
+         (click)="(hideFlowChartDig == false ? hideFlowChartDig = true : hideFlowChartDig = false);hideFlowChartDig == true ? getDesignTreeView() : getTableData()">
           <mat-icon>
-            account_tree
+            account_tree 
           </mat-icon>
         </button>
         <button mat-flat-button class="bg-danger btn-icon text-white" title="Download as Excel" (click)="excelDownload()">
@@ -46,7 +47,7 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-card-header class="card-header pb-0 border-bottom-0">
+  <mat-card-header class="card-header pb-0 border-bottom-0" *ngIf="!hideFlowChartDig">
     <ng-container *ngIf="userLoginDesignationLevelId == 1">
       <div class="row align-items-start w-100 justify-content-start">
         <div class="col-sm-3">

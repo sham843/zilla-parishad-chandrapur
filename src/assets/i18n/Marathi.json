@@ -37,10 +37,22 @@
         "ok": "होय",
         "update":"अद्यतन",
         "select_designation": "पदनाम निवडा",
-        "download_excel":"एक्सेल डाउनलोड करा"
+        "download_excel":"एक्सेल डाउनलोड करा",
+        "assessment":"मूल्यांकन"
     },
     "dashboard": {
-        "dashboard": "मुख्यपृष्ठ"
+        "dashboard": "मुख्यपृष्ठ",
+        "number_of_students_surveyed":"सर्वेक्षण केलेल्या विद्यार्थ्यांची संख्या",
+        "edu_year":"शैक्षणिक वर्ष",
+        "map":"नकाशा",
+        "students":"विद्यार्थी",
+        "teachers":"शिक्षक",
+        "zpOfficers":"झेडपी अधिकारी",
+        "taluka_wise_assessment":"तालुकानिहाय मुल्यांकन",
+        "meaning_of_english_words":"इंग्रजी शब्दांचा अर्थ",
+        "meaning_of_english_sentence":"इंग्रजी वाक्याचा अर्थ",
+        "sel_no":"निवडलेली संख्या",
+        "taluka":"तालुका"
     },
     "student_profile": {
         "progress_indicator": "प्रगती सूचक ",

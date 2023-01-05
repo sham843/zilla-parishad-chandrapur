@@ -39,10 +39,22 @@
         "update":"Update",
         "select_designation": "Select Designation",
         "download_excel":"Download as Excel",
-        "copyright": "Copyright © 2022 Education Chandrapur All Rights Reserved"
+        "copyright": "Copyright © 2022 Education Chandrapur All Rights Reserved",
+        "assessment":"Assessment"
     },
     "dashboard":{
-        "dashboard":"Dashboard"
+        "dashboard":"Dashboard",
+        "number_of_students_surveyed":"Number of Students Surveyed",
+        "edu_year":"Educational Year",
+        "map":"Map",
+        "students":"Students",
+        "teachers":"Teachers",
+        "zpOfficers":"ZP Officers",
+        "taluka_wise_assessment":"Taluka Wise Assessment",
+        "meaning_of_english_words":"Meaning of English words",
+        "meaning_of_english_sentence":"Meaning of English Sentence",
+        "sel_no":"Selected Number",
+        "taluka":"Taluka"
     },
     "student_profile": {
         "progress_indicator": "Progress Indicator",

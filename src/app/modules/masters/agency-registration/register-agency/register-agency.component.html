@@ -55,18 +55,6 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.contact_person' |translate}}</mat-label>
-                        <input matInput
-                            formControlName="contactPersonName" (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-                        <!-- <mat-error *ngIf="f['contactPersonName'].errors">
-                            <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
-                                {{'agency.please_enter_contact_person' |translate}}
-                            </span>
-                        </mat-error> -->
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="true">
                         <mat-label>{{'common.district' |translate}}</mat-label>
                         <mat-select formControlName="districtId"
@@ -90,6 +78,19 @@
                         <!-- <mat-error *ngIf="f['talukaId'].errors">
                             <span class="text-danger" *ngIf="f['talukaId'].hasError('required')">
                                 {{'common.Please_Select_Taluka' |translate}}
+                            </span>
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.contact_person' |translate}}</mat-label>
+                        <input matInput
+                            formControlName="contactPersonName" (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+                        <!-- <mat-error *ngIf="f['contactPersonName'].errors">
+                            <span class="text-danger" *ngIf="f['contactPersonName'].hasError('required')">
+                                {{'agency.please_enter_contact_person' |translate}}
                             </span>
                         </mat-error> -->
                     </mat-form-field>
