@@ -72,7 +72,7 @@ export class AgencyRegistrationComponent {
       },
       error: ((err: any) => { this.errors.handelError(err) })
     });
-  } 
+  }
 
   setTableData() {
     let displayedColumns;
@@ -132,7 +132,7 @@ export class AgencyRegistrationComponent {
       width: '350px',
       disableClose: true,
       data: {
-        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected Agency?',
+        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected NGO?',
         p2: '',
         cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'हटवा' : 'Delete',

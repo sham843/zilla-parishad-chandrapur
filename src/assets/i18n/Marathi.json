@@ -56,7 +56,7 @@
         "pre_test": " पूर्व चाचणी",
         "mid_test": "मध्य चाचणी",
         "final_test": "अंतिम  चाचणी"
-    },
+     },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
         "update_user":"वापरकर्ता अद्यतनित करा",
@@ -134,6 +134,7 @@
         "select": "निवडा"
     },
     "student": {
+        "parent_name":"वडिलांचे नाव",
         "search_by_saralid_name_mobileno": "सरलआयडी/नाव/मोबाइल नंबर द्वारे शोधा",
         "saral_id": "सरल आयडी",
         "gender": "लिंग",

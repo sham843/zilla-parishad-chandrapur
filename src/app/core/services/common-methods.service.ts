@@ -100,73 +100,20 @@ export class CommonMethodsService {
   }
 
   mapRegions() {
-    let regions_m = {
-      "271301":{
-        "taluka": "CHANDRAPUR",
-        "taluka_m":"चंद्रपूर"
-      },
-      "271302":{
-        "taluka": "BHADRAWATI",
-        "taluka_m":"भद्रावत"
-      },
-      "271303":{
-        "taluka": "WARORA",
-        "taluka_m":"वरोरा"
-      },
-      "271304":{
-        "taluka": "BALLARPUR",
-        "taluka_m":"बल्लारपूर"
-      },
-      "271305":{
-        "taluka": "RAJURA",
-        "taluka_m":"राजुर",
-      },
-      "271306":{
-        "taluka": "GONDPIPARI",
-        "taluka_m":"गोंडपिंपर"
-      },
-      "271307":{
-        "taluka": "KORPANA",
-        "taluka_m":"कोरपना"
-      },
-      "271308":{
-        "taluka": "MUL",
-        "taluka_m":"मूल"
-      },
-      "271309":{
-        "taluka": "SINDEWAHI",
-        "taluka_m":"सिंदेवाही"
-      },
-      "271310":{
-        "taluka": "NAGBHID",
-        "taluka_m":"नागभीड"
-      },
-      "271311":{
-        "taluka": "BRAMHAPURI",
-        "taluka_m":"ब्रम्हपूरी"
-      },
-      "271312":{
-        "taluka": "CHIMUR",
-        "taluka_m":"चिमूर"
-      },
-      "271313":{
-        "taluka": "SAOLI",
-        "taluka_m":"सावली"
-      },
-      "271314":{
-        "taluka": "POMBURNA",
-        "taluka_m":"पोंभुर्णा"
-      },
-      "271315":{
-        "taluka": "JIWATI",
-        "taluka_m":"जिवती"
-      },
-    }
-    
+    let regions_m = '';
     return regions_m;
   }
   getUserID() {
     let userTypeId = JSON.parse(this.webStorage.getLocalStorageData())
     return userTypeId.responseData.id;
   }
+  //search in filter method
+  filterInDropdown(value: string,filterArray:any){
+    const filterValue = value.toLowerCase();
+    return filterArray.filter((value:any) => value.schoolName.toLowerCase().includes(filterValue));
+  }
+/*  private _filterStates(value: string): any {
+    const filterValue = value.toLowerCase();
+    return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));
+  } */
 }
