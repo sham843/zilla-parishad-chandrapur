@@ -237,8 +237,21 @@ clearValidation(formControl:any){
 
  addRemoveValidation(){
  if(this.userRegistrationForm.value.userTypeId==2){
-    this.setValidation('designationId');
+  if(this.userRegistrationForm.value.designationLevelId==3){
+    this.addValidation=['designationId','talukaId'];
+    this.clearArr=['centerId','schoolId','standardModels','subjectModels','agencyId'];
+  }
+  else if(this.userRegistrationForm.value.designationLevelId==4){
+    this.addValidation=['designationId','talukaId','centerId'];
+    this.clearArr=['schoolId','standardModels','subjectModels','agencyId'];
+  }
+  else if(this.userRegistrationForm.value.designationLevelId==2){
+    this.addValidation=['designationId'];
     this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','agencyId'];
+  }
+  this.addValidation.forEach(ele=>{
+    this.setValidation(ele);
+  })
     this.clearArr.forEach(ele=>{
         this.clearValidation(ele);
     }) 
@@ -259,7 +272,8 @@ clearValidation(formControl:any){
         this.clearValidation(ele);
     })
 }
-
+this.addValidation=[];
+this.clearArr=[];
   }
   //#endregion-----------------------------------------add and remove validation end----------------------------------------------------
  
@@ -269,7 +283,6 @@ clearValidation(formControl:any){
       this.userRegistrationForm.controls['designationLevelId'].setValue('');
       this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
       this.userRegistrationForm.controls['centerId'].setValue('');
-      // this.userRegistrationForm.controls['designationId'].setValue('');
     }else if(flag=='designationLevel'){
       this.userRegistrationForm.controls['agencyId'].setValue('');
       this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
