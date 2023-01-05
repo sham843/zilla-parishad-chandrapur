@@ -73,7 +73,7 @@ export class SchoolRegistrationComponent {
   }
 
   getTaluka() {
-    this.master.getAllTaluka(this.lang, this.apiService.disId).subscribe({
+    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en'), this.apiService.disId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
