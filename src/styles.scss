@@ -375,20 +375,6 @@ a.text-main,
 button[disabled] {
   opacity: 0.9;
 }
-
-// .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
-
-//   right: 40px !important;
-// }
-
-// .ml-45{
-//   margin-left: -80px;
-// }
-
-// .w-mat-form-field .mat-mdc-text-field-wrapper {
-//   width: 100%;
-//   background: #fff;
-// }
 .cdk-column-udiseCode {
   text-transform: uppercase;
 }
@@ -399,3 +385,4 @@ button[disabled] {
 .apexcharts-canvas{
   width: 260px !important;
 }
+input::-ms-reveal { display: none; }
