@@ -24,12 +24,12 @@
                                     <input matInput placeholder="{{'common.please_enter_contact_number'|translate}}"
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                                        <mat-error *ngIf="loginFormControls.userName.errors"> 
+                                        <mat-error *ngIf="loginFormControls.userName.errors">
                                             <!-- <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')">{{'login.username_required'|translate}}</span> -->
-                                           
+
                                             <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">{{'login.please_enter_valid_username'|translate}}</span>
                                         </mat-error>
-                        
+
                                 </mat-form-field>
                             </div>
                             <div class="mb-0">
@@ -62,7 +62,7 @@
                         <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>{{'login.enter_captcha'|translate}}</mat-label>
-                                <input matInput placeholder="{{'login.captcha'|translate}}"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
+                                <input matInput placeholder="{{''|translate}}"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
                                 <!-- <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.required">{{'login.captcha_required'|translate}} -->
                                 <!-- </mat-error> -->
                             </mat-form-field>

@@ -69,7 +69,7 @@ export class StudentRegistrationComponent {
   }
 
   getTaluka() {
-    this.master.getAllTaluka(this.lang, 1).subscribe({
+    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en'), 1).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
@@ -89,7 +89,7 @@ export class StudentRegistrationComponent {
 
   getCenter() {
     let talukaId = this.filterFrm.value.talukaId;
-    this.master.getAllCenter(this.lang, talukaId).subscribe({
+    this.master.getAllCenter((this.apiService.translateLang?this.lang:'en'), talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -110,7 +110,7 @@ export class StudentRegistrationComponent {
 
   getSchool() {
     let centerId = this.filterFrm.value.centerId;
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + (this.apiService.translateLang?this.lang:'en') + '&CenterId=' + centerId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -182,7 +182,7 @@ export class StudentRegistrationComponent {
 
   setTableData() {
     let displayedColumns;
-    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
+    displayedColumns = this.lang == 'mr-IN' && this.apiService.translateLang ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
     displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No', 'Action']
     let tableData = {
@@ -275,7 +275,7 @@ export class StudentRegistrationComponent {
     let header: any;
     this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender', 'Standard', 'Parent Contact No'];
     let column;
-    column = this.lang == 'mr-IN' ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo']
+    column = this.lang == 'mr-IN' && this.apiService.translateLang ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 

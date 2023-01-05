@@ -218,12 +218,16 @@ getChart() {
   this.ChartOptions = {
     series: [
       {
-        name: "series1",
-        data: [31, 40, 28]
+        name: "शिक्षक",
+        data: [0, 1, 2]
       },
       {
-        name: "series2",
-        data: [11, 32, 45]
+        name: "पहिला",
+        data: [0, 0, 2]
+      },
+      {
+        name: "अधिकारी",
+        data: [1, 2, 0]
       }
     ],
     chart: {
@@ -237,15 +241,15 @@ getChart() {
       curve: "smooth"
     },
     xaxis: {
-      type: "datetime",
+      type: "level",
       categories: [
-        "2018-09-19T00:00:00.000Z",
-        "2018-09-19T01:30:00.000Z",
-        "2018-09-19T02:30:00.000Z",
+        "पूर्व चाचणी",
+        "मध्य चाचणी",
+        "अंतिम चाचणी",
       ]
     },
     yaxis: {
-      type: "level",
+      type: "text",
       categories: [
         "Story",
         "Paragraph",
@@ -254,9 +258,22 @@ getChart() {
         "Initial"
       ]
     },
+    legend: {
+      position: "top",
+      offsetY: 20,
+    },
+    fill: {
+      opacity: 1
+    },
+    // yaxis: {
+    //   title: {
+    //     text: 'abcd',
+    //     offsetY: 20,
+    //    },
+    // },
     tooltip: {
       x: {
-        format: "dd/MM/yy HH:mm"
+        format: ""
       }
     }
   };
