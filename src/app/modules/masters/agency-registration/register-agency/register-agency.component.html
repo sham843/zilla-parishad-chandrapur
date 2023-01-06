@@ -45,12 +45,12 @@
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('pattern')">
                                 {{'agency.please_enter_registration_number' |translate}}
                             </span>
-                            <!-- <span class="text-danger" *ngIf="f['registrationNo'].hasError('minlength')">
+                            <span class="text-danger" *ngIf="f['registrationNo'].hasError('minlength')">
                                 {{'agency.please_enter_minimum 5 digit_registration_number' |translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('maxlength')">
                                 {{'agency.please_enter_maximum 50 digit_registration_number' |translate}}
-                            </span> -->
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
