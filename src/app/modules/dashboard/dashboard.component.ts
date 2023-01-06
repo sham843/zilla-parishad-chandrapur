@@ -75,7 +75,7 @@ export class DashboardComponent {
   }
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
-  
+
   mainFilterForm() {
     this.topFilterForm = this.fb.group({
       yearId: [0],
@@ -84,7 +84,7 @@ export class DashboardComponent {
       schoolId: [0],
       assesmentId: [0],
       subjectId: [0],
-      flag: [this.language = this.apiService.translateLang ?  this.language : 'en' ],
+      flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     })
   }
 
@@ -145,7 +145,7 @@ export class DashboardComponent {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
           this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
-          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) :''; // this.cardCountData() temp
+          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : ''; // this.cardCountData() temp
         }
         else {
           this.centerArray = [];
@@ -270,10 +270,10 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        this.getSurveyedData[0].data != 0 ?  this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData=[];
+        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
       }
       else {
-        this.getSurveyedData=[];
+        this.getSurveyedData = [];
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
@@ -291,7 +291,7 @@ export class DashboardComponent {
         this.getBarChart();
       }
       else {
-        this.getAssesmentData =[];
+        this.getAssesmentData = [];
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
@@ -311,12 +311,12 @@ export class DashboardComponent {
       }
       this.getAssesmentDashboardDetails();
     } else {
-      this.getSurveyedData.find((ele: any, i:number) => {
+      this.getSurveyedData.find((ele: any, i: number) => {
         if (i == 2) {
           ele.checked = true;
           this.selNumber = ele?.data;
           let checkStaIndex = !this.selStdArray.length ? false : this.selStdArray.includes(ele.standardId);
-          !checkStaIndex ? this.selStdArray.push(ele.standardId):'';
+          !checkStaIndex ? this.selStdArray.push(ele.standardId) : '';
         }
       });
       this.getAssesmentDashboardDetails();
@@ -406,7 +406,7 @@ export class DashboardComponent {
         height: 360,
         width: 300,
         horizontal: false,
-        borderRadius: 10, 
+        borderRadius: 10,
         columnWidth: '45%',
         stacked: true,
         stackType: "100%",
@@ -415,7 +415,7 @@ export class DashboardComponent {
         },
         events: {
           dataPointSelection: () => {
-            this.topFilterForm.value.schoolId ?   this.router.navigateByUrl('/student-profile/' + this.topFilterForm.value.schoolId) : '';
+            this.topFilterForm.value.schoolId ? this.router.navigateByUrl('/student-profile/' + this.topFilterForm.value.schoolId) : '';
           }
         }
       },
@@ -609,18 +609,27 @@ export class DashboardComponent {
         this.talukaWiseAssData = res.responseData.responseData1;
       }
       else {
-        this.talukaWiseAssData=[];
+        this.talukaWiseAssData = [];
         // this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
       this.errors.handelError(error.status);
     })
   }
-  displayProfile(id: number) {
-    this.router.navigateByUrl('/student-profile/' + id);
+  displayProfile(_id?: number) {
+    let obj:any = {
+      kenId: 2713040006,
+      schId: 1814,
+      stuId: ''//121
+    }
+    this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
   }
 
   ngOnDestroy() {
     this.graphInstance.destroy();
   }
+
+
+
+
 }
