@@ -69,7 +69,7 @@
     <div *ngIf="!hideFlowChartDig">
       <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
     </div>
-    <div *ngIf="hideFlowChartDig" class="chart-view">
+    <div *ngIf="hideFlowChartDig" class="chart-view scrollbar">
       <ngx-org-chart [nodes]="designTreeViewArray" direction="vertical"></ngx-org-chart>
     </div>
   </mat-card-content>
