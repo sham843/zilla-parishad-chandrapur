@@ -61,13 +61,8 @@ export class ChangePasswordComponent {
       this.common.snackBar('New Password And Comfirm Password Not Match',1);
     }else{
       this.spinner.show();
-      let obj;
-      obj={
-        "userName":this.common.getUserName(),
-        "password": this.changePassForm.value.newPwd,
-        "flag": this.language
-      }
-      this.apiService.setHttp('post','zp_chandrapur/user-registration/forgot-password-for-web', false, obj,false, 'baseUrl')
+      // g&Password=g&MobileNo=g
+      this.apiService.setHttp('put','zp_chandrapur/user-registration/UpdatePassward?OldPassword='+this.changePassForm.value.oldPwd+'&UserName='+this.common.getUserName()+'&Password='+this.changePassForm.value.newPwd+'&MobileNo='+this.common.getUserName(), false, false,false, 'baseUrl')
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
