@@ -110,17 +110,16 @@ export class SchoolRegistrationComponent {
     })
   }
 
-  clearFilter() {
-    this.formGroupDirective.reset({
-      talukaId: [0],
-      centerId: [0],
-      schoolName: ['']
+  clearFilter() {// admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
+    this.formGroupDirective.resetForm({
+      talukaId: 0,
+      centerId:this.levelId == 4 || this.levelId == 5 ? this.filterForm.value.centerId: 0,
+      schoolName: ''
     });
-    this.centerArray = [];
     this.pageNumber = 1
-    this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
-    this.getCenter();
-    this.getTableData();
+    this.levelId == 1 || this.levelId == 2 ?'': this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
+    // this.getCenter();
+    // this.getTableData();
   }
 
   //#endregion-----------------------------------Filter Form Data Ends--------------------------------------------------------------------
@@ -228,6 +227,7 @@ export class SchoolRegistrationComponent {
         this.apiService.getHttp().subscribe({
           next: ((res: any) => {
             if (res.statusCode == '200') {
+              this.commonMethod.snackBar(res.statusMessage, 0);
               this.getTableData();
             } else {
               this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);

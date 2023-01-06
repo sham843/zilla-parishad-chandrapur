@@ -32,7 +32,7 @@
             [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.Please_Select_Taluka' |translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getCenter();clearDropDrown('taluka')">
-              <mat-option value="0">All Taluka</mat-option>
+              <mat-option [value]="0" >All Taluka</mat-option>
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                 {{tal.taluka}}
               </mat-option>
@@ -44,7 +44,7 @@
             [class.disabled-contenct]="!filterForm.value.talukaId || levelId==4 || levelId==5">
             <mat-label>{{'common.select_kendra' | translate}}</mat-label>
             <mat-select formControlName="centerId" (selectionChange)="clearDropDrown('center')">
-              <mat-option value="0">All Kendra</mat-option>
+              <mat-option [value]="0">All Kendra</mat-option>
               <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                 {{cen.center}}
               </mat-option>
@@ -65,7 +65,7 @@
         <div class="col-sm-auto">
           <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
             |translate}}</button>
-          <button (click)="clearFilter()" mat-flat-button class="btn-second">{{'common.clear' | translate}}</button>
+          <button (click)="clearFilter()" mat-flat-button class="btn-second" type="button">{{'common.clear' | translate}}</button>
         </div>
       </div>
     </mat-card-header>
