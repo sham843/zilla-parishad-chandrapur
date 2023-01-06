@@ -88,7 +88,6 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
-          this.searchdesignationLvl.reset();
           this.setTableData();
         } else {
           this.spinner.hide();
