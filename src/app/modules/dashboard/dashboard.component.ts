@@ -60,6 +60,7 @@ export class DashboardComponent {
 
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
+      console.log(this.language)
     });
     this.mainFilterForm();
     this.educationYear();
@@ -144,7 +145,7 @@ export class DashboardComponent {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
           this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
-          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : this.cardCountData();
+          this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) :''; // this.cardCountData() temp
         }
         else {
           this.centerArray = [];
@@ -262,15 +263,17 @@ export class DashboardComponent {
   }
 
   getSurveyDashboardDetails() {
+    this.selStdArray = [];
     let filterFormData = this.topFilterForm.value;
     let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
     this.apiService.setHttp('get', 'dashboard/get-survey-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        this.checkBoxChecked('default');
+        this.getSurveyedData[0].data != 0 ?  this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData=[];
       }
       else {
+        this.getSurveyedData=[];
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
@@ -288,6 +291,7 @@ export class DashboardComponent {
         this.getBarChart();
       }
       else {
+        this.getAssesmentData =[];
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
@@ -581,6 +585,7 @@ export class DashboardComponent {
       let talId = $(getClickedId).attr('id');
       this.topFilterForm.controls['talukaId'].setValue(+talId);
       this.getKendra();
+      this.cardCountData();
       this.svgMapAddOrRemoveClass();
     })
   }
