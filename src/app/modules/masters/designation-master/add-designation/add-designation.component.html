@@ -45,7 +45,7 @@
             <div class="mb-1">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.set_designation_level' | translate}}</mat-label>
-                    <mat-select formControlName="designationLevelId" (selectionChange)="addDesignationCond()">
+                    <mat-select formControlName="designationLevelId">
                         <mat-option *ngFor="let setDesigLvl of setDesignationLevel"
                             [value]="setDesigLvl.id">{{setDesigLvl.desingationLevel}}</mat-option>
                     </mat-select>
@@ -58,7 +58,7 @@
             <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'designation_master.add_designation' | translate}}</mat-label>
-                    <input [readonly]=" addDesignationFlag == true ? 'false' : 'true' " maxlength="50" matInput formControlName="designationName"  type="text"
+                    <input maxlength="50" matInput formControlName="designationName"  type="text"
                         (keypress)="validation.noFirstSpaceAllow($event)">
                     <mat-error *ngIf="f['designationName'].errors">
                       <!-- <span class="text-danger" *ngIf="f['designationName'].hasError('required')">
