@@ -286,7 +286,7 @@
       },
       "change_password":{
         "new_password":"New Password",
-        "old_password":"old Password",
+        "old_password":"Current Password",
         "required_new_password":"Required New Password",
         "invalid_new_password_format":"Please Enter Valid New Password Format",
         "invalid_old_password_format":"Please Enter Valid old Password Format",
