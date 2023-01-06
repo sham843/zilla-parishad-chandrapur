@@ -16,7 +16,7 @@
                         <mat-label>{{'common.select_user_type' | translate}}</mat-label>
                         <mat-select formControlName="DesignationtypeId">
                             <mat-option *ngFor="let getUserType of resGetUserTypeData"
-                                [value]="getUserType?.userTypeId">{{getUserType?.userType}}</mat-option>
+                                [value]="getUserType?.userTypeId">{{getUserType?.userTypeName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

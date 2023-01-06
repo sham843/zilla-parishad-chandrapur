@@ -49,9 +49,9 @@ export class ChangePasswordComponent {
 
   changePassControls(){
     this.changePassForm=this.fb.group({ 
-      oldPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]],
-      newPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]],
-      reTypePwd:['',[Validators.required, Validators.pattern('(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]]
+      oldPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]],
+      newPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]],
+      reTypePwd:['',[Validators.required, Validators.pattern('(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]]
     })                                    
   }
   onChangePassword(formDirective?:any){
@@ -61,7 +61,6 @@ export class ChangePasswordComponent {
       this.common.snackBar('New Password And Comfirm Password Not Match',1);
     }else{
       this.spinner.show();
-      // g&Password=g&MobileNo=g
       this.apiService.setHttp('put','zp_chandrapur/user-registration/UpdatePassward?OldPassword='+this.changePassForm.value.oldPwd+'&UserName='+this.common.getUserName()+'&Password='+this.changePassForm.value.newPwd+'&MobileNo='+this.common.getUserName(), false, false,false, 'baseUrl')
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == '200') {

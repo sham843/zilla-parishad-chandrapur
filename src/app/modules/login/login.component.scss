@@ -5,12 +5,12 @@
 }
 
 .login-bg .login-left {
-    width: 30%;
+    width: 40%;
     background: linear-gradient(180deg, #4284fd 0%, #09ccc2 100%);
 }
 
 .login-bg .login-right {
-    width: 70%;
+    width: 60%;
 }
 
 #login-box {
@@ -21,8 +21,8 @@
     background: white;
     border-radius: 30px;
     padding: 50px;
-    max-width: 960px;
-    width: 960px;
+    max-width: 860px;
+    width: 860px;
 }
 
 #login-box .logo {
@@ -49,16 +49,24 @@
 }
 
 @media screen and (max-width:420px) {
+    .login-bg {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
     #login-box {
         padding: 30px;
+        width: 90%;
     }
 
     .login-bg .login-left {
-        width: 50%;
+        height: 50%;
+        width: 100%;
     }
 
     .login-bg .login-right {
-        width: 50%;
+        height: 50%;
+        width: 100%;
     }
 }
 
