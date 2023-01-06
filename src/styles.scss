@@ -389,3 +389,15 @@ button[disabled] {
   width: 260px !important;
 }
 input::-ms-reveal { display: none; }
+
+.textarea{
+  // max-height: 70px !important;
+  // height: 70px !important;
+  max-height: 15vh !important;
+  height: 15vh !important;
+}
+.scrollbar {
+  overflow-y: scroll;
+  scrollbar-color: gray transparent;
+
+}
