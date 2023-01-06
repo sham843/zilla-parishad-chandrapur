@@ -20,13 +20,12 @@
             grid_view
           </mat-icon>
         </button> -->
-
-        <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="Download as Excel"
-          (click)="excelDownload()">
-          <mat-icon>
-            description
-          </mat-icon>
-        </button>
+          <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="{{'common.download_excel' | translate}}"
+            (click)="excelDownload()" [disabled]="!tableDataArray.length">
+            <mat-icon>
+              description
+            </mat-icon>
+          </button>
         <button mat-flat-button class="btn-main" (click)="registerStudent()">
           <mat-icon>add</mat-icon>
           <span>
