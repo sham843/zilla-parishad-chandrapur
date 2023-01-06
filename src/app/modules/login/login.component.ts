@@ -58,7 +58,7 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     } else if (formValue.recaptchaReactive?.trim() != this.commonMethods.checkvalidateCaptcha()) {
-      this.commonMethods.snackBar("Please enter valid captcha ", 1);
+      this.commonMethods.snackBar("Please Enter Valid Captcha ", 1);
       this.commonMethods.createCaptchaCarrerPage();
       return;
     }

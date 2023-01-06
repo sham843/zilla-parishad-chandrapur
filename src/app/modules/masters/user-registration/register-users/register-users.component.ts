@@ -317,11 +317,14 @@ this.clearArr=[];
   clearDropdown(flag:any){
     if(flag=='userType'){
       this.userRegistrationForm.controls['designationLevelId'].setValue('');
-      this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
+      this.userRegistrationForm.controls['designationId'].setValue('');
       this.userRegistrationForm.controls['centerId'].setValue('');
+      this.designationArr=[];this.talukaArr=[];
     }else if(flag=='designationLevel'){
       this.userRegistrationForm.controls['agencyId'].setValue('');
       this.userRegistrationForm.controls['designationId'].setValue('');this.designationArr=[];
+      this.userRegistrationForm.controls['talukaId'].setValue('');this.talukaArr=[];
+      this.userRegistrationForm.controls['centerId'].setValue('');this.kendraArr=[];
     }else if(flag=='taluka'){
       this.userRegistrationForm.controls['centerId'].setValue('');
       this.userRegistrationForm.controls['schoolId'].setValue('');this.schoolArr=[];
@@ -392,13 +395,6 @@ registerUser(formDirective?:any) {
          })
        });
     } 
-   /*  "m_Standard": null,
-        "standard": null,
-        "standardId": null,
-        "subjectId": null,
-        "subject": null,
-        "m_Subject": null, */
-console.log("njdfgdgf",this.userRegistrationForm.value);
    let obj=this.userRegistrationForm.value;
    delete obj.standardId;
    delete obj.subjectId
