@@ -89,7 +89,7 @@ export class AddDesignationComponent {
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------
   getDesignationLevel() {
-    this.master.getDesignationLevel(this.lang).subscribe((res: any) => {
+    this.master.getDesignationLevel(this.apiService.translateLang?this.lang:'en').subscribe((res: any) => {
       this.desigantionLevel = res.responseData;
       if (this.userLoginDesignationLevelId != 1) {
         this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.userLoginDesignationLevelId);
@@ -101,7 +101,7 @@ export class AddDesignationComponent {
 
   getDesignationType() {
     if (this.designationForm.value.linkedToDesignationLevelId) {
-      this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + this.designationForm.value.linkedToDesignationLevelId + '&flag=' + this.lang, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId=' + this.designationForm.value.linkedToDesignationLevelId + '&flag=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => {
           if (res.statusCode == '200') {
@@ -122,7 +122,7 @@ export class AddDesignationComponent {
   }
 
   setDesignationLvl() {
-    this.apiService.setHttp('GET', 'designation/get-set-designation-level?designationLevelId=' + this.designationForm.value.linkedToDesignationLevelId + '&flag=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'designation/get-set-designation-level?designationLevelId=' + this.designationForm.value.linkedToDesignationLevelId + '&flag=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -167,7 +167,7 @@ export class AddDesignationComponent {
       formData["linkedDesignationDetails"] =linkedDesignationDetailsArray;
       // delete formData["linkedToDesignationId"]
       let url = this.data ? 'designation/update-designation-details' : 'designation/save-designation-details'
-      this.apiService.setHttp(this.data ? 'PUT' : 'POST', url + '?flag=' + this.lang, false, this.designationForm.value, false, 'baseUrl');
+      this.apiService.setHttp(this.data ? 'PUT' : 'POST', url + '?flag=' + (this.apiService.translateLang?this.lang:'en'), false, this.designationForm.value, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
