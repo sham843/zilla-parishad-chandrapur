@@ -80,7 +80,6 @@ checkedAddStandardArray:any[]=[];
     }
       this.checkedAddStandardArray.push(obj);
       this.checkedAddStandardArray = Object.values(this.checkedAddStandardArray.reduce((acc,cur)=>Object.assign(acc,{[cur.id]:cur}),{}))
-      console.log(this.checkedAddStandardArray)
   }
 
   onSubmit() {

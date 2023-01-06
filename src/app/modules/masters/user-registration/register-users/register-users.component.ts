@@ -91,7 +91,7 @@ export class RegisterUsersComponent {
       centerId: [obj?obj.centerId:'', [Validators.required]],
       schoolId: [obj?obj.schoolName:'', [Validators.required]],
       agencyId: [obj?obj.agencyId:'', [Validators.required]],
-      name: [obj?obj.name:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
+      name: [obj?obj.name:'', [Validators.required,Validators.pattern(this.validation.fullName),Validators.maxLength(50)]],
       mobileNo: [obj?obj.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [obj?obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       standardModels: [obj?obj.standardId:[],Validators.required],
@@ -349,7 +349,8 @@ this.clearArr=[];
       this.userRegistrationForm.controls['emailId'].setValue('');
     }else{
       formDirective.resetForm();
-      this.designationArr=[];
+      this.userLevelArr=[];
+      this.designationArr=[];this.talukaArr=[];
       this.data.obj?'':this.getUserForm();
     } 
   }
@@ -389,7 +390,6 @@ clearProfile(){
 //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
 registerUser(formDirective?:any) {
     if(this.userRegistrationForm.invalid){
-      console.log("validation",this.userRegistrationForm.controls)
         return;
     }
     else{
