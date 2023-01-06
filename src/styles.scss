@@ -393,11 +393,20 @@ input::-ms-reveal { display: none; }
 .textarea{
   // max-height: 70px !important;
   // height: 70px !important;
-  max-height: 10vh !important;
-  height: 10vh !important;
+  max-height: 16vh !important;
+  height: 16vh !important;
 }
-.scrollbar {
-  overflow-y: scroll;
-  scrollbar-color: gray transparent;
-
+.form-container{
+  font-size: 0.85rem;
+}
+.form-container .form-label{
+  color: #858585;
+}
+.form-container .form-data{
+  color: #333;
+  font-weight: 600;
+}
+.form-container .material-icons{
+  font-size: 18px !important;
+  line-height: 1.5rem !important;
 }
