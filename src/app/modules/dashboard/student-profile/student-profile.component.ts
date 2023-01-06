@@ -5,18 +5,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexTooltip, ApexYAxis } from 'ng-apexcharts';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  yaxis:ApexYAxis;
-  stroke: ApexStroke;
-  tooltip: ApexTooltip;
-  dataLabels: ApexDataLabels;
-};
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -33,10 +24,16 @@ export class StudentProfileComponent {
   tableDatasize!: number;
   totalPages!: number;
   studentId!: number;
+  schoolId!: number;
   lang!: string;
   searchFilter = new FormControl();
   @ViewChild("chart") chart!: any;
   ChartOptions: any;
+  globalObj: any;
+  talukaArray: any;
+  centerArray: any;
+  levelId: any;
+  language: any;
 
   constructor(
     private webStorage: WebStorageService,
@@ -45,120 +42,85 @@ export class StudentProfileComponent {
     private errorService: ErrorsService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private router: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private master: MasterService,
+  ) { }
 
   ngOnInit() {
+    let loginData = this.webStorage.getLoginData();
+    this.levelId = loginData.designationLevelId; // admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
+
+    let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
+    this.globalObj = JSON.parse(obj);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
-    this.router.params.subscribe((res: any) => {
-      this.studentId = res.id
-    });
     this.getformControl();
-    this.studentDataById(this.studentId);
-    this.getAllStudentData();
-    this.getSchool(2713010002);//temp pass center id
-    this.getAllSubject();
-    this.getChart();
+    this.getTaluka();
   }
 
+
+  //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
   getformControl() {
     this.filterFrm = this.fb.group({
-      schoolId: [2],
+      talukaId:[0],
+      kendraId: [0],
+      schoolId: [this.globalObj?.schId || 0],
       standardId: [0],
-      searchText: ['']
+      searchText: [''],
+      flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
+    });
+    this.getAllStudentData();
+  }
+
+  getTaluka() {
+    this.master.getAllTaluka('en', 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.talukaArray = res.responseData;
+          // this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
+          // this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? this.cardCountData() : '';
+        }
+        else {
+          this.talukaArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
     })
   }
 
-  getAllStudentData(flag?: any) {
-    this.spinner.show();
-    flag == 'filter' ? this.pageNumber = 1 : '';
-    let formData = this.filterFrm.value;
-    let str = `?pageno=${this.pageNumber}&pagesize=10`
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&SchoolId=' + (formData?.schoolId) + '&standardid=' + (formData?.standardId) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        this.spinner.hide();
+  getKendra() {
+    let formData = this.filterFrm?.value;
+    this.master.getAllCenter(formData.flag, formData.talukaId).subscribe({
+      next: ((res: any) => {
         if (res.statusCode == "200") {
-          this.tableDataArray = res.responseData;
-          this.tableDataArray?.map((ele: any) => {
-            ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
-          })
-          this.tableDatasize = res.responseData1?.pageCount;
-          this.totalPages = res.responseData1.totalPages;
-        } else {
-          this.spinner.hide();
-          this.tableDataArray = [];
-          this.tableDatasize = 0;
-        }
-        this.setTableData();
-      },
-      error: ((err: any) => {
-        this.spinner.hide();
-        this.errorService.handelError(err)
-      })
-    });
-  }
-
-  setTableData() {
-    let displayedColumns;
-    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'standard'] : ['saralId', 'fullName', 'standard']
-    let displayedheaders;
-    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता'] : ['Saral ID', 'Name', 'Standard']
-    let tableData = {
-      pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: true,
-      displayedColumns: displayedColumns, tableData: this.tableDataArray,
-      tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders,
-    };
-    this.apiService.tableData.next(tableData);
-  }
-
-  studentDataById(id?: any) {
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id=' + id + '&lan=' + this.lang, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == "200") {
-          this.StudentDataArray = res.responseData;
-          this.StudentDataArray.m_Name1 = this.StudentDataArray.m_Name + ' ' + this.StudentDataArray.l_Name;
-          this.StudentDataArray.f_Name1 = this.StudentDataArray.f_Name + ' ' + this.StudentDataArray.l_Name
-          this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
-          this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
-          this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
-
+          this.centerArray = res.responseData;
+          // this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
+          // this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : ''; // this.cardCountData() temp
         }
         else {
-          this.StudentDataArray = [];
+          this.centerArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
-      },
-      error: ((err: any) => {
-        this.errorService.handelError(err)
-      })
-    });
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
   }
 
-  childCompInfo(obj: any) {
-    console.log("obj", obj)
-    switch (obj.label) {
-      case 'Pagination':
-        this.pageNumber = obj.pageNumber;
-        this.getAllStudentData();
-        break;
-      case 'Row': this.studentDataById(obj?.id)
-        break
-    }
-  }
-
-  getSchool(centerId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + this.lang + '&CenterId=' + centerId, false, false, false, 'baseUrl');
+  getSchool() {
+    let formData = this.filterFrm.value
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&CenterId=' + formData.kendraId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.getStandard(this.filterFrm.value?.schoolId);
         }
         else {
           this.schoolArray = [];
@@ -171,8 +133,9 @@ export class StudentProfileComponent {
     })
   }
 
-  getStandard(schoolId: number) {
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + this.lang + '&SchoolId=' + schoolId, false, false, false, 'baseUrl');
+  getStandard() {
+    let formData = this.filterFrm.value
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&SchoolId=' + formData.schoolId, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -213,87 +176,146 @@ export class StudentProfileComponent {
     this.standardArray = [];
     this.getAllStudentData('filter');
   }
-//#region  -----------------------------------------------------Apex Chart Fun start here ---------------------------------------------------//
-getChart() {
-  this.ChartOptions = {
-    series: [
-      {
-        name: "शिक्षक",
-        data: [0, 1, 2]
-      },
-      {
-        name: "पहिला",
-        data: [0, 0, 2]
-      },
-      {
-        name: "अधिकारी",
-        data: [1, 2, 0]
-      }
-    ],
-    chart: {
-      height: 350,
-      type: "area"
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: "smooth"
-    },
-    xaxis: {
-      type: "level",
-      categories: [
-        "पूर्व चाचणी",
-        "मध्य चाचणी",
-        "अंतिम चाचणी",
-      ]
-    },
-    yaxis: {
-      type: "text",
-      categories: [
-        "Story",
-        "Paragraph",
-        "Words",
-        "Letter",
-        "Initial"
-      ]
-    },
-    legend: {
-      position: "top",
-      offsetY: 20,
-    },
-    fill: {
-      opacity: 1
-    },
-    // yaxis: {
-    //   title: {
-    //     text: 'abcd',
-    //     offsetY: 20,
-    //    },
-    // },
-    tooltip: {
-      x: {
-        format: ""
-      }
+  //#endregion -------------------------------------------dropdown with filter fn end heare------------------------------------------------//
+
+  //#region ------------------------------------------- table fn  start heare-------------------------------------------//
+  childCompInfo(obj: any) {
+    switch (obj.label) {
+      case 'Pagination':
+        this.pageNumber = obj.pageNumber;
+        this.getAllStudentData();
+        break;
+      case 'Row': this.studentDataById()
+        break
     }
-  };
-}
-
-public generateData(_baseval: any, count: any, yrange: any) {
-  var i = 0;
-  var series = [];
-  while (i < count) {
-    var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
-    var y =
-      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-    var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
-    series.push([x, y, z]);
-    // baseval += 86400000;
-    i++;
   }
-  return series;
-}
-//#endregion  -----------------------------------------------------Apex Chart Fun end here ---------------------------------------------------//
 
+  getAllStudentData(flag?: any) {
+    this.spinner.show();
+    flag == 'filter' ? this.pageNumber = 1 : '';
+    let formData = this.filterFrm.value;
+    let str = `?pageno=${this.pageNumber}&pagesize=10`
+    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&SchoolId=' + (formData?.schoolId) + '&standardid=' + (formData?.standardId) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.tableDataArray = res.responseData;
+          this.tableDataArray?.map((ele: any) => {
+            ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
+          })
+          this.tableDatasize = res.responseData1?.pageCount;
+          this.totalPages = res.responseData1.totalPages;
+        } else {
+          this.spinner.hide();
+          this.tableDataArray = [];
+          this.tableDatasize = 0;
+        }
+        this.setTableData();
+      },
+      error: ((err: any) => {
+        this.spinner.hide();
+        this.errorService.handelError(err)
+      })
+    });
+  }
+  setTableData() {
+    let displayedColumns;
+    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'standard'] : ['saralId', 'fullName', 'standard']
+    let displayedheaders;
+    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता'] : ['Saral ID', 'Name', 'Standard']
+    let tableData = {
+      pageNumber: this.pageNumber,
+      img: '', blink: '', badge: '', isBlock: '', pagination: true,
+      displayedColumns: displayedColumns, tableData: this.tableDataArray,
+      tableSize: this.tableDatasize,
+      tableHeaders: displayedheaders,
+    };
+    this.apiService.tableData.next(tableData);
+  }
+  //#endregion ------------------------------------------- table fn  start heare-------------------------------------------//
 
+  //#region -------------------------------------------------main fn start heare Student info and graph -----------------------------//
+  studentDataById(id?: any) {
+    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id=' + id + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          this.StudentDataArray = res.responseData;
+          this.StudentDataArray.m_Name1 = this.StudentDataArray.m_Name + ' ' + this.StudentDataArray.l_Name;
+          this.StudentDataArray.f_Name1 = this.StudentDataArray.f_Name + ' ' + this.StudentDataArray.l_Name
+          this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
+          this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
+          this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
+        }
+        else {
+          this.StudentDataArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      },
+      error: ((err: any) => {
+        this.errorService.handelError(err)
+      })
+    });
+  }
+
+  getStudentProChart() {
+    this.ChartOptions = {
+      series: [
+        {
+          name: "शिक्षक",
+          data: [0, 1, 2]
+        },
+        {
+          name: "पहिला",
+          data: [0, 0, 2]
+        },
+        {
+          name: "अधिकारी",
+          data: [1, 2, 0]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "area"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      xaxis: {
+        type: "level",
+        categories: [
+          "पूर्व चाचणी",
+          "मध्य चाचणी",
+          "अंतिम चाचणी",
+        ]
+      },
+      yaxis: {
+        type: "text",
+        categories: [
+          "Story",
+          "Paragraph",
+          "Words",
+          "Letter",
+          "Initial"
+        ]
+      },
+      legend: {
+        position: "top",
+        offsetY: 20,
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        x: {
+          format: ""
+        }
+      }
+    };
+  }
+  //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
 }
