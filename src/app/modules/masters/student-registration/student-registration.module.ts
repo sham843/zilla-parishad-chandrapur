@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { TableGridComponent } from "../../../shared/components/table-grid/table-grid.component";
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { TranslateModule } from '@ngx-translate/core';
         ReactiveFormsModule,
         FormsModule,
         TableGridComponent,
-        TranslateModule
+        TranslateModule,
+        MatTooltipModule
     ]
 })
 export class StudentRegistrationModule { }
