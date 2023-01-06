@@ -188,7 +188,7 @@ setTableData(){     // table
       width: '350px',
       disableClose: true,
       data:{
-        p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Are You Sure You Want To Delete User Registration Record?',
+        p1: this.lang=='mr-IN' ? ' तुम्ही निवडलेले वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected User Registered Record?',
         p2: '',
         cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
         successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',

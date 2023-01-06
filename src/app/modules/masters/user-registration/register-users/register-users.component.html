@@ -102,7 +102,7 @@
                     <div class="col-sm-4">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5 ||this.data.flag=='profile')">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
-                            <mat-select formControlName="centerId" 
+                            <mat-select formControlName="centerId"
                                 (selectionChange)="(this.levelId==1 || this.levelId==2 || this.levelId==3) && userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
@@ -184,7 +184,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end align-items-center w-100">
-                <button mat-stroked-button type="button" class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.cancel' |translate}}</button>
+                <button mat-stroked-button type="button" class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.clear' | translate}}</button>
                 <button mat-stroked-button type="submit" class="btn-main" (click)="registerUser(formDirective)">{{this.data?.successBtnText}}</button>
             </div>
     </mat-card-content>
