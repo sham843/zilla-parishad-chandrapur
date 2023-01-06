@@ -59,7 +59,7 @@ export class StudentProfileComponent {
     this.getformControl();
     this.studentDataById(this.studentId);
     this.getAllStudentData();
-    this.getSchool(2713010002);
+    this.getSchool(2713010002);//temp pass center id
     this.getAllSubject();
     this.getChart();
   }
