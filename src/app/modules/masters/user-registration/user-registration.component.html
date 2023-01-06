@@ -9,12 +9,12 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'user_Registration.office_users' |translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="Download as Excel"
-          (click)="excelDownload()" [disabled]="!tableDataArray.length">
-          <mat-icon>
-            description
-          </mat-icon>
-        </button>
+          <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="{{'common.download_excel' | translate}}"
+            (click)="excelDownload()" [disabled]="!tableDataArray.length">
+            <mat-icon>
+              description
+            </mat-icon>
+          </button>
         <button mat-flat-button class="btn-main" (click)="registerusers()">
           <mat-icon>
             add
