@@ -76,7 +76,7 @@ export class AgencyRegistrationComponent {
 
   setTableData() {
     let displayedColumns;
-    this.language == 'Marathi' ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
+    this.language == 'Marathi' && this.apiService.translateLang ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
     this.language == 'Marathi' ? displayedheaders = ['अनुक्रमांक', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO Name', 'Contact No', 'Email ID', 'Action']
     this.tableData = {
@@ -189,7 +189,7 @@ export class AgencyRegistrationComponent {
     let header: any;
     this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'NGo Name', 'Contact No.', 'Email Id'];
     let column: any;
-    this.language == 'Marathi' ? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
+    this.language == 'Marathi' && this.apiService.translateLang? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
 
