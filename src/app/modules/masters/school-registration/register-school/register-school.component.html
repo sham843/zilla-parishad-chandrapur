@@ -123,7 +123,7 @@
                         <mat-label>{{'school.class_to' |translate}}</mat-label>
                         <mat-select formControlName="classTo">
                             <mat-option *ngFor="let gr of toClassArray" [value]="gr.id"
-                                [disabled]="gr.id <= registerForm.value.classFrom">
+                                [disabled]="gr.id < registerForm.value.classFrom">
                                 {{gr.standard}}
                             </mat-option>
                         </mat-select>
@@ -154,7 +154,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.school_address' |translate}}</mat-label>
                         <textarea matInput formControlName="schoolAddress"
-                            (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
+                            (keypress)="validator.noFirstSpaceAllow($event)" maxlength="500"></textarea>
                         <!-- <mat-error
                             *ngIf="registerForm.controls['schoolAddress'].hasError('required')">{{'school.please_enter_school_address'
                             |translate}}</mat-error> -->

@@ -23,7 +23,11 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>person</mat-icon>
                                     <mat-label>{{'common.please_enter_contact_number'|translate}}</mat-label>
+<<<<<<< HEAD
                                     <input matInput placeholder="{{''|translate}}"
+=======
+                                    <input matInput
+>>>>>>> 0b7c536b840ae59839afa4cf8fbfb0fb1add0a65
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noFirstSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
                                         <mat-error *ngIf="loginFormControls.userName.errors">
@@ -38,7 +42,11 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>key</mat-icon>
                                     <mat-label>{{'login.enter_password'|translate}}</mat-label>
+<<<<<<< HEAD
                                     <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{''|translate}}" formControlName="password">
+=======
+                                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+>>>>>>> 0b7c536b840ae59839afa4cf8fbfb0fb1add0a65
                                     <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?'Show':'Hide'">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

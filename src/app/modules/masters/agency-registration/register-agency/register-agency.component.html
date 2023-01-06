@@ -16,7 +16,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.agency_name' |translate}}</mat-label>
                         <input matInput formControlName="agencyName"
-                          (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)">
+                          (keypress)="validation.noFirstSpaceAllow($event);">
                          <mat-error *ngIf="f['agencyName'].errors">
                             <span class="text-danger" *ngIf="f['agencyName'].hasError('pattern')">
                                 {{'agency.please_enter_valid_agency_name' |translate}}
@@ -121,7 +121,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'agency.address' |translate}}</mat-label>
-                        <textarea matInput formControlName="address"
+                        <textarea matInput formControlName="address" class="textarea scrollbar"
                         (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
                     </mat-form-field>
                 </div>

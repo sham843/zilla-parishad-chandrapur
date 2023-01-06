@@ -15,6 +15,7 @@ export class ValidationService {
   alphabetsAndBracket= ('^[a-zA-Z() ]+$');
   marathi=('^[\u0900-\u0965 ]+$');
   addDesignation = ('^[a-zA-Z() =.,-]+$');
+  ngoName = ('^[a-zA-Z0-9() =!@#&_+.,-]+$');
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
