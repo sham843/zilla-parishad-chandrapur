@@ -59,6 +59,7 @@ export class StudentProfileComponent {
     })
     this.getformControl();
     this.getTaluka();
+    this.getAllStudentData();
   }
 
 
@@ -201,6 +202,7 @@ export class StudentProfileComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData;
+          this.studentDataById( this.tableDataArray[0].id)
           this.tableDataArray?.map((ele: any) => {
             ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
           })
