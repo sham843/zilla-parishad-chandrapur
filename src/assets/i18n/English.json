@@ -35,6 +35,7 @@
         "name":"Name",
         "mobile_number":"Mobile Number",
         "delete":"Delete",
+        "edit":"Edit",
         "ok":"Ok",
         "update":"Update",
         "select_designation": "Select Designation",
@@ -110,11 +111,11 @@
         "Add_agency":"Add NGO",
         "agency_marathi_name":"NGO Marathi Name",
         "agency_marathi_name_pattern":"Please Enter Valid NGO Marathi Name",
-        "please_enter_valid_emailId":"Please Enter Valid Email Id",
+        "please_enter_valid_emailId":"Please Enter Valid Email ID",
         "please_enter_valid_contact_no":"Please Enter Valid Contact Number",
         "please_enter_valid_agency_name":"Please Enter Valid Agency English Name",
-        "please_enter_minimum 5 digit_registration_number":"Please Enter Minimum 5 Digit Registration Number",
-        "please_enter_maximum 50 digit_registration_number":"Please Enter Maximum 50 Digit Registration Number"
+        "please_enter_minimum 5 digit_registration_number":"Please Enter Min 5 Digit Registration Number",
+        "please_enter_maximum 50 digit_registration_number":"Please Enter Max 50 Digit Registration Number"
     },
      "login":{
         "captcha":"Captcha",
@@ -126,7 +127,7 @@
         "login":"Login",
         "enter_username/Mobile_number":"Enter Username/Mobile Number",
         "enter_password":"Password",
-        "enter_captcha":"Enter Captcha",
+        "enter_captcha":"Captcha",
         "username_required":"User Name is Required",
         "please_enter_valid_username":"Please Enter Valid Username",
         "password_required":"Password is Required",
@@ -135,8 +136,8 @@
         "password_format":"It must contain 8 or more characters that are of at least one number, and one special characters, and one uppercase and lowercase letter",
         "enter_otp":"Enter OTP",
         "verify_otp":"Verify OTP",
-        "Enter_new_password":"Enter New Password",
-        "Enter_new_confirm":"Enter Confirm Password"
+        "Enter_new_password":"New Password",
+        "Enter_new_confirm":"Confirm Password"
     },
     "page_right_access":{
         "settings":"Settings",
@@ -153,7 +154,7 @@
         "gender":"Gender",
         "standard":"Standard",
         "parent_contact_no":"Parent Contact Number",
-        "select_standard":"Please Select Standard",
+        "select_standard":"Select Standard",
         "enter_first_name":"Enter First Name",
          "enter_middle_name":"Enter Middle Name",
      "enter_last_name":"Enter Last Name",

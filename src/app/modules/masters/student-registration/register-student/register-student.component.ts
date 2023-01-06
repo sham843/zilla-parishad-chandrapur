@@ -69,6 +69,7 @@ export class RegisterStudentComponent {
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
   formData(data?: any) {
+    console.log("data",this.data)
     this.studentFrm = this.fb.group({
       "id": [data?.id || 0],
       "f_Name": [data?.f_Name || '', [Validators.required, Validators.pattern(this.validation.fullName), Validators.minLength(2)]],
@@ -107,7 +108,7 @@ export class RegisterStudentComponent {
 
   clearForm() {
     this.formDirective.resetForm();
-    this.formData();
+     this.formData();
     this.editFlag = false;
     this.getDistrict();
   }
@@ -194,7 +195,6 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          // this.editFlag ? (this.studentFrm.controls['schoolId'].setValue(this.data.schoolId),this.getStandard(this.studentFrm.value.schoolId)) : '';
           this.editFlag || this.levelId == 5 ? (this.studentFrm.controls['schoolId'].setValue(this.studentFrm.value.schoolId), this.getStandard()) : '';
         }
         else {
@@ -292,7 +292,6 @@ export class RegisterStudentComponent {
     if (!this.studentFrm.valid) {
       return;
     } else {
-
       let data = this.studentFrm.value;
       let obj = {
         "createdBy": !this.editFlag ? this.webStorage.getUserId() : this.data.createdBy,
@@ -306,6 +305,7 @@ export class RegisterStudentComponent {
       data.genderId=data.genderId?data.genderId:0;
       data.dob = data.dob ? data.dob : null;
       let mainData = { ...obj, ...data };
+      this.data ? mainData.id=this.data.id:mainData.id=0;//when we edit data -> clear form -> data not updated(we used)
       let url;
       this.data ? url = 'zp-Chandrapur/Student/UpdateStudent' : url = 'zp-Chandrapur/Student/AddStudent'
       this.apiService.setHttp(this.data ? 'put' : 'post', url, false, mainData, false, 'baseUrl');

@@ -11,7 +11,7 @@
             </div>
         </mat-card-header>
         <mat-card-content class="card-body">
-            <div class="row">
+            <div class="row gy-2">
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.agency_name' |translate}}</mat-label>
@@ -44,13 +44,13 @@
                         <mat-error *ngIf="f['registrationNo'].errors">
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('pattern')">
                                 {{'agency.please_enter_registration_number' |translate}}
-                            </span> 
-                            <!-- <span class="text-danger" *ngIf="f['registrationNo'].hasError('minlength')">
+                            </span>
+                            <span class="text-danger" *ngIf="f['registrationNo'].hasError('minlength')">
                                 {{'agency.please_enter_minimum 5 digit_registration_number' |translate}}
                             </span>
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('maxlength')">
                                 {{'agency.please_enter_maximum 50 digit_registration_number' |translate}}
-                            </span> -->
+                            </span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -130,7 +130,8 @@
         <mat-card-footer class="card-footer">
             <div class="d-flex justify-content-end">
                 <button mat-flat-button class="btn-second me-2" type="button"
-                    (click)="clearForm(formDirective)">{{this.data?.cancelBtnText}}</button>
+                    (click)="clearForm(formDirective)">{{'common.clear' | translate}}</button>
+                  <!-- {{this.data?.cancelBtnText}} -->
                 <button mat-flat-button class="btn-main" type="submit">{{this.data?.successBtnText}}</button>
             </div>
         </mat-card-footer>

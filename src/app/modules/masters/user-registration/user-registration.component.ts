@@ -135,7 +135,7 @@ setTableData(){     // table
   let displayedColumns:any;
   this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No', 'Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No', 'Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         img: '',
@@ -188,7 +188,7 @@ setTableData(){     // table
       width: '350px',
       disableClose: true,
       data:{
-        p1: this.lang=='mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Are You Sure You Want To Delete User Registration Record?',
+        p1: this.lang=='mr-IN' ? ' तुम्ही निवडलेले वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected User Registered Record?',
         p2: '',
         cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
         successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
