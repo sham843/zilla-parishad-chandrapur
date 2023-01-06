@@ -136,7 +136,7 @@ export class AgencyRegistrationComponent {
       width: '350px',
       disableClose: true,
       data: {
-        p1: this.language == 'Marathi' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेली एजन्सी हटवू इच्छिता?' : 'Are You Sure? You Want To Delete Selected NGO?',
+        p1: this.language == 'Marathi' ? 'तुम्ही निवडलेले एनजीओ रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected NGO Record?',
         p2: '',
         cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'हटवा' : 'Delete',

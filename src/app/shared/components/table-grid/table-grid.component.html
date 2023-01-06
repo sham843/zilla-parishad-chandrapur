@@ -33,12 +33,12 @@
                 {{tableHeaders[j] | titlecase}}
             </th>
             <td mat-cell *matCellDef="let element let i=index">
-                <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Edit', i)" matTooltip="Edit">
+                <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Edit', i)" matTooltip="{{'common.edit' | translate}}">
                     <mat-icon class="text-main">
                         edit
                     </mat-icon>
                 </button>
-                <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete')" matTooltip="Delete">
+                <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete')" matTooltip="{{'common.delete' | translate}}">
                     <mat-icon class="text-danger">
                         delete
                     </mat-icon>

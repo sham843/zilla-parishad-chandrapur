@@ -228,7 +228,7 @@ export class StudentRegistrationComponent {
 
   globalDialogOpen(delObj?: any) {
     let dialogObj = {
-      p1: this.lang == 'mr-IN' ? 'तुम्हाला खात्री आहे की तुम्ही निवडलेला विद्यार्थी हटवू इच्छिता?' : 'Are You Sure You Want To Delete Selected Student?',
+      p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले विद्यार्थी रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected Student Record?',
       p2: '',
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
