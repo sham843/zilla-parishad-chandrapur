@@ -96,17 +96,21 @@ export class AgencyRegistrationComponent {
     }
     this.apiService.tableData.next(this.tableData)
   }
-
-
   childCompInfo(obj: any) {   //table method
-    if (obj.label == 'Pagination') {
-      this.pageNumber = obj.pageNumber
-      this.getAllAgencyData();
-    } else if (obj.label == 'Edit') {
-      this.registeragency(obj);
-    } else {
-      this.deleteAgencyModalOpen(obj);
-    }
+    switch (obj.label) {
+        case 'Pagination':
+          this.pageNumber = obj.pageNumber;
+          this.getAllAgencyData();
+          break;
+        case 'Edit':
+          this.registeragency(obj);
+          break;
+        case 'Delete':
+          this.deleteAgencyModalOpen(obj);
+          break;
+        case 'Row':
+          break;
+      }
   }
 
   registeragency(obj?: any) {
