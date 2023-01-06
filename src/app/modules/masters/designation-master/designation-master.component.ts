@@ -54,7 +54,6 @@ export class DesignationMasterComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.designTreeViewArray = res.responseData?.childs;
-          this.clearFilter();
           // ele['cssClass'] = 'bg-info text-white border-0';
         } else {
           this.designTreeViewArray = [];
