@@ -148,11 +148,11 @@ export class DesignationMasterComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.pageNumber = 1;
       this.getDesignTreeView();
       if (result) {
         this.getTableData();
       } else if (result == false) {
-        this.pageNumber = 1;
         this.getTableData();
       }
     });
