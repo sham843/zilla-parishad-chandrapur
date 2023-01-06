@@ -57,6 +57,7 @@
         "taluka":"Taluka"
     },
     "student_profile": {
+        "student_profile":"Student Profile",
         "progress_indicator": "Progress Indicator",
         "class_teacher":"Class Teacher",
         "teacher": "Teacher",

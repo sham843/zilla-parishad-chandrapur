@@ -121,7 +121,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'agency.address' |translate}}</mat-label>
-                        <textarea matInput formControlName="address"
+                        <textarea matInput formControlName="address" class="textarea scrollbar"
                         (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
                     </mat-form-field>
                 </div>
