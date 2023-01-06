@@ -112,6 +112,15 @@ export class CommonMethodsService {
     const filterValue = value.toLowerCase();
     return filterArray.filter((value:any) => value.schoolName.toLowerCase().includes(filterValue));
   }
+
+  redToNextPageWithPar(id: any, link: string, label: string) {
+    this.router.navigate([link + encodeURIComponent(CryptoJS.AES.encrypt(id.toString(), label).toString())]);
+  }
+
+  recParToUrl(id: any, label:string){
+     let res =  CryptoJS.AES.decrypt(decodeURIComponent(id), label).toString(CryptoJS.enc.Utf8);
+     return res;
+  }
 /*  private _filterStates(value: string): any {
     const filterValue = value.toLowerCase();
     return this.desigantionLevelArray.filter(state => state.desingationLevel.toLowerCase().includes(filterValue));

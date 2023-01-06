@@ -49,13 +49,13 @@ export class RegisterAgencyComponent {
   }
   getAgencyControl() {
     this.agencyForm = this.fb.group({
-      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern('^([a-zA-Z0-9 /(,)&.+-@#$]+)')]],
+      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern(this.validation.ngoName)]],
       m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'',[Validators.pattern(this.validation.marathi)]],
       registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.pattern(/^\S*$/),Validators.minLength(5),Validators.maxLength(50)]],
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       districtId: [this.data.obj?this.data.obj.districtId:this.apiService.disId, [Validators.required]],
       talukaId: [this.data.obj?this.data.obj.talukaId:'', [Validators.required]],
-      contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.pattern(this.validation.mobile_No)]],
+      contactNo: [this.data.obj?this.data.obj.contactNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       address: [this.data.obj?this.data.obj.address:''],
     })

@@ -54,6 +54,7 @@ export class DesignationMasterComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.designTreeViewArray = res.responseData?.childs;
+          this.clearFilter();
           // ele['cssClass'] = 'bg-info text-white border-0';
         } else {
           this.designTreeViewArray = [];
@@ -88,7 +89,6 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
-          this.searchdesignationLvl.reset();
           this.setTableData();
         } else {
           this.spinner.hide();
@@ -148,11 +148,11 @@ export class DesignationMasterComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.pageNumber = 1;
       this.getDesignTreeView();
       if (result) {
         this.getTableData();
       } else if (result == false) {
-        this.pageNumber = 1;
         this.getTableData();
       }
     });

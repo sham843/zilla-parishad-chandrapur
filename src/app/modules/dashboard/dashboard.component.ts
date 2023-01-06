@@ -60,7 +60,7 @@ export class DashboardComponent {
 
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
-      console.log(this.language)
+
     });
     this.mainFilterForm();
     this.educationYear();
@@ -84,7 +84,7 @@ export class DashboardComponent {
       schoolId: [0],
       assesmentId: [0],
       subjectId: [0],
-      flag: [this.language == 'English' ? 'en' : 'mr-IN'],
+      flag: [this.language = this.apiService.translateLang ?  this.language : 'en' ],
     })
   }
 

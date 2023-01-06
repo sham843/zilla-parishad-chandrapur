@@ -16,6 +16,7 @@ import { TableGridComponent } from 'src/app/shared/components/table-grid/table-g
 import { TranslateModule } from '@ngx-translate/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     SchoolRegistrationComponent,
@@ -35,7 +36,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     TableGridComponent,
     TranslateModule,
     MatRadioModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatTooltipModule
   ]
 })
 export class SchoolRegistrationModule { }
