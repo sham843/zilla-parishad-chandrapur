@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DesignationMasterRoutingModule } from './designation-master-routing.module';
 import { DesignationMasterComponent } from './designation-master.component';
 import {MatCardModule} from '@angular/material/card';
@@ -16,6 +15,7 @@ import { TableGridComponent } from 'src/app/shared/components/table-grid/table-g
 import { TranslateModule } from '@ngx-translate/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { NgxOrgChartModule } from 'ngx-org-chart';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { NgxOrgChartModule } from 'ngx-org-chart';
     ReactiveFormsModule,
     TranslateModule,
     MatAutocompleteModule,
-    NgxOrgChartModule
+    NgxOrgChartModule,
+    MatTooltipModule
   ],
   providers:[]
 })

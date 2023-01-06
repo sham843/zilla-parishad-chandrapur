@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TableGridComponent } from 'src/app/shared/components/table-grid/table-grid.component';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -37,7 +38,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     TranslateModule,
     TableGridComponent,
     GlobalDialogComponent,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTooltipModule
   ]
 })
 export class UserRegistrationModule { }
