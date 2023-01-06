@@ -43,7 +43,7 @@ export class LoginComponent {
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{4,20}$')]],
-      recaptchaReactive: ['', [Validators.required]],
+      recaptchaReactive: ['', [Validators.required, Validators.pattern(/^\S*$/)]], 
     }))
   }
 
