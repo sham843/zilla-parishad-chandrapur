@@ -62,7 +62,7 @@ export class DesignationMasterComponent {
         }
       },
       error: ((err: any) => {
-        this.errors.handelError(err)
+        this.errors.handelError(err);
       })
     });
   }
