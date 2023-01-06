@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { NgApexchartsModule } from "ng-apexcharts";
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     MatCardModule,
     MatInputModule,
     MatSelectModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatButtonModule
   ]
 })
 export class StudentProfileModule { }

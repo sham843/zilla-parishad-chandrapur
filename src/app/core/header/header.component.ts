@@ -20,12 +20,15 @@ export class HeaderComponent {
   selLang!: string;
   loginData!: any;
   profilePhoto!:string;
+  encryptInfo:any;
+  darkClassName:any;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
     private router: Router,
     private webStorage: WebStorageService,
     private translate: TranslateService,
+  
   ) {
     translate.addLangs(['English', 'Marathi'])
     translate.setDefaultLang('English')
@@ -43,9 +46,8 @@ export class HeaderComponent {
   }
 
   changeTheme(darkMode: any) {
-    let darkClassName: any
-    this.className =darkMode == 'light'? (darkClassName = 'lightMode'): (darkClassName = 'darkMode');
-    this.webStorage.setTheme(darkClassName)
+    this.className =darkMode == 'light'? (this.darkClassName = 'lightMode'): (this.darkClassName = 'darkMode');
+    this.webStorage.setTheme(this.darkClassName)
     if (darkMode == 'light') {
       this.overlay.getContainerElement().classList.add('lightMode')
       this.overlay.getContainerElement().classList.remove('lightMode')
@@ -131,8 +133,12 @@ export class HeaderComponent {
       if (res == 'Yes') {
         this.webStorage.getProfile().subscribe(res=>{
           this.profilePhoto=res;
+          let localData=JSON.parse(this.webStorage.getLocalStorageData())
+          localData.responseData.profilePhoto=res
+          this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(localData)), 'secret key 123').toString());
+           localStorage.setItem('loggedInData', this.encryptInfo);
         })
       }
     })
-  }
+  } 
 }
