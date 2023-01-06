@@ -114,8 +114,8 @@
         "please_enter_valid_emailId":"Please Enter Valid Email ID",
         "please_enter_valid_contact_no":"Please Enter Valid Contact Number",
         "please_enter_valid_agency_name":"Please Enter Valid Agency English Name",
-        "please_enter_minimum 5 digit_registration_number":"Please Enter Minimum 5 Digit Registration Number",
-        "please_enter_maximum 50 digit_registration_number":"Please Enter Maximum 50 Digit Registration Number"
+        "please_enter_minimum 5 digit_registration_number":"Please Enter Min 5 Digit Registration Number",
+        "please_enter_maximum 50 digit_registration_number":"Please Enter Max 50 Digit Registration Number"
     },
      "login":{
         "captcha":"Captcha",
