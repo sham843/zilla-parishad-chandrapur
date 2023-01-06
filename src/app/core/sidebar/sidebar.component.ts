@@ -13,6 +13,9 @@ export class SidebarComponent {
     let data: any = this.WebStorageService.getAllPageName();
     this.sideBarMenu(data);
   }
+  ngOnInit(){
+    // this.WebStorageService.
+  }
 
   sideBarMenu(data: []) {
     this.loginPages = [];
