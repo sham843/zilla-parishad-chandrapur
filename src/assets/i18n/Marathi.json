@@ -288,8 +288,10 @@
     },
     "change_password":{
         "new_password":"नवीन पासवर्ड",
+        "old_password":"जुना पासवर्ड",
         "required_new_password":"नवीन पासवर्ड आवश्यक आहे",
         "invalid_new_password_format":"अवैध नवीन पासवर्ड फॉरमॅट",
+        "invalid_old_password_format":"कृपया वैध जुना पासवर्ड स्वरूप प्रविष्ट करा",
         "confirm_password":"पासवर्डची पुष्टी करा",
         "required_confirm_password":"आवश्यक पुष्टी पासवर्ड",
         "invalid_confirm_password_format":"अवैध पुष्टी पासवर्ड स्वरूप",

@@ -392,13 +392,6 @@ registerUser(formDirective?:any) {
          })
        });
     } 
-   /*  "m_Standard": null,
-        "standard": null,
-        "standardId": null,
-        "subjectId": null,
-        "subject": null,
-        "m_Subject": null, */
-console.log("njdfgdgf",this.userRegistrationForm.value);
    let obj=this.userRegistrationForm.value;
    delete obj.standardId;
    delete obj.subjectId
