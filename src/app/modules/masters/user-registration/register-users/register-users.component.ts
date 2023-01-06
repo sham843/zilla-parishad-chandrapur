@@ -98,6 +98,7 @@ export class RegisterUsersComponent {
       subjectModels: [obj?obj.subjectId:[],Validators.required]
     })
     this.data.flag=='profile'?this.profilePhoto = obj ? obj.profilePhoto : this.profilePhoto = '':'';
+    this.profilePhotoupd=this.profilePhoto;
     }
 
   getUpdatedData(){
@@ -177,7 +178,8 @@ export class RegisterUsersComponent {
      this.master.getAllTaluka(this.apiService.translateLang?this.lang:'en',distId).subscribe((res: any) => {
       this.talukaArr = res.responseData;
       this.levelId==3 || this.levelId==4 || this.levelId==5 ?this.userRegistrationForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
-      this.levelId==3 ||this.levelId==4 || this.levelId==5  || this.userRegistrationForm.value.designationLevelId==5? this.getKendra(this.loginData.talukaId): 
+      this.levelId==3 ||this.levelId==4 || this.levelId==5  && this.userRegistrationForm.value.designationLevelId==5? this.getKendra(this.loginData.talukaId): 
+      this.levelId==5 && this.userRegistrationForm.value.designationLevelId==4?this.getKendra(this.loginData.talukaId):'';
       this.data.flag!='Add'? this.getKendra(this.userRegistrationForm.value.talukaId):'';
     })
   }
@@ -194,8 +196,8 @@ export class RegisterUsersComponent {
   getSchoolName(centerId:number) {    //get school
     this.master.getSchoolByCenter((this.apiService.translateLang?this.lang:'en'),centerId).subscribe((res:any)=>{ 
       this.schoolArr=res.responseData;
-      this.levelId==4 || this.levelId==5?this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId):'';
-      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.data.obj.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      this.levelId==4 || this.levelId==5?(this.userRegistrationForm.controls['schoolId'].setValue(this.loginData.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
+      (this.data.flag!='Add' && this.userRegistrationForm.value.designationLevelId==5)?(this.userRegistrationForm.controls['schoolId'].setValue(this.updatedData.schoolId),this.getAllClassGroup(this.userRegistrationForm.value.schoolId),this.getAllSubject()):'';
     })
   }
 
@@ -319,6 +321,9 @@ this.clearArr=[];
       this.userRegistrationForm.controls['designationLevelId'].setValue('');
       this.userRegistrationForm.controls['designationId'].setValue('');
       this.userRegistrationForm.controls['centerId'].setValue('');
+      this.userRegistrationForm.controls['schoolId'].setValue('');this.schoolArr=[];
+      this.userRegistrationForm.controls['standardModels'].setValue('');this.classArr=[];
+      this.userRegistrationForm.controls['subjectModels'].setValue('');this.subjectArr=[];
       this.designationArr=[];this.talukaArr=[];
     }else if(flag=='designationLevel'){
       this.userRegistrationForm.controls['agencyId'].setValue('');
@@ -338,9 +343,15 @@ this.clearArr=[];
   }
 
   clearUserForm(formDirective:any){
-    formDirective.resetForm();
-    this.designationArr=[];
-    this.data.obj?'':this.getUserForm();
+    if(this.data.flag=='profile'){
+      this.userRegistrationForm.controls['name'].setValue('');
+      this.userRegistrationForm.controls['mobileNo'].setValue('');
+      this.userRegistrationForm.controls['emailId'].setValue('');
+    }else{
+      formDirective.resetForm();
+      this.designationArr=[];
+      this.data.obj?'':this.getUserForm();
+    } 
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
  //#region-------------------------------------------------profile photo upload methods start-----------------------------------------------

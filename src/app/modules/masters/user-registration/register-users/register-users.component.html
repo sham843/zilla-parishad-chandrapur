@@ -33,7 +33,7 @@
        </div>
     </ng-container>
         <div class="row mb-3">
-                <div class="col-sm-4">
+                <div class="col-sm-4" *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                         <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
                         <mat-select formControlName="userTypeId"
@@ -43,7 +43,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
                         <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
                             <mat-label>{{'user_Registration.level' |translate}}</mat-label>
                             <mat-select formControlName="designationLevelId"
@@ -88,7 +88,7 @@
                 </div>
                 <ng-container *ngIf="userRegistrationForm.value.designationLevelId!=2">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==3 || levelId==4 || levelId==5 ||this.data.flag=='profile')">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==3 || levelId==4 || levelId==5 ||this.data.flag=='profile'">
                             <mat-label>{{'common.taluka' |translate}}</mat-label>
                             <mat-select formControlName="talukaId"
                                 (selectionChange)="this.levelId==2 ||this.levelId==1?this.getKendra(userRegistrationForm.value.talukaId):'';clearDropdown('taluka')">
@@ -98,12 +98,12 @@
                         </mat-form-field>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5 ||this.data.flag=='profile'">
+                <ng-container *ngIf="userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5">
                     <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5)">
+                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5 ||this.data.flag=='profile')">
                             <mat-label>{{'common.kendra' |translate}}</mat-label>
                             <mat-select formControlName="centerId" 
-                                (selectionChange)="(this.levelId==1 || this.levelId==2) && userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
+                                (selectionChange)="(this.levelId==1 || this.levelId==2 || this.levelId==3) && userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
                                 <mat-option *ngFor="let kendra of kendraArr"
                                     [value]="kendra.id">{{kendra.center}}</mat-option>
                             </mat-select>
@@ -125,7 +125,7 @@
                     </div>
                 </ng-container>
                     <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" *ngIf="this.data.flag!='profile'">
                             <mat-form-field  appearance="outline" class="w-100">
                                 <mat-label>{{'user_Registration.class' |translate}}</mat-label>
                                 <mat-select formControlName="standardModels" multiple (selectionChange)="clearDropdown('class')">
@@ -134,7 +134,7 @@
                               </mat-form-field>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
+                    <ng-container *ngIf="userRegistrationForm.value.userTypeId==3 && this.data.flag!='profile'">
                         <div class="col-sm-4">
                             <mat-form-field  appearance="outline" class="w-100">
                                 <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>

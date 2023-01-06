@@ -78,7 +78,7 @@ export class RegisterSchoolComponent {
       classTo: [obj?.classTo || '', Validators.required],
       udiseCode: [obj?.udiseCode || '', [Validators.required]],
       schoolLocationId: [obj?.schoolLocationId || 1, [Validators.required]],
-      schoolAddress: [obj?.schoolAddress || '', [Validators.required]],
+      schoolAddress: [obj?.schoolAddress || '', [Validators.required,Validators.maxLength(500)]],
     })
     this.getDistrict();
   }
