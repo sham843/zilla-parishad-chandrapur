@@ -617,12 +617,7 @@ export class DashboardComponent {
     })
   }
   displayProfile(_id?: number) {
-    let obj:any = {
-      kenId: 2713040006,
-      schId: 1814,
-      stuId: ''//121
-    }
-    this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
+
   }
 
   ngOnDestroy() {
