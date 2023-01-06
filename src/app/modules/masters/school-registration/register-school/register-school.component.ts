@@ -68,9 +68,9 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
-      districtId: [obj?.districtId || this.loginData.districtId, Validators.required],
-      talukaId: [obj?.talukaId || this.loginData.talukaId, Validators.required],
-      centerId: [obj?.centerId || this.loginData.centerId, Validators.required],
+      districtId: [obj?.districtId ||  this.loginData.districtId, Validators.required],
+      talukaId: [obj?.talukaId || (this.levelId == 1|| this.levelId == 2 ? 0 : this.loginData.talukaId), Validators.required],
+      centerId: [obj?.centerId ||  (this.levelId == 1|| this.levelId == 2 ? 0 : this.loginData.centerId), Validators.required],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || ''],
       g_GenderId: [obj?.g_GenderId || ''],
@@ -258,19 +258,15 @@ export class RegisterSchoolComponent {
     }
   }
 
-  clearForm(status?:any) {
-    if(this.editFlag && status == 'clr'){
-      this.talukaArray=[];
-      this.centerArray=[];
-    }
-    let formData = this.registerForm.value;
-    this.showRedio = false;
+  clearForm() {
+    // this.showRedio = false;
     this.editFlag = false;
+    let formData = this.registerForm.value;
     this.formDirective.resetForm({
       schoolLocationId: 1,
       districtId: formData.districtId,
-      talukaId: formData.talukaId,
-      centerId: formData.centerId,
+      talukaId: this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? formData.talukaId : '',
+      centerId: this.levelId == 4 || this.levelId == 5 ? formData.centerId : '',
     });
    
   }

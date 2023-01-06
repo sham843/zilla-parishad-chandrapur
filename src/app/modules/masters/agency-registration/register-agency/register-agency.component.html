@@ -40,7 +40,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'agency.registration_number' |translate}}</mat-label>
                         <input matInput
-                            formControlName="registrationNo" (keypress)="validation.noFirstSpaceAllow($event)" minlength="5" maxlength="50">
+                            formControlName="registrationNo" (keypress)="validation.noFirstSpaceAllow($event)" minlength="5">
                         <mat-error *ngIf="f['registrationNo'].errors">
                             <span class="text-danger" *ngIf="f['registrationNo'].hasError('pattern')">
                                 {{'agency.please_enter_registration_number' |translate}}
