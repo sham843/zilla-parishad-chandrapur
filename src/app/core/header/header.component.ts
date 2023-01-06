@@ -70,10 +70,10 @@ export class HeaderComponent {
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',
       data: {
-        p1: modalLang == 'Marathi' ? 'तुम्हाला खात्री आहे का?' : 'Do You Really Want To Logout?',
+        p1: modalLang == 'Marathi' ? 'तुम्हाला खरोखर लॉगआउट करायचे आहे?' : 'Do You Really Want To Logout?',
         p2: '',
-        cardTitle: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
-        successBtnText: modalLang == 'Marathi' ? 'बाहेर पडणे' : 'Logout',
+        cardTitle: modalLang == 'Marathi' ? 'बाहेर पडा' : 'Logout',
+        successBtnText: modalLang == 'Marathi' ? 'बाहेर पडा' : 'Logout',
         dialogIcon: 'assets/images/logout.gif',
         cancelBtnText: modalLang == 'Marathi' ? 'रद्द करा' : 'Cancel',
       },
