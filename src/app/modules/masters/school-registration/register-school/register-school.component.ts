@@ -258,7 +258,11 @@ export class RegisterSchoolComponent {
     }
   }
 
-  clearForm() {
+  clearForm(status?:any) {
+    if(this.editFlag && status == 'clr'){
+      this.talukaArray=[];
+      this.centerArray=[];
+    }
     let formData = this.registerForm.value;
     this.showRedio = false;
     this.editFlag = false;
@@ -268,6 +272,7 @@ export class RegisterSchoolComponent {
       talukaId: formData.talukaId,
       centerId: formData.centerId,
     });
+   
   }
 
   ngOnDestroy() {
