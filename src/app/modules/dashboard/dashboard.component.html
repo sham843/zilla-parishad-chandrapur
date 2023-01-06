@@ -240,7 +240,7 @@
                     <div [formGroup]="topFilterForm">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
-                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
+                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()" >
                                 <!-- <mat-option value="0">All Subject</mat-option> -->
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
                                     [value]="subjects?.id">{{subjects?.subject}}</mat-option>
