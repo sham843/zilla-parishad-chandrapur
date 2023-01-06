@@ -48,7 +48,8 @@ export class ChangePasswordComponent {
   }
 
   changePassControls(){
-    this.changePassForm=this.fb.group({
+    this.changePassForm=this.fb.group({ 
+      oldPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]],
       newPwd:['',[Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]],
       reTypePwd:['',[Validators.required, Validators.pattern('(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$')]]
     })                                    
