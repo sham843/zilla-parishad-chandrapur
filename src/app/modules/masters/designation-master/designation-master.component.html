@@ -13,12 +13,12 @@
           <mat-icon>
             table_view
           </mat-icon>
-        </button> -->
-        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second': hideFlowChartDig == false, 'bg-primary' : hideFlowChartDig == true }" title="Chart View"
-         (click)="(hideFlowChartDig == false ? hideFlowChartDig = true : hideFlowChartDig = false);hideFlowChartDig == true ? getDesignTreeView() : getTableData()">
-          <mat-icon>
-            account_tree
-          </mat-icon>
+        </button> --> 
+
+        <!-- [ngClass]="{'btn-second': hideFlowChartDig == false, 'bg-primary' : hideFlowChartDig == true }" -->
+        <button mat-flat-button class="btn-second btn-icon" title="Chart View"
+         (click)="(hideFlowChartDig == false ? hideFlowChartDig = true : hideFlowChartDig = false);hideFlowChartDig == true ? getDesignTreeView() : pageNumber = 1;getTableData()">
+          <mat-icon>{{hideFlowChartDig == false ? 'account_tree' : 'list'}}</mat-icon>
         </button>
         <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="Download as Excel" (click)="excelDownload()">
           <mat-icon>
@@ -69,8 +69,7 @@
     <div *ngIf="!hideFlowChartDig">
       <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
     </div>
-    <div *ngIf="hideFlowChartDig"
-    class="mt-5">
+    <div *ngIf="hideFlowChartDig" class="chart-view">
       <ngx-org-chart [nodes]="designTreeViewArray" direction="vertical"></ngx-org-chart>
     </div>
   </mat-card-content>
