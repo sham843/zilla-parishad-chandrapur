@@ -14,8 +14,8 @@
         </div>
     </mat-card-header>
     <mat-card-header class="card-header mb-0 border-0 pb-0">
-        <form [formGroup]="filterFrm">
-            <div class="row w-100">
+        <form [formGroup]="filterFrm" class="w-100">
+            <div class="row w-100 justify-content-end">
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
@@ -137,39 +137,38 @@
                                 </div>
 
                             </div>
-
-                            <mat-card class="plain-card border">
-                                <mat-card-header class="card-header pb-0 border-bottom-0">
-                                    <div class="d-flex justify-content-start align-items-center w-100">
-                                        <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
-                                        <div class="flex-fill">
-                                            <mat-form-field appearance="outline" class="w-100">
-                                                <mat-label>Select Subject</mat-label>
-                                                <mat-select>
-                                                    <mat-option
-                                                        *ngFor="let subjects of subjectArray">{{subjects?.subject}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </mat-card-header>
-                                <mat-card-content class="card-body">
-                                    <div id="chart">
-                                        <apx-chart
-                                          [series]="ChartOptions?.series"
-                                          [chart]="ChartOptions?.chart"
-                                          [xaxis]="ChartOptions?.xaxis"
-                                          [yaxis]="ChartOptions?.yaxis"
-                                          [stroke]="ChartOptions?.stroke"
-                                          [tooltip]="ChartOptions?.tooltip"
-                                          [dataLabels]="ChartOptions?.dataLabels">
-                                    </apx-chart>
-                                      </div>
-                                </mat-card-content>
-                            </mat-card>
                         </div>
                     </div>
                 </div>
+                <mat-card class="plain-card border">
+                    <mat-card-header class="card-header pb-0 border-bottom-0">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
+                            <div class="flex-fill">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Select Subject</mat-label>
+                                    <mat-select>
+                                        <mat-option
+                                            *ngFor="let subjects of subjectArray">{{subjects?.subject}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content class="card-body">
+                        <div id="chart">
+                            <apx-chart
+                              [series]="ChartOptions?.series"
+                              [chart]="ChartOptions?.chart"
+                              [xaxis]="ChartOptions?.xaxis"
+                              [yaxis]="ChartOptions?.yaxis"
+                              [stroke]="ChartOptions?.stroke"
+                              [tooltip]="ChartOptions?.tooltip"
+                              [dataLabels]="ChartOptions?.dataLabels">
+                        </apx-chart>
+                          </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </mat-card-content>

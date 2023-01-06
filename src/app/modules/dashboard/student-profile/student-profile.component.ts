@@ -8,6 +8,7 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
+
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',

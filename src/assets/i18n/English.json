@@ -153,7 +153,7 @@
         "gender":"Gender",
         "standard":"Standard",
         "parent_contact_no":"Parent Contact Number",
-        "select_standard":"Please Select Standard",
+        "select_standard":"Select Standard",
         "enter_first_name":"Enter First Name",
          "enter_middle_name":"Enter Middle Name",
      "enter_last_name":"Enter Last Name",
