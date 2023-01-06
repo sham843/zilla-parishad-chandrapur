@@ -53,15 +53,9 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_designation' | translate}}</mat-label>
-            <input matInput
-           aria-label="State"
-           [matAutocomplete]="auto"
-           [formControl]="searchdesignationLvl">
-           <mat-autocomplete optionActivated #auto="matAutocomplete">
-            <!-- <mat-select [formControl]="searchdesignationLvl"> -->
-              <mat-option *ngFor="let desigLevels of filteredStates | async" [value]="desigLevels.desingationLevel" (click)="getDesignationLevelId(desigLevels.id)">{{desigLevels.desingationLevel}}</mat-option>
-            <!-- </mat-select> -->
-          </mat-autocomplete>
+            <mat-select [formControl]="searchdesignationLvl">
+              <mat-option *ngFor="let desigLevels of desigantionLevelArray" [value]="desigLevels.id">{{desigLevels.desingationLevel}}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
