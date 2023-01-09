@@ -263,6 +263,7 @@ export class RegisterSchoolComponent {
       schoolLocationId: 1,
       districtId: formData.districtId,
       talukaId: this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? formData.talukaId : '',
+      
       centerId: this.levelId == 4 || this.levelId == 5 ? formData.centerId : '',
     });
   }
