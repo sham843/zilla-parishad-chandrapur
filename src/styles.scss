@@ -204,9 +204,6 @@ a.text-main,
   padding: 10px 15px;
   font-size: 0.85rem;
 }
-a {
-  text-decoration: none!important;
-}
 .mat-mdc-snack-bar-container {
   background: #333333 !important;
 }
@@ -263,7 +260,7 @@ a {
 .profile-image {
   width: 158px;
   height: 158px;
-  border-radius: 50%;
+  border-radius: 17px;
   object-fit: cover;
   object-position: middle;
 }
@@ -271,7 +268,7 @@ a {
 .profile-buttons {
   position: absolute;
   bottom: 0px;
-  right: 20px;
+  right: 0px;
 }
 
 .profile-buttons .btn {
