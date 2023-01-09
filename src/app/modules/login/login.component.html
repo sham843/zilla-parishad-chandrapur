@@ -17,7 +17,7 @@
                     <div class="row gx-1">
                         <div class="col-sm-12 col-12 form-container">
                             <div class="mb-4 text-center">
-                                <h4 class="text-main fw-bold">Login</h4>
+                                <h4 class="text-main fw-bold">{{'login.login'|translate}}</h4>
                             </div>
                             <div class="mb-2">
                                 <mat-form-field appearance="outline" class="w-100">
@@ -38,9 +38,9 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>key</mat-icon>
                                     <mat-label>{{'login.enter_password'|translate}}</mat-label>
-                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{''|translate}}" formControlName="password">
+                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{''|translate}}" formControlName="password" maxlength="15">
                                     <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
-                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?'Show':'Hide'">
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?(this.language=='Marathi'?'दाखवा':'Show'):(this.language=='Marathi'?'लपवा':'Hide')">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                     <mat-error *ngIf="loginFormControls.password.errors">
@@ -48,7 +48,7 @@
                                         <span class="text-danger"
                                             *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">
                                         {{'login.password_format'|translate}}</span>
-                                    </mat-error> 
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
