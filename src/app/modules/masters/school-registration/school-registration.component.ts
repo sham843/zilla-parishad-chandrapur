@@ -33,6 +33,7 @@ export class SchoolRegistrationComponent {
   subscription!: Subscription;
   loginData: any;
   levelId!: number;
+  highLightRowFlag:boolean=true;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -150,16 +151,19 @@ export class SchoolRegistrationComponent {
   }
 
   setTableData() {
+    this.highLightRowFlag=true;
     let displayedColumns = ['srNo','udiseCode', 'schoolName', 'center', 'taluka', 'action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'यूडीआयएसइ कोड','शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.','Udise Code','School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
+      highlightedrow:true,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders
     };
+    this.highLightRowFlag?tableData.highlightedrow=true:tableData.highlightedrow=false,
     this.apiService.tableData.next(tableData);
   }
   excelDownload() {
@@ -197,6 +201,8 @@ export class SchoolRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'post' || result == 'put' ? this.getTableData() : '';
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
 
@@ -237,6 +243,8 @@ export class SchoolRegistrationComponent {
           }
         })
       }
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
 
