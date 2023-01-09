@@ -309,6 +309,11 @@
       },
       "performance_indicators":{
         "English_Language_Level":"English Language Level",
+        "performance_indicators":"Performance Indicators",
+        "add_assesment":"Add Assesment",
+        "update_assesment":"Update Assesment",
+        "add_class":"Add Class",
+        "select_all_classes":"Select All Classes",
         "Add_Level_Model":{
             "add_english_level":"Add English Level",
             "add_marathi_level":"Add Marathi Level",

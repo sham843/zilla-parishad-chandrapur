@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-flex justify-content-between align-items-center w-100">
-            <h6 class="text-main mb-0 fw-bold">Add Class </h6>
+            <h6 class="text-main mb-0 fw-bold">{{'performance_indicators.add_class' |translate}}</h6>
             <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
                 <mat-icon>
                     close
@@ -46,7 +46,7 @@
     <mat-card-footer class="card-footer">
         <div class="d-flex justify-content-end gap-2">
             <!-- <button mat-stroked-button class="btn-second">Clear</button> -->
-            <button mat-stroked-button class="btn-main" type="submit" (click)="onSubmit()">Add Class</button>
+            <button mat-stroked-button class="btn-main" type="submit" (click)="onSubmit()">{{'performance_indicators.add_class' |translate}}</button>
         </div>
     </mat-card-footer>
 </mat-card>

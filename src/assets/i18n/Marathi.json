@@ -311,6 +311,11 @@
       },
       "performance_indicators":{
         "English_Language_Level":"इंग्रजी भाषा स्तर",
+        "performance_indicators":"कामगिरी निर्देशक",
+            "add_assesment":"मूल्यांकन जोडा",
+            "add_class":"वर्ग जोडा",
+            "select_all_classes":"सर्व वर्ग निवडा",
+            "update_assesment":"मूल्यांकन अद्यतनित करा",
         "Add_Level_Model":{
             "add_english_level":"इंग्रजी पातळी जोडा",
             "add_marathi_level":"मराठी पातळी जोडा",

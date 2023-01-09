@@ -126,10 +126,10 @@ export class HeaderComponent {
       width: '850px',
       disableClose: true,
       data:{
-        cardTitle: lang=='mr-IN' ?'माझे प्रोफाइल':'My Profile',
-        successBtnText: lang=='mr-IN' ? 'प्रोफाइल बदला' : 'Update Profile',
+        cardTitle: lang=='Marathi' ?'माझे प्रोफाइल':'My Profile',
+        successBtnText: lang=='Marathi' ? 'प्रोफाइल बदला' : 'Update Profile',
         flag:'profile',
-        cancelBtnText:lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+        cancelBtnText:lang=='Marathi' ? 'रद्द करा' : 'Cancel',
       }
     })
     dialog.afterClosed().subscribe((res:any) => {
