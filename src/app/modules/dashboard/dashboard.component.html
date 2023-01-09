@@ -213,7 +213,7 @@
                             <div class="d-flex">
                                 <div *ngFor="let barchart of barchartOptions?.series; let i = index">
                                     <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
-                                    <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
+                                    <apx-chart [series]="barchart" [chart]="barchartOptions?.chart" (click)="redToStuProfile('subject',getAssesmentData[i].subjectId)"
                                         [plotOptions]="barchartOptions?.plotOptions"
                                         [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
                                         [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
@@ -254,19 +254,26 @@
                         <tr>
                             <th scope="col">{{'common.Sr.no.' |translate}}</th>
                             <!-- <th scope="col">{{topFilterForm.value.talukaId ? Taluka : topFilterForm.value.talukaId &&topFilterForm.value.talukaId : 'Kendra':''}}</th> -->
-                            <th scope="col">{{assLabelName}}
+                            <th scope="col">{{setName(assLabelName)}}
                             </th>
                             <th scope="col" *ngIf="assLabelName=='Student Name'">Standard</th> 
-                            <th scope="col">Current Status</th>
-                            <th scope="col">Total Students</th>
-                            <th scope="col">Evaluated</th>
-                            <th scope="col">Pending Assessment</th>
+                            <th scope="col">{{'dashboard.current_status' | translate}}</th>
+                            <th scope="col">{{'dashboard.total_students' | translate}}</th>
+                            <th scope="col">{{'dashboard.evaluated' | translate}}</th>
+                            <th scope="col">{{'dashboard.pending_assessment' | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let res of talukaWiseAssData">
                             <td scope="row">{{res?.srNo}}</td>
-                            <td scope="row">{{res?.textValue}}</td>
+                            <td scope="row">
+                                <ng-container *ngIf="assLabelName!='Student Name'; else elseBlock;">
+                                {{res?.textValue}}
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    <a (click)="redToStuProfile('studentId',res?.sourceId)">{{res?.textValue}}</a>
+                                </ng-template>
+                            </td>
                             <td scope="row"  *ngIf="assLabelName=='Student Name'">{{res?.standardName}}</td>
                             <td class="w-50">
                                 <div class="progress">
