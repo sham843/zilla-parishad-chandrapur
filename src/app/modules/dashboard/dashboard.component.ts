@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { TranslateService } from '@ngx-translate/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -49,7 +50,7 @@ export class DashboardComponent {
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
-    private errors: ErrorsService,
+    private errors: ErrorsService,private spiner:NgxSpinnerService,
     private webStorage: WebStorageService,
     private commonMethods: CommonMethodsService,
     private fb: FormBuilder, private master: MasterService,
@@ -71,7 +72,7 @@ export class DashboardComponent {
   ngAfterViewInit() {
     this.language = sessionStorage.getItem('language');
     this.showSvgMap(this.commonMethods.mapRegions());
-    this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? '' : this.clickOnSvgMap();
+    // this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? '' : this.clickOnSvgMap();
     this.getTaluka();
 
   }
@@ -132,7 +133,7 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
+          this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : this.clickOnSvgMap();
           this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? (this.cardCountData(), this.getKendra()) : '';
 
         }
@@ -590,13 +591,14 @@ export class DashboardComponent {
   }
 
   clickOnSvgMap(flag?: string) {
+    this.spiner.show();
     if (flag == 'select') {
       this.enbTalDropFlag ? $('#mapsvg path').addClass('disabledAll') : '';
       let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
       checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
     }
-
+    this.spiner.hide();
     $(document).on('click', ('#mapsvg  path,#mapsvg  text'), (e: any) => {
       this.clearFilterForm('taluka');
       let getClickedId = e.currentTarget;
