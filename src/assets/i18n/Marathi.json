@@ -39,7 +39,8 @@
         "update":"अद्यतन",
         "select_designation": "पदनाम निवडा",
         "download_excel":"एक्सेल डाउनलोड करा",
-        "assessment":"मूल्यांकन"
+        "assessment":"मूल्यांकन",
+        "copyright":"कॉपीराइट © २०२३ शिक्षण चंद्रपूर सर्व हक्क राखीव"
     },
     "dashboard": {
         "dashboard": "मुख्यपृष्ठ",
@@ -224,7 +225,7 @@
         "please_enter_valid_designation_name": "कृपया वैध पदनाम प्रविष्ट करा",
         "do_you_want_to_delete_selected_designation_record?": "तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
         "linked_to": "संलग्न",
-        "register_designation":"नोंदणी पदनाम",
+        "register_designation":"पदनाम नोंदणी",
         "update_designation":"पदनाम अद्यतनित करा",
         "designation_master":"पदनाम मास्टर"
     },
