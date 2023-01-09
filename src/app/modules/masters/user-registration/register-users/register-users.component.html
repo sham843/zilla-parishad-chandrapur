@@ -8,186 +8,212 @@
         </div>
     </mat-card-header>
     <form [formGroup]="userRegistrationForm" #formDirective="ngForm">
-    <mat-card-content class="card-body">
-       <ng-container *ngIf="this.data?.flag=='profile'">
-       <div class="text-center">
-        <div class="upload-btn-wrapper">
-            <img *ngIf="!profilePhoto" src="assets/images/user.png" alt="profile-img" width="100" class="profile-image">
-            <img *ngIf="profilePhoto" src="{{profilePhoto}}" alt="profile-img" width="100" class="profile-image">
+        <mat-card-content class="card-body">
 
-            <div class="profile-buttons">
-                <input type="file" #profileUpload name="myfile" accept=".jpg,.jpeg,.png"
-                style="display:none" (change)="profilePhotoMethod($event)"/>
-               <ng-container *ngIf="!profilePhoto">
-                <button type="button" class="btn bg-light text-primary" (click)="profileUpload.click()">
-                    <i class='bx bx-plus'></i>
-                </button>
-               </ng-container>
-               <ng-container *ngIf="profilePhoto">
-                <button type="button" class="border border-0 btn bg-light text-danger" (click)="clearProfile()">
-                    <i class='bx bx-trash'></i>
-                </button>
-               </ng-container>
-            </div>
-        </div>
-       </div>
-    </ng-container>
-        <div class="row mb-3">
-                <div class="col-sm-4" *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
-                        <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
-                        <mat-select formControlName="userTypeId"
-                            (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);clearDropdown('userType')">
-                            <mat-option *ngFor="let type of userTypeArr"
-                                [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                    <div class="col-sm-4" *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
-                            <mat-label>{{'user_Registration.level' |translate}}</mat-label>
-                            <mat-select formControlName="designationLevelId"
-                                (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);this.addRemoveValidation();clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
-                                <mat-option *ngFor="let level of userLevelArr"
-                                    [value]="level.id">{{level.desingationLevel}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
-                            <mat-label>{{'common.designation' |translate}}</mat-label>
-                            <mat-select formControlName="designationId">
-                                <mat-option *ngFor="let designation of designationArr"
-                                    [value]="designation.id">{{designation.desingationTypes}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId==4">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.data.flag=='profile'">
-                            <mat-label>{{'common.agency_name' |translate}}</mat-label>
-                            <mat-select formControlName="agencyId">
-                                <mat-option *ngFor="let agency of agencyArr"
-                                    [value]="agency.id">{{agency.agencyName}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="userRegistrationForm.value.districtId || this.data.flag=='profile'">
-                        <mat-label>{{'common.district' |translate}}</mat-label>
-                        <mat-select formControlName="districtId"
-                            (selectionChange)="clearDropdown('district')"
-                           >
-                            <mat-option *ngFor="let dist of districtArr"
-                                [value]="dist.id">{{dist.district}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <ng-container *ngIf="userRegistrationForm.value.designationLevelId!=2">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==3 || levelId==4 || levelId==5 ||this.data.flag=='profile'">
-                            <mat-label>{{'common.taluka' |translate}}</mat-label>
-                            <mat-select formControlName="talukaId"
-                                (selectionChange)="this.levelId==2 ||this.levelId==1?this.getKendra(userRegistrationForm.value.talukaId):'';clearDropdown('taluka')">
-                                <mat-option *ngFor="let taluka of talukaArr"
-                                    [value]="taluka.id">{{taluka.taluka}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="(levelId==4 || levelId==5 ||this.data.flag=='profile')">
-                            <mat-label>{{'common.kendra' |translate}}</mat-label>
-                            <mat-select formControlName="centerId"
-                                (selectionChange)="(this.levelId==1 || this.levelId==2 || this.levelId==3) && userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
-                                <mat-option *ngFor="let kendra of kendraArr"
-                                    [value]="kendra.id">{{kendra.center}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
-                            <mat-label>{{'common.school' |translate}}</mat-label>
-                            <!-- <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto"> -->
-                            <mat-select formControlName="schoolId" (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
-                                <!-- <mat-autocomplete  #auto="matAutocomplete"> -->
-                                    <mat-option *ngFor="let school of schoolArr"
-                                    [value]="school.id">{{school.schoolName}}</mat-option>
-                                  <!-- </mat-autocomplete> -->
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
-                        <div class="col-sm-4" *ngIf="this.data.flag!='profile'">
-                            <mat-form-field  appearance="outline" class="w-100">
-                                <mat-label>{{'user_Registration.class' |translate}}</mat-label>
-                                <mat-select formControlName="standardModels" multiple (selectionChange)="clearDropdown('class')">
-                                  <mat-option *ngFor="let class of classArr" [value]="class.id">{{class.standard}}</mat-option>
-                                </mat-select>
-                              </mat-form-field>
+            <div class="row mb-3">
+                <div class="col-sm-auto">
+                    <ng-container *ngIf="this.data?.flag=='profile'">
+                        <div class="text-center">
+                            <div class="upload-btn-wrapper">
+                                <img *ngIf="!profilePhoto" src="assets/images/user.png" alt="profile-img" width="100"
+                                    class="profile-image">
+                                <img *ngIf="profilePhoto" src="{{profilePhoto}}" alt="profile-img" width="100"
+                                    class="profile-image">
+
+                                <div class="profile-buttons">
+                                    <input type="file" #profileUpload name="myfile" accept=".jpg,.jpeg,.png"
+                                        style="display:none" (change)="profilePhotoMethod($event)" />
+                                    <ng-container *ngIf="!profilePhoto">
+                                        <button type="button" class="btn bg-light text-primary"
+                                            (click)="profileUpload.click()">
+                                            <i class='bx bx-plus'></i>
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf="profilePhoto">
+                                        <button type="button" class="border border-0 btn bg-light text-danger"
+                                            (click)="clearProfile()">
+                                            <i class='bx bx-trash'></i>
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="userRegistrationForm.value.userTypeId==3 && this.data.flag!='profile'">
-                        <div class="col-sm-4">
-                            <mat-form-field  appearance="outline" class="w-100">
-                                <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
-                                <mat-select formControlName="subjectModels" multiple>
-                                    <mat-option *ngFor="let subject of subjectArr" [value]="subject.id">{{subject.subject}}</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                        </div>
-                    </ng-container>
-                    <div class="col-sm-4">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'common.name' |translate}}</mat-label>
-                            <input matInput placeholder="{{'' |translate}}"
-                                formControlName="name" (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"
-                                [value]="userRegistrationForm.get('name')?.value | titlecase" maxlength="50">
-                            <mat-error *ngIf="f['name'].errors">
-                                <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
-                                  {{'user_Registration.Please_enter_valid_name' |translate}}
-                                </span>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.mobile_number' |translate}}</mat-label>
-                        <input matInput placeholder="{{'' |translate}}"
-                            formControlName="mobileNo"
-                            (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" maxlength="10">
-                        <mat-error *ngIf="f['mobileNo'].errors">
-                            <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
-                                {{'common.please_enter_valid_contact_number' |translate}}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
                 </div>
-                <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.email' |translate}}</mat-label>
-                        <input matInput placeholder="{{'' |translate}}"
-                            formControlName="emailId"
-                            (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
-                        <mat-error *ngIf="f['emailId'].errors">
-                            <span class="text-danger" *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
-                              {{'agency.please_enter_valid_emailId' |translate}}
-                            </span>
-                        </mat-error>
-                    </mat-form-field>
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col-sm-6"
+                            *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
+                            <mat-form-field appearance="outline" class="w-100"
+                                [class.disabled-contenct]="this.data.flag=='profile'">
+                                <mat-label>{{'user_Registration.user_type' |translate}}</mat-label>
+                                <mat-select formControlName="userTypeId"
+                                    (selectionChange)="getUserLevel(userRegistrationForm.value.userTypeId);clearDropdown('userType')">
+                                    <mat-option *ngFor="let type of userTypeArr"
+                                        [value]="type.userTypeId">{{type.userTypeName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6"
+                            *ngIf="this.updatedData?.designationLevelId!=1 && this.data.flag!='profile'">
+                            <mat-form-field appearance="outline" class="w-100"
+                                [class.disabled-contenct]="this.data.flag=='profile'">
+                                <mat-label>{{'user_Registration.level' |translate}}</mat-label>
+                                <mat-select formControlName="designationLevelId"
+                                    (selectionChange)="getDesignation(userRegistrationForm.value.designationLevelId);this.addRemoveValidation();clearDropdown('designationLevel');userRegistrationForm.value.designationLevelId==3 || userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5?getTaluka(userRegistrationForm.value.districtId):''">
+                                    <mat-option *ngFor="let level of userLevelArr"
+                                        [value]="level.id">{{level.desingationLevel}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <ng-container *ngIf="userRegistrationForm.value.userTypeId!=4">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100"
+                                    [class.disabled-contenct]="this.data.flag=='profile'">
+                                    <mat-label>{{'common.designation' |translate}}</mat-label>
+                                    <mat-select formControlName="designationId">
+                                        <mat-option *ngFor="let designation of designationArr"
+                                            [value]="designation.id">{{designation.desingationTypes}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userRegistrationForm.value.userTypeId==4">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100"
+                                    [class.disabled-contenct]="this.data.flag=='profile'">
+                                    <mat-label>{{'common.agency_name' |translate}}</mat-label>
+                                    <mat-select formControlName="agencyId">
+                                        <mat-option *ngFor="let agency of agencyArr"
+                                            [value]="agency.id">{{agency.agencyName}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100"
+                                [class.disabled-contenct]="userRegistrationForm.value.districtId || this.data.flag=='profile'">
+                                <mat-label>{{'common.district' |translate}}</mat-label>
+                                <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district')">
+                                    <mat-option *ngFor="let dist of districtArr"
+                                        [value]="dist.id">{{dist.district}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <ng-container *ngIf="userRegistrationForm.value.designationLevelId!=2">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100"
+                                    [class.disabled-contenct]="levelId==3 || levelId==4 || levelId==5 ||this.data.flag=='profile'">
+                                    <mat-label>{{'common.taluka' |translate}}</mat-label>
+                                    <mat-select formControlName="talukaId"
+                                        (selectionChange)="this.levelId==2 ||this.levelId==1?this.getKendra(userRegistrationForm.value.talukaId):'';clearDropdown('taluka')">
+                                        <mat-option *ngFor="let taluka of talukaArr"
+                                            [value]="taluka.id">{{taluka.taluka}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="userRegistrationForm.value.designationLevelId==4 || userRegistrationForm.value.designationLevelId==5">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100"
+                                    [class.disabled-contenct]="(levelId==4 || levelId==5 ||this.data.flag=='profile')">
+                                    <mat-label>{{'common.kendra' |translate}}</mat-label>
+                                    <mat-select formControlName="centerId"
+                                        (selectionChange)="(this.levelId==1 || this.levelId==2 || this.levelId==3) && userRegistrationForm.value.designationLevelId==5?this.getSchoolName(userRegistrationForm.value.centerId):'';clearDropdown('center')">
+                                        <mat-option *ngFor="let kendra of kendraArr"
+                                            [value]="kendra.id">{{kendra.center}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100"
+                                    [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
+                                    <mat-label>{{'common.school' |translate}}</mat-label>
+                                    <!-- <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto"> -->
+                                    <mat-select formControlName="schoolId"
+                                        (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
+                                        <!-- <mat-autocomplete  #auto="matAutocomplete"> -->
+                                        <mat-option *ngFor="let school of schoolArr"
+                                            [value]="school.id">{{school.schoolName}}</mat-option>
+                                        <!-- </mat-autocomplete> -->
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userRegistrationForm.value.userTypeId==3">
+                            <div class="col-sm-6" *ngIf="this.data.flag!='profile'">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>{{'user_Registration.class' |translate}}</mat-label>
+                                    <mat-select formControlName="standardModels" multiple
+                                        (selectionChange)="clearDropdown('class')">
+                                        <mat-option *ngFor="let class of classArr"
+                                            [value]="class.id">{{class.standard}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userRegistrationForm.value.userTypeId==3 && this.data.flag!='profile'">
+                            <div class="col-sm-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>{{'user_Registration.subjects' |translate}}</mat-label>
+                                    <mat-select formControlName="subjectModels" multiple>
+                                        <mat-option *ngFor="let subject of subjectArr"
+                                            [value]="subject.id">{{subject.subject}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>{{'common.name' |translate}}</mat-label>
+                                <input matInput placeholder="{{'' |translate}}" formControlName="name"
+                                    (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"
+                                    [value]="userRegistrationForm.get('name')?.value | titlecase" maxlength="50">
+                                <mat-error *ngIf="f['name'].errors">
+                                    <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
+                                        {{'user_Registration.Please_enter_valid_name' |translate}}
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>{{'common.mobile_number' |translate}}</mat-label>
+                                <input matInput placeholder="{{'' |translate}}" formControlName="mobileNo"
+                                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)"
+                                    maxlength="10">
+                                <mat-error *ngIf="f['mobileNo'].errors">
+                                    <span class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">
+                                        {{'common.please_enter_valid_contact_number' |translate}}
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>{{'common.email' |translate}}</mat-label>
+                                <input matInput placeholder="{{'' |translate}}" formControlName="emailId"
+                                    (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
+                                <mat-error *ngIf="f['emailId'].errors">
+                                    <span class="text-danger"
+                                        *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">
+                                        {{'agency.please_enter_valid_emailId' |translate}}
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex justify-content-end align-items-center w-100">
-                <button mat-stroked-button type="button" class="btn-second me-2" (click)="clearUserForm(formDirective)">{{'common.clear' | translate}}</button>
-                <button mat-stroked-button type="submit" class="btn-main" (click)="registerUser(formDirective)">{{this.data?.successBtnText}}</button>
+                <button mat-stroked-button type="button" class="btn-second me-2"
+                    (click)="clearUserForm(formDirective)">{{'common.clear' | translate}}</button>
+                <button mat-stroked-button type="submit" class="btn-main"
+                    (click)="registerUser(formDirective)">{{this.data?.successBtnText}}</button>
             </div>
-    </mat-card-content>
-</form>
+        </mat-card-content>
+    </form>
 </mat-card>
