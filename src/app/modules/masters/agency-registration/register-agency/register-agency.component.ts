@@ -55,7 +55,7 @@ export class RegisterAgencyComponent {
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],
       districtId: [this.data.obj?this.data.obj.districtId:this.apiService.disId, [Validators.required]],
       talukaId: [this.data.obj?this.data.obj.talukaId:0],
-      contactNo: [this.data.obj?this.data.obj.contactNo:'',Validators.pattern(this.validation.mobile_No)],
+      contactNo: [this.data.obj?this.data.obj.contactNo:'',[Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
       address: [this.data.obj?this.data.obj.address:''],
     })
@@ -106,7 +106,7 @@ export class RegisterAgencyComponent {
     this.getAgencyControl();
   }
   contactNo(){
-    this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(' '):'';
+    this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(''):'';
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();

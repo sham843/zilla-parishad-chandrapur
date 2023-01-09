@@ -55,7 +55,11 @@
         "meaning_of_english_words":"Meaning of English words",
         "meaning_of_english_sentence":"Meaning of English Sentence",
         "sel_no":"Selected Number",
-        "taluka":"Taluka"
+        "taluka":"Taluka",
+        "current_status":"Current Status",
+        "total_students":"Total Students",
+        "evaluated":"Evaluated",
+        "pending_assessment":"Pending Assessment"
     },
     "student_profile": {
         "student_profile":"Student Profile",

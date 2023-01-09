@@ -42,12 +42,14 @@ export class HeaderComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
     })
+    this.darkClassName=sessionStorage.getItem('theme');
+    this.webStorage.setTheme(this.darkClassName);
     this.profilePhoto=this.loginData.profilePhoto;
   }
 
   changeTheme(darkMode: any) {
     this.className =darkMode == 'light'? (this.darkClassName = 'lightMode'): (this.darkClassName = 'darkMode');
-    this.webStorage.setTheme(this.darkClassName)
+    this.webStorage.setTheme(this.darkClassName);
     if (darkMode == 'light') {
       this.overlay.getContainerElement().classList.add('lightMode')
       this.overlay.getContainerElement().classList.remove('lightMode')
@@ -55,6 +57,7 @@ export class HeaderComponent {
       this.overlay.getContainerElement().classList.add('darkMode')
       this.overlay.getContainerElement().classList.remove('darkMode')
     }
+    sessionStorage.setItem('theme',this.darkClassName);
   }
 
   changeLanguage(lang: any) {

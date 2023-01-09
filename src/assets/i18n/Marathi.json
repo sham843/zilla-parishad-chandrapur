@@ -53,7 +53,11 @@
         "meaning_of_english_words":"इंग्रजी शब्दांचा अर्थ",
         "meaning_of_english_sentence":"इंग्रजी वाक्याचा अर्थ",
         "sel_no":"निवडलेली संख्या",
-        "taluka":"तालुका"
+        "taluka":"तालुका",
+        "current_status":"वर्तमान स्थिती",
+        "total_students":"एकूण विद्यार्थी",
+        "evaluated":"मूल्यांकन केले",
+        "pending_assessment":"प्रलंबित मूल्यांकन"
     },
     "student_profile": {
         "student_profile":"विद्यार्थी प्रोफाइल ",

@@ -307,6 +307,8 @@ export class DashboardComponent {
       }, (error: any) => {
         this.errors.handelError(error.status);
       })
+    }else{
+      this.getAssesmentData = [], this.talukaWiseAssData = []
     }
   }
 
