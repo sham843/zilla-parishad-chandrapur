@@ -197,7 +197,7 @@
                                     <th *ngFor="let surveyedData of getSurveyedData; let i = index;">
                                         <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
                                             (change)="checkBoxChecked($event, surveyedData);">
-                                        {{surveyedData?.text ? surveyedData?.text : '-'}}
+                                            {{language=="Marathi"?surveyedData?.text_m: surveyedData?.text ? surveyedData?.text:'-'}}
                                     </th>
                                 </tr>
                             </thead>
@@ -237,12 +237,12 @@
             <mat-card-header class="card-header pb-0">
                 <div class="d-flex align-items-center justify-content-between w-100">
                     <h6 class="mb-0">{{'dashboard.taluka_wise_assessment' |translate}}</h6>
-                    <div [formGroup]="topFilterForm">
-                        <mat-form-field appearance="outline" class="w-100">
+                    <div [formGroup]="topFilterForm"  [class.d-hidden]="!talukaWiseAssData?.length">
+                        <mat-form-field appearance="outline" class="w-100" >
                             <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
-                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()" [disabled]="!getAssesmentData?.length">
+                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
-                                    [value]="subjects?.id">{{!getAssesmentData?.length ? 'Select Subject' : subjects?.subject}}</mat-option>
+                                    [value]="subjects?.id">{{subjects?.subject}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -276,12 +276,14 @@
                             </td>
                             <td scope="row"  *ngIf="assLabelName=='Student Name'">{{res?.standardName}}</td>
                             <td class="w-50">
+
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" 
+                                    <div class="progress-bar" role="progressbar" 
                                         *ngFor="let pro of res?.assesmentDetails; let j = index"
-                                        [style.width]="pro?.assesmentCalculationValue+'%'" bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
+                                        [style.width]="pro?.assesmentCalculationValue+'%'" 
                                         [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
-                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                                        data-bs-toggle="tooltip" title="60%" data-bs-html="true" [attr.data-bs-title]="pro?.assessmentParamenterName">
                                         <span>{{pro?.assesmentCalculationValue+'%'}}</span>    
                                     </div>
                                 </div>

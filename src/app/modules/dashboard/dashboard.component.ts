@@ -10,6 +10,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 declare var $: any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ declare var $: any;
 })
 export class DashboardComponent {
   topFilterForm!: FormGroup;
-  language!: string;
+  language!: any;
   cardInfoData!: any;
   centerArray = new Array();
   talukaArray = new Array();
@@ -60,7 +61,6 @@ export class DashboardComponent {
 
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
-
     });
     this.mainFilterForm();
     this.educationYear();
@@ -69,9 +69,18 @@ export class DashboardComponent {
   }
 
   ngAfterViewInit() {
+    this.language = sessionStorage.getItem('language');
     this.showSvgMap(this.commonMethods.mapRegions());
     this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? '' : this.clickOnSvgMap();
     this.getTaluka();
+
+  }
+
+  showToolTipOnPro(){
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
   }
 
   //#region ---------------------------------top bar filter and card data info function's start heare ---------------------------------------//
@@ -272,6 +281,10 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
+        this.getSurveyedData.map((ele:any, i:number)=>{
+            i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
+        })
+        console.log(this.getSurveyedData);
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
       }
       else {
@@ -498,7 +511,6 @@ export class DashboardComponent {
 
   showSvgMap(data: any) {
     this.graphInstance ? this.graphInstance.destroy() : '';
-
     this.graphInstance = $("#mapsvg").mapSvg({
       colors: {
         baseDefault: "#0042bd",
@@ -571,10 +583,10 @@ export class DashboardComponent {
         max: false
       },
       source: "assets/chandrapur_dist.svg",
+      // source: this.language == 'English'? "assets/chandrapur_dist.svg":"assets/chandrapur_dist_m.svg",
       title: "Maharashtra-bg_o",
       responsive: true
     });
-    // });
   }
 
   clickOnSvgMap(flag?: string) {
@@ -585,7 +597,7 @@ export class DashboardComponent {
       this.svgMapAddOrRemoveClass();
     }
 
-    $(document).on('click', '#mapsvg  path', (e: any) => {
+    $(document).on('click', ('#mapsvg  path,#mapsvg  text'), (e: any) => {
       this.clearFilterForm('taluka');
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
@@ -613,6 +625,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
+        setTimeout(() => {this.showToolTipOnPro() }, 1000);
       }
       else {
         this.talukaWiseAssData = [];
