@@ -38,12 +38,13 @@ export class DashboardComponent {
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
   talukaWiseAssData: any;
-  progressBarcolors: any = ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'];
+  progressBarcolors = ['#FF0000','#F73A00','#FF5107','#E85906','#E86F06','#E7AD28','#F2B730','#FDDD3B','#FFE852','#F8FF5F','#F5FD3B','#E0FA3A','#D5EF2F','#A1F333','#83D516','#42FC3B','#28E022','#1DD316','#0DB007','#068F01'];
   loginData!: any;
   levelId!: number;
   enbTalDropFlag: boolean = false;
   enbCenterDropFlag: boolean = false;
   enbSchoolDropFlag: boolean = false;
+  assLabelName:string='Taluka';
 
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -139,6 +140,7 @@ export class DashboardComponent {
   }
 
   getKendra() {
+    this.assLabelName='Kendra';
     let formData = this.topFilterForm?.value;
     this.master.getAllCenter(formData.flag, formData.talukaId).subscribe({
       next: ((res: any) => {
@@ -159,6 +161,7 @@ export class DashboardComponent {
   }
 
   getSchools() {
+    this.assLabelName='School';
     let filterFormData = this.topFilterForm.value;
     let str = `${filterFormData.flag}&TalukaId=${filterFormData.talukaId}&CenterId=${filterFormData.kendraId}`
     this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSchoolByCriteria?flag_lang=' + str, false, false, false, 'baseUrl');
@@ -387,6 +390,7 @@ export class DashboardComponent {
 
   getBarChart() {
     let seriesData: any[] = [];
+    console.log(this.getAssesmentData);
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
@@ -483,7 +487,7 @@ export class DashboardComponent {
           height: 12,
           strokeWidth: 0,
           strokeColor: '#fff',
-          fillColors: ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'],
+          fillColors: this.progressBarcolors,
         }
       }
     };
