@@ -13,6 +13,7 @@ import { ErrorsService } from '../services/errors.service';
 import { WebStorageService } from '../services/web-storage.service';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { ValidationService } from '../services/validation.service';
 
 @Component({
   selector: 'app-change-password',
@@ -37,7 +38,8 @@ export class ChangePasswordComponent {
     private common:CommonMethodsService,
     private webStorage:WebStorageService,
     private errors:ErrorsService,
-    private spinner:NgxSpinnerService) {
+    private spinner:NgxSpinnerService,
+    public validation:ValidationService) {
     this.dialogData = this.data
   }
   ngOnInit(){
