@@ -40,7 +40,7 @@
                 <mat-select formControlName="kendraId"
                     [disabled]="topFilterForm.value.talukaId==0 ? true : enbCenterDropFlag ? true: false"
                     (selectionChange)="clearFilterForm('kendra');getSchools();cardCountData();getDynamicDetails();">
-                    <mat-option value="0">All Kendra</mat-option>
+                    <mat-option value="0" *ngIf="centerArray.length">All Kendra</mat-option>
                     <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                         {{cen.center}}
                     </mat-option>
@@ -52,7 +52,7 @@
                 <mat-label>{{'common.school' |translate}}</mat-label>
                 <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId || enbSchoolDropFlag"
                     (selectionChange)="assLabelName='Student Name';cardCountData();getDynamicDetails();">
-                    <mat-option value="0">All School</mat-option>
+                    <mat-option value="0"  *ngIf="schoolArray.length">All School</mat-option>
                     <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
                         {{schools.schoolName}}
                     </mat-option>
@@ -194,9 +194,9 @@
                         <table class="table table-bordered inner-table">
                             <thead>
                                 <tr>
-                                    <th *ngFor="let surveyedData of getSurveyedData; let i = index">
+                                    <th *ngFor="let surveyedData of getSurveyedData; let i = index;">
                                         <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
-                                            (change)="checkBoxChecked($event, surveyedData)">
+                                            (change)="checkBoxChecked($event, surveyedData);">
                                         {{surveyedData?.text ? surveyedData?.text : '-'}}
                                     </th>
                                 </tr>
@@ -240,10 +240,9 @@
                     <div [formGroup]="topFilterForm">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
-                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()" >
-                                <!-- <mat-option value="0">All Subject</mat-option> -->
+                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()" [disabled]="!getAssesmentData?.length">
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
-                                    [value]="subjects?.id">{{subjects?.subject}}</mat-option>
+                                    [value]="subjects?.id">{{!getAssesmentData?.length ? 'Select Subject' : subjects?.subject}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

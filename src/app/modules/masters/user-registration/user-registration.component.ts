@@ -153,7 +153,7 @@ setTableData(){     // table
         edit: true,
         delete: true,
       }
-        this.highlightRowFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
+      this.highlightRowFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
       this.apiService.tableData.next(this.tableData)
 }
 
@@ -183,11 +183,9 @@ setTableData(){     // table
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
         this.getAllUserData('editClose');
-        this.highlightRowFlag=false;
-      }else{
+      }
         this.highlightRowFlag=false;
         this.setTableData();
-      }
     })
   }
   //#region----------------------------------------------------------Delete modal start-------------------------------------------------------------

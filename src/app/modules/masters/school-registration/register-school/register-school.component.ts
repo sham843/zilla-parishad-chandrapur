@@ -27,11 +27,11 @@ export class RegisterSchoolComponent {
   fromClassArray = new Array();
   toClassArray = new Array();
   subscription!: Subscription;
-  showRedio:boolean=false;
-  loginData:any;
-  levelId!:number;
+  showRedio: boolean = false;
+  loginData: any;
+  levelId!: number;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
-  radioArray = [{id: 1, type:'Rural'}, {id: 2, type: 'Urban'}]
+  radioArray = [{ id: 1, type: 'Rural' }, { id: 2, type: 'Urban' }]
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -66,9 +66,9 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
-      districtId: [obj?.districtId ||  this.loginData.districtId, Validators.required],
-      talukaId: [obj?.talukaId || (this.levelId == 1|| this.levelId == 2 ? 0 : this.loginData.talukaId), Validators.required],
-      centerId: [obj?.centerId ||  (this.levelId == 1|| this.levelId == 2 ? 0 : this.loginData.centerId), Validators.required],
+      districtId: [obj?.districtId || this.loginData.districtId, Validators.required],
+      talukaId: [obj?.talukaId || (this.levelId == 1 || this.levelId == 2 ? 0 : this.loginData.talukaId), Validators.required],
+      centerId: [obj?.centerId || (this.levelId == 1 || this.levelId == 2 ? 0 : this.loginData.centerId), Validators.required],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || ''],
       g_GenderId: [obj?.g_GenderId || ''],
@@ -76,14 +76,14 @@ export class RegisterSchoolComponent {
       classTo: [obj?.classTo || '', Validators.required],
       udiseCode: [obj?.udiseCode || '', [Validators.required]],
       schoolLocationId: [obj?.schoolLocationId || 1, [Validators.required]],
-      schoolAddress: [obj?.schoolAddress || '', [Validators.required,Validators.maxLength(500)]],
+      schoolAddress: [obj?.schoolAddress || '', [Validators.required, Validators.maxLength(500)]],
     })
     this.getDistrict();
   }
 
   getDistrict() {
     let formData = this.registerForm.value.districtId;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -101,7 +101,7 @@ export class RegisterSchoolComponent {
 
   getTaluka() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang='+(this.service.translateLang?this.lang:'en') + '&DistrictId=' + formData.districtId, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang=' + (this.service.translateLang ? this.lang : 'en') + '&DistrictId=' + formData.districtId, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -120,7 +120,7 @@ export class RegisterSchoolComponent {
   getCenter() {
     this.centerArray = [];
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang='+(this.service.translateLang?this.lang:'en') + '&TalukaId=' + formData.talukaId, false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang=' + (this.service.translateLang ? this.lang : 'en') + '&TalukaId=' + formData.talukaId, false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -139,7 +139,7 @@ export class RegisterSchoolComponent {
 
   getSchoolCategory() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetSchoolCategory?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetSchoolCategory?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -157,7 +157,7 @@ export class RegisterSchoolComponent {
 
   getSchoolType() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolType?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolType?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -175,7 +175,7 @@ export class RegisterSchoolComponent {
 
   getGenderAllow() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolGender?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllSchoolGender?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -193,7 +193,7 @@ export class RegisterSchoolComponent {
 
   getFromClass() {
     let formData = this.registerForm.value;
-    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang='+(this.service.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.service.setHttp('get', 'zp_chandrapur/master/GetAllStandard?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.service.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
