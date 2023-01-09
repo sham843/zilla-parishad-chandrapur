@@ -13,13 +13,13 @@
                         <mat-icon>{{darkClassName=='darkMode'?'nights_stay':'light_mode'}}</mat-icon>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <button class="dropdown-item" (click)="changeTheme('light')">
+                        <button class="dropdown-item" (click)="changeTheme('light')" [class.active]="darkClassName!='darkMode'">
                             <div class="d-flex align-items-center">
                                 <mat-icon>light_mode</mat-icon>
                                 <span>Light Mode</span>
                             </div>
                         </button>
-                        <button class="dropdown-item" (click)="changeTheme('dark')">
+                        <button class="dropdown-item" (click)="changeTheme('dark')" [class.active]="darkClassName=='darkMode'">
                             <div class="d-flex align-items-center">
                                 <mat-icon>nights_stay</mat-icon>
                                 <span>Dark Mode</span>

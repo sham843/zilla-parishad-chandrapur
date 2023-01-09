@@ -1,21 +1,21 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Settings</li>
-        <li class="breadcrumb-item active" aria-current="page">Performance Indicators</li>
+        <li class="breadcrumb-item" aria-current="page">{{'page_right_access.settings' |translate}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{'performance_indicators.performance_indicators' |translate}}</li>
     </ol>
 </nav>
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
         <div class="d-lg-flex align-items-center justify-content-between w-100 d-block ">
-            <h6 class="text-main mb-3 mb-lg-0 fw-bold">Performance Indicators</h6>
+            <h6 class="text-main mb-3 mb-lg-0 fw-bold">{{'performance_indicators.performance_indicators' |translate}}</h6>
             <div class="d-flex gap-2 justify-content-between">
                 <button mat-flat-button class="btn-main" (click)="addUpdatelevel()">
                     <mat-icon>add</mat-icon>
-                    <span>Add Level</span>
+                    <span>{{'performance_indicators.add_assesment' |translate}}</span>
                 </button>
                 <button mat-flat-button class="btn-main" (click)="addclass()">
                     <mat-icon>add</mat-icon>
-                    <span>Add Class</span>
+                    <span>{{'performance_indicators.add_class' |translate}}</span>
                 </button>
             </div>
         </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="col-sm text-end">
                 <mat-checkbox class="example-margin" [formControl]="allcheckClass" [checked]="allcheckClass.value == 1"
-                    (change)="checkAllClass($event)">Select All Classes</mat-checkbox>
+                    (change)="checkAllClass($event)">{{'performance_indicators.select_all_classes' |translate}}</mat-checkbox>
             </div>
         </div>
     </mat-card-header>
@@ -85,7 +85,7 @@
         <div class="row w-100">
             <div class="col-sm-12 text-end">
                 <button mat-flat-button class="btn-main" (click)="onSubmitPI()">
-                    <span>Submit</span>
+                    <span>{{'common.submit' |translate}}</span>
                 </button>
             </div>
         </div>

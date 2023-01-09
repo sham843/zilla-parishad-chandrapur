@@ -311,13 +311,19 @@
       },
       "performance_indicators":{
         "English_Language_Level":"इंग्रजी भाषा स्तर",
+        "performance_indicators":"कामगिरी निर्देशक",
+            "add_assesment":"मूल्यांकन जोडा",
+            "add_class":"वर्ग जोडा",
+            "select_all_classes":"सर्व वर्ग निवडा",
+            "update_assesment":"मूल्यांकन अद्यतनित करा",
         "Add_Level_Model":{
             "add_english_level":"इंग्रजी पातळी जोडा",
             "add_marathi_level":"मराठी पातळी जोडा",
             "add_english_level_is_required":"इंग्रजी पातळी जोडा आवश्यक आहे.",
             "enter_valid_add_english_level":"वैध जोडा इंग्रजी स्तर प्रविष्ट करा",
             "add_marathi_level_is_required":"मराठी स्तर जोडणे आवश्यक आहे.",
-            "enter_valid_add_marathi_level":"वैध जोडा मराठी स्तर प्रविष्ट करा"
+            "enter_valid_add_marathi_level":"वैध जोडा मराठी स्तर प्रविष्ट करा",
+           "English_Language_Level":"कामगिरी निर्देशक"
         },
         "Add_Class_Model":{
             "marathi_language_level":"मराठी भाषेची पातळी",
