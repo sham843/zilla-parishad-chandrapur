@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -38,7 +38,7 @@ export class DashboardComponent {
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
   talukaWiseAssData: any;
-  progressBarcolors = ['#FF0000','#F73A00','#FF5107','#E85906','#E86F06','#E7AD28','#F2B730','#FDDD3B','#FFE852','#F8FF5F','#F5FD3B','#E0FA3A','#D5EF2F','#A1F333','#83D516','#42FC3B','#28E022','#1DD316','#0DB007','#068F01'];
+  progressBarcolors = ['#CB4B4B','#E76A63','#E98754','#EFB45B','#65C889'];
   loginData!: any;
   levelId!: number;
   enbTalDropFlag: boolean = false;
@@ -52,8 +52,7 @@ export class DashboardComponent {
     private webStorage: WebStorageService,
     private commonMethods: CommonMethodsService,
     private fb: FormBuilder, private master: MasterService,
-    public validation: ValidationService,
-    private router: Router) { }
+    public validation: ValidationService) { }
 
   ngOnInit() {
     this.loginData = this.webStorage.getLoginData();
@@ -124,7 +123,6 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          console.log(this.levelId);
           this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
           this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? (this.cardCountData(), this.getKendra()) : '';
 
@@ -400,7 +398,6 @@ export class DashboardComponent {
 
   getBarChart() {
     let seriesData: any[] = [];
-    console.log(this.getAssesmentData);
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
@@ -427,11 +424,6 @@ export class DashboardComponent {
         toolbar: {
           show: false
         },
-        events: {
-          dataPointSelection: () => {
-            this.topFilterForm.value.schoolId ? this.router.navigateByUrl('/student-profile/' + this.topFilterForm.value.schoolId) : '';
-          }
-        }
       },
       bar: {
         horizontal: true,
@@ -638,7 +630,33 @@ export class DashboardComponent {
     this.graphInstance.destroy();
   }
 
+  setName(label: string) {
+    let str!: string;
+    if (label == 'Taluka') {
+      str = this.language == 'English' || this.language == 'en' ? 'Taluka' : 'तालुका';
+    } else if (label == 'Kendra') {
+      str = this.language == 'English' || this.language == 'en' ? 'Kendra' : 'केंद्र';
+    }else if (label == 'School') {
+      str = this.language == 'English' || this.language == 'en' ? 'School' : 'शाळा';
+    } else if (label == 'Student Name') {
+      str = this.language == 'English' || this.language == 'en' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+    }
+    return str
+  }
 
+  redToStuProfile(lable:string,id:any){
+    let formValue =  this.topFilterForm.value;
+    let obj:any = {
+      kendraId: formValue.kendraId,
+      schoolId: formValue.schoolId,
+      stuId:  lable == 'studentId'? id : 0,//121
+      yearId:formValue.yearId,
+      talukaId:formValue.talukaId,
+      assesmentId:formValue.assesmentId,
+      subjectId: lable == 'studentId'? 0 : id
+    }
+    this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
+  }
 
 
 }
