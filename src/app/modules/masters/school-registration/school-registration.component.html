@@ -9,12 +9,13 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <h6 class="text-main mb-0 fw-bold">{{'school.school_list' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="{{'common.download_excel' | translate}}"
-            (click)="excelDownload()" [disabled]="!tableDataArray.length">
-            <mat-icon>
-              description
-            </mat-icon>
-          </button>
+        <button mat-flat-button class="bg-danger btn-icon text-white"
+          matTooltip="{{'common.download_excel' | translate}}" (click)="excelDownload()"
+          [disabled]="!tableDataArray.length">
+          <mat-icon>
+            description
+          </mat-icon>
+        </button>
         <button mat-flat-button class="btn-main" (click)="addSchoolData()">
           <mat-icon>add</mat-icon>
           <span>
@@ -32,7 +33,7 @@
             [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.Please_Select_Taluka' |translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getCenter();clearDropDrown('taluka')">
-              <mat-option [value]="0" >All Taluka</mat-option>
+              <mat-option [value]="0">All Taluka</mat-option>
               <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                 {{tal.taluka}}
               </mat-option>
@@ -65,7 +66,8 @@
         <div class="col-sm-auto">
           <button (click)="getTableData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
             |translate}}</button>
-          <button (click)="clearFilter()" mat-flat-button class="btn-second" type="button">{{'common.clear' | translate}}</button>
+          <button (click)="clearFilter()" mat-flat-button class="btn-second" type="button">{{'common.clear' |
+            translate}}</button>
         </div>
       </div>
     </mat-card-header>
