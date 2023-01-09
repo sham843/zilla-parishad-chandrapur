@@ -9,10 +9,10 @@ import { WebStorageService } from '../services/web-storage.service';
 export class SidebarComponent {
   loginPages = new Array();
   language:string='English';
+  
   constructor(private WebStorageService: WebStorageService) {
     let data: any = this.WebStorageService.getAllPageName();
     this.sideBarMenu(data);
-    console.log(this.WebStorageService.getLoginData());
   }
   ngOnInit(){
     this.WebStorageService.setLanguage.subscribe(res=>{
@@ -27,9 +27,9 @@ export class SidebarComponent {
         return ele;
       }
     })
-    items.forEach((item: any) => {
+    items.forEach((item: any) => { 
       let existing: any = this.loginPages.filter((v: any) => {
-        return v.pageNameView == item.pageNameView;
+        return v.pageNameView == item.pageNameView && v.m_PageNameView == item.m_PageNameView;
       });
       if (existing.length) {
         let existingIndex: any = this.loginPages.indexOf(existing[0]);
@@ -42,7 +42,6 @@ export class SidebarComponent {
         item.pageName = [item.pageName];
         item.m_PageName = [item.m_PageName];
         this.loginPages.push(item);
-        console.log("loginPages",this.loginPages)
       }
     });
   }

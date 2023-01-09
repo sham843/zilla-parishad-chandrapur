@@ -9,7 +9,6 @@
           <div class="iocn-link">
               <a>
                   <img src="{{pages.menuIcon}}"> 
-                  <!-- <span class="link_name">{{pages.pageNameView}}</span>  -->
               </a>
           </div>
           <ul class="sub-menu">
@@ -25,11 +24,10 @@
           <div class="iocn-link">
               <a>
                   <img src="{{pages.menuIcon}}">
-                  <!-- <span class="link_name">{{pages.pageNameView}}</span> -->
               </a>
           </div>
           <ul class="sub-menu">
-              <li><a class="link_name">{{pages.pageNameView}}</a></li>
+              <li><a class="link_name">{{language=='Marathi'?pages.m_PageNameView:pages.pageNameView}}</a></li>
               <li *ngFor="let page of pages.pageURL; let pageUrlIndex = index">
                 <a routerLinkActive="active" routerLink="/{{page}}" routerLinkActive="active">
                  <ng-container *ngIf="language!='Marathi'">
