@@ -33,7 +33,7 @@ export class SchoolRegistrationComponent {
   subscription!: Subscription;
   loginData: any;
   levelId!: number;
-  highLightRowFlag:boolean=true;
+  highLightRowFlag: boolean = true;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -71,7 +71,7 @@ export class SchoolRegistrationComponent {
   }
 
   getTaluka() {
-    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en'), this.apiService.disId).subscribe({
+    this.master.getAllTaluka((this.apiService.translateLang ? this.lang : 'en'), this.apiService.disId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
@@ -91,7 +91,7 @@ export class SchoolRegistrationComponent {
 
   getCenter() {
     let formData = this.filterForm.value.talukaId;
-    this.master.getAllCenter(this.apiService.translateLang?this.lang:'en', formData).subscribe({
+    this.master.getAllCenter(this.apiService.translateLang ? this.lang : 'en', formData).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
@@ -111,11 +111,11 @@ export class SchoolRegistrationComponent {
   clearFilter() {
     this.formGroupDirective.resetForm({
       talukaId: 0,
-      centerId:this.levelId == 4 || this.levelId == 5 ? this.filterForm.value.centerId: 0,
+      centerId: this.levelId == 4 || this.levelId == 5 ? this.filterForm.value.centerId : 0,
       schoolName: ''
     });
     this.pageNumber = 1
-    this.levelId == 1 || this.levelId == 2 ?'': this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
+    this.levelId == 1 || this.levelId == 2 ? '' : this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
     this.getTableData();
   }
 
@@ -128,7 +128,7 @@ export class SchoolRegistrationComponent {
     flag == 'filter' ? this.pageNumber = 1 : '';
     this.tableDataArray = [];
     let str = flag != 'excel' ? `pageno=${this.pageNumber}&pagesize=10` : `pageno=1&pagesize=${this.totalPages * 10}`;
-    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&textSearch=' + formValue.schoolName + '&lan='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/School/GetAll?' + str + '&TalukaId=' + formValue.talukaId + '&CenterId=' + formValue.centerId + '&textSearch=' + formValue.schoolName + '&lan=' + (this.apiService.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -141,7 +141,7 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        flag != 'excel' ? this.setTableData() : (this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),this.getTableData());
+        flag != 'excel' ? this.setTableData() : (this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column), this.getTableData());
       },
       error: ((err: any) => {
         this.spinner.hide();
@@ -151,30 +151,30 @@ export class SchoolRegistrationComponent {
   }
 
   setTableData() {
-    this.highLightRowFlag=true;
-    let displayedColumns = ['srNo','udiseCode', 'schoolName', 'center', 'taluka', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'यूडीआयएसइ कोड','शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.','Udise Code','School Name', 'Kendra', 'Taluka', 'Action']
+    this.highLightRowFlag = true;
+    let displayedColumns = ['srNo', 'udiseCode', 'schoolName', 'center', 'taluka', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'यूडीआयएसइ कोड', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.', 'Udise Code', 'School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
-      highlightedrow:true,
+      highlightedrow: true,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders
     };
-    this.highLightRowFlag?tableData.highlightedrow=true:tableData.highlightedrow=false,
-    this.apiService.tableData.next(tableData);
+    this.highLightRowFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false,
+      this.apiService.tableData.next(tableData);
   }
   excelDownload() {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
-    let header = this.lang == 'mr-IN' ? 
-      ['अनुक्रमणिका','आयडी', 'शाळेचे नाव', 'केंद्र', 'तालुका','शाळा श्रेणी','शाळेचा प्रकार','लिंग','पासून वर्ग','वर्गापर्यंत','शाळेचे स्थान','शाळेचा पत्ता'] 
-    : ['Sr.No.','Udise Code','School Name', 'Kendra', 'Taluka','School Category','School Type','Gender','Class From','Class TO','School Location','School Address'];
-      let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
-     ['srNo','udiseCode','schoolName', 'center', 'taluka','categoryName','schoolType','gender','classFrom','classTo','schoolLocation','schoolAddress'] : 
-     ['srNo','udiseCode','schoolName', 'center', 'taluka','categoryName','schoolType','gender','classFrom','classTo','schoolLocation','schoolAddress'];
+    let header = this.lang == 'mr-IN' ?
+      ['अनुक्रमणिका', 'आयडी', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'शाळा श्रेणी', 'शाळेचा प्रकार', 'लिंग', 'पासून वर्ग', 'वर्गापर्यंत', 'शाळेचे स्थान', 'शाळेचा पत्ता']
+    : ['Sr.No.', 'Udise Code', 'School Name', 'Kendra', 'Taluka', 'School Category', 'School Type', 'Gender', 'Class From', 'Class TO', 'School Location', 'School Address'];
+    let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
+      ['srNo', 'udiseCode', 'schoolName', 'center', 'taluka', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'] :
+      ['srNo', 'udiseCode', 'schoolName', 'center', 'taluka', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
@@ -201,13 +201,13 @@ export class SchoolRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'post' || result == 'put' ? this.getTableData() : '';
-      this.highLightRowFlag=false;
+      this.highLightRowFlag = false;
       this.setTableData();
     });
   }
 
   globalDialogOpen(delObj?: any) {
-    let dataObj = {                                           
+    let dataObj = {
       cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले शाळा रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected School Record?',
       p2: '',
@@ -227,9 +227,9 @@ export class SchoolRegistrationComponent {
           id: delObj.id,
           modifiedBy: 0,
           modifiedDate: new Date(),
-          lan:this.apiService.translateLang?this.lang:'en'
+          lan: this.apiService.translateLang ? this.lang : 'en'
         }
-        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=' +(this.apiService.translateLang?this.lang:'en'), false, deleteObj, false, 'baseUrl');
+        this.apiService.setHttp('delete', 'zp_chandrapur/School/Delete?lan=' + (this.apiService.translateLang ? this.lang : 'en'), false, deleteObj, false, 'baseUrl');
         this.apiService.getHttp().subscribe({
           next: ((res: any) => {
             if (res.statusCode == '200') {
@@ -243,7 +243,7 @@ export class SchoolRegistrationComponent {
           }
         })
       }
-      this.highLightRowFlag=false;
+      this.highLightRowFlag = false;
       this.setTableData();
     });
   }
