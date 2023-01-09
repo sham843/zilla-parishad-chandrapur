@@ -194,9 +194,9 @@
                         <table class="table table-bordered inner-table">
                             <thead>
                                 <tr>
-                                    <th *ngFor="let surveyedData of getSurveyedData; let i = index">
+                                    <th *ngFor="let surveyedData of getSurveyedData; let i = index;">
                                         <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
-                                            (change)="checkBoxChecked($event, surveyedData)">
+                                            (change)="checkBoxChecked($event, surveyedData);">
                                         {{surveyedData?.text ? surveyedData?.text : '-'}}
                                     </th>
                                 </tr>
