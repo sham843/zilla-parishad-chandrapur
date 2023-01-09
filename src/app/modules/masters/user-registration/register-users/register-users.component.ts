@@ -409,7 +409,7 @@ registerUser(formDirective?:any) {
    let obj=this.userRegistrationForm.value;
    delete obj.standardId;
    delete obj.subjectId
-   obj.profilePhoto=this.profilePhotoupd != 'assets/images/user.jpg' ? this.profilePhotoupd : '';
+   obj.profilePhoto=this.profilePhotoupd != 'assets/images/user.png' ? this.profilePhotoupd : '';
    obj.createdBy=this.data.obj?this.data.obj.createdBy:this.webStorage.getUserId(),
    obj.modifiedBy=this.data.obj?this.data.obj.modifiedBy : this.webStorage.getUserId(),
    obj.createdDate=this.data.obj?this.data.obj.createdDate:new Date(),
@@ -437,9 +437,9 @@ registerUser(formDirective?:any) {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.common.snackBar(res.statusMessage,0);
-        this.dialogRef.close('Yes');
+        this.onClick('Yes');
         formDirective.resetForm();
-        this.data.flag=='profile'?this.webStorage.setProfile(this.profilePhotoupd != 'assets/images/user.jpg' ? this.profilePhotoupd:''):'';
+        this.data.flag=='profile'?this.webStorage.setProfile(this.profilePhotoupd != 'assets/images/user.png' ? this.profilePhotoupd:''):'';
       }
       else{
         this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -451,6 +451,9 @@ registerUser(formDirective?:any) {
   }
   }
   //#endregion-----------------------------------------------add/update user method end-------------------------------------------------
+  onClick(flag:any){
+    this.dialogRef.close(flag);
+  }
 }
 
 

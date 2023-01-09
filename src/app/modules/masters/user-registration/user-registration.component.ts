@@ -27,6 +27,7 @@ export class UserRegistrationComponent {
   levelId!: number;
   excelDowobj:any;
   lang: string = '';
+  highlightRowFlag:boolean=true;
   userTypeArray = new Array();
   talukaArray = new Array();
   centerArray = new Array();
@@ -132,12 +133,14 @@ export class UserRegistrationComponent {
     }
 //#endregion------------------------------------------------get all user method end----------------------------------------------------------
 setTableData(){     // table
+  this.highlightRowFlag=true;
   let displayedColumns:any;
   this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
       let displayedheaders:any;
       this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No', 'Action']
       this.tableData = {
         pageNumber: this.pageNumber,
+        highlightedrow:true,
         img: '',
         blink: '',
         badge: '',
@@ -150,6 +153,7 @@ setTableData(){     // table
         edit: true,
         delete: true,
       }
+      this.highlightRowFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
       this.apiService.tableData.next(this.tableData)
 }
 
@@ -178,8 +182,10 @@ setTableData(){     // table
     })
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
-        this.getAllUserData();
+        this.getAllUserData('editClose');
       }
+        this.highlightRowFlag=false;
+        this.setTableData();
     })
   }
   //#region----------------------------------------------------------Delete modal start-------------------------------------------------------------
@@ -199,6 +205,11 @@ setTableData(){     // table
     dialog.afterClosed().subscribe((res) => {
       if (res == 'Yes') {
         this.removeUser(deleteObj)
+        this.highlightRowFlag=false;
+      }
+      else{
+        this.highlightRowFlag=false;
+        this.setTableData();
       }
     })
   }
@@ -241,6 +252,7 @@ setTableData(){     // table
       this.schoolArray=[];
       this.getAllUserData();this.getTaluka()
   }
+
   //#region---------------------------------------------------Start download pdf and excel------------------------------------------------
   excelDownload() {
     this.getAllUserData('excel');

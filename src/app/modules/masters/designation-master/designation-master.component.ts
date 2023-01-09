@@ -29,6 +29,7 @@ export class DesignationMasterComponent {
   userLoginDesignationLevelId!:number;
   designTreeViewArray: any;
   hideFlowChartDig :boolean = false
+  highLightRow :boolean = false
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
@@ -105,6 +106,7 @@ export class DesignationMasterComponent {
   }
 
   setTableData() {
+    this.highLightRow=true;
     let displayedColumns;
     ['srNo', 'designationName', 'designationLevelName', 'linkedToDesignationLevelName']
     this.lang == 'mr-IN' && this.apiService.translateLang? displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'linkedDesignationDetails', 'action'] : displayedColumns = ['srNo', 'designationName', 'designationLevelName', 'linkedDesignationDetails', 'action'];
@@ -112,11 +114,19 @@ export class DesignationMasterComponent {
     this.lang == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न', 'कृती'] : displayedheaders = ['Sr. No.', 'Designation Name', 'Designation Level', 'Linked to', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: this.tableDatasize > 10 ? true : false, isArray: "linkedDesignationDetails", nestedArray: 'linkedToDesignationName',
-      displayedColumns: displayedColumns, tableData: this.tableDataArray,
+      highlightedrow:true,
+      img: '',
+      blink: '',
+      badge: '',
+      isBlock: '', 
+      pagination: this.tableDatasize > 10 ? true : false, isArray: "linkedDesignationDetails",
+      nestedArray: 'linkedToDesignationName',
+      displayedColumns: displayedColumns, 
+      tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
     };
+    this.highLightRow?tableData.highlightedrow=true:tableData.highlightedrow=false,
     this.apiService.tableData.next(tableData);
   }
 
@@ -154,6 +164,8 @@ export class DesignationMasterComponent {
       } else if (result == false) {
         this.getTableData();
       }
+      this.highLightRow=false;
+      this.setTableData();
     });
   }
 
@@ -172,6 +184,7 @@ export class DesignationMasterComponent {
       disableClose: true,
       autoFocus: false
     })
+
     deleteDialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
         let designationId = obj.id;
@@ -189,6 +202,8 @@ export class DesignationMasterComponent {
           error: ((err: any) => { this.errors.handelError(err) })
         });
       }
+      this.highLightRow=false;
+      this.setTableData();
     })
   }
 
