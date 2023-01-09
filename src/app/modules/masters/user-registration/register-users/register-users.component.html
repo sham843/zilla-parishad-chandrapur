@@ -11,8 +11,8 @@
         <mat-card-content class="card-body">
 
             <div class="row mb-3">
-                <div class="col-sm-auto">
-                    <ng-container *ngIf="this.data?.flag=='profile'">
+                <div class="col-sm-auto" *ngIf="this.data?.flag=='profile'">
+                    <ng-container >
                         <div class="text-center">
                             <div class="upload-btn-wrapper">
                                 <img *ngIf="!profilePhoto" src="assets/images/user.png" alt="profile-img" width="100"

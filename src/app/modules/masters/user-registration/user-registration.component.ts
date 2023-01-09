@@ -170,7 +170,7 @@ setTableData(){     // table
   //----------------------------------------------------------Add update modal open------------------------------------------------------------
   registerusers(editObj?: any) {
     const dialog =this.dialog.open(RegisterUsersComponent, {
-      width: '850px',
+      width: '650px',
       disableClose: true,
       data:{
         cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अद्यतनित करा':'वापरकर्ता जोडा'):(editObj?'Update User':'Add User'),
