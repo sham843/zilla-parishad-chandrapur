@@ -49,9 +49,7 @@ export class RegisterSchoolComponent {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en');
     })
     this.loginData = this.webStorage.getLoginData();
- 
     this.levelId = this.loginData.designationLevelId;
-
     if (this.data) {
       this.editFlag = true;
       this.getFormData(this.data);
@@ -259,7 +257,6 @@ export class RegisterSchoolComponent {
   }
 
   clearForm() {
-    // this.showRedio = false;
     this.editFlag = false;
     let formData = this.registerForm.value;
     this.formDirective.resetForm({
@@ -268,7 +265,6 @@ export class RegisterSchoolComponent {
       talukaId: this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? formData.talukaId : '',
       centerId: this.levelId == 4 || this.levelId == 5 ? formData.centerId : '',
     });
-   
   }
 
   ngOnDestroy() {
