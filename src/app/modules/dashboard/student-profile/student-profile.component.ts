@@ -36,6 +36,8 @@ export class StudentProfileComponent {
   levelId: any;
   language: any;
 
+  getURLData:any;
+
   constructor(
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -45,14 +47,21 @@ export class StudentProfileComponent {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private master: MasterService,
-  ) { }
+  ) { 
+    let ReceiveDataSnapshot: any = this.route.snapshot.params['id'];
+    if (ReceiveDataSnapshot) {
+      ReceiveDataSnapshot = ReceiveDataSnapshot.split('.');
+      this.getURLData = { 'TalukaId': +ReceiveDataSnapshot[0], 'KendraId': +ReceiveDataSnapshot[1],'SchoolId': +ReceiveDataSnapshot[2],
+        'StandardId': +ReceiveDataSnapshot[3] ,'StudentId': +ReceiveDataSnapshot[4], 'SubjectId': +ReceiveDataSnapshot[5]}
+    }
+  }
 
   ngOnInit() {
     let loginData = this.webStorage.getLoginData();
     this.levelId = loginData.designationLevelId; // admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
 
-    let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
-    this.globalObj = JSON.parse(obj);
+    // let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
+    // this.globalObj = JSON.parse(obj);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
@@ -69,8 +78,8 @@ export class StudentProfileComponent {
     this.filterFrm = this.fb.group({
       talukaId:[0],
       kendraId: [0],
-      schoolId: [this.globalObj?.schId || 0],
-      standardId: [0],
+      schoolId: [0],
+      standardId: [10],
       searchText: [''],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
@@ -196,19 +205,21 @@ export class StudentProfileComponent {
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
-    let str = `?pageno=${this.pageNumber}&pagesize=10`
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetAll' + str + '&SchoolId=' + (formData?.schoolId) + '&standardid=' + (formData?.standardId) + '&searchText=' + (formData?.searchText), false, false, false, 'baseUrl');
+    let str = `&nopage=${this.pageNumber}`
+    let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + 0 + '&CenterId=' + 0 
+    + '&SchoolId=' + (formData?.schoolId) + '&Standardid=' + (formData?.standardId)+ '&subjectId=' + 1 + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
+    this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          this.tableDataArray = res.responseData;
-          this.studentDataById( this.tableDataArray[0].id)
-          this.tableDataArray?.map((ele: any) => {
-            ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
-          })
-          this.tableDatasize = res.responseData1?.pageCount;
-          this.totalPages = res.responseData1.totalPages;
+          this.tableDataArray = res.responseData.responseData1;
+          this.studentDataById(this.tableDataArray[0]?.studentId);
+          // this.tableDataArray?.map((ele: any) => {
+          //   ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
+          // })
+          this.tableDatasize = res.responseData.responseData2[0].pageCount;
+          this.totalPages = res.responseData.responseData2[0].totalPages;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -224,7 +235,7 @@ export class StudentProfileComponent {
   }
   setTableData() {
     let displayedColumns;
-    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'fullName', 'standard'] : ['saralId', 'fullName', 'standard']
+    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'marathiFullName', 'standardId'] : ['saralId', 'englishFullName', 'standardId']
     let displayedheaders;
     displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता'] : ['Saral ID', 'Name', 'Standard']
     let tableData = {
