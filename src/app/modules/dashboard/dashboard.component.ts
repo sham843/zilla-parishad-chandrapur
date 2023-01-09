@@ -583,7 +583,7 @@ export class DashboardComponent {
         min: 0,
         max: false
       },
-      source: "assets/chandrapur_dist.svg",
+      source: "assets/chandrapur_dist1.svg",
       // source: this.language == 'English'? "assets/chandrapur_dist.svg":"assets/chandrapur_dist_m.svg",
       title: "Maharashtra-bg_o",
       responsive: true
@@ -599,7 +599,7 @@ export class DashboardComponent {
       this.svgMapAddOrRemoveClass();
     }
     this.spiner.hide();
-    $(document).on('click', ('#mapsvg  path,#mapsvg  text'), (e: any) => {
+    $(document).on('click', ('#mapsvg  path'), (e: any) => {
       this.clearFilterForm('taluka');
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
