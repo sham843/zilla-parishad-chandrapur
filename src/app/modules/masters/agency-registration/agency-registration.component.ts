@@ -27,6 +27,7 @@ export class AgencyRegistrationComponent {
   language: any;
   pageSize: number = 10;
   excelDowobj!:any;
+  highLightFlag:boolean=true;
   subscription!: Subscription;
   constructor(
     public dialog: MatDialog,
@@ -75,13 +76,14 @@ export class AgencyRegistrationComponent {
   }
 
   setTableData() {
+    this.highLightFlag=true;
     let displayedColumns;
     this.language == 'Marathi' && this.apiService.translateLang ? displayedColumns = ['srNo', 'm_AgencyName', 'contactNo', 'emailId', 'action'] : displayedColumns = ['srNo', 'agencyName', 'contactNo', 'emailId', 'action']
     let displayedheaders;
     this.language == 'Marathi' ? displayedheaders = ['अनुक्रमांक', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी', 'कृती'] : displayedheaders = ['Sr. No.', 'NGO Name', 'Contact No', 'Email ID', 'Action']
     this.tableData = {
       pageNumber: this.pageNumber,
-      highlightedRow: '',
+      // highlightedRow:true,
       img: '',
       blink: '',
       badge: '',
@@ -94,7 +96,8 @@ export class AgencyRegistrationComponent {
       edit: true,
       delete: true
     }
-    this.apiService.tableData.next(this.tableData)
+    this.highLightFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
+    this.apiService.tableData.next(this.tableData);
   }
   childCompInfo(obj: any) {   //table method
     switch (obj.label) {
@@ -128,6 +131,8 @@ export class AgencyRegistrationComponent {
       if (res == 'Yes') {
         this.getAllAgencyData();
       }
+      this.highLightFlag=false;
+      this.setTableData();
     })
   }
   //----------------------------------------------------delete functionality---------------------------------------------------------
@@ -148,7 +153,8 @@ export class AgencyRegistrationComponent {
       if (res == 'Yes') {
         this.deleteAgency(obj);
       }
-
+      this.highLightFlag=false;
+      this.setTableData();
     })
   }
 

@@ -437,7 +437,7 @@ registerUser(formDirective?:any) {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == '200') {
         this.common.snackBar(res.statusMessage,0);
-        this.dialogRef.close('Yes');
+        this.onClick('Yes');
         formDirective.resetForm();
         this.data.flag=='profile'?this.webStorage.setProfile(this.profilePhotoupd != 'assets/images/user.png' ? this.profilePhotoupd:''):'';
       }
@@ -451,6 +451,9 @@ registerUser(formDirective?:any) {
   }
   }
   //#endregion-----------------------------------------------add/update user method end-------------------------------------------------
+  onClick(flag:any){
+    this.dialogRef.close(flag);
+  }
 }
 
 

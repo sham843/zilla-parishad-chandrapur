@@ -33,6 +33,7 @@ export class SchoolRegistrationComponent {
   subscription!: Subscription;
   loginData: any;
   levelId!: number;
+  highLightRowFlag:boolean=true;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   constructor(
@@ -51,11 +52,8 @@ export class SchoolRegistrationComponent {
   ngOnInit() {
     this.loginData = this.webStorage.getLoginData();
     this.levelId = this.loginData.designationLevelId;
-
     this.getFilterFormData();
-
     this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? '' : this.getTableData();
-
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res == 'Marathi' ? 'mr-IN' : 'en';
       this.setTableData();
@@ -110,7 +108,7 @@ export class SchoolRegistrationComponent {
     })
   }
 
-  clearFilter() {// admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
+  clearFilter() {
     this.formGroupDirective.resetForm({
       talukaId: 0,
       centerId:this.levelId == 4 || this.levelId == 5 ? this.filterForm.value.centerId: 0,
@@ -118,8 +116,7 @@ export class SchoolRegistrationComponent {
     });
     this.pageNumber = 1
     this.levelId == 1 || this.levelId == 2 ?'': this.filterForm.controls['talukaId'].setValue(this.loginData.talukaId);
-    // this.getCenter();
-    // this.getTableData();
+    this.getTableData();
   }
 
   //#endregion-----------------------------------Filter Form Data Ends--------------------------------------------------------------------
@@ -154,16 +151,19 @@ export class SchoolRegistrationComponent {
   }
 
   setTableData() {
+    this.highLightRowFlag=true;
     let displayedColumns = ['srNo','udiseCode', 'schoolName', 'center', 'taluka', 'action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'यूडीआयएसइ कोड','शाळेचे नाव', 'केंद्र', 'तालुका', 'कृती'] : ['Sr. No.','Udise Code','School Name', 'Kendra', 'Taluka', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
+      highlightedrow:true,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders
     };
+    this.highLightRowFlag?tableData.highlightedrow=true:tableData.highlightedrow=false,
     this.apiService.tableData.next(tableData);
   }
   excelDownload() {
@@ -172,7 +172,7 @@ export class SchoolRegistrationComponent {
     let header = this.lang == 'mr-IN' ? 
       ['अनुक्रमणिका','आयडी', 'शाळेचे नाव', 'केंद्र', 'तालुका','शाळा श्रेणी','शाळेचा प्रकार','लिंग','पासून वर्ग','वर्गापर्यंत','शाळेचे स्थान','शाळेचा पत्ता'] 
     : ['Sr.No.','Udise Code','School Name', 'Kendra', 'Taluka','School Category','School Type','Gender','Class From','Class TO','School Location','School Address'];
-    let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
+      let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
      ['srNo','udiseCode','schoolName', 'center', 'taluka','categoryName','schoolType','gender','classFrom','classTo','schoolLocation','schoolAddress'] : 
      ['srNo','udiseCode','schoolName', 'center', 'taluka','categoryName','schoolType','gender','classFrom','classTo','schoolLocation','schoolAddress'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
@@ -201,6 +201,8 @@ export class SchoolRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'post' || result == 'put' ? this.getTableData() : '';
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
 
@@ -241,6 +243,8 @@ export class SchoolRegistrationComponent {
           }
         })
       }
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
 

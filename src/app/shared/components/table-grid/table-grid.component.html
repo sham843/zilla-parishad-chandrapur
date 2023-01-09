@@ -45,7 +45,7 @@
                             edit
                         </mat-icon>
                     </button>
-                    <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete')"
+                    <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete',i)"
                         matTooltip="{{'common.delete' | translate}}">
                         <mat-icon class="text-danger">
                             delete
@@ -55,7 +55,7 @@
             </ng-container>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index"
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index" [ngClass]="{'highlightedrow ':highlightedRow == i && tableInfo?.highlightedrow==true}"
             (click)="$event.stopPropagation();action(row, 'Row')"></tr>
         <!-- [ngClass]="{'highlightedrow ':highlightedRow == i}" -->
     </table>

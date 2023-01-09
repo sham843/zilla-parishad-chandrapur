@@ -33,6 +33,7 @@ export class StudentRegistrationComponent {
   subscription!: Subscription;
   loginData: any;
   disabledTaluka: boolean = false;
+  highLightRowFlag: boolean = false;
   constructor(public dialog: MatDialog,
     private webStorage: WebStorageService,
     private apiService: ApiService,
@@ -183,17 +184,20 @@ export class StudentRegistrationComponent {
   }
 
   setTableData() {
+    this.highLightRowFlag=true;
     let displayedColumns;
     displayedColumns = this.lang == 'mr-IN' && this.apiService.translateLang ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
     displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
+      highlightedrow:true,
       img: '', blink: '', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
     };
+    this.highLightRowFlag?tableData.highlightedrow=true:tableData.highlightedrow=false
     this.apiService.tableData.next(tableData);
   }
 
@@ -210,6 +214,8 @@ export class StudentRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.getTableData() : '';
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
   childCompInfo(obj: any) {
@@ -266,6 +272,8 @@ export class StudentRegistrationComponent {
           }
         })
       }
+      this.highLightRowFlag=false;
+      this.setTableData();
     });
   }
 

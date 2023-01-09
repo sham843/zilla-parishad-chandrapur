@@ -124,8 +124,9 @@ export class DashboardComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
+          console.log(this.levelId);
           this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
-          this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? this.cardCountData() : '';
+          this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? (this.cardCountData(), this.getKendra()) : '';
 
         }
         else {
@@ -285,21 +286,28 @@ export class DashboardComponent {
   }
 
   getAssesmentDashboardDetails() {
-    let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
-    this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe((res: any) => {
-      if (res.statusCode == "200") {
-        this.getAssesmentData = res.responseData;
-        this.getBarChart();
-      }
-      else {
-        this.getAssesmentData = [];
-        this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
-      }
-    }, (error: any) => {
-      this.errors.handelError(error.status);
-    })
+    if (this.selStdArray.length) {
+      let filterFormData = this.topFilterForm.value;
+      let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
+      this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe((res: any) => {
+        if (res.statusCode == "200") {
+          this.getAssesmentData = res.responseData;
+          let checkEvery:any;
+          this.getAssesmentData.find((ele:any)=>{
+            checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
+          })
+          checkEvery ? (this.getAssesmentData = [], this.talukaWiseAssData = []): this.getBarChart();
+
+        }
+        else {
+          this.getAssesmentData = [];
+          this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }, (error: any) => {
+        this.errors.handelError(error.status);
+      })
+    }
   }
 
   checkBoxChecked(label: any, val?: any) {
