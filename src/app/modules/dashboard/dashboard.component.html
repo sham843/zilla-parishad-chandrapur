@@ -256,7 +256,7 @@
                             <!-- <th scope="col">{{topFilterForm.value.talukaId ? Taluka : topFilterForm.value.talukaId &&topFilterForm.value.talukaId : 'Kendra':''}}</th> -->
                             <th scope="col">{{setName(assLabelName)}}
                             </th>
-                            <th scope="col" *ngIf="assLabelName=='Student Name'">Standard</th> 
+                            <th scope="col" *ngIf="assLabelName=='Student Name'">{{'student.standard' |translate}}</th> 
                             <th scope="col">{{'dashboard.current_status' | translate}}</th>
                             <th scope="col">{{'dashboard.total_students' | translate}}</th>
                             <th scope="col">{{'dashboard.evaluated' | translate}}</th>
@@ -291,7 +291,7 @@
                             <td scope="row">{{res?.pendingStudent}}</td>
                         </tr>
                         <tr *ngIf="!talukaWiseAssData?.length">
-                            <td scope="row" colspan="6"><div class="alert alert-danger text-center py-2">No Data Found</div></td>
+                            <td scope="row" [attr.colspan]="assLabelName=='Student Name' ? 7 : 6"><div class="alert alert-danger text-center py-2">No Data Found</div></td>
                         </tr>
                     </tbody>
                 </table>

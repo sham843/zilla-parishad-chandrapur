@@ -204,7 +204,9 @@ a.text-main,
   padding: 10px 15px;
   font-size: 0.85rem;
 }
-
+a {
+  text-decoration: none!important;
+}
 .mat-mdc-snack-bar-container {
   background: #333333 !important;
 }
@@ -477,3 +479,4 @@ input::-ms-reveal { display: none; }
     box-shadow: 0 0 0 0.5em #E8B0B0,
   }
 }
+

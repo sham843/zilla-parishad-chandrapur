@@ -633,13 +633,13 @@ export class DashboardComponent {
   setName(label: string) {
     let str!: string;
     if (label == 'Taluka') {
-      str = this.language == 'English' || this.language == 'en' ? 'Taluka' : 'तालुका';
+      str = sessionStorage.getItem('language') == 'English' ? 'Taluka' : 'तालुका';
     } else if (label == 'Kendra') {
-      str = this.language == 'English' || this.language == 'en' ? 'Kendra' : 'केंद्र';
+      str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
     }else if (label == 'School') {
-      str = this.language == 'English' || this.language == 'en' ? 'School' : 'शाळा';
+      str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
     } else if (label == 'Student Name') {
-      str = this.language == 'English' || this.language == 'en' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+      str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
     }
     return str
   }
