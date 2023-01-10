@@ -60,8 +60,9 @@ export class StudentProfileComponent {
     let loginData = this.webStorage.getLoginData();
     this.levelId = loginData.designationLevelId; // admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
 
-    // let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
-    // this.globalObj = JSON.parse(obj);
+    let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
+    this.globalObj = JSON.parse(obj);
+    console.log("globalObj",this.globalObj);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
@@ -91,6 +92,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
+         this.globalObj?(this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),this.getKendra()):'';
           // this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
           // this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? this.cardCountData() : '';
         }
@@ -111,6 +113,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
+          this.globalObj?(this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):'';
           // this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
           // this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : ''; // this.cardCountData() temp
         }
@@ -132,6 +135,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
+          this.globalObj?(this.filterFrm.controls['schoolId'].setValue(this.globalObj.schoolId),this.getStandard()):'';
         }
         else {
           this.schoolArray = [];
