@@ -141,7 +141,8 @@
         "enter_otp":"Enter OTP",
         "verify_otp":"Verify OTP",
         "Enter_new_password":"New Password",
-        "Enter_new_confirm":"Confirm Password"
+        "Enter_new_confirm":"Confirm Password",
+        "reset_password":"Reset Password"
     },
     "page_right_access":{
         "settings":"Settings",
@@ -301,7 +302,7 @@
         "invalid_confirm_password_format":"Please Enter Valid Confirm Password Format",
         "change_password":"Change Password",
         "passwords_must_contains":"Passwords must contains",
-        "At_least 8 Characters_long":"At least 6 Characters long",
+        "At_least 8 Characters_long":"At least 6-15 Characters long",
         "At_least 1 Lowercase_Characters (a-z)":"At least 1 Lowercase Characters (a-z)",
         "At_least 1 Uppercase_Characters (A-Z)":"At least 1 Uppercase Characters (A-Z)",
         "At_least 1 Digits(0-9)":"At least 1 Digits (0-9)",

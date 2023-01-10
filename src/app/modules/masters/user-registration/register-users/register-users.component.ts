@@ -89,7 +89,7 @@ export class RegisterUsersComponent {
       districtId: [obj?obj.districtId:1, [Validators.required]],
       talukaId: [obj?obj.talukaId:'',[Validators.required]],
       centerId: [obj?obj.centerId:'', [Validators.required]],
-      schoolId: [obj?obj.schoolName:'', [Validators.required]],
+      schoolId: [obj?obj.schoolId:'', [Validators.required]],
       agencyId: [obj?obj.agencyId:'', [Validators.required]],
       name: [obj?obj.name:'', [Validators.required,Validators.pattern(this.validation.fullName),Validators.maxLength(50)]],
       mobileNo: [obj?obj.mobileNo:'', [Validators.required,Validators.pattern(this.validation.mobile_No)]],
@@ -255,44 +255,25 @@ clearValidation(formControl:any){
 }
 
  addRemoveValidation(){
- if(this.userRegistrationForm.value.userTypeId==2){
-  if(this.userRegistrationForm.value.designationLevelId==3){
-    this.addValidation=['designationId','talukaId'];
-    this.clearArr=['centerId','schoolId','standardModels','subjectModels','agencyId'];
-  }
-  else if(this.userRegistrationForm.value.designationLevelId==4){
-    this.addValidation=['designationId','talukaId','centerId'];
-    this.clearArr=['schoolId','standardModels','subjectModels','agencyId'];
-  }
-  else if(this.userRegistrationForm.value.designationLevelId==2){
-    this.addValidation=['designationId'];
-    this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','agencyId'];
-  }
-  this.addValidation.forEach(ele=>{
-    this.setValidation(ele);
-  })
+  if(this.data.flag=='profile'){
+    this.clearArr=['userTypeId','designationLevelId','designationId','districtId','talukaId','centerId','schoolId','agencyId','standardModels','subjectModels'];
     this.clearArr.forEach(ele=>{
-        this.clearValidation(ele);
-    }) 
-  }else if(this.userRegistrationForm.value.userTypeId==3){
-    this.addValidation=['designationId','talukaId','centerId','schoolId','standardModels','subjectModels'];
-    this.addValidation.forEach(ele=>{
-      this.setValidation(ele);
-    })
-    this.clearArr=['agencyId'];
-    this.clearValidation(this.clearArr);
-  }else if(this.userRegistrationForm.value.userTypeId==4){
+      this.clearValidation(ele);
+  }) 
+  }
+  else{
+  if(this.userRegistrationForm.value.userTypeId==2){
     if(this.userRegistrationForm.value.designationLevelId==3){
-      this.addValidation=['agencyId','talukaId'];
-      this.clearArr=['centerId','schoolId','standardModels','subjectModels','designationId'];
+      this.addValidation=['designationId','talukaId'];
+      this.clearArr=['centerId','schoolId','standardModels','subjectModels','agencyId'];
     }
     else if(this.userRegistrationForm.value.designationLevelId==4){
-      this.addValidation=['agencyId','talukaId','centerId'];
-      this.clearArr=['schoolId','standardModels','subjectModels','designationId'];
+      this.addValidation=['designationId','talukaId','centerId'];
+      this.clearArr=['schoolId','standardModels','subjectModels','agencyId'];
     }
     else if(this.userRegistrationForm.value.designationLevelId==2){
-      this.addValidation=['agencyId'];
-      this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','designationId'];
+      this.addValidation=['designationId'];
+      this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','agencyId'];
     }
     this.addValidation.forEach(ele=>{
       this.setValidation(ele);
@@ -300,18 +281,39 @@ clearValidation(formControl:any){
       this.clearArr.forEach(ele=>{
           this.clearValidation(ele);
       }) 
+    }else if(this.userRegistrationForm.value.userTypeId==3){
+      this.addValidation=['designationId','talukaId','centerId','schoolId','standardModels','subjectModels'];
+      this.addValidation.forEach(ele=>{
+        this.setValidation(ele);
+      })
+      this.clearArr=['agencyId'];
+      this.clearValidation(this.clearArr);
+    }else if(this.userRegistrationForm.value.userTypeId==4){
+      if(this.userRegistrationForm.value.designationLevelId==3){
+        this.addValidation=['agencyId','talukaId'];
+        this.clearArr=['centerId','schoolId','standardModels','subjectModels','designationId'];
+      }
+      else if(this.userRegistrationForm.value.designationLevelId==4){
+        this.addValidation=['agencyId','talukaId','centerId'];
+        this.clearArr=['schoolId','standardModels','subjectModels','designationId'];
+      }
+      else if(this.userRegistrationForm.value.designationLevelId==2){
+        this.addValidation=['agencyId'];
+        this.clearArr=['talukaId','centerId','schoolId','standardModels','subjectModels','designationId'];
+      }
+      this.addValidation.forEach(ele=>{
+        this.setValidation(ele);
+      })
+        this.clearArr.forEach(ele=>{
+            this.clearValidation(ele);
+        }) 
+  
+  }
 
-    // this.addValidation=['agencyId','talukaId','centerId'];
-   /*  this.addValidation.forEach(ele=>{
-      this.setValidation(ele);
-    })
-    this.clearArr=['designationId','schoolId','standardModels','subjectModels'];
-    this.clearArr.forEach(ele=>{
-        this.clearValidation(ele);
-    }) */
-}
-this.addValidation=[];
-this.clearArr=[];
+ /*  this.addValidation=[];
+  this.clearArr=[]; */
+
+ }
   }
   //#endregion-----------------------------------------add and remove validation end----------------------------------------------------
  
@@ -389,6 +391,7 @@ clearProfile(){
 //#endregion---------------------------------------------profile photo upload methods start----------------------------------------------------
 //#region--------------------------------------------------add/update user method start-------------------------------------------------------------------
 registerUser(formDirective?:any) {
+  this.data.flag=='profile'? this.addRemoveValidation():'';
     if(this.userRegistrationForm.invalid){
         return;
     }

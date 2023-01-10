@@ -28,7 +28,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="kendraId" (selectionChange)="getSchool()">
                             <mat-option value="0">All Kendra</mat-option>
@@ -39,7 +39,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId" (selectionChange)="getStandard();">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
@@ -48,9 +48,9 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.schoolId">
                         <mat-label>{{'student.select_standard'|translate}}</mat-label>
-                        <mat-select formControlName="standardId">
+                        <mat-select formControlName="standardId" multiple>
                             <mat-option *ngFor="let standard of standardArray" [value]="standard.id">
                                 {{standard.standard}}
                             </mat-option>

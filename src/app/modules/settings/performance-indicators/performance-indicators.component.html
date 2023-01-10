@@ -35,9 +35,9 @@
             <div class="col-sm-auto">
                 <button mat-flat-button class="btn-main me-2"
                     (click)="getAllPerformanceIndicatorData()">{{'common.filter' | translate}}</button>
-                <button mat-flat-button class="btn-second"
+                <!-- <button mat-flat-button class="btn-second"
                     (click)="filterEnglishLag.setValue(1);getAllPerformanceIndicatorData()">{{'common.clear' |
-                    translate}}</button>
+                    translate}}</button> -->
             </div>
             <div class="col-sm text-end">
                 <mat-checkbox class="example-margin" [formControl]="allcheckClass" [checked]="allcheckClass.value == 1"
@@ -60,7 +60,7 @@
                             *ngIf="disCol == 'assesmentParameterId' || disCol == 'assesmentParameter' || disCol == 'm_AssesmentParameter'">
                             <mat-icon class="text-main me-2 table-icon"
                                 *ngIf="disCol == 'm_AssesmentParameter' || disCol == 'assesmentParameter'"
-                                (click)="addUpdatelevel(element)"> edit
+                                (click)="addUpdatelevel(element)" matTooltip="{{'common.edit' | translate}}"> edit
                             </mat-icon>
                             {{ disCol == 'assesmentParameterId' ? (i + 1 | numberTranformPipe) : element[disCol] }}
                         </span>
