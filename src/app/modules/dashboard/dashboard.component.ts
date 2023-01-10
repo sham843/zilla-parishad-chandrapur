@@ -298,7 +298,7 @@ export class DashboardComponent {
             i>2 ? this.selNumber += ele.data:'';
             i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
         })
-        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
+        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.totalRows = 0,this.talukaWiseAssData = [];
       }
       else {
         this.getSurveyedData = [];
@@ -321,7 +321,7 @@ export class DashboardComponent {
           this.getAssesmentData.find((ele:any)=>{
             checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
           })
-          checkEvery ? (this.getAssesmentData = [], this.talukaWiseAssData = []): this.getBarChart();
+          checkEvery ? (this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []): this.getBarChart();
 
         }
         else {
@@ -332,7 +332,7 @@ export class DashboardComponent {
         this.errors.handelError(error.status);
       })
     }else{
-      this.getAssesmentData = [], this.talukaWiseAssData = []
+      this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []
     }
   }
 
@@ -672,6 +672,7 @@ export class DashboardComponent {
         setTimeout(() => {this.showToolTipOnPro() }, 1000);
       }
       else {
+        this.totalRows = 0;
         this.talukaWiseAssData = [];
         // this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
