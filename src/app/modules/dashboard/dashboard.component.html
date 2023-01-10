@@ -315,9 +315,11 @@
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <mat-paginator [length]="totalRows" showFirstLastButtons
+                    <ng-container *ngIf="totalRows>10">
+                    <mat-paginator [length]="totalRows" showFirstLastButtons 
                     (page)="pageChanged($event)" [pageSizeOptions]="[10]" aria-label="Select page">
-                </mat-paginator>
+                    </mat-paginator>
+                    </ng-container>
                 
             </mat-card-content>
         </mat-card>
