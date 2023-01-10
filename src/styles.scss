@@ -246,7 +246,7 @@ a.text-main,
   opacity: 0.6;
 }
 
-.disabledAll path {
+.disabledAll path , .disabledAll{
   pointer-events: none !important;
 }
 
