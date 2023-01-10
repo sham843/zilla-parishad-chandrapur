@@ -31,7 +31,7 @@ export class DashboardComponent {
   piechartSecondOptions: any;
   getSurveyedData: any;
   globalTalId: any;
-  selNumber!: number;
+  selNumber: number = 0;
   getAssesmentData: any;
   selStdArray = new Array();
   educationYearArray = new Array();
@@ -47,7 +47,7 @@ export class DashboardComponent {
   enbCenterDropFlag: boolean = false;
   enbSchoolDropFlag: boolean = false;
   assLabelName:string='Taluka';
-
+  checkBoxCheckAll:boolean = true;
   constructor(public translate: TranslateService,
     private apiService: ApiService,
     private errors: ErrorsService,private spiner:NgxSpinnerService,
@@ -285,7 +285,6 @@ export class DashboardComponent {
         this.getSurveyedData.map((ele:any, i:number)=>{
             i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
         })
-        console.log(this.getSurveyedData);
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
       }
       else {
@@ -324,28 +323,50 @@ export class DashboardComponent {
     }
   }
 
-  checkBoxChecked(label: any, val?: any) {
+  checkBoxChecked(event: any, val?: any) {
     if (val) {
-      if (label.target.checked) {
+      let selStdIndex = this.getSurveyedData.findIndex((ele: any) => ele.standardId == val.standardId);
+      if (event.target.checked) {
         this.selStdArray.push(val.standardId);
         this.selNumber = this.selNumber + val.data
+        this.getSurveyedData[selStdIndex].checked = true;
       } else {
+        this.checkBoxCheckAll = false; 
         let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
         this.selStdArray.splice(selIndex, 1);
+        this.getSurveyedData[selStdIndex].checked = false;
         this.selNumber = this.selNumber - val.data;
       }
       this.getAssesmentDashboardDetails();
     } else {
       this.getSurveyedData.find((ele: any, i: number) => {
-        if (i == 2) {
+        if (i > 1) {
           ele.checked = true;
-          this.selNumber = ele?.data;
+          this.selNumber += ele.data;
           let checkStaIndex = !this.selStdArray.length ? false : this.selStdArray.includes(ele.standardId);
           !checkStaIndex ? this.selStdArray.push(ele.standardId) : '';
         }
       });
       this.getAssesmentDashboardDetails();
     }
+  }
+
+  checkBoxCheckedAll(event: any) {
+    this.selStdArray = [];
+    this.getSurveyedData.find((ele: any, i: number) => {
+      if (i > 1) {
+        if (event.checked) {
+          ele.checked = true;
+          this.selStdArray.push(ele.standardId);
+        } else {
+          ele.checked = false;
+          this.selStdArray = []
+        }
+      }
+    })
+    event.checked ? this.checkBoxCheckAll = true : this.checkBoxCheckAll = false;
+    console.log(this.getSurveyedData)
+    this.getAssesmentDashboardDetails();
   }
 
   //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//

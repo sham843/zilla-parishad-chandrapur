@@ -191,6 +191,7 @@
             <mat-card-content class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
+                        <input type="checkbox" (change)="checkBoxCheckedAll($event?.target);" [checked]="checkBoxCheckAll">
                         <table class="table table-bordered inner-table">
                             <thead>
                                 <tr>
