@@ -185,13 +185,15 @@
             <mat-card-header class="card-header">
                 <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
                     <div>{{'dashboard.number_of_students_surveyed' |translate}} </div>
-                    <div>{{'dashboard.sel_no' |translate}} : <span class="fw-bold">{{selNumber}}</span></div>
-                    <div class="form-check small">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                            (change)="checkBoxCheckedAll($event?.target);" [checked]="checkBoxCheckAll">
-                        <label class="form-check-label mt-1" for="flexCheckDefault">
-                            Select All
-                        </label>
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                                (change)="checkBoxCheckedAll($event?.target);" [checked]="checkBoxCheckAll">
+                            <label class="form-check-label mt-1" for="flexCheckDefault">
+                                {{'performance_indicators.select_all_classes'|translate}}
+                            </label>
+                        </div>
+                        <div>{{'dashboard.sel_no' |translate}} : <span class="fw-bold">{{selNumber}}</span></div>
                     </div>
                 </h6>
             </mat-card-header>
