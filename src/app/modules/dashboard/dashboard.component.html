@@ -52,7 +52,7 @@
                 <mat-label>{{'common.school' |translate}}</mat-label>
                 <mat-select formControlName="schoolId" [disabled]="!topFilterForm.value.kendraId || enbSchoolDropFlag"
                     (selectionChange)="assLabelName='Student Name';cardCountData();getDynamicDetails();">
-                    <mat-option value="0"  *ngIf="schoolArray.length">All School</mat-option>
+                    <mat-option value="0" *ngIf="schoolArray.length">All School</mat-option>
                     <mat-option *ngFor="let schools of schoolArray" [value]="schools.id">
                         {{schools.schoolName}}
                     </mat-option>
@@ -155,7 +155,7 @@
                                 [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
-                            <div class="alert alert-danger text-center py-2" >No Data Found</div>
+                            <div class="alert alert-danger text-center py-2">No Data Found</div>
                         </ng-template>
                     </mat-card-content>
                 </mat-card>
@@ -186,19 +186,27 @@
                 <h6 class="d-flex align-items-center justify-content-between w-100 mb-0">
                     <div>{{'dashboard.number_of_students_surveyed' |translate}} </div>
                     <div>{{'dashboard.sel_no' |translate}} : <span class="fw-bold">{{selNumber}}</span></div>
+                    <div class="form-check small">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                            (change)="checkBoxCheckedAll($event?.target);" [checked]="checkBoxCheckAll">
+                        <label class="form-check-label mt-1" for="flexCheckDefault">
+                            Select All
+                        </label>
+                    </div>
                 </h6>
             </mat-card-header>
             <mat-card-content class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="checkbox" (change)="checkBoxCheckedAll($event?.target);" [checked]="checkBoxCheckAll">
+
                         <table class="table table-bordered inner-table">
                             <thead>
                                 <tr>
                                     <th *ngFor="let surveyedData of getSurveyedData; let i = index;">
                                         <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
                                             (change)="checkBoxChecked($event, surveyedData);">
-                                            {{language=="Marathi"?surveyedData?.text_m: surveyedData?.text ? surveyedData?.text:'-'}}
+                                        {{language=="Marathi"?surveyedData?.text_m: surveyedData?.text ?
+                                        surveyedData?.text:'-'}}
                                     </th>
                                 </tr>
                             </thead>
@@ -214,7 +222,8 @@
                             <div class="d-flex">
                                 <div *ngFor="let barchart of barchartOptions?.series; let i = index">
                                     <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
-                                    <apx-chart [series]="barchart" [chart]="barchartOptions?.chart" (click)="redToStuProfile('subject',getAssesmentData[i].subjectId)"
+                                    <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
+                                        (click)="redToStuProfile('subject',getAssesmentData[i].subjectId)"
                                         [plotOptions]="barchartOptions?.plotOptions"
                                         [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
                                         [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
@@ -238,8 +247,8 @@
             <mat-card-header class="card-header pb-0">
                 <div class="d-flex align-items-center justify-content-between w-100">
                     <h6 class="mb-0">{{'dashboard.taluka_wise_assessment' |translate}}</h6>
-                    <div [formGroup]="topFilterForm"  [class.d-hidden]="!talukaWiseAssData?.length">
-                        <mat-form-field appearance="outline" class="w-100" >
+                    <div [formGroup]="topFilterForm" [class.d-hidden]="!talukaWiseAssData?.length">
+                        <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
                             <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
@@ -257,7 +266,7 @@
                             <!-- <th scope="col">{{topFilterForm.value.talukaId ? Taluka : topFilterForm.value.talukaId &&topFilterForm.value.talukaId : 'Kendra':''}}</th> -->
                             <th scope="col">{{setName(assLabelName)}}
                             </th>
-                            <th scope="col" *ngIf="assLabelName=='Student Name'">{{'student.standard' |translate}}</th> 
+                            <th scope="col" *ngIf="assLabelName=='Student Name'">{{'student.standard' |translate}}</th>
                             <th scope="col">{{'dashboard.current_status' | translate}}</th>
                             <th scope="col">{{'dashboard.total_students' | translate}}</th>
                             <th scope="col">{{'dashboard.evaluated' | translate}}</th>
@@ -269,23 +278,24 @@
                             <td scope="row">{{res?.srNo}}</td>
                             <td scope="row">
                                 <ng-container *ngIf="assLabelName!='Student Name'; else elseBlock;">
-                                {{res?.textValue}}
+                                    {{res?.textValue}}
                                 </ng-container>
                                 <ng-template #elseBlock>
                                     <a (click)="redToStuProfile('studentId',res?.sourceId)">{{res?.textValue}}</a>
                                 </ng-template>
                             </td>
-                            <td scope="row"  *ngIf="assLabelName=='Student Name'">{{res?.standardName}}</td>
+                            <td scope="row" *ngIf="assLabelName=='Student Name'">{{res?.standardName}}</td>
                             <td class="w-50">
 
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" 
+                                    <div class="progress-bar" role="progressbar"
                                         *ngFor="let pro of res?.assesmentDetails; let j = index"
-                                        [style.width]="pro?.assesmentCalculationValue+'%'" 
+                                        [style.width]="pro?.assesmentCalculationValue+'%'"
                                         [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
                                         aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
-                                        data-bs-toggle="tooltip" title="60%" data-bs-html="true" [attr.data-bs-title]="pro?.assessmentParamenterName">
-                                        <span>{{pro?.assesmentCalculationValue+'%'}}</span>    
+                                        data-bs-toggle="tooltip" title="60%" data-bs-html="true"
+                                        [attr.data-bs-title]="pro?.assessmentParamenterName">
+                                        <span>{{pro?.assesmentCalculationValue+'%'}}</span>
                                     </div>
                                 </div>
                             </td>
@@ -294,7 +304,9 @@
                             <td scope="row">{{res?.pendingStudent}}</td>
                         </tr>
                         <tr *ngIf="!talukaWiseAssData?.length">
-                            <td scope="row" [attr.colspan]="assLabelName=='Student Name' ? 7 : 6"><div class="alert alert-danger text-center py-2">No Data Found</div></td>
+                            <td scope="row" [attr.colspan]="assLabelName=='Student Name' ? 7 : 6">
+                                <div class="alert alert-danger text-center py-2">No Data Found</div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
