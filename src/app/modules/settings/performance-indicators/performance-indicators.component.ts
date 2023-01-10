@@ -12,6 +12,7 @@ import { AddClassComponent } from './add-class/add-class.component';
 import { AddLevelComponent } from './add-level/add-level.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+
 @Component({
   selector: 'app-performance-indicators',
   templateUrl: './performance-indicators.component.html',
@@ -51,7 +52,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? this.language = 'mr-IN' : this.language = 'en-IN';
       this.getAllSubject();
-      this.english_MarathiHeadingArray = this.language == 'en-IN' ?  
+      this.english_MarathiHeadingArray = this.language == 'en-IN' ?
       [{ assesmentParameterId: 'Sr. No.' }, { assesmentParameter: 'Assesment Name' }, { m_AssesmentParameter: 'मूल्यांकन नाव' }, { first: 'First' }, { second: 'Second' }, { third: 'Third' }, { fourth: 'Fourth' }, { fifth: 'Fifth' }, { sixth: 'Sixth' }, { seventh: 'Seventh' },
       { eighth: 'Eighth' }, { ninth: 'Ninth' }, { tenth: 'Tenth' }, { eleventh: 'Eleventh' }, { twelth: 'Twelth' }] :
       [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Assesment Name' }, { m_AssesmentParameter: 'मूल्यांकन नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवा' }, { sixth: 'सहावा' }, { seventh: 'सातवा' },
@@ -59,7 +60,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
       this.getAllPerformanceIndicatorData();
     })
   }
-  
+
   getAllSubject() {
     let language=this.apiService.translateLang?this.language:'en-IN';
    this.apiService.setHttp('get', 'zp_chandrapur/PerformanceIndicator/GetAllSubjectforPI?flag_lang='+ `${language}`, true, false, false, 'baseUrl')
@@ -85,7 +86,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
           this.performanceIndicatorArray = res.responseData;
 
           this.displayedColumns = Object.keys(this.performanceIndicatorArray[0]);
-          this.displayedColumns.map((ele: any, index: any) => { // Add Remove English Marathi Level Name Field 
+          this.displayedColumns.map((ele: any, index: any) => { // Add Remove English Marathi Level Name Field
             return (this.language == 'mr-IN' && ele == 'assesmentParameter') ? this.displayedColumns.splice(index, 1) : ele == 'm_AssesmentParameter' ? this.displayedColumns.splice(index, 1) : ''
           })
 
@@ -138,7 +139,7 @@ export class PerformanceIndicatorsComponent implements OnInit {
   }
 
   checkAllClass(event: any) { //All Check
-    this.performanceIndicatorArray.map((ele: any) => {   // code for Show only Table true Value 
+    this.performanceIndicatorArray.map((ele: any) => {   // code for Show only Table true Value
       for (let x in ele) { // check key value data in Object
         this.classStandardArray.find((eleClass: any) => {
           let classKeyName: any = Object.keys(eleClass); //find class keyName

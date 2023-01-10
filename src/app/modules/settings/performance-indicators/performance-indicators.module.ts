@@ -17,6 +17,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NumberTransformPipe } from 'src/app/shared/pipes/number-tranform.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NumberTransformPipe } from 'src/app/shared/pipes/number-tranform.pipe';
     MatSortModule,
     ReactiveFormsModule,
     TranslateModule,
-    NumberTransformPipe
+    NumberTransformPipe,
+    MatTooltipModule
   ]
 })
 export class PerformanceIndicatorsModule { }

@@ -60,7 +60,7 @@
                             *ngIf="disCol == 'assesmentParameterId' || disCol == 'assesmentParameter' || disCol == 'm_AssesmentParameter'">
                             <mat-icon class="text-main me-2 table-icon"
                                 *ngIf="disCol == 'm_AssesmentParameter' || disCol == 'assesmentParameter'"
-                                (click)="addUpdatelevel(element)"> edit
+                                (click)="addUpdatelevel(element)" matTooltip="{{'common.edit' | translate}}"> edit
                             </mat-icon>
                             {{ disCol == 'assesmentParameterId' ? (i + 1 | numberTranformPipe) : element[disCol] }}
                         </span>
