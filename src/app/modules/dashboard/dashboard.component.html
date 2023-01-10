@@ -249,10 +249,10 @@
             <mat-card-header class="card-header pb-0">
                 <div class="d-flex align-items-center justify-content-between w-100">
                     <h6 class="mb-0">{{'dashboard.taluka_wise_assessment' |translate}}</h6>
-                    <div [formGroup]="topFilterForm" [class.d-hidden]="!talukaWiseAssData?.length">
+                    <div [formGroup]="topFilterForm" [class.d-hidden]="!this.talukaWiseAssData.filteredData?.length">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'user_Registration.Please_select_subject' |translate}}</mat-label>
-                            <mat-select formControlName="subjectId" (selectionChange)="getDynamicDetails()">
+                            <mat-select formControlName="subjectId" (selectionChange)="pageNumber =  1;getDynamicDetails()">
                                 <mat-option *ngFor="let subjects of getAllSubjectArray"
                                     [value]="subjects?.id">{{subjects?.subject}}</mat-option>
                             </mat-select>
