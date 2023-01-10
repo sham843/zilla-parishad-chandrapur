@@ -440,6 +440,7 @@ export class DashboardComponent {
 
   getBarChart() {
     let seriesData: any[] = [];
+    let barColorpal:any[] = [];
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
@@ -447,7 +448,8 @@ export class DashboardComponent {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
           'data': [parseInt(ele['assesmentDetails'][i].assesmentCalculationValue)]
         }
-        arr.push(obj)
+        arr.push(obj);
+        barColorpal.push('#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE')
       }
       seriesData.push(arr)
     });
@@ -510,7 +512,7 @@ export class DashboardComponent {
       },
       fill: {
         opacity: 1,
-        colors: ['#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE'],
+        colors: barColorpal,
       },
       plotOptions: {
         bar: {

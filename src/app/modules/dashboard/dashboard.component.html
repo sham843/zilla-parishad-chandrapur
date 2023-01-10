@@ -293,7 +293,7 @@
                                     <div class="progress-bar" role="progressbar"
                                         *ngFor="let pro of res?.assesmentDetails; let j = index"
                                         [style.width]="pro?.assesmentCalculationValue+'%'"
-                                        [style.background-color]="progressBarcolors[j]" aria-valuenow="15"
+                                        [style.background-color]="pro.colorCodeValue" aria-valuenow="15"
                                         aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
                                         data-bs-toggle="tooltip" title="60%" data-bs-html="true"
                                         [attr.data-bs-title]="pro?.assessmentParamenterName">
