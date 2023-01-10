@@ -623,13 +623,13 @@ export class DashboardComponent {
   clickOnSvgMap(flag?: string) {
     this.spiner.show();
     if (flag == 'select') {
-      this.enbTalDropFlag ? $('#mapsvg path').addClass('disabledAll') : '';
-      let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
-      checkTalActiveClass ? $('#mapsvg path[id="' + this.globalTalId + '"]').removeAttr("style") : '';
+      this.enbTalDropFlag ? $('#mapsvg g').addClass('disabledAll') : '';
+      let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
+      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"]').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
     }
     this.spiner.hide();
-    $(document).on('click', ('#mapsvg  path'), (e: any) => {
+    $(document).on('click', ('#mapsvg  g g'), (e: any) => {
       this.clearFilterForm('taluka');
       let getClickedId = e.currentTarget;
       let talId = $(getClickedId).attr('id');
@@ -641,11 +641,11 @@ export class DashboardComponent {
   }
 
   svgMapAddOrRemoveClass() {
-    let checkTalActiveClass = $('#mapsvg   path').hasClass("talActive");
-    checkTalActiveClass ? $('#mapsvg   path#' + this.globalTalId).removeClass("talActive") : '';
+    let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
+    checkTalActiveClass ? $('#mapsvg   g#' + this.globalTalId).removeClass("talActive") : '';
     this.talukaArray.find(() => {
       this.globalTalId = this.topFilterForm?.value?.talukaId;
-      $('#mapsvg path[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
+      $('#mapsvg g[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');
     });
   }
   //#endregion ------------------------------------------------- graph's fn end heare -----------------------------------------------//
