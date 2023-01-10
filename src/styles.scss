@@ -184,7 +184,11 @@ a.text-main,
   max-width: 180px !important;
   width: 180px !important;
 }
-
+.no-axis .apexcharts-yaxis-texts-g,
+.no-axis .apexcharts-grid-borders,
+.no-axis .apexcharts-grid {
+  display: none !important;
+}
 .plain-card {
   box-shadow: none !important;
   border-radius: 10px !important;
@@ -295,11 +299,6 @@ a.text-main,
 .disabled-contenct {
   pointer-events: none;
   opacity: .6;
-}
-.apexcharts-yaxis-texts-g,
-.apexcharts-grid-borders,
-.apexcharts-grid{
-  display: none !important;
 }
 .apexcharts-legend-text{
   font-family: "Noto Sans Devanagari", sans-serif !important;
