@@ -1,0 +1,66 @@
+#topbar {
+    background-color: #2C2C2C;
+    color: #fff;
+    padding-block: 5px;
+    font-size: 0.7rem;
+}
+
+#topbar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#topbar a:hover {
+    color: var(--main-color);
+}
+
+#topbar .btn-color {
+    border: solid 1px #fff;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+}
+
+#topbar .btn-color.default {
+    background-color: var(--main-color);
+}
+
+#topbar .btn-color.dark{
+    background-color: #000000;
+}
+#topbar .btn{
+    border: none;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 5px 15px;
+}
+#topbar .btn-check:checked+.btn,
+#topbar .btn.active,
+#topbar .btn.show,
+#topbar .btn:first-child:active,
+#topbar :not(.btn-check)+.btn:active {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+    font-size: 0.7rem;
+    border-radius: 0.375rem;
+}
+nav .logo{
+    width: 150px;
+}
+nav .navbar-nav{
+    font-size: 0.9rem;
+}
+nav .navbar-nav .nav-link{
+    margin-inline:15px;
+    color:#707070 ;
+}
+nav .navbar-nav .nav-link:hover,
+nav .navbar-nav .nav-link.active{
+    margin-inline:15px;
+    color: var(--main-color);
+    border-bottom: solid 2px var(--main-color);
+}
+nav .india-logo{
+    width: 90px;
+}

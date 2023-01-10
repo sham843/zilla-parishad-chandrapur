@@ -1,26 +1,60 @@
-<p>home works!</p>
-
-
+<!-- <a class="dropdown-item" (click)="onChangeLanguage('English')">English</a>
+<a class="dropdown-item" (click)="onChangeLanguage('Marathi')">Marathi</a> -->
+<div class="container-fluid" id="topbar">
+  <div class="container">
+    <div class="row justify-content-lg-end align-items-center justify-content-center">
+      <div class="col-sm-auto col-auto">
+        <a href="#">Skip to Main Content</a>
+      </div>
+      <div class="col-sm-auto col-auto border-start border-end">
+        <button type="button" class="btn-color default me-2"></button>
+        <button type="button" class="btn-color dark"></button>
+      </div>
+      <div class="col-sm-auto col-auto">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="btnradio1">English</label>
+        
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">Marathi</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-     <ul class="d-flex text-right">
-          <li class="nav-item dropdown me-4">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Language
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" (click)="onChangeLanguage('English')">English</a></li>
-              <li><a class="dropdown-item" (click)="onChangeLanguage('Marathi')">Marathi</a></li>
-            </ul>
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/logo.png" class="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-start flex-grow-1 ps-5 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item ms-3">
-            <a class="nav-link" routerLink="../login">Login</a>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex me-2" role="search">
+          <button class="btn btn-danger align-self-start" type="submit">Search</button>
+        </div>
+        <div class="d-flex ms-auto gap-3" role="search">
+          <img src="assets/images/home/Aazadi-ka-Amrut-mahotsv.png" class="india-logo align-self-start">
+          <img src="assets/images/home/Swachh-Bharat-Logo.png" class="india-logo align-self-start">
+        </div>
       </div>
-  </nav>
-
+    </div>
+  </div>
+</nav>
