@@ -633,7 +633,7 @@ export class DashboardComponent {
     if (flag == 'select') {
       this.enbTalDropFlag ? $('#mapsvg g').addClass('disabledAll') : '';
       let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
-      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"]').removeAttr("style") : '';
+      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"] path').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
     }
     this.spiner.hide();
