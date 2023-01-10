@@ -476,4 +476,7 @@ input::-ms-reveal { display: none; }
     box-shadow: 0 0 0 0.5em #E8B0B0,
   }
 }
-
+.mapsvg.mapsvg-cursor-pointer text,
+.mapsvg.mapsvg-cursor-pointer .mapsvg-region {
+  cursor: pointer;
+}
