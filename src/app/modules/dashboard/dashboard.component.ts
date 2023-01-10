@@ -449,7 +449,7 @@ export class DashboardComponent {
           'data': [parseInt(ele['assesmentDetails'][i].assesmentCalculationValue)]
         }
         arr.push(obj);
-        barColorpal.push('#CB4B4B', '#E76A63', '#E98754', '#EFB45B', '#65C889', '#73AFFE')
+        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue)
       }
       seriesData.push(arr)
     });
