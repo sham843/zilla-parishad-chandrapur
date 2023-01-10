@@ -94,6 +94,8 @@ export class DashboardComponent {
       schoolId: [0],
       assesmentId: [0],
       subjectId: [0],
+      userId:[this.webStorage.getId()],
+      userTypeId:[this.webStorage.getUserId()],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     })
   }
@@ -216,7 +218,7 @@ export class DashboardComponent {
 
   cardCountData() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&userId=${filterFormData.userId}`
     this.apiService.setHttp('get', 'dashboard/get-summary-dashboard-count?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -256,7 +258,7 @@ export class DashboardComponent {
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -275,14 +277,17 @@ export class DashboardComponent {
   }
 
   getSurveyDashboardDetails() {
+    this.selNumber = 0;
     this.selStdArray = [];
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&userTypeId=${filterFormData.userTypeId}`
     this.apiService.setHttp('get', 'dashboard/get-survey-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
         this.getSurveyedData.map((ele:any, i:number)=>{
+            ele.checked = true;
+            i>2 ? this.selNumber += ele.data:'';
             i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
         })
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
@@ -299,7 +304,7 @@ export class DashboardComponent {
   getAssesmentDashboardDetails() {
     if (this.selStdArray.length) {
       let filterFormData = this.topFilterForm.value;
-      let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}`
+      let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&userTypeId=${filterFormData.userTypeId}`
       this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
@@ -330,19 +335,20 @@ export class DashboardComponent {
         this.selStdArray.push(val.standardId);
         this.selNumber = this.selNumber + val.data
         this.getSurveyedData[selStdIndex].checked = true;
+        let checkAllChecked = this.getSurveyedData.every((ele:any)=>ele.checked);
+        checkAllChecked? this.checkBoxCheckAll = true : ''; 
       } else {
         this.checkBoxCheckAll = false; 
         let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
         this.selStdArray.splice(selIndex, 1);
         this.getSurveyedData[selStdIndex].checked = false;
         this.selNumber = this.selNumber - val.data;
+
       }
       this.getAssesmentDashboardDetails();
     } else {
       this.getSurveyedData.find((ele: any, i: number) => {
         if (i > 1) {
-          ele.checked = true;
-          this.selNumber += ele.data;
           let checkStaIndex = !this.selStdArray.length ? false : this.selStdArray.includes(ele.standardId);
           !checkStaIndex ? this.selStdArray.push(ele.standardId) : '';
         }
@@ -353,6 +359,7 @@ export class DashboardComponent {
 
   checkBoxCheckedAll(event: any) {
     this.selStdArray = [];
+    let checkAllClassFlag!:boolean;
     this.getSurveyedData.find((ele: any, i: number) => {
       if (i > 1) {
         if (event.checked) {
@@ -363,9 +370,9 @@ export class DashboardComponent {
           this.selStdArray = []
         }
       }
-    })
+    });
+    console.log(checkAllClassFlag);
     event.checked ? this.checkBoxCheckAll = true : this.checkBoxCheckAll = false;
-    console.log(this.getSurveyedData)
     this.getAssesmentDashboardDetails();
   }
 
@@ -643,7 +650,7 @@ export class DashboardComponent {
 
   getDynamicDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=1&pageSize=10`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=1&pageSize=10&userId=${filterFormData.userId}`
     this.apiService.setHttp('get', 'dashboard/get-dashboard-dynamic-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {

@@ -45,6 +45,10 @@ getUserId(){
   let userId=this.getLocalStorageData();
   return JSON.parse(userId).responseData.userTypeId;
 }
+getId(){
+  let id=this.getLocalStorageData();
+  return JSON.parse(id).responseData.id;
+}
 getLoginData(){
   let userId=this.getLocalStorageData();
   return JSON.parse(userId).responseData;
