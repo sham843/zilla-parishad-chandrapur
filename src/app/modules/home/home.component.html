@@ -12,10 +12,12 @@
       </div>
       <div class="col-sm-auto col-auto">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
+            (click)="onChangeLanguage('English')">
           <label class="btn btn-outline-primary" for="btnradio1">English</label>
-        
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+            (click)="onChangeLanguage('Marathi')">
           <label class="btn btn-outline-primary" for="btnradio2">Marathi</label>
         </div>
       </div>
@@ -27,7 +29,8 @@
     <a class="navbar-brand" href="#">
       <img src="assets/images/logo.png" class="logo">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -36,21 +39,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-start flex-grow-1 ps-5 align-items-center">
-          <li class="nav-item">
+        <ul class="navbar-nav justify-content-start flex-grow-1 ps-lg-5 ps-0 align-items-lg-center align-items-start">
+          <li class="nav-item mb-3 mb-lg-0">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mb-3 mb-lg-0">
             <a class="nav-link" href="#">About Us</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mb-3 mb-lg-0">
             <a class="nav-link" href="#">Contact Us</a>
           </li>
         </ul>
-        <div class="d-flex me-2" role="search">
-          <button class="btn btn-danger align-self-start" type="submit">Search</button>
+        <div class="d-block me-3 p-1 mb-3 mb-lg-0">
+          <div class="d-flex align-items-center">
+            <a class="btn-login" routerLink="../login">Login</a>
+          </div>
         </div>
-        <div class="d-flex ms-auto gap-3" role="search">
+        <div class="d-flex gap-3 justify-content-evenly">
           <img src="assets/images/home/Aazadi-ka-Amrut-mahotsv.png" class="india-logo align-self-start">
           <img src="assets/images/home/Swachh-Bharat-Logo.png" class="india-logo align-self-start">
         </div>
@@ -58,3 +63,23 @@
     </div>
   </div>
 </nav>
+<div id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 order-1">
+        <h6>START TO NEW JOURNEY</h6>
+        <h1>Best <span>Online</span> Courses from Mulyankan</h1>
+        <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+          the
+          industry's standard dummy text ever since the 1500s</p>
+        <a class="btn-readmore" routerLink="">Read More</a>
+      </div>
+      <div class="col-sm-7 d-sm-block d-lg-none order-0">
+        <img src="assets/images/home/Sudent-image.png" class="w-100">
+      </div>
+      <div class="student-image d-none d-sm-none d-lg-block">
+        <img src="assets/images/home/Sudent-image.png">
+      </div>
+    </div>
+  </div>
+</div>

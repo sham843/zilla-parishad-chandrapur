@@ -54,6 +54,7 @@ nav .navbar-nav{
 nav .navbar-nav .nav-link{
     margin-inline:15px;
     color:#707070 ;
+    border-bottom: solid 2px transparent;
 }
 nav .navbar-nav .nav-link:hover,
 nav .navbar-nav .nav-link.active{
@@ -63,4 +64,71 @@ nav .navbar-nav .nav-link.active{
 }
 nav .india-logo{
     width: 90px;
+}
+nav .btn-login{
+    background-color: var(--main-color);
+    border-radius: 30px;
+    padding: 9px 30px !important;
+    color: #fff;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+#header{
+    background-image: url('../../../assets/images/home/Web-banner.png');
+    height: calc(100vh - 111.14px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+#header h6{
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+#header h1{
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    font-size: 4rem;
+    line-height: 4rem;
+}
+#header h1 span{
+    font-weight: 600;
+    font-size: 2rem;
+    font-style: italic;
+    color: rgb(185, 121, 1);
+}
+#header .student-image{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    padding: 0;
+}
+.btn-readmore{
+    background-color: var(--third-color);
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: solid 1px var(--third-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.btn-readmore:hover{
+    background-color: var(--third-dark-color);
+    color: #fff;
+    border: solid 1px var(--third-dark-color);
+}
+
+@media screen and (max-width:420px){
+    #header{
+        background-image: url('../../../assets/images/home/Web-banner.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: #fff;
+    }
 }
