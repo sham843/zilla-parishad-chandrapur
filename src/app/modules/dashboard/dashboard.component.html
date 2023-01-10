@@ -261,24 +261,24 @@
                 </div>
             </mat-card-header>
             <mat-card-content class="card-body pt-0">
-                <mat-table #table [dataSource]="talukaWiseAssData">
+                <table mat-table #table [dataSource]="talukaWiseAssData" class="dashboard-table w-100">
                     <ng-container matColumnDef="srNo">
-                        <th mat-header-cell *matHeaderCellDef>{{'common.Sr.no.' |translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="mat-column-srNo">{{'common.Sr.no.' |translate}}</th>
                         <td mat-cell *matCellDef="let element"> {{element.srNo}} </td>
                     </ng-container>
                     <ng-container matColumnDef="textValue">
-                        <th mat-header-cell *matHeaderCellDef>{{setName(assLabelName)}}</th>
+                        <th mat-header-cell *matHeaderCellDef [class.big-column]="assLabelName!='Student Name'">{{setName(assLabelName)}}</th>
                         <td mat-cell *matCellDef="let element"> 
                             <ng-container *ngIf="assLabelName!='Student Name'; else elseBlock;">
                                 {{element?.textValue}}
                             </ng-container>
                             <ng-template #elseBlock>
-                                <a (click)="redToStuProfile('studentId',element?.sourceId)">{{element?.textValue}}</a>
+                                <a (click)="redToStuProfile('studentId',element?.sourceId)" class="text-main">{{element?.textValue}}</a>
                             </ng-template>  
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="standardName" >
-                        <th mat-header-cell *matHeaderCellDef>{{'student.standard' |translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="mat-column-action">{{'student.standard' |translate}}</th>
                         <td mat-cell *matCellDef="let element"> {{element?.standardName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="assesmentCalculationValue">
@@ -298,15 +298,15 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="totalStudent">
-                        <th mat-header-cell *matHeaderCellDef>{{'dashboard.total_students' | translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="big-column">{{'dashboard.total_students' | translate}}</th>
                         <td mat-cell *matCellDef="let element"> {{element.totalStudent}} </td>
                     </ng-container>
                     <ng-container matColumnDef="evaluvatedStudent">
-                        <th mat-header-cell *matHeaderCellDef>{{'dashboard.evaluated' | translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="mat-column-action">{{'dashboard.evaluated' | translate}}</th>
                         <td mat-cell *matCellDef="let element"> {{element.evaluvatedStudent}} </td>
                     </ng-container>
                     <ng-container matColumnDef="pendingStudent">
-                        <th mat-header-cell *matHeaderCellDef>{{'dashboard.pending_assessment' | translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="big-column">{{'dashboard.pending_assessment' | translate}}</th>
                         <td mat-cell *matCellDef="let element"> {{element.pendingStudent}} </td>
                     </ng-container>
                     <tr class="mat-row p-2 w-100" *matNoDataRow col>
@@ -314,7 +314,7 @@
                     </tr>
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </mat-table>
+                    </table>
                     <mat-paginator [length]="totalRows" showFirstLastButtons
                     (page)="pageChanged($event)" [pageSizeOptions]="[10]" aria-label="Select page">
                 </mat-paginator>
