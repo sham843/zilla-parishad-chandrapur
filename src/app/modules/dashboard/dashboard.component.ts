@@ -1,6 +1,8 @@
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -48,6 +50,12 @@ export class DashboardComponent {
   enbSchoolDropFlag: boolean = false;
   assLabelName:string='Taluka';
   checkBoxCheckAll:boolean = true;
+  displayedColumns = ['srNo', 'textValue','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent'];
+  dataSource:any;
+  pageNumber:number =1;
+  totalRows!:number;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   constructor(public translate: TranslateService,
     private apiService: ApiService,
     private errors: ErrorsService,private spiner:NgxSpinnerService,
@@ -652,11 +660,15 @@ export class DashboardComponent {
 
   getDynamicDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=1&pageSize=10&userId=${filterFormData.userId}`
+    filterFormData.schoolId ?  this.displayedColumns = ['srNo', 'textValue','standardName','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent']: this.displayedColumns = ['srNo','textValue','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent']
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=${this.pageNumber}&pageSize=10&userId=${filterFormData.userId}`
     this.apiService.setHttp('get', 'dashboard/get-dashboard-dynamic-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
+        this.talukaWiseAssData = new MatTableDataSource(this.talukaWiseAssData);
+        this.totalRows = res.responseData.responseData2.pageCount;
+        this.totalRows > 10 && this.pageNumber == 1 ? this.paginator?.firstPage() : '';
         setTimeout(() => {this.showToolTipOnPro() }, 1000);
       }
       else {
@@ -666,6 +678,10 @@ export class DashboardComponent {
     }, (error: any) => {
       this.errors.handelError(error.status);
     })
+  }
+  pageChanged(event: any) {
+    this.pageNumber = event.pageIndex + 1;
+    this.getDynamicDetails();
   }
   displayProfile(_id?: number) {
 
