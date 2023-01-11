@@ -176,7 +176,7 @@ nav .btn-login{
     line-height: 1.6rem;
 }
 #app-section {
-    background: linear-gradient(90deg, #02CCC0 0%, #586CE6 100%) 0% 0%;
+    background: linear-gradient(90deg, var(--third-color) 0%, var(--main-color) 100%) 0% 0%;
     padding-block: 3rem;
     color: #fff;
 }
