@@ -47,8 +47,8 @@ export class ForgotPasswordComponent {
     this.forgotPasswordForm = this.fb.group(({
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       mobileNumber: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
-      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{6,15}$')]],
-      cpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{6,15}$')]],
+      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]],
+      cpassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]],
       otpNumber: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]]
     }))
   }

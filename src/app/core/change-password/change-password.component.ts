@@ -61,6 +61,8 @@ export class ChangePasswordComponent {
       return
     }else if(this.changePassForm.value.newPwd != this.changePassForm.value.reTypePwd){
       this.common.snackBar('New Password And Comfirm Password Not Match',1);
+    }else if(this.changePassForm.value.oldPwd == this.changePassForm.value.newPwd){
+      this.common.snackBar('The Entered Old Password is the Same as the New Password',1);
     }else{
       this.spinner.show();
       this.apiService.setHttp('put','zp_chandrapur/user-registration/UpdatePassward?OldPassword='+this.changePassForm.value.oldPwd+'&UserName='+this.common.getUserName()+'&Password='+this.changePassForm.value.newPwd+'&MobileNo='+this.common.getUserName(), false, false,false, 'baseUrl')

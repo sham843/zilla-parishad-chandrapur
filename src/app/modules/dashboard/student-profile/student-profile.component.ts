@@ -27,7 +27,7 @@ export class StudentProfileComponent {
   studentId!: number;
   schoolId!: number;
   lang!: string;
-  searchFilter = new FormControl();
+  subjectId = new FormControl();
   @ViewChild("chart") chart!: any;
   ChartOptions: any;
   globalObj: any;
@@ -35,6 +35,9 @@ export class StudentProfileComponent {
   centerArray: any;
   levelId: any;
   language: any;
+  chartData:any;
+  xasixData=new Array();
+  yasixData=new Array();
 
   getURLData:any;
 
@@ -62,7 +65,7 @@ export class StudentProfileComponent {
 
     let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
     this.globalObj = JSON.parse(obj);
-    console.log("globalObj",this.globalObj);
+    this.globalObj.standardId=[2];
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
@@ -70,9 +73,11 @@ export class StudentProfileComponent {
     })
     this.getformControl();
     this.getTaluka();
-    this.getAllStudentData();
+    this.globalObj.talukaId==0?this.getAllStudentData():'';
+    this.getAllSubject();
+    this.getStudentProChart();
+    console.log("glbal Data",this.globalObj);
   }
-
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
   getformControl() {
@@ -80,11 +85,11 @@ export class StudentProfileComponent {
       talukaId:[0],
       kendraId: [0],
       schoolId: [0],
-      standardId: [10],
+      standardId: [0],
       searchText: [''],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
-    this.getAllStudentData();
+    // this.getAllStudentData();
   }
 
   getTaluka() {
@@ -92,7 +97,9 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-         this.globalObj?(this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),this.getKendra()):'';
+         this.globalObj.talukaId!=0?(this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),this.getKendra()):'';
+         (this.globalObj.talukaId!=0 && this.globalObj.kendraId==0)?this.getAllStudentData():'';
+         
           // this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['talukaId'].setValue(this.loginData.talukaId), this.enbTalDropFlag = true, this.clickOnSvgMap('select')) : '';
           // this.levelId == 4 || this.levelId == 5 ? this.getKendra() : this.levelId == 3 ? this.cardCountData() : '';
         }
@@ -113,7 +120,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray = res.responseData;
-          this.globalObj?(this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):'';
+          this.globalObj.kendraId!=0?(this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):'';
+          (this.globalObj.kendraId!=0 && this.globalObj.schoolId==0)?this.getAllStudentData():'';
           // this.levelId == 4 || this.levelId == 5 ? (this.topFilterForm.controls['kendraId'].setValue(this.loginData.centerId), this.enbCenterDropFlag = true) : '';
           // this.levelId == 5 ? this.getSchools() : this.levelId == 4 ? (this.getSchools(), this.cardCountData()) : ''; // this.cardCountData() temp
         }
@@ -135,7 +143,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
-          this.globalObj?(this.filterFrm.controls['schoolId'].setValue(this.globalObj.schoolId),this.getStandard()):'';
+          this.globalObj.schoolId!=0?(this.filterFrm.controls['schoolId'].setValue(this.globalObj.schoolId),this.getStandard()):'';
+          (this.globalObj.schoolId!=0 && this.globalObj.standardId==0)?this.getAllStudentData():'';
         }
         else {
           this.schoolArray = [];
@@ -155,6 +164,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
+          this.globalObj.standardId!=0?(this.filterFrm.controls['standardId'].setValue(this.globalObj.standardId),this.getAllStudentData()):'';
         }
         else {
           this.standardArray = [];
@@ -173,6 +183,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.subjectArray = res.responseData;
+          this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId)):'';
         }
         else {
           this.subjectArray = [];
@@ -189,6 +200,7 @@ export class StudentProfileComponent {
     this.filterFrm.reset();
     this.getformControl();
     this.standardArray = [];
+    this.globalObj='';
     this.getAllStudentData('filter');
   }
   //#endregion -------------------------------------------dropdown with filter fn end heare------------------------------------------------//
@@ -200,7 +212,7 @@ export class StudentProfileComponent {
         this.pageNumber = obj.pageNumber;
         this.getAllStudentData();
         break;
-      case 'Row': this.studentDataById()
+      case 'Row': this.studentDataById(obj.studentId)
         break
     }
   }
@@ -210,15 +222,15 @@ export class StudentProfileComponent {
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + 0 + '&CenterId=' + 0 
-    + '&SchoolId=' + (formData?.schoolId) + '&Standardid=' + (formData?.standardId)+ '&subjectId=' + 1 + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
+    let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId) + '&CenterId=' + (formData?.kendraId)
+    + '&SchoolId=' + (formData?.schoolId) + '&Standardid=' + (formData?.standardId)+ '&subjectId=' + (this.globalObj.subjectId?this.globalObj.subjectId:3) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          this.studentDataById(this.tableDataArray[0]?.studentId);
+          this.tableDataArray.length!=0?this.studentDataById(this.tableDataArray[0]?.studentId):'';
           // this.tableDataArray?.map((ele: any) => {
           //   ele.fullName = ele.f_Name + ' ' + ele.m_Name + ' ' + ele.l_Name;
           // })
@@ -260,11 +272,7 @@ export class StudentProfileComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.StudentDataArray = res.responseData;
-          this.StudentDataArray.m_Name1 = this.StudentDataArray.m_Name + ' ' + this.StudentDataArray.l_Name;
-          this.StudentDataArray.f_Name1 = this.StudentDataArray.f_Name + ' ' + this.StudentDataArray.l_Name
-          this.filterFrm.controls['schoolId'].setValue(this.StudentDataArray.schoolId);
-          this.filterFrm.controls['standardId'].setValue(this.StudentDataArray.standardId);
-          this.filterFrm.controls['searchText'].setValue(this.StudentDataArray.f_Name);
+          this.assesmentChartData();
         }
         else {
           this.StudentDataArray = [];
@@ -277,7 +285,37 @@ export class StudentProfileComponent {
     });
   }
 
-  getStudentProChart() {
+  assesmentChartData(){     //get chart data
+    let studentData=this.StudentDataArray;
+    let obj=(studentData.standardId)+'&StudentId='+(studentData.id)+'&EducationYearId='+1+'&SubjectId='+(this.subjectId.value)+'&lan='+(this.lang)
+    this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?StandardId='+obj, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          this.chartData=res.responseData;
+          this.chartData?.responseData2.forEach((ele:any) => {
+            this.xasixData.push(ele.examName);
+          }); 
+          this.ChartOptions.xaxis.categories=this.xasixData;
+
+          this.chartData?.responseData1.forEach((ele:any) => {
+            this.yasixData.push(ele.assesmentParameter);
+          }); 
+          this.ChartOptions.yaxis.categories=this.yasixData;
+          this.getStudentProChart();
+        }
+        else {
+          this.chartData = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      },
+      error: ((err: any) => {
+        this.errorService.handelError(err)
+      })
+    });
+  }
+
+  getStudentProChart() { 
     this.ChartOptions = {
       series: [
         {
@@ -305,21 +343,23 @@ export class StudentProfileComponent {
       },
       xaxis: {
         type: "level",
-        categories: [
-          "पूर्व चाचणी",
-          "मध्य चाचणी",
-          "अंतिम चाचणी",
-        ]
+        // categories:[]
+      categories: [
+          "test 1",
+          "test 2",
+          "test 3"
+        ] 
       },
       yaxis: {
         type: "text",
-        categories: [
+        // categories:[]
+        categories: [ 
           "Story",
           "Paragraph",
           "Words",
           "Letter",
           "Initial"
-        ]
+        ] 
       },
       legend: {
         position: "top",
@@ -336,4 +376,17 @@ export class StudentProfileComponent {
     };
   }
   //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
+  clearDropdown(flag:any){
+    if(flag=='taluka'){
+      this.filterFrm.controls['kendraId'].setValue('');
+      this.filterFrm.controls['schoolId'].setValue('');
+      this.filterFrm.controls['standardId'].setValue('');
+      this.globalObj='';
+    }else if(flag=='kendra'){
+      this.filterFrm.controls['schoolId'].setValue('');
+      this.filterFrm.controls['standardId'].setValue('');
+    }else if(flag=='school'){
+      this.filterFrm.controls['standardId'].setValue('');
+    }
+  }
 }

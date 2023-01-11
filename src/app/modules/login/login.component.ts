@@ -42,7 +42,7 @@ export class LoginComponent {
     this.loginForm = this.fb.group(({
       flag: [this.language == 'English' ? 'en' : 'mr-IN'],
       userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), Validators.minLength(10), Validators.maxLength(10)]],
-      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{6,15}$')]],
+      password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{6,15}$')]],
       recaptchaReactive: ['', [Validators.required, Validators.pattern(/^\S*$/)]], 
     }))
   }
