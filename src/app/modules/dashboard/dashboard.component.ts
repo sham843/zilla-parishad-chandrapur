@@ -293,11 +293,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        this.getSurveyedData.map((ele:any, i:number)=>{
-            ele.checked = true;
-            i>2 ? this.selNumber += ele.data:'';
-            i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
-        })
+        this.calSelectedNumber(true)
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.totalRows = 0,this.talukaWiseAssData = [];
       }
       else {
@@ -309,6 +305,14 @@ export class DashboardComponent {
     })
   }
 
+  calSelectedNumber(flag?: boolean) {
+    this.getSurveyedData.map((ele: any, i: number) => {
+      flag ?  ele.checked = true : '';
+      i > 1 ? this.selNumber += ele.data : '';
+      i == 0 && ele.text == 'Total Number' ? ele['text_m'] = 'एकूण संख्य' : i == 1 && ele.text == 'Surveyed' ? ele.text_m = 'सर्वेक्षण केले' : ele['text_m'] = ele.text;
+    })
+  }
+
   getAssesmentDashboardDetails() {
     if (this.selStdArray.length) {
       let filterFormData = this.topFilterForm.value;
@@ -317,6 +321,7 @@ export class DashboardComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.getAssesmentData = res.responseData;
+          console.log(this.getAssesmentData)
           let checkEvery:any;
           this.getAssesmentData.find((ele:any)=>{
             checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
@@ -350,8 +355,8 @@ export class DashboardComponent {
         let selIndex = this.selStdArray.findIndex((ele: any) => ele == val.standardId);
         this.selStdArray.splice(selIndex, 1);
         this.getSurveyedData[selStdIndex].checked = false;
-        this.selNumber = this.selNumber - val.data;
-
+        let subtraction = this.selNumber - val.data;
+        this.selNumber  = subtraction > 0 ? subtraction : 0
       }
       this.getAssesmentDashboardDetails();
     } else {
@@ -366,21 +371,21 @@ export class DashboardComponent {
   }
 
   checkBoxCheckedAll(event: any) {
-    this.selStdArray = [];
-    let checkAllClassFlag!:boolean;
     this.getSurveyedData.find((ele: any, i: number) => {
       if (i > 1) {
         if (event.checked) {
           ele.checked = true;
           this.selStdArray.push(ele.standardId);
+          this.selNumber=0;
+          this.calSelectedNumber();
         } else {
           ele.checked = false;
-          this.selStdArray = []
+          this.selStdArray = [];
+          this.selNumber = 0;
         }
       }
     });
-    console.log(checkAllClassFlag);
-    event.checked ? this.checkBoxCheckAll = true : this.checkBoxCheckAll = false;
+    event.checked ? (this.checkBoxCheckAll = true, this.checkBoxChecked('default')): this.checkBoxCheckAll = false;
     this.getAssesmentDashboardDetails();
   }
 
@@ -389,10 +394,10 @@ export class DashboardComponent {
   //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
   pieChart(data: any) {
     this.piechartOptions = {
-      series: [data[0]?.assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
+      series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
       chart: {
         type: "donut",
-        height: 200,
+        height: 300,
       },
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -417,10 +422,10 @@ export class DashboardComponent {
       ]
     };
     this.piechartSecondOptions = {
-      series: [data[1].assesmentDetails[0]?.assesmentCalculationValue, data[0]?.assesmentDetails[1]?.assesmentCalculationValue],
+      series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
       chart: {
         type: "donut",
-        height: 200,
+        height: 300,
       },
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -454,17 +459,21 @@ export class DashboardComponent {
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
         let obj: any = {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [parseInt(ele['assesmentDetails'][i].assesmentCalculationValue)]
+          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)]
         }
         arr.push(obj);
         barColorpal.push(ele['assesmentDetails'][i].colorCodeValue)
       }
       seriesData.push(arr)
     });
-
     this.barchartOptions = {
       series: seriesData,
       chart: {
+        events: {
+          dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
+           this.redToStuProfile('subject',config.seriesIndex)
+          }
+        },
         type: "bar",
         height: 360,
         width: 300,
@@ -472,7 +481,7 @@ export class DashboardComponent {
         borderRadius: 10,
         columnWidth: '45%',
         stacked: true,
-        stackType: "100%",
+        stackType: '100%', // 100% normal
         toolbar: {
           show: false
         },
@@ -541,9 +550,9 @@ export class DashboardComponent {
           height: 12,
           strokeWidth: 0,
           strokeColor: '#fff',
-          fillColors: this.progressBarcolors,
+          fillColors: this.progressBarcolors.reverse(),
         }
-      }
+      },
     };
     this.getDynamicDetails();
   }
@@ -632,8 +641,8 @@ export class DashboardComponent {
     this.spiner.show();
     if (flag == 'select') {
       this.enbTalDropFlag ? $('#mapsvg g').addClass('disabledAll') : '';
-      let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
-      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"] path').removeAttr("style") : '';
+      let checkTalActiveClass = $('#mapsvg g').hasClass("talActive");
+      checkTalActiveClass ?  $('#mapsvg  g[id="' + this.globalTalId + '"] path').css({ 'fill' : 'rgb(67, 133, 255)'}) : '';
       this.svgMapAddOrRemoveClass();
     }
     this.spiner.hide();
@@ -650,7 +659,8 @@ export class DashboardComponent {
 
   svgMapAddOrRemoveClass() {
     let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
-    checkTalActiveClass ? $('#mapsvg   g#' + this.globalTalId).removeClass("talActive") : '';
+    checkTalActiveClass ? ($('#mapsvg   g#' + this.globalTalId).removeClass("talActive"), 
+    $('#mapsvg  g[id="' + this.globalTalId + '"] path').css({ 'fill' : 'rgb(67, 133, 255)'})) : '';
     this.talukaArray.find(() => {
       this.globalTalId = this.topFilterForm?.value?.talukaId;
       $('#mapsvg g[id="' + this.topFilterForm?.value?.talukaId + '"]').addClass('talActive');

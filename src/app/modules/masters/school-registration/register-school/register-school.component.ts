@@ -66,9 +66,9 @@ export class RegisterSchoolComponent {
   getFormData(obj?: any) {
     this.registerForm = this.fb.group({
       schoolName: [obj?.schoolName || '', [Validators.required, Validators.minLength(10), Validators.maxLength(500), Validators.pattern('^[-_., a-zA-Z0-9]+$')]],
-      districtId: [obj?.districtId || this.loginData.districtId, Validators.required],
-      talukaId: [obj?.talukaId || (this.levelId == 1 || this.levelId == 2 ? 0 : this.loginData.talukaId), Validators.required],
-      centerId: [obj?.centerId || (this.levelId == 1 || this.levelId == 2 ? 0 : this.loginData.centerId), Validators.required],
+      districtId: [obj?.districtId || this.loginData.districtId, [Validators.required]],
+      talukaId: [obj?.talukaId || (this.levelId == 1 || this.levelId == 2 ? '' : this.loginData.talukaId), [Validators.required]],
+      centerId: [obj?.centerId || (this.levelId == 1 || this.levelId == 2 ? '' : this.loginData.centerId),[Validators.required]],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
       s_TypeId: [obj?.s_TypeId || ''],
       g_GenderId: [obj?.g_GenderId || ''],
@@ -80,7 +80,7 @@ export class RegisterSchoolComponent {
     })
     this.getDistrict();
   }
-
+ 
   getDistrict() {
     let formData = this.registerForm.value.districtId;
     this.service.setHttp('get', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + (this.service.translateLang ? this.lang : 'en'), false, false, false, 'baseUrl');
@@ -214,10 +214,7 @@ export class RegisterSchoolComponent {
     this.spinner.show();
     let formData = this.registerForm.value;
     if (this.registerForm.invalid) {
-      this.spinner.hide();
-      if (this.registerForm.controls['schoolLocationId'].invalid) {
-        this.showRedio = true
-      }
+      this.spinner.hide();      
       return;
     } else {
       this.spinner.hide();
