@@ -73,6 +73,10 @@ nav .btn-login{
     font-size: 0.9rem;
     text-decoration: none;
 }
+.navbar-toggler{
+    font-size: 0.85rem;
+    box-shadow: none;
+}
 #header{
     background-image: url('../../../assets/images/home/Web-banner.png');
     height: calc(100vh - 111.14px);
@@ -130,6 +134,36 @@ nav .btn-login{
         background-repeat: no-repeat;
         background-size: cover;
         color: #fff;
+        position: unset;
+        height: 100vh;
+    }
+    #header .container{
+        margin-top:-60px;
+    }
+    #header h6{
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    #header h1{
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+        font-size: 2.8rem;
+        line-height: 3rem;
+        text-align: center;
+    }
+    #header p{
+        font-size: 0.85rem;
+        text-align: center;
+    }
+    #ministers {
+        margin-top: 30px !important;
+    }
+    #aboutus h2 {
+        font-size: 2rem !important;
     }
 }
 
