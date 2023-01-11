@@ -166,9 +166,10 @@
                             </mat-card-content>
                         </mat-card>
                 </ng-container>
-                <ng-container *ngIf="StudentDataArray?.length == 0">
-                    <div class=" text-center">
-                        <h5 class="fw-bold">Student Profile Data Not Available</h5> </div>
+                <ng-container *ngIf="StudentDataArray.length !=0">
+                        <div class="alert alert-danger text-center py-2 ">
+                            Student Profile Data Not Available
+                        </div>
                 </ng-container>
                </div>
             </div>
