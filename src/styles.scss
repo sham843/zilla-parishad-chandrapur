@@ -375,7 +375,7 @@ a.text-main,
   max-width: 100vw;
   overflow-x: auto;
 }
-.apexcharts-legend.apx-legend-position-right{
+.no-axis  .apexcharts-legend.apx-legend-position-right{
   width: 100px;
 }
 button[disabled] {
@@ -387,7 +387,7 @@ button[disabled] {
 .cdk-column-saralId{
   font-weight: bold;
 }
-.apexcharts-legend{
+.no-axis .apexcharts-legend{
   right: 30px !important;
   width: 100px !important;
 }
