@@ -175,3 +175,39 @@ nav .btn-login{
     color: #757575;
     line-height: 1.6rem;
 }
+#app-section {
+    background: linear-gradient(90deg, var(--third-color) 0%, var(--main-color) 100%) 0% 0%;
+    padding-block: 3rem;
+    color: #fff;
+}
+#app-section h2{
+    margin-bottom: 1.5rem;
+}
+#app-section h6{
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+}
+#app-section .media{
+    margin-bottom: 1.5rem;
+}
+#app-section .media i{
+    background-color: var(--main-dark-color);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 3px;
+}
+#app-section .media h5{
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+#app-section .media p{
+    font-size: 0.85rem;
+    line-height: 1.4rem;
+}
