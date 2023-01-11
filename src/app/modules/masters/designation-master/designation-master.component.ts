@@ -46,7 +46,6 @@ export class DesignationMasterComponent {
     })
     this.getDesignationLevel();
     this.getTableData();
-    // this.getDesignTreeView();
   }
 
   getDesignTreeView() {
@@ -73,9 +72,21 @@ export class DesignationMasterComponent {
   }
 
   getDesignationLevel() {//error handling / handled in masters table
-    this.master.getDesignationLevel(this.apiService.translateLang?this.lang:'en').subscribe((res: any) => {
-      this.desigantionLevelArray = res.responseData;
-    })
+    this.master.getDesignationLevel(this.apiService.translateLang?this.lang:'en').subscribe( {
+      next : ((res:any)=>{
+        if(res.statusCode == '200'){
+          this.desigantionLevelArray = res.responseData;
+          }
+          else {
+            this.desigantionLevelArray = [];
+            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+      }),
+      error: ((err: any) => {
+        this.spinner.hide();
+        this.errors.handelError(err.status)
+      })
+    });
   }
 
   getTableData(flag?: string) {
@@ -143,6 +154,7 @@ export class DesignationMasterComponent {
         this.globalDialogOpen(obj);
         break;
       case 'Row':
+      // this.viewDataDialog(obj);
         break;
     }
   }
@@ -224,4 +236,24 @@ export class DesignationMasterComponent {
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 
+ /*  viewDataDialog(obj:any){   //view table data
+    let linkedToData:any[]=[];
+    obj?.linkedDesignationDetails.forEach((ele:any) => {
+      linkedToData.push(ele.linkedToDesignationName)
+    });
+    let viewObj = {
+      cardTitle: this.lang == 'mr-IN' ? '' : 'Designation Master',
+      data:[
+        {label:'Designation Name',value:obj.designationName},
+        {label:'Designation Level',value:obj.designationLevelName},
+        {label:'Linked To',value:linkedToData},
+      ],
+    }
+     this.dialog.open(ViewDialogComponent, {
+      width: '850px',
+      data: viewObj,
+      disableClose: true,
+      autoFocus: false
+    })
+  } */
 }

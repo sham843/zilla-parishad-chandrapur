@@ -188,7 +188,7 @@ export class StudentRegistrationComponent {
     let displayedColumns;
     displayedColumns = this.lang == 'mr-IN' && this.apiService.translateLang ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo', 'action']
     let displayedheaders;
-    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No', 'Action']
+    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक', 'कृती'] : ['Saral ID', 'Name', 'Gender', 'Standard', 'Parents Contact No.', 'Action']
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow:true,
@@ -283,7 +283,7 @@ export class StudentRegistrationComponent {
     let pageName;
     this.lang == 'mr-IN' ? pageName = 'विद्यार्थी नोंदणी' : pageName = 'Student Registration';
     let header: any;
-    this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral Id', 'Name', 'Gender', 'Standard', 'Parent Contact No'];
+    this.lang == 'mr-IN' ? header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक'] : header = ['Saral ID', 'Name', 'Gender', 'Standard', 'Parent Contact No.'];
     let column;
     column = this.lang == 'mr-IN' && this.apiService.translateLang ? ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo'] : ['saralId', 'englishFullName', 'gender', 'standard', 'parentsMobileNo']
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }

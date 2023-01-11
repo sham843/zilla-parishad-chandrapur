@@ -17,7 +17,7 @@
         <form [formGroup]="filterFrm" class="w-100">
             <div class="row w-100 mb-3 justify-content-end">
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId == 3 || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
                         <mat-select formControlName="talukaId" (selectionChange)="getKendra();clearDropdown('taluka')">
                             <mat-option value="0">All Taluka</mat-option>
@@ -28,7 +28,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="kendraId" (selectionChange)="getSchool();clearDropdown('kendra')">
                             <mat-option value="0">All Kendra</mat-option>
@@ -39,7 +39,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId || this.levelId == 5">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId" (selectionChange)="getStandard();clearDropdown('school')">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
@@ -72,101 +72,106 @@
             </div>
         </form>
     </mat-card-header>
-
-    <mat-card-content class="card-body pt-0">
-        <div class="row">
-            <div class="col-sm-5">
-                <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-            </div>
-            <div class="col-sm-7">
-                <div class="student-bg">
-                    <h5 class="text-primary">प्रोफाइल</h5>
+        <mat-card-content class="card-body pt-0">
+            <div class="row">
+                <div class="col-sm-5">
+                    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
                 </div>
-                <div class="student-details">
-                    <div class="d-flex">
-                        <div class="flex-shrink-0">
-                            <img src="{{StudentDataArray?.profilePhoto ? StudentDataArray?.profilePhoto : 'assets/images/user.png'}}"
-                                alt="Student Photo">
+               <div class="col-sm-7">
+                <ng-container *ngIf="StudentDataArray?.length != 0">
+                        <div class="student-bg">
+                            <h5 class="text-primary">प्रोफाइल</h5>
                         </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">{{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}</h5>
-                            <p class="text-muted mb-4">{{'common.name'|translate}}</p>
-
-                            <div class="data-container">
-                                <div class="row mb-3 justify-content-between">
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'student.parent_name'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.parentName}}</div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'common.mobile_number'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.parentsMobileNo}}</div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
+                        <div class="student-details">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <img src="{{StudentDataArray?.profilePhoto ? StudentDataArray?.profilePhoto : 'assets/images/user.png'}}"
+                                        alt="Student Photo">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1 fw-bold">{{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}</h5>
+                                    <p class="text-muted mb-4">{{'common.name'|translate}}</p>
+        
+                                    <div class="data-container">
+                                        <div class="row mb-3 justify-content-between">
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'student.parent_name'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.parentName}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'common.mobile_number'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.parentsMobileNo}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 justify-content-between">
+                                            <div class="col-sm-8">
+                                                <span class="data-label">{{'common.school_name'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.schoolName}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'student.standard'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.standard}}</div>
+                                            </div>
+                                            <!-- <div class="col-sm-4">
+                                                <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.teacherName}}</div>
+                                            </div> -->
+                                        </div>
+                                        <div class="row mb-3 justify-content-between">
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'student.gender'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.gender}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="data-label">Parent Sec. Mobile No.</span>
+                                                <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <span class="data-label">Parent Mail Id</span>
+                                                <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
+                                            </div>
+                                        </div>
+        
                                     </div>
                                 </div>
-                                <div class="row mb-3 justify-content-between">
-                                    <div class="col-sm-8">
-                                        <span class="data-label">{{'common.school_name'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.schoolName}}</div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'student.standard'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.standard}}</div>
-                                    </div>
-                                    <!-- <div class="col-sm-4">
-                                        <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.teacherName}}</div>
-                                    </div> -->
-                                </div>
-                                <div class="row mb-3 justify-content-between">
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'student.gender'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.gender}}</div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="data-label">Parent Sec. Mobile No.</span>
-                                        <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="data-label">Parent Mail Id</span>
-                                        <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
-                </div>
-                <mat-card class="plain-card border">
-                    <mat-card-header class="card-header pb-0 border-bottom-0">
-                        <div class="d-flex justify-content-between align-items-center w-100">
-                            <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
-                            <div class="flex-fill">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Select Subject</mat-label>
-                                    <mat-select [formControl]="subjectId">
-                                        <mat-option
-                                            *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                        <mat-card class="plain-card border">
+                            <mat-card-header class="card-header pb-0 border-bottom-0">
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
+                                    <div class="flex-fill">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Select Subject</mat-label>
+                                            <mat-select [formControl]="subjectId">
+                                                <mat-option
+                                                    *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </mat-card-header>
+                            <mat-card-content class="card-body">
+                                <div id="chart">
+                                    <apx-chart [series]="ChartOptions?.series" [chart]="ChartOptions?.chart"
+                                        [xaxis]="ChartOptions?.xaxis" [yaxis]="ChartOptions?.yaxis"
+                                        [stroke]="ChartOptions?.stroke" [tooltip]="ChartOptions?.tooltip"
+                                        [dataLabels]="ChartOptions?.dataLabels">
+                                    </apx-chart>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                </ng-container>
+                <ng-container *ngIf="StudentDataArray?.length ==0">
+                        <div class="alert alert-danger text-center py-2 ">
+                            Student Profile Data Not Available
                         </div>
-                    </mat-card-header>
-                    <mat-card-content class="card-body">
-                        <div id="chart">
-                            <apx-chart [series]="ChartOptions?.series" [chart]="ChartOptions?.chart"
-                                [xaxis]="ChartOptions?.xaxis" [yaxis]="ChartOptions?.yaxis"
-                                [stroke]="ChartOptions?.stroke" [tooltip]="ChartOptions?.tooltip"
-                                [dataLabels]="ChartOptions?.dataLabels">
-                            </apx-chart>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+                </ng-container>
+               </div>
             </div>
-        </div>
-    </mat-card-content>
-
+        </mat-card-content>
 </mat-card>

@@ -7,9 +7,8 @@
             </button>
         </div>
     </mat-card-header>
-    <form [formGroup]="userRegistrationForm" #formDirective="ngForm">
+    <form [formGroup]="userRegistrationForm" #formDirective="ngForm" (ngSubmit)="registerUser(formDirective)">
         <mat-card-content class="card-body">
-
             <div class="row mb-3">
                 <div class="col-sm-auto" *ngIf="this.data?.flag=='profile'">
                     <ng-container >
@@ -211,8 +210,7 @@
             <div class="d-flex justify-content-end align-items-center w-100">
                 <button mat-stroked-button type="button" class="btn-second me-2"
                     (click)="clearUserForm(formDirective)">{{'common.clear' | translate}}</button>
-                <button mat-stroked-button type="submit" class="btn-main"
-                    (click)="registerUser(formDirective)">{{this.data?.successBtnText}}</button>
+                <button mat-stroked-button type="submit" class="btn-main">{{this.data?.successBtnText}}</button>
             </div>
         </mat-card-content>
     </form>

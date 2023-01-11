@@ -112,6 +112,7 @@ export class AgencyRegistrationComponent {
           this.deleteAgencyModalOpen(obj);
           break;
         case 'Row':
+          // this.viewNgoDetails(obj);
           break;
       }
   }
@@ -121,7 +122,7 @@ export class AgencyRegistrationComponent {
       width: '850px',
       disableClose: true,
       data: {
-        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'Register NGO'),
+        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'NGO Registration'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
@@ -202,4 +203,27 @@ export class AgencyRegistrationComponent {
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
+
+  /* viewNgoDetails(obj:any){
+    console.log(obj);
+    let viewObj = {
+      cardTitle: this.language == 'mr-IN' ? '' : 'NGO Master',
+      data:[
+        {label:'District',value:obj.district},
+        {label:'Taluka',value:obj.taluka},
+        {label:'NGo Name',value:obj.agencyName},
+        {label:'Registration No.',value:obj.registrationNo},
+        {label:'Contact No.',value:obj.contactNo},
+        {label:'Contact Person Name',value:obj.contactPersonName},
+        {label:'Email Id',value:obj.emailId},
+      ],
+    }
+     this.dialog.open(ViewDialogComponent, {
+      width: '850px',
+      data: viewObj,
+      disableClose: true,
+      autoFocus: false
+    })
+  } */
 }
+
