@@ -121,7 +121,7 @@ export class AgencyRegistrationComponent {
       width: '850px',
       disableClose: true,
       data: {
-        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'Register NGO'),
+        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'NGO Registration'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
