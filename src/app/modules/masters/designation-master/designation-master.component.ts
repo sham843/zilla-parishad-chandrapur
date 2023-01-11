@@ -9,6 +9,7 @@ import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-downloa
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
+import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 import { AddDesignationComponent } from './add-designation/add-designation.component';
 
 @Component({
@@ -143,6 +144,7 @@ export class DesignationMasterComponent {
         this.globalDialogOpen(obj);
         break;
       case 'Row':
+      this.viewDataDialog(obj);
         break;
     }
   }
@@ -224,4 +226,22 @@ export class DesignationMasterComponent {
     this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 
+  viewDataDialog(obj:any){   //view table data
+    console.log(obj)
+    let linkedToData;
+    obj.newLinkedToDesignationName.forEach((ele:any) => {
+      linkedToData.push(ele)
+    });
+    let viewObj = {
+      cardTitle: this.lang == 'mr-IN' ? '' : 'Designation Master',
+      label:['Designation Name','Designation Level','Linked To'],
+      value:[obj.designationName,obj.designationLevelName,obj.linkedToData]
+    }
+     this.dialog.open(ViewDialogComponent, {
+      width: '850px',
+      data: viewObj,
+      disableClose: true,
+      autoFocus: false
+    })
+  }
 }
