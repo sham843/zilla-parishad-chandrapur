@@ -211,3 +211,83 @@ nav .btn-login{
     font-size: 0.85rem;
     line-height: 1.4rem;
 }
+footer{
+    background-color: #191E24;
+    color:#fff;
+    padding-block: 3rem;
+}
+footer img{
+    width: 200px;
+}
+footer p{
+    margin-block: 1.5rem;
+    font-size: 0.85rem;
+    color: #ddd;
+}
+footer h4{
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+footer ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+footer ul li{
+    margin-bottom:15px;
+}
+footer ul li a{
+    text-decoration: none;
+    color: #aaa;
+}
+footer ul li a:hover{
+    color: #fff;
+}
+footer .social-icons{
+    display:flex;
+    align-items: center;
+}
+footer .social-icons i{
+    background-color: #2A3037;
+    width: 34px;
+    height: 34px;
+    line-height:34px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 1.1rem;
+}
+footer .social-icons a i{
+    color: #fff;
+    text-decoration: none;
+}
+footer .contact{
+   margin-bottom: 1rem;
+   font-size: 0.85rem;
+}
+footer .input-group{
+   border: none;
+   background-color: #fff;
+   padding: 3px;
+   border-radius: 30px;
+}
+footer .input-group .form-control{
+   border: none;
+   border-radius: 30px;
+   box-shadow: none;
+   font-size: 0.85rem;
+   margin-right: 5px;
+   padding-inline: 20px;
+}
+footer .input-group button{
+    border-radius: 50% !important;
+    border: none;
+    background-color: var(--main-color);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    font-size: 1.4rem;
+}
