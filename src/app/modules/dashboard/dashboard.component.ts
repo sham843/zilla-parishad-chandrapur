@@ -385,7 +385,6 @@ export class DashboardComponent {
         }
       }
     });
-    console.log(this.selStdArray);
     event.checked ? (this.checkBoxCheckAll = true, this.checkBoxChecked('default')): this.checkBoxCheckAll = false;
     this.getAssesmentDashboardDetails();
   }
@@ -398,7 +397,7 @@ export class DashboardComponent {
       series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
       chart: {
         type: "donut",
-        height: 200,
+        height: 300,
       },
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -426,7 +425,7 @@ export class DashboardComponent {
       series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
       chart: {
         type: "donut",
-        height: 200,
+        height: 300,
       },
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -551,7 +550,7 @@ export class DashboardComponent {
           height: 12,
           strokeWidth: 0,
           strokeColor: '#fff',
-          fillColors: this.progressBarcolors,
+          fillColors: this.progressBarcolors.reverse(),
         }
       },
     };
