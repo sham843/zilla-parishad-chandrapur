@@ -328,8 +328,8 @@
            "English_Language_Level":"कामगिरी निर्देशक"
         },
         "Add_Class_Model":{
-            "marathi_language_level":"मराठी भाषेची पातळी",
-            "english_language_level":"इंग्रजी भाषा स्तर"
+            "marathi_language_level":"वर्ग (मराठी)",
+            "english_language_level":"वर्ग (इंग्रजी)"
         }
       }
 }

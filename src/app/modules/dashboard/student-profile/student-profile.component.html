@@ -19,7 +19,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
-                        <mat-select formControlName="talukaId" (selectionChange)="getKendra()">
+                        <mat-select formControlName="talukaId" (selectionChange)="getKendra();clearDropdown('taluka')">
                             <mat-option value="0">All Taluka</mat-option>
                             <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                                 {{tal.taluka}}
@@ -30,7 +30,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="kendraId" (selectionChange)="getSchool()">
+                        <mat-select formControlName="kendraId" (selectionChange)="getSchool();clearDropdown('kendra')">
                             <mat-option value="0">All Kendra</mat-option>
                             <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                                 {{cen.center}}
@@ -41,14 +41,14 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
-                        <mat-select formControlName="schoolId" (selectionChange)="getStandard();">
+                        <mat-select formControlName="schoolId" (selectionChange)="getStandard();clearDropdown('school')">
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.schoolId">
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.select_standard'|translate}}</mat-label>
                         <mat-select formControlName="standardId" multiple>
                             <mat-option *ngFor="let standard of standardArray" [value]="standard.id">
@@ -89,14 +89,14 @@
                                 alt="Student Photo">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1 fw-bold">{{StudentDataArray?.f_Name1}}</h5>
+                            <h5 class="mb-1 fw-bold">{{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}</h5>
                             <p class="text-muted mb-4">{{'common.name'|translate}}</p>
 
                             <div class="data-container">
                                 <div class="row mb-3 justify-content-between">
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student.parent_name'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.m_Name1}}</div>
+                                        <div class="data-text">{{StudentDataArray?.parentName}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'common.mobile_number'|translate}}</span>
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.aadharNo}}</div>
+                                        <div class="data-text">{{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-between">
@@ -128,11 +128,11 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">Parent Sec. Mobile No.</span>
-                                        <div class="data-text">{{StudentDataArray?.p_SecondaryMobileNo}}</div>
+                                        <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="data-label">Parent Mail Id</span>
-                                        <div class="data-text">{{StudentDataArray?.emailId}}</div>
+                                        <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
                                     </div>
                                 </div>
 
@@ -147,9 +147,9 @@
                             <div class="flex-fill">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Select Subject</mat-label>
-                                    <mat-select>
+                                    <mat-select [formControl]="subjectId">
                                         <mat-option
-                                            *ngFor="let subjects of subjectArray">{{subjects?.subject}}</mat-option>
+                                            *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
