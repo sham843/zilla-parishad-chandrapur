@@ -311,7 +311,10 @@ a.text-main,
   max-height: 74vh !important;
   overflow-y: auto !important;
 }
-.scrollbar {
+
+
+.scrollbar,
+.mat-mdc-select-panel {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   overscroll-behavior: contain;
@@ -319,30 +322,58 @@ a.text-main,
   scrollbar-gutter: stable;
   scrollbar-width: thin;
 }
-.scrollbar:hover::-webkit-scrollbar, .scrollbar:hover::-webkit-scrollbar-thumb, .scrollbar:hover:focus::-webkit-scrollbar, .scrollbar:hover:focus::-webkit-scrollbar-thumb {
+
+.scrollbar:hover::-webkit-scrollbar,
+.scrollbar:hover::-webkit-scrollbar-thumb,
+.scrollbar:hover:focus::-webkit-scrollbar,
+.scrollbar:hover:focus::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel:hover::-webkit-scrollbar,
+.mat-mdc-select-panel:hover::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel:hover:focus::-webkit-scrollbar,
+.mat-mdc-select-panel:hover:focus::-webkit-scrollbar-thumb {
   visibility: visible;
 }
-.scrollbar::-webkit-scrollbar {
+
+.scrollbar::-webkit-scrollbar,
+.mat-mdc-select-panel::-webkit-scrollbar {
   -webkit-appearance: none;
   background-color: transparent;
   height: 0.375rem;
   visibility: hidden;
   width: 0.375rem;
 }
-.scrollbar::-webkit-scrollbar-button, .scrollbar::-webkit-scrollbar-corner {
+
+.scrollbar::-webkit-scrollbar-button,
+.scrollbar::-webkit-scrollbar-corner,
+.mat-mdc-select-panel::-webkit-scrollbar-button,
+.mat-mdc-select-panel::-webkit-scrollbar-corner {
   display: none;
 }
-.scrollbar::-webkit-scrollbar-button, .scrollbar::-webkit-scrollbar-corner {
+
+.scrollbar::-webkit-scrollbar-button,
+.scrollbar::-webkit-scrollbar-corner {
   display: none;
 }
-.scrollbar:hover::-webkit-scrollbar, .scrollbar:hover::-webkit-scrollbar-thumb, .scrollbar:hover:focus::-webkit-scrollbar, .scrollbar:hover:focus::-webkit-scrollbar-thumb {
+
+.scrollbar:hover::-webkit-scrollbar,
+.scrollbar:hover::-webkit-scrollbar-thumb,
+.scrollbar:hover:focus::-webkit-scrollbar,
+.scrollbar:hover:focus::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel:hover::-webkit-scrollbar,
+.mat-mdc-select-panel:hover::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel:hover:focus::-webkit-scrollbar,
+.mat-mdc-select-panel:hover:focus::-webkit-scrollbar-thumb {
   visibility: visible;
 }
-.scrollbar::-webkit-scrollbar-thumb {
-  background-color: hsla(214,7%,62%,.4);
+
+.scrollbar::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel::-webkit-scrollbar-thumb{
+  background-color: hsla(214, 7%, 62%, .4);
   border-radius: 3px;
   visibility: hidden;
 }
+
+
 .data-container .data-label{
   color: #666;
 }
