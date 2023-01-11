@@ -78,7 +78,7 @@
                     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
                 </div>
                <div class="col-sm-7">
-                <ng-container *ngIf="StudentDataArray.length != 0">
+                <ng-container *ngIf="StudentDataArray.length == 0">
                         <div class="student-bg">
                             <h5 class="text-primary">प्रोफाइल</h5>
                         </div>
@@ -166,8 +166,9 @@
                             </mat-card-content>
                         </mat-card>
                 </ng-container>
-                <ng-container *ngIf="StudentDataArray.length ==0">
-                    <div class="">Student Profile Data Not Available</div>
+                <ng-container *ngIf="StudentDataArray.length !=0">
+                    <div class=" text-center">
+                        <h5 class="fw-bold">Student Profile Data Not Available</h5> </div>
                 </ng-container>
                </div>
             </div>
