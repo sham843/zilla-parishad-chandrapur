@@ -4,7 +4,7 @@
             <ng-container *ngIf="columns !='action'">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     {{tableHeaders[j] == 'Email ID' ? tableHeaders[j] : tableHeaders[j] == 'NGO Name' ? tableHeaders[j]
-                    : tableHeaders[j] | titlecase}}
+                    : tableHeaders[j]}}
                 </th>
                 <td mat-cell *matCellDef="let element let i=index">
                     <ng-container *ngIf="'srNo' ==columns"><strong class="srno">{{(((pageNumber + 1) * 10 + i + 1)-20)}}</strong></ng-container>
