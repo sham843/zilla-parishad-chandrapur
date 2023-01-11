@@ -72,7 +72,6 @@ export class AddDesignationComponent {
 
   clearForm(formDirective?: any) {
     formDirective?.resetForm();
-    this.data = null;
     this.editFlag = false;
     this.desigantionType = [];
     this.setDesignationLevel = [];
@@ -158,6 +157,7 @@ export class AddDesignationComponent {
         });
       }
       formData["linkedDesignationDetails"] =linkedDesignationDetailsArray;
+      formData["id"] = this.data  ? this.data.id : 0;
       // delete formData["linkedToDesignationId"]
       let url = this.data ? 'designation/update-designation-details' : 'designation/save-designation-details'
       this.apiService.setHttp(this.data ? 'PUT' : 'POST', url + '?flag=' + (this.apiService.translateLang?this.lang:'en'), false, this.designationForm.value, false, 'baseUrl');
