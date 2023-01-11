@@ -61,14 +61,14 @@ export class RegisterAgencyComponent {
     })
   }
   getDistrict() {
-    this.master.getAllDistrict(this.lang).subscribe((res: any) => {
+    this.master.getAllDistrict(this.apiService.translateLang?this.lang:'en-IN').subscribe((res: any) => {
       this.districtArr = res.responseData;
       this.agencyForm.controls['districtId'].setValue(this.apiService.disId);
       this.data.obj?this.getTalukaArr(this.data.obj.districtId):this.getTalukaArr(this.districtArr[0].id);;
     })
   }
   getTalukaArr(distId: number) {
-    this.master.getAllTaluka(this.lang, distId).subscribe((res: any) => {
+    this.master.getAllTaluka((this.apiService.translateLang?this.lang:'en-IN'), distId).subscribe((res: any) => {
       this.talukaArr = res.responseData
       this.levelId!=1 && this.levelId!=2 ?this.agencyForm.controls['talukaId'].setValue(this.loginData.talukaId):'';
     })

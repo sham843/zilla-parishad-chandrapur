@@ -59,7 +59,7 @@ export class ForgotPasswordComponent {
 
   sendOtp() {
     if (this.forgotPasswordForm.controls.mobileNumber.status == 'INVALID') {
-      this.commonMethods.snackBar(this.language == 'English' ? 'Please enter valid Mobile No...' : 'कृपया वैध OTP प्रविष्ट करा...', 1)
+      this.commonMethods.snackBar(this.language == 'English' ? 'Please enter valid Mobile No...' : 'कृपया वैध मोबाईल क्रमांक प्रविष्ट करा...', 1)
       return;
     } else {
       let loginData = this.forgotPasswordForm.value;

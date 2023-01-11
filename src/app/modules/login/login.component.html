@@ -38,7 +38,7 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-icon matPrefix>key</mat-icon>
                                     <mat-label>{{'login.enter_password'|translate}}</mat-label>
-                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{''|translate}}" formControlName="password" maxlength="15">
+                                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{''|translate}}" formControlName="password" maxlength="20">
                                     <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?(this.language=='Marathi'?'दाखवा':'Show'):(this.language=='Marathi'?'लपवा':'Hide')">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

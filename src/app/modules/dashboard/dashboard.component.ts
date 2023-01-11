@@ -715,7 +715,8 @@ export class DashboardComponent {
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
       assesmentId:formValue.assesmentId,
-      subjectId: lable == 'studentId'? 0 : id
+      subjectId: lable == 'studentId'? 0 : id,
+      staId:this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
   }

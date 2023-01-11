@@ -153,7 +153,7 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.school_address' |translate}}</mat-label>
-                        <textarea matInput formControlName="schoolAddress"
+                        <textarea matInput formControlName="schoolAddress" class="textarea scrollbar"
                             (keypress)="validator.noFirstSpaceAllow($event)" maxlength="500"></textarea>
                         <!-- <mat-error
                             *ngIf="registerForm.controls['schoolAddress'].hasError('required')">{{'school.please_enter_school_address'
