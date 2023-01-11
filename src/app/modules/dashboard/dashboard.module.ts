@@ -8,6 +8,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 // import { StudentProfileComponent } from './student-profile/student-profile.component';
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     NgApexchartsModule,
     TranslateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class DashboardModule { }

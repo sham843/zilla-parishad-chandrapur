@@ -1,6 +1,8 @@
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -48,6 +50,12 @@ export class DashboardComponent {
   enbSchoolDropFlag: boolean = false;
   assLabelName:string='Taluka';
   checkBoxCheckAll:boolean = true;
+  displayedColumns = ['srNo', 'textValue','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent'];
+  dataSource:any;
+  pageNumber:number =1;
+  totalRows!:number;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   constructor(public translate: TranslateService,
     private apiService: ApiService,
     private errors: ErrorsService,private spiner:NgxSpinnerService,
@@ -290,7 +298,7 @@ export class DashboardComponent {
             i>2 ? this.selNumber += ele.data:'';
             i==0  && ele.text == 'Total Number'? ele['text_m'] = 'एकूण संख्य': i==1  && ele.text == 'Surveyed'? ele.text_m = 'सर्वेक्षण केले':ele['text_m']=ele.text;
         })
-        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.talukaWiseAssData = [];
+        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.totalRows = 0,this.talukaWiseAssData = [];
       }
       else {
         this.getSurveyedData = [];
@@ -313,7 +321,7 @@ export class DashboardComponent {
           this.getAssesmentData.find((ele:any)=>{
             checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
           })
-          checkEvery ? (this.getAssesmentData = [], this.talukaWiseAssData = []): this.getBarChart();
+          checkEvery ? (this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []): this.getBarChart();
 
         }
         else {
@@ -324,7 +332,7 @@ export class DashboardComponent {
         this.errors.handelError(error.status);
       })
     }else{
-      this.getAssesmentData = [], this.talukaWiseAssData = []
+      this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []
     }
   }
 
@@ -625,7 +633,7 @@ export class DashboardComponent {
     if (flag == 'select') {
       this.enbTalDropFlag ? $('#mapsvg g').addClass('disabledAll') : '';
       let checkTalActiveClass = $('#mapsvg   g').hasClass("talActive");
-      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"]').removeAttr("style") : '';
+      checkTalActiveClass ? $('#mapsvg g[id="' + this.globalTalId + '"] path').removeAttr("style") : '';
       this.svgMapAddOrRemoveClass();
     }
     this.spiner.hide();
@@ -652,20 +660,29 @@ export class DashboardComponent {
 
   getDynamicDetails() {
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=1&pageSize=10&userId=${filterFormData.userId}`
+    filterFormData.schoolId ?  this.displayedColumns = ['srNo', 'textValue','standardName','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent']: this.displayedColumns = ['srNo','textValue','assesmentCalculationValue', 'totalStudent','evaluvatedStudent','pendingStudent']
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&assesmentId=${filterFormData.assesmentId}&yearId=${filterFormData.yearId}&subjectId=${filterFormData.subjectId}&flag=${filterFormData.flag}&pageNo=${this.pageNumber}&pageSize=10&userId=${filterFormData.userId}`
     this.apiService.setHttp('get', 'dashboard/get-dashboard-dynamic-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
+        this.talukaWiseAssData = new MatTableDataSource(this.talukaWiseAssData);
+        this.totalRows = res.responseData.responseData2.pageCount;
+        this.totalRows > 10 && this.pageNumber == 1 ? this.paginator?.firstPage() : '';
         setTimeout(() => {this.showToolTipOnPro() }, 1000);
       }
       else {
+        this.totalRows = 0;
         this.talukaWiseAssData = [];
         // this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
       this.errors.handelError(error.status);
     })
+  }
+  pageChanged(event: any) {
+    this.pageNumber = event.pageIndex + 1;
+    this.getDynamicDetails();
   }
   displayProfile(_id?: number) {
 
