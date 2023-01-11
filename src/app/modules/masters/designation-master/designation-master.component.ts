@@ -74,9 +74,21 @@ export class DesignationMasterComponent {
   }
 
   getDesignationLevel() {//error handling / handled in masters table
-    this.master.getDesignationLevel(this.apiService.translateLang?this.lang:'en').subscribe((res: any) => {
-      this.desigantionLevelArray = res.responseData;
-    })
+    this.master.getDesignationLevel(this.apiService.translateLang?this.lang:'en').subscribe( {
+      next : ((res:any)=>{
+        if(res.statusCode == '200'){
+          this.desigantionLevelArray = res.responseData;
+          }
+          else {
+            this.desigantionLevelArray = [];
+            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+      }),
+      error: ((err: any) => {
+        this.spinner.hide();
+        this.errors.handelError(err.status)
+      })
+    });
   }
 
   getTableData(flag?: string) {
