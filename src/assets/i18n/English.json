@@ -157,8 +157,8 @@
     },
     "student":{
         "parent_name":"Parent Name",
-        "search_by_saralid_name_mobileno":"Search by Saral Id/Name/Contact No ",
-        "saral_id":"Saral Id",
+        "search_by_saralid_name_mobileno":"Search by Saral ID/Name/Contact No ",
+        "saral_id":"Saral ID",
         "gender":"Gender",
         "standard":"Standard",
         "parent_contact_no":"Parent Contact Number",
