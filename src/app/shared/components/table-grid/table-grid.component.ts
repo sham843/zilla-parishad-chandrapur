@@ -57,7 +57,6 @@ export class TableGridComponent implements OnInit {
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
       }
-      console.log("this.tableInfo.tableData",this.tableInfo.tableData)
     })
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;

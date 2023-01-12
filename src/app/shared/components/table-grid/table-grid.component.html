@@ -14,7 +14,7 @@
                         ? element[columns] : '-' }}
                     </ng-container>
                     <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns]}}"></ng-container>
-                    <!-- [ngStyle]="{ background-color: element[columns]}" -->
+                    <!-- [ngStyle]="{ background-color: element[columns]}" box-shadow: 0 0 0 0.5em #E8B0B0,-->
                     <ng-container *ngIf="tableInfo?.blink == columns">
                         <div class="status color" [style.background-color]="element[columns]">
                         </div>

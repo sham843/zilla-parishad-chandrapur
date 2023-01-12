@@ -16,7 +16,6 @@ export class HomeComponent {
     translate.setDefaultLang('English')
   }
   ngOnInit(){
-    sessionStorage.getItem('language')?'':sessionStorage.setItem('language', this.language);
    let language:any= sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
