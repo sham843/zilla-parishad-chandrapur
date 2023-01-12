@@ -71,6 +71,7 @@ export class LoginComponent {
           this.commonMethods.snackBar(this.language == 'English' ? 'Soory you not have right to access page. Please contact admin.' : 'सोरी तुम्हाला पृष्ठावर प्रवेश करण्याचा अधिकार नाही. कृपया प्रशासकाशी संपर्क साधा.', 1)
           return
         }
+        this.commonMethods.snackBar(res.statusMessage, 0);
         sessionStorage.setItem('loggedIn', 'true');
         this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
         localStorage.setItem('loggedInData', this.encryptInfo);
