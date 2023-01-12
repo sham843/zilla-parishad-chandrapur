@@ -220,6 +220,15 @@
                 </div>
             </div>
 
+            <div class="col-sm-4">
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>{{'student.educationYear'|translate}}</mat-label>
+                    <mat-select formControlName="educationYearId">
+                        <mat-option *ngFor="let education of educationYearArray" [value]="education.id">{{education.year}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div> 
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
