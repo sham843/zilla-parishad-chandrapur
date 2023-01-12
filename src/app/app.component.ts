@@ -21,6 +21,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    sessionStorage.getItem('language')?'':sessionStorage.setItem('language', 'English');
     this.webStorage.getTheme().subscribe((res: any) => {
       this.classname = res;
     })
