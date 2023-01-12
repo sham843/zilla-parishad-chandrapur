@@ -267,7 +267,6 @@ export class SchoolRegistrationComponent {
   //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 
   viewNgoDetails(obj:any){
-    console.log(obj);
     let viewObj = {
       cardTitle: this.lang == 'mr-IN' ? '' : 'NGO Master',
       data:[

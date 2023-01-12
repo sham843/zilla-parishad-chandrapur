@@ -76,8 +76,6 @@ export class StudentProfileComponent {
     this.globalObj.talukaId==0?this.getAllStudentData():'';
     this.getAllSubject();
     this.getStudentProChart();
-    console.log("login Data",this.loginData);
-    console.log("glbal Data",this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//

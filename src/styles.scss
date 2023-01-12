@@ -479,10 +479,10 @@ input::-ms-reveal { display: none; }
 }
 @keyframes ripple-white {
   0% {
-    box-shadow: 0 0 0 0 #BBE6D2,
+    box-shadow: 0 0 0 0 #e6e6e6,
   }
   100% {
-    box-shadow: 0 0 0 0.5em #BBE6D2,
+    box-shadow: 0 0 0 0.5em #e6e6e6,
   }
 }
 @keyframes ripple-green {
