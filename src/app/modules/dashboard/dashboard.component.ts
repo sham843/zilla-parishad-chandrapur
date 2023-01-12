@@ -460,12 +460,14 @@ export class DashboardComponent {
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
         let obj: any = {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)]
+          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
+          'info':ele['assesmentDetails'][i].noStudent,
+          "lang":ele.subjectName
         }
         arr.push(obj);
         barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
-        categoriesLabel.push(ele['assesmentDetails'][i].assessmentParamenterName)
       }
+      categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
    
     });
@@ -511,7 +513,8 @@ export class DashboardComponent {
           show: false,
 
         },
-        categories: [categoriesLabel.toString()]
+        parameters:categoriesLabel,
+        categories: ['']
       },
 
       yaxis: {
@@ -557,11 +560,12 @@ export class DashboardComponent {
         }
       },
       tooltip :{
-        custom: function({ series, seriesIndex, dataPointIndex, w }: any) {          
-          return (
-            '<div class="arrow_box" style="padding:10px;">' +
-              "<div>" + w.config.xaxis.parameters[0]+ " : <b> " + w.globals.seriesNames[seriesIndex]+ '</b>' + "</div>" +
-              "<div>" + w.config.xaxis.parameters[1] + " : <b> " + series[seriesIndex][dataPointIndex] + '%</b>' + "</div>" +
+        custom: ({ series, seriesIndex, dataPointIndex, w }: any)=> {         
+          var data = w.globals.initialSeries[seriesIndex];
+          return ('<div class="arrow_box" style="padding:10px;">' +
+              "<div>" +data.lang + " : <b> " + w.globals.seriesNames[seriesIndex]+ '</b>' + "</div>" +
+              "<div>" + 'No of Students ' + " : <b> " + data.info + '</b>' + "</div>" +
+              "<div>" + '% of Students ' + " : <b> " + series[seriesIndex][dataPointIndex] + '%</b>' + "</div>" +
             "</div>"
           );
         },
