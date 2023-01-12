@@ -702,6 +702,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
+        console.log(this.talukaWiseAssData)
         this.talukaWiseAssData = new MatTableDataSource(this.talukaWiseAssData);
         this.totalRows = res.responseData.responseData2.pageCount;
         this.totalRows > 10 && this.pageNumber == 1 ? this.paginator?.firstPage() : '';
