@@ -454,6 +454,7 @@ export class DashboardComponent {
   getBarChart() {
     let seriesData: any[] = [];
     let barColorpal:any[] = [];
+    let categoriesLabel:any[] = [];
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
@@ -462,9 +463,11 @@ export class DashboardComponent {
           'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)]
         }
         arr.push(obj);
-        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue)
+        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
+        categoriesLabel.push(ele['assesmentDetails'][i].assessmentParamenterName)
       }
-      seriesData.push(arr)
+      seriesData.push(arr);
+   
     });
     this.barchartOptions = {
       series: seriesData,
@@ -508,7 +511,7 @@ export class DashboardComponent {
           show: false,
 
         },
-        categories: ['2022']
+        categories: [categoriesLabel.toString()]
       },
 
       yaxis: {
@@ -553,6 +556,16 @@ export class DashboardComponent {
           fillColors: this.progressBarcolors.reverse(),
         }
       },
+      tooltip :{
+        custom: function({ series, seriesIndex, dataPointIndex, w }: any) {          
+          return (
+            '<div class="arrow_box" style="padding:10px;">' +
+              "<div>" + w.config.xaxis.parameters[0]+ " : <b> " + w.globals.seriesNames[seriesIndex]+ '</b>' + "</div>" +
+              "<div>" + w.config.xaxis.parameters[1] + " : <b> " + series[seriesIndex][dataPointIndex] + '%</b>' + "</div>" +
+            "</div>"
+          );
+        },
+      }
     };
     this.getDynamicDetails();
   }
@@ -630,7 +643,7 @@ export class DashboardComponent {
         min: 0,
         max: false
       },
-      source: "assets/chandrapur_dist1.svg",
+      source: "assets/chandrapur_dist.svg",
       // source: this.language == 'English'? "assets/chandrapur_dist.svg":"assets/chandrapur_dist_m.svg",
       title: "Maharashtra-bg_o",
       responsive: true
