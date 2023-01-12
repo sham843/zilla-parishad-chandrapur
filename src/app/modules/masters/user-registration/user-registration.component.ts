@@ -116,6 +116,9 @@ export class UserRegistrationComponent {
        if(res.statusCode == "200"){
         this.spinner.hide();
         this.tableDataArray = res.responseData.responseData1;
+        this.tableDataArray.forEach((ele:any)=>{
+          ele['block']=true;
+        })
         this.totalItem = res.responseData.responseData2.pageCount;
         this.totalPages = res.responseData.responseData2.totalPages;
        }
@@ -135,23 +138,23 @@ export class UserRegistrationComponent {
 setTableData(){     // table
   this.highlightRowFlag=true;
   let displayedColumns:any;
-  this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
+  this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','block','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','block','action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No', 'Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','Block','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         highlightedrow:true,
         img: '',
         blink: '',
         badge: '',
-        isBlock: '',
+        isBlock: 'block',
         displayedColumns: displayedColumns,
         tableData: this.tableDataArray,
         tableSize: this.totalItem,
         tableHeaders: displayedheaders,
         pagination: true,
         edit: true,
-        delete: true,
+        delete: false,
       }
       this.highlightRowFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
       this.apiService.tableData.next(this.tableData)
@@ -177,7 +180,7 @@ setTableData(){     // table
         obj:editObj,
         flag:editObj?'Update':'Add',
         successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
-        cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+        cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'रद्द करा' : 'Clear'),
       },
     })
     dialog.afterClosed().subscribe((res:any) => {

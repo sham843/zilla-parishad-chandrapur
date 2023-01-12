@@ -209,7 +209,7 @@
             </div>
             <div class="d-flex justify-content-end align-items-center w-100">
                 <button mat-stroked-button type="button" class="btn-second me-2"
-                    (click)="clearUserForm(formDirective)">{{'common.clear' | translate}}</button>
+                    (click)="clearUserForm(formDirective)">{{this.data?.cancelBtnText}}</button>
                 <button mat-stroked-button type="submit" class="btn-main">{{this.data?.successBtnText}}</button>
             </div>
         </mat-card-content>
