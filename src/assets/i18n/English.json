@@ -100,7 +100,7 @@
         "Please_select_agency_name":"Please Select Agency Name",
         "Please_select_user_level":"Please Select User Level",
         "Please_select_standard":"Please Select standard",
-        "Please_select_subject":"Please Select Subject Name",
+        "Please_select_subject":"Subject Name",
         "Please_enter_valid_name":"Please Enter Valid Name",
         "Please_enter_name":"Please Enter Name"
     },
@@ -128,7 +128,7 @@
         "captcha":"Captcha",
         "officer_login":"Officer Login",
         "school_login":"School login",
-        "please_enter_otp":"Enter OTP",
+        "please_enter_otp":"Send OTP",
         "dont_get_otp":"Didn't get OTP?",
         "resend_otp":"Resend OTP",
         "login":"Login",

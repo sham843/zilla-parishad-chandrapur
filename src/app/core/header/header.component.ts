@@ -31,14 +31,13 @@ export class HeaderComponent {
   
   ) {
     translate.addLangs(['English', 'Marathi'])
-    translate.setDefaultLang('English')
+    translate.setDefaultLang('English');
   }
   ngOnInit(): void {
     this.loginData = this.webStorage.getLoginData();
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
-
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
     })
@@ -114,7 +113,7 @@ export class HeaderComponent {
   }
   localStorageClear() {
     localStorage.clear()
-    this.router.navigate(['../login'])
+    this.router.navigate(['../home'])
   }
 
   openMyProfileDialog() {

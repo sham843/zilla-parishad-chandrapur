@@ -133,7 +133,7 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
     if (this.forgotPasswordForm.invalid) {
-      this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : '', 1)
+      // this.commonMethods.snackBar(this.language == 'English' ? 'Something went wrong' : '', 1);
       return;
     }else if(this.forgotPasswordForm.value.password != this.forgotPasswordForm.value.cpassword){
       this.commonMethods.snackBar(this.language == 'English' ? 'New Password And Comfirm Password Not Match' : 'नवीन पासवर्ड आणि कंफर्म पासवर्ड जुळत नाही', 1);
@@ -147,8 +147,8 @@ export class ForgotPasswordComponent {
       this.apiService.setHttp('post', 'zp_chandrapur/user-registration/forgot-password-for-web', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
-          this.commonMethods.snackBar(res.statusMessage, 0);
           this.router.navigate(['../login']);
+          this.commonMethods.snackBar(res.statusMessage, 0);
         }
         else {
           this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);

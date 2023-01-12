@@ -8,8 +8,7 @@
     <div class="container" id="login-box">
         <div class="row align-items-center justify-content-evenly">
             <div class="col-sm-6 d-none d-lg-block text-center">
-                <!-- routerLink="../home" -->
-                <img src="assets/images/logo.png" class="logo">
+                <img src="assets/images/logo.png" class="logo" routerLink="../home">
                 <img src="assets/images/login-image.png" class="img-fluid">
             </div>
             <div class="col-sm-5" id="login-box-height">
@@ -72,7 +71,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mb-3">
-                        <a routerLink="../forgot-password" class="text-main">{{'login.forgot_password'|translate}}</a>
+                        <a routerLink="../forgot-password" class="text-main">{{'login.forgot_password'|translate}}?</a>
                     </div>
                     <div class="mb-0 text-center">
                         <button mat-flat-button class="btn-main px-5 rounded-pill py-4" type="submit">{{'login.login' |
