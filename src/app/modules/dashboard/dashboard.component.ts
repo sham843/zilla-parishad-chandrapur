@@ -21,6 +21,7 @@ declare var bootstrap: any;
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+  math = Math;
   topFilterForm!: FormGroup;
   language!: any;
   cardInfoData!: any;

@@ -291,7 +291,7 @@
                                     aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
                                     data-bs-toggle="tooltip" title="60%" data-bs-html="true"
                                     [attr.data-bs-title]="pro?.assessmentParamenterName">
-                                    <span>{{pro?.assesmentCalculationValue+'%'}}</span>
+                                    <span>{{math.round(pro?.assesmentCalculationValue)+'%'}}</span>
                                 </div>
                             </div>    
                         </td>
