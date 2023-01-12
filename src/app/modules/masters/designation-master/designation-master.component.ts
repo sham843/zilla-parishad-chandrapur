@@ -205,7 +205,7 @@ export class DesignationMasterComponent {
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == "200") {
-              this.commonMethod.snackBar(res.statusMessage, 0);
+              this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती यशस्वीरित्या हटविण्यात आली') : (res.statusMessage = 'Data deleted successfully'), 0);
               this.getTableData()
             } else {
               this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
