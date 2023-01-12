@@ -23,7 +23,7 @@
       "ES2022",
       "dom"
     ],
-     // unused variable remove
+     //added by sham
      "noUnusedLocals": true,
      "noUnusedParameters": true
   },

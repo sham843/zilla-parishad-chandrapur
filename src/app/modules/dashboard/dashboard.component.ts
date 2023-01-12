@@ -454,17 +454,22 @@ export class DashboardComponent {
   getBarChart() {
     let seriesData: any[] = [];
     let barColorpal:any[] = [];
+    let categoriesLabel:any[] = [];
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
         let obj: any = {
           'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)]
+          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
+          'info':ele['assesmentDetails'][i].noStudent,
+          "lang":ele.subjectName
         }
         arr.push(obj);
-        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue)
+        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
       }
-      seriesData.push(arr)
+      categoriesLabel.push(ele.subjectName)
+      seriesData.push(arr);
+   
     });
     this.barchartOptions = {
       series: seriesData,
@@ -508,7 +513,8 @@ export class DashboardComponent {
           show: false,
 
         },
-        categories: ['2022']
+        parameters:categoriesLabel,
+        categories: ['']
       },
 
       yaxis: {
@@ -553,6 +559,17 @@ export class DashboardComponent {
           fillColors: this.progressBarcolors.reverse(),
         }
       },
+      tooltip :{
+        custom: ({ series, seriesIndex, dataPointIndex, w }: any)=> {         
+          var data = w.globals.initialSeries[seriesIndex];
+          return ('<div class="arrow_box" style="padding:10px;">' +
+              "<div>" +data.lang + " : <b> " + w.globals.seriesNames[seriesIndex]+ '</b>' + "</div>" +
+              "<div>" + 'No of Students ' + " : <b> " + data.info + '</b>' + "</div>" +
+              "<div>" + '% of Students ' + " : <b> " + series[seriesIndex][dataPointIndex] + '%</b>' + "</div>" +
+            "</div>"
+          );
+        },
+      }
     };
     this.getDynamicDetails();
   }
@@ -630,7 +647,7 @@ export class DashboardComponent {
         min: 0,
         max: false
       },
-      source: "assets/chandrapur_dist1.svg",
+      source: "assets/chandrapur_dist.svg",
       // source: this.language == 'English'? "assets/chandrapur_dist.svg":"assets/chandrapur_dist_m.svg",
       title: "Maharashtra-bg_o",
       responsive: true

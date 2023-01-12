@@ -38,6 +38,7 @@ export class AddDesignationComponent {
     this.webStorage.setLanguage.subscribe((res: any) => {
       res == 'Marathi' ? (this.lang = 'mr-IN') : (this.lang = 'en-US');
     })
+    
     this.controlForm();
     this.data ? this.editMethod() : (this.getDesignationLevel());
   }
@@ -168,8 +169,12 @@ export class AddDesignationComponent {
             let isUpdate = this.data ? true : false;
             this.dialogRef.close(isUpdate);
             this.clearForm();
-            this.commonMethod.snackBar(res.statusMessage, 0)
-          } else {
+            if (this.data) {
+              this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती अद्ययावत करण्यात आली') : (res.statusMessage = 'Data updated successfully'), 0)
+            } else {
+              this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती यशस्वीरित्या जतन केली') : (res.statusMessage = 'Data Stored Successfully'), 0)
+            }
+        } else {
             this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
