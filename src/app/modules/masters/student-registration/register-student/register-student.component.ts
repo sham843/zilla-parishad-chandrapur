@@ -92,7 +92,7 @@ export class RegisterStudentComponent {
       "castId": [data?.castId || 0],
       "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
-       "educationYearId": [data?.educationYearId || 0, Validators.required],
+       "educationYearId": [data?.educationYearId || '', Validators.required],
        "lan": ['' || this.lang],
       "emailId": [''],
     })
@@ -275,7 +275,7 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.casteArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['castId'].setValue(this.data.castId) : '';
+          this.editFlag ? (this.studentFrm.controls['castId'].setValue(this.data.castId), this.getEducationYear()) : '';
         }
         else {
           this.casteArray = [];
