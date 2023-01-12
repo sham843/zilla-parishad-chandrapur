@@ -128,7 +128,7 @@
         "captcha":"Captcha",
         "officer_login":"Officer Login",
         "school_login":"School login",
-        "please_enter_otp":"Enter OTP",
+        "please_enter_otp":"Send OTP",
         "dont_get_otp":"Didn't get OTP?",
         "resend_otp":"Resend OTP",
         "login":"Login",
