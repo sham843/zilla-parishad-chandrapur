@@ -407,7 +407,7 @@ a.text-main,
   overflow-x: auto;
 }
 .no-axis  .apexcharts-legend.apx-legend-position-right{
-  width: 100px;
+  width: 100px !important;
 }
 button[disabled] {
   opacity: 0.9;
@@ -419,7 +419,7 @@ button[disabled] {
   font-weight: bold;
 }
 .no-axis .apexcharts-legend{
-  right: 30px !important;
+  right: 40px !important;
   width: 100px !important;
 }
 .apexcharts-canvas{
@@ -516,4 +516,7 @@ input::-ms-reveal { display: none; }
 .mapsvg.mapsvg-cursor-pointer text,
 .mapsvg.mapsvg-cursor-pointer .mapsvg-region {
   cursor: pointer;
+}
+.apexcharts-tooltip{
+  font-size: 0.85rem !important;
 }
