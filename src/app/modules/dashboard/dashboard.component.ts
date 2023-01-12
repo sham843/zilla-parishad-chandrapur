@@ -75,7 +75,6 @@ export class DashboardComponent {
     this.mainFilterForm();
     this.educationYear();
     this.getAllSubject();
-    //this.getDynamicDetails()//demo
   }
 
   ngAfterViewInit() {
@@ -232,7 +231,9 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.cardInfoData = res.responseData;
+        this.checkBoxCheckAll = true; 
         this.getAssesmentPiChartData();
+        this.getDynamicDetails();
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -295,7 +296,7 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
         this.calSelectedNumber(true)
-        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [], this.totalRows = 0,this.talukaWiseAssData = [];
+        this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [];
       }
       else {
         this.getSurveyedData = [];
@@ -326,7 +327,7 @@ export class DashboardComponent {
           this.getAssesmentData.find((ele:any)=>{
             checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
           })
-          checkEvery ? (this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []): this.getBarChart();
+          checkEvery ? (this.getAssesmentData = []): (this.getBarChart())
 
         }
         else {
@@ -337,7 +338,7 @@ export class DashboardComponent {
         this.errors.handelError(error.status);
       })
     }else{
-      this.getAssesmentData = [],this.totalRows = 0, this.talukaWiseAssData = []
+      this.getAssesmentData = []
     }
   }
 
@@ -360,6 +361,7 @@ export class DashboardComponent {
       }
       this.getAssesmentDashboardDetails();
     } else {
+      this.checkBoxCheckAll = true; 
       this.getSurveyedData.find((ele: any, i: number) => {
         if (i > 1) {
           let checkStaIndex = !this.selStdArray.length ? false : this.selStdArray.includes(ele.standardId);
@@ -387,6 +389,7 @@ export class DashboardComponent {
     });
     event.checked ? (this.checkBoxCheckAll = true, this.checkBoxChecked('default')): this.checkBoxCheckAll = false;
     this.getAssesmentDashboardDetails();
+    
   }
 
   //#endregion------------------------------------------main contant api fn end heare ----------------------------------------------//
@@ -497,6 +500,11 @@ export class DashboardComponent {
         barHeight: '80%',
         borderRadiusOnAllStackedSeries: true,
       },
+      dataLabels: {
+        formatter: function(val:any, ) {
+          return val.toFixed(2)
+        }
+      },
       responsive: [
         {
           options: {
@@ -571,7 +579,7 @@ export class DashboardComponent {
         },
       }
     };
-    this.getDynamicDetails();
+
   }
 
   showSvgMap(data: any) {
@@ -670,6 +678,7 @@ export class DashboardComponent {
       this.topFilterForm.controls['talukaId'].setValue(+talId);
       this.getKendra();
       this.cardCountData();
+        this.checkBoxCheckAll = true;
       this.svgMapAddOrRemoveClass();
     })
   }
