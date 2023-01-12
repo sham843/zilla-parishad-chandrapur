@@ -102,8 +102,12 @@ export class RegisterAgencyComponent {
     }
   }
   clearForm(formDirective:any){
-    formDirective.resetForm();
-    this.getAgencyControl();
+    if(this.data?.cancelBtnText=='Clear'){
+      formDirective.resetForm();
+      this.getAgencyControl();
+    }else if(this.data?.cancelBtnText=='Cancel'){
+      this.dialogRef.close('No');
+    }
   }
   contactNo(){
     this.agencyForm.value.contactNo==0?this.agencyForm.controls['contactNo'].setValue(''):'';

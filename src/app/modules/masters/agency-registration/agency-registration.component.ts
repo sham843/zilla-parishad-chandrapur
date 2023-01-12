@@ -125,7 +125,7 @@ export class AgencyRegistrationComponent {
         cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'नोंदणी एनजीओ' : 'NGO Registration'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
-        cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
+        cancelBtnText:obj ? (this.language == 'Marathi' ? 'रद्द करा' : 'Cancel'):(this.language == 'Marathi' ? 'रद्द करा' : 'Clear'),
       }
     })
     dialog.afterClosed().subscribe((res: any) => {

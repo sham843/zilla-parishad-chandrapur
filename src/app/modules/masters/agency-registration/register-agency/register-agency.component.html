@@ -1,4 +1,4 @@
-<form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm">
+<form [formGroup]="agencyForm" (ngSubmit)="agencyRegister(formDirective)" #formDirective="ngForm" (keyup.enter)="agencyRegister(formDirective)">
     <mat-card class="plain-card">
         <mat-card-header class="card-header">
             <div class="d-flex justify-content-between align-items-center w-100">
@@ -129,9 +129,8 @@
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex justify-content-end">
-                <button mat-flat-button class="btn-second me-2" type="button"
-                    (click)="clearForm(formDirective)">{{'common.clear' | translate}}</button>
-                  <!-- {{this.data?.cancelBtnText}} -->
+                <button mat-flat-button class="btn-second me-2" type="button"  
+                    (click)="clearForm(formDirective)">{{this.data?.cancelBtnText}}</button>
                 <button mat-flat-button class="btn-main" type="submit">{{this.data?.successBtnText}}</button>
             </div>
         </mat-card-footer>
