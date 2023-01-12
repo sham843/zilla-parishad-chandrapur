@@ -32,7 +32,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="tableInfo?.isBlock == columns">
-                        <mat-slide-toggle (change)="action(element, 'Block',$event)" [checked]="tableInfo.tableData[i]?.block==true">
+                        <mat-slide-toggle (change)="action(element,'Block',$event)" [checked]="tableInfo.tableData[i]?.isBlock==true">
                         </mat-slide-toggle>
                     </ng-container>
                 </td>
