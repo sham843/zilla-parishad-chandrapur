@@ -345,7 +345,7 @@ clearValidation(formControl:any){
   }
 
   clearUserForm(formDirective:any){
-    if(this.data.cancelBtnText=='Clear'){
+    if(this.data.cancelBtnText=='Clear' || this.data.cancelBtnText=='पुसून टाका'){
       if(this.data.flag=='profile'){
         this.userRegistrationForm.controls['name'].setValue('');
         this.userRegistrationForm.controls['mobileNo'].setValue('');
