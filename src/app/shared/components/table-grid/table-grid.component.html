@@ -14,11 +14,13 @@
                         ? element[columns] : '-' }}
                     </ng-container>
                     <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns]}}"></ng-container>
-                    <ng-container *ngIf="tableInfo?.blink == columns">{{element[columns] }}</ng-container>
+                    <!-- [ngStyle]="{ background-color: element[columns]}" box-shadow: 0 0 0 0.5em #E8B0B0,-->
+                    <ng-container *ngIf="tableInfo?.blink == columns">
+                        <div class="status color" [style.background-color]="element[columns]">
+                        </div>
+                    </ng-container>
                     <ng-container *ngIf="tableInfo?.badge == columns">{{element[columns] }}</ng-container>
                     <ng-container *ngIf="tableInfo?.isArray == columns">
-
-
                         <ng-container *ngFor="let a of element[tableInfo?.isArray] ; let ind = index">
                             {{element[tableInfo?.isArray].length == ind + 1 ?
                             a[tableInfo.nestedArray]:a[tableInfo.nestedArray] +','}}

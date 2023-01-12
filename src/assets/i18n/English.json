@@ -209,7 +209,9 @@
     "please_enter_valid_Caste":"Please Enter Valid Caste Name",
     "please_enter_valid_mobile_Number":"Please Enter Valid Parent Mobile Number",
     "update_Student":"Update Student",
-    "do_you_want_to_delete_selected_School_record?":"Do You Want To Delete Selected School Record"
+    "do_you_want_to_delete_selected_School_record?":"Do You Want To Delete Selected School Record",
+    "parent_second_mobile":"Parent Sec. Mobile No.",
+    "parent_email_id":"Parent Mail Id"
     },
     "designation_master": {
         "add_designation": "Add Designation",

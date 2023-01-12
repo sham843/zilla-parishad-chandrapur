@@ -20,22 +20,5 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any){}
 
   ngOnInit(){
-    console.log("data",this.data);
-    /* {
-      "cardTitle": "Designation Master",
-      "label": [
-          "Designation Name",
-          "Designation Level",
-          "Linked To"
-      ],
-      "value": [
-          "yiouiouui",
-          "District",
-          [
-              "CEO",
-              "DIET Principal"
-          ]
-      ]
-  } */
   }
 }

@@ -407,7 +407,7 @@ a.text-main,
   overflow-x: auto;
 }
 .no-axis  .apexcharts-legend.apx-legend-position-right{
-  width: 100px;
+  width: 100px !important;
 }
 button[disabled] {
   opacity: 0.9;
@@ -419,7 +419,7 @@ button[disabled] {
   font-weight: bold;
 }
 .no-axis .apexcharts-legend{
-  right: 30px !important;
+  right: 40px !important;
   width: 100px !important;
 }
 .apexcharts-canvas{
@@ -453,6 +453,10 @@ input::-ms-reveal { display: none; }
   line-height: 24px;
   border-radius: 50%;
 }
+.status.color{
+  animation: ripple-white 1s linear infinite ;
+}
+
 .status.green{
   background: #65C889;
   animation: ripple-green 1s linear infinite ;
@@ -472,6 +476,14 @@ input::-ms-reveal { display: none; }
 .status.red{
   background: #CB4B4B;
   animation: ripple-red 1s linear infinite ;
+}
+@keyframes ripple-white {
+  0% {
+    box-shadow: 0 0 0 0 #e6e6e6,
+  }
+  100% {
+    box-shadow: 0 0 0 0.5em #e6e6e6,
+  }
 }
 @keyframes ripple-green {
   0% {
@@ -516,4 +528,7 @@ input::-ms-reveal { display: none; }
 .mapsvg.mapsvg-cursor-pointer text,
 .mapsvg.mapsvg-cursor-pointer .mapsvg-region {
   cursor: pointer;
+}
+.apexcharts-tooltip{
+  font-size: 0.85rem !important;
 }

@@ -15,13 +15,14 @@ import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatRippleModule} from '@angular/material/core';
 
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule,MatTooltipModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule,MatTooltipModule,MatRippleModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
 
 })
 export class TableGridComponent implements OnInit {
@@ -69,7 +70,7 @@ export class TableGridComponent implements OnInit {
   action(obj: any, label: string, i?:any) {
     label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;
     obj.label = label;
-    obj.pageNumber = label == 'Edit' ? this.pageNumber : obj.pageIndex + 1;
+    obj.pageNumber = (label == 'Edit' ||label == 'Delete')? this.pageNumber : obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
     this.recObjToChild.emit(obj);
   }
