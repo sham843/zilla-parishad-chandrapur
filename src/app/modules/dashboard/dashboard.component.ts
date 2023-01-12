@@ -21,6 +21,7 @@ declare var bootstrap: any;
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+  math = Math;
   topFilterForm!: FormGroup;
   language!: any;
   cardInfoData!: any;
@@ -321,7 +322,6 @@ export class DashboardComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.getAssesmentData = res.responseData;
-          console.log(this.getAssesmentData)
           let checkEvery:any;
           this.getAssesmentData.find((ele:any)=>{
             checkEvery = ele.assesmentDetails.every((i:any)=>{i.length ==0});
