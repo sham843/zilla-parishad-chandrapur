@@ -98,3 +98,9 @@ input:-webkit-autofill:active {
     border-color: var(--main-color) !important;
     background-color: var(--main-color) !important;
 }
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+    display: none;
+}
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon {
+    display: none;
+}

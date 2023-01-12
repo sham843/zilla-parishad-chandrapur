@@ -162,7 +162,9 @@ export class SchoolRegistrationComponent {
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders
+      tableHeaders: displayedheaders,
+      edit: true,
+      delete: true,
     };
     this.highLightRowFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false,
       this.apiService.tableData.next(tableData);

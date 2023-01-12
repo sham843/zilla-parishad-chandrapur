@@ -255,6 +255,8 @@ export class StudentProfileComponent {
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
+      edit: true,
+      delete: true,
     };
     this.apiService.tableData.next(tableData);
   }

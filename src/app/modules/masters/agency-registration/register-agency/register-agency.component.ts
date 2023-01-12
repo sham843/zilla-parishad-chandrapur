@@ -102,10 +102,10 @@ export class RegisterAgencyComponent {
     }
   }
   clearForm(formDirective:any){
-    if(this.data?.cancelBtnText=='Clear'){
+    if(this.data?.cancelBtnText=='Clear' || this.data?.cancelBtnText=='पुसून टाका'){
       formDirective.resetForm();
       this.getAgencyControl();
-    }else if(this.data?.cancelBtnText=='Cancel'){
+    }else if(this.data?.cancelBtnText=='Cancel' || this.data?.cancelBtnText=='रद्द करा'){
       this.dialogRef.close('No');
     }
   }

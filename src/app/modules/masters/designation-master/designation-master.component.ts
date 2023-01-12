@@ -136,6 +136,8 @@ export class DesignationMasterComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
+      edit: true,
+      delete: true,
     };
     this.highLightRow?tableData.highlightedrow=true:tableData.highlightedrow=false,
     this.apiService.tableData.next(tableData);

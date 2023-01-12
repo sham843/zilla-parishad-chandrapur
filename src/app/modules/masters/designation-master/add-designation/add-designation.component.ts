@@ -72,6 +72,7 @@ export class AddDesignationComponent {
   }
 
   clearForm(formDirective?: any) {
+   if(!this.data){
     formDirective?.resetForm();
     this.editFlag = false;
     this.desigantionType = [];
@@ -81,7 +82,10 @@ export class AddDesignationComponent {
       this.designationForm.controls['linkedToDesignationLevelId'].setValue(this.userLoginDesignationLevelId);
       this.getDesignationType();
     }
-
+   }
+    else if(this.data){
+      this.dialogRef.close('No');
+    }
   }
 
   //#region------------------------------------------------dropdown api's start-------------------------------------------------------

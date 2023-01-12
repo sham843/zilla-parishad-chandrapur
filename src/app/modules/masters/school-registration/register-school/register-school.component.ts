@@ -252,8 +252,8 @@ export class RegisterSchoolComponent {
       })
     }
   }
-
   clearForm() {
+   if(!this.data){
     this.editFlag = false;
     let formData = this.registerForm.value;
     this.formDirective.resetForm({
@@ -262,6 +262,9 @@ export class RegisterSchoolComponent {
       talukaId: this.levelId == 3 || this.levelId == 4 || this.levelId == 5 ? formData.talukaId : '',
       centerId: this.levelId == 4 || this.levelId == 5 ? formData.centerId : '',
     });
+   }else if(this.data){
+    this.dialogRef.close('No');
+   }
   }
 
   ngOnDestroy() {

@@ -109,10 +109,15 @@ export class RegisterStudentComponent {
   }
 
   clearForm() {
+   if(!this.data){
     this.formDirective.resetForm();
-     this.formData();
-    this.editFlag = false;
-    this.getDistrict();
+    this.formData();
+   this.editFlag = false;
+   this.getDistrict();
+   }
+   else if(this.data){
+    this.dialogRef.close('No');
+   }
   }
 
   clearDropdown(flag: any) {
