@@ -38,7 +38,6 @@ export class TableGridComponent implements OnInit {
   tableHeaders = new Array();
   highlightedRow!:number;
   language:any;
-  clooo:any='#65C889';
   constructor(private apiService: ApiService,
     private webStorage:WebStorageService,
     private translate:TranslateService) { }
@@ -57,7 +56,6 @@ export class TableGridComponent implements OnInit {
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
       }
-      console.log("this.tableInfo.tableData",this.tableInfo.tableData)
     })
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
@@ -72,7 +70,7 @@ export class TableGridComponent implements OnInit {
   action(obj: any, label: string, i?:any) {
     label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;
     obj.label = label;
-    obj.pageNumber = label == 'Edit' ? this.pageNumber : obj.pageIndex + 1;
+    obj.pageNumber = (label == 'Edit' ||label == 'Delete')? this.pageNumber : obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
     this.recObjToChild.emit(obj);
   }

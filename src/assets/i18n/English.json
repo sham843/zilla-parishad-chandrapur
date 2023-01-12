@@ -156,6 +156,7 @@
         "select":"Select"
     },
     "student":{
+        "educationYear":"Education Year",
         "parent_name":"Parent Name",
         "search_by_saralid_name_mobileno":"Search by Saral ID/Name/Contact No ",
         "saral_id":"Saral ID",
