@@ -32,14 +32,12 @@ export class HeaderComponent {
   ) {
     translate.addLangs(['English', 'Marathi'])
     translate.setDefaultLang('English');
-    translate.use(this.language);
   }
   ngOnInit(): void {
     this.loginData = this.webStorage.getLoginData();
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
-
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
     })

@@ -12,14 +12,27 @@
       </div>
       <div class="col-sm-auto col-auto">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
-            (click)="onChangeLanguage('English')">
+          <button class="btn" (click)="onChangeLanguage('English')" [ngClass]="{ 'active' : activeLang!='Marathi'}">
+            English
+          </button>
+          <button class="btn" (click)="onChangeLanguage('Marathi')" [ngClass]="{ 'active' : activeLang=='Marathi'}">
+            Marathi
+          </button>
+          </div>
+
+
+
+
+
+        <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+            (change)="onChangeLanguage('English')">
           <label class="btn btn-outline-primary" for="btnradio1">English</label>
 
           <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-            (click)="onChangeLanguage('Marathi')">
+            (change)="onChangeLanguage('Marathi')">
           <label class="btn btn-outline-primary" for="btnradio2">Marathi</label>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -53,7 +66,7 @@
         </ul>
         <div class="d-block me-3 p-1 mb-3 mb-lg-0">
           <div class="d-flex align-items-center">
-            <a class="btn-login" routerLink="../login">Login</a>
+            <a class="btn-login" routerLink="../login">{{'login.login' | translate}}</a>
           </div>
         </div>
         <div class="d-flex gap-3 justify-content-evenly">
