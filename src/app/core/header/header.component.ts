@@ -31,7 +31,8 @@ export class HeaderComponent {
   
   ) {
     translate.addLangs(['English', 'Marathi'])
-    translate.setDefaultLang('English')
+    translate.setDefaultLang('English');
+    translate.use(this.language);
   }
   ngOnInit(): void {
     this.loginData = this.webStorage.getLoginData();
@@ -114,7 +115,7 @@ export class HeaderComponent {
   }
   localStorageClear() {
     localStorage.clear()
-    this.router.navigate(['../login'])
+    this.router.navigate(['../home'])
   }
 
   openMyProfileDialog() {
