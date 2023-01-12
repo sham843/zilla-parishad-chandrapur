@@ -453,6 +453,10 @@ input::-ms-reveal { display: none; }
   line-height: 24px;
   border-radius: 50%;
 }
+.status.color{
+  animation: ripple-white 1s linear infinite ;
+}
+
 .status.green{
   background: #65C889;
   animation: ripple-green 1s linear infinite ;
@@ -472,6 +476,14 @@ input::-ms-reveal { display: none; }
 .status.red{
   background: #CB4B4B;
   animation: ripple-red 1s linear infinite ;
+}
+@keyframes ripple-white {
+  0% {
+    box-shadow: 0 0 0 0 #BBE6D2,
+  }
+  100% {
+    box-shadow: 0 0 0 0.5em #BBE6D2,
+  }
 }
 @keyframes ripple-green {
   0% {

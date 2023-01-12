@@ -78,7 +78,7 @@
                     <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
                 </div>
                <div class="col-sm-7">
-                <ng-container *ngIf="StudentDataArray?.length != 0">
+                <ng-container *ngIf="StudentDataArray?.length != 0 && tableDataArray?.length != 0">
                         <div class="student-bg">
                             <h5 class="text-primary">प्रोफाइल</h5>
                         </div>
@@ -127,11 +127,11 @@
                                                 <div class="data-text">{{StudentDataArray?.gender}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="data-label">Parent Sec. Mobile No.</span>
+                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="data-label">Parent Mail Id</span>
+                                                <span class="data-label">{{'student.parent_email_id'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
                                             </div>
                                         </div>
@@ -166,8 +166,8 @@
                             </mat-card-content>
                         </mat-card>
                 </ng-container>
-                <ng-container *ngIf="StudentDataArray?.length ==0">
-                        <div class="alert alert-danger text-center py-2 ">
+                <ng-container *ngIf="StudentDataArray?.length ==0 || tableDataArray?.length ==0">
+                        <div class="alert alert-danger text-center py-2 mt-5">
                             Student Profile Data Not Available
                         </div>
                 </ng-container>

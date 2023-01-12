@@ -15,13 +15,14 @@ import { NumberTransformPipe } from '../../pipes/number-tranform.pipe';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatRippleModule} from '@angular/material/core';
 
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
   styleUrls: ['./table-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule,MatTooltipModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
+  imports: [CommonModule, MatSlideToggleModule,MatCheckboxModule,MatTooltipModule,MatRippleModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,TranslateModule, NumberTransformPipe],
 
 })
 export class TableGridComponent implements OnInit {
@@ -37,6 +38,7 @@ export class TableGridComponent implements OnInit {
   tableHeaders = new Array();
   highlightedRow!:number;
   language:any;
+  clooo:any='#65C889';
   constructor(private apiService: ApiService,
     private webStorage:WebStorageService,
     private translate:TranslateService) { }
@@ -55,6 +57,8 @@ export class TableGridComponent implements OnInit {
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
       }
+      console.log(this.tableInfo);
+      
     })
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;

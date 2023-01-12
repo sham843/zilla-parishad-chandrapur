@@ -209,7 +209,9 @@
         "please_enter_valid_mobile_Number":"कृपया वैध पालक मोबाईल नंबर प्रविष्ट करा",
         "update_Student":"विद्यार्थी अपडेट करा",
         "please_enter_atleast_2_alphanumeric":"कृपया किमान दोन अल्फान्यूमेरिक प्रविष्ट करा",
-        "please_enter_minimum_2_character":"कृपया किमान दोन वर्ण प्रविष्ट करा"
+        "please_enter_minimum_2_character":"कृपया किमान दोन वर्ण प्रविष्ट करा",
+        "parent_second_mobile":"पालक दुसरा मोबाईल क्र.",
+        "parent_email_id":"पालक मेल आयडी"
     },
     "designation_master": {
         "add_designation": "पदनाम जोडा",

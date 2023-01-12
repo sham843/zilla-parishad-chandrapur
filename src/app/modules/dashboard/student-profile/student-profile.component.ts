@@ -88,6 +88,7 @@ export class StudentProfileComponent {
       schoolId: [0],
       standardId: [0],
       searchText: [''],
+      assesmentId:[this.globalObj.assesmentId], 
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
   }
@@ -214,7 +215,7 @@ export class StudentProfileComponent {
         break
     }
   }
-
+  // (formData?.assesmentId?formData?.assesmentId:0)
   getAllStudentData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
@@ -222,6 +223,7 @@ export class StudentProfileComponent {
     let str = `&nopage=${this.pageNumber}`
     let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
     + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (this.globalObj.subjectId?this.globalObj.subjectId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
+    +'&assesmentparaid='+(0)+'&userId='+(this.webStorage.getId())
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -246,12 +248,12 @@ export class StudentProfileComponent {
   }
   setTableData() {
     let displayedColumns;
-    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'marathiFullName', 'standardId'] : ['saralId', 'englishFullName', 'standardId']
+    displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'marathiFullName', 'standardId','colorcode'] : ['saralId', 'englishFullName', 'standardId','colorcode']
     let displayedheaders;
-    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता'] : ['Saral ID', 'Name', 'Standard']
+    displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता','स्तर'] : ['Saral ID', 'Name', 'Standard','Level']
     let tableData = {
       pageNumber: this.pageNumber,
-      img: '', blink: '', badge: '', isBlock: '', pagination: true,
+      img: '', blink:'colorcode', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
