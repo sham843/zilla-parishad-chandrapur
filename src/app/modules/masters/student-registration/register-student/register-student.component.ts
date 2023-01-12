@@ -26,6 +26,7 @@ export class RegisterStudentComponent {
   genderArray = new Array();
   religionArray = new Array();
   casteArray = new Array();
+  educationYearArray = new Array();
   @ViewChild('formDirective')
   private formDirective!: NgForm;
   editFlag: boolean = false;
@@ -65,6 +66,7 @@ export class RegisterStudentComponent {
       this.getGender();
       this.getReligion();
       this.getCaste()
+      this.getEducationYear()
     }
   }
   //#region  -----------------------------------------------------form Fun start heare ---------------------------------------------------//
@@ -90,7 +92,8 @@ export class RegisterStudentComponent {
       "castId": [data?.castId || 0],
       "parentsMobileNo": [data?.parentsMobileNo || '', [Validators.pattern(this.validation.mobile_No)]],
       "stateId": [data?.stateId || this.apiService.stateId],
-      "lan": ['' || this.lang],
+       "educationYearId": [data?.educationYearId || '', Validators.required],
+       "lan": ['' || this.lang],
       "emailId": [''],
     })
     this.getDistrict();
@@ -272,7 +275,26 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.casteArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['castId'].setValue(this.data.castId) : '';
+          this.editFlag ? (this.studentFrm.controls['castId'].setValue(this.data.castId), this.getEducationYear()) : '';
+        }
+        else {
+          this.casteArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+      }
+    })
+  }
+
+  getEducationYear() {
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/get-all-educationyear-details?flag_lang=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.educationYearArray = res.responseData;
+          this.editFlag ? this.studentFrm.controls['educationYearId'].setValue(this.data.educationYearId) : '';
         }
         else {
           this.casteArray = [];
@@ -302,6 +324,7 @@ export class RegisterStudentComponent {
       data.aadharNo = data.aadharNo ? data.aadharNo : 0;
       data.standardId=data.standardId?data.standardId:0;
       data.genderId=data.genderId?data.genderId:0;
+      data.educationYearId=data.educationYearId?data.educationYearId:0;
       data.dob = data.dob ? data.dob : null;
       let mainData = { ...obj, ...data };
       this.data ? mainData.id=this.data.id:mainData.id=0;//when we edit data -> clear form -> data not updated(we used)
