@@ -513,6 +513,7 @@ export class DashboardComponent {
               offsetX: -10,
               offsetY: 0
             },
+            
           }
         }
       ],
