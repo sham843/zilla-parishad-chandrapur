@@ -85,6 +85,7 @@ export class StudentProfileComponent {
       schoolId: [0],
       standardId: [],
       searchText: [''],
+      
       assesmentId:[this.globalObj.assesmentId], 
       studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
@@ -97,8 +98,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          (((this.levelId == 1 || this.levelId == 2) && this.clearFlag==true && this.globalObj.talukaId!=0)) ? (this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),alert('first'),this.getKendra()):
-          (this.levelId == 3 || this.levelId == 4 || this.levelId == 5 && this.globalObj.talukaId!=0) ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId),alert('second'),this.getKendra()):'';
+          (((this.levelId == 1 || this.levelId == 2) && this.clearFlag==true && this.globalObj.talukaId!=0)) ? (this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),this.getKendra()):
+          (this.levelId == 3 || this.levelId == 4 || this.levelId == 5 && this.globalObj.talukaId!=0) ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId),this.getKendra()):'';
         }
         else {
           this.talukaArray = [];
