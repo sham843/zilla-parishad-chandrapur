@@ -63,15 +63,20 @@ export class TableGridComponent implements OnInit {
     this.translate.use(this.language);
   }
 
-  // ngAfterViewInit() {
-  //   this.tableInfo.sort = this.sort;
-  // }
-
   action(obj: any, label: string, i?:any) {
+   if(label=='Block'){
+    console.log(i)
+    this.highlightedRow = obj.id;
+    obj.checked=i.checked;
+    obj.label = label;
+    this.pageIndex = obj.pageNumber;
+    this.recObjToChild.emit(obj);
+   }else{
     label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;
     obj.label = label;
     obj.pageNumber = (label == 'Edit' ||label == 'Delete')? this.pageNumber : obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
     this.recObjToChild.emit(obj);
+   }
   }
 }

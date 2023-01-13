@@ -345,16 +345,21 @@ clearValidation(formControl:any){
   }
 
   clearUserForm(formDirective:any){
-    if(this.data.flag=='profile'){
-      this.userRegistrationForm.controls['name'].setValue('');
-      this.userRegistrationForm.controls['mobileNo'].setValue('');
-      this.userRegistrationForm.controls['emailId'].setValue('');
-    }else{
-      formDirective.resetForm();
-      this.userLevelArr=[];
-      this.designationArr=[];this.talukaArr=[];
-      this.data.obj?'':this.getUserForm();
-    } 
+    if(this.data.cancelBtnText=='Clear' || this.data.cancelBtnText=='पुसून टाका'){
+      if(this.data.flag=='profile'){
+        this.userRegistrationForm.controls['name'].setValue('');
+        this.userRegistrationForm.controls['mobileNo'].setValue('');
+        this.userRegistrationForm.controls['emailId'].setValue('');
+      }else{
+        formDirective.resetForm();
+        this.userLevelArr=[];
+        this.designationArr=[];this.talukaArr=[];
+        this.data.obj?'':this.getUserForm();
+      } 
+    }
+    else if(this.data.cancelBtnText=='Cancel' ||this.data.cancelBtnText=='रद्द करा'){
+      this.dialogRef.close('No');
+    }
   }
 //#endregion-----------------------------------------------clear dropdown method end--------------------------------------------------------
  //#region-------------------------------------------------profile photo upload methods start-----------------------------------------------

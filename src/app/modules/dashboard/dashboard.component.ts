@@ -461,14 +461,17 @@ export class DashboardComponent {
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
-        let obj: any = {
-          'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
-          'info':ele['assesmentDetails'][i].noStudent,
-          "lang":ele.subjectName
+        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
+          let obj: any = {
+            'name': ele['assesmentDetails'][i].assessmentParamenterName,
+            'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
+            'info': ele['assesmentDetails'][i].noStudent,
+            "lang": ele.subjectName,
+            "subjectId":ele.subjectId
+          }
+          arr.push(obj);
+          barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
         }
-        arr.push(obj);
-        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
@@ -478,8 +481,11 @@ export class DashboardComponent {
       series: seriesData,
       chart: {
         events: {
-          dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
-           this.redToStuProfile('subject',config.seriesIndex)
+          dataPointSelection:({ seriesIndex, w }: any)=> {
+
+               var data = w.globals.initialSeries[seriesIndex];
+               console.log(data);
+          //  this.redToStuProfile('subject',config.seriesIndex)
           }
         },
         type: "bar",
@@ -513,6 +519,7 @@ export class DashboardComponent {
               offsetX: -10,
               offsetY: 0
             },
+            
           }
         }
       ],
@@ -730,15 +737,29 @@ export class DashboardComponent {
   }
 
   setName(label: string) {
+     let formValue =  this.topFilterForm.value;
     let str!: string;
     if (label == 'Taluka') {
       str = sessionStorage.getItem('language') == 'English' ? 'Taluka' : 'तालुका';
     } else if (label == 'Kendra') {
-      str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      if(formValue.talukaId == 0){
+        str = sessionStorage.getItem('language') == 'English' ? 'Taluka' : 'तालुका';
+      }else{
+        str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      }
     }else if (label == 'School') {
-      str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      if(formValue.kendraId == 0){
+        str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      }else{
+        str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      }
     } else if (label == 'Student Name') {
-      str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+      if(formValue.schoolId == 0){
+        str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      }else{
+        str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+      }
+     
     }
     return str
   }

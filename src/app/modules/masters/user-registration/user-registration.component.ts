@@ -135,23 +135,23 @@ export class UserRegistrationComponent {
 setTableData(){     // table
   this.highlightRowFlag=true;
   let displayedColumns:any;
-  this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo', 'action']
+  this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','isBlock','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','isBlock','action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No', 'Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','Block','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         highlightedrow:true,
         img: '',
         blink: '',
         badge: '',
-        isBlock: '',
+        isBlock: 'isBlock',
         displayedColumns: displayedColumns,
         tableData: this.tableDataArray,
         tableSize: this.totalItem,
         tableHeaders: displayedheaders,
         pagination: true,
         edit: true,
-        delete: true,
+        delete: false,
       }
       this.highlightRowFlag?this.tableData.highlightedrow=true:this.tableData.highlightedrow=false,
       this.apiService.tableData.next(this.tableData)
@@ -165,6 +165,9 @@ setTableData(){     // table
     this.registerusers(obj);
   } else if(obj.label =='Delete'){
     this.deleteDialog(obj);
+  }else if(obj.label =='Block'){
+    console.log("obj ojb",obj)
+    this.blockUnblockDialog(obj)
   }
   }
   //----------------------------------------------------------Add update modal open------------------------------------------------------------
@@ -177,7 +180,7 @@ setTableData(){     // table
         obj:editObj,
         flag:editObj?'Update':'Add',
         successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
-        cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+        cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'पुसून टाका' : 'Clear'),
       },
     })
     dialog.afterClosed().subscribe((res:any) => {
@@ -265,4 +268,52 @@ setTableData(){     // table
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
+//#region-----------------------------------------------------Start block unBlock user method------------------------------------------------
+blockUnblockDialog(obj:any){
+  const dialog = this.dialog.open(GlobalDialogComponent, {
+    width: '350px',
+    disableClose: true,
+    data:{
+      p1:obj.checked==true? (this.lang=='mr-IN' ? 'तुम्हाला निवडलेल्या वापरकर्त्याला ब्लॉक करायचे आहे का?' : 'Do You Want To Block Selected User?'):(this.lang=='mr-IN' ? ' तुम्हाला निवडलेल्या वापरकर्त्याला अनब्लॉक करायचे आहे का?' : 'Do You Want To unBlock Selected User?'),
+      p2: '',
+      cardTitle:obj.checked==true? (this.lang=='mr-IN' ? 'ब्लॉक वापरकर्ता' : 'Block User'):(this.lang=='mr-IN' ? 'वापरकर्ता अनब्लॉक करा' : 'UnBlock User'),
+      successBtnText:obj.checked==true?(this.lang=='mr-IN' ? 'ब्लॉक' : 'Block'):(this.lang=='mr-IN' ? 'अनब्लॉक' : 'UnBlock'),
+      cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
+    },
+  })
+  dialog.afterClosed().subscribe((res) => {
+    if (res == 'Yes') {
+      this.blockUnblockUser(obj);
+      this.highlightRowFlag=false;
+    }
+    else{
+      this.highlightRowFlag=false;
+      this.setTableData();
+    }
+  })
+}
+
+blockUnblockUser(blockObj:any){
+  console.log("blockObj",blockObj);
+  let obj={
+    "id":blockObj.id,
+    "isBlock": blockObj.checked,
+    "blockDate":new Date(),
+    "blockBy": 0
+  }
+  this.apiService.setHttp('PUT', 'zp_chandrapur/user-registration/BlockUnblockUser', false, obj, false, 'baseUrl')
+  this.apiService.getHttp().subscribe({
+    next: (res: any) => {
+      if (res.statusCode == '200') {
+        this.common.snackBar(res.statusMessage, 0);
+        this.getAllUserData();
+      }
+      else{
+        this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+      }
+    },
+    error: ((err: any) => { this.errors.handelError(err) })
+  });
+}
+//#endregion---------------------------------------------------End block unBlock user method---------------------------------------------------------
 }

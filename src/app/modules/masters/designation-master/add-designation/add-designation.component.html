@@ -74,11 +74,11 @@
         <mat-card-footer class="card-footer" align="end">
             <div class="d-flex justify-content-end align-items-center w-100">
                 <button type="button" mat-flat-button class="btn-second me-2"
-                    (click)="clearForm(formDirective)">{{'common.clear' | translate}}</button>
-                <button mat-flat-button type="submit" class="btn-main" *ngIf="!data">{{'common.submit' |
-                    translate}}</button>
-                <button mat-flat-button type="submit" class="btn-main" *ngIf="data">{{'common.update' |
-                    translate}}</button>
+                    (click)="clearForm(formDirective)">{{(!data?'common.clear':'common.cancel') | translate}}</button>
+
+                <button mat-flat-button type="submit" class="btn-main">{{(!data?'common.submit':'common.update') | translate}}</button>
+               <!--  <button mat-flat-button type="submit" class="btn-main" *ngIf="data">{{'common.update' |
+                    translate}}</button> -->
             </div>
         </mat-card-footer>
     </mat-card>
