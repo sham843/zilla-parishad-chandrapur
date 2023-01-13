@@ -220,6 +220,8 @@ export class StudentRegistrationComponent {
       this.setTableData();
     });
   }
+
+  
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':

@@ -66,6 +66,15 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
+                    <mat-form-field appearance="outline" class="w-100 ">
+                        <mat-label>{{'student.educationYear'|translate}}</mat-label>
+                        <mat-select formControlName="educationYearId">
+                            <mat-option *ngFor="let education of educationYearArray" [value]="education.id">{{education.year}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> 
+                <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.mobile_number'|translate}}</mat-label>
                         <input matInput formControlName="parentsMobileNo" (keypress)="validation.onlyDigits($event)"
@@ -131,7 +140,6 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <!-- marathi -->
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.mar_first_name'|translate}}</mat-label>
@@ -168,7 +176,6 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100 ">
                         <mat-label>{{'student.gender'|translate}}</mat-label>
@@ -219,25 +226,13 @@
                     </mat-form-field>
                 </div>
             
-
-            <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100 ">
-                    <mat-label>{{'student.educationYear'|translate}}</mat-label>
-                    <mat-select formControlName="educationYearId">
-                        <mat-option *ngFor="let education of educationYearArray" [value]="education.id">{{education.year}}
-                            <!-- [selected]="education.isCurrent == 1" -->
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div> 
         </div>
-        
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <div class="d-flex align-items-center justify-content-end w-100">
                 <button mat-stroked-button class="btn-second me-2" type="button"
                     (click)="clearForm()">{{(!data?'common.clear':'common.cancel') | translate}}</button>
-                <button mat-flat-button class="btn-main" type="submit">{{data ? 'Update' :
+                <button mat-flat-button class="btn-main" type="submit" >{{data ? 'Update' :
                     ('common.submit'|translate)}}</button>
             </div>
         </mat-card-footer>
