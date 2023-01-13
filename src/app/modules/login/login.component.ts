@@ -54,7 +54,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log(this.loginForm.controls['recaptchaReactive'])
     const formValue = this.loginForm.value;
     if (this.loginForm.invalid) {
       return;
