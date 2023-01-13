@@ -504,7 +504,7 @@ export class DashboardComponent {
       },
       dataLabels: {
         formatter: function(val:any, ) {
-          return val.toFixed(2)
+          return val.toFixed(2)+"%"
         }
       },
       responsive: [
