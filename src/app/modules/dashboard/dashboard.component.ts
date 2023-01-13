@@ -461,14 +461,16 @@ export class DashboardComponent {
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
-        let obj: any = {
-          'name': ele['assesmentDetails'][i].assessmentParamenterName,
-          'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
-          'info':ele['assesmentDetails'][i].noStudent,
-          "lang":ele.subjectName
+        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
+          let obj: any = {
+            'name': ele['assesmentDetails'][i].assessmentParamenterName,
+            'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
+            'info': ele['assesmentDetails'][i].noStudent,
+            "lang": ele.subjectName
+          }
+          arr.push(obj);
+          barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
         }
-        arr.push(obj);
-        barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
