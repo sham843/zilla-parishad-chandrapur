@@ -343,7 +343,7 @@ export class RegisterStudentComponent {
           if (res.statusCode == '200') {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
-            this.clearForm();
+             this.clearForm();
             this.editFlag = false;
           } else {
             this.ngxspinner.hide();

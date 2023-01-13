@@ -43,7 +43,6 @@ export class DashboardComponent {
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
   talukaWiseAssData: any;
-  progressBarcolors = ['#CB4B4B','#E76A63','#E98754','#EFB45B','#65C889'];
   loginData!: any;
   levelId!: number;
   enbTalDropFlag: boolean = false;
@@ -461,7 +460,7 @@ export class DashboardComponent {
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
-        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
+       if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
           let obj: any = {
             'name': ele['assesmentDetails'][i].assessmentParamenterName,
             'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
@@ -471,7 +470,7 @@ export class DashboardComponent {
           }
           arr.push(obj);
           barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
-        }
+       }
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
@@ -481,11 +480,8 @@ export class DashboardComponent {
       series: seriesData,
       chart: {
         events: {
-          dataPointSelection:({ seriesIndex, w }: any)=> {
-
-               var data = w.globals.initialSeries[seriesIndex];
-               console.log(data);
-          //  this.redToStuProfile('subject',config.seriesIndex)
+          dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
+           this.redToStuProfile('subject',config.w.config.series[config.dataPointIndex].subjectId)
           }
         },
         type: "bar",
@@ -571,7 +567,7 @@ export class DashboardComponent {
           height: 12,
           strokeWidth: 0,
           strokeColor: '#fff',
-          fillColors: this.progressBarcolors.reverse(),
+          fillColors: barColorpal,
         }
       },
       tooltip :{
