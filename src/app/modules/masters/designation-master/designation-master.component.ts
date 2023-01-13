@@ -26,10 +26,12 @@ export class DesignationMasterComponent {
   desigantionLevelArray = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
+  totalPages!: number;
+  excelDowobj:any;
   userLoginDesignationLevelId!:number;
   designTreeViewArray: any;
   hideFlowChartDig :boolean = false
-  highLightRow :boolean = false
+  highLightRow :boolean = false;
   constructor(public dialog: MatDialog, private apiService: ApiService, private master: MasterService,
     private errors: ErrorsService, private webStorage: WebStorageService,
     private commonMethod: CommonMethodsService, private spinner: NgxSpinnerService, private excelPdf: ExcelPdfDownloadService
@@ -92,7 +94,7 @@ export class DesignationMasterComponent {
   getTableData(flag?: string) {
     this.spinner.show();
     this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
-    let str = `pageno=${this.pageNumber}&pagesize=10`;
+    let str =  flag == 'excel' ?  `pageno=1&pagesize=${this.totalPages * 10}`:`pageno=${this.pageNumber}&pagesize=10`;
     this.apiService.setHttp('GET', 'designation/get-designation-details-table?designationLevel=' + Number(this.searchdesignationLvl.value)+ '&' + str + '&designationUserLevel=' + Number(this.userLoginDesignationLevelId) + '&flag=' + (this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -100,6 +102,7 @@ export class DesignationMasterComponent {
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
+          this.totalPages=res.responseData.responseData2.totalPages;
           this.setTableData();
         } else {
           this.spinner.hide();
@@ -107,6 +110,14 @@ export class DesignationMasterComponent {
           this.tableDatasize = 0;
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
+        this.tableDataArray.map((ele: any) => {
+          let myArray: any = [];
+          ele.linkedDesignationDetails.map((ele1: any) => {
+            myArray.push(ele1.linkedToDesignationName);
+          })
+          ele['newLinkedToDesignationName'] = myArray.toString();
+        })
+        flag != 'excel' && this.tableDataArray ? this.setTableData() : (this.excelPdf.downloadExcel(this.tableDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column),  this.getTableData());
         this.setTableData();
       },
       error: ((err: any) => {
@@ -227,15 +238,9 @@ export class DesignationMasterComponent {
     let pageName = 'Designation Master';
     let header = ['Sr.No.', 'Designation Name', 'Designation Level', 'Linked To'];
     let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
-
-    this.tableDataArray.map((ele: any) => {
-      let myArray: any = [];
-      ele.linkedDesignationDetails.map((ele1: any) => {
-        myArray.push(ele1.linkedToDesignationName);
-      })
-      ele['newLinkedToDesignationName'] = myArray.toString();
-    })
-    this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
+    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+    this.getTableData('excel');
+    // this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
   }
 
  /*  viewDataDialog(obj:any){   //view table data

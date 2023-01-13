@@ -22,6 +22,7 @@ export class HeaderComponent {
   profilePhoto!:string;
   encryptInfo:any;
   darkClassName:any;
+  profileUserName!:any;
   constructor(
     private overlay: OverlayContainer,
     private dialog: MatDialog,
@@ -35,6 +36,7 @@ export class HeaderComponent {
   }
   ngOnInit(): void {
     this.loginData = this.webStorage.getLoginData();
+    this.profileUserName=this.loginData.name;
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
@@ -133,10 +135,13 @@ export class HeaderComponent {
     })
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
-        this.webStorage.getProfile().subscribe(res=>{
-          this.profilePhoto=res;
-          let localData=JSON.parse(this.webStorage.getLocalStorageData())
-          localData.responseData.profilePhoto=res
+        this.webStorage.getProfileData().subscribe((res:any)=>{
+          console.log("loggedInData",res);
+          this.profilePhoto=res.profilePhoto;
+          this.profileUserName=res.name;
+          let localData=JSON.parse(this.webStorage.getLocalStorageData());
+          localData.responseData.profilePhoto=res.profilePhoto;
+          localData.responseData.name=res.name;
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(localData)), 'secret key 123').toString());
            localStorage.setItem('loggedInData', this.encryptInfo);
         })
