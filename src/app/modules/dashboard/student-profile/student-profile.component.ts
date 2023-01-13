@@ -85,6 +85,7 @@ export class StudentProfileComponent {
       schoolId: [0],
       standardId: [],
       searchText: [''],
+      subjId:[0],
       assesmentId:[this.globalObj.assesmentId], 
       studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
@@ -180,7 +181,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.subjectArray = res.responseData;
-          this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId)):'';
+          this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId),this.filterFrm.controls['subjId'].setValue(this.globalObj.subjectId)):'';
         }
         else {
           this.subjectArray = [];
@@ -197,6 +198,7 @@ export class StudentProfileComponent {
     this.clearFlag=false;
     this.filterFrm.reset();
     this.getformControl();
+    this.filterFrm.controls['subjId'].setValue(1);
     this.globalObj='';
     this.getTaluka();
     this.getAllStudentData('filter');
@@ -221,7 +223,7 @@ export class StudentProfileComponent {
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
     let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
-    + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (this.globalObj.subjectId?this.globalObj.subjectId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
+    + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData?.subjId?formData?.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
     +'&studentId='+(formData?.studentId?formData?.studentId:0)
     +'&assesmentparaid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
@@ -394,7 +396,6 @@ export class StudentProfileComponent {
       }
     };
   }
-
 
   //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
   clearDropdown(flag:any){

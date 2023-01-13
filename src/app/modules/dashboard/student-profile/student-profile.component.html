@@ -28,7 +28,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId || this.levelId == 4 || this.levelId == 5">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId || filterFrm.value.talukaId==0  || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
                         <mat-select formControlName="kendraId" (selectionChange)="getSchool();clearDropdown('kendra')">
                             <mat-option value="0">All Kendra</mat-option>
@@ -39,21 +39,31 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId || this.levelId == 5">
+                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId || filterFrm.value.kendraId==0 || this.levelId == 5">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId" (selectionChange)="getStandard();clearDropdown('school')">
+                            <mat-option value="0">All Kendra</mat-option>
                             <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.schoolId || filterFrm.value.schoolId==0">
                         <mat-label>{{'student.select_standard'|translate}}</mat-label>
                         <mat-select formControlName="standardId" multiple>
                             <mat-option *ngFor="let standard of standardArray" [value]="standard.id">
                                 {{standard.standard}}
                             </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Select Subject</mat-label>
+                        <mat-select formControlName="subjId">
+                            <mat-option
+                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -147,7 +157,7 @@
                                     <div class="flex-fill">
                                         <mat-form-field appearance="outline" class="w-100">
                                             <mat-label>Select Subject</mat-label>
-                                            <mat-select [formControl]="subjectId">
+                                            <mat-select [formControl]="subjectId" (selectionChange)="assesmentChartData()">
                                                 <mat-option
                                                     *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
                                             </mat-select>
