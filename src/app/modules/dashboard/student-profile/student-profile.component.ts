@@ -284,10 +284,10 @@ export class StudentProfileComponent {
   }
 
   assesmentChartData(){     //get chart data
-    // let studentData=this.StudentDataArray;
-    // let obj=(studentData.standardId)+'&StudentId='+(studentData.id)+'&EducationYearId='+1+'&SubjectId='+(this.subjectId.value)+'&lan='+(this.lang)
-    // this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?StandardId='+obj, false, false, false, 'baseUrl');
-    this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?&StandardId=10&StudentId=7&EducationYearId=1&SubjectId=3&IsInspection=0&flag_lang=En', false, false, false, 'baseUrl');
+    let studentData=this.StudentDataArray;
+    let obj=(studentData.standardId)+'&StudentId='+(studentData.id)+'&EducationYearId='+1+'&SubjectId='+(this.subjectId.value)+'&lan='+(this.lang)
+    this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?StandardId='+obj, false, false, false, 'baseUrl');
+    // this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?&StandardId=10&StudentId=7&EducationYearId=1&SubjectId=3&IsInspection=0&flag_lang=En', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -326,7 +326,7 @@ export class StudentProfileComponent {
       proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
-    
+
     this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName)
