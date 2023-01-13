@@ -225,6 +225,7 @@
                     <mat-label>{{'student.educationYear'|translate}}</mat-label>
                     <mat-select formControlName="educationYearId">
                         <mat-option *ngFor="let education of educationYearArray" [value]="education.id">{{education.year}}
+                            <!-- [selected]="education.isCurrent == 1" -->
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
