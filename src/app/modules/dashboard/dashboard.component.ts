@@ -480,11 +480,8 @@ export class DashboardComponent {
       series: seriesData,
       chart: {
         events: {
-          dataPointSelection:({ seriesIndex, w }: any)=> {
-
-               var data = w.globals.initialSeries[seriesIndex];
-               console.log(data);
-          //  this.redToStuProfile('subject',config.seriesIndex)
+          dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
+           this.redToStuProfile('subject',config.w.config.series[config.dataPointIndex].subjectId)
           }
         },
         type: "bar",
