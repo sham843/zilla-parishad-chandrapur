@@ -75,8 +75,6 @@ export class StudentProfileComponent {
     this.globalObj.talukaId==0?this.getAllStudentData():'';
     this.getAllSubject();
     this.getStudentProChart();
-
-
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -85,11 +83,13 @@ export class StudentProfileComponent {
       talukaId:[0],
       kendraId: [0],
       schoolId: [0],
-      standardId: [0],
+      standardId: [],
       searchText: [''],
       assesmentId:[this.globalObj.assesmentId], 
+      studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
+    this.clearFlag==false?this.filterFrm.value.standardId=[]:this.globalObj.staId;
   }
 
   getTaluka() {
@@ -97,8 +97,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.talukaArray = res.responseData;
-          ((this.levelId == 1 || this.levelId == 2) && this.clearFlag==true) ? (this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),this.getKendra()):
-          (this.levelId == 3 || this.levelId == 4 || this.levelId == 5) ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId),this.getKendra()):'';
+          (((this.levelId == 1 || this.levelId == 2) && this.clearFlag==true && this.globalObj.talukaId!=0)) ? (this.filterFrm.controls['talukaId'].setValue(this.globalObj.talukaId),alert('first'),this.getKendra()):
+          (this.levelId == 3 || this.levelId == 4 || this.levelId == 5 && this.globalObj.talukaId!=0) ? (this.filterFrm.controls['talukaId'].setValue(this.loginData.talukaId),alert('second'),this.getKendra()):'';
         }
         else {
           this.talukaArray = [];
@@ -118,7 +118,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.centerArray=res.responseData;
           ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3) && this.clearFlag==true)? (this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):
-          this.levelId == 4 || this.levelId == 5 ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
+          (this.levelId == 4 || this.levelId == 5 && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
           (this.globalObj.kendraId!=0 && this.globalObj.schoolId==0)?this.getAllStudentData():'';
         }
         else {
@@ -140,7 +140,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
           ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3 || this.levelId == 4) && this.clearFlag==true)?(this.filterFrm.controls['schoolId'].setValue(this.globalObj.schoolId),this.getStandard()):
-          this.levelId == 5 ? (this.filterFrm.controls['schoolId'].setValue(this.loginData.schoolId),this.getStandard()):'';
+          (this.levelId == 5 && this.globalObj.schoolId!=0)? (this.filterFrm.controls['schoolId'].setValue(this.loginData.schoolId),this.getStandard()):'';
           (this.globalObj.schoolId!=0 && this.globalObj.standardId==0)?this.getAllStudentData():'';
         }
         else {
@@ -222,7 +222,8 @@ export class StudentProfileComponent {
     let str = `&nopage=${this.pageNumber}`
     let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
     + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (this.globalObj.subjectId?this.globalObj.subjectId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
-    +'&assesmentparaid='+(0)+'&userId='+(this.webStorage.getId())
+    +'&studentId='+(formData?.studentId?formData?.studentId:0)
+    +'&assesmentparaid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
