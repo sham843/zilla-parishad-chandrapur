@@ -85,7 +85,6 @@ export class StudentProfileComponent {
       schoolId: [0],
       standardId: [],
       searchText: [''],
-      
       assesmentId:[this.globalObj.assesmentId], 
       studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
