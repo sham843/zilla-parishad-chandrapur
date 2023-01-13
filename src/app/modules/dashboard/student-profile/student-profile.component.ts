@@ -36,11 +36,10 @@ export class StudentProfileComponent {
   levelId: any;
   language: any;
   chartData:any;
-  xasixData=new Array();
-  yasixData=new Array();
   loginData:any;
   getURLData:any;
   clearFlag:boolean=true;
+
 
   constructor(
     private webStorage: WebStorageService,
@@ -76,6 +75,8 @@ export class StudentProfileComponent {
     this.globalObj.talukaId==0?this.getAllStudentData():'';
     this.getAllSubject();
     this.getStudentProChart();
+
+
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -283,22 +284,14 @@ export class StudentProfileComponent {
   }
 
   assesmentChartData(){     //get chart data
-    let studentData=this.StudentDataArray;
-    let obj=(studentData.standardId)+'&StudentId='+(studentData.id)+'&EducationYearId='+1+'&SubjectId='+(this.subjectId.value)+'&lan='+(this.lang)
-    this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?StandardId='+obj, false, false, false, 'baseUrl');
+    // let studentData=this.StudentDataArray;
+    // let obj=(studentData.standardId)+'&StudentId='+(studentData.id)+'&EducationYearId='+1+'&SubjectId='+(this.subjectId.value)+'&lan='+(this.lang)
+    // this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?StandardId='+obj, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'GetDataForStudentAssementChart?&StandardId=10&StudentId=7&EducationYearId=1&SubjectId=3&IsInspection=0&flag_lang=En', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.chartData=res.responseData;
-          this.chartData?.responseData2.forEach((ele:any) => {
-            this.xasixData.push(ele.examName);
-          }); 
-          this.ChartOptions.xaxis.categories=this.xasixData;
-
-          this.chartData?.responseData1.forEach((ele:any) => {
-            this.yasixData.push(ele.assesmentParameter);
-          }); 
-          this.ChartOptions.yaxis.categories=this.yasixData;
           this.getStudentProChart();
         }
         else {
@@ -313,24 +306,49 @@ export class StudentProfileComponent {
   }
 
   getStudentProChart() { 
+    let proIndCat = new Array(); 
+    let categoriesArray = new Array(); 
+    let seriesArray: any[] = [
+      {
+        name: "शिक्षक",
+        data: [],
+      },
+      {
+        name: "पहिला",
+        data: [],
+      },
+      {
+        name: "अधिकारी",
+        data: [],
+      }
+    ];
+    this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare
+      proIndCat.push(ele.assesmentParameter);
+    }); 
+    proIndCat.reverse();
+    
+    this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
+      seriesArray[0].data.push(ele.marking);
+      categoriesArray.push(ele.examName)
+      
+    }); 
+
+    this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
+      seriesArray[1].data.push(ele.marking);
+    }); 
+
+    this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
+      seriesArray[2].data.push(ele.marking);
+    }); 
+
     this.ChartOptions = {
-      series: [
-        {
-          name: "शिक्षक",
-          data: [0, 1, 2]
-        },
-        {
-          name: "पहिला",
-          data: [0, 0, 2]
-        },
-        {
-          name: "अधिकारी",
-          data: [1, 2, 0]
-        }
-      ],
+      series: seriesArray,
       chart: {
         height: 350,
-        type: "area"
+        type: "area",
+        toolbar: {
+          show: false
+        },
       },
       dataLabels: {
         enabled: false
@@ -339,24 +357,21 @@ export class StudentProfileComponent {
         curve: "smooth"
       },
       xaxis: {
-        type: "level",
-        // categories:[]
-      categories: [
-          "test 1",
-          "test 2",
-          "test 3"
-        ] 
+      type: "level",
+      categories:categoriesArray
       },
       yaxis: {
-        type: "text",
-        // categories:[]
-        categories: [ 
-          "Story",
-          "Paragraph",
-          "Words",
-          "Letter",
-          "Initial"
-        ] 
+        max:5,
+        tickAmount:5,
+        range:1,
+        min:0,
+        labels: {
+          minWidth: 100,
+          formatter: (_value:any, i:any)=> {
+          let val = proIndCat[i]
+          return  val
+          },
+        },
       },
       legend: {
         position: "top",
@@ -365,13 +380,21 @@ export class StudentProfileComponent {
       fill: {
         opacity: 1
       },
-      tooltip: {
-        x: {
-          format: ""
-        }
+      tooltip :{
+        custom: (value:any) =>{
+          console.log(value)   
+           const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
+          //  const stageName = this.chartData?.responseData1.find((element:any) => console.log(element));
+          return ('<div class="arrow_box" style="padding:10px;">' +
+              "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
+            "</div>"
+          );
+        },
       }
     };
   }
+
+
   //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
   clearDropdown(flag:any){
     if(flag=='taluka'){
