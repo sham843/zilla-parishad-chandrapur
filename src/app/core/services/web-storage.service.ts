@@ -17,10 +17,10 @@ export class WebStorageService {
   }
   //change profile
   private profile=new BehaviorSubject('');
-  getProfile() {
+  getProfileData() {
     return this.profile.asObservable()
   }
-  setProfile(photo: any) {
+  setProfileData(photo: any) {
     this.profile.next(photo)
   }
   // change language

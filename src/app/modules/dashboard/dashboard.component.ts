@@ -43,7 +43,6 @@ export class DashboardComponent {
   piechartOptionstData: any;
   piechartSecondOptionsData: any;
   talukaWiseAssData: any;
-  progressBarcolors = ['#CB4B4B','#E76A63','#E98754','#EFB45B','#65C889'];
   loginData!: any;
   levelId!: number;
   enbTalDropFlag: boolean = false;
@@ -461,16 +460,17 @@ export class DashboardComponent {
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
-        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
+       if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
           let obj: any = {
             'name': ele['assesmentDetails'][i].assessmentParamenterName,
             'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
             'info': ele['assesmentDetails'][i].noStudent,
-            "lang": ele.subjectName
+            "lang": ele.subjectName,
+            "subjectId":ele.subjectId
           }
           arr.push(obj);
           barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
-        }
+       }
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
@@ -481,7 +481,7 @@ export class DashboardComponent {
       chart: {
         events: {
           dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
-           this.redToStuProfile('subject',config.seriesIndex)
+           this.redToStuProfile('subject',config.w.config.series[config.dataPointIndex].subjectId)
           }
         },
         type: "bar",
@@ -567,7 +567,7 @@ export class DashboardComponent {
           height: 12,
           strokeWidth: 0,
           strokeColor: '#fff',
-          fillColors: this.progressBarcolors.reverse(),
+          fillColors: barColorpal,
         }
       },
       tooltip :{
@@ -733,15 +733,29 @@ export class DashboardComponent {
   }
 
   setName(label: string) {
+     let formValue =  this.topFilterForm.value;
     let str!: string;
     if (label == 'Taluka') {
       str = sessionStorage.getItem('language') == 'English' ? 'Taluka' : 'तालुका';
     } else if (label == 'Kendra') {
-      str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      if(formValue.talukaId == 0){
+        str = sessionStorage.getItem('language') == 'English' ? 'Taluka' : 'तालुका';
+      }else{
+        str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      }
     }else if (label == 'School') {
-      str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      if(formValue.kendraId == 0){
+        str = sessionStorage.getItem('language') == 'English' ? 'Kendra' : 'केंद्र';
+      }else{
+        str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      }
     } else if (label == 'Student Name') {
-      str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+      if(formValue.schoolId == 0){
+        str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
+      }else{
+        str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+      }
+     
     }
     return str
   }

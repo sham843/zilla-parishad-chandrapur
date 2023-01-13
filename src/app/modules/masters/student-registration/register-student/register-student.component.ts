@@ -62,7 +62,7 @@ export class RegisterStudentComponent {
       this.onEdit();
     } else {
       this.formData();
-      this.getDistrict();
+      // this.getDistrict();
       this.getGender();
       this.getReligion();
       this.getCaste()
@@ -299,7 +299,8 @@ export class RegisterStudentComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.educationYearArray = res.responseData;
-          this.editFlag ? this.studentFrm.controls['educationYearId'].setValue(this.data.educationYearId) : '';
+          this.editFlag ? this.studentFrm.controls['educationYearId'].setValue(this.data.educationYearId) : 
+          this.studentFrm.controls['educationYearId'].setValue(this.educationYearArray[0].id);
         }
         else {
           this.casteArray = [];
@@ -342,7 +343,7 @@ export class RegisterStudentComponent {
           if (res.statusCode == '200') {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
-            this.clearForm();
+             this.clearForm();
             this.editFlag = false;
           } else {
             this.ngxspinner.hide();
