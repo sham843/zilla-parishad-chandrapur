@@ -20,6 +20,8 @@ export class StudentProfileComponent {
   schoolArray = new Array();
   tableDataArray = new Array();
   subjectArray = new Array();
+  assessmentsArray = new Array();
+  educationYearArray = new Array(); 
   StudentDataArray: any;
   pageNumber: number = 1;
   tableDatasize!: number;
@@ -50,6 +52,7 @@ export class StudentProfileComponent {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private master: MasterService,
+    private errors:ErrorsService
   ) { 
     let ReceiveDataSnapshot: any = this.route.snapshot.params['id'];
     if (ReceiveDataSnapshot) {
@@ -70,11 +73,13 @@ export class StudentProfileComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
     })
+    console.log("this.globalObj",this.globalObj)
     this.getformControl();
     this.getTaluka();
     this.globalObj.talukaId==0?this.getAllStudentData():'';
     this.getAllSubject();
     this.getStudentProChart();
+    this.getEducationYear();
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -86,13 +91,14 @@ export class StudentProfileComponent {
       standardId: [],
       searchText: [''],
       subjId:[0],
-      assesmentId:[this.globalObj.assesmentId], 
+      yearId:[0],
+      assesmentId:[0], 
       studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
     this.clearFlag==false?this.filterFrm.value.standardId=[]:this.globalObj.staId;
   }
-
+//#region-----------------------------------------------------Start all dropdown methods------------------------------------------------------
   getTaluka() {
     this.master.getAllTaluka('en', 1).subscribe({
       next: ((res: any) => {
@@ -162,7 +168,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-          this.clearFlag==true?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):'';
+          this.clearFlag==true?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId)):'';
         }
         else {
           this.standardArray = [];
@@ -194,6 +200,45 @@ export class StudentProfileComponent {
     })
   }
 
+  getEducationYear() {
+    this.apiService.setHttp('get', 'zp_chandrapur/master/get-all-educationyear-details', false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.educationYearArray = res.responseData;
+          this.clearFlag==true?(this.filterFrm.controls['yearId'].setValue(this.globalObj.yearId),this.getAssessments()):(this.globalObj.assesmentId==0?this.getAllStudentData():'');
+        }
+        else {
+          this.educationYearArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errors.handelError(error.status);
+      }
+    })
+  }
+   
+  getAssessments() {
+    let filterFormData = this.filterFrm.value;
+    let str = `${this.apiService.translateLang ? this.lang : 'en'}&yearId=${filterFormData.yearId}`
+    this.apiService.setHttp('get', 'ExamMaster/GetAllExamMasterForDropdown?flag=' + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.assessmentsArray = res.responseData;
+          this.clearFlag==true?(this.filterFrm.controls['assesmentId'].setValue(this.globalObj.assesmentId),this.getAllStudentData()):'';
+        }
+        else {
+          this.schoolArray = [];
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.errors.handelError(error.status);
+      }
+    })
+  }
   clearForm() {
     this.clearFlag=false;
     this.filterFrm.reset();
@@ -216,16 +261,16 @@ export class StudentProfileComponent {
         break
     }
   }
-  // (formData?.assesmentId?formData?.assesmentId:0)
+
   getAllStudentData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
+    let obj = (formData?.yearId?formData?.yearId:0) + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
     + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData?.subjId?formData?.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
-    +'&studentId='+(formData?.studentId?formData?.studentId:0)
-    +'&assesmentparaid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
+    +'&studentId='+(formData?.studentId?formData?.studentId:0)+'&assesmentparaid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
+
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -340,7 +385,7 @@ export class StudentProfileComponent {
       seriesArray[1].data.push(ele.marking);
     }); 
 
-    this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
+    this.chartData?.responseData4.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
     }); 
 
@@ -384,7 +429,10 @@ export class StudentProfileComponent {
         opacity: 1
       },
       tooltip :{
-        custom: (value:any) =>{
+        y: {
+          formatter: (value:any) => { return proIndCat[value]},
+        },
+       /*  custom: (value:any) =>{
           console.log(value)   
            const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
           //  const stageName = this.chartData?.responseData1.find((element:any) => console.log(element));
@@ -392,7 +440,7 @@ export class StudentProfileComponent {
               "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
             "</div>"
           );
-        },
+        }, */
       }
     };
   }

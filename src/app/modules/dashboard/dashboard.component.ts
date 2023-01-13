@@ -764,15 +764,14 @@ export class DashboardComponent {
     let obj:any = {
       kendraId: formValue.kendraId,
       schoolId: formValue.schoolId,
-      stuId:  lable == 'studentId'? id : 0,//121
+      stuId:  lable == 'studentId'? id.sourceId : 0,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
       assesmentId:formValue.assesmentId,
-      subjectId: lable == 'studentId'?formValue.subjectId : id,
-      staId:this.selStdArray
+      subjectId: lable == 'studentId'? 0 : id,
+      staId:lable == 'studentId'?[id.standardId]:this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
   }
-
 
 }

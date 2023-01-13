@@ -59,6 +59,26 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>{{'dashboard.edu_year' | translate}}</mat-label>
+                        <mat-select formControlName="yearId" (selectionChange)="getAssessments()">
+                            <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
+                                {{year.year}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.assessment' |translate}}</mat-label>
+                        <mat-select formControlName="assesmentId">
+                            <mat-option *ngFor="let ssessments of assessmentsArray" [value]="ssessments.id">
+                                {{ssessments.examName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Select Subject</mat-label>
                         <mat-select formControlName="subjId">
