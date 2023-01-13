@@ -45,14 +45,10 @@ export class TableGridComponent implements OnInit {
   ngOnInit() {
     this.tableInfo = [];
     this.apiService.tableData.subscribe((res: any) => {
-      console.log(res);
       this.tableInfo = res;
       if (this.tableInfo) {
         this.highlightedRow = this.tableInfo.highlightedRow;
         this.displayedColumns = this.tableInfo.displayedColumns;
-
-        console.log(this.displayedColumns);
-        
         this.tableSize = this.tableInfo.tableSize;
         this.tableHeaders = this.tableInfo.tableHeaders;
         this.pageNumber = this.tableInfo.pageNumber;
@@ -68,11 +64,19 @@ export class TableGridComponent implements OnInit {
   }
 
   action(obj: any, label: string, i?:any) {
-    console.log("obj" ,obj, "  label  ",label,"     i    ",i)
+   if(label=='Block'){
+    console.log(i)
+    this.highlightedRow = obj.id;
+    obj.checked=i.checked;
+    obj.label = label;
+    this.pageIndex = obj.pageNumber;
+    this.recObjToChild.emit(obj);
+   }else{
     label == 'checkBox' ? obj.checkBoxValue =i.checked :this.highlightedRow = i;
     obj.label = label;
     obj.pageNumber = (label == 'Edit' ||label == 'Delete')? this.pageNumber : obj.pageIndex + 1;
     this.pageIndex = obj.pageNumber;
     this.recObjToChild.emit(obj);
+   }
   }
 }
