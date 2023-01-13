@@ -236,12 +236,13 @@ export class DesignationMasterComponent {
 
   excelDownload() {
     let pageName = 'Designation Master';
-    let header = ['Sr.No.', 'Designation Name', 'Designation Level', 'Linked To'];
-    let column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
+    let header;
+    this.lang == 'mr-IN' ? header = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न']:header= ['Sr.No.', 'Designation Name', 'Designation Level', 'Linked To'];
+    let column;
+    this.lang == 'mr-IN' && this.apiService.translateLang? column= ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName']: column = ['srNo', 'designationName', 'designationLevelName', 'newLinkedToDesignationName'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
     this.getTableData('excel');
-    // this.excelPdf.downloadExcel(this.tableDataArray, pageName, header, column);
-  }
+    }
 
  /*  viewDataDialog(obj:any){   //view table data
     let linkedToData:any[]=[];

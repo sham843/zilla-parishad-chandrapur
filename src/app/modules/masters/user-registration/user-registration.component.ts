@@ -166,7 +166,6 @@ setTableData(){     // table
   } else if(obj.label =='Delete'){
     this.deleteDialog(obj);
   }else if(obj.label =='Block'){
-    console.log("obj ojb",obj)
     this.blockUnblockDialog(obj)
   }
   }
@@ -294,7 +293,6 @@ blockUnblockDialog(obj:any){
 }
 
 blockUnblockUser(blockObj:any){
-  console.log("blockObj",blockObj);
   let obj={
     "id":blockObj.id,
     "isBlock": blockObj.checked,

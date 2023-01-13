@@ -136,7 +136,6 @@ export class HeaderComponent {
     dialog.afterClosed().subscribe((res:any) => {
       if (res == 'Yes') {
         this.webStorage.getProfileData().subscribe((res:any)=>{
-          console.log("loggedInData",res);
           this.profilePhoto=res.profilePhoto;
           this.profileUserName=res.name;
           let localData=JSON.parse(this.webStorage.getLocalStorageData());

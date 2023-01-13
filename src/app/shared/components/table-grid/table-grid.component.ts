@@ -65,7 +65,6 @@ export class TableGridComponent implements OnInit {
 
   action(obj: any, label: string, i?:any) {
    if(label=='Block'){
-    console.log(i)
     this.highlightedRow = obj.id;
     obj.checked=i.checked;
     obj.label = label;
