@@ -295,6 +295,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
+        console.log( this.getSurveyedData);
         this.calSelectedNumber(true)
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [];
       }
@@ -397,7 +398,7 @@ export class DashboardComponent {
   //#region  --------------------------------------------------- graphs fn start heare-----------------------------------------------//
   pieChart(data: any) {
     this.piechartOptions = {
-      series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
+      series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
         height: 300,
@@ -425,7 +426,7 @@ export class DashboardComponent {
       ]
     };
     this.piechartSecondOptions = {
-      series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue).toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue).toFixed(2)],
+      series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
         height: 300,
@@ -464,7 +465,7 @@ export class DashboardComponent {
        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
           let obj: any = {
             'name': ele['assesmentDetails'][i].assessmentParamenterName,
-            'data': [(ele['assesmentDetails'][i].assesmentCalculationValue).toFixed(2)],
+            'data': [(ele['assesmentDetails'][i].assesmentCalculationValue)?.toFixed(2)],
             'info': ele['assesmentDetails'][i].noStudent,
             "lang": ele.subjectName,
             "subjectId":ele.subjectId
@@ -477,6 +478,7 @@ export class DashboardComponent {
       seriesData.push(arr);
    
     });
+    console.log(categoriesLabel)
     this.barchartOptions = {
       series: seriesData,
       chart: {
@@ -505,7 +507,7 @@ export class DashboardComponent {
       },
       dataLabels: {
         formatter: function(val:any, ) {
-          return val.toFixed(2)+"%"
+          return val?.toFixed(2)+"%"
         }
       },
       responsive: [
