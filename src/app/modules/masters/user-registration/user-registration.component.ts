@@ -137,7 +137,7 @@ setTableData(){     // table
   let displayedColumns:any;
   this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','isBlock','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','isBlock','action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','Block','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','ब्लॉक','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         highlightedrow:true,
