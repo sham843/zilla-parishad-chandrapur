@@ -287,7 +287,7 @@ blockUnblockDialog(obj:any){
     }
     else{
       this.highlightRowFlag=false;
-      this.setTableData();
+      this.getAllUserData();
     }
   })
 }
