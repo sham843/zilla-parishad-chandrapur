@@ -50,8 +50,8 @@ getId(){
   return JSON.parse(id).responseData.id;
 }
 getLoginData(){
-  let userId=this.getLocalStorageData();
-  return JSON.parse(userId).responseData;
+  let loginData=this.getLocalStorageData();
+  return JSON.parse(loginData).responseData;
 }
   getAllPageName(){
     if (this.checkUserIsLoggedIn() == true) {
