@@ -137,7 +137,7 @@ setTableData(){     // table
   let displayedColumns:any;
   this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','isBlock','action']:displayedColumns= ['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','isBlock','action']
       let displayedheaders:any;
-      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','Block','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
+      this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','ब्लॉक','कृती']:displayedheaders= ['Sr. No.', 'Name','User Type','Level','Designation', 'Contact No','Block','Action']
       this.tableData = {
         pageNumber: this.pageNumber,
         highlightedrow:true,
@@ -261,9 +261,9 @@ setTableData(){     // table
     let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
-    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर']:header=['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No'];
+    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','ब्लॉक स्थिती']:header=['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No','Block Status'];
     let column:any;
-    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo'];
+    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','isBlock']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','isBlock'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
@@ -287,7 +287,7 @@ blockUnblockDialog(obj:any){
     }
     else{
       this.highlightRowFlag=false;
-      this.setTableData();
+      this.getAllUserData();
     }
   })
 }

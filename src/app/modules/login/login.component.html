@@ -42,12 +42,12 @@
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" [title]="hide?(this.language=='Marathi'?'दाखवा':'Show'):(this.language=='Marathi'?'लपवा':'Hide')">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
-                                    <!-- <mat-error *ngIf="loginFormControls.password.errors"> -->
+                                    <mat-error *ngIf="loginFormControls.password.errors">
                                         <!-- <span class="text-danger" *ngIf="loginFormControls.password.hasError('required')">{{'login.password_required'|translate}}</span>-->
-                                        <!-- <span class="text-danger"
+                                         <span class="text-danger"
                                             *ngIf="loginFormControls.password.hasError('maxLength') || loginFormControls.password.hasError('pattern')">
-                                        {{'login.password_format'|translate}}</span>
-                                    </mat-error> -->
+                                        {{'login.password_pattern'|translate}}</span>
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>

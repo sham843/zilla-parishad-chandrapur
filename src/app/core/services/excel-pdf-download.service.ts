@@ -68,9 +68,8 @@ export class ExcelPdfDownloadService {
     worksheet.addRow([]);
     worksheet.mergeCells(keyCenterNo + '4:' + this.numToAlpha(header.length - 2) + '4');
     worksheet.getCell(keyCenterNo + '4').value = pageName;
-    worksheet.getCell(keyCenterNo + '4').alignment = { horizontal: 'center' };
-    worksheet.getCell(keyCenterNo + '4').font = { size: 15, bold: true };
-    
+    worksheet.getCell(keyCenterNo + '4').alignment = { horizontal: 'center',};
+    worksheet.getCell(keyCenterNo + '4').font = { size: 17, bold: true };
     const headerRow = worksheet.addRow(header);
     headerRow.eachCell((cell: any, index: any) => {
       cell.fill = {
@@ -92,8 +91,13 @@ export class ExcelPdfDownloadService {
       cell.font = { size: 12, bold: true }
       worksheet.getColumn(index).width = header[index - 1].length < 20 ? 20 : header[index - 1].length;
       worksheet.getColumn(1).width = 15;
-      worksheet.getColumn(3).width = 20;
-      worksheet.getColumn(4).width = 80;
+      pageName == 'School Registration'? worksheet.getColumn(2).width = 20:worksheet.getColumn(2).width = 40;
+      pageName == 'School Registration'? worksheet.getColumn(3).width = 50:worksheet.getColumn(3).width = 20;
+      pageName == 'User Registration'? worksheet.getColumn(4).width = 23 : worksheet.getColumn(4).width = 80;
+      pageName=='User Registration'?worksheet.getColumn(5).width = 40:worksheet.getColumn(4).width = 20;
+      pageName == 'School Registration'? worksheet.getColumn(6).width = 40: worksheet.getColumn(6).width = 20;
+      pageName == 'School Registration'? worksheet.getColumn(7).width = 40: worksheet.getColumn(7).width = 20;
+      worksheet.getColumn(12).width = 90;
     });
 
     //Add Data Conditional Formating
