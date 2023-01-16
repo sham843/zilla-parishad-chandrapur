@@ -179,7 +179,7 @@ export class AddDesignationComponent {
               this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती यशस्वीरित्या जतन केली') : (res.statusMessage = 'Data Stored Successfully'), 0)
             }
         } else {
-            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+            this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorHandler.handleError(res.statusCode) : this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती आधीच अस्तित्वात आहे') : (res.statusMessage = 'Data already exist'), 1);
           }
         }),
         error: ((err: any) => { this.errorHandler.handleError(err) })

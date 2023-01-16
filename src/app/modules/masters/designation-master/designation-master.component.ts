@@ -221,7 +221,7 @@ export class DesignationMasterComponent {
               this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती यशस्वीरित्या हटविण्यात आली') : (res.statusMessage = 'Data deleted successfully'), 0);
               this.getTableData()
             } else {
-              this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+              this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती आधीच अस्तित्वात आहे') : (res.statusMessage = 'Data already exist'), 1);
             }
           },
           error: ((err: any) => { this.errors.handelError(err) })
