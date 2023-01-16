@@ -93,8 +93,8 @@ export class ExcelPdfDownloadService {
       worksheet.getColumn(1).width = 15;
       pageName == 'School Registration'? worksheet.getColumn(2).width = 20:worksheet.getColumn(2).width = 40;
       pageName == 'School Registration'? worksheet.getColumn(3).width = 50:worksheet.getColumn(3).width = 20;
-      pageName == 'User Registration'? worksheet.getColumn(4).width = 23 : worksheet.getColumn(4).width = 80;
-      pageName=='User Registration'?worksheet.getColumn(5).width = 40:worksheet.getColumn(4).width = 20;
+      pageName == 'Designation Master'? worksheet.getColumn(4).width = 80:pageName =='NGO Registration'?worksheet.getColumn(4).width = 30:worksheet.getColumn(4).width = 20;
+      pageName=='User Registration'? worksheet.getColumn(5).width = 40:worksheet.getColumn(5).width = 20;
       pageName == 'School Registration'? worksheet.getColumn(6).width = 40: worksheet.getColumn(6).width = 20;
       pageName == 'School Registration'? worksheet.getColumn(7).width = 40: worksheet.getColumn(7).width = 20;
       worksheet.getColumn(12).width = 90;
