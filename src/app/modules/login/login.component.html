@@ -64,7 +64,7 @@
                         <div class="col-sm-5 col-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>{{'login.enter_captcha'|translate}}</mat-label>
-                                <input matInput placeholder="{{''|translate}}"  (keypress)="validation.noSpaces($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
+                                <input matInput placeholder="{{''|translate}}"  (keypress)="validation.noSpaces($event);validation.acceptedOnlyNumbers($event)" formControlName="recaptchaReactive"  autocomplete="off" maxlength="4">
                                 <!-- <mat-error *ngIf="loginForm.controls.recaptchaReactive.errors?.maxLength">{{'login.captcha_required'|translate}}
                                 </mat-error> -->
                             </mat-form-field>
