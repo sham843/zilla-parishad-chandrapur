@@ -57,7 +57,7 @@ export class RegisterAgencyComponent {
       talukaId: [this.data.obj?this.data.obj.talukaId:0],
       contactNo: [this.data.obj?this.data.obj.contactNo:'',[Validators.pattern(this.validation.mobile_No)]],
       emailId: [this.data.obj?this.data.obj.emailId:'', [Validators.email,Validators.pattern(this.validation.email)]],
-      address: [this.data.obj?this.data.obj.address:''],
+      address: [this.data.obj?this.data.obj.address:'',[Validators.maxLength(200)]],
     })
   }
   getDistrict() {
