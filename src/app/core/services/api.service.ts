@@ -9,7 +9,7 @@ export class ApiService {
   stateId:number = 1; // maharashta
   disId:number = 1 // 1 for Chandrapur
   translateLang:boolean=false;
-  userObj = new Array();
+  userObj:any;
 
   private httpObj: any = {
     type: '',
@@ -37,14 +37,14 @@ export class ApiService {
 
   setHttp(type: string, url: string, isHeader: Boolean, obj: any, params: any, baseUrl: any) {
     try {
-      //this.userObj = JSON.parse(sessionStorage.loggedInDetails);
+      // this.userObj = this.webStorage.getLoginData();
     } catch (e) { }
     this.clearHttp();
     this.httpObj.type = type;
     this.httpObj.url = this.getBaseurl(baseUrl) + url;
     if (isHeader) {
       let tempObj: any = {
-        // "Authorization": "Bearer " + this.userObj.responseData3.accessToken // token set
+        // "Authorization": "Bearer " + this.userObj.jwtAuthResult.accessToken // token set
       };
       this.httpObj.options.headers = new HttpHeaders(tempObj);
     }
