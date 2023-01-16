@@ -64,7 +64,7 @@ export class AgencyRegistrationComponent {
 
         } else {
           this.spinner.hide();
-          this.common.snackBar(res.statusMessage, 1);
+          this.common.snackBar(this.language == 'Marathi' ? (res.statusMessage = 'माहिती सापडली नाही') : (res.statusMessage = 'Data Not Found'), 1);
           this.tableDataArray = []
           this.totalItem = 0;
           this.common.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
