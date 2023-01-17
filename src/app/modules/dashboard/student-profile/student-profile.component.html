@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Select Subject</mat-label>
+                        <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
                         <mat-select formControlName="subjId">
                             <mat-option
                                 *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
