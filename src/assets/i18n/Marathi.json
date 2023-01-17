@@ -40,6 +40,7 @@
         "select_designation": "पदनाम निवडा",
         "download_excel":"एक्सेल डाउनलोड करा",
         "assessment":"मूल्यांकन",
+        "examId":"परीक्षा आयडी",
         "copyright":"कॉपीराइट © २०२३ शिक्षण चंद्रपूर सर्व हक्क राखीव"
     },
     "dashboard": {
