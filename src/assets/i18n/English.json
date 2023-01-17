@@ -41,7 +41,8 @@
         "select_designation": "Designation",
         "download_excel":"Download Excel",
         "copyright": "Copyright © 2023 Education Chandrapur All Rights Reserved",
-        "assessment":"Assessment"
+        "assessment":"Assessment",
+        "examId":"Exam Id"
     },
     "dashboard":{
         "dashboard":"Dashboard",

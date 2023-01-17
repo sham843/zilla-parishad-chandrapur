@@ -269,14 +269,15 @@ export class StudentProfileComponent {
   }
   // (formData?.assesmentId?formData?.assesmentId:0)
   getAllStudentData(flag?: any) {
+    console.log(this.filterFrm.value)
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = 1 + '&ExamId=' + 1 + '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
+    let obj = 1 + '&AssesmentId=' +(formData?.assesmentId?formData?.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
     + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData?.subjId?formData?.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
     +'&studentId='+(formData?.studentId?formData?.studentId:0)
-    +'&assesmentparaid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
+    +'&assesmentparameterid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
