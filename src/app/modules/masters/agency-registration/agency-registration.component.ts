@@ -194,7 +194,7 @@ export class AgencyRegistrationComponent {
     let pageName: any;
     this.language == 'Marathi' ? pageName = 'एनजीओ नोंदणी' : pageName = 'NGO Registration';
     let header: any;
-    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'NGo Name', 'Contact No.', 'Email Id'];
+    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'NGO Name', 'Contact No.', 'Email Id'];
     let column: any;
     this.language == 'Marathi' && this.apiService.translateLang? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
