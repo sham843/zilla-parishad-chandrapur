@@ -65,6 +65,7 @@
         "pending_assessment":"Pending Assessment"
     },
     "student_profile": {
+        "profile":"Profile",
         "student_profile":"Student Profile",
         "progress_indicator": "Progress Indicator",
         "class_teacher":"Class Teacher",
