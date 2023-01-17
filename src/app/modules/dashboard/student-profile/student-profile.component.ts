@@ -76,9 +76,11 @@ export class StudentProfileComponent {
     this.getformControl();
     this.getTaluka();
     this.globalObj.talukaId==0?this.getAllStudentData():'';
+    this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getStudentProChart();
     this.getEducationYear();
+    console.log(this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -161,8 +163,9 @@ export class StudentProfileComponent {
   }
 
   getStandard() {
-    let formData = this.filterFrm.value
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&SchoolId=' + formData.schoolId, false, false, false, 'baseUrl');
+    let formData = this.filterFrm.value;
+    let schoolIds=formData.schoolId!=undefined && formData.schoolId!=0 ? formData.schoolId:0;
+    this.apiService.setHttp('GET', schoolIds!=0?('zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&SchoolId=' + formData.schoolId):('zp_chandrapur/master/GetAllStandard?flag_lang='+(this.apiService.translateLang ? this.lang : 'en')), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
