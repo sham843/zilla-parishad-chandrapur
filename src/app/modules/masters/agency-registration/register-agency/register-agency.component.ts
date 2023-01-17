@@ -49,7 +49,7 @@ export class RegisterAgencyComponent {
   }
   getAgencyControl() {
     this.agencyForm = this.fb.group({
-      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern(this.validation.ngoName)]],
+      agencyName: [this.data.obj?this.data.obj.agencyName:'', [Validators.required,Validators.pattern(this.validation.ngoName),Validators.maxLength(200)]],
       m_AgencyName: [this.data.obj?this.data.obj.m_AgencyName:'',[Validators.pattern(this.validation.marathi)]],
       registrationNo: [this.data.obj?this.data.obj.registrationNo:'', [Validators.required,Validators.pattern(/^\S*$/),Validators.minLength(5),Validators.maxLength(50)]],
       contactPersonName: [this.data.obj?this.data.obj.contactPersonName:'', [Validators.required,Validators.pattern(this.validation.fullName)]],

@@ -312,7 +312,7 @@ export class DashboardComponent {
     this.getSurveyedData.map((ele: any, i: number) => {
       flag ?  ele.checked = true : '';
       i > 1 ? this.selNumber += ele.data : '';
-      i == 0 && ele.text == 'Total Number' ? ele['text_m'] = 'एकूण संख्य' : i == 1 && ele.text == 'Surveyed' ? ele.text_m = 'सर्वेक्षण केले' : ele['text_m'] = ele.text;
+      i == 0 && ele.text == 'Total Number' ? ele['text_m'] = 'एकूण संख्या' : i == 1 && ele.text == 'Surveyed' ? ele.text_m = 'सर्वेक्षण केले' : ele['text_m'] = ele.text;
     })
   }
 
