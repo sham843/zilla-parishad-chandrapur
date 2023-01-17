@@ -91,15 +91,15 @@ export class StudentProfileComponent {
       schoolId: [0],
       standardId: [0],
       searchText: [''],
-      subjId:[0],
-      yearId:[0],
-      assesmentId:[0], 
+      subjId:[this.globalObj.subjectId],
+      yearId:[this.globalObj.yearId],
+      assesmentId:[this.globalObj.examId], 
       studentId:[this.globalObj.stuId],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
     this.clearFlag==false?this.filterFrm.value.standardId=[]:this.globalObj.staId;
   }
-
+  
   getTaluka() {
     this.master.getAllTaluka('en', 1).subscribe({
       next: ((res: any) => {
@@ -267,17 +267,17 @@ export class StudentProfileComponent {
         break
     }
   }
-  // (formData?.assesmentId?formData?.assesmentId:0)
+ 
   getAllStudentData(flag?: any) {
     console.log(this.filterFrm.value)
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = 1 + '&AssesmentId=' +(formData?.assesmentId?formData?.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
-    + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData?.subjId?formData?.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
+    let obj = 1 + '&AssesmentId=' +(formData.assesmentId?formData.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
+    + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData.subjId?formData.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
     +'&studentId='+(formData?.studentId?formData?.studentId:0)
-    +'&assesmentparameterid='+(formData?.assesmentId?formData?.assesmentId:0)+'&userId='+(this.webStorage.getId())
+    +'&assesmentparameterid='+(this.globalObj?.assesmentId?this.globalObj?.assesmentId:0)+'&userId='+(this.webStorage.getId())
     this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
