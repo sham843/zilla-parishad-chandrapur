@@ -484,7 +484,7 @@ export class DashboardComponent {
         events: {
           click:(_event:any, _chartContext:any, config:any)=> {
             if(config?.seriesIndex>=0){
-                this.redToStuProfile('subject',config?.w?.config?.series[config?.dataPointIndex]?.subjectId)
+                this.redToStuProfile('subject',config.config?.series[0].subjectId)
             }
           }
         },
