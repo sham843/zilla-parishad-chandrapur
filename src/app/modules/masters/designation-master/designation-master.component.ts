@@ -235,7 +235,8 @@ export class DesignationMasterComponent {
   //#endregion -------------------------------------------dialog box open function's end heare----------------------------------------//
 
   excelDownload() {
-    let pageName = 'Designation Master';
+    let pageName;
+    (this.lang == 'mr-IN') ? (pageName = 'पदनाम मास्टर') : (pageName = 'Designation Master');
     let header;
     this.lang == 'mr-IN' ? header = ['अनुक्रमणिका', 'पदनाम नाव', 'पदनाम स्तर', 'संलग्न']:header= ['Sr.No.', 'Designation Name', 'Designation Level', 'Linked To'];
     let column;
