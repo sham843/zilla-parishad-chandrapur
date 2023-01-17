@@ -189,7 +189,7 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.subjectArray = res.responseData;
-          this.filterFrm.controls['subjId'].setValue(this.subjectArray[0].id)
+          this.filterFrm.controls['subjId'].setValue(this.subjectArray[0].id);
           this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId),this.filterFrm.controls['subjId'].setValue(this.globalObj.subjectId)):'';
         }
         else {
