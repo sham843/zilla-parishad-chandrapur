@@ -252,6 +252,7 @@ export class StudentProfileComponent {
     this.filterFrm.controls['assesmentId'].setValue(1);
     this.globalObj='';
     this.getTaluka();
+    this.getStandard();
     this.getAllStudentData('filter');
   }
   //#endregion -------------------------------------------dropdown with filter fn end heare------------------------------------------------//
