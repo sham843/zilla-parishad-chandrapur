@@ -19,7 +19,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId == 3 || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.taluka' |translate}}</mat-label>
-                        <mat-select formControlName="talukaId" (selectionChange)="getKendra();clearDropdown('taluka')">
+                        <mat-select formControlName="talukaId" (selectionChange)="filterFrm.value.kendraId!=0?getKendra():'';clearDropdown('taluka')">
                             <mat-option value="0">All Taluka</mat-option>
                             <mat-option *ngFor="let tal of talukaArray" [value]="tal.id">
                                 {{tal.taluka}}
@@ -30,7 +30,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId || filterFrm.value.talukaId==0  || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="kendraId" (selectionChange)="getSchool();this.clearFlag=false;clearDropdown('kendra')">
+                        <mat-select formControlName="kendraId" (selectionChange)="filterFrm.value.kendraId!=0?getSchool():'';this.clearFlag=false;clearDropdown('kendra')">
                             <mat-option value="0">All Kendra</mat-option>
                             <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                                 {{cen.center}}
@@ -86,7 +86,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.fullName'|translate}}</mat-label>
-                        <input matInput placeholder="Enter student name" formControlName="searchText">
+                        <input matInput placeholder=" " formControlName="searchText">
                     </mat-form-field>
                 </div>
                 <div class="col-sm text-end">
@@ -153,11 +153,13 @@
                                                 <div class="data-text">{{StudentDataArray?.gender}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span>
+                                                <!-- <span class="data-label">{{'student.parent_second_mobile'|translate}}</span> -->
+                                                <span class="data-label"></span>
                                                 <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_email_id'|translate}}</span>
+                                                <!-- <span class="data-label">{{'student.parent_email_id'|translate}}</span> -->
+                                                <span class="data-label"></span>
                                                 <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
                                             </div>
                                         </div>
@@ -172,7 +174,7 @@
                                     <div class="fw-bold flex-fill align-self-start">प्रगती सूचक</div>
                                     <div class="flex-fill">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>Select Subject</mat-label>
+                                            <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
                                             <mat-select [formControl]="subjectId" (selectionChange)="assesmentChartData()">
                                                 <mat-option
                                                     *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
