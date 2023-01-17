@@ -52,7 +52,7 @@ export class AddDesignationComponent {
       designationLevelId: ['', Validators.required],
       linkedToDesignationId: ['' , Validators.required],
       linkedToDesignationName: [''],
-      designationName: ['', [Validators.required, Validators.pattern(this.validation.addDesignation)]],
+      designationName: ['', [Validators.required, Validators.pattern(this.validation.addDesignation),Validators.maxLength(50)]],
       designationLevelName: [''],
       linkedToDesignationLevelName: [''],
       isDeleted: [false],
