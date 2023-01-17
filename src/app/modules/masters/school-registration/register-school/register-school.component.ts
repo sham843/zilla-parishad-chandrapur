@@ -74,7 +74,7 @@ export class RegisterSchoolComponent {
       g_GenderId: [obj?.g_GenderId || ''],
       classFrom: [obj?.classFrom || '', Validators.required],
       classTo: [obj?.classTo || '', Validators.required],
-      udiseCode: [obj?.udiseCode || '', [Validators.required]],
+      udiseCode: [obj?.udiseCode || '', [Validators.required,Validators.maxLength(20)]],
       schoolLocationId: [obj?.schoolLocationId || 1, [Validators.required]],
       schoolAddress: [obj?.schoolAddress || '', [Validators.required, Validators.maxLength(500)]],
     })

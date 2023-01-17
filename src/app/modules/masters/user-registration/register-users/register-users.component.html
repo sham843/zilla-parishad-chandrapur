@@ -131,13 +131,10 @@
                                 <mat-form-field appearance="outline" class="w-100"
                                     [class.disabled-contenct]="levelId==5 || this.data.flag=='profile'">
                                     <mat-label>{{'common.school' |translate}}</mat-label>
-                                    <!-- <input matInput aria-label="Select School" formControlName="schoolId"  [matAutocomplete]="auto"> -->
                                     <mat-select formControlName="schoolId"
                                         (selectionChange)="getAllClassGroup(userRegistrationForm.value.schoolId);clearDropdown('school')">
-                                        <!-- <mat-autocomplete  #auto="matAutocomplete"> -->
                                         <mat-option *ngFor="let school of schoolArr"
                                             [value]="school.id">{{school.schoolName}}</mat-option>
-                                        <!-- </mat-autocomplete> -->
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -196,7 +193,7 @@
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>{{'common.email' |translate}}</mat-label>
                                 <input matInput placeholder="{{'' |translate}}" formControlName="emailId"
-                                    (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
+                                    (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)" maxlength="50">
                                 <mat-error *ngIf="f['emailId'].errors">
                                     <span class="text-danger"
                                         *ngIf="f['emailId'].hasError('pattern') || f['emailId'].hasError('email')">

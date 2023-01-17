@@ -135,7 +135,7 @@
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'school.id' |translate}}</mat-label>
-                        <input matInput formControlName="udiseCode" (keypress)="validator.onlyDigits($event)">
+                        <input matInput formControlName="udiseCode" (keypress)="validator.onlyDigits($event)" maxlength="20">
                         <!-- <mat-error
                             *ngIf="registerForm.controls['udiseCode'].hasError('required')">{{'school.please_enter_id'
                             |translate}}</mat-error> -->
