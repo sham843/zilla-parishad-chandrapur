@@ -80,7 +80,6 @@ export class StudentProfileComponent {
     this.getAllSubject();
     this.getStudentProChart();
     this.getEducationYear();
-    console.log(this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -270,7 +269,6 @@ export class StudentProfileComponent {
   }
  
   getAllStudentData(flag?: any) {
-    console.log(this.filterFrm.value)
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
