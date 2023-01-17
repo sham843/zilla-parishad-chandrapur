@@ -4,7 +4,7 @@
     <div class="login-right">
     </div>
 </div>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #formDirective="ngForm" (keyup.enter)="onSubmit()">
     <div class="container" id="login-box">
         <div class="row align-items-center justify-content-evenly">
             <div class="col-sm-6 d-none d-lg-block text-center">
