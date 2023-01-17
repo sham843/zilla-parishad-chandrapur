@@ -134,6 +134,7 @@ a.text-main,
 .dashboard-table {
   // font-family: 'Noto Sans Devanagari', sans-serif !important;
   width: 100% !important;
+  border: solid 1px var(--main-light-color) !important;
 }
 
 .dashboard-table th,
@@ -142,6 +143,8 @@ a.text-main,
   font-weight: 600;
   font-family: 'Noto Sans Devanagari', sans-serif !important;
   vertical-align: middle;
+  background-color: var(--main-light-color) !important;
+  border-bottom: solid 1px var(--main-light-color) !important;
 }
 .ngx-org-title,
 .dashboard-table td,
@@ -149,6 +152,8 @@ a.text-main,
   font-size: 0.85rem !important;
   font-family: 'Noto Sans Devanagari', sans-serif !important;
   vertical-align: middle;
+  border-bottom: solid 1px var(--main-light-color) !important;
+  border-bottom-width: 0.01px !important;
 }
 
 .dashboard-table .mat-mdc-icon-button.mat-mdc-button-base {

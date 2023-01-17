@@ -478,13 +478,14 @@ export class DashboardComponent {
       seriesData.push(arr);
    
     });
-    console.log(categoriesLabel)
     this.barchartOptions = {
       series: seriesData,
       chart: {
         events: {
-          dataPointSelection:(_event:any, _chartContext:any, config:any)=> {
-           this.redToStuProfile('subject',config.w.config.series[config.dataPointIndex].subjectId)
+          click:(_event:any, _chartContext:any, config:any)=> {
+            if(config?.seriesIndex>=0){
+                this.redToStuProfile('subject',config?.w?.config?.series[config?.dataPointIndex]?.subjectId)
+            }
           }
         },
         type: "bar",
@@ -562,9 +563,12 @@ export class DashboardComponent {
         },
       },
       legend: {
+        showForSingleSeries: true,
+        inverseOrder:true,
         position: 'right',
         fontSize: '11px',
         show: true,
+
         markers: {
           width: 12,
           height: 12,
