@@ -30,7 +30,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!filterFrm.value.talukaId || filterFrm.value.talukaId==0  || this.levelId == 4 || this.levelId == 5">
                         <mat-label>{{'common.kendra' |translate}}</mat-label>
-                        <mat-select formControlName="kendraId" (selectionChange)="getSchool();clearDropdown('kendra')">
+                        <mat-select formControlName="kendraId" (selectionChange)="getSchool();this.clearFlag=false;clearDropdown('kendra')">
                             <mat-option value="0">All Kendra</mat-option>
                             <mat-option *ngFor="let cen of centerArray" [value]="cen.id">
                                 {{cen.center}}

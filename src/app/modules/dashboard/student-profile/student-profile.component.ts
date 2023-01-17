@@ -126,7 +126,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.centerArray=res.responseData;
           ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3) && this.clearFlag==true)? (this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):
-          (this.levelId == 4 || this.levelId == 5 && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
+          ((this.levelId == 4 || this.levelId == 5) && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
           (this.globalObj.kendraId!=0 && this.globalObj.schoolId==0)?this.getAllStudentData():'';
         }
         else {
@@ -190,6 +190,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.subjectArray = res.responseData;
           this.filterFrm.controls['subjId'].setValue(this.subjectArray[0].id);
+          this.subjectId.setValue(this.subjectArray[0].id);
           this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId),this.filterFrm.controls['subjId'].setValue(this.globalObj.subjectId)):'';
         }
         else {
@@ -460,5 +461,6 @@ export class StudentProfileComponent {
     }else if(flag=='school'){
       this.filterFrm.controls['standardId'].setValue('');
     }
+    this.getStandard();
   }
 }
