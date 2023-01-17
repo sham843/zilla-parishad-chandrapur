@@ -477,11 +477,13 @@ export class DashboardComponent {
     let barColorpal:any[] = [];
     let categoriesLabel:any[] = [];
     this.getAssesmentData.find((ele: any) => {
+      console.log(ele);
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
           let obj: any = {
             'name': ele['assesmentDetails'][i].assessmentParamenterName,
+            'assessmentId': ele['assesmentDetails'][i].assessmentId,
             'data': [(ele['assesmentDetails'][i].assesmentCalculationValue)?.toFixed(2)],
             'info': ele['assesmentDetails'][i].noStudent,
             "lang": ele.subjectName,
@@ -501,7 +503,7 @@ export class DashboardComponent {
         events: {
           click:(_event:any, _chartContext:any, config:any)=> {
             if(config?.seriesIndex>=0){
-                this.redToStuProfile('subject',config.config?.series[0].subjectId)
+                this.redToStuProfile('subject',config.config?.series[0].subjectId, config.config?.series[config.seriesIndex].assessmentId)
             }
           }
         },
@@ -783,7 +785,7 @@ export class DashboardComponent {
     return str
   }
 
-  redToStuProfile(lable:string,id:any){
+  redToStuProfile(lable:string,id:any, assessmentId:any){
     let formValue =  this.topFilterForm.value;
     let obj:any = {
       kendraId: formValue.kendraId,
@@ -791,7 +793,8 @@ export class DashboardComponent {
       stuId:  lable == 'studentId'? id.sourceId : 0,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
-      assesmentId:formValue.assesmentId,
+      examId:formValue.assesmentId,
+      assesmentId:assessmentId,
       subjectId: lable == 'studentId'? 0 : id,
       staId:lable == 'studentId'?[id.standardId]:this.selStdArray
     }
