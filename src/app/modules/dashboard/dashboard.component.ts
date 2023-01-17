@@ -785,7 +785,7 @@ export class DashboardComponent {
     return str
   }
 
-  redToStuProfile(lable:string,id:any, assessmentId:any){
+  redToStuProfile(lable:string,id:any, assessmentId?:any){
     let formValue =  this.topFilterForm.value;
     let obj:any = {
       kendraId: formValue.kendraId,
