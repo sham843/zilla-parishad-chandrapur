@@ -234,7 +234,7 @@
         "designation_master":"Designation Master"
     },
     "school":{
-        "school_registration":"School Registration",
+        "school_registration":"School Master",
         "school_list":"School Master",
         "school_name":"School Name",
         "add_school":"Add School",
