@@ -406,10 +406,21 @@ export class DashboardComponent {
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
         position: "bottom",
-        fontSize: "11px"
+        fontSize: "11px",
+        markers: {
+          fillColors: ['#4284FD', '#02CCC0'],
+        },
+        onItemClick: {
+          toggleDataSeries: false
+      },
       },
       fill: {
         colors: ['#4284FD', '#02CCC0'],
+      },
+      plotOptions: {
+        pie: {
+          expandOnClick: false
+        }
       },
       responsive: [
         {
@@ -434,7 +445,13 @@ export class DashboardComponent {
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[1]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
         position: "bottom",
-        fontSize: "11px"
+        fontSize: "11px",
+        onItemClick: {
+          toggleDataSeries: false
+      },
+        markers: {
+          fillColors: ['#4284FD', '#02CCC0'],
+        }
       },
       fill: {
         colors: ['#4284FD', '#02CCC0'],
