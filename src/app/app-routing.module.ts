@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: '**', loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule)}];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
