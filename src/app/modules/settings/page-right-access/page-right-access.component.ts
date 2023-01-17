@@ -77,7 +77,7 @@ export class PageRightAccessComponent {
     let displayedColumns;
     this.language == 'mr-IN' ? displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'] : displayedColumns = ['srNo', 'pageName', 'pageURL', 'select'];
     let displayedheaders;
-    this.language == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पृष्ठाचे नाव', 'पृष्ठ Url', 'निवडा'] : displayedheaders = ['Sr. NO.', 'PAGE NAME', 'PAGE URL', 'SELECT'];
+    this.language == 'mr-IN' ? displayedheaders = ['अनुक्रमणिका', 'पृष्ठाचे नाव', 'पृष्ठ Url', 'निवडा'] : displayedheaders = ['Sr. No.', 'Page Name', 'Page Url', 'Select'];
     this.tableData = {
       pageNumber: this.pageNumber, pagintion: true,
       img: '', blink: '', badge: '', isBlock: '', checkBox: 'select',
