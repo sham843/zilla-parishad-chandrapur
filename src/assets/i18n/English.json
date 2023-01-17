@@ -79,7 +79,8 @@
         "initially": " Initially",
         "pre_test": "Pre Test",
         "mid_test": "Mid Test",
-        "final_test": "Final  Test"
+        "final_test": "Final  Test",
+        "select_subject":"Select Subject"
     },
    "user_Registration":{
         "register_users":"Register Users",

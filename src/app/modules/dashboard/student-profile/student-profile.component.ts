@@ -76,9 +76,11 @@ export class StudentProfileComponent {
     this.getformControl();
     this.getTaluka();
     this.globalObj.talukaId==0?this.getAllStudentData():'';
+    this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getStudentProChart();
     this.getEducationYear();
+    console.log(this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -124,7 +126,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.centerArray=res.responseData;
           ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3) && this.clearFlag==true)? (this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):
-          (this.levelId == 4 || this.levelId == 5 && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
+          ((this.levelId == 4 || this.levelId == 5) && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
           (this.globalObj.kendraId!=0 && this.globalObj.schoolId==0)?this.getAllStudentData():'';
         }
         else {
@@ -161,8 +163,9 @@ export class StudentProfileComponent {
   }
 
   getStandard() {
-    let formData = this.filterFrm.value
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&SchoolId=' + formData.schoolId, false, false, false, 'baseUrl');
+    let formData = this.filterFrm.value;
+    let schoolIds=formData.schoolId!=undefined && formData.schoolId!=0 ? formData.schoolId:0;
+    this.apiService.setHttp('GET', schoolIds!=0?('zp_chandrapur/master/GetAllClassBySchoolId?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&SchoolId=' + formData.schoolId):('zp_chandrapur/master/GetAllStandard?flag_lang='+(this.apiService.translateLang ? this.lang : 'en')), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -186,7 +189,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.subjectArray = res.responseData;
-          this.filterFrm.controls['subjId'].setValue(this.subjectArray[0].id)
+          this.filterFrm.controls['subjId'].setValue(this.subjectArray[0].id);
+          this.subjectId.setValue(this.subjectArray[0].id);
           this.globalObj.subjectId!=0?(this.subjectId.setValue(this.globalObj.subjectId),this.filterFrm.controls['subjId'].setValue(this.globalObj.subjectId)):'';
         }
         else {
@@ -457,5 +461,6 @@ export class StudentProfileComponent {
     }else if(flag=='school'){
       this.filterFrm.controls['standardId'].setValue('');
     }
+    this.getStandard();
   }
 }
