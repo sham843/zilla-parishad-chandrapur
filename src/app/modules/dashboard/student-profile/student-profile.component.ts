@@ -391,7 +391,6 @@ export class StudentProfileComponent {
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName)
     }); 
-console.log("categoriesArray",categoriesArray);
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
@@ -400,7 +399,6 @@ console.log("categoriesArray",categoriesArray);
     this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
     }); 
-    console.log("seriesArray",seriesArray);
     this.ChartOptions = {
       series: seriesArray,
       chart: {

@@ -57,7 +57,6 @@ export class TableGridComponent implements OnInit {
         this.tableRecords.sort = this.sort;
         this.tableInfo?.pageName=='studentProfile'?this.highlightedRow=0:'';
       }
-      console.log("this.tableInfo",this.tableInfo);
       
     })
     this.webStorage.setLanguage.subscribe((res: any) => {
