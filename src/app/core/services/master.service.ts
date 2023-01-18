@@ -94,6 +94,26 @@ export class MasterService {
       });
     });
   }
+
+  getServerDateTime() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp_chandrapur/user-registration/GetCurrentDateTime', false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
+
+  refreshTokenJWT() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'zp_chandrapur/user-registration/Refresh-Token-String', false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {if (res.statusCode == "200"){obj.next(res)} else { obj.error(res); }},
+        error: (e: any) => { obj.error(e) }
+      });
+    });
+  }
 }
 
 
