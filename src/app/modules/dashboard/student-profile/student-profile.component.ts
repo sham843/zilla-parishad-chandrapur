@@ -169,7 +169,11 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
-          this.clearFlag==true?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):'';
+          let standIds:any=[];
+          schoolIds==0?(this.standardArray.forEach(ele=>{
+            standIds.push(ele.id);
+          })):'';
+          this.clearFlag==true?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData('filter'));
         }
         else {
           this.standardArray = [];
@@ -252,7 +256,7 @@ export class StudentProfileComponent {
     this.globalObj='';
     this.getTaluka();
     this.getStandard();
-    this.getAllStudentData('filter');
+    // this.getAllStudentData('filter');
   }
   //#endregion -------------------------------------------dropdown with filter fn end heare------------------------------------------------//
 
@@ -386,8 +390,8 @@ export class StudentProfileComponent {
     this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName)
-      
     }); 
+console.log("categoriesArray",categoriesArray);
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
@@ -396,7 +400,7 @@ export class StudentProfileComponent {
     this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
     }); 
-
+    console.log("seriesArray",seriesArray);
     this.ChartOptions = {
       series: seriesArray,
       chart: {

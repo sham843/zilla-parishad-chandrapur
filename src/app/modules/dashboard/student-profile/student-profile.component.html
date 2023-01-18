@@ -183,6 +183,7 @@
                                     </div>
                                 </div>
                             </mat-card-header>
+                           <ng-container *ngIf="this.chartData?.length!=0">
                             <mat-card-content class="card-body">
                                 <div id="chart">
                                     <apx-chart [series]="ChartOptions?.series" [chart]="ChartOptions?.chart"
@@ -192,6 +193,12 @@
                                     </apx-chart>
                                 </div>
                             </mat-card-content>
+                           </ng-container>
+                           <ng-container *ngIf="this.chartData?.length==0">
+                            <div class="alert alert-danger text-center py-2">
+                                Data Not Available
+                            </div>
+                           </ng-container>
                         </mat-card>
                 </ng-container>
                 <ng-container *ngIf="StudentDataArray?.length ==0 || tableDataArray?.length ==0">
