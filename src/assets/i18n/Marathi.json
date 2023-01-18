@@ -77,7 +77,7 @@
         "pre_test": " पूर्व चाचणी",
         "mid_test": "मध्य चाचणी",
         "final_test": "अंतिम  चाचणी",
-        "select_subject":"विषय निवडा"
+        "select_subject":"विषय"
      },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
@@ -165,7 +165,7 @@
         "gender": "लिंग",
         "standard": "इयत्ता",
         "parent_contact_no": "पालक संपर्क क्रमांक",
-        "select_standard": "इयत्ता निवडा",
+        "select_standard": "इयत्ता",
         "enter_parent_contact_number": "पालक संपर्क क्रमांक प्रविष्ट करा",
         "enter_first_name": "प्रथम नाव प्रविष्ट करा",
         "enter_middle_name": "मधले नाव प्रविष्ट करा",

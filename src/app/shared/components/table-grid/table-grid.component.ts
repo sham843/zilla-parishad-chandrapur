@@ -56,6 +56,8 @@ export class TableGridComponent implements OnInit {
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
       }
+      console.log("this.tableInfo",this.tableInfo);
+      
     })
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
@@ -64,6 +66,8 @@ export class TableGridComponent implements OnInit {
   }
 
   action(obj: any, label: string, i?:any) {
+    console.log(obj,label);
+    
    if(label=='Block'){
     this.highlightedRow = obj.id;
     obj.checked=i.checked;

@@ -12,7 +12,6 @@ import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-downloa
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 @Component({
   selector: 'app-school-registration',
   templateUrl: './school-registration.component.html',
@@ -194,7 +193,7 @@ export class SchoolRegistrationComponent {
         this.globalDialogOpen(obj);
         break;
         case 'Row':
-          this.viewNgoDetails(obj);
+          // this.viewNgoDetails(obj);
           break
     }
   }
@@ -268,7 +267,7 @@ export class SchoolRegistrationComponent {
   }
   //#endregion -------------------------------------Fetch Table Data------------------------------------------------------------------------
 
-  viewNgoDetails(obj:any){
+ /*  viewNgoDetails(obj:any){
     let viewObj = {
       cardTitle: this.lang == 'mr-IN' ? '' : 'NGO Master',
       data:[
@@ -287,7 +286,7 @@ export class SchoolRegistrationComponent {
       disableClose: true,
       autoFocus: false
     })
-  }
+  } */
 
 }
 
