@@ -151,7 +151,8 @@
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
                             <apx-chart [series]="piechartOptions?.series" [legend]="piechartOptions?.legend"
-                                [chart]="piechartOptions?.chart"  [plotOptions]="piechartOptions?.plotOptions" [labels]="piechartOptions?.labels"
+                                [chart]="piechartOptions?.chart" 
+                                 [plotOptions]="piechartOptions?.plotOptions" [labels]="piechartOptions?.labels"
                                 [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
@@ -168,7 +169,7 @@
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartSecondOptionsData?.length; else elseBlock">
                             <apx-chart [series]="piechartSecondOptions?.series" [legend]="piechartSecondOptions?.legend"
-                                [chart]="piechartSecondOptions?.chart" [labels]="piechartSecondOptions?.labels"
+                                [chart]="piechartSecondOptions?.chart" [plotOptions]="piechartSecondOptions?.plotOptions" [labels]="piechartSecondOptions?.labels"
                                 [responsive]="piechartSecondOptions?.responsive"
                               
                                 [fill]="piechartSecondOptions?.fill"></apx-chart>
