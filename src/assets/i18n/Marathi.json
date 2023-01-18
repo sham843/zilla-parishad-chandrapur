@@ -78,7 +78,9 @@
         "pre_test": " पूर्व चाचणी",
         "mid_test": "मध्य चाचणी",
         "final_test": "अंतिम  चाचणी",
-        "select_subject":"विषय"
+        "select_subject":"विषय",
+        "block":"ब्लॉक",
+        "unBlock":"अनब्लॉक"
      },
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",

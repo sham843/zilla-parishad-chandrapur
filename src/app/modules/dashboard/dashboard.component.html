@@ -151,7 +151,8 @@
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartOptionstData?.length; else elseBlock">
                             <apx-chart [series]="piechartOptions?.series" [legend]="piechartOptions?.legend"
-                                [chart]="piechartOptions?.chart"  [plotOptions]="piechartOptions?.plotOptions" [labels]="piechartOptions?.labels"
+                                [chart]="piechartOptions?.chart" 
+                                 [plotOptions]="piechartOptions?.plotOptions" [labels]="piechartOptions?.labels"
                                 [responsive]="piechartOptions?.responsive" [fill]="piechartOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
@@ -168,8 +169,9 @@
                     <mat-card-content class="card-body">
                         <div id="chart" *ngIf="piechartSecondOptionsData?.length; else elseBlock">
                             <apx-chart [series]="piechartSecondOptions?.series" [legend]="piechartSecondOptions?.legend"
-                                [chart]="piechartSecondOptions?.chart" [labels]="piechartSecondOptions?.labels"
+                                [chart]="piechartSecondOptions?.chart" [plotOptions]="piechartSecondOptions?.plotOptions" [labels]="piechartSecondOptions?.labels"
                                 [responsive]="piechartSecondOptions?.responsive"
+                              
                                 [fill]="piechartSecondOptions?.fill"></apx-chart>
                         </div>
                         <ng-template #elseBlock>
@@ -219,15 +221,22 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="chart-container no-axis">
+                    <div class="chart-container ">
+                        <!-- no-axis -->
                         <ng-container *ngIf="getAssesmentData?.length; else elseBlock">
                             <div class="d-flex">
                                 <div *ngFor="let barchart of barchartOptions?.series; let i = index">
-                                    <h6 class="small fw-bold text-center mb-0"> {{getAssesmentData[i].subjectName}}</h6>
+                                    <h6 class="small fw-bold  mb-0"> {{getAssesmentData[i].subjectName}}</h6>
                                     <apx-chart [series]="barchart" [chart]="barchartOptions?.chart"
                                         [plotOptions]="barchartOptions?.plotOptions"
-                                        [tooltip]="barchartOptions.tooltip" [dataLabels]="barchartOptions.dataLabels" [responsive]="barchartOptions?.responsive" [xaxis]="barchartOptions?.xaxis"
-                                        [legend]="barchartOptions?.legend" [fill]="barchartOptions?.fill"></apx-chart>
+                                        [xaxis]="barchartOptions.xaxis" 
+                                        [yaxis]="barchartOptions.yaxis" 
+                                        [tooltip]="barchartOptions.tooltip" 
+                                        [dataLabels]="barchartOptions.dataLabels"
+                                        [grid]="barchartOptions.grid"
+                                        [responsive]="barchartOptions?.responsive"
+                                        [legend]="barchartOptions?.legend" 
+                                        [fill]="barchartOptions?.fill"></apx-chart>
                                 </div>
                             </div>
                         </ng-container>

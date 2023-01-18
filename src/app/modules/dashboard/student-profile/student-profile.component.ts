@@ -388,6 +388,8 @@ export class StudentProfileComponent {
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName)
     }); 
+    seriesArray[0].data.unshift(0);
+    categoriesArray.unshift('');
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);

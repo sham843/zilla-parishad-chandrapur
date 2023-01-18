@@ -401,7 +401,7 @@ export class DashboardComponent {
       series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
-        height: 300,
+        height: 200,
       },
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -418,8 +418,12 @@ export class DashboardComponent {
         colors: ['#4284FD', '#02CCC0'],
       },
       plotOptions: {
+        columnWidth: 100,
         pie: {
-          expandOnClick: false
+          expandOnClick: false,
+          donut:{
+            size:'50px'
+          }
         }
       },
       responsive: [
@@ -440,7 +444,7 @@ export class DashboardComponent {
       series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[1]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
-        height: 300,
+        height: 200,
       },
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[1]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -451,6 +455,15 @@ export class DashboardComponent {
       },
         markers: {
           fillColors: ['#4284FD', '#02CCC0'],
+        }
+      },
+      plotOptions: {
+        columnWidth: 100,
+        pie: {
+          expandOnClick: false,
+          donut:{
+            size:'50px'
+          }
         }
       },
       fill: {
@@ -477,7 +490,6 @@ export class DashboardComponent {
     let barColorpal:any[] = [];
     let categoriesLabel:any[] = [];
     this.getAssesmentData.find((ele: any) => {
-      console.log(ele);
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
@@ -508,8 +520,9 @@ export class DashboardComponent {
           }
         },
         type: "bar",
+        offsetX: -15,
         height: 360,
-        width: 300,
+        width: 280,
         horizontal: false,
         borderRadius: 10,
         columnWidth: '45%',
@@ -543,6 +556,9 @@ export class DashboardComponent {
         }
       ],
       xaxis: {
+        axisTicks: {
+          show: false
+      },
         labels: {
           show: false,
 
@@ -550,12 +566,19 @@ export class DashboardComponent {
         parameters:categoriesLabel,
         categories: ['']
       },
-
+      grid: {
+      padding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+      },
+        show: false,      // you can either change hear to disable all grids
+      },
       yaxis: {
-        show: true,
+        show: false,
         showAlways: false,
         floating: false,
-
         axisTicks: {
           show: false
         },
@@ -563,8 +586,7 @@ export class DashboardComponent {
           show: false
         },
         labels: {
-          show: false,
-
+          show: false
         },
       },
       fill: {
@@ -578,10 +600,13 @@ export class DashboardComponent {
           // borderRadius: 10,
           // borderRadiusApplication: 'end',
           // borderRadiusWhenStacked: "all", // "all"/"last",
-          columnWidth: 60,
+          columnWidth: 70,
         },
       },
       legend: {
+        offsetX: 0,
+        offsetY: 10,
+        width:160,
         showForSingleSeries: true,
         inverseOrder:true,
         position: 'right',
@@ -594,7 +619,11 @@ export class DashboardComponent {
           strokeWidth: 0,
           strokeColor: '#fff',
           fillColors: barColorpal,
-        }
+        },
+        itemMargin: {
+          horizontal: 0,
+          vertical: 0
+      },
       },
       tooltip :{
         custom: ({ series, seriesIndex, dataPointIndex, w }: any)=> {         
