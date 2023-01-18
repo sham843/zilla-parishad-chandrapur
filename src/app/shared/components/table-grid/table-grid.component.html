@@ -32,7 +32,8 @@
                     </ng-container>
 
                     <ng-container *ngIf="tableInfo?.isBlock == columns">
-                        <mat-slide-toggle (change)="action(element,'Block',$event)" [checked]="tableInfo.tableData[i]?.isBlock=='Block'">
+                        <mat-slide-toggle (change)="action(element,'Block',$event)" [checked]="tableInfo.tableData[i]?.isBlock=='Block'"
+                        matTooltip="{{tableInfo.tableData[i]?.isBlock=='Block'?('student_profile.block' | translate):('student_profile.unBlock' | translate)}}">
                         </mat-slide-toggle>
                     </ng-container>
                 </td>

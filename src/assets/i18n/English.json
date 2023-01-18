@@ -81,7 +81,9 @@
         "pre_test": "Pre Test",
         "mid_test": "Mid Test",
         "final_test": "Final  Test",
-        "select_subject":"Subject"
+        "select_subject":"Subject",
+        "block":"Block",
+        "unBlock":"UnBlock"
     },
    "user_Registration":{
         "register_users":"Register Users",
