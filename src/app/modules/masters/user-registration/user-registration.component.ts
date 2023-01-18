@@ -273,7 +273,7 @@ blockUnblockDialog(obj:any){
     width: '350px',
     disableClose: true,
     data:{
-      p1:obj.checked==true? (this.lang=='mr-IN' ? 'तुम्हाला निवडलेल्या वापरकर्त्याला ब्लॉक करायचे आहे का?' : 'Do You Want To Block Selected User?'):(this.lang=='mr-IN' ? ' तुम्हाला निवडलेल्या वापरकर्त्याला अनब्लॉक करायचे आहे का?' : 'Do You Want To unBlock Selected User?'),
+      p1:obj.checked==true? (this.lang=='mr-IN' ? 'तुम्हाला निवडलेल्या वापरकर्त्याला ब्लॉक करायचे आहे का?' : 'Do You Want To Block Selected User?'):(this.lang=='mr-IN' ? ' तुम्हाला निवडलेल्या वापरकर्त्याला अनब्लॉक करायचे आहे का?' : 'Do You Want To UnBlock Selected User?'),
       p2: '',
       cardTitle:obj.checked==true? (this.lang=='mr-IN' ? 'ब्लॉक वापरकर्ता' : 'Block User'):(this.lang=='mr-IN' ? 'वापरकर्ता अनब्लॉक करा' : 'UnBlock User'),
       successBtnText:obj.checked==true?(this.lang=='mr-IN' ? 'ब्लॉक' : 'Block'):(this.lang=='mr-IN' ? 'अनब्लॉक' : 'UnBlock'),
