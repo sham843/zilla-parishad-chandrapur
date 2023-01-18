@@ -8,7 +8,7 @@
                         <div>{{'dashboard.edu_year' | translate}}</div>
                         <mat-form-field appearance="outline" class="w-50">
                             <!-- <mat-label>Year </mat-label> -->
-                            <mat-select formControlName="yearId" [disabled]="educationYearArray?.length == 1">
+                            <mat-select formControlName="yearId" (selectionChange)="clearFilterForm('year');cardCountData();" [disabled]="educationYearArray?.length == 1">
                                 <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">
                                     {{year.year}}
                                 </mat-option>
