@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
-        <!-- <li class="breadcrumb-item" aria-current="page">{{'student.student_registration'|translate}}</li> -->
+        <li class="breadcrumb-item" aria-current="page">{{'student.student_registration'|translate}}</li>
         <li class="breadcrumb-item active" aria-current="page">{{'student_profile.student_profile'|translate}}</li>
     </ol>
 </nav>
@@ -120,27 +120,27 @@
         
                                     <div class="data-container">
                                         <div class="row mb-3 justify-content-between">
-                                            <!-- <div class="col-sm-4">
+                                           <!--  <div class="col-sm-4">
                                                 <span class="data-label">{{'student.parent_name'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.parentName}}</div>
                                             </div> -->
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'common.mobile_number'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.parentsMobileNo}}</div>
+                                                <div class="data-text">{{StudentDataArray?.parentsMobileNo?StudentDataArray?.parentsMobileNo:'-'}}</div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3 justify-content-between">
-                                            <div class="col-sm-8">
-                                                <span class="data-label">{{'common.school_name'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.schoolName}}</div>
-                                            </div>
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'student.standard'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.standard}}</div>
+                                                <div class="data-text">{{StudentDataArray?.standard?StudentDataArray?.standard:'-'}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 justify-content-between">
+                                            <div class="col-sm-12">
+                                                <span class="data-label">{{'common.school_name'|translate}}</span>
+                                                <div class="data-text">{{StudentDataArray?.schoolName?StudentDataArray?.schoolName:'-'}}</div>
                                             </div>
                                             <!-- <div class="col-sm-4">
                                                 <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
@@ -150,17 +150,17 @@
                                         <div class="row mb-3 justify-content-between">
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'student.gender'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.gender}}</div>
+                                                <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <!-- <span class="data-label">{{'student.parent_second_mobile'|translate}}</span> -->
-                                                <span class="data-label"></span>
-                                                <div class="data-text">{{StudentDataArray?.parentSecMobileNo}}</div>
+                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span>
+                                                <!-- <span class="data-label"></span> -->
+                                                <div class="data-text">{{StudentDataArray?.parentSecMobileNo?StudentDataArray?.parentSecMobileNo:'-'}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <!-- <span class="data-label">{{'student.parent_email_id'|translate}}</span> -->
-                                                <span class="data-label"></span>
-                                                <div class="data-text">{{StudentDataArray?.parentEmailId}}</div>
+                                                <span class="data-label">{{'student.parent_email_id'|translate}}</span>
+                                                <!-- <span class="data-label"></span> -->
+                                                <div class="data-text">{{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}</div>
                                             </div>
                                         </div>
         
