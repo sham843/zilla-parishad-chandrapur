@@ -116,7 +116,6 @@ export class RegisterStudentComponent {
    this.getDistrict();
    }
    else if(this.data){
-    alert();
     this.dialogRef.close('No');
    }
   }
