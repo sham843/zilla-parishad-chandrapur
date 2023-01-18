@@ -246,11 +246,11 @@ export class StudentProfileComponent {
   clearForm() {
     this.clearFlag=false;
     this.filterFrm.reset();
+    this.globalObj='';
     this.getformControl();
     this.filterFrm.controls['subjId'].setValue(1);
     this.filterFrm.controls['yearId'].setValue(1);
     this.filterFrm.controls['assesmentId'].setValue(1);
-    this.globalObj='';
     this.getTaluka();
     this.getStandard();
     // this.getAllStudentData('filter');
