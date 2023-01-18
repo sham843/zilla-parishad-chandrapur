@@ -205,7 +205,6 @@ export class AgencyRegistrationComponent {
   }
 
   /* viewNgoDetails(obj:any){
-    console.log(obj);
     let viewObj = {
       cardTitle: this.language == 'mr-IN' ? '' : 'NGO Master',
       data:[

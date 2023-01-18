@@ -446,6 +446,7 @@ registerUser(formDirective?:any) {
       if (res.statusCode == '200') {
         this.common.snackBar(res.statusMessage,0);
         this.onClick('Yes');
+        this.data.flag=='profile'?this.common.snackBar('User Profile Updated Successfully',0):this.common.snackBar(res.statusMessage,0);
         this.data.flag=='profile'?this.webStorage.setProfileData({'profilePhoto':(this.profilePhotoupd != 'assets/images/user.png' ? this.profilePhotoupd:''),'name':this.userRegistrationForm.value.name}):'';
         formDirective.resetForm();
       }

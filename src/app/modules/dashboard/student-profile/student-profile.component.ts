@@ -439,7 +439,7 @@ export class StudentProfileComponent {
       },
       tooltip :{
         custom: (value:any) =>{
-          console.log(value)   
+          value  
            const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
           //  const stageName = this.chartData?.responseData1.find((element:any) => console.log(element));
           return ('<div class="arrow_box" style="padding:10px;">' +
