@@ -75,10 +75,8 @@ export class StudentProfileComponent {
     })
     this.getformControl();
     this.getTaluka();
-    this.globalObj.talukaId==0?this.getAllStudentData():'';
     this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
-    this.getStudentProChart();
     this.getEducationYear();
   }
 
@@ -124,9 +122,8 @@ export class StudentProfileComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.centerArray=res.responseData;
-          ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3) && this.clearFlag==true)? (this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):
-          ((this.levelId == 4 || this.levelId == 5) && this.globalObj.kendraId!=0) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
-          (this.globalObj.kendraId!=0 && this.globalObj.schoolId==0)?this.getAllStudentData():'';
+          ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3) && this.clearFlag==true && (this.globalObj.kendraId!=0 && this.globalObj.kendraId!=undefined))? (this.filterFrm.controls['kendraId'].setValue(this.globalObj.kendraId),this.getSchool()):
+          ((this.levelId == 4 || this.levelId == 5) && (this.globalObj.kendraId!=0&& this.globalObj.kendraId!=undefined)) ? (this.filterFrm.controls['kendraId'].setValue(this.loginData.centerId),this.getSchool()):'';
         }
         else {
           this.centerArray = [];
@@ -141,14 +138,13 @@ export class StudentProfileComponent {
 
   getSchool() {
     let formData = this.filterFrm.value
-    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&CenterId=' + formData.kendraId, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + (this.apiService.translateLang ? this.lang : 'en') + '&CenterId=' + (formData.kendraId), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.schoolArray = res.responseData;
           ((this.levelId == 1 || this.levelId == 2 || this.levelId == 3 || this.levelId == 4) && this.clearFlag==true)?(this.filterFrm.controls['schoolId'].setValue(this.globalObj.schoolId),this.getStandard()):
           (this.levelId == 5 && this.globalObj.schoolId!=0)? (this.filterFrm.controls['schoolId'].setValue(this.loginData.schoolId),this.getStandard()):'';
-          (this.globalObj.schoolId!=0 && this.globalObj.standardId==0)?this.getAllStudentData():'';
         }
         else {
           this.schoolArray = [];
@@ -173,7 +169,8 @@ export class StudentProfileComponent {
           schoolIds==0?(this.standardArray.forEach(ele=>{
             standIds.push(ele.id);
           })):'';
-          this.clearFlag==true?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData('filter'));
+          this.filterFrm.controls['standardId'].setValue(standIds);
+          (this.clearFlag==true && this.globalObj.staId!=0 && this.globalObj.staId!=undefined)?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData('filter'));
         }
         else {
           this.standardArray = [];
@@ -249,11 +246,11 @@ export class StudentProfileComponent {
   clearForm() {
     this.clearFlag=false;
     this.filterFrm.reset();
+    this.globalObj='';
     this.getformControl();
     this.filterFrm.controls['subjId'].setValue(1);
     this.filterFrm.controls['yearId'].setValue(1);
     this.filterFrm.controls['assesmentId'].setValue(1);
-    this.globalObj='';
     this.getTaluka();
     this.getStandard();
     // this.getAllStudentData('filter');
@@ -444,9 +441,13 @@ export class StudentProfileComponent {
            const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
           //  const stageName = this.chartData?.responseData1.find((element:any) => console.log(element));
           return ('<div class="arrow_box" style="padding:10px;">' +
-              "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
+              "<div>" +subjectName.subject+"</div>" +
             "</div>"
           );
+         /*  return ('<div class="arrow_box" style="padding:10px;">' +
+              "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
+            "</div>"
+          ); */
         },
       }
     };
