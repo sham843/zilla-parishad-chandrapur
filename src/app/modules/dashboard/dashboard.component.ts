@@ -401,7 +401,7 @@ export class DashboardComponent {
       series: [+(data[0]?.assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[0]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
-        height: 300,
+        height: 200,
       },
       labels: [data[0]?.assesmentDetails[0]?.assessmentParamenterName, data[0]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -418,8 +418,12 @@ export class DashboardComponent {
         colors: ['#4284FD', '#02CCC0'],
       },
       plotOptions: {
+        columnWidth: 100,
         pie: {
-          expandOnClick: false
+          expandOnClick: false,
+          donut:{
+            size:'50px'
+          }
         }
       },
       responsive: [
@@ -440,7 +444,7 @@ export class DashboardComponent {
       series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[1]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
         type: "donut",
-        height: 300,
+        height: 200,
       },
       labels: [data[1].assesmentDetails[0]?.assessmentParamenterName, data[1]?.assesmentDetails[1]?.assessmentParamenterName],
       legend: {
@@ -451,6 +455,15 @@ export class DashboardComponent {
       },
         markers: {
           fillColors: ['#4284FD', '#02CCC0'],
+        }
+      },
+      plotOptions: {
+        columnWidth: 100,
+        pie: {
+          expandOnClick: false,
+          donut:{
+            size:'50px'
+          }
         }
       },
       fill: {
@@ -507,7 +520,7 @@ export class DashboardComponent {
           }
         },
         type: "bar",
-        offsetX: -25,
+        offsetX: -15,
         height: 360,
         width: 280,
         horizontal: false,
@@ -592,6 +605,7 @@ export class DashboardComponent {
       },
       legend: {
         offsetX: 0,
+        offsetY: 10,
         width:160,
         showForSingleSeries: true,
         inverseOrder:true,
