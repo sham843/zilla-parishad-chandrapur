@@ -7,7 +7,10 @@ import { BehaviorSubject } from 'rxjs'
 export class WebStorageService {
   // change theme
   numFormat:any;
-  private theme = new BehaviorSubject('')
+  private theme = new BehaviorSubject('');
+  
+  noOfApiCall = new BehaviorSubject(null);
+
   constructor() {}
   getTheme() {
     return this.theme.asObservable()
