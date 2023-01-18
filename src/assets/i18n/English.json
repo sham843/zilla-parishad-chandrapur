@@ -42,7 +42,8 @@
         "download_excel":"Download Excel",
         "copyright": "Copyright © 2023 Education Chandrapur All Rights Reserved",
         "assessment":"Assessment",
-        "examId":"Exam ID"
+        "examId":"Exam ID",
+        "invalid_username":"Please Enter Valid Mobile Number"
     },
     "dashboard":{
         "dashboard":"Dashboard",

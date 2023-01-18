@@ -109,7 +109,12 @@ export class DashboardComponent {
   }
 
   clearFilterForm(flag: string) {
-    if (flag == 'taluka') {
+    if (flag == 'year') {
+      this.topFilterForm.controls['talukaId'].setValue(0);
+      this.topFilterForm.controls['kendraId'].setValue(0);
+      this.topFilterForm.controls['schoolId'].setValue(0);
+    } 
+    else if (flag == 'taluka') {
       this.topFilterForm.controls['kendraId'].setValue(0);
       this.topFilterForm.controls['schoolId'].setValue(0);
     } else if (flag == 'kendra') {
@@ -273,9 +278,11 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.piechartOptionstData = res.responseData[0].assesmentDetails;
+        let getValEnglishWords = this.piechartOptionstData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartSecondOptionsData = res.responseData[1].assesmentDetails;
-        this.piechartOptionstData.length ? this.pieChart(res.responseData) : [];
-        this.piechartSecondOptionsData.length ? this.pieChart(res.responseData) : [];
+        let getValEnglishSentence = this.piechartSecondOptionsData.every((ele:any)=> ele.assesmentCalculationValue == 0);
+        this.piechartOptionstData.length && !getValEnglishWords ? this.pieChart(res.responseData) : this.piechartOptionstData = [];
+        this.piechartSecondOptionsData.length && !getValEnglishSentence ? this.pieChart(res.responseData) : this.piechartSecondOptionsData =[];
         this.getSurveyDashboardDetails();
       }
       else {
@@ -333,7 +340,7 @@ export class DashboardComponent {
         }
         else {
           this.getAssesmentData = [];
-          this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+          // this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
         }
       }, (error: any) => {
         this.errors.handelError(error.status);
