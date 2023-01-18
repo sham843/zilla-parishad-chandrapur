@@ -42,6 +42,8 @@ export class ForgotPasswordComponent {
     this.loginDefForm();
   }
 
+  get f() { return this.forgotPasswordForm.controls };
+
   //#region --------------------------------------------login form functionlity is started------------------------------------------------------//
   loginDefForm() {
     this.forgotPasswordForm = this.fb.group(({
