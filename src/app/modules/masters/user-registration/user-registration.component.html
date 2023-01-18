@@ -26,7 +26,7 @@
   <form [formGroup]="serachUserForm">
     <mat-card-header class="card-header pb-0 border-bottom-0">
       <div class="row w-100 gx-2">
-        <div class="col-sm-auto">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_user_type'|translate}}</mat-label>
             <mat-select formControlName="UserTypeId">
@@ -34,7 +34,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="this.levelId==3 || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.Please_Select_Taluka'|translate}}</mat-label>
             <mat-select formControlName="TalukaId"
@@ -43,7 +43,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-2">
 
           <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.TalukaId || this.levelId==4 || this.levelId==5">
             <mat-label>{{'common.select_kendra'|translate}}</mat-label>
@@ -53,7 +53,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="!serachUserForm.value.CenterId || levelId==5">
             <mat-label>{{'common.select_school'|translate}}</mat-label>
             <mat-select formControlName="SchoolId">
@@ -67,7 +67,7 @@
             <input matInput formControlName="textSearch">
           </mat-form-field>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-2">
           <button (click)="getAllUserData('filter')" mat-flat-button class="btn-main me-2">{{'common.filter'
             |translate}}</button>
           <button (click)="clearAllFilter()" mat-flat-button class="btn-second">{{'common.clear'
