@@ -10,7 +10,7 @@
         "select_kendra":"kendra",
         "school":"School Name/UDISE Code",
         "school_name":"School Name",
-        "select_school":"Select School",
+        "select_school":"School",
         "contact_person":"Contact Person Name",
         "email":"Email ID",
         "agency_name":"NGO Name",
@@ -81,7 +81,7 @@
         "pre_test": "Pre Test",
         "mid_test": "Mid Test",
         "final_test": "Final  Test",
-        "select_subject":"Select Subject"
+        "select_subject":"Subject"
     },
    "user_Registration":{
         "register_users":"Register Users",
@@ -167,7 +167,7 @@
         "gender":"Gender",
         "standard":"Standard",
         "parent_contact_no":"Parent Contact Number",
-        "select_standard":"Select Standard",
+        "select_standard":"Standard",
         "enter_first_name":"Enter First Name",
          "enter_middle_name":"Enter Middle Name",
      "enter_last_name":"Enter Last Name",

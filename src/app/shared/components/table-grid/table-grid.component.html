@@ -61,7 +61,7 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index" [ngClass]="{'highlightedrow ':highlightedRow == i && tableInfo?.highlightedrow==true}"
-            (click)="$event.stopPropagation();action(row, 'Row')"></tr>
+            (click)="$event.stopPropagation();tableInfo?.pageName=='studentProfile'?action(row, 'Row',i):''"></tr>
     </table>
     <mat-paginator *ngIf="tableInfo?.tableData?.length!=0 && tableInfo?.pagination" showFirstLastButtons
         [length]="tableSize" (page)="action($event, 'Pagination')" [pageSizeOptions]="[10]" aria-label="Select page">

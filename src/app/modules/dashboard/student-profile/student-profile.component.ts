@@ -306,6 +306,8 @@ export class StudentProfileComponent {
     displayedheaders = this.lang == 'mr-IN' ? ['सरल आयडी', 'नाव', 'इयत्ता','स्तर'] : ['Saral ID', 'Name', 'Standard','Level']
     let tableData = {
       pageNumber: this.pageNumber,
+      highlightedrow:true,
+      pageName:'studentProfile',
       img: '', blink:'colorcode', badge: '', isBlock: '', pagination: true,
       displayedColumns: displayedColumns, tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -364,15 +366,15 @@ export class StudentProfileComponent {
     let categoriesArray = new Array(); 
     let seriesArray: any[] = [
       {
-        name: "शिक्षक",
+        name: "Teacher",
         data: [],
       },
       {
-        name: "पहिला",
+        name: "First",
         data: [],
       },
       {
-        name: "अधिकारी",
+        name: "Officer",
         data: [],
       }
     ];
