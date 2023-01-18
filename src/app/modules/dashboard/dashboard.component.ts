@@ -477,7 +477,6 @@ export class DashboardComponent {
     let barColorpal:any[] = [];
     let categoriesLabel:any[] = [];
     this.getAssesmentData.find((ele: any) => {
-      console.log(ele);
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
        if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
@@ -508,8 +507,9 @@ export class DashboardComponent {
           }
         },
         type: "bar",
+        offsetX: -25,
         height: 360,
-        width: 300,
+        width: 280,
         horizontal: false,
         borderRadius: 10,
         columnWidth: '45%',
@@ -543,6 +543,9 @@ export class DashboardComponent {
         }
       ],
       xaxis: {
+        axisTicks: {
+          show: false
+      },
         labels: {
           show: false,
 
@@ -550,12 +553,19 @@ export class DashboardComponent {
         parameters:categoriesLabel,
         categories: ['']
       },
-
+      grid: {
+      padding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+      },
+        show: false,      // you can either change hear to disable all grids
+      },
       yaxis: {
-        show: true,
+        show: false,
         showAlways: false,
         floating: false,
-
         axisTicks: {
           show: false
         },
@@ -563,8 +573,7 @@ export class DashboardComponent {
           show: false
         },
         labels: {
-          show: false,
-
+          show: false
         },
       },
       fill: {
@@ -578,10 +587,12 @@ export class DashboardComponent {
           // borderRadius: 10,
           // borderRadiusApplication: 'end',
           // borderRadiusWhenStacked: "all", // "all"/"last",
-          columnWidth: 60,
+          columnWidth: 70,
         },
       },
       legend: {
+        offsetX: 0,
+        width:160,
         showForSingleSeries: true,
         inverseOrder:true,
         position: 'right',
@@ -594,7 +605,11 @@ export class DashboardComponent {
           strokeWidth: 0,
           strokeColor: '#fff',
           fillColors: barColorpal,
-        }
+        },
+        itemMargin: {
+          horizontal: 0,
+          vertical: 0
+      },
       },
       tooltip :{
         custom: ({ series, seriesIndex, dataPointIndex, w }: any)=> {         
