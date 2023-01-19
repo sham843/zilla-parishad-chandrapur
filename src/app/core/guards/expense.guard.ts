@@ -12,7 +12,7 @@ export class ExpenseGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree | any {
     let urlSplit: any = route.routeConfig?.path?.split('/');
-    if (this.WebStorageService?.getAllPageName().find((x: any) => x.pageURL.includes(urlSplit[0]))) {
+    if (this.WebStorageService?.getAllPageName()?.find((x: any) => x.pageURL.includes(urlSplit[0]))) {
       return true;
     }
     else {
