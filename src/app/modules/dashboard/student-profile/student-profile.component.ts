@@ -457,7 +457,7 @@ export class StudentProfileComponent {
     };
   }
 
-  //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
+  //#endregion -------------------------------------------------main fn end here Student info and graph -----------------------------//
   clearDropdown(flag:any){
     if(flag=='taluka'){
       this.filterFrm.controls['kendraId'].setValue('');
