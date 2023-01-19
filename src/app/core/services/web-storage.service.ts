@@ -8,8 +8,6 @@ export class WebStorageService {
   // change theme
   numFormat:any;
   private theme = new BehaviorSubject('');
-  
-  noOfApiCall = new BehaviorSubject(null);
 
   constructor() {}
   getTheme() {
@@ -31,9 +29,10 @@ export class WebStorageService {
 
   checkUserIsLoggedIn() {
     // check user isLoggedIn or not
-    let sessionData: any = sessionStorage.getItem('loggedIn')
-    sessionData == null || sessionData == '' ? localStorage.clear() : ''
-    if (localStorage.getItem('loggedInData') && sessionData == 'true')
+    // let sessionData: any = sessionStorage.getItem('loggedIn')
+    // sessionData == null || sessionData == '' ? localStorage.clear() : ''
+    // if (localStorage.getItem('loggedInData') && sessionData == 'true')
+    if (localStorage.getItem('loggedInData'))
       return true
     else return false
   }
