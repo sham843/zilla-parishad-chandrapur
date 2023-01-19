@@ -264,7 +264,7 @@ export class StudentProfileComponent {
         this.pageNumber = obj.pageNumber;
         this.getAllStudentData();
         break;
-      case 'Row': this.studentDataById(obj.studentId)
+      case 'Row': this.studentDataById(obj)
         break
     }
   }
@@ -284,7 +284,7 @@ export class StudentProfileComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          this.studentDataById(this.tableDataArray[0]?.studentId?this.tableDataArray[0]?.studentId:0);
+          this.studentDataById(this.tableDataArray[0]);
           this.tableDatasize = res.responseData.responseData2[0].pageCount;
           this.totalPages = res.responseData.responseData2[0].totalPages;
         } else {
@@ -321,8 +321,9 @@ export class StudentProfileComponent {
   //#endregion ------------------------------------------- table fn  start heare-------------------------------------------//
 
   //#region -------------------------------------------------main fn start heare Student info and graph -----------------------------//
-  studentDataById(id?: any) {
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id=' + id + '&lan=' + this.lang, false, false, false, 'baseUrl');
+  studentDataById(obj?: any) {
+    this.apiService.setHttp('GET', 'Getstudentprofilebyid?StandardId='+ (obj?obj.standardId:0) +'&StudentId='+(obj?obj.studentId:0) 
+    +'&EducationYearId='+ (obj?obj.eductionYearId:0)+'&SchoolId='+(obj?obj.schoolId:0) + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -383,6 +384,7 @@ export class StudentProfileComponent {
       proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
+    proIndCat.unshift('');
 
     this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
@@ -393,7 +395,7 @@ export class StudentProfileComponent {
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
-    }); 
+    });
 
     this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
@@ -455,7 +457,7 @@ export class StudentProfileComponent {
     };
   }
 
-  //#endregion -------------------------------------------------main fn end heare Student info and graph -----------------------------//
+  //#endregion -------------------------------------------------main fn end here Student info and graph -----------------------------//
   clearDropdown(flag:any){
     if(flag=='taluka'){
       this.filterFrm.controls['kendraId'].setValue('');
