@@ -264,7 +264,7 @@ export class StudentProfileComponent {
         this.pageNumber = obj.pageNumber;
         this.getAllStudentData();
         break;
-      case 'Row': this.studentDataById(obj.studentId)
+      case 'Row': this.studentDataById(obj)
         break
     }
   }
@@ -322,8 +322,8 @@ export class StudentProfileComponent {
 
   //#region -------------------------------------------------main fn start heare Student info and graph -----------------------------//
   studentDataById(obj?: any) {
-    console.log("obj",obj);
-    this.apiService.setHttp('GET', 'Getstudentprofilebyid?StandardId=' +  +'&StudentId='+ +'&EducationYearId='+ +'&SchoolId='+ + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'Getstudentprofilebyid?StandardId='+ (obj?obj.standardId:0) +'&StudentId='+(obj?obj.studentId:0) 
+    +'&EducationYearId='+ (obj?obj.eductionYearId:0)+'&SchoolId='+(obj?obj.schoolId:0) + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -384,6 +384,7 @@ export class StudentProfileComponent {
       proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
+    proIndCat.unshift('');
 
     this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
@@ -394,7 +395,7 @@ export class StudentProfileComponent {
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
-    }); 
+    });
 
     this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
