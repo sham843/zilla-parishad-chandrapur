@@ -118,6 +118,7 @@ export class MasterService {
           loginObj.responseData.jwtAuthResult = res.responseData;
           this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(JSON.stringify(loginObj)), 'secret key 123').toString());
           localStorage.setItem('loggedInData', this.encryptInfo);
+          window.location.reload();
         } else { 
           localStorage.removeItem('loggedInData');
           this.router.navigate(['/login']);
@@ -130,7 +131,6 @@ export class MasterService {
         this.commonMethods.snackBar('Your Session Has Expired. Please Re-Login Again.', 1);
        }
     });
-
   }
 }
 
