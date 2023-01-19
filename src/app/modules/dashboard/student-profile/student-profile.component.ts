@@ -284,7 +284,7 @@ export class StudentProfileComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          this.studentDataById(this.tableDataArray[0]?.studentId?this.tableDataArray[0]?.studentId:0);
+          this.studentDataById(this.tableDataArray[0]);
           this.tableDatasize = res.responseData.responseData2[0].pageCount;
           this.totalPages = res.responseData.responseData2[0].totalPages;
         } else {
@@ -321,8 +321,9 @@ export class StudentProfileComponent {
   //#endregion ------------------------------------------- table fn  start heare-------------------------------------------//
 
   //#region -------------------------------------------------main fn start heare Student info and graph -----------------------------//
-  studentDataById(id?: any) {
-    this.apiService.setHttp('GET', 'zp-Chandrapur/Student/GetById?Id=' + id + '&lan=' + this.lang, false, false, false, 'baseUrl');
+  studentDataById(obj?: any) {
+    console.log("obj",obj);
+    this.apiService.setHttp('GET', 'Getstudentprofilebyid?StandardId=' +  +'&StudentId='+ +'&EducationYearId='+ +'&SchoolId='+ + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
