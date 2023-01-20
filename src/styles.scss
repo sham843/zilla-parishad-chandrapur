@@ -3,7 +3,7 @@
 @import './assets/css/MaterialStyleSheet.scss';
 
 @include mat.core();
-$angular-primary: mat.define-palette(mat.$teal-palette, 500, 100, 900);
+$angular-primary: mat.define-palette(mat.$blue-palette, 500, 100, 900);
 $angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $angular-warn: mat.define-palette(mat.$red-palette);
 $angular-default-theme: mat.define-light-theme((color: (primary: $angular-primary,
@@ -541,4 +541,10 @@ input::-ms-reveal { display: none; }
 .apexcharts-tooltip{
   font-size: 0.85rem !important;
   left: 20px !important;
+}
+
+
+      
+.mat-mdc-row:nth-child(even){
+  background-color: rgba(0,0,0,.01) !important;
 }

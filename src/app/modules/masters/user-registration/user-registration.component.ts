@@ -116,6 +116,9 @@ export class UserRegistrationComponent {
        if(res.statusCode == "200"){
         this.spinner.hide();
         this.tableDataArray = res.responseData.responseData1;
+        this.tableDataArray.forEach(ele=>{
+         ele.isBlock=='Block'?ele['blockStatus']=true:ele['blockStatus']=false;
+        })
         this.totalItem = res.responseData.responseData2.pageCount;
         this.totalPages = res.responseData.responseData2.totalPages;
        }

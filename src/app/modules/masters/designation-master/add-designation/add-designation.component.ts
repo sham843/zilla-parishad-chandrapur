@@ -174,7 +174,7 @@ export class AddDesignationComponent {
             this.dialogRef.close(isUpdate);
             this.clearForm();
             if (this.data) {
-              this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती अद्ययावत करण्यात आली') : (res.statusMessage = 'Data updated successfully'), 0)
+              this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती अद्ययावत करण्यात आली') : (res.statusMessage = 'Data Updated Successfully'), 0)
             } else {
               this.commonMethod.snackBar(this.lang == 'mr-IN' ? (res.statusMessage = 'माहिती यशस्वीरित्या जतन केली') : (res.statusMessage = 'Data Stored Successfully'), 0)
             }
