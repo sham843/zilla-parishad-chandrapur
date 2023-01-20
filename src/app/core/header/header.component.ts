@@ -53,10 +53,10 @@ export class HeaderComponent {
     this.webStorage.setTheme(this.darkClassName);
     if (darkMode == 'light') {
       this.overlay.getContainerElement().classList.add('lightMode')
-      this.overlay.getContainerElement().classList.remove('lightMode')
+      this.overlay.getContainerElement().classList.remove('darkMode')
     } else {
       this.overlay.getContainerElement().classList.add('darkMode')
-      this.overlay.getContainerElement().classList.remove('darkMode')
+      this.overlay.getContainerElement().classList.remove('lightMode')
     }
     sessionStorage.setItem('theme',this.darkClassName);
   }

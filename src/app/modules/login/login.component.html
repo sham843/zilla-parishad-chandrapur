@@ -25,11 +25,11 @@
                                     <input matInput id="username" placeholder="{{''|translate}}"
                                         maxlength="10" formControlName="userName"
                                         (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                                        <!-- <mat-error *ngIf="loginFormControls.userName.errors"> -->
+                                        <mat-error *ngIf="loginFormControls.userName.errors">
                                             <!-- <span class="text-danger" *ngIf="loginFormControls.userName.hasError('required')">{{'login.username_required'|translate}}</span> -->
 
-                                            <!-- <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">{{'login.please_enter_valid_username'|translate}}</span>
-                                        </mat-error> -->
+                                            <span class="text-danger" *ngIf="loginFormControls.userName.hasError('pattern')">{{'login.please_enter_valid_username'|translate}}</span>
+                                        </mat-error>
 
                                 </mat-form-field>
                             </div>
