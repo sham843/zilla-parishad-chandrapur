@@ -45,7 +45,7 @@
         "invalid_username" : "कृपया वैध मोबाईल क्रमांक प्रविष्ट करा"
     },
     "dashboard": {
-        "dashboard": "मुख्यपृष्ठ",
+        "dashboard": "डॅशबोर्ड",
         "number_of_students_surveyed":"सर्वेक्षण केलेल्या विद्यार्थ्यांची संख्या",
         "edu_year":"शैक्षणिक वर्ष",
         "map":"नकाशा",
@@ -87,7 +87,7 @@
         "update_user":"वापरकर्ता अद्यतनित करा",
         "add_user": "वापरकर्ता नोंदणी",
         "user_registration": "वापरकर्ता मास्टर",
-        "office_users": "वापरकर्ता नोंदणी",
+        "office_users": "वापरकर्ता मास्टर",
         "user_type": "वापरकर्ता प्रकार",
         "level": "पातळी",
         "kendra": "केंद्र",
@@ -190,7 +190,7 @@
         "please_enter_caste_name": "कृपया जातीचे नाव प्रविष्ट करा",
         "are_you_want_to_delete_student_record": "तुम्हाला विद्यार्थी रेकॉर्ड हटवायचा आहे का ?",
         "student_registration": "विद्यार्थी मास्टर",
-        "student_list": "विद्यार्थ्यांची यादी",
+        "student_list": "विद्यार्थ्यांची मास्टर",
         "register_student": "विद्यार्थ्याची नोंदणी",
         "add_student": "विद्यार्थी जोडा",
         "fullName": "पूर्णनाव",
@@ -241,7 +241,7 @@
     },
     "school": {
         "school_registration": "शाळा मास्टर",
-        "school_list": "शाळा सूची",
+        "school_list": "शाळा मास्टर",
         "school_name": "शाळेचे नाव",
         "add_school": "शाळा जोडा",
         "kendra_required": "कृपया केंद्र निवडा",
