@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
-        <li class="breadcrumb-item" aria-current="page">{{'student.student_registration'|translate}}</li>
+        <!-- <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
+        <li class="breadcrumb-item" aria-current="page">{{'student.student_registration'|translate}}</li> -->
         <li class="breadcrumb-item active" aria-current="page">{{'student_profile.student_profile'|translate}}</li>
     </ol>
 </nav>
@@ -83,10 +83,10 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.fullName'|translate}}</mat-label>
-                        <input matInput placeholder=" " formControlName="searchText">
+                        <input matInput placeholder="{{'student.fullName'|translate}}" formControlName="searchText">
                     </mat-form-field>
                 </div>
                 <div class="col-sm text-end">
