@@ -85,7 +85,7 @@
     "user_Registration": {
         "register_users": "वापरकर्त्यांची नोंदणी करा",
         "update_user":"वापरकर्ता अद्यतनित करा",
-        "add_user": "वापरकर्ता जोडा",
+        "add_user": "वापरकर्ता नोंदणी",
         "user_registration": "वापरकर्ता नोंदणी",
         "office_users": "वापरकर्ता नोंदणी",
         "user_type": "वापरकर्ता प्रकार",
@@ -140,7 +140,7 @@
         "enter_password":"पासवर्ड",
         "enter_captcha":"कॅप्चा",
         "username_required":"वापरकर्ता नाव आवश्यक आहे",
-        "please_enter_valid_username":"कृपया वैध वापरकर्तानाव प्रविष्ट करा",
+        "please_enter_valid_username":"कृपया वैध वापरकर्ता नाव प्रविष्ट करा",
         "password_required":"पासवर्ड आवश्यक आहे",
         "captcha_required":"कॅप्चा आवश्यक आहे",
         "forgot_password":"पासवर्ड विसरलात",
@@ -191,7 +191,7 @@
         "are_you_want_to_delete_student_record": "तुम्हाला विद्यार्थी रेकॉर्ड हटवायचा आहे का ?",
         "student_registration": "विद्यार्थी नोंदणी",
         "student_list": "विद्यार्थ्यांची यादी",
-        "register_student": "विद्यार्थ्याची नोंदणी करा",
+        "register_student": "विद्यार्थ्याची नोंदणी",
         "add_student": "विद्यार्थी जोडा",
         "fullName": "पूर्णनाव",
         "district_is_required": "जिल्हा आवश्यक आहे",
@@ -240,7 +240,7 @@
         "designation_master":"पदनाम मास्टर"
     },
     "school": {
-        "school_registration": "शाळा नोंदणी",
+        "school_registration": "शाळा मास्टर",
         "school_list": "शाळा सूची",
         "school_name": "शाळेचे नाव",
         "add_school": "शाळा जोडा",
