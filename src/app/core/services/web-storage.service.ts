@@ -58,7 +58,7 @@ getLoginData(){
   getAllPageName(){
     if (this.checkUserIsLoggedIn() == true) {
       let getAllPageName = JSON.parse(this.getLocalStorageData());
-      return getAllPageName.responseData.pageLstModels;
+      return getAllPageName.responseData?.pageLstModels;
     }
   }
   numberTransformFunction(value: any){
