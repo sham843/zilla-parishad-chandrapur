@@ -427,9 +427,10 @@ export class DashboardComponent {
       plotOptions: {
         columnWidth: 100,
         pie: {
+          customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'50px'
+            size:'30px'
           }
         }
       },
@@ -467,9 +468,10 @@ export class DashboardComponent {
       plotOptions: {
         columnWidth: 100,
         pie: {
+          customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'50px'
+            size:'30px'
           }
         }
       },
