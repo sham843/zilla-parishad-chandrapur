@@ -543,9 +543,6 @@ input::-ms-reveal { display: none; }
   font-size: 0.85rem !important;
   left: 20px !important;
 }
-
-
-      
 .mat-mdc-row:nth-child(even){
-  background-color: rgba(0,0,0,.01) !important;
+  background-color: rgba(0,0,0,.01);
 }
