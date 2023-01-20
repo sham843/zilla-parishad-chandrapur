@@ -7,7 +7,8 @@ import { BehaviorSubject } from 'rxjs'
 export class WebStorageService {
   // change theme
   numFormat:any;
-  private theme = new BehaviorSubject('')
+  private theme = new BehaviorSubject('');
+
   constructor() {}
   getTheme() {
     return this.theme.asObservable()
@@ -28,9 +29,10 @@ export class WebStorageService {
 
   checkUserIsLoggedIn() {
     // check user isLoggedIn or not
-    let sessionData: any = sessionStorage.getItem('loggedIn')
-    sessionData == null || sessionData == '' ? localStorage.clear() : ''
-    if (localStorage.getItem('loggedInData') && sessionData == 'true')
+    // let sessionData: any = sessionStorage.getItem('loggedIn')
+    // sessionData == null || sessionData == '' ? localStorage.clear() : ''
+    // if (localStorage.getItem('loggedInData') && sessionData == 'true')
+    if (localStorage.getItem('loggedInData'))
       return true
     else return false
   }
@@ -56,7 +58,7 @@ getLoginData(){
   getAllPageName(){
     if (this.checkUserIsLoggedIn() == true) {
       let getAllPageName = JSON.parse(this.getLocalStorageData());
-      return getAllPageName.responseData.pageLstModels;
+      return getAllPageName.responseData?.pageLstModels;
     }
   }
   numberTransformFunction(value: any){

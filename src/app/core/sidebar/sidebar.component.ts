@@ -22,12 +22,12 @@ export class SidebarComponent {
 
   sideBarMenu(data: []) {
     this.loginPages = [];
-    let items: any = data.filter((ele: any) => {
+    let items: any = data?.filter((ele: any) => {
       if (ele.isSideBarMenu == true) {
         return ele;
       }
     })
-    items.forEach((item: any) => { 
+    items?.forEach((item: any) => { 
       let existing: any = this.loginPages.filter((v: any) => {
         return v.pageNameView == item.pageNameView && v.m_PageNameView == item.m_PageNameView;
       });

@@ -55,6 +55,7 @@ export class TableGridComponent implements OnInit {
         this.tableInfo.tableData ? this.tableRecords = new MatTableDataSource(this.tableInfo.tableData) : this.tableRecords = [];
         this.paginator?._pageIndex != 0 && this.pageIndex != this.pageNumber ? this.paginator?.firstPage() : '';
         this.tableRecords.sort = this.sort;
+        
         this.tableInfo?.pageName=='studentProfile'?this.highlightedRow=0:'';
       }
       
@@ -66,8 +67,6 @@ export class TableGridComponent implements OnInit {
   }
 
   action(obj: any, label: string, i?:any) {
-    console.log(obj,label);
-    
    if(label=='Block'){
     this.highlightedRow = obj.id;
     obj.checked=i.checked;

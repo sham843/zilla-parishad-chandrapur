@@ -8,7 +8,6 @@
                 </th>
                 <td mat-cell *matCellDef="let element let i=index">
                     <ng-container *ngIf="'srNo' ==columns"><strong class="srno">{{(((pageNumber + 1) * 10 + i + 1)-20)}}</strong></ng-container>
-                     <!--numberTranformPipe-->
                     <ng-container
                         *ngIf="tableInfo?.checkBox != columns && 'srNo' !=columns && tableInfo?.img != columns && tableInfo?.blink != columns && tableInfo?.badge !=  columns && tableInfo?.isArray != columns && tableInfo?.isBlock != columns">{{element[columns]
                         ? element[columns] : '-' }}
@@ -32,8 +31,8 @@
                     </ng-container>
 
                     <ng-container *ngIf="tableInfo?.isBlock == columns">
-                        <mat-slide-toggle (change)="action(element,'Block',$event)" [checked]="tableInfo.tableData[i]?.isBlock=='Block'"
-                        matTooltip="{{tableInfo.tableData[i]?.isBlock=='Block'?('student_profile.block' | translate):('student_profile.unBlock' | translate)}}">
+                        <mat-slide-toggle (change)="action(element,'Block',$event)" [checked]="element[columns]=='Block'"
+                        matTooltip="{{element[columns]=='Block'?('student_profile.block' | translate):('student_profile.unBlock' | translate)}}">
                         </mat-slide-toggle>
                     </ng-container>
                 </td>
