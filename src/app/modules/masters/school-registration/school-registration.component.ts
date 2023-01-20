@@ -206,7 +206,8 @@ export class SchoolRegistrationComponent {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      result == 'post' || result == 'put' ? this.getTableData() : '';
+      result == 'post' ? this.getTableData() : '';
+      result != 'put'  ? this.getTableData() : '';
       this.highLightRowFlag = false;
       this.setTableData();
     });
