@@ -29,7 +29,6 @@ export class AuthInterceptor implements HttpInterceptor {
               let localStorageData = JSON.parse(this.webStorageService.getLocalStorageData());
               let expireAccessToken: any = (Math.round(new Date(localStorageData?.responseData?.jwtAuthResult?.expireAccessToken).getTime() / 1000));
               let tokenExpireDateTime: any = (Math.round(new Date(localStorageData?.responseData?.jwtAuthResult?.refreshToken.expireAt).getTime() / 1000));
-
               if (this.currentDateTime >= expireAccessToken) {
                 if (this.currentDateTime <= tokenExpireDateTime) {
                   let obj = {
