@@ -110,3 +110,9 @@ input:-webkit-autofill:active {
 .mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after{
     background:red !important;
 }
+.mat-mdc-slide-toggle .mdc-switch:enabled .mdc-switch__track::before{
+    background: rgb(152, 250, 152) !important;
+}
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__handle::after{
+    background: rgb(0, 170, 0) !important;
+}
