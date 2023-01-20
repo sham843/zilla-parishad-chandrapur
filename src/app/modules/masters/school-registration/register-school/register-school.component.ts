@@ -241,7 +241,7 @@ export class RegisterSchoolComponent {
         next: ((res: any) => {
           if (res.statusCode == '200') {
             this.common.snackBar(res.statusMessage, 0);
-            this.dialogRef.close(this.data ? 'post' : 'put');
+            this.dialogRef.close(!this.data ? 'post' : 'put');
             this.clearForm();
           } else {
             this.common.checkEmptyData(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
