@@ -11,7 +11,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { NgApexchartsModule } from "ng-apexcharts";
 import {MatButtonModule} from '@angular/material/button';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
-
+import {  MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     StudentProfileComponent,
@@ -29,7 +29,8 @@ import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-
     MatSelectModule,
     NgApexchartsModule,
     MatButtonModule,
-    ViewDialogComponent
+    ViewDialogComponent,
+    MatCheckboxModule
   ]
 })
 export class StudentProfileModule { }

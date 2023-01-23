@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -31,6 +33,7 @@ export class StudentProfileComponent {
   lang!: string;
   subjectId = new FormControl();
   @ViewChild("chart") chart!: any;
+  @ViewChild('select') select: MatSelect | any;
   ChartOptions: any;
   globalObj: any;
   talukaArray: any;
@@ -41,7 +44,7 @@ export class StudentProfileComponent {
   loginData:any;
   getURLData:any;
   clearFlag:boolean=true;
-
+  allSelected:boolean=false;
 
   constructor(
     private webStorage: WebStorageService,
@@ -78,6 +81,7 @@ export class StudentProfileComponent {
     this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getEducationYear();
+    
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -169,8 +173,8 @@ export class StudentProfileComponent {
           schoolIds==0?(this.standardArray.forEach(ele=>{
             standIds.push(ele.id);
           })):'';
-          this.filterFrm.controls['standardId'].setValue(standIds);
-          (this.clearFlag==true && this.globalObj.staId!=0 && this.globalObj.staId!=undefined)?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData('filter'));
+          standIds.length!=0?(this.filterFrm.controls['standardId'].setValue(standIds),this.allSelected =true):this.allSelected =false;
+          (this.clearFlag==true && this.globalObj.staId!=0 && this.globalObj.staId!=undefined)?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData());
         }
         else {
           this.standardArray = [];
@@ -181,6 +185,24 @@ export class StudentProfileComponent {
         this.errorService.handelError(error.status);
       }
     })
+  }
+
+  allStandardSelect(){
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
+  singleStandard() {
+    let stdStatus = true;
+    this.select.options.forEach((item: MatOption) => {
+      if (!item.selected) {
+        stdStatus = false;
+      }
+    });
+    this.allSelected = stdStatus;
   }
 
   getAllSubject() {
@@ -248,11 +270,11 @@ export class StudentProfileComponent {
     this.filterFrm.reset();
     this.globalObj='';
     this.getformControl();
+    this.getTaluka();
+    this.getStandard();
     this.filterFrm.controls['subjId'].setValue(1);
     this.filterFrm.controls['yearId'].setValue(1);
     this.filterFrm.controls['assesmentId'].setValue(1);
-    this.getTaluka();
-    this.getStandard();
     // this.getAllStudentData('filter');
   }
   //#endregion -------------------------------------------dropdown with filter fn end heare------------------------------------------------//
@@ -284,7 +306,7 @@ export class StudentProfileComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          this.studentDataById(this.tableDataArray[0]);
+          this.tableDataArray.length!=0?this.studentDataById(this.tableDataArray[0]):'';
           this.tableDatasize = res.responseData.responseData2[0].pageCount;
           this.totalPages = res.responseData.responseData2[0].totalPages;
         } else {

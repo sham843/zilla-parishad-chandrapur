@@ -828,7 +828,7 @@ export class DashboardComponent {
     let obj:any = {
       kendraId: formValue.kendraId,
       schoolId: formValue.schoolId,
-      stuId:  lable == 'studentId'? id.sourceId : 0,//121
+      stuId:  lable == 'studentId'? 0 : 0,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
       examId:formValue.assesmentId,
