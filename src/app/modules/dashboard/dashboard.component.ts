@@ -816,7 +816,7 @@ export class DashboardComponent {
       if(formValue.schoolId == 0){
         str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
       }else{
-        str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+        str = sessionStorage.getItem('language') == 'English' ? 'School Name' : 'शाळेचे नाव';
       }
      
     }
