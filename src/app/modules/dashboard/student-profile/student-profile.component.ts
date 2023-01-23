@@ -418,10 +418,12 @@ export class StudentProfileComponent {
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
     });
+    seriesArray[1].data.unshift(0);
 
-    this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
+    this.chartData?.responseData4.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
     }); 
+    seriesArray[2].data.unshift(0);
     this.ChartOptions = {
       series: seriesArray,
       chart: {
