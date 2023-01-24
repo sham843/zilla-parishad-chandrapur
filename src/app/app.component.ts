@@ -25,6 +25,7 @@ export class AppComponent {
     this.webStorage.getTheme().subscribe((res: any) => {
       this.classname = res;
     })
+    
   }
 
 

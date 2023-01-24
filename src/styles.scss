@@ -3,7 +3,7 @@
 @import './assets/css/MaterialStyleSheet.scss';
 
 @include mat.core();
-$angular-primary: mat.define-palette(mat.$teal-palette, 500, 100, 900);
+$angular-primary: mat.define-palette(mat.$blue-palette, 500, 100, 900);
 $angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $angular-warn: mat.define-palette(mat.$red-palette);
 $angular-default-theme: mat.define-light-theme((color: (primary: $angular-primary,
@@ -36,6 +36,7 @@ body {
 :root {
   --main-color: rgb(67, 133, 255);
   --main-light-color: rgb(217, 231, 255);
+  // --main-dark-color: rgb(67, 133, 255);
   --main-dark-color: rgb(0, 66, 189);
   --third-color:rgb(9, 204, 194);
   --third-dark-color:rgb(2, 120, 114);
@@ -170,8 +171,9 @@ a.text-main,
 }
 
 .dashboard-table .highlightedrow {
-  background-color: var(--main-light-color) !important;
+  background-color: #eee !important;
   color: var(--main-color) !important;
+  cursor: pointer;
 }
 
 .dashboard-table .mat-column-docPath,
@@ -401,7 +403,7 @@ a.text-main,
   background-color: var(--main-light-color);
 }
 .mapsvg-scrollpane svg {
-  margin-top: -70px !important;
+  margin-top: -78px !important;
   // transform: scale(0.65) !important;
 }
 #mapsvg{
@@ -541,4 +543,11 @@ input::-ms-reveal { display: none; }
 .apexcharts-tooltip{
   font-size: 0.85rem !important;
   left: 20px !important;
+}
+.mat-mdc-row:nth-child(even){
+  background-color: rgba(0,0,0,.01);
+}
+
+#mapsvg svg {
+  transform: scale(0.699258) !important;
 }

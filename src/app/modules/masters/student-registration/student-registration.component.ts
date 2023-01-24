@@ -170,6 +170,7 @@ export class StudentRegistrationComponent {
           this.tableDatasize = res.responseData1?.pageCount;
           this.totalPages = res.responseData1.totalPages;
         } else {
+          this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           this.spinner.hide();
           this.tableDataArray = [];
           this.tableDatasize = 0;
@@ -178,7 +179,7 @@ export class StudentRegistrationComponent {
       },
       error: ((err: any) => {
         this.spinner.hide();
-        this.errorService.handelError(err)
+        this.errorService.handelError(err.status)
       })
     });
   }

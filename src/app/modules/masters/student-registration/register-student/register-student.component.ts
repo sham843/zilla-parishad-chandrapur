@@ -112,6 +112,7 @@ export class RegisterStudentComponent {
    if(!this.data){
     this.formDirective.resetForm();
     this.formData();
+    this.getEducationYear();
    this.editFlag = false;
    this.getDistrict();
    }

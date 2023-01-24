@@ -24,7 +24,8 @@ export class ApiService {
   
   getBaseurl(url: string) {
     switch (url) {     
-      case 'baseUrl': return 'https://zpchaservices.mahamining.com/'; break;
+      case 'baseUrl': return 'https://zpchaservices.mahamining.com/'; break; // developement
+      // case 'baseUrl': return 'https://zpchaservicesuat.mahamining.com/'; break; //live
       default: return ''; break;
     }
   }

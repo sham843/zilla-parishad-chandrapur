@@ -10,7 +10,7 @@
             </div>
         </mat-card-header>
         <mat-card-content class="card-body">
-
+          
 
             <div class="row gy-2">
                 <div class="col-sm-4">
@@ -73,10 +73,10 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div> 
+                </div>
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student.parent_contact_no'|translate}}</mat-label>
+                        <mat-label>{{'student.Parent Mobile Number'|translate}}</mat-label>
                         <input matInput formControlName="parentsMobileNo" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.noFirstSpaceAllow($event)" maxlength="10">
                         <mat-error *ngIf="f['parentsMobileNo']?.errors">
@@ -225,7 +225,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            
+
         </div>
         </mat-card-content>
         <mat-card-footer class="card-footer">

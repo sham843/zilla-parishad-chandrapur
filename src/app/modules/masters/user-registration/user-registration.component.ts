@@ -178,11 +178,11 @@ setTableData(){     // table
       width: '650px',
       disableClose: true,
       data:{
-        cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अद्यतनित करा':'वापरकर्ता जोडा'):(editObj?'Update User':'User Registration'),
+        cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अद्यतनित करा':'वापरकर्ता नोंदणी'):(editObj?'Update User':'User Registration'),
         obj:editObj,
         flag:editObj?'Update':'Add',
         successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
-        cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'पुसून टाका' : 'Clear'),
+        cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'रद्द करा' : 'Clear'),
       },
     })
     dialog.afterClosed().subscribe((res:any) => {

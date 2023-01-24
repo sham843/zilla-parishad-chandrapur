@@ -36,7 +36,10 @@ export class LoginComponent {
     this.translate.use(this.language)
     this.loginDefForm();
   }
-
+ngOnInit(){
+  let ele = document.getElementById('username');
+  ele?.focus();
+}
   //#region --------------------------------------------login form functionlity is started------------------------------------------------------//
   loginDefForm() {
     this.loginForm = this.fb.group(({

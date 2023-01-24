@@ -427,9 +427,10 @@ export class DashboardComponent {
       plotOptions: {
         columnWidth: 100,
         pie: {
+          customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'50px'
+            size:'30px'
           }
         }
       },
@@ -467,9 +468,10 @@ export class DashboardComponent {
       plotOptions: {
         columnWidth: 100,
         pie: {
+          customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'50px'
+            size:'30px'
           }
         }
       },
@@ -814,7 +816,7 @@ export class DashboardComponent {
       if(formValue.schoolId == 0){
         str =sessionStorage.getItem('language') == 'English' ? 'School' : 'शाळा';
       }else{
-        str = sessionStorage.getItem('language') == 'English' ? 'Student Name' : 'विद्यार्थ्याचे नाव';
+        str = sessionStorage.getItem('language') == 'English' ? 'School Name' : 'शाळेचे नाव';
       }
      
     }
@@ -826,7 +828,7 @@ export class DashboardComponent {
     let obj:any = {
       kendraId: formValue.kendraId,
       schoolId: formValue.schoolId,
-      stuId:  lable == 'studentId'? id.sourceId : 0,//121
+      stuId:  lable == 'studentId'? 0 : 0,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
       examId:formValue.assesmentId,
