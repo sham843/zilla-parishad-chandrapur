@@ -44,6 +44,7 @@
           <mat-form-field appearance="outline" class="w-100" [class.disabled]="disabledTaluka">
             <mat-label> {{'common.taluka'|translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('talukaId');getCenter()">
+              <mat-option [value]="0">All Taluka</mat-option>
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
               </mat-option>
             </mat-select>
@@ -56,6 +57,7 @@
             <mat-label>{{'common.kendra'|translate}}</mat-label>
             <mat-select [disabled]="true" formControlName="centerId"
               (selectionChange)="clearDropdown('centerId');getSchool()">
+              <mat-option [value]="0">All Kendra</mat-option>
               <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
               </mat-option>
             </mat-select>
@@ -67,6 +69,7 @@
           [class.disabled-contenct]="levelId == 5">
             <mat-label>{{'common.school'|translate}}</mat-label>
             <mat-select formControlName="schoolId">
+              <mat-option [value]="0">All School</mat-option>
               <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
               </mat-option>
             </mat-select>

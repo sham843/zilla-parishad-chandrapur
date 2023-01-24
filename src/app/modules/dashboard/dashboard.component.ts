@@ -827,7 +827,7 @@ export class DashboardComponent {
     let formValue =  this.topFilterForm.value;
     let obj:any = {
       kendraId: formValue.kendraId,
-      schoolId: formValue.schoolId,
+      schoolId: lable == 'studentId'?id.sourceId:formValue.schoolId,
       stuId:  lable == 'studentId'? 0 : 0,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,

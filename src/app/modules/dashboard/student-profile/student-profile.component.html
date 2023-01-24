@@ -94,7 +94,7 @@
                 </div> -->
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student.fullName'|translate}}/{{'student.saral_id'|translate}}</mat-label>
+                        <mat-label>{{'student.student_name'|translate}}/{{'student.saral_id'|translate}}</mat-label>
                         <input matInput formControlName="searchText">
                     </mat-form-field>
                 </div>
@@ -171,29 +171,7 @@
                                                 {{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-sm-4">
-                                                <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.teacherName}}</div>
-                                            </div> -->
                                     </div>
-                                    <!-- <div class="row mb-3 justify-content-between">
-                                            <div class="col-sm-4">
-                                                <span class="data-label">{{'student.gender'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}</div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span>
-                                                <span class="data-label"></span>
-                                                <div class="data-text">{{StudentDataArray?.parentSecMobileNo?StudentDataArray?.parentSecMobileNo:'-'}}</div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_email_id'|translate}}</span>
-                                                <span class="data-label"></span>
-                                                <div class="data-text">{{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}</div>
-                                            </div>
-                                        </div> -->
-
                                 </div>
                             </div>
                         </div>

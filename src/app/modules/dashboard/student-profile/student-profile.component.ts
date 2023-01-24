@@ -81,7 +81,6 @@ export class StudentProfileComponent {
     this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getEducationYear();
-    
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -409,7 +408,7 @@ export class StudentProfileComponent {
     proIndCat.reverse();
     proIndCat.unshift('');
 
-   this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
+    this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName);
     }); 
@@ -426,14 +425,14 @@ export class StudentProfileComponent {
       seriesArray[2].data.push(ele.marking);
       categoriesArray.push(ele.examName);
     }); 
-    seriesArray[2].data.unshift(0);
+    seriesArray[2].data.unshift(0); 
 
     this.ChartOptions = {
       series: seriesArray,
       chart: {
         height: 350,
         width:715,
-        type: "line",
+        type: "area",
         toolbar: {
           show: false
         },
