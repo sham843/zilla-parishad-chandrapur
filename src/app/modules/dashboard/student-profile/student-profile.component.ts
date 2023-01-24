@@ -296,7 +296,7 @@ export class StudentProfileComponent {
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = 1 + '&AssesmentId=' +(formData.assesmentId?formData.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
+    let obj = (formData.yearId?formData.yearId:0) + '&AssesmentId=' +(formData.assesmentId?formData.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
     + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData.subjId?formData.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
     +'&studentId='+(formData?.studentId?formData?.studentId:0)
     +'&assesmentparameterid='+(this.globalObj?.assesmentId?this.globalObj?.assesmentId:0)+'&userId='+(this.webStorage.getId())
@@ -427,7 +427,7 @@ export class StudentProfileComponent {
       categoriesArray.push(ele.examName)
     }); 
     seriesArray[2].data.unshift(0);
-    
+
     this.ChartOptions = {
       series: seriesArray,
       chart: {
@@ -437,6 +437,7 @@ export class StudentProfileComponent {
           show: false
         },
       },
+      
       dataLabels: {
         enabled: false
       },
@@ -467,7 +468,20 @@ export class StudentProfileComponent {
       fill: {
         opacity: 1
       },
-      tooltip :{
+      tooltip: {
+        shared: true,
+        intersect: false,
+        y: {
+          formatter: function (y:any) {
+            if (typeof y !== "undefined") {
+              return y.toFixed(0);
+            }
+            return y;
+      
+          }
+        }
+      },
+      /* tooltip :{
         custom: (value:any) =>{
           value  
            const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
@@ -480,8 +494,8 @@ export class StudentProfileComponent {
               "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
             "</div>"
           ); */
-        },
-      }
+       /*  },
+      }  */
     };
   }
 
