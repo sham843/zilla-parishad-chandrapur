@@ -76,7 +76,7 @@
                 </div> 
                 <div class="col-sm-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.mobile_number'|translate}}</mat-label>
+                        <mat-label>{{'student.parent_contact_no'|translate}}</mat-label>
                         <input matInput formControlName="parentsMobileNo" (keypress)="validation.onlyDigits($event)"
                             (keyup)="validation.noFirstSpaceAllow($event)" maxlength="10">
                         <mat-error *ngIf="f['parentsMobileNo']?.errors">
