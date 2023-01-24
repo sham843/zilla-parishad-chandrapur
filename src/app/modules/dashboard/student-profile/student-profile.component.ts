@@ -233,7 +233,7 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.educationYearArray = res.responseData;
           this.filterFrm.controls['yearId'].setValue(this.educationYearArray[0].id);
-          this.getAssessments();
+          // this.getAssessments();
         }
         else {
           this.educationYearArray = [];
@@ -322,6 +322,7 @@ export class StudentProfileComponent {
       })
     });
   }
+
   setTableData() {
     let displayedColumns;
     displayedColumns = this.lang == 'mr-IN' ? ['saralId', 'marathiFullName', 'standardId','colorcode'] : ['saralId', 'englishFullName', 'standardId','colorcode']
@@ -408,7 +409,7 @@ export class StudentProfileComponent {
     proIndCat.reverse();
     proIndCat.unshift('');
 
-    this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
+   this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
       categoriesArray.push(ele.examName)
     }); 
@@ -417,13 +418,19 @@ export class StudentProfileComponent {
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
+      categoriesArray.push(ele.examName)
     });
     seriesArray[1].data.unshift(0);
-
+ 
     this.chartData?.responseData4.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
+      categoriesArray.push(ele.examName)
     }); 
     seriesArray[2].data.unshift(0);
+    console.log("categoriesArray",categoriesArray);
+    
+    console.log("seriesArray 0 ",seriesArray[0],"seriesArray 1 ",seriesArray[1],"seriesArray 2 ",seriesArray[2]);
+    
     this.ChartOptions = {
       series: seriesArray,
       chart: {
