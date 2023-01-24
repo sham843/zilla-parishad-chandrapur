@@ -15,7 +15,7 @@
         "email": "ईमेल आयडी",
         "agency_name": "एनजीओचे इंग्रजी नाव",
         "Please_Select_District": "कृपया जिल्हा निवडा",
-        "Please_Select_Taluka": "तालुका निवडा",
+        "Please_Select_Taluka": "तालुका",
         "contact_number": "संपर्क क्रमांक",
         "please_enter_contact_number": "यूझरनेम",
         "please_enter_valid_contact_number":"कृपया वैध मोबाईल क्रमांक प्रविष्ट करा",
@@ -62,7 +62,7 @@
         "evaluated":"मूल्यांकन केले",
         "pending_assessment":"प्रलंबित मूल्यांकन"
     },
-    "student_profile": { 
+    "student_profile": {
         "profile":"प्रोफाइल ",
         "student_profile":"विद्यार्थी प्रोफाइल ",
         "progress_indicator": "प्रगती सूचक ",
@@ -118,7 +118,7 @@
         "please_enter_address": "कृपया पत्ता प्रविष्ट करा",
         "contact_number": "संपर्क क्रमांक",
         "please_enter_contact_number": "कृपया संपर्क क्रमांक प्रविष्ट करा",
-        "agency_registration": "एनजीओची मास्टर",
+        "agency_registration": "एनजीओ मास्टर",
         "Add_agency": "एनजीओ जोडा",
         "agency_marathi_name": "एनजीओ मराठी नाव",
         "agency_marathi_name_pattern": "कृपया वैध एनजीओ मराठी नाव प्रविष्ट करा",
