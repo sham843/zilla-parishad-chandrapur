@@ -163,6 +163,7 @@
         "select":"Select"
     },
     "student":{
+      "Parent Mobile Number":"Parent Mobile Number",
         "educationYear":"Education Year",
         "parent_name":"Parent Name",
         "search_by_saralid_name_mobileno":"Search by Saral ID/Name/Contact No ",
