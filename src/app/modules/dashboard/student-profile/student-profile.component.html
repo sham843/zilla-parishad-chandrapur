@@ -72,7 +72,7 @@
                <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
-                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);assesmentChartData()">
+                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);this.globalObj.assesmentId=0;assesmentChartData()">
                             <mat-option
                                 *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
                         </mat-select>

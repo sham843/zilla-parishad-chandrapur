@@ -427,9 +427,6 @@ export class StudentProfileComponent {
       categoriesArray.push(ele.examName)
     }); 
     seriesArray[2].data.unshift(0);
-    console.log("categoriesArray",categoriesArray);
-    
-    console.log("seriesArray 0 ",seriesArray[0],"seriesArray 1 ",seriesArray[1],"seriesArray 2 ",seriesArray[2]);
     
     this.ChartOptions = {
       series: seriesArray,

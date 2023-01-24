@@ -53,7 +53,6 @@ export class StudentRegistrationComponent {
       this.setTableData();
     })
     this.loginData = this.webStorage.getLoginData();
-    console.log(this.loginData);
     this.levelId = this.loginData.designationLevelId;
     this.formData();
     this.levelId == 1 || this.levelId == 2 ? this.getTableData() : ''; // temp
