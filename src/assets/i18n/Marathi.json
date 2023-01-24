@@ -160,7 +160,7 @@
         "page_url": "पृष्ठ Url",
         "select": "निवडा"
     },
-    "student": {
+    "student": { 
         "educationYear":"शैक्षणिक वर्ष",
         "parent_name":"वडिलांचे नाव",
         "search_by_saralid_name_mobileno": "सरलआयडी/नाव/मोबाइल नंबर द्वारे शोधा",
