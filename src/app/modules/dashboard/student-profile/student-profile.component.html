@@ -38,7 +38,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId || filterFrm.value.kendraId==0 || this.levelId == 5">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId" (selectionChange)="getStandard();clearDropdown('school')">
@@ -53,22 +53,14 @@
                         <mat-label>{{'student.select_standard'|translate}}</mat-label>
                         <mat-select #select formControlName="standardId" multiple>
                             <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                        (change)="allStandardSelect()">Select All</mat-checkbox>
+                        (change)="allStandardSelect()">All Standard</mat-checkbox>
                             <mat-option *ngFor="let standard of standardArray" [value]="standard.id" (click)="singleStandard()">
                                 {{standard.standard}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
-                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);assesmentChartData()">
-                            <mat-option
-                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'dashboard.edu_year' | translate}}</mat-label>
@@ -77,14 +69,23 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
+               <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
+                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);assesmentChartData()">
+                            <mat-option
+                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.examId' |translate}}</mat-label>
                         <mat-select formControlName="assesmentId">
                             <mat-option *ngFor="let ssessments of assessmentsArray" [value]="ssessments.id">{{ssessments.examName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
+                </div> -->
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.fullName'|translate}}</mat-label>

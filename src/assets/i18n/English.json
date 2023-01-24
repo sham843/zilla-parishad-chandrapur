@@ -163,6 +163,7 @@
         "select":"Select"
     },
     "student":{
+      "Parent Mobile Number":"Parent Mobile Number",
         "educationYear":"Education Year",
         "parent_name":"Parent Name",
         "search_by_saralid_name_mobileno":"Search by Saral ID/Name/Contact No ",
@@ -193,7 +194,7 @@
     "student_list":"Student Master",
     "register_student":"Student Registration",
     "add_student":"Add Student",
-    "fullName":"Full Name",
+    "fullName":"Student Name",
     "district_is_required":"District Is Required",
     "first_name":"First Name",
     "middle_name":"Middle Name",
