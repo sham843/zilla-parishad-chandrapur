@@ -70,7 +70,7 @@ export class RegisterSchoolComponent {
       talukaId: [obj?.talukaId || (this.levelId == 1 || this.levelId == 2 ? '' : this.loginData.talukaId), [Validators.required]],
       centerId: [obj?.centerId || (this.levelId == 1 || this.levelId == 2 ? '' : this.loginData.centerId),[Validators.required]],
       s_CategoryId: [obj?.s_CategoryId || '', Validators.required],
-      s_TypeId: [obj?.s_TypeId || ''],
+      s_TypeId: [obj?.s_TypeId || '',Validators.required],
       g_GenderId: [obj?.g_GenderId || ''],
       classFrom: [obj?.classFrom || '', Validators.required],
       classTo: [obj?.classTo || '', Validators.required],

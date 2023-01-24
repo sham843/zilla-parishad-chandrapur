@@ -60,20 +60,21 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
-                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);assesmentChartData()">
-                            <mat-option
-                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'dashboard.edu_year' | translate}}</mat-label>
                         <mat-select formControlName="yearId">
                             <mat-option *ngFor="let year of  educationYearArray" [value]="year.id">{{year.year}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
+                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);assesmentChartData()">
+                            <mat-option
+                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -108,7 +109,7 @@
                <div class="col-sm-7">
                 <ng-container *ngIf="StudentDataArray?.length != 0 && tableDataArray?.length != 0">
                         <div class="student-bg">
-                            <h5 class="text-primary fw-bold">{{'student_profile.profile'|translate}}</h5>
+                            <!-- <h5 class="text-primary fw-bold"></h5> -->
                         </div>
                         <div class="student-details">
                             <div class="d-flex">
@@ -117,7 +118,12 @@
                                         alt="Student Photo">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h5 class="fw-bold mb-5">{{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}</h5>
+                                    <div class="">
+                                    <h5 class="fw-bold">{{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}
+                                    </h5>
+                                      <!-- <span class="data-label">{{'student.gender'|translate}}</span> -->
+                                    <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}</div>
+                                </div>
                                     <!-- <p class="text-muted mb-4">{{'common.name'|translate}}</p> -->
 
                                     <div class="data-container">
@@ -126,45 +132,52 @@
                                                 <span class="data-label">{{'student.parent_name'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.parentName}}</div>
                                             </div> -->
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 mt-5">
                                                 <span class="data-label">{{'common.mobile_number'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.parentsMobileNo?StudentDataArray?.parentsMobileNo:'-'}}</div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 mt-5">
                                                 <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 mt-5">
                                                 <span class="data-label">{{'student.standard'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.standard?StudentDataArray?.standard:'-'}}</div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3 justify-content-between">
-                                            <div class="col-sm-12">
+                                        <div class="row mb-4">
+                                            <div class="col-sm-4">
                                                 <span class="data-label">{{'common.school_name'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.schoolName?StudentDataArray?.schoolName:'-'}}</div>
                                             </div>
+
+                                                <div class="col-sm-4">
+                                                    <span class="data-label">{{'student.parent_email_id'|translate}}</span>
+                                                    <!-- <span class="data-label"></span> -->
+                                                    <div class="data-text">{{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}</div>
+                                                </div>
+
                                             <!-- <div class="col-sm-4">
                                                 <span class="data-label">{{'student_profile.class_teacher'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.teacherName}}</div>
                                             </div> -->
                                         </div>
-                                        <div class="row mb-3 justify-content-between">
+                                        <!-- <div class="row mb-3 justify-content-between">
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'student.gender'|translate}}</span>
                                                 <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}</div>
                                             </div>
-                                            <!-- <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span> -->
-                                                <!-- <span class="data-label"></span> -->
-                                                <!-- <div class="data-text">{{StudentDataArray?.parentSecMobileNo?StudentDataArray?.parentSecMobileNo:'-'}}</div>
-                                            </div> -->
+                                            <div class="col-sm-4">
+                                                <span class="data-label">{{'student.parent_second_mobile'|translate}}</span>
+                                                <span class="data-label"></span>
+                                                <div class="data-text">{{StudentDataArray?.parentSecMobileNo?StudentDataArray?.parentSecMobileNo:'-'}}</div>
+                                            </div>
                                             <div class="col-sm-4">
                                                 <span class="data-label">{{'student.parent_email_id'|translate}}</span>
-                                                <!-- <span class="data-label"></span> -->
+                                                <span class="data-label"></span>
                                                 <div class="data-text">{{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}</div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
