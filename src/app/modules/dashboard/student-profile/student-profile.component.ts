@@ -170,9 +170,9 @@ export class StudentProfileComponent {
         if (res.statusCode == "200") {
           this.standardArray = res.responseData;
           let standIds:any=[];
-          schoolIds==0?(this.standardArray.forEach(ele=>{
+          this.standardArray.forEach(ele=>{
             standIds.push(ele.id);
-          })):'';
+          });
           standIds.length!=0?(this.filterFrm.controls['standardId'].setValue(standIds),this.allSelected =true):this.allSelected =false;
           (this.clearFlag==true && this.globalObj.staId!=0 && this.globalObj.staId!=undefined)?(this.filterFrm.controls['standardId'].setValue(this.globalObj.staId),this.getAllStudentData()):(this.filterFrm.controls['standardId'].setValue(standIds),this.getAllStudentData());
         }
@@ -411,20 +411,20 @@ export class StudentProfileComponent {
 
    this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
-      categoriesArray.push(ele.examName)
+      categoriesArray.push(ele.examName);
     }); 
     seriesArray[0].data.unshift(0);
     categoriesArray.unshift('');
 
     this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
-      categoriesArray.push(ele.examName)
+      categoriesArray.push(ele.examName);
     });
     seriesArray[1].data.unshift(0);
  
     this.chartData?.responseData4.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
-      categoriesArray.push(ele.examName)
+      categoriesArray.push(ele.examName);
     }); 
     seriesArray[2].data.unshift(0);
 
@@ -432,12 +432,12 @@ export class StudentProfileComponent {
       series: seriesArray,
       chart: {
         height: 350,
+        width:730,
         type: "line",
         toolbar: {
           show: false
         },
       },
-      
       dataLabels: {
         enabled: false
       },
@@ -480,22 +480,7 @@ export class StudentProfileComponent {
       
           }
         }
-      },
-      /* tooltip :{
-        custom: (value:any) =>{
-          value  
-           const subjectName = this.subjectArray.find(element =>element.id == this.subjectId.value);
-          //  const stageName = this.chartData?.responseData1.find((element:any) => console.log(element));
-          return ('<div class="arrow_box" style="padding:10px;">' +
-              "<div>" +subjectName.subject+"</div>" +
-            "</div>"
-          );
-         /*  return ('<div class="arrow_box" style="padding:10px;">' +
-              "<div>" +subjectName.subject+ " : <b> " + + '</b>' + "</div>" +
-            "</div>"
-          ); */
-       /*  },
-      }  */
+      }
     };
   }
 
