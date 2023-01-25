@@ -407,7 +407,7 @@ export class StudentProfileComponent {
         data: [],
       }
     ];
-    this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare
+    this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare 
       proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
@@ -451,7 +451,7 @@ export class StudentProfileComponent {
       xaxis: {
       type: "level",
       categories:categoriesArray,
-      parameters:categoriesArray
+      parameters:this.chartData?.responseData1[0].subjectId
       },
       yaxis: {
         max:5,
@@ -484,9 +484,10 @@ export class StudentProfileComponent {
           console.log(w.config);
           
           return (
+
             '<div class="arrow_box" style="padding:10px;">' +
-              "<div>" + w.config.yaxis[seriesIndex]['parameters'][data]+ '</b>' + "</div>" +
-            "</div>"
+            "<div>" + w.config.xaxis.parameters+ " : <b> " + w.config.yaxis[seriesIndex]['parameters'][data]+ '</b>' + "</div>" +
+          "</div>"
           );
         },
         } 
