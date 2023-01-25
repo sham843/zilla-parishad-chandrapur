@@ -302,15 +302,17 @@ export class StudentProfileComponent {
      '&subjectId=' + (formData.subjId?formData.subjId:0) + '&lan=' + 1 + '&searchtext=' + (formData?.searchText)
         +'&typeId='+(formData?.typeId?formData?.typeId:4)
         +'&assesmentparameterid='+(this.globalObj?.assesmentId?this.globalObj?.assesmentId:0)+'&userId='+(this.webStorage.getId())
-    this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
+        this.apiService.setHttp('GET', 'Getstudentprofilelist_V_1?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
+          console.log(res.responseData.responseData2.pageCount);
+          
           this.tableDataArray.length!=0?this.studentDataById(this.tableDataArray[0]):'';
-          this.tableDatasize = res.responseData.responseData2[0].pageCount;
-          this.totalPages = res.responseData.responseData2[0].totalPages;
+          this.tableDatasize = res.responseData.responseData2.pageCount;
+          this.totalPages = res.responseData.responseData2.totalPages;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
