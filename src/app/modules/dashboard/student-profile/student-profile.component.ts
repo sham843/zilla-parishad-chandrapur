@@ -441,6 +441,9 @@ export class StudentProfileComponent {
         toolbar: {
           show: false
         },
+        zoom: {
+          enabled: false,
+        },
       },
       dataLabels: {
         enabled: false
@@ -466,9 +469,6 @@ export class StudentProfileComponent {
           return  val
           },
         },
-      },
-      zoom: {
-        enabled: false,
       },
       legend: {
         position: "top",
