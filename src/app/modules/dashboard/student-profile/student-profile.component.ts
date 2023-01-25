@@ -45,6 +45,7 @@ export class StudentProfileComponent {
   getURLData:any;
   clearFlag:boolean=true;
   allSelected:boolean=false;
+  tooltipSub:any;
 
   constructor(
     private webStorage: WebStorageService,
@@ -308,8 +309,6 @@ export class StudentProfileComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
-          console.log(res.responseData.responseData2.pageCount);
-          
           this.tableDataArray.length!=0?this.studentDataById(this.tableDataArray[0]):'';
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.totalPages = res.responseData.responseData2.totalPages;
@@ -377,6 +376,7 @@ export class StudentProfileComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.chartData=res.responseData;
+         this.tooltipSub=this.chartData?.responseData1[0].subjectId==1?'Bhasha':this.chartData?.responseData1[0].subjectId==2?'Maths':'English'
           this.getStudentProChart();
         }
         else {
@@ -451,7 +451,7 @@ export class StudentProfileComponent {
       xaxis: {
       type: "level",
       categories:categoriesArray,
-      parameters:this.chartData?.responseData1[0].subjectId
+      parameters:this.tooltipSub
       },
       yaxis: {
         max:5,
