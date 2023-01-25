@@ -281,7 +281,7 @@
                                 {{element?.textValue}}
                             </ng-container>
                             <ng-template #elseBlock>
-                                <a (click)="redToStuProfile('studentId',element)" class="text-main">{{element?.textValue}}</a>
+                                <a (click)="redToStuProfile(setName(assLabelName),element)" class="text-main">{{element?.textValue}}</a>
                                 <span class="badge badge-primary ms-3" [style.background-color]="element.assementDetailsForStudent ? element.assementDetailsForStudent?.colorCodeValue : ''">{{element.assementDetailsForStudent ? element.assementDetailsForStudent?.assessmentParamenterName : ''}}</span>
                             </ng-template>  
                         </td>
