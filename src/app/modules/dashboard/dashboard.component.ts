@@ -827,14 +827,14 @@ export class DashboardComponent {
     let formValue =  this.topFilterForm.value;
     let obj:any = {
       kendraId: formValue.kendraId,
-      schoolId: lable == 'studentId'?id.sourceId:formValue.schoolId,
-      stuId:  lable == 'studentId'? 0 : 0,//121
+      schoolId: lable != 'subject'?id.sourceId:formValue.schoolId,
+      typeId:lable=='subject'? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
       yearId:formValue.yearId,
       talukaId:formValue.talukaId,
       examId:formValue.assesmentId,
       assesmentId:assessmentId,
-      subjectId: lable == 'studentId'? 0 : id,
-      staId:lable == 'studentId'?[id.standardId]:this.selStdArray
+      subjectId: lable != 'subject'? 0 : id,
+      staId:lable != 'subject'?[id.standardId]:this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
   }

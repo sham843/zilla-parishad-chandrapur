@@ -1,7 +1,5 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <!-- <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
-        <li class="breadcrumb-item" aria-current="page">{{'student.student_registration'|translate}}</li> -->
         <li class="breadcrumb-item active" aria-current="page">{{'student_profile.student_profile'|translate}}</li>
     </ol>
 </nav>
@@ -84,14 +82,6 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <!-- <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.examId' |translate}}</mat-label>
-                        <mat-select formControlName="assesmentId">
-                            <mat-option *ngFor="let ssessments of assessmentsArray" [value]="ssessments.id">{{ssessments.examName}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div> -->
                 <div class="col-sm-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.student_name'|translate}}/{{'student.saral_id'|translate}}</mat-label>
@@ -115,7 +105,6 @@
             <div class="col-sm-7">
                 <ng-container *ngIf="StudentDataArray?.length != 0 && tableDataArray?.length != 0">
                     <div class="student-bg">
-                        <!-- <h5 class="text-primary fw-bold"></h5> -->
                     </div>
                     <div class="student-details">
                         <div class="d-flex">
@@ -128,18 +117,12 @@
                                     <h5 class="fw-bold">
                                         {{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}
                                     </h5>
-                                    <!-- <span class="data-label">{{'student.gender'|translate}}</span> -->
                                     <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}
                                     </div>
                                 </div>
-                                <!-- <p class="text-muted mb-4">{{'common.name'|translate}}</p> -->
 
                                 <div class="data-container">
                                     <div class="row mb-3 justify-content-between">
-                                        <!--  <div class="col-sm-4">
-                                                <span class="data-label">{{'student.parent_name'|translate}}</span>
-                                                <div class="data-text">{{StudentDataArray?.parentName}}</div>
-                                            </div> -->
                                         <div class="col-sm-4 mt-5">
                                             <span class="data-label">{{'common.mobile_number'|translate}}</span>
                                             <div class="data-text">
@@ -166,7 +149,6 @@
 
                                         <div class="col-sm-4">
                                             <span class="data-label">{{'student.parent_email_id'|translate}}</span>
-                                            <!-- <span class="data-label"></span> -->
                                             <div class="data-text">
                                                 {{StudentDataArray?.parentEmailId?StudentDataArray?.parentEmailId:'-'}}
                                             </div>

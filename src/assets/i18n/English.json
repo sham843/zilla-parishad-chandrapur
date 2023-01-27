@@ -152,7 +152,8 @@
         "verify_otp":"Verify OTP",
         "Enter_new_password":"New Password",
         "Enter_new_confirm":"Confirm Password",
-        "reset_password":"Reset Password"
+        "reset_password":"Reset Password",
+        "back_to_login":"Back to Login"
     },
     "page_right_access":{
         "settings":"Settings",

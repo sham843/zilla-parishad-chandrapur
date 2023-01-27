@@ -45,6 +45,7 @@ export class StudentProfileComponent {
   getURLData:any;
   clearFlag:boolean=true;
   allSelected:boolean=false;
+  tooltipSub:any;
 
   constructor(
     private webStorage: WebStorageService,
@@ -81,6 +82,7 @@ export class StudentProfileComponent {
     this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getEducationYear();
+    console.log("this.globalObj",this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -94,7 +96,7 @@ export class StudentProfileComponent {
       subjId:[this.globalObj.subjectId],
       yearId:[this.globalObj.yearId],
       assesmentId:[this.globalObj.examId], 
-      studentId:[this.globalObj.stuId],
+      typeId:[this.globalObj.typeId?this.globalObj.typeId:4],
       flag: [this.language = this.apiService.translateLang ? this.language : 'en'],
     });
     this.clearFlag==false?this.filterFrm.value.standardId=[]:this.globalObj.staId;
@@ -295,19 +297,21 @@ export class StudentProfileComponent {
     flag == 'filter' ? this.pageNumber = 1 : '';
     let formData = this.filterFrm.value;
     let str = `&nopage=${this.pageNumber}`
-    let obj = (formData.yearId?formData.yearId:0) + '&AssesmentId=' +(formData.assesmentId?formData.assesmentId:0)+ '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
-    + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+ '&subjectId=' + (formData.subjId?formData.subjId:0) + '&lan=' + 1 + '&searchText=' + (formData?.searchText)
-    +'&studentId='+(formData?.studentId?formData?.studentId:0)
-    +'&assesmentparameterid='+(this.globalObj?.assesmentId?this.globalObj?.assesmentId:0)+'&userId='+(this.webStorage.getId())
-    this.apiService.setHttp('GET', 'Getstudentprofilelist?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
+    let obj = (formData.yearId?formData.yearId:0) + '&AssesmentId=' +(formData.assesmentId?formData.assesmentId:0)+ 
+    '&Districtid=' + 1 + '&TalukaId=' + (formData?.talukaId?formData?.talukaId:0) + '&CenterId=' + (formData?.kendraId?formData?.kendraId:0)
+        + '&SchoolId=' + (formData?.schoolId?formData?.schoolId:0) + '&Standardid=' + (formData?.standardId?formData?.standardId:0)+
+     '&subjectId=' + (formData.subjId?formData.subjId:0) + '&lan=' + 1 + '&searchtext=' + (formData?.searchText)
+        +'&typeId='+(formData?.typeId?formData?.typeId:4)
+        +'&assesmentparameterid='+(this.globalObj?.assesmentId?this.globalObj?.assesmentId:0)+'&userId='+(this.webStorage.getId())
+        this.apiService.setHttp('GET', 'Getstudentprofilelist_V_1?EducationYearid=' + obj + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDataArray.length!=0?this.studentDataById(this.tableDataArray[0]):'';
-          this.tableDatasize = res.responseData.responseData2[0].pageCount;
-          this.totalPages = res.responseData.responseData2[0].totalPages;
+          this.tableDatasize = res.responseData.responseData2.pageCount;
+          this.totalPages = res.responseData.responseData2.totalPages;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -372,6 +376,7 @@ export class StudentProfileComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.chartData=res.responseData;
+         this.tooltipSub=this.chartData?.responseData1[0].subjectId==1?'Bhasha':this.chartData?.responseData1[0].subjectId==2?'Maths':'English'
           this.getStudentProChart();
         }
         else {
@@ -402,7 +407,7 @@ export class StudentProfileComponent {
         data: [],
       }
     ];
-    this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare
+    this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare 
       proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
@@ -436,6 +441,9 @@ export class StudentProfileComponent {
         toolbar: {
           show: false
         },
+        zoom: {
+          enabled: false,
+        },
       },
       dataLabels: {
         enabled: false
@@ -445,13 +453,15 @@ export class StudentProfileComponent {
       },
       xaxis: {
       type: "level",
-      categories:categoriesArray
+      categories:categoriesArray,
+      parameters:this.tooltipSub
       },
       yaxis: {
         max:5,
         tickAmount:5,
         range:1,
         min:0,
+        parameters:proIndCat,
         labels: {
           minWidth: 100,
           formatter: (_value:any, i:any)=> {
@@ -467,7 +477,23 @@ export class StudentProfileComponent {
       fill: {
         opacity: 1
       },
-      tooltip: {
+       tooltip: {
+        custom: function({ series, seriesIndex, dataPointIndex, w }: any) { 
+          console.log(series)
+          var data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
+          console.log(w.config);
+          
+          return (
+
+            '<div class="arrow_box" style="padding:10px;">' +
+            "<div>" + w.config.xaxis.parameters+ " : <b> " + w.config.yaxis[seriesIndex]['parameters'][data]+ '</b>' + "</div>" +
+          "</div>"
+          );
+        },
+        } 
+      
+    /*  + w.config.xaxis.parameters[1]+ " :
+     tooltip: {
         shared: true,
         intersect: false,
         y: {
@@ -479,7 +505,7 @@ export class StudentProfileComponent {
       
           }
         }
-      }
+      }  */
     };
   }
 

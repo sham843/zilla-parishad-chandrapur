@@ -127,7 +127,7 @@
         "please_enter_valid_agency_name":"कृपया वैध एजन्सी इंग्रजी नाव प्रविष्ट करा",
         "please_enter_maximum 50 digit_registration_number":"कृपया कमाल ५० अंकी नोंदणी क्रमांक प्रविष्ट करा"
     },
-    "login": {
+    "login": {  
         "captcha":"कॅप्चा",
         "officer_login": "अधिकारी लॉगिन",
         "school_login": "शाळा लॉगिन",
@@ -145,6 +145,7 @@
         "captcha_required":"कॅप्चा आवश्यक आहे",
         "forgot_password":"पासवर्ड विसरलात",
         "reset_password":"पासवर्ड रीसेट करा",
+        "back_to_login":"लॉगिन वर परत जा",
         "password_format":"त्यात किमान एक संख्या असलेले 8 किंवा अधिक वर्ण आणि एक विशेष वर्ण आणि एक अपरकेस आणि लोअरकेस अक्षरे असणे आवश्यक आहे",
         "password_pattern":"कृपया वैध पासवर्ड प्रविष्ट करा",
         "enter_otp":"ओटीपी प्रवीष्टा टाका",
