@@ -436,7 +436,6 @@ export class StudentProfileComponent {
       series: seriesArray,
       chart: {
         height: 350,
-        width:715,
         type: "area",
         toolbar: {
           show: false
@@ -470,6 +469,19 @@ export class StudentProfileComponent {
           },
         },
       },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              show: false, // not able to hide chart legends
+            },
+          },
+        },
+      ],
       legend: {
         position: "top",
         offsetY: 20,
@@ -492,20 +504,6 @@ export class StudentProfileComponent {
         },
         } 
       
-    /*  + w.config.xaxis.parameters[1]+ " :
-     tooltip: {
-        shared: true,
-        intersect: false,
-        y: {
-          formatter: function (y:any) {
-            if (typeof y !== "undefined") {
-              return y.toFixed(0);
-            }
-            return y;
-      
-          }
-        }
-      }  */
     };
   }
 

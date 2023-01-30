@@ -69,7 +69,6 @@ export class RegisterUsersComponent {
     this.getUserForm();
     this.getUserType();
     this.getDistrict();
- 
    this.filterSchoolArr = this.userRegistrationForm.get('schoolId').valueChanges.pipe(
     startWith(''),
     map((ele:any) => (ele ? this.filterInDropdown(ele,this.schoolArr) : this.schoolArr.slice())),
@@ -153,7 +152,7 @@ export class RegisterUsersComponent {
 }
 
   getDesignation(levelId:any) {  //get user designation
-    this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl');
+    levelId?this.apiService.setHttp('GET', 'designation/get-set-designation-types?designationLevelId='+levelId+'&flag='+(this.apiService.translateLang?this.lang:'en'), false, false, false, 'baseUrl'):'';
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
       if(res.statusCode == "200"){
