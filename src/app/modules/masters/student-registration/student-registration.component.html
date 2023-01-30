@@ -1,15 +1,15 @@
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
-    <li class="breadcrumb-item active" aria-current="page">{{'student.student_registration'|translate}}</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">{{'common.masters'|translate}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{'student.student_registration'|translate}}</li>
+    </ol>
 </nav>
 <mat-card class="plain-card">
-  <mat-card-header class="card-header">
-    <div class="d-flex justify-content-between align-items-center w-100">
-      <h6 class="text-main mb-0 fw-bold">{{'student.student_list'|translate}}</h6>
-      <div class="d-flex align-items-center gap-2">
-        <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h6 class="text-main mb-0 fw-bold">{{'student.student_list'|translate}}</h6>
+            <div class="d-flex align-items-center gap-2">
+                <!-- <button mat-flat-button class="btn-third btn-icon" title="Table View">
           <mat-icon>
             table_view
           </mat-icon>
@@ -20,79 +20,81 @@
             grid_view
           </mat-icon>
         </button> -->
-          <button mat-flat-button class="bg-danger btn-icon text-white" matTooltip="{{'common.download_excel' | translate}}"
-            (click)="excelDownload()" [disabled]="!tableDataArray.length">
-            <mat-icon>
-              description
-            </mat-icon>
-          </button>
-        <button mat-flat-button class="btn-main" (click)="registerStudent()">
-          <mat-icon>add</mat-icon>
-          <span>
-            {{'student.add_student'|translate}}
-          </span>
-        </button>
-      </div>
-    </div>
-  </mat-card-header>
-  <form [formGroup]="filterFrm" #formDirective="ngForm">
-    <mat-card-header class="card-header pb-0 border-bottom-0">
-
-      <div class="row w-100 gx-2">
-
-        <div class="col-sm-2">
-          <mat-form-field appearance="outline" class="w-100" [class.disabled]="disabledTaluka">
-            <mat-label> {{'common.taluka'|translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('talukaId');getCenter()">
-              <mat-option [value]="0">All Taluka</mat-option>
-              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+                <button mat-flat-button class="bg-danger btn-icon text-white"
+                    matTooltip="{{'common.download_excel' | translate}}" (click)="excelDownload()"
+                    [disabled]="!tableDataArray.length">
+                    <mat-icon>
+                        description
+                    </mat-icon>
+                </button>
+                <button mat-flat-button class="btn-main" (click)="registerStudent()">
+                    <mat-icon>add</mat-icon>
+                    <span>
+                        {{'student.add_student'|translate}}
+                    </span>
+                </button>
+            </div>
         </div>
-
-        <div class="col-sm-2">
-          <mat-form-field appearance="outline" class="w-100"
-          [class.disabled-contenct]="(levelId==4 || levelId==5)">
-            <mat-label>{{'common.kendra'|translate}}</mat-label>
-            <mat-select [disabled]="true" formControlName="centerId"
-              (selectionChange)="clearDropdown('centerId');getSchool()">
-              <mat-option [value]="0">All Kendra</mat-option>
-              <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col-sm-2">
-          <mat-form-field appearance="outline" class="w-100"
-          [class.disabled-contenct]="levelId == 5">
-            <mat-label>{{'common.school'|translate}}</mat-label>
-            <mat-select formControlName="schoolId">
-              <mat-option [value]="0">All School</mat-option>
-              <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-
-        <div class="col-sm-3">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'student.search_by_saralid_name_mobileno'|translate}}</mat-label>
-            <input matInput formControlName="searchText">
-          </mat-form-field>
-        </div>
-        <div class="col-sm-auto">
-          <button (click)="getTableData('filter')" type="submit" mat-flat-button
-            class="btn-main me-2">{{'common.filter'|translate}}</button>
-          <button mat-flat-button class="btn-second" (click)="clearForm()">{{'common.clear'|translate}}</button>
-        </div>
-      </div>
-
     </mat-card-header>
-  </form>
-  <mat-card-content class="card-body">
-    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
-  </mat-card-content>
+    <form [formGroup]="filterFrm" #formDirective="ngForm">
+        <mat-card-header class="card-header pb-0 border-bottom-0">
+
+            <div class="row w-100 gx-2">
+
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled]="disabledTaluka">
+                        <mat-label> {{'common.taluka'|translate}}</mat-label>
+                        <mat-select formControlName="talukaId"
+                            (selectionChange)="clearDropdown('talukaId');getCenter()">
+                            <mat-option [value]="0">All Taluka</mat-option>
+                            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100"
+                        [class.disabled-contenct]="(levelId==4 || levelId==5)">
+                        <mat-label>{{'common.kendra'|translate}}</mat-label>
+                        <mat-select [disabled]="true" formControlName="centerId"
+                            (selectionChange)="clearDropdown('centerId');getSchool()">
+                            <mat-option [value]="0">All Kendra</mat-option>
+                            <mat-option *ngFor="let center of centerArray" [value]="center.id">{{center.center}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100" [class.disabled-contenct]="levelId == 5">
+                        <mat-label>{{'common.school'|translate}}</mat-label>
+                        <mat-select formControlName="schoolId">
+                            <mat-option [value]="0">All School</mat-option>
+                            <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'student.search_by_saralid_name_mobileno'|translate}}</mat-label>
+                        <input matInput formControlName="searchText">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-auto">
+                    <button (click)="getTableData('filter')" type="submit" mat-flat-button
+                        class="btn-main me-2">{{'common.filter'|translate}}</button>
+                    <button mat-flat-button class="btn-second"
+                        (click)="clearForm()">{{'common.clear'|translate}}</button>
+                </div>
+            </div>
+
+        </mat-card-header>
+    </form>
+    <mat-card-content class="card-body">
+        <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+    </mat-card-content>
 </mat-card>
