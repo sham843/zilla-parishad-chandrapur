@@ -109,6 +109,7 @@ export class DashboardComponent {
   }
 
   clearFilterForm(flag: string) {
+    this.pageNumber = 1;
     if (flag == 'year') {
       this.topFilterForm.controls['talukaId'].setValue(0);
       this.topFilterForm.controls['kendraId'].setValue(0);
