@@ -82,7 +82,6 @@ export class StudentProfileComponent {
     this.globalObj.schoolId==0?this.getStandard():'';
     this.getAllSubject();
     this.getEducationYear();
-    console.log("this.globalObj",this.globalObj);
   }
 
   //#region  --------------------------------------------dropdown with filter fn start heare------------------------------------------------//
@@ -444,9 +443,12 @@ export class StudentProfileComponent {
           enabled: false,
         },
       },
-      dataLabels: {
-        enabled: false
+       dataLabels: {
+        enabled: false, 
+        colors:['#008ffb', '#feb019', '#00e396']
       },
+      colors:['#008ffb', '#feb019', '#00e396'],
+
       stroke: {
         curve: "smooth"
       },
@@ -490,13 +492,10 @@ export class StudentProfileComponent {
         opacity: 1
       },
        tooltip: {
-        custom: function({ series, seriesIndex, dataPointIndex, w }: any) { 
-          console.log(series)
+        custom: function({seriesIndex, dataPointIndex, w }: any) { 
           var data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
-          console.log(w.config);
           
           return (
-
             '<div class="arrow_box" style="padding:10px;">' +
             "<div>" + w.config.xaxis.parameters+ " : <b> " + w.config.yaxis[seriesIndex]['parameters'][data]+ '</b>' + "</div>" +
           "</div>"
