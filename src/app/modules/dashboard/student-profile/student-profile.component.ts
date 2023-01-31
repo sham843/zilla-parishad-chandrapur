@@ -398,7 +398,7 @@ export class StudentProfileComponent {
         data: [],
       },
       {
-        name: "First",
+        name: "NGO",
         data: [],
       },
       {
@@ -417,19 +417,27 @@ export class StudentProfileComponent {
       categoriesArray.push(ele.examName);
     }); 
     seriesArray[0].data.unshift(0);
-    categoriesArray.unshift('');
 
-    this.chartData?.responseData3.find((ele:any) => { // for pratham res data 2
+    this.chartData?.responseData4.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
-      categoriesArray.push(ele.examName);
+      categoriesArray.forEach(ele1=>{
+        if(ele.examName!=ele1){
+          categoriesArray.push(ele.examName);
+        }
+      })
     });
     seriesArray[1].data.unshift(0);
  
-    this.chartData?.responseData4.find((ele:any) => { // for kendra res data 2
+    this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
-      categoriesArray.push(ele.examName);
+      categoriesArray.forEach(ele1=>{
+        if(ele.examName!=ele1){
+          categoriesArray.push(ele.examName);
+        }
+      })
     }); 
     seriesArray[2].data.unshift(0); 
+    categoriesArray.unshift('');
 
     this.ChartOptions = {
       series: seriesArray,
@@ -502,7 +510,6 @@ export class StudentProfileComponent {
           );
         },
         } 
-      
     };
   }
 
