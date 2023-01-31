@@ -455,7 +455,7 @@ export class StudentProfileComponent {
       xaxis: {
       type: "level",
       categories:categoriesArray,
-      parameters:this.tooltipSub
+      parameter:this.tooltipSub
       },
       yaxis: {
         max:5,
@@ -497,7 +497,7 @@ export class StudentProfileComponent {
           
           return (
             '<div class="arrow_box" style="padding:10px;">' +
-            "<div>" + w.config.xaxis.parameters+ " : <b> " + w.config.yaxis[seriesIndex]['parameters'][data]+ '</b>' + "</div>" +
+            "<div>" + w.config.xaxis.parameter+ " : <b> " + w.config.yaxis[0]['parameters'][data]+ '</b>' + "</div>" +
           "</div>"
           );
         },
