@@ -1,17 +1,27 @@
-<p>inspection-report works!</p>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">{{'inspection_report.inspection_report'|translate}}</li>
-  </ol>
-</nav>
+ <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" aria-current="page">{{'common.report' | translate}}</li>
+      <li class="breadcrumb-item active" aria-current="page">{{'inspection_report.inspection_report' | translate}}</li>
+    </ol>
+  </nav>
 <mat-card class="plain-card h-100">
-  <mat-card-header class="card-header">
-      <div class="d-flex justify-content-between align-items-center w-100">
-          <h6 class="text-main mb-0 fw-bold">{{'inspection_report.inspection_report'|translate}}</h6>
-          <div class="d-flex align-items-center gap-2">
-          </div>
-      </div>
-  </mat-card-header>
+    <mat-card-header class="card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h6 class="text-main mb-0 fw-bold">{{'inspection_report.inspection_report'|translate}}</h6>
+            <div class="d-flex align-items-center gap-2">
+            </div>
+        </div>
+
+        <div class="col-sm-2 text-end">
+          <button mat-flat-button class="btn-main" routerLink="/inspection-report-details">
+          <mat-icon class="material-symbols-outlined">
+            add
+          </mat-icon>
+          <span>Add Inspection-Details</span>
+        </button></div>
+
+
+    </mat-card-header>
   <mat-card-header class="card-header mb-0 border-0 pb-0">
       <form class="w-100">
           <div class="row w-100 mb-3">
@@ -52,15 +62,7 @@
                   <button mat-flat-button class="btn-second"
                       >{{'common.clear'|translate}}</button>
               </div>
-              <div class="col-sm-2 text-end">
-                <button mat-flat-button class="btn-main" routerLink="/inspection-report-details">
-                <mat-icon class="material-symbols-outlined">
-                  add
-                </mat-icon>
-                <span>Add Inspection-Details</span>
-              </button></div>
-
-          </div>
+            </div>
       </form>
   </mat-card-header>
 </mat-card>
