@@ -15,7 +15,7 @@ import {  MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     StudentProfileComponent,
-    
+
   ],
   imports: [
     CommonModule,
