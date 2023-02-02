@@ -1,0 +1,19 @@
+#inspection-details .card{
+    border-color: var(--main-light-color);
+}
+#inspection-details .card-header{
+    background-color: var(--main-light-color);
+    color: var(--main-color);
+    border-bottom: none;
+}
+.image-gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.image-gallery img{
+    border: solid 1px #ddd;
+    border-radius: 10px;
+    width: 110px;
+}

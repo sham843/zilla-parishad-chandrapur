@@ -449,6 +449,7 @@ input::-ms-reveal { display: none; }
 }
 .form-container .form-label{
   color: #858585;
+  margin-bottom: 0;
 }
 .form-container .form-data{
   color: #333;
@@ -556,6 +557,6 @@ input::-ms-reveal { display: none; }
   background-color: var(--main-color);
   color: white;
   font-size: 0.85rem !important;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
