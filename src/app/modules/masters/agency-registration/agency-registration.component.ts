@@ -190,8 +190,6 @@ export class AgencyRegistrationComponent {
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
 
    excelDownload() {
-    console.log("hfhgfhgfh",this.tableDataArray);
-    
     this.getAllAgencyData('excel');
     let pageName: any;
     this.language == 'Marathi' ? pageName = 'एनजीओ नोंदणी' : pageName = 'NGO Registration';
