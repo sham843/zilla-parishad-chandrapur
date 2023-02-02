@@ -264,9 +264,10 @@ setTableData(){     // table
     let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
-    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','मोबाईल नंबर','ब्लॉक स्थिती']:header=['Sr. No.', 'Name','User Type','Level','Designation', 'Mobile No','Block Status'];
+    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','जिल्हा', 'तालुका', 'केंद्र','मोबाईल नंबर','ब्लॉक स्थिती']:header=['Sr. No.', 'Name','User Type','Level','Designation','District','Taluka','Center', 'Mobile No','Block Status'];
     let column:any;
-    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','mobileNo','isBlock']:column=['srNo', 'name','userType','designationLevel', 'designationName', 'mobileNo','isBlock'];
+    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','m_District','m_Taluka','m_Center','mobileNo','isBlock']:
+    column=['srNo', 'name','userType','designationLevel', 'designationName','district','taluka','center','mobileNo','isBlock'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------

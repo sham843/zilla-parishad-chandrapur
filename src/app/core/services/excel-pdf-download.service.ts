@@ -97,6 +97,7 @@ export class ExcelPdfDownloadService {
       pageName=='User Registration'? worksheet.getColumn(5).width = 40:worksheet.getColumn(5).width = 20;
       pageName == 'School Registration'? worksheet.getColumn(6).width = 40: worksheet.getColumn(6).width = 20;
       pageName == 'School Registration'? worksheet.getColumn(7).width = 40: worksheet.getColumn(7).width = 20;
+      pageName == 'Student Registration'? worksheet.getColumn(6).width = 60: worksheet.getColumn(7).width = 20;
       worksheet.getColumn(12).width = 90;
     });
 
@@ -104,6 +105,7 @@ export class ExcelPdfDownloadService {
  result.forEach((element: any) => {
       const eachRow: any = [];
       headersArray.forEach((column: any) => {
+        element[column].length==0?element[column]='N/A':element[column];
         eachRow.push(element[column]);
       })
       const deletedRow = worksheet.addRow(eachRow);

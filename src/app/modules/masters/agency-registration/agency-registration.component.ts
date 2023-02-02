@@ -190,13 +190,15 @@ export class AgencyRegistrationComponent {
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
 
    excelDownload() {
+    console.log("hfhgfhgfh",this.tableDataArray);
+    
     this.getAllAgencyData('excel');
     let pageName: any;
     this.language == 'Marathi' ? pageName = 'एनजीओ नोंदणी' : pageName = 'NGO Registration';
     let header: any;
-    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी'] : header = ['Sr.No.', 'NGO Name', 'Contact No.', 'Email Id'];
+    this.language == 'Marathi' ? header = ['अनुक्रमणिका', 'एनजीओ नाव', 'संपर्क क्र.', 'ई-मेल आयडी','नोंदणी क्रमांक', 'संपर्क व्यक्तीचे नाव', 'पत्ता', 'जिल्हा', 'तालुका'] : header = ['Sr.No.', 'NGO Name', 'Contact No.', 'Email Id','Registration No','Contact Person Name','Address','District','Taluka'];
     let column: any;
-    this.language == 'Marathi' && this.apiService.translateLang? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId'];
+    this.language == 'Marathi' && this.apiService.translateLang? column = ['srNo', 'm_AgencyName', 'contactNo', 'emailId','registrationNo','contactPersonName','address','m_District','m_Taluka'] : column = ['srNo', 'agencyName', 'contactNo', 'emailId','registrationNo','contactPersonName','address','district','taluka'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
 

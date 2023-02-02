@@ -224,6 +224,7 @@ export class RegisterSchoolComponent {
       } else {
         this.registerForm.controls['schoolLocationId'].setValue(2);
       }
+      formData.udiseCode=parseInt(formData.udiseCode);
       let obj = {
         ...formData,
         createdBy: this.data ? this.data.createdBy : this.webStorage.getUserId(),

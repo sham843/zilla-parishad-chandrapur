@@ -136,6 +136,10 @@ export class SchoolRegistrationComponent {
           this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2.pageCount;
           this.totalPages = res.responseData.responseData2.totalPages;
+          this.tableDataArray.map((ele:any)=>{
+          ele['udiseCode']=ele.udiseCode.toString();
+          return ele;
+            })
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -172,11 +176,11 @@ export class SchoolRegistrationComponent {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
     let header = this.lang == 'mr-IN' ?
-      ['अनुक्रमणिका', 'आयडी', 'शाळेचे नाव', 'केंद्र', 'तालुका', 'शाळा श्रेणी', 'शाळेचा प्रकार', 'लिंग', 'पासून वर्ग', 'वर्गापर्यंत', 'शाळेचे स्थान', 'शाळेचा पत्ता']
-    : ['Sr.No.', 'Udise Code', 'School Name', 'Kendra', 'Taluka', 'School Category', 'School Type', 'Gender', 'Class From', 'Class TO', 'School Location', 'School Address'];
+      ['अनुक्रमणिका', 'आयडी', 'शाळेचे नाव', 'तालुका', 'केंद्र', 'शाळा श्रेणी', 'शाळेचा प्रकार', 'लिंग', 'पासून वर्ग', 'वर्गापर्यंत', 'शाळेचे स्थान', 'शाळेचा पत्ता']
+    : ['Sr.No.', 'UDICE Code', 'School Name','Taluka', 'Kendra', 'School Category', 'School Type', 'Gender', 'Class From', 'Class To', 'School Location', 'School Address'];
     let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
-      ['srNo', 'udiseCode', 'schoolName', 'center', 'taluka', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'] :
-      ['srNo', 'udiseCode', 'schoolName', 'center', 'taluka', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'];
+      ['srNo', 'udiseCode', 'schoolName','taluka', 'center', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'] :
+      ['srNo', 'udiseCode', 'schoolName', 'taluka', 'center', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'];
     this.excelDowobj = { 'pageName': pageName, 'header': header, 'column': column }
   }
 
