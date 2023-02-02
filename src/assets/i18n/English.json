@@ -24,6 +24,7 @@
         "submit":"Submit",
         "search_by_name_contact":"Search by Name/Contact No",
         "masters":"Masters",
+        "report":"Report",
         "designation":"Designation",
         "filter":"Search",
         "clear":"Clear",
@@ -323,6 +324,13 @@
         "At_least 1 Uppercase_Characters (A-Z)":"At least 1 Uppercase Characters (A-Z)",
         "At_least 1 Digits(0-9)":"At least 1 Digits (0-9)",
         "At_least 1 Special_Characters (*$@#)":"At least 1 Special Characters (*$@#)"
+      },
+      "inspection_report":{
+        "inspection_report":"Inspection Report",
+        "report":"Report",
+        "report_name":"Inspection Report",
+        "report/inspection report":"Report/Inspection Report"
+
       },
       "performance_indicators":{
         "English_Language_Level":"English Language Level",

@@ -417,9 +417,9 @@ a.text-main,
   max-width: 100vw;
   overflow-x: auto;
 }
-.no-axis  .apexcharts-legend.apx-legend-position-right{
-  // width: 200px !important;
-}
+// .no-axis  .apexcharts-legend.apx-legend-position-right{
+//   // width: 200px !important;
+// }
 button[disabled] {
   opacity: 0.9;
 }
@@ -449,6 +449,7 @@ input::-ms-reveal { display: none; }
 }
 .form-container .form-label{
   color: #858585;
+  margin-bottom: 0;
 }
 .form-container .form-data{
   color: #333;
@@ -550,4 +551,12 @@ input::-ms-reveal { display: none; }
 
 #mapsvg svg {
   transform: scale(0.699258) !important;
+}
+.section-heading{
+  padding: 10px;
+  background-color: var(--main-color);
+  color: white;
+  font-size: 0.85rem !important;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
