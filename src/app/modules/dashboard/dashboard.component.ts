@@ -502,7 +502,7 @@ export class DashboardComponent {
     this.getAssesmentData.find((ele: any) => {
       var arr = new Array();
       for (var i = 0; i < ele.assesmentDetails.length; i++) {
-       if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
+      //  if (ele['assesmentDetails'][i].assesmentCalculationValue > 0) {
           let obj: any = {
             'name': ele['assesmentDetails'][i].assessmentParamenterName,
             'assessmentId': ele['assesmentDetails'][i].assessmentId,
@@ -513,7 +513,7 @@ export class DashboardComponent {
           }
           arr.push(obj);
           barColorpal.push(ele['assesmentDetails'][i].colorCodeValue);
-       }
+      //  }
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
