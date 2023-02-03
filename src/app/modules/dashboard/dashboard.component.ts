@@ -517,7 +517,6 @@ export class DashboardComponent {
       }
       categoriesLabel.push(ele.subjectName)
       seriesData.push(arr);
-   
     });
     this.barchartOptions = {
       series: seriesData,
