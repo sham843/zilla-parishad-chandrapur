@@ -506,7 +506,6 @@ export class StudentProfileComponent {
        tooltip: {
         custom: function({seriesIndex, dataPointIndex, w }: any) { 
           var data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
-          data = data ? data:0;
           return (
             '<div class="arrow_box" style="padding:10px;">' +
             "<div>" + w.config.xaxis.parameter+ " : <b> " + w.config.yaxis[0]['parameters'][data]+ '</b>' + "</div>" +
