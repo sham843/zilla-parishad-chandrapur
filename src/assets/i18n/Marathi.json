@@ -241,11 +241,11 @@
         "do_you_want_to_delete_selected_designation_record?": "तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता ?",
         "linked_to": "संलग्न",
         "register_designation":"पदनाम नोंदणी",
-        "update_designation":"पदनाम अद्यतनित करा",
+        "update_designation":"पदनाम अपडेट करा",
         "designation_master":"पदनाम मास्टर"
     },
     "school": {
-        "school_registration": "शाळा मास्टर",
+        "school_registration": "शाळा नोंदणी",
         "school_list": "शाळा मास्टर",
         "school_name": "शाळेचे नाव",
         "add_school": "शाळा जोडा",
@@ -277,7 +277,7 @@
         "school_name_required": "शाळेचे नाव आवश्यक आहे",
         "school_name_length_should_not_less_than_10": "शाळेच्या नावाची लांबी 10 पेक्षा कमी नसावी",
         "please_enter_valid_school name":"कृपया वैध शाळेचे नाव प्रविष्ट करा",
-        "update_school":"शाळा अद्यतनित करा",
+        "update_school":"शाळा अपडेट करा",
         "class_from":"पासून वर्ग",
         "class_to":"वर्गापर्यंत",
         "please_select_from_class":"कृपया वर्ग निवडा",

@@ -347,20 +347,24 @@ export class StudentProfileComponent {
 
   //#region -------------------------------------------------main fn start heare Student info and graph -----------------------------//
   studentDataById(obj?: any) {
+    this.spinner.show();
     this.apiService.setHttp('GET', 'Getstudentprofilebyid?StandardId='+ (obj?obj.standardId:0) +'&StudentId='+(obj?obj.studentId:0) 
     +'&EducationYearId='+ (obj?obj.eductionYearId:0)+'&SchoolId='+(obj?obj.schoolId:0) + '&lan=' + this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
+          this.spinner.hide();
           this.StudentDataArray = res.responseData;
           this.assesmentChartData();
         }
         else {
+          this.spinner.hide();
           this.StudentDataArray = [];
           this.commonMethod.checkEmptyData(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       },
       error: ((err: any) => {
+        this.spinner.hide();
         this.errorService.handelError(err)
       })
     });

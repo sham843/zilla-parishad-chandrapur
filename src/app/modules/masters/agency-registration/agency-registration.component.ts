@@ -122,7 +122,7 @@ export class AgencyRegistrationComponent {
       width: '850px',
       disableClose: true,
       data: {
-        cardTitle: obj ? (this.language == 'Marathi' ? 'अपडेट एनजीओ' : 'Update NGO') : (this.language == 'Marathi' ? 'एनजीओ नोंदणी' : 'NGO Registration'),
+        cardTitle: obj ? (this.language == 'Marathi' ? 'एनजीओ अपडेट करा' : 'Update NGO') : (this.language == 'Marathi' ? 'एनजीओ नोंदणी करा' : 'NGO Registration'),
         successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
         obj: obj,
         cancelBtnText:obj ? (this.language == 'Marathi' ? 'रद्द करा' : 'Cancel'):(this.language == 'Marathi' ? '	रद्द करा' : 'Clear'),
@@ -190,8 +190,6 @@ export class AgencyRegistrationComponent {
   //#region------------------------------------------------start pdf & excel download method-----------------------------------------
 
    excelDownload() {
-    console.log("hfhgfhgfh",this.tableDataArray);
-    
     this.getAllAgencyData('excel');
     let pageName: any;
     this.language == 'Marathi' ? pageName = 'एनजीओ नोंदणी' : pageName = 'NGO Registration';

@@ -402,14 +402,14 @@ export class StudentRegistrationComponent {
       : (pageName = 'Student Registration');
     let header: any;
     this.lang == 'mr-IN'
-      ? (header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक','शाळेचे नाव', 'कास्टचे नाव', 'पालकांचे मोबाईल क्रमांक', 'जिल्हा', 'तालुका', 'आधार क्रमांक'])
+      ? (header = ['सरल आयडी', 'नाव', 'लिंग', 'इयत्ता', 'पालक संपर्क क्रमांक','शाळेचे नाव', 'कास्टचे नाव', 'पालकांचे मोबाईल क्रमांक', 'जिल्हा', 'तालुका'])
       : (header = [
           'Saral ID',
           'Name',
           'Gender',
           'Standard',
           'Parent Contact No.',
-          'School Name','Cast Name','Parents Mobile No','District','Taluka','Center','Aadhar No'
+          'School Name','Cast Name','Parents Mobile No','District','Taluka','Center'
         ]);
     let column;
     column =
@@ -420,7 +420,7 @@ export class StudentRegistrationComponent {
             'gender',
             'standard',
             'parentsMobileNo',
-            'schoolName','castName','parentsMobileNo','m_District','m_Taluka','center','aadharNo'
+            'schoolName','castName','parentsMobileNo','m_District','m_Taluka','center'
           ]
         : [
             'saralId',
@@ -428,7 +428,7 @@ export class StudentRegistrationComponent {
             'gender',
             'standard',
             'parentsMobileNo',
-            'schoolName','castName','parentsMobileNo','district','taluka','center','aadharNo'
+            'schoolName','castName','parentsMobileNo','district','taluka','center'
           ];
     this.excelDowobj = { pageName: pageName, header: header, column: column };
   }

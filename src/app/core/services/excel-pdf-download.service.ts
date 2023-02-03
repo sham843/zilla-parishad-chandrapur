@@ -102,10 +102,10 @@ export class ExcelPdfDownloadService {
     });
 
     //Add Data Conditional Formating
- result.forEach((element: any) => {
+      result.forEach((element: any) => {
       const eachRow: any = [];
       headersArray.forEach((column: any) => {
-        element[column].length==0?element[column]='N/A':element[column];
+        (element[column]?.length== 0 || element[column] == null) ?element[column]='N/A': element[column];
         eachRow.push(element[column]);
       })
       const deletedRow = worksheet.addRow(eachRow);
