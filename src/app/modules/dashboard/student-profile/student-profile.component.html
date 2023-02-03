@@ -117,8 +117,6 @@
                                     <h5 class="fw-bold">
                                         {{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}
                                     </h5>
-                                    <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}
-                                    </div>
                                 </div>
 
                                 <div class="data-container">
@@ -141,6 +139,11 @@
                                         </div>
                                     </div>
                                     <div class="row mb-4">
+                                    <div class="col-sm-4">
+                                        <span class="data-label">{{'student.gender'|translate}}</span>
+                                        <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}
+                                        </div>
+                                    </div>
                                         <div class="col-sm-4">
                                             <span class="data-label">{{'common.school_name'|translate}}</span>
                                             <div class="data-text">
