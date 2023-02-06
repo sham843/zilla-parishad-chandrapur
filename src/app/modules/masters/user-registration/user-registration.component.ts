@@ -181,7 +181,7 @@ setTableData(){     // table
         cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अपडेट करा':'वापरकर्ता नोंदणी'):(editObj?'Update User':'User Registration'),
         obj:editObj,
         flag:editObj?'Update':'Add',
-        successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
+        successBtnText: this.lang=='mr-IN' ? (editObj?'अपडेट':'जतन करा'):(editObj?'Update':'Submit'),
         cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'रद्द करा' : 'Clear'),
       },
     })
