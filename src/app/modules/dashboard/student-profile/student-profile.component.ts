@@ -452,7 +452,6 @@ export class StudentProfileComponent {
       series: seriesArray,
       chart: {
         height: 350,
-        width: 720 ,
         type: "area",
         toolbar: {
           show: false
