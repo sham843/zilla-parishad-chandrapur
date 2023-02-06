@@ -347,7 +347,7 @@ export class StudentRegistrationComponent {
           ? 'तुम्ही निवडलेले विद्यार्थी रेकॉर्ड हटवू इच्छिता?'
           : 'Do You Want To Delete Selected Student Record?',
       p2: '',
-      cardTitle: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      cardTitle: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
       successBtnText: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
       dialogIcon: 'assets/images/trash.gif',
       cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',

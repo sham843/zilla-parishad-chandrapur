@@ -144,7 +144,7 @@ export class AgencyRegistrationComponent {
       data: {
         p1: this.language == 'Marathi' ? 'तुम्ही निवडलेले एनजीओ रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected NGO Record?',
         p2: '',
-        cardTitle: this.language == 'Marathi' ? 'हटवा' : 'Delete',
+        cardTitle: this.language == 'Marathi' ? 'डिलीट करा' : 'Delete',
         successBtnText: this.language == 'Marathi' ? 'डिलीट' : 'Delete',
         dialogIcon: 'assets/images/trash.gif',
         cancelBtnText: this.language == 'Marathi' ? 'रद्द करा' : 'Cancel',
