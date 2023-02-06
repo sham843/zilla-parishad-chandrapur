@@ -178,10 +178,10 @@ setTableData(){     // table
       width: '650px',
       disableClose: true,
       data:{
-        cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अद्यतनित करा':'वापरकर्ता नोंदणी'):(editObj?'Update User':'User Registration'),
+        cardTitle: this.lang=='mr-IN' ? (editObj?'वापरकर्ता अपडेट करा':'वापरकर्ता नोंदणी'):(editObj?'Update User':'User Registration'),
         obj:editObj,
         flag:editObj?'Update':'Add',
-        successBtnText: this.lang=='mr-IN' ? (editObj?'अद्यतन':'जतन करा'):(editObj?'Update':'Submit'),
+        successBtnText: this.lang=='mr-IN' ? (editObj?'अपडेट':'जतन करा'):(editObj?'Update':'Submit'),
         cancelBtnText:editObj? (this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel'):(this.lang=='mr-IN' ? 'रद्द करा' : 'Clear'),
       },
     })
@@ -201,8 +201,8 @@ setTableData(){     // table
       data:{
         p1: this.lang=='mr-IN' ? ' तुम्ही निवडलेले वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected User Registered Record?',
         p2: '',
-        cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
-        successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
+        cardTitle: this.lang=='mr-IN' ? 'डिलीट करा' : 'Delete',
+        successBtnText: this.lang=='mr-IN' ? 'डिलीट' : 'Delete',
         dialogIcon: 'assets/images/trash.gif',
         cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
       },
