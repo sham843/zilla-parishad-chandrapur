@@ -223,7 +223,7 @@ export class SchoolRegistrationComponent {
       p1: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले शाळा रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected School Record?',
       p2: '',
       cancelBtnText: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      successBtnText: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      successBtnText: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
       dialogIcon: 'assets/images/trash.gif'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {

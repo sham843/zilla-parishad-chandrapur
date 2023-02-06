@@ -202,7 +202,7 @@ setTableData(){     // table
         p1: this.lang=='mr-IN' ? ' तुम्ही निवडलेले वापरकर्ता नोंदणी रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected User Registered Record?',
         p2: '',
         cardTitle: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
-        successBtnText: this.lang=='mr-IN' ? 'हटवा' : 'Delete',
+        successBtnText: this.lang=='mr-IN' ? 'डिलीट' : 'Delete',
         dialogIcon: 'assets/images/trash.gif',
         cancelBtnText: this.lang=='mr-IN' ? 'रद्द करा' : 'Cancel',
       },
