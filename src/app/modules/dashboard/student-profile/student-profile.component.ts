@@ -424,22 +424,27 @@ export class StudentProfileComponent {
 
     this.chartData?.responseData4.find((ele:any) => { // for pratham res data 2
       seriesArray[1].data.push(ele.marking);
-      categoriesArray.forEach(ele1=>{
-        if(ele.examName!=ele1){
-          categoriesArray.push(ele.examName);
-        }
-      })
+      categoriesArray.length?(
+        categoriesArray.forEach(ele1=>{
+          if(ele.examName!=ele1){
+            categoriesArray.push(ele.examName);
+          }
+        })
+      ): categoriesArray.push(ele.examName);;
     });
     seriesArray[1].data.unshift(0);
  
     this.chartData?.responseData3.find((ele:any) => { // for kendra res data 2
       seriesArray[2].data.push(ele.marking);
-      categoriesArray.forEach(ele1=>{
-        if(ele.examName!=ele1){
-          categoriesArray.push(ele.examName);
-        }
-      })
+      categoriesArray.length?(
+        categoriesArray.forEach(ele1=>{
+          if(ele.examName!=ele1){
+            categoriesArray.push(ele.examName);
+          }
+        })
+      ): categoriesArray.push(ele.examName);
     }); 
+    console.log("categoriesArray",categoriesArray)
     seriesArray[2].data.unshift(0); 
     categoriesArray.unshift('');
 
@@ -447,6 +452,7 @@ export class StudentProfileComponent {
       series: seriesArray,
       chart: {
         height: 350,
+        width: 720 ,
         type: "area",
         toolbar: {
           show: false
