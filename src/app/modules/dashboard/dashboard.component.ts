@@ -472,7 +472,7 @@ export class DashboardComponent {
           customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'30px'
+            size:'50px'
           }
         }
       },
