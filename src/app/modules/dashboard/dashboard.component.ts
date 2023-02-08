@@ -435,7 +435,7 @@ export class DashboardComponent {
           }
         }
       },
-      responsive: [
+    responsive: [
         {
           breakpoint: 480,
           options: {
