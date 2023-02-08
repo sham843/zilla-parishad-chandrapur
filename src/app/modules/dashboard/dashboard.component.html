@@ -207,7 +207,7 @@
                             <thead>
                                 <tr>
                                     <th *ngFor="let surveyedData of getSurveyedData; let i = index;">
-                                        <input type="checkbox" *ngIf="i > 1" [checked]="surveyedData.checked"
+                                        <input type="checkbox" class="form-check-input" *ngIf="i > 1" [checked]="surveyedData.checked"
                                             (change)="checkBoxChecked($event, surveyedData);">
                                         {{language=="Marathi"?surveyedData?.text_m: surveyedData?.text ?
                                         surveyedData?.text:'-'}}
