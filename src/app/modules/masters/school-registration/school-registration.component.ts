@@ -204,7 +204,7 @@ export class SchoolRegistrationComponent {
 
   addSchoolData(obj?: any) {
     const dialogRef = this.dialog.open(RegisterSchoolComponent, {
-      width: '800px',
+      width: '950px',
       data: obj,
       disableClose: true,
       autoFocus: false,

@@ -55,8 +55,8 @@ export class PerformanceIndicatorsComponent implements OnInit {
       this.english_MarathiHeadingArray = this.language == 'en-IN' ?
       [{ assesmentParameterId: 'Sr. No.' }, { assesmentParameter: 'Assesment Name' }, { m_AssesmentParameter: 'मूल्यांकन नाव' }, { first: 'First' }, { second: 'Second' }, { third: 'Third' }, { fourth: 'Fourth' }, { fifth: 'Fifth' }, { sixth: 'Sixth' }, { seventh: 'Seventh' },
       { eighth: 'Eighth' }, { ninth: 'Ninth' }, { tenth: 'Tenth' }, { eleventh: 'Eleventh' }, { twelth: 'Twelth' }] :
-      [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Assesment Name' }, { m_AssesmentParameter: 'मूल्यांकन नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवा' }, { sixth: 'सहावा' }, { seventh: 'सातवा' },
-      { eighth: 'आठवा' }, { ninth: 'नववा' }, { tenth: 'दहावा' }, { eleventh: 'अकरावा' }, { twelth: 'बारावा' }];
+      [{ assesmentParameterId: 'अनुक्रमणिका' }, { assesmentParameter: 'Assesment Name' }, { m_AssesmentParameter: 'मूल्यांकन नाव' }, { first: 'पहिला' }, { second: 'दुसरा' }, { third: 'तिसरा' }, { fourth: 'चौथा' }, { fifth: 'पाचवी' }, { sixth: 'सहावी' }, { seventh: 'सातवी' },
+      { eighth: 'आठवी' }, { ninth: 'नववी' }, { tenth: 'दहावी' }, { eleventh: 'अकरावी' }, { twelth: 'बारावी' }];
       this.getAllPerformanceIndicatorData();
     })
   }
