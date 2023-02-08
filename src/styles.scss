@@ -169,7 +169,9 @@ a.text-main,
 .dashboard-table button mat-icon {
   font-size: 18px !important;
 }
-
+.dashboard-table:hover{
+  cursor: pointer;
+}
 .dashboard-table .highlightedrow {
   background-color: #eee !important;
   color: var(--main-color) !important;
