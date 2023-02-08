@@ -41,7 +41,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                    <mat-form-field appearance="outline" class="w-100 " [class.disabled-contenct]="!filterFrm.value.kendraId || filterFrm.value.kendraId==0 || this.levelId == 5">
+                    <mat-form-field appearance="outline" class="w-100 "
+                        [class.disabled-contenct]="!filterFrm.value.kendraId || filterFrm.value.kendraId==0 || this.levelId == 5">
                         <mat-label>{{'common.select_school'|translate}}</mat-label>
                         <mat-select formControlName="schoolId"
                             (selectionChange)="getStandard();clearDropdown('school')">
@@ -56,8 +57,9 @@
                         <mat-label>{{'student.select_standard'|translate}}</mat-label>
                         <mat-select #select formControlName="standardId" multiple>
                             <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                        (change)="allStandardSelect()">Select All</mat-checkbox>
-                            <mat-option *ngFor="let standard of standardArray" [value]="standard.id" (click)="singleStandard()">
+                                (change)="allStandardSelect()">Select All</mat-checkbox>
+                            <mat-option *ngFor="let standard of standardArray" [value]="standard.id"
+                                (click)="singleStandard()">
                                 {{standard.standard}}
                             </mat-option>
                         </mat-select>
@@ -73,12 +75,13 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-               <div class="col-sm-2">
+                <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student_profile.select_subject'|translate}}</mat-label>
-                        <mat-select formControlName="subjId" (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);this.globalObj.assesmentId=0;assesmentChartData()">
-                            <mat-option
-                                *ngFor="let subjects of subjectArray" [value]="subjects.id">{{subjects?.subject}}</mat-option>
+                        <mat-select formControlName="subjId"
+                            (selectionChange)="this.subjectId.setValue(filterFrm.value.subjId);this.globalObj.assesmentId=0;assesmentChartData()">
+                            <mat-option *ngFor="let subjects of subjectArray"
+                                [value]="subjects.id">{{subjects?.subject}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -102,10 +105,8 @@
             <div class="col-sm-5">
                 <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-7 border-start">
                 <ng-container *ngIf="StudentDataArray?.length != 0 && tableDataArray?.length != 0">
-                    <div class="student-bg">
-                    </div>
                     <div class="student-details">
                         <div class="d-flex">
                             <div class="flex-shrink-0">
@@ -114,42 +115,40 @@
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <div class="">
-                                    <h5 class="fw-bold">
+                                    <h5 class="fw-bold mb-3">
                                         {{this.language?StudentDataArray?.englishFullName:StudentDataArray?.marathiFullName}}
                                     </h5>
                                 </div>
 
-                                <div class="data-container mt-3">
-                                    <div class="row mb-3 justify-content-between">
-                                        <div class="col-sm-4 mt-5">
-                                            <span class="data-label">{{'student.parent_contact_no'|translate}}</span>
+                                <div class="data-container">
+                                    <div class="row gy-3 justify-content-between">
+                                        <div class="col-sm-4">
+                                            <span class="data-label">{{'student.gender'|translate}}</span>
                                             <div class="data-text">
-                                                {{StudentDataArray?.parentsMobileNo?StudentDataArray?.parentsMobileNo:'-'}}
+                                                {{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 mt-5">
+                                        <div class="col-sm-4">
                                             <span class="data-label">{{'student.aadhar_card_number'|translate}}</span>
                                             <div class="data-text">
                                                 {{StudentDataArray?.aadharNo==0?'-':StudentDataArray?.aadharNo}}</div>
                                         </div>
-                                        <div class="col-sm-4 mt-5">
+                                        <div class="col-sm-4">
                                             <span class="data-label">{{'student.standard'|translate}}</span>
                                             <div class="data-text">
                                                 {{StudentDataArray?.standard?StudentDataArray?.standard:'-'}}</div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-4">
-                                    <div class="col-sm-4">
-                                        <span class="data-label">{{'student.gender'|translate}}</span>
-                                        <div class="data-text">{{StudentDataArray?.gender?StudentDataArray?.gender:'-'}}
-                                        </div>
-                                    </div>
                                         <div class="col-sm-4">
                                             <span class="data-label">{{'common.school_name'|translate}}</span>
                                             <div class="data-text">
                                                 {{StudentDataArray?.schoolName?StudentDataArray?.schoolName:'-'}}</div>
                                         </div>
-
+                                        <div class="col-sm-4">
+                                            <span class="data-label">{{'student.parent_contact_no'|translate}}</span>
+                                            <div class="data-text">
+                                                {{StudentDataArray?.parentsMobileNo?StudentDataArray?.parentsMobileNo:'-'}}
+                                            </div>
+                                        </div>
                                         <div class="col-sm-4">
                                             <span class="data-label">{{'student.parent_email_id'|translate}}</span>
                                             <div class="data-text">
@@ -183,8 +182,7 @@
                                     <apx-chart [series]="ChartOptions?.series" [chart]="ChartOptions?.chart"
                                         [xaxis]="ChartOptions?.xaxis" [yaxis]="ChartOptions?.yaxis"
                                         [stroke]="ChartOptions?.stroke" [tooltip]="ChartOptions?.tooltip"
-                                        [colors]="ChartOptions?.colors"
-                                        [dataLabels]="ChartOptions?.dataLabels">
+                                        [colors]="ChartOptions?.colors" [dataLabels]="ChartOptions?.dataLabels">
                                     </apx-chart>
                                 </div>
                             </mat-card-content>
