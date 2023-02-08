@@ -431,7 +431,7 @@ export class DashboardComponent {
           customScale: 1.1,
           expandOnClick: false,
           donut:{
-            size:'30px'
+            size:'50px'
           }
         }
       },
@@ -449,6 +449,7 @@ export class DashboardComponent {
         }
       ]
     };
+    
     this.piechartSecondOptions = {
       series: [+(data[1].assesmentDetails[0]?.assesmentCalculationValue)?.toFixed(2), +(data[1]?.assesmentDetails[1]?.assesmentCalculationValue)?.toFixed(2)],
       chart: {
