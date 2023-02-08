@@ -28,7 +28,7 @@ export class MasterService {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllDistrict?flag_lang=' + strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
-        error: (e: any) => { obj.error(e) }
+        // error: (e: any) => { obj.error(e) }
       });
     });
   }
@@ -38,7 +38,7 @@ export class MasterService {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllTalukaByDistrictId?flag_lang=' + strPara + '&DistrictId=' + distId, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
-        error: (e: any) => { obj.error(e) }
+        // error: (e: any) => { obj.error(e) }
       });
     });
   }
@@ -58,7 +58,7 @@ export class MasterService {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllCenterByTalukaId?flag_lang=' + strPara + '&TalukaId=' + talukaId, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
-        error: (e: any) => { obj.error(e) }
+        // error: (e: any) => { obj.error(e) }
       });
     });
   }
@@ -85,7 +85,7 @@ export class MasterService {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllUserType?flag_lang=' + strPara, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
-        error: (e: any) => { obj.error(e) }
+        // error: (e: any) => { obj.error(e)}
       });
     });
   }
@@ -94,7 +94,7 @@ export class MasterService {
       this.apiService.setHttp('GET', 'zp_chandrapur/master/GetAllSchoolsByCenter?flag_lang=' + strPara + '&CenterId=' + centerId, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
-        error: (e: any) => { obj.error(e) }
+        // error: (e: any) => { obj.error(e) }
       });
     });
   }

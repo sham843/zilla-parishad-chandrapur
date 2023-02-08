@@ -176,7 +176,7 @@ export class SchoolRegistrationComponent {
     this.getTableData('excel');
     let pageName = this.lang == 'mr-IN' ? 'शाळा नोंदणी' : 'School Registration'
     let header = this.lang == 'mr-IN' ?
-      ['अनुक्रमणिका', 'आयडी', 'शाळेचे नाव', 'तालुका', 'केंद्र', 'शाळा श्रेणी', 'शाळेचा प्रकार', 'लिंग', 'पासून वर्ग', 'वर्गापर्यंत', 'शाळेचे स्थान', 'शाळेचा पत्ता']
+      ['अनुक्रमणिका', 'यूडीआयएसइ कोड', 'शाळेचे नाव', 'तालुका', 'केंद्र', 'शाळा श्रेणी', 'शाळेचा प्रकार', 'लिंग', 'पासून वर्ग', 'वर्गापर्यंत', 'शाळेचे स्थान', 'शाळेचा पत्ता']
     : ['Sr.No.', 'UDICE Code', 'School Name','Taluka', 'Kendra', 'School Category', 'School Type', 'Gender', 'Class From', 'Class To', 'School Location', 'School Address'];
     let column = this.lang == 'mr-IN' && this.apiService.translateLang ?
       ['srNo', 'udiseCode', 'schoolName','taluka', 'center', 'categoryName', 'schoolType', 'gender', 'classFrom', 'classTo', 'schoolLocation', 'schoolAddress'] :
