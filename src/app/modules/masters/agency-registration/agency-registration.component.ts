@@ -123,7 +123,7 @@ export class AgencyRegistrationComponent {
       disableClose: true,
       data: {
         cardTitle: obj ? (this.language == 'Marathi' ? 'एनजीओ अपडेट करा' : 'Update NGO') : (this.language == 'Marathi' ? 'एनजीओ नोंदणी करा' : 'NGO Registration'),
-        successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'प्रस्तुत करणे' : 'Submit'),
+        successBtnText: obj ? (this.language == 'Marathi' ? 'अपडेट' : 'Update') : (this.language == 'Marathi' ? 'जतन करा' : 'Submit'),
         obj: obj,
         cancelBtnText:obj ? (this.language == 'Marathi' ? 'रद्द करा' : 'Cancel'):(this.language == 'Marathi' ? '	रद्द करा' : 'Clear'),
       }
