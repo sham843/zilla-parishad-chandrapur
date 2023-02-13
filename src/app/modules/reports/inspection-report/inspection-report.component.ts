@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { ErrorsService } from 'src/app/core/services/errors.service';
+import { ExcelPdfDownloadService } from 'src/app/core/services/excel-pdf-download.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { InspectionReportDetailsComponent } from './inspection-report-details/inspection-report-details.component';
 
 @Component({
   selector: 'app-inspection-report',
@@ -6,5 +13,96 @@ import { Component } from '@angular/core';
   styleUrls: ['./inspection-report.component.scss']
 })
 export class InspectionReportComponent {
+  pageNumber:number = 1;
+  lang:string |any;
+  tableData:object |any;
+  excelDowobj:object |any;
+  visitDataArray = new Array();
+  totalItem!:number;
+  pageSize:number = 10;
+  constructor(private apiService:ApiService,
+    private commonMethos:CommonMethodsService,
+    private errors:ErrorsService,
+    private webStorage:WebStorageService,
+    private excel:ExcelPdfDownloadService,
+    private dialog:MatDialog){}
 
+  ngOnInit(){
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      res=='Marathi'?this.lang='mr-IN':this.lang='en';
+      this.setTableData();
+    })
+    this.getAllVisitData();
+  }
+
+  getAllVisitData(flag?:any){
+    flag=='excel'? this.pageSize = this.totalItem * 10 :this.pageSize =10;
+  let obj= 1+'&pageno='+(this.pageNumber)+'&pagesize='+(this.pageSize)+'&searchText='+('');
+  this.apiService.setHttp('GET', 'VisitorForm/GetAll?UserTypeId='+obj, false, false, false, 'baseUrl')
+  this.apiService.getHttp().subscribe({
+    next: (res: any) => {
+      if (res.statusCode == '200') {
+        this.visitDataArray=res.responseData;
+        // this.totalItem =res.responseData1.pageCount;
+        this.totalItem =15;
+      }
+      else{
+        this.commonMethos.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethos.snackBar(res.statusMessage, 1);
+      }
+      flag != 'excel' && this.visitDataArray ? this.setTableData() : (this.excel.downloadExcel(this.visitDataArray, this.excelDowobj.pageName, this.excelDowobj.header, this.excelDowobj.column));
+    },
+    error: ((err: any) => { this.errors.handelError(err) })
+  });
+
+  }
+  
+  setTableData(){
+    let displayedColumns:any;
+    this.lang=='mr-IN' && this.apiService.translateLang? displayedColumns=['srNo', 'schoolName','visitDate','vistorName','action']:displayedColumns= ['srNo', 'schoolName','visitDate','vistorName','action']
+        let displayedheaders:any;
+        this.lang=='mr-IN'?displayedheaders=['अनुक्रमांक','शाळेचे नाव','भेटीची तारीख','अधिकाऱ्याचे नाव','कृती']:displayedheaders= ['Sr.No.', 'School Name','Visit Date','Officer Name','Action']
+        this.tableData = {
+          pageNumber: this.pageNumber,
+          highlightedrow:true,
+          img: '',
+          blink: '',
+          badge: '',
+          isBlock: '',
+          displayedColumns: displayedColumns,
+          tableData: this.visitDataArray,
+          tableSize: this.totalItem,
+          tableHeaders: displayedheaders,
+          pagination: true,
+          edit: false,
+          delete: true,
+          view: true,
+        }
+        this.apiService.tableData.next(this.tableData)
+  }
+
+  childCompInfo(obj:any){
+    if(obj.label=='view'){
+      this.viewVisitData(obj.id)
+    }
+    console.log(obj.id);
+  }
+  excelDownload() {
+    this.getAllVisitData('excel');
+    let pageName:any;
+    this.lang=='mr-IN'?pageName='शैक्षणिक शाळेला भेट':pageName='Educational school visit';
+    let header:any;
+    this.lang=='mr-IN'?header=['अनुक्रमांक','शाळेचे नाव','भेटीची तारीख','अधिकाऱ्याचे नाव','कृती']:header=['Sr.No.', 'School Name','Visit Date','Officer Name','Action'];
+    let column:any;
+    this.lang=='mr-IN' && this.apiService.translateLang?column=['Sr.No.', 'schoolName','visitDate','vistorName','action']:
+    column=['Sr.No.', 'schoolName','visitDate','vistorName','action'];
+    this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
+  }
+
+  viewVisitData(id:number){
+    this.dialog.open(InspectionReportDetailsComponent, {
+      width: '1000px',
+      disableClose: true,
+      data:id,
+    })
+  }
 }

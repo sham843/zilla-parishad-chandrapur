@@ -42,6 +42,14 @@
                     {{tableHeaders[j] | titlecase}}
                 </th>
                 <td mat-cell *matCellDef="let element let i=index">
+                    <ng-container *ngIf="tableInfo?.view == true">
+                        <button mat-icon-button (click)="$event.stopPropagation();action(element, 'view',i)"
+                        matTooltip="{{'common.view' | translate}}">
+                        <mat-icon class="text-primary">
+                            visibility
+                        </mat-icon>
+                    </button>
+                    </ng-container>
                     <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Edit', i)"
                         matTooltip="{{'common.edit' | translate}}">
                         <mat-icon class="text-main">
@@ -56,6 +64,7 @@
                         </mat-icon>
                     </button>
                     </ng-container>
+                   
                 </td>
             </ng-container>
         </ng-container>

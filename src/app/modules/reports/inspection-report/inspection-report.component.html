@@ -65,4 +65,7 @@
             </div>
       </form>
   </mat-card-header>
+  <mat-card-content class="card-body pt-0">
+    <app-table-grid (recObjToChild)="childCompInfo($event)"></app-table-grid>
+  </mat-card-content>
 </mat-card>

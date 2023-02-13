@@ -36,6 +36,7 @@
         "name":"Name",
         "mobile_number":"Mobile Number",
         "delete":"Delete",
+        "view":"View",
         "edit":"Edit",
         "ok":"Ok",
         "update":"Update",
