@@ -2,6 +2,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -55,6 +56,7 @@ export class DashboardComponent {
   pageNumber:number =1;
   totalRows!:number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -772,6 +774,7 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
         this.talukaWiseAssData = new MatTableDataSource(this.talukaWiseAssData);
+        this.talukaWiseAssData.sort = this.sort;
         this.totalRows = res.responseData.responseData2.pageCount;
         this.totalRows > 10 && this.pageNumber == 1 ? this.paginator?.firstPage() : '';
         setTimeout(() => {this.showToolTipOnPro() }, 1000);
