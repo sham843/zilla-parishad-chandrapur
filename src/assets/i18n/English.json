@@ -46,7 +46,8 @@
         "assessment":"Assessment",
         "examId":"Exam ID",
         "invalid_username":"Please Enter Valid Mobile Number",
-        "chart_view":"Chart View"
+        "chart_view":"Chart View",
+        "table_view":"Table View"
     },
     "dashboard":{
         "dashboard":"Dashboard",
