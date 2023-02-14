@@ -274,12 +274,13 @@ export class DashboardComponent {
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}`
+    this.selStdArray=[1,2,3,4,5,6,7,8,9,10,11,12];
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&standard=${this.selStdArray.toString()}&userTypeId=${filterFormData.userTypeId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.piechartOptionstData = res.responseData[0].assesmentDetails;
-        let getValEnglishWords = this.piechartOptionstData.every((ele:any)=> ele.assesmentCalculationValue == 0);
+       let getValEnglishWords = this.piechartOptionstData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartSecondOptionsData = res.responseData[1].assesmentDetails;
         let getValEnglishSentence = this.piechartSecondOptionsData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartOptionstData.length && !getValEnglishWords ? this.pieChart(res.responseData) : this.piechartOptionstData = [];
