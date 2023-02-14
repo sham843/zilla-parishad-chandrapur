@@ -14,7 +14,7 @@
             table_view
           </mat-icon>
         </button>
-        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == false,'btn-third' : hideFlowChartDig == true}" title="Chart View"
+        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == false,'btn-third' : hideFlowChartDig == true}" matTooltip="{{'common.chart_view' | translate}}"
          (click)="hideFlowChartDig = true;getDesignTreeView()">
           <mat-icon>account_tree</mat-icon>
         </button>

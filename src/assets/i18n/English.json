@@ -45,7 +45,8 @@
         "copyright": "Copyright © 2023 Education Chandrapur All Rights Reserved",
         "assessment":"Assessment",
         "examId":"Exam ID",
-        "invalid_username":"Please Enter Valid Mobile Number"
+        "invalid_username":"Please Enter Valid Mobile Number",
+        "chart_view":"Chart View"
     },
     "dashboard":{
         "dashboard":"Dashboard",
