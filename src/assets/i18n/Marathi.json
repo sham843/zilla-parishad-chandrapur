@@ -167,6 +167,26 @@
     "inspection_report":{
       "inspection_report":"तपासणी अहवाल"
     },
+    "inspection_report_details":{
+      "Educational_School_Visit":"शैक्षणिक शाळाभेट",
+      "inspection_reportSchool_Information":"शाळेची माहिती",
+      "inspection_report_details":"शाळेचे नाव",
+      "Visiting_Officer":"भेट देणार्‍या अधिकार्‍याचे नाव",
+      "Designation":"पदनाम",
+      "School_Medium":"शाळेचे माध्यम",
+      "Center":"केंद्र",
+      "Principal_Name":"मुख्याध्यापकाचे नाव",
+      "Principal_Whatsapp_Number":"मुख्याध्यापकांचा WhatsApp क्रमांक",
+      "Types_of_School_Management":"शाळा व्यवस्थापन प्रकार",
+      "Panchayat_Committee":"पंचायत समिती",
+      "Date_of_Visit":"भेटीचा दिनांक",
+      "Class_Teacher_Name":"वर्गशिक्षकाचे नाव",
+      "Visited_Class":"भेट दिलेली इयत्ता",
+      "Class_Visited":"भेट दिलेल्या इयत्तेची पटसंख्या",
+      "Present_Class_Visited":"भेट दिलेल्या इयत्तेची उपस्थिती"
+
+
+    },
     "student": {
         "educationYear":"शैक्षणिक वर्ष",
         "parent_name":"वडिलांचे नाव",
