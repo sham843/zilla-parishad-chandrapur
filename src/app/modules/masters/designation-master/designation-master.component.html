@@ -9,12 +9,12 @@
     <div class="d-lg-flex d-block justify-content-between align-items-center w-100">
       <h6 class="text-main mb-2 mb-lg-0 fw-bold">{{'designation_master.designation_master' | translate}}</h6>
       <div class="d-flex align-items-center gap-2">
-        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == true,'btn-third' : hideFlowChartDig == false}" title="Table View" (click)="hideFlowChartDig = false;pageNumber = 1;searchdesignationLvl.reset();getTableData()">
+        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == true,'btn-third' : hideFlowChartDig == false}" matTooltip="{{'common.table_view' | translate}}" (click)="hideFlowChartDig = false;pageNumber = 1;searchdesignationLvl.reset();getTableData()">
           <mat-icon>
             table_view
           </mat-icon>
         </button>
-        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == false,'btn-third' : hideFlowChartDig == true}" title="Chart View"
+        <button mat-flat-button class="btn-icon" [ngClass]="{'btn-second' : hideFlowChartDig == false,'btn-third' : hideFlowChartDig == true}" matTooltip="{{'common.chart_view' | translate}}"
          (click)="hideFlowChartDig = true;getDesignTreeView()">
           <mat-icon>account_tree</mat-icon>
         </button>
