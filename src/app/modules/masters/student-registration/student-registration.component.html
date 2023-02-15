@@ -81,7 +81,7 @@
                 <div class="col-sm-3">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'student.search_by_saralid_name_mobileno'|translate}}</mat-label>
-                        <input matInput formControlName="searchText">
+                        <input matInput formControlName="searchText" (keypress)="validation.noFirstSpaceAllow($event)">
                     </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
