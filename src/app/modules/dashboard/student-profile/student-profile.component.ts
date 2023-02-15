@@ -72,11 +72,13 @@ export class StudentProfileComponent {
 
     let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
     this.globalObj = JSON.parse(obj);
+    this.getTaluka();
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
       this.getAllSubject();
+      this.getStudentProChart();
     })
     this.getformControl();
     this.getTaluka();
@@ -411,14 +413,13 @@ export class StudentProfileComponent {
       }
     ];
     this.chartData?.responseData1.find((ele:any) => { // y axies label data push heare 
-      proIndCat.push(ele.assesmentParameter);
+     this.lang=='mr-IN'? proIndCat.push(ele.m_AssesmentParameter): proIndCat.push(ele.assesmentParameter);
     }); 
     proIndCat.reverse();
     proIndCat.unshift('');
-
     this.chartData?.responseData2.find((ele:any) => { // for Teacher res data 2
       seriesArray[0].data.push(ele.marking);
-      categoriesArray.push(ele.examName);
+      this.lang=='mr-IN'? categoriesArray.push(ele.m_ExamName):categoriesArray.push(ele.examName);
     }); 
     seriesArray[0].data.unshift(0);
 
@@ -427,10 +428,10 @@ export class StudentProfileComponent {
       categoriesArray.length?(
         categoriesArray.forEach(ele1=>{
           if(ele.examName!=ele1){
-            categoriesArray.push(ele.examName);
+            this.lang=='mr-IN'? categoriesArray.push(ele.m_ExamName): categoriesArray.push(ele.examName);
           }
         })
-      ): categoriesArray.push(ele.examName);;
+      ):this.lang=='mr-IN'? categoriesArray.push(ele.m_ExamName): categoriesArray.push(ele.examName);;
     });
     seriesArray[1].data.unshift(0);
  
@@ -439,10 +440,10 @@ export class StudentProfileComponent {
       categoriesArray.length?(
         categoriesArray.forEach(ele1=>{
           if(ele.examName!=ele1){
-            categoriesArray.push(ele.examName);
+            this.lang=='mr-IN'? categoriesArray.push(ele.m_ExamName):  categoriesArray.push(ele.examName);
           }
         })
-      ): categoriesArray.push(ele.examName);
+      ):this.lang=='mr-IN'? categoriesArray.push(ele.m_ExamName): categoriesArray.push(ele.examName);
     }); 
     seriesArray[2].data.unshift(0); 
     categoriesArray.unshift('');

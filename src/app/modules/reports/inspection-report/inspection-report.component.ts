@@ -128,7 +128,6 @@ export class InspectionReportComponent {
     if(obj.label=='view'){
       this.router.navigate(['../inspection-report-details/'+obj.id]);
     }
-    console.log(obj.id);
   }
 
   onSearchReport(){
