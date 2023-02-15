@@ -304,7 +304,7 @@
                                     [style.background-color]="pro.colorCodeValue" aria-valuenow="15"
                                     aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
                                     data-bs-toggle="tooltip" title="{{pro?.assessmentParamenterName}}" data-bs-html="true"
-                                    [attr.data-bs-title]="pro?.assessmentParamenterName" (click)="redToStuProfile('bar',0,pro.assessmentId)">
+                                    [attr.data-bs-title]="pro?.assessmentParamenterName" (click)="redToStuProfile('bar',element,pro.assessmentId)">
                                     <span>{{pro?.assesmentCalculationValue ==0 ? '':(pro?.assesmentCalculationValue)+'%'}}</span>
                                 </div>
                             </div>    

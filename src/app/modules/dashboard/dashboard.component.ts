@@ -305,7 +305,6 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
-        console.log(this.getSurveyedData);
 
         this.calSelectedNumber(true)
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [];
@@ -831,19 +830,20 @@ export class DashboardComponent {
   redToStuProfile(lable:string,id:any, assessmentId?:any){
     let formValue =  this.topFilterForm.value;
     let obj:any = {
-      kendraId: (lable=='Kendra' || lable=='bar')? (id.sourceId ? id.sourceId :0) : formValue.kendraId,
-      schoolId: (lable != 'subject' && lable!='Taluka' && lable !='Kendra')?(id.sourceId ? id.sourceId :0):formValue.schoolId,
+      kendraId: lable=='Kendra' || (lable == 'bar' && this.setName(this.assLabelName)=='Kendra')? id.sourceId  : formValue.kendraId,
+      schoolId: (lable != 'subject' && lable == 'bar')? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):'',
       typeId:lable=='subject'? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
       yearId:formValue.yearId,
-      talukaId: lable=='Taluka'?id.sourceId:formValue.talukaId,
+      talukaId: lable=='Taluka' || (lable == 'bar' && this.setName(this.assLabelName)=='Taluka')?id.sourceId:formValue.talukaId,
       examId:formValue.assesmentId,
       assesmentId:assessmentId,
-      subjectId: lable != 'subject'? 0 : id,
-      staId:(lable != 'subject' && lable != 'bar')?[id.standardId]:this.selStdArray 
+      subjectId: lable == 'subject'? id : lable == 'bar'? this.topFilterForm.value.subjectId : 0,
+      staId:(lable != 'subject' && (lable == 'bar' && this.setName(this.assLabelName) =='School Name'))?[id.standardId] : this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key');
   }
 }
+
 
 
 /* 
