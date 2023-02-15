@@ -1,68 +1,68 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-        <h6 class="text-main">Educational School Visit</h6>
+        <h6 class="text-main">{{'inspection_report_details.Educational_School_Visit'|translate}}</h6>
     </mat-card-header>
     <mat-card-content class="card-body form-container pt-0">
         <div class="row g-3" id="inspection-details">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">School Information</div>
+                    <div class="card-header">{{'inspection_report_details.inspection_reportSchool_Information'|translate}}</div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-sm-4">
-                                <div class="form-label">School Name:</div>
+                                <div class="form-label">{{'inspection_report_details.inspection_report_details'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.schoolName?schoolInfoArray?.schoolName :'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Name of Visiting Officer:</div>
+                                <div class="form-label">{{'inspection_report_details.Visiting_Officer'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.vistorName ? schoolInfoArray?.vistorName:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Designation:</div>
+                                <div class="form-label">{{'inspection_report_details.Designation'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.schoolName}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">School Medium:</div>
+                                <div class="form-label">{{'inspection_report_details.School_Medium'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.schoolMedium ? schoolInfoArray?.schoolMedium:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Center:</div>
+                                <div class="form-label">{{'inspection_report_details.Center'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.schoolCenter ? schoolInfoArray?.schoolCenter:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Principal Name:</div>
+                                <div class="form-label">{{'inspection_report_details.Principal_Name'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.principleName? schoolInfoArray?.principleName:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Principal Whatsapp Number:</div>
+                                <div class="form-label">{{'inspection_report_details.Principal_Whatsapp_Number'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.principleW_No? schoolInfoArray?.principleW_No:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Types of School Management</div>
+                                <div class="form-label">{{'inspection_report_details.Types_of_School_Management'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.sclmgtTypeName? schoolInfoArray?.sclmgtTypeName:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Panchayat Committee</div>
+                                <div class="form-label">{{'inspection_report_details.Panchayat_Committee'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.sclmgtTypeName}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Date of Visit</div>
+                                <div class="form-label">{{'inspection_report_details.Date_of_Visit'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.visitDate?( schoolInfoArray?.visitDate |date:'dd/MM/yyyy'):'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Class Teacher Name</div>
+                                <div class="form-label">{{'inspection_report_details.Class_Teacher_Name'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.classTeacherName? schoolInfoArray?.classTeacherName:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">Visited Class</div>
+                                <div class="form-label">{{'inspection_report_details.Visited_Class'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.standard? schoolInfoArray?.standard:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">No of Students in Class Visited</div>
+                                <div class="form-label">{{'inspection_report_details.Class_Visited'|translate}}</div>
                                 <div class="form-data"> {{schoolInfoArray?.studentInStandard? schoolInfoArray?.studentInStandard:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">No of Students Present in Class Visited</div>
+                                <div class="form-label">{{'inspection_report_details.Present_Class_Visited'|translate}}</div>
                                 <div class="form-data">{{schoolInfoArray?.presentStudent? schoolInfoArray?.presentStudent:'-'}}</div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                 </div>
             </ng-container>
             </ng-container>
-            
+
            </div>
         <!--     <div class="col-sm-6">
                 <div class="card">
@@ -363,7 +363,7 @@
                         </li>
                     </ul>
                 </div>
-            </div> 
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

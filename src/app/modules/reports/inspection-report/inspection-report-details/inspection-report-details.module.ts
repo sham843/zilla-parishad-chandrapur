@@ -7,6 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatRadioModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ]
 })
 export class InspectionReportDetailsModule { }

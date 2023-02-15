@@ -335,6 +335,26 @@
         "report/inspection report":"Report/Inspection Report"
 
       },
+      "inspection_report_details":{
+        "Educational_School_Visit":"Educational school visit",
+        "inspection_reportSchool_Information":"School information",
+        "inspection_report_details":"School Name",
+        "Visiting_Officer":"Name Of Visiting Officer",
+        "Designation":"Designation",
+        "School_Medium":"School medium",
+        "Center":"Center",
+        "Principal_Name":"Principal Name",
+        "Principal_Whatsapp_Number":"Principal WhatsApp No",
+        "Types_of_School_Management":"Types of school management",
+        "Panchayat_Committee":"Panchayat Committee",
+        "Date_of_Visit":"Date",
+        "Class_Teacher_Name":"Class Teacher Name",
+        "Visited_Class":"Visited Class",
+        "Class_Visited":"Number of students in the class visited",
+        "Present_Class_Visited":"Number of students present in the class visited"
+
+
+      },
       "performance_indicators":{
         "English_Language_Level":"English Language Level",
         "performance_indicators":"Performance Indicators",
