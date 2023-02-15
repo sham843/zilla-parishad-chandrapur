@@ -11,6 +11,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-student-registration',
@@ -43,7 +44,8 @@ export class StudentRegistrationComponent {
     private errorService: ErrorsService,
     private fb: FormBuilder,
     private excelPdf: ExcelPdfDownloadService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public validation: ValidationService
   ) {}
 
   ngOnInit() {
