@@ -240,7 +240,7 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.cardInfoData = res.responseData;
         this.checkBoxCheckAll = true; 
-        this.getAssesmentPiChartData();
+        this.getSurveyDashboardDetails();
         this.getDynamicDetails();
       }
       else {
@@ -276,7 +276,6 @@ export class DashboardComponent {
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
-    this.selStdArray=[1,2,3,4,5,6,7,8,9,10,11,12];
     let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&standard=${this.selStdArray.toString()}&userTypeId=${filterFormData.userTypeId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
@@ -287,7 +286,7 @@ export class DashboardComponent {
         let getValEnglishSentence = this.piechartSecondOptionsData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartOptionstData.length && !getValEnglishWords ? this.pieChart(res.responseData) : this.piechartOptionstData = [];
         this.piechartSecondOptionsData.length && !getValEnglishSentence ? this.pieChart(res.responseData) : this.piechartSecondOptionsData =[];
-        this.getSurveyDashboardDetails();
+        // this.getSurveyDashboardDetails();
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -306,6 +305,7 @@ export class DashboardComponent {
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.getSurveyedData = res.responseData;
+        console.log(this.getSurveyedData);
 
         this.calSelectedNumber(true)
         this.getSurveyedData[0].data != 0 ? this.checkBoxChecked('default') : this.getAssesmentData = [];
@@ -371,7 +371,7 @@ export class DashboardComponent {
         let subtraction = this.selNumber - val.data;
         this.selNumber  = subtraction > 0 ? subtraction : 0
       }
-      this.getAssesmentDashboardDetails();
+      this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     } else {
       this.checkBoxCheckAll = true; 
       this.getSurveyedData.find((ele: any, i: number) => {
@@ -380,7 +380,7 @@ export class DashboardComponent {
           !checkStaIndex ? this.selStdArray.push(ele.standardId) : '';
         }
       });
-      this.getAssesmentDashboardDetails();
+      this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     }
   }
 
@@ -400,7 +400,7 @@ export class DashboardComponent {
       }
     });
     event.checked ? (this.checkBoxCheckAll = true, this.checkBoxChecked('default')): this.checkBoxCheckAll = false;
-    this.getAssesmentDashboardDetails();
+    this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     
   }
 
