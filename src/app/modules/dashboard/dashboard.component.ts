@@ -72,10 +72,11 @@ export class DashboardComponent {
 
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.language = res;
+      this.getAllSubject();
+      this.cardCountData();
     });
     this.mainFilterForm();
     this.educationYear();
-    this.getAllSubject();
   }
 
   ngAfterViewInit() {
@@ -87,7 +88,7 @@ export class DashboardComponent {
   }
 
   showToolTipOnPro(){
-    $('.progress-bar').tooltip()
+    // $('.progress-bar').tooltip()
     // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     //   tooltipTriggerList.map(function (tooltipTriggerEl) {
     //     return new bootstrap.Tooltip(tooltipTriggerEl)
@@ -253,7 +254,8 @@ export class DashboardComponent {
 
 
   getAllSubject() {
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', false, false, false, 'baseUrl');
+    let lang =this.language == 'Marathi'?'mr-IN':'en';
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject?flag_lang='+lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -275,8 +277,9 @@ export class DashboardComponent {
   //#region ---------------------------------------------main contant api fn start heare-----------------------------------------------//
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
+    let lang =this.language == 'Marathi'?'mr-IN':'en';
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&standard=${this.selStdArray.toString()}&userTypeId=${filterFormData.userTypeId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${lang}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&standard=${this.selStdArray.toString()}&userTypeId=${filterFormData.userTypeId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -327,9 +330,10 @@ export class DashboardComponent {
   }
 
   getAssesmentDashboardDetails() {
+    let lang =this.language == 'Marathi'?'mr-IN':'en';
     if (this.selStdArray.length) {
       let filterFormData = this.topFilterForm.value;
-      let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&userTypeId=${filterFormData.userTypeId}`
+      let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${lang}&standard=${this.selStdArray.toString()}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&userTypeId=${filterFormData.userTypeId}`
       this.apiService.setHttp('get', 'dashboard/get-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
@@ -832,7 +836,7 @@ export class DashboardComponent {
     let obj:any = {
       kendraId: lable=='Kendra' || (lable == 'bar' && this.setName(this.assLabelName)=='Kendra')? id.sourceId  : formValue.kendraId,
       schoolId: (lable != 'subject' && lable == 'bar')? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):'',
-      typeId:lable=='subject'? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
+      typeId:(lable=='subject' || lable == 'bar')? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
       yearId:formValue.yearId,
       talukaId: lable=='Taluka' || (lable == 'bar' && this.setName(this.assLabelName)=='Taluka')?id.sourceId:formValue.talukaId,
       examId:formValue.assesmentId,

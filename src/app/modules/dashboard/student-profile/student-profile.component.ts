@@ -76,11 +76,11 @@ export class StudentProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN'
       this.setTableData();
+      this.getAllSubject();
     })
     this.getformControl();
     this.getTaluka();
     this.getStandard();
-    this.getAllSubject();
     this.getEducationYear();
   }
 
@@ -206,7 +206,7 @@ export class StudentProfileComponent {
   }
 
   getAllSubject() {
-    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject', false, false, false, 'baseUrl');
+    this.apiService.setHttp('get', 'zp_chandrapur/master/GetAllSubject?flag_lang='+this.lang, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
