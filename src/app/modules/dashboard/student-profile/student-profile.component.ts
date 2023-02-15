@@ -79,7 +79,7 @@ export class StudentProfileComponent {
     })
     this.getformControl();
     this.getTaluka();
-    this.globalObj.schoolId==0?this.getStandard():'';
+    this.getStandard();
     this.getAllSubject();
     this.getEducationYear();
   }
@@ -444,7 +444,6 @@ export class StudentProfileComponent {
         })
       ): categoriesArray.push(ele.examName);
     }); 
-    console.log("categoriesArray",categoriesArray)
     seriesArray[2].data.unshift(0); 
     categoriesArray.unshift('');
 

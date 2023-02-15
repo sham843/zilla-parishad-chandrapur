@@ -2,6 +2,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -55,6 +56,7 @@ export class DashboardComponent {
   pageNumber:number =1;
   totalRows!:number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   
   constructor(public translate: TranslateService,
     private apiService: ApiService,
@@ -238,7 +240,7 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.cardInfoData = res.responseData;
         this.checkBoxCheckAll = true; 
-        this.getAssesmentPiChartData();
+        this.getSurveyDashboardDetails();
         this.getDynamicDetails();
       }
       else {
@@ -274,17 +276,17 @@ export class DashboardComponent {
 
   getAssesmentPiChartData() {//Explain Meaning of English Word //Explain Meaning of English Sentence
     let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}`
+    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&assesmentId=${filterFormData.assesmentId}&userId=${filterFormData.userId}&standard=${this.selStdArray.toString()}&userTypeId=${filterFormData.userTypeId}`
     this.apiService.setHttp('get', 'dashboard/get-general-assesment-dashboard-details?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.piechartOptionstData = res.responseData[0].assesmentDetails;
-        let getValEnglishWords = this.piechartOptionstData.every((ele:any)=> ele.assesmentCalculationValue == 0);
+       let getValEnglishWords = this.piechartOptionstData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartSecondOptionsData = res.responseData[1].assesmentDetails;
         let getValEnglishSentence = this.piechartSecondOptionsData.every((ele:any)=> ele.assesmentCalculationValue == 0);
         this.piechartOptionstData.length && !getValEnglishWords ? this.pieChart(res.responseData) : this.piechartOptionstData = [];
         this.piechartSecondOptionsData.length && !getValEnglishSentence ? this.pieChart(res.responseData) : this.piechartSecondOptionsData =[];
-        this.getSurveyDashboardDetails();
+        // this.getSurveyDashboardDetails();
       }
       else {
         this.commonMethods.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -368,7 +370,7 @@ export class DashboardComponent {
         let subtraction = this.selNumber - val.data;
         this.selNumber  = subtraction > 0 ? subtraction : 0
       }
-      this.getAssesmentDashboardDetails();
+      this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     } else {
       this.checkBoxCheckAll = true; 
       this.getSurveyedData.find((ele: any, i: number) => {
@@ -377,7 +379,7 @@ export class DashboardComponent {
           !checkStaIndex ? this.selStdArray.push(ele.standardId) : '';
         }
       });
-      this.getAssesmentDashboardDetails();
+      this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     }
   }
 
@@ -397,7 +399,7 @@ export class DashboardComponent {
       }
     });
     event.checked ? (this.checkBoxCheckAll = true, this.checkBoxChecked('default')): this.checkBoxCheckAll = false;
-    this.getAssesmentDashboardDetails();
+    this.getAssesmentDashboardDetails();this.getAssesmentPiChartData();
     
   }
 
@@ -771,6 +773,7 @@ export class DashboardComponent {
       if (res.statusCode == "200") {
         this.talukaWiseAssData = res.responseData.responseData1;
         this.talukaWiseAssData = new MatTableDataSource(this.talukaWiseAssData);
+        this.talukaWiseAssData.sort = this.sort;
         this.totalRows = res.responseData.responseData2.pageCount;
         this.totalRows > 10 && this.pageNumber == 1 ? this.paginator?.firstPage() : '';
         setTimeout(() => {this.showToolTipOnPro() }, 1000);
@@ -827,6 +830,25 @@ export class DashboardComponent {
   redToStuProfile(lable:string,id:any, assessmentId?:any){
     let formValue =  this.topFilterForm.value;
     let obj:any = {
+      kendraId: lable=='Kendra' || (lable == 'bar' && this.setName(this.assLabelName)=='Kendra')? id.sourceId  : formValue.kendraId,
+      schoolId: (lable != 'subject' && lable == 'bar')? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):'',
+      typeId:lable=='subject'? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
+      yearId:formValue.yearId,
+      talukaId: lable=='Taluka' || (lable == 'bar' && this.setName(this.assLabelName)=='Taluka')?id.sourceId:formValue.talukaId,
+      examId:formValue.assesmentId,
+      assesmentId:assessmentId,
+      subjectId: lable == 'subject'? id : lable == 'bar'? this.topFilterForm.value.subjectId : 0,
+      staId:(lable != 'subject' && (lable == 'bar' && this.setName(this.assLabelName) =='School Name'))?[id.standardId] : this.selStdArray
+    }
+    this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key');
+  }
+}
+
+
+
+/* 
+ let formValue =  this.topFilterForm.value;
+    let obj:any = {
       kendraId: formValue.kendraId,
       schoolId: lable != 'subject'?id.sourceId:formValue.schoolId,
       typeId:lable=='subject'? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
@@ -835,9 +857,6 @@ export class DashboardComponent {
       examId:formValue.assesmentId,
       assesmentId:assessmentId,
       subjectId: lable != 'subject'? 0 : id,
-      staId:lable != 'subject'?[id.standardId]:this.selStdArray
+      staId:lable != 'subject'?[id.standardId]:this.selStdArray 
     }
-    this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key'); 
-  }
-
-}
+*/

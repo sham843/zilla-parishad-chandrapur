@@ -1,5 +1,5 @@
-import { Component ,Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
@@ -11,38 +11,35 @@ import { ErrorsService } from 'src/app/core/services/errors.service';
 })
 export class InspectionReportDetailsComponent {
   schoolInfoArray:any;
+  srvId!:number;
   groupQueArray = new Array();
   groupArray =new Array();
-  constructor(public dialogRef: MatDialogRef<InspectionReportDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(
     private apiService:ApiService,
     private commonMethod:CommonMethodsService,
-    private errorService:ErrorsService){}
+    private errorService:ErrorsService,
+    private activatedRoute:ActivatedRoute){}
 
     ngOnInit(){
+      this.srvId =this.activatedRoute.snapshot.params['id'];
       this.getVisitReportById();
     }
   getVisitReportById(){
-    let id =this.data?this.data:0;
-    this.apiService.setHttp('get','VisitorForm/GetById?Id='+id,false,false,false,'baseUrl');
+    this.apiService.setHttp('get','VisitorForm/GetById?Id='+(this.srvId?this.srvId:0),false,false,false,'baseUrl');
     this.apiService.getHttp().subscribe({
       next:(res: any) => {
         if(res.statusCode == "200"){
          this.schoolInfoArray = res.responseData;
-         /* let grpId :any=[...new Set(this.schoolInfoArray.surveyQueAnsDtl.map((x:any)=>x.groupId))];
-         grpId.forEach((ele: any) => {
-          this.schoolInfoArray.surveyQueAnsDtl.find((elemant: any) => {
-            if (ele == elemant.groupId) {
-              this.groupQueArray.push({
-                'groupId':elemant.groupId,
-                'groupName':elemant.groupName,
-                'groupMarName':elemant.m_GroupName,
-               })
+         let grData:any =[];
+         this.schoolInfoArray.grpdata.forEach((ele:any) => {
+          grData=[];
+          this.schoolInfoArray.surveyQueAnsDtl.forEach((element:any)=>{
+            if(element.groupId==ele.id){
+              grData.push(element);
             }
           })
-        }) */
-        
-         console.log(this.schoolInfoArray);
+          ele['gropData']=grData;
+         });
         }
         else{
           this.schoolInfoArray =[];

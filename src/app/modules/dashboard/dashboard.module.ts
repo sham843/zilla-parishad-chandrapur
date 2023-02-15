@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 // import { StudentProfileComponent } from './student-profile/student-profile.component';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     TranslateModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class DashboardModule { }

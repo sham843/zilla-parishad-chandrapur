@@ -12,49 +12,48 @@
             </div>
         </div>
 
-        <div class="col-sm-2 text-end">
+       <!--  <div class="col-sm-2 text-end">
           <button mat-flat-button class="btn-icon" routerLink="/inspection-report-details">
             <mat-icon class="material-symbols-outlined">
               visibility
               </mat-icon>
-          <!-- <span>Inspection-Details-Report</span> -->
-        </button></div>
+        </button></div> -->
 
 
     </mat-card-header>
   <mat-card-header class="card-header mb-0 border-0 pb-0">
-      <form class="w-100">
+      <form class="w-100" [formGroup]="searchForm" (ngSubmit)="onSearchReport()">
           <div class="row w-100 mb-3">
               <div class="col-sm-2">
-                  <mat-form-field appearance="outline" class="w-100"
-                     >
+                  <mat-form-field appearance="outline" class="w-100">
                       <mat-label>{{'common.taluka' |translate}}</mat-label>
-                      <mat-select>
+                      <mat-select formControlName="talukaId">
                           <mat-option [value]="0">All Taluka</mat-option>
-                          <mat-option>
-
-                          </mat-option>
+                            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka" (selectionChange)="getkendra(searchForm.value.talukaId)">{{taluka}}</mat-option>
                       </mat-select>
                   </mat-form-field>
               </div>
               <div class="col-sm-2">
                   <mat-form-field appearance="outline" class="w-100">
                       <mat-label>{{'common.kendra' |translate}}</mat-label>
-                      <mat-select>
+                      <mat-select formControlName="kendraID">
                           <mat-option [value]="0">All Kendra</mat-option>
-                          <mat-option>
-                          </mat-option>
+                          <mat-option *ngFor="let kendra of kendraArray" [value]="kendra" (selectionChange)="getkendra(searchForm.value.kendraID)">{{kendra}}</mat-option>
                       </mat-select>
                   </mat-form-field>
               </div>
               <div class="col-sm-4">
-                  <mat-form-field appearance="outline" class="w-100 ">
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>{{'common.select_school'|translate}}</mat-label>
+                    <input matInput type="text" formControlName="schoolId" (keypress)="this.validation.noFirstSpaceAllow($event)">
+                </mat-form-field>
+                  <!-- <mat-form-field appearance="outline" class="w-100 ">
                       <mat-label>{{'common.select_school'|translate}}</mat-label>
-                      <mat-select>
+                      <mat-select formControlName="schoolId">
                           <mat-option [value]="0">All School</mat-option>
-                          <mat-option></mat-option>
+                          <mat-option *ngFor="let school of schoolArray" [value]="school">{{school}}</mat-option>
                       </mat-select>
-                  </mat-form-field>
+                  </mat-form-field> -->
               </div>
               <div class="col-sm-2 text-start">
                   <button type="submit" mat-flat-button

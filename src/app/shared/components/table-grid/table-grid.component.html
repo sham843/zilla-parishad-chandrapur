@@ -50,12 +50,14 @@
                         </mat-icon>
                     </button>
                     </ng-container>
+                   <ng-container *ngIf="tableInfo?.edit == true">
                     <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Edit', i)"
-                        matTooltip="{{'common.edit' | translate}}">
-                        <mat-icon class="text-main">
-                            edit
-                        </mat-icon>
-                    </button>
+                    matTooltip="{{'common.edit' | translate}}">
+                    <mat-icon class="text-main">
+                        edit
+                    </mat-icon>
+                </button>
+                   </ng-container>
                     <ng-container *ngIf="tableInfo?.delete == true">
                         <button mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete',i)"
                         matTooltip="{{'common.delete' | translate}}">
