@@ -69,39 +69,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <ng-container *ngIf="schoolInfoArray.grpdata.length > 0">
-                    <div *ngFor="let groupData of schoolInfoArray.grpdata">
-                        <div class="card-header">{{groupData.groupName}}</div>
-                        <ul class="list-group list-group-flush" *ngFor="let grData of groupData.grpdata">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">{{grData.queTitle}}</div>
-                            <div class="form-data">150</div>
-                        </li>
-                        </ul>
+           <div class="row g-2">
+            <ng-container *ngFor="let grData of schoolInfoArray?.grpdata">
+                <ng-container *ngIf="grData.gropData.length > 0">
+                <div class="col-sm-6">
+                    <div class="card">
+                            <div class="card-header">{{grData.groupName}}</div>
+                            <ul class="list-group list-group-flush" *ngFor="let groupDT of grData.gropData">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="form-label">{{groupDT.queTitle}}</div>
+                                <div class="form-data">{{groupDT.answer}}</div>
+                            </li>
+                            </ul>
                     </div>
-                        <!-- <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students in Letter Level</div>
-                            <div class="form-data"> 150</div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students in Word Level</div>
-                            <div class="form-data"> 150</div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students in Passage Level</div>
-                            <div class="form-data"> 150</div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students in Subject Level</div>
-                            <div class="form-data"> 150</div>
-                        </li> 
-                    </ul>-->
-                    
-                    </ng-container>
                 </div>
-            </div>
+            </ng-container>
+            </ng-container>
+            
+           </div>
         <!--     <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">Mathematics</div>
@@ -347,7 +332,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
             <div class="col-sm-12">
                 <div class="card h-100">
                     <div class="card-header">Ek Bharat Shresht Bharat</div>
@@ -378,7 +363,7 @@
                         </li>
                     </ul>
                 </div>
-            </div> -->
+            </div> 
         </div>
     </mat-card-content>
 </mat-card>

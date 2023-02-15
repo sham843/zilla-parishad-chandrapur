@@ -35,13 +35,11 @@ export class InspectionReportDetailsComponent {
           grData=[];
           this.schoolInfoArray.surveyQueAnsDtl.forEach((element:any)=>{
             if(element.groupId==ele.id){
-              console.log(element.groupId +'hdfhdfh'+ele.id);
               grData.push(element);
             }
           })
           ele['gropData']=grData;
          });
-         console.log(this.schoolInfoArray.grpdata);
         }
         else{
           this.schoolInfoArray =[];
