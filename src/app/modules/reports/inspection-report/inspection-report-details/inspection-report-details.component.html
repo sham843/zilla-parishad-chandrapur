@@ -69,15 +69,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6" *ngFor="let queData of schoolInfoArray.surveyQueAnsDtl;let i=index;">
+            <div class="col-sm-6">
                 <div class="card">
-                    <div class="card-header">Language(Marathi)</div>
-                    <ul class="list-group list-group-flush">
+                    <ng-container *ngIf="schoolInfoArray.grpdata.length > 0">
+                    <div *ngFor="let groupData of schoolInfoArray.grpdata">
+                        <div class="card-header">{{groupData.groupName}}</div>
+                        <ul class="list-group list-group-flush" *ngFor="let grData of groupData.grpdata">
                         <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students in Primary Level</div>
+                            <div class="form-label">{{grData.queTitle}}</div>
                             <div class="form-data">150</div>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
+                        </ul>
+                    </div>
+                        <!-- <li class="list-group-item d-flex justify-content-between">
                             <div class="form-label">Number of students in Letter Level</div>
                             <div class="form-data"> 150</div>
                         </li>
@@ -92,11 +96,13 @@
                         <li class="list-group-item d-flex justify-content-between">
                             <div class="form-label">Number of students in Subject Level</div>
                             <div class="form-data"> 150</div>
-                        </li>
-                    </ul>
+                        </li> 
+                    </ul>-->
+                    
+                    </ng-container>
                 </div>
             </div>
-            <div class="col-sm-6">
+        <!--     <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">Mathematics</div>
                     <ul class="list-group list-group-flush">
@@ -372,7 +378,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
     </mat-card-content>
 </mat-card>

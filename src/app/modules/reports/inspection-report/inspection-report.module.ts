@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { InspectionReportRoutingModule } from './inspection-report-routing.module';
 import { InspectionReportComponent } from './inspection-report.component';
@@ -35,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
     ViewDialogComponent,
     MatCheckboxModule,
     MatIconModule
-  ]
+  ],
+  providers:[DatePipe]
 })
 export class InspectionReportModule { }
