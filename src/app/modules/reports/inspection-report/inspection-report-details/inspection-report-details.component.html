@@ -11,39 +11,39 @@
                         <div class="row g-3">
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.inspection_report_details'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.schoolName?schoolInfoArray?.schoolName :'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'?schoolInfoArray?.m_SchoolName:schoolInfoArray?.schoolName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Visiting_Officer'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.vistorName ? schoolInfoArray?.vistorName:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_VistorName: schoolInfoArray?.vistorName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Designation'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.schoolName}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_DesignationName:schoolInfoArray?.designationName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.School_Medium'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.schoolMedium ? schoolInfoArray?.schoolMedium:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolMedium: schoolInfoArray?.schoolMedium}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Center'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.schoolCenter ? schoolInfoArray?.schoolCenter:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolCenter: schoolInfoArray?.schoolCenter}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Principal_Name'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.principleName? schoolInfoArray?.principleName:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_PrincipleName: schoolInfoArray?.principleName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Principal_Whatsapp_Number'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.principleW_No? schoolInfoArray?.principleW_No:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.principleW_No: schoolInfoArray?.principleW_No}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Types_of_School_Management'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.sclmgtTypeName? schoolInfoArray?.sclmgtTypeName:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SclmgtTypeName: schoolInfoArray?.sclmgtTypeName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Panchayat_Committee'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.sclmgtTypeName}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Taluka: schoolInfoArray?.taluka}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Date_of_Visit'|translate}}</div>
@@ -51,11 +51,11 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Class_Teacher_Name'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.classTeacherName? schoolInfoArray?.classTeacherName:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_ClassTeacherName: schoolInfoArray?.classTeacherName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Visited_Class'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.standard? schoolInfoArray?.standard:'-'}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Standard: schoolInfoArray?.standard}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Class_Visited'|translate}}</div>
@@ -74,10 +74,10 @@
                 <ng-container *ngIf="grData.gropData.length > 0">
                 <div class="col-sm-6">
                     <div class="card">
-                            <div class="card-header">{{grData.groupName}}</div>
+                            <div class="card-header">{{this.language=='Marathi'? grData.m_GroupName : grData.groupName}}</div>
                             <ul class="list-group list-group-flush" *ngFor="let groupDT of grData.gropData">
                             <li class="list-group-item d-flex justify-content-between">
-                                <div class="form-label">{{groupDT.queTitle}}</div>
+                                <div class="form-label">{{this.language=='Marathi' ? groupDT.m_QueTitle : groupDT.queTitle}}</div>
                                 <div class="form-data">{{groupDT.answer}}</div>
                             </li>
                             </ul>

@@ -234,14 +234,15 @@ export class DashboardComponent {
   // 
 
   cardCountData() {
-    let filterFormData = this.topFilterForm.value;
-    let str = `${filterFormData.talukaId}&kendraId=${filterFormData.kendraId}&schoolId=${filterFormData.schoolId}&flag=${filterFormData.flag}&yearId=${filterFormData.yearId}&userId=${filterFormData.userId}`
+    let filterFormData = this.topFilterForm?.value;
+    let str = `${filterFormData?.talukaId}&kendraId=${filterFormData?.kendraId}&schoolId=${filterFormData?.schoolId}&flag=${filterFormData?.flag}&yearId=${filterFormData?.yearId}&userId=${filterFormData?.userId}`
     this.apiService.setHttp('get', 'dashboard/get-summary-dashboard-count?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.cardInfoData = res.responseData;
         this.checkBoxCheckAll = true; 
         this.getSurveyDashboardDetails();
+        this.getAssesmentPiChartData();
         this.getDynamicDetails();
       }
       else {

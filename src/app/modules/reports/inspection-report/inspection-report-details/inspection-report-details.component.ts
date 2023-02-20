@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorsService } from 'src/app/core/services/errors.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-inspection-report-details',
@@ -14,14 +15,19 @@ export class InspectionReportDetailsComponent {
   srvId!:number;
   groupQueArray = new Array();
   groupArray =new Array();
+  language!:string;
   constructor(
     private apiService:ApiService,
     private commonMethod:CommonMethodsService,
     private errorService:ErrorsService,
-    private activatedRoute:ActivatedRoute){}
+    private activatedRoute:ActivatedRoute,
+    private webStorage:WebStorageService){}
 
     ngOnInit(){
       this.srvId =this.activatedRoute.snapshot.params['id'];
+      this.webStorage.setLanguage.subscribe((res:any)=>{
+        this.language = res;
+      })
       this.getVisitReportById();
     }
   getVisitReportById(){

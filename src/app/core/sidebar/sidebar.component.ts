@@ -27,7 +27,7 @@ export class SidebarComponent {
         return ele;
       }
     })
-    items?.forEach((item: any) => { 
+      items?.forEach((item: any) => { 
       let existing: any = this.loginPages.filter((v: any) => {
         return v.pageNameView == item.pageNameView && v.m_PageNameView == item.m_PageNameView;
       });
