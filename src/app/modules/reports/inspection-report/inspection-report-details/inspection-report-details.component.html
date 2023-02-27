@@ -6,88 +6,112 @@
         <div class="row g-3" id="inspection-details">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">{{'inspection_report_details.inspection_reportSchool_Information'|translate}}</div>
+                    <div class="card-header">
+                        {{'inspection_report_details.inspection_reportSchool_Information'|translate}}</div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.inspection_report_details'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'?schoolInfoArray?.m_SchoolName:schoolInfoArray?.schoolName}}</div>
+                                <div class="form-label">
+                                    {{'inspection_report_details.inspection_report_details'|translate}}</div>
+                                <div class="form-data">
+                                    {{this.language=='Marathi'?schoolInfoArray?.m_SchoolName:schoolInfoArray?.schoolName}}
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Visiting_Officer'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_VistorName: schoolInfoArray?.vistorName}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_VistorName:
+                                    schoolInfoArray?.vistorName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Designation'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_DesignationName:schoolInfoArray?.designationName}}</div>
+                                <div class="form-data">{{this.language=='Marathi'?
+                                    schoolInfoArray?.m_DesignationName:schoolInfoArray?.designationName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.School_Medium'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolMedium: schoolInfoArray?.schoolMedium}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolMedium:
+                                    schoolInfoArray?.schoolMedium}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Center'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolCenter: schoolInfoArray?.schoolCenter}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SchoolCenter:
+                                    schoolInfoArray?.schoolCenter}}</div>
                             </div>
                             <div class="col-sm-4">
-                    p            <div class="form-label">{{'inspection_report_details.Principal_Name'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_PrincipleName: schoolInfoArray?.principleName}}</div>
+                                <div class="form-label">{{'inspection_report_details.Principal_Name'|translate}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_PrincipleName:
+                                    schoolInfoArray?.principleName}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.Principal_Whatsapp_Number'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.principleW_No: schoolInfoArray?.principleW_No}}</div>
+                                <div class="form-label">
+                                    {{'inspection_report_details.Principal_Whatsapp_Number'|translate}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.principleW_No:
+                                    schoolInfoArray?.principleW_No}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.Types_of_School_Management'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SclmgtTypeName: schoolInfoArray?.sclmgtTypeName}}</div>
+                                <div class="form-label">
+                                    {{'inspection_report_details.Types_of_School_Management'|translate}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_SclmgtTypeName:
+                                    schoolInfoArray?.sclmgtTypeName}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.Panchayat_Committee'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Taluka: schoolInfoArray?.taluka}}</div>
+                                <div class="form-label">{{'inspection_report_details.Panchayat_Committee'|translate}}
+                                </div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Taluka:
+                                    schoolInfoArray?.taluka}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Date_of_Visit'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.visitDate?( schoolInfoArray?.visitDate |date:'dd/MM/yyyy'):'-'}}</div>
+                                <div class="form-data">{{schoolInfoArray?.visitDate?( schoolInfoArray?.visitDate
+                                    |date:'dd/MM/yyyy'):'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.Class_Teacher_Name'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_ClassTeacherName: schoolInfoArray?.classTeacherName}}</div>
+                                <div class="form-label">{{'inspection_report_details.Class_Teacher_Name'|translate}}
+                                </div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_ClassTeacherName:
+                                    schoolInfoArray?.classTeacherName}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Visited_Class'|translate}}</div>
-                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Standard: schoolInfoArray?.standard}}</div>
+                                <div class="form-data">{{this.language=='Marathi'? schoolInfoArray?.m_Standard:
+                                    schoolInfoArray?.standard}}</div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-label">{{'inspection_report_details.Class_Visited'|translate}}</div>
-                                <div class="form-data"> {{schoolInfoArray?.studentInStandard? schoolInfoArray?.studentInStandard:'-'}}</div>
+                                <div class="form-data"> {{schoolInfoArray?.studentInStandard?
+                                    schoolInfoArray?.studentInStandard:'-'}}</div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-label">{{'inspection_report_details.Present_Class_Visited'|translate}}</div>
-                                <div class="form-data">{{schoolInfoArray?.presentStudent? schoolInfoArray?.presentStudent:'-'}}</div>
+                                <div class="form-label">{{'inspection_report_details.Present_Class_Visited'|translate}}
+                                </div>
+                                <div class="form-data">{{schoolInfoArray?.presentStudent?
+                                    schoolInfoArray?.presentStudent:'-'}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           <div class="row g-2">
-            <ng-container *ngFor="let grData of schoolInfoArray?.grpdata">
-                <ng-container *ngIf="grData.gropData.length > 0">
-                <div class="col-sm-6">
-                    <div class="card">
-                            <div class="card-header">{{this.language=='Marathi'? grData.m_GroupName : grData.groupName}}</div>
-                            <ul class="list-group list-group-flush" *ngFor="let groupDT of grData.gropData">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <div class="form-label">{{this.language=='Marathi' ? groupDT.m_QueTitle : groupDT.queTitle}}</div>
-                                <div class="form-data">{{groupDT.answer}}</div>
-                            </li>
-                            </ul>
-                    </div>
-                </div>
-            </ng-container>
-            </ng-container>
+            <div class="row g-2">
+                <ng-container *ngFor="let grData of schoolInfoArray?.grpdata">
+                    <ng-container *ngIf="grData.gropData.length > 0">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">{{this.language=='Marathi'? grData.m_GroupName :
+                                    grData.groupName}}</div>
+                                <ul class="list-group list-group-flush" *ngFor="let groupDT of grData.gropData">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div class="form-label">{{this.language=='Marathi' ? groupDT.m_QueTitle :
+                                            groupDT.queTitle}}</div>
+                                        <div class="form-data">{{groupDT.answer}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
 
-           </div>
-    <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">Mathematics</div>
                     <ul class="list-group list-group-flush">
@@ -275,12 +299,14 @@
                             <div class="form-data">No</div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Are monthly records of Azadi ka Amrit Mahotsav activities being taken in the
+                            <div class="form-label">Are monthly records of Azadi ka Amrit Mahotsav activities being
+                                taken in the
                                 school?</div>
                             <div class="form-data">Yes</div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Has a coordinator been appointed under Azadi Ka Amrit Mahotsav and Ek Bharat
+                            <div class="form-label">Has a coordinator been appointed under Azadi Ka Amrit Mahotsav and
+                                Ek Bharat
                                 Shrestha Bharat initiative?</div>
                             <div class="form-data">Yes</div>
                         </li>
@@ -292,11 +318,14 @@
                     <div class="card-header">Let's make friends with Math</div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Number of students who have solved Karoya Maitri Maths Activity Book.</div>
+                            <div class="form-label">Number of students who have solved Karoya Maitri Maths Activity
+                                Book.</div>
                             <div class="form-data">111</div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label"><div class="form-label">Number of Checked Workbooks with Karyo Maitri Maths.</div></div>
+                            <div class="form-label">
+                                <div class="form-label">Number of Checked Workbooks with Karyo Maitri Maths.</div>
+                            </div>
                             <div class="form-data">222</div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
@@ -328,40 +357,40 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
                             <div class="form-label">Is practice conducted according to NAS question paper?</div>
-                    <div class="form-data">No</div>
+                            <div class="form-data">No</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <div class="card-header">Ek Bharat Shresht Bharat</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="form-label">Under Ek Bharat Shrestha Bharat, has a student club been established
+                                in the
+                                school?</div>
+                            <div class="form-data">Yes </div>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="card h-100">
-                    <div class="card-header">Ek Bharat Shresht Bharat</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="form-label">Under Ek Bharat Shrestha Bharat, has a student club been established in the
-                                school?</div>
-                            <div class="form-data">Yes </div>
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="form-label">School visit feedback</div>
-                            <div class="form-data">{{schoolInfoArray?.surveyFeedback?schoolInfoArray?.surveyFeedback: '-'}}</div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="form-label mb-2">Photo of Study Level Verification</div>
-                            <div class="image-gallery" *ngFor="let img of schoolInfoArray?.surveyPhoto">
-                                <img [src]=img.surveyPhoto>
-                               <!--  <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png">
-                                <img src="assets/images/Forgot-Password-image.png"> -->
-                            </div>
-                        </li>
-                    </ul>
+                    <div class="card-header">School visit feedback</div>
+                    <div class="card-body">
+                        {{schoolInfoArray?.surveyFeedback?schoolInfoArray?.surveyFeedback: '-'}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card h-100">
+                    <div class="card-header">Photo of Study Level Verification</div>
+                    <div class="card-body">
+                        <div class="image-gallery">
+                            <img *ngFor="let img of schoolInfoArray?.surveyPhoto" [src]=img.surveyPhoto>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
