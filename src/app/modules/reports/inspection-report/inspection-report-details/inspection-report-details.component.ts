@@ -36,6 +36,7 @@ export class InspectionReportDetailsComponent {
       next:(res: any) => {
         if(res.statusCode == "200"){
          this.schoolInfoArray = res.responseData;
+         console.log("image",this.schoolInfoArray?.surveyPhoto);
          let grData:any =[];
          this.schoolInfoArray.grpdata.forEach((ele:any) => {
           grData=[];
