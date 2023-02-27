@@ -378,7 +378,7 @@
                 <div class="card h-100">
                     <div class="card-header">{{'inspection_report_details.school_visit_feedback'|translate}}</div>  
                     <div class="card-body">
-                        {{schoolInfoArray?.surveyFeedback?schoolInfoArray?.surveyFeedback: '-'}}
+                        {{this.language=='Marathi' ?schoolInfoArray?.surveyFeedback: schoolInfoArray?.m_SurveyFeedback}}  
                     </div>
                 </div>
             </div>

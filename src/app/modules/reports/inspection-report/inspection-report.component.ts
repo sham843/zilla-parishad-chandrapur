@@ -53,9 +53,9 @@ export class InspectionReportComponent {
 
   getFormControl(){
     this.searchForm=this.fb.group({ 
-      talukaId:[''], 
-      kendraID:[''], 
-      schoolId:[''],
+      talukaId:[0], 
+      kendraID:[0], 
+      schoolId:[0],
     })
   }
 
@@ -136,9 +136,8 @@ export class InspectionReportComponent {
   }
 
   clearForm(){
-    this.searchForm.controls['talukaId'].setValue(0);
-    this.searchForm.controls['kendraID'].setValue(0);
-    this.searchForm.controls['schoolId'].setValue(0);
+    this.getFormControl();
+    this.kendraArray=[];this.schoolArray =[];
     this.getAllVisitData();
   }
   excelDownload() {
