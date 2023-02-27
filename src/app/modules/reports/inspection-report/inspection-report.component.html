@@ -19,43 +19,39 @@
         </button></div> -->
 </mat-card-header>
   <mat-card-header class="card-header mb-0 border-0 pb-0">
-      <form class="w-100" [formGroup]="searchForm" (ngSubmit)="onSearchReport()">
+      <form class="w-100" [formGroup]="searchForm" (ngSubmit)="getAllVisitData()">
           <div class="row w-100 mb-3">
               <div class="col-sm-2">
                   <mat-form-field appearance="outline" class="w-100">
                       <mat-label>{{'common.taluka' |translate}}</mat-label>
-                      <mat-select formControlName="talukaId">
+                      <mat-select formControlName="talukaId" (selectionChange)="getkendra(searchForm.value.talukaId)">
                           <mat-option [value]="0">All Taluka</mat-option>
-                            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka" (selectionChange)="getkendra(searchForm.value.talukaId)">{{taluka}}</mat-option>
+                            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.taluka}}</mat-option>
                       </mat-select>
                   </mat-form-field>
               </div>
               <div class="col-sm-2">
                   <mat-form-field appearance="outline" class="w-100">
                       <mat-label>{{'common.kendra' |translate}}</mat-label>
-                      <mat-select formControlName="kendraID">
+                      <mat-select formControlName="kendraID" (selectionChange)="getSchool(searchForm.value.kendraID)">
                           <mat-option [value]="0">All Kendra</mat-option>
-                          <mat-option *ngFor="let kendra of kendraArray" [value]="kendra" (selectionChange)="getkendra(searchForm.value.kendraID)">{{kendra}}</mat-option>
+                          <mat-option *ngFor="let kendra of kendraArray" [value]="kendra.id">{{kendra.center}}</mat-option>
                       </mat-select>
                   </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <mat-form-field appearance="outline" class="w-100 ">
-                    <mat-label>{{'common.select_school'|translate}}</mat-label>
-                    <input matInput type="text" formControlName="schoolId" (keypress)="this.validation.noFirstSpaceAllow($event)">
-                </mat-form-field>
-                  <!-- <mat-form-field appearance="outline" class="w-100 ">
+                  <mat-form-field appearance="outline" class="w-100 ">
                       <mat-label>{{'common.select_school'|translate}}</mat-label>
                       <mat-select formControlName="schoolId">
                           <mat-option [value]="0">All School</mat-option>
-                          <mat-option *ngFor="let school of schoolArray" [value]="school">{{school}}</mat-option>
+                          <mat-option *ngFor="let school of schoolArray" [value]="school.id">{{school.schoolName}}</mat-option>
                       </mat-select>
-                  </mat-form-field> -->
+                  </mat-form-field> 
               </div>
               <div class="col-sm-2 text-start">
                   <button type="submit" mat-flat-button
                       class="btn-main me-2">{{'common.filter'|translate}}</button>
-                  <button mat-flat-button class="btn-second"
+                  <button mat-flat-button class="btn-second" (click)="clearForm()"
                       >{{'common.clear'|translate}}</button>
               </div>
             </div>

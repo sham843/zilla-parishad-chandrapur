@@ -52,7 +52,7 @@ export class InspectionReportComponent {
   }
 
   getFormControl(){
-    this.searchForm=this.fb.group({
+    this.searchForm=this.fb.group({ 
       talukaId:[''], 
       kendraID:[''], 
       schoolId:[''],
@@ -77,9 +77,11 @@ export class InspectionReportComponent {
   }
   //#endregion---------------------------------------Drop-down method end here--------------------------------------------------------------------
 
-  getAllVisitData(flag?:any){
+  getAllVisitData(flag?:any){    
     flag=='excel'? this.pageSize = this.totalItem * 10 :this.pageSize =10;
-  let obj= 1+'&pageno='+(this.pageNumber)+'&pagesize='+(this.pageSize)+'&searchText='+('');
+  let obj= (this.webStorage.getUserId())+'&TalukaId='+(this.searchForm.value.talukaId ?this.searchForm.value.talukaId :0)+'&CenterId='+(this.searchForm.value.kendraID ?this.searchForm.value.kendraID :0)
+  +'&SchoolId='+(this.searchForm.value.schoolId ?this.searchForm.value.schoolId :0)+'&pageno='+(this.pageNumber)+'&pagesize='+(this.pageSize)+'&searchText='+('');
+
   this.apiService.setHttp('GET', 'VisitorForm/GetAll?UserTypeId='+obj, false, false, false, 'baseUrl')
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
@@ -88,7 +90,7 @@ export class InspectionReportComponent {
         this.visitDataArray?.forEach((ele:any)=>{
          ele.visitDate= this.datePipe.transform(ele.visitDate,'dd/MM/yyyy');
         })
-        this.totalItem =res.responseData.responseData2.pageCount;
+        this.totalItem =res.responseData.responseData2[0].pageCount;
       }
       else{
         this.commonMethos.checkEmptyData(res.statusMessage) == false ? this.errors.handelError(res.statusCode) : this.commonMethos.snackBar(res.statusMessage, 1);
@@ -116,7 +118,7 @@ export class InspectionReportComponent {
           tableData: this.visitDataArray,
           tableSize: this.totalItem,
           tableHeaders: displayedheaders,
-          pagination: true,
+          pagination:this.totalItem > 10 ?true :false,
           edit: false,
           delete: false,
           view: true,
@@ -127,11 +129,17 @@ export class InspectionReportComponent {
   childCompInfo(obj:any){
     if(obj.label=='view'){
       this.router.navigate(['../inspection-report-details/'+obj.id]);
+    }else if(obj.label=='Pagination'){
+      this.pageNumber = obj.pageIndex + 1;
+      this.getAllVisitData();
     }
   }
 
-  onSearchReport(){
-    
+  clearForm(){
+    this.searchForm.controls['talukaId'].setValue(0);
+    this.searchForm.controls['kendraID'].setValue(0);
+    this.searchForm.controls['schoolId'].setValue(0);
+    this.getAllVisitData();
   }
   excelDownload() {
     this.getAllVisitData('excel');
@@ -155,21 +163,5 @@ export class InspectionReportComponent {
   }
 }
 
-/*   
- 
-  "principleW_No": "1233554",
-  "sclmgtTypeName": "N.P./M.N.P.",
-  "m_SclmgtTypeName": "न.प./म.न.पा.",
-  "panchayatCommiteeId": 2257845,
-  "taluka": null,
-  "m_Taluka": null,
-  "visitDate": "2023-02-10T09:18:54.423",
-  "classTeacherName": "oipu9",
-  "visitedStandardId": 5,
-  "standard": "5th",
-  "m_Standard": "पाचवी",
-  "studentInStandard": 60,
-  "presentStudent": 59,
-  "surveyFeedback": "pokokh",
-  "surveyPhoto": "", */
+
  
