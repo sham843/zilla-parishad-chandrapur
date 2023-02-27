@@ -167,7 +167,7 @@
     "inspection_report":{
       "inspection_report":"तपासणी अहवाल"
     },
-    "inspection_report_details":{
+    "inspection_report_details":{   
       "Educational_School_Visit":"शैक्षणिक शाळाभेट",
       "inspection_reportSchool_Information":"शाळेची माहिती",
       "inspection_report_details":"शाळेचे नाव",
@@ -183,8 +183,9 @@
       "Class_Teacher_Name":"वर्गशिक्षकाचे नाव",
       "Visited_Class":"भेट दिलेली इयत्ता",
       "Class_Visited":"भेट दिलेल्या इयत्तेची पटसंख्या",
-      "Present_Class_Visited":"भेट दिलेल्या इयत्तेची उपस्थिती"
-
+      "Present_Class_Visited":"भेट दिलेल्या इयत्तेची उपस्थिती",
+      "school_visit_feedback":"शाळा भेट अभिप्राय",
+      "photo_of_study_level_verification":"अभ्यास पातळी पडताळणीचा फोटो"
 
     },
     "student": {

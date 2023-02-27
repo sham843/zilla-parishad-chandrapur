@@ -102,16 +102,15 @@
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div class="form-label">{{this.language=='Marathi' ? groupDT.m_QueTitle :
                                             groupDT.queTitle}}</div>
-                                        <div class="form-data">{{groupDT.answer}}</div>
+                                        <div class="form-data">{{groupDT.queTypename == 'text' ?groupDT.answertext : groupDT.answer}}</div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </ng-container>
                 </ng-container>
-
             </div>
-            <div class="col-sm-6">
+           <!--  <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">Mathematics</div>
                     <ul class="list-group list-group-flush">
@@ -374,10 +373,10 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <div class="col-sm-12">
                 <div class="card h-100">
-                    <div class="card-header">School visit feedback</div>
+                    <div class="card-header">{{'inspection_report_details.school_visit_feedback'|translate}}</div>  
                     <div class="card-body">
                         {{schoolInfoArray?.surveyFeedback?schoolInfoArray?.surveyFeedback: '-'}}
                     </div>
@@ -385,7 +384,7 @@
             </div>
             <div class="col-sm-12">
                 <div class="card h-100">
-                    <div class="card-header">Photo of Study Level Verification</div>
+                    <div class="card-header">{{'inspection_report_details.photo_of_study_level_verification'|translate}}</div>
                     <div class="card-body">
                         <div class="image-gallery">
                             <img *ngFor="let img of schoolInfoArray?.surveyPhoto" [src]=img.surveyPhoto>

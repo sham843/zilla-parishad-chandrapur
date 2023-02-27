@@ -351,8 +351,9 @@
         "Class_Teacher_Name":"Class Teacher Name",
         "Visited_Class":"Visited Class",
         "Class_Visited":"Number of students in the class visited",
-        "Present_Class_Visited":"Number of students present in the class visited"
-
+        "Present_Class_Visited":"Number of students present in the class visited",
+        "school_visit_feedback":"School visit feedback",
+        "photo_of_study_level_verification":"Photo of Study Level Verification"
 
       },
       "performance_indicators":{
