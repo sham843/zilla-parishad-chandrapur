@@ -264,14 +264,56 @@ setTableData(){     // table
     let pageName:any;
     this.lang=='mr-IN'?pageName='वापरकर्ता नोंदणी':pageName='User Registration';
     let header:any;
-    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','जिल्हा', 'तालुका', 'केंद्र','मोबाईल नंबर','ब्लॉक स्थिती']:header=['Sr. No.', 'Name','User Type','Level','Designation','District','Taluka','Center', 'Mobile No','Block Status'];
+    this.lang=='mr-IN'?header=['अनुक्रमांक','नाव','वापरकर्ता प्रकार ','पातळी','पदनाव','जिल्हा', 'तालुका', 'केंद्र','एजन्सीचे नाव','शाळेचे नाव','वर्ग','विषय','मोबाईल नंबर','ब्लॉक स्थिती']:
+    header=['Sr. No.', 'Name','User Type','Level','Designation','District','Taluka','Center','Agency Name','School Name','Class','Subject', 'Mobile No','Block Status'];
     let column:any;
-    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','m_District','m_Taluka','m_Center','mobileNo','isBlock']:
-    column=['srNo', 'name','userType','designationLevel', 'designationName','district','taluka','center','mobileNo','isBlock'];
+    this.lang=='mr-IN' && this.apiService.translateLang?column=['srNo','name','m_UserType','m_DesignationLevel','m_DesignationName','m_District','m_Taluka','m_Center','m_AgencyName','m_SchoolName','m_Standard','m_Subject','mobileNo','isBlock']:
+    column=['srNo', 'name','userType','designationLevel', 'designationName','district','taluka','center','agencyName','schoolName','standard','subject','mobileNo','isBlock'];
     this.excelDowobj ={'pageName':pageName,'header':header,'column':column}
   }
   //#endregion------------------------------------------------End download pdf and excel method-----------------------------------------
-//#region-----------------------------------------------------Start block unBlock user method------------------------------------------------
+/*   {
+    "srNo": 1,
+    "id": 329,
+    "userTypeId": 3,
+    "userType": "Teacher",
+    "m_UserType": "शिक्षक",
+    "centerId": 2713040008,
+    "center": "BALLARPUR",
+    "m_Center": "BALLARPUR",
+    "name": "Sonali",
+    "mobileNo": "8459755287",
+    "emailId": "",
+    "stateId": 1,
+    "state": "Maharashtra",
+    "m_State": "महाराष्ट्र",
+    "districtId": 1,
+    "district": "Chandrapur",
+    "m_District": "चंद्रपूर ",
+    "talukaId": 271304,
+    "taluka": "BALLARPUR",
+    "m_Taluka": "बल्लारपूर",
+    "designationId": 21,
+    "designationName": "Head Master",
+    "m_DesignationName": "मुख्याध्यापक",
+    "designationLevelId": 5,
+    "designationLevel": "School",
+    "m_DesignationLevel": "शाळा",
+    "schoolId": 1741,
+    "schoolName": "BHALERAO PUBLIC SEC. SCHOOL",
+    "m_SchoolName": "",
+    "m_Standard": "चौथी  , पाचवी",
+    "standard": "Fourth, Fifth",
+    "standardId": "4, 5",
+    "subjectId": "1",
+    "subject": "Bhasha",
+    "m_Subject": "भाषा",
+    "agencyId": 0,
+    "agencyName": "",
+    "m_AgencyName": "",
+    "contactPerson": "",
+    "agencyAddress": "",
+} *///#region-----------------------------------------------------Start block unBlock user method------------------------------------------------
 blockUnblockDialog(obj:any){
   const dialog = this.dialog.open(GlobalDialogComponent, {
     width: '350px',
