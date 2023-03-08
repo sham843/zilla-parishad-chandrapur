@@ -69,7 +69,6 @@ export class StudentProfileComponent {
   ngOnInit() {
     this.loginData = this.webStorage.getLoginData();
     this.levelId = this.loginData.designationLevelId; // admin - 1, district - 2, taluka - 3, kendra - 4, school - 5
-
     let obj = this.commonMethod.recParToUrl((this.route.snapshot.params['id']).toString(), 'secret key');
     this.globalObj = JSON.parse(obj);
     this.getTaluka();

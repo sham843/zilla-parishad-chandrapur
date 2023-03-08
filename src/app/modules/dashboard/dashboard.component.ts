@@ -836,7 +836,7 @@ export class DashboardComponent {
     let formValue =  this.topFilterForm.value;
     let obj:any = {
       kendraId: lable=='Kendra' || (lable == 'bar' && this.setName(this.assLabelName)=='Kendra')? id.sourceId  : formValue.kendraId,
-      schoolId: (lable != 'subject' && lable == 'bar')? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):0,
+      schoolId: (lable != 'subject' && (lable == 'bar' || lable == 'School'))? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):0,
       typeId:(lable=='subject' || lable == 'bar')? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
       yearId:formValue.yearId,
       talukaId: lable=='Taluka' || (lable == 'bar' && this.setName(this.assLabelName)=='Taluka')?id.sourceId:formValue.talukaId,
@@ -846,7 +846,7 @@ export class DashboardComponent {
       staId:(lable != 'subject' && (lable == 'bar' && this.setName(this.assLabelName) =='School Name'))?[id.standardId] : this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key');
-  }
+  } 
 }
 
 
