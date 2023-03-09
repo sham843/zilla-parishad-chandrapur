@@ -37,6 +37,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.loginData = this.webStorage.getLoginData();
     this.profileUserName=this.loginData?.name;
+    this.profilePhoto=this.loginData?.profilePhoto;
     let language: any = sessionStorage.getItem('language');
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
@@ -45,7 +46,6 @@ export class HeaderComponent {
     })
     this.darkClassName=sessionStorage.getItem('theme');
     this.webStorage.setTheme(this.darkClassName);
-    this.profilePhoto=this.loginData?.profilePhoto;
   }
 
   changeTheme(darkMode: any) {

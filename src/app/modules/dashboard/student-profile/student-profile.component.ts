@@ -492,7 +492,7 @@ export class StudentProfileComponent {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200,
+              width: 250,
             },
             legend: {
               show: false, // not able to hide chart legends

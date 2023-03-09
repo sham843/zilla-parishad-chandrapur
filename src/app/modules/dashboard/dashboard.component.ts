@@ -235,7 +235,8 @@ export class DashboardComponent {
 
   cardCountData() {
     let filterFormData = this.topFilterForm?.value;
-    let str = `${filterFormData?.talukaId}&kendraId=${filterFormData?.kendraId}&schoolId=${filterFormData?.schoolId}&flag=${filterFormData?.flag}&yearId=${filterFormData?.yearId}&userId=${filterFormData?.userId}`
+    let str = `${filterFormData?.talukaId ?filterFormData?.talukaId:0}&kendraId=${filterFormData?.kendraId ? filterFormData?.kendraId:0}&schoolId=${filterFormData?.schoolId? filterFormData?.schoolId: 0}
+    &flag=${filterFormData?.flag? filterFormData?.flag :'en'}&yearId=${filterFormData?.yearId? filterFormData?.yearId :0}&userId=${filterFormData?.userId? filterFormData?.userId :0}`
     this.apiService.setHttp('get', 'dashboard/get-summary-dashboard-count?talukaId=' + str, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -833,17 +834,17 @@ export class DashboardComponent {
   }
 
   redToStuProfile(lable:string,id:any, assessmentId?:any){
-    let formValue =  this.topFilterForm.value;
+     let formValue =  this.topFilterForm.value; 
     let obj:any = {
-      kendraId: lable=='Kendra' || (lable == 'bar' && this.setName(this.assLabelName)=='Kendra')? id.sourceId  : formValue.kendraId,
-      schoolId: (lable != 'subject' && (lable == 'bar' || lable == 'School'))? (this.setName(this.assLabelName)=='School'? id.sourceId : formValue.schoolId):0,
+      kendraId: (lable!='subject' && this.setName(this.assLabelName)=='Kendra')?id.sourceId :formValue.kendraId,
+      schoolId: lable!='subject' && (this.setName(this.assLabelName)=='School' || this.setName(this.assLabelName)=='School Name')?id.sourceId :formValue.schoolId,
       typeId:(lable=='subject' || lable == 'bar')? 1 : lable=='School Name'? 3 : lable=='School'?2:4,//121
       yearId:formValue.yearId,
-      talukaId: lable=='Taluka' || (lable == 'bar' && this.setName(this.assLabelName)=='Taluka')?id.sourceId:formValue.talukaId,
+      talukaId: (lable!='subject' && this.setName(this.assLabelName)=='Taluka')?id.sourceId :formValue.talukaId,
       examId:formValue.assesmentId,
       assesmentId:assessmentId,
       subjectId: lable == 'subject'? id : lable == 'bar'? this.topFilterForm.value.subjectId : 0,
-      staId:(lable != 'subject' && (lable == 'bar' && this.setName(this.assLabelName) =='School Name'))?[id.standardId] : this.selStdArray
+      staId:(lable != 'subject' && this.setName(this.assLabelName) =='School Name')?[id.standardId] : this.selStdArray
     }
     this.commonMethods.redToNextPageWithPar(JSON.stringify(obj),'/student-profile/','secret key');
   } 
