@@ -38,8 +38,8 @@ body {
   --main-light-color: rgb(217, 231, 255);
   // --main-dark-color: rgb(67, 133, 255);
   --main-dark-color: rgb(0, 66, 189);
-  --third-color:rgb(9, 204, 194);
-  --third-dark-color:rgb(2, 120, 114);
+  --third-color: rgb(9, 204, 194);
+  --third-dark-color: rgb(2, 120, 114);
 }
 
 a.text-main {
@@ -110,10 +110,11 @@ a.text-main,
   line-height: 38px !important;
   padding: 3px !important;
 }
+
 .btn-modal-close:focus,
 .btn-modal-close:active {
   background-color: #fff !important;
-  --mat-mdc-button-persistent-ripple-color:#fff !important;
+  --mat-mdc-button-persistent-ripple-color: #fff !important;
 }
 
 .btn-second {
@@ -128,7 +129,8 @@ a.text-main,
   font-size: 0.85rem;
   font-weight: 500;
 }
-.breadcrumb .mat-mdc-form-field-subscript-wrapper{
+
+.breadcrumb .mat-mdc-form-field-subscript-wrapper {
   display: none !important;
 }
 
@@ -147,6 +149,7 @@ a.text-main,
   background-color: var(--main-light-color) !important;
   border-bottom: solid 1px var(--main-light-color) !important;
 }
+
 .ngx-org-title,
 .dashboard-table td,
 .dashboard-table mat-cell {
@@ -169,9 +172,11 @@ a.text-main,
 .dashboard-table button mat-icon {
   font-size: 18px !important;
 }
-.dashboard-table:hover{
+
+.dashboard-table:hover {
   cursor: pointer;
 }
+
 .dashboard-table .highlightedrow {
   background-color: #eee !important;
   color: var(--main-color) !important;
@@ -189,19 +194,23 @@ a.text-main,
   max-width: 120px !important;
   width: 120px !important;
 }
+
 .dashboard-table .big-column {
   max-width: 180px !important;
   width: 180px !important;
 }
+
 .dashboard-table .column-xl {
   max-width: 350px !important;
   width: 350px !important;
 }
+
 .no-axis .apexcharts-yaxis-texts-g,
 .no-axis .apexcharts-grid-borders,
 .no-axis .apexcharts-grid {
   display: none !important;
 }
+
 .plain-card {
   box-shadow: none !important;
   border-radius: 10px !important;
@@ -213,7 +222,8 @@ a.text-main,
   font-size: 0.85rem;
   font-weight: 600;
 }
-.plain-card .card-header h6{
+
+.plain-card .card-header h6 {
   font-weight: 600;
   font-size: 0.85rem;
 }
@@ -228,6 +238,7 @@ a.text-main,
   padding: 10px 15px;
   font-size: 0.85rem;
 }
+
 .mat-mdc-snack-bar-container {
   background: #333333 !important;
 }
@@ -263,7 +274,8 @@ a.text-main,
   opacity: 0.6;
 }
 
-.disabledAll path , .disabledAll{
+.disabledAll path,
+.disabledAll {
   pointer-events: none !important;
 }
 
@@ -305,21 +317,26 @@ a.text-main,
   padding: 0;
   border-color: var(--main-color);
 }
+
 // my css
 .mat-mdc-paginator-page-size {
   display: none !important;
 }
+
 .disabled-contenct {
   pointer-events: none;
   opacity: .6;
 }
-.apexcharts-legend-text{
+
+.apexcharts-legend-text {
   font-family: "Noto Sans Devanagari", sans-serif !important;
 }
-.card-height-full{
-  max-height:81vh !important;
+
+.card-height-full {
+  max-height: 81vh !important;
   overflow-y: auto !important;
 }
+
 .card-height-mid {
   max-height: 74vh !important;
   overflow-y: auto !important;
@@ -380,181 +397,224 @@ a.text-main,
 }
 
 .scrollbar::-webkit-scrollbar-thumb,
-.mat-mdc-select-panel::-webkit-scrollbar-thumb{
+.mat-mdc-select-panel::-webkit-scrollbar-thumb {
   background-color: hsla(214, 7%, 62%, .4);
   border-radius: 3px;
   visibility: hidden;
 }
 
 
-.data-container .data-label{
+.data-container .data-label {
   color: #666;
 }
-.data-container .data-text{
+
+.data-container .data-text {
   color: #000;
   font-size: 1rem;
 }
-.table-without-error .mat-mdc-form-field-subscript-wrapper{
-  display:none !important;
+
+.table-without-error .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
 }
-.inner-table{
+
+.inner-table {
   border: solid 2px var(--main-light-color);
   font-size: 0.85rem;
 }
-.inner-table thead th{
+
+.inner-table thead th {
   background-color: var(--main-light-color);
 }
+
 .mapsvg-scrollpane svg {
   margin-top: -78px !important;
   // transform: scale(0.65) !important;
 }
-#mapsvg{
+
+#mapsvg {
   padding-bottom: 75.5633% !important;
 }
-.talActive path{
+
+.talActive path {
   pointer-events: auto;
   fill: var(--main-dark-color) !important;
 }
-.chart-container{
+
+.chart-container {
   max-width: 100vw;
   overflow-x: auto;
 }
+
 // .no-axis  .apexcharts-legend.apx-legend-position-right{
 //   // width: 200px !important;
 // }
 button[disabled] {
   opacity: 0.9;
 }
+
 .cdk-column-udiseCode {
   text-transform: uppercase;
 }
-.cdk-column-saralId{
+
+.cdk-column-saralId {
   font-weight: bold;
 }
-.no-axis .apexcharts-legend{
+
+.no-axis .apexcharts-legend {
   right: 40px !important;
   width: 100px !important;
 }
-.apexcharts-canvas{
+
+.apexcharts-canvas {
   width: 260px !important;
 }
-input::-ms-reveal { display: none; }
 
-.textarea{
+input::-ms-reveal {
+  display: none;
+}
+
+.textarea {
   // max-height: 70px !important;
   // height: 70px !important;
   max-height: 11vh !important;
   height: 11vh !important;
 }
-.form-container{
+
+.form-container {
   font-size: 0.85rem;
 }
-.form-container .form-label{
+
+.form-container .form-label {
   color: #858585;
   margin-bottom: 0;
+  text-transform: capitalize;
 }
-.form-container .form-data{
+
+.form-container .form-data {
   color: #333;
   font-weight: 600;
 }
-.form-container .material-icons{
+
+.form-container .material-icons {
   font-size: 18px !important;
   line-height: 1.5rem !important;
 }
-.status{
+
+.status {
   height: 16px;
   width: 16px;
   line-height: 24px;
   border-radius: 50%;
 }
-.status.color{
-  animation: ripple-white 1s linear infinite ;
+
+.status.color {
+  animation: ripple-white 1s linear infinite;
 }
 
-.status.green{
+.status.green {
   background: #65C889;
-  animation: ripple-green 1s linear infinite ;
+  animation: ripple-green 1s linear infinite;
 }
-.status.orange{
+
+.status.orange {
   background: #EFB45B;
-  animation: ripple-orange 1s linear infinite ;
+  animation: ripple-orange 1s linear infinite;
 }
-.status.dark-orange{
+
+.status.dark-orange {
   background: #E98754;
-  animation: ripple-do 1s linear infinite ;
+  animation: ripple-do 1s linear infinite;
 }
-.status.light-red{
+
+.status.light-red {
   background: #E76A63;
-  animation: ripple-lr 1s linear infinite ;
+  animation: ripple-lr 1s linear infinite;
 }
-.status.red{
+
+.status.red {
   background: #CB4B4B;
-  animation: ripple-red 1s linear infinite ;
+  animation: ripple-red 1s linear infinite;
 }
+
 @keyframes ripple-white {
   0% {
     box-shadow: 0 0 0 0 #e6e6e6,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #e6e6e6,
   }
 }
+
 @keyframes ripple-green {
   0% {
     box-shadow: 0 0 0 0 #BBE6D2,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #BBE6D2,
   }
 }
+
 @keyframes ripple-orange {
   0% {
     box-shadow: 0 0 0 0 #F7DBB1,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #F7DBB1,
   }
 }
+
 @keyframes ripple-do {
   0% {
     box-shadow: 0 0 0 0 #F4C3A9,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #F4C3A9,
   }
 }
+
 @keyframes ripple-lr {
   0% {
     box-shadow: 0 0 0 0 #F2ABA8,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #F2ABA8,
   }
 }
+
 @keyframes ripple-red {
   0% {
     box-shadow: 0 0 0 0 #E8B0B0,
   }
+
   100% {
     box-shadow: 0 0 0 0.5em #E8B0B0,
   }
 }
+
 .mapsvg.mapsvg-cursor-pointer text,
 .mapsvg.mapsvg-cursor-pointer .mapsvg-region {
   cursor: pointer;
 }
-.apexcharts-tooltip{
+
+.apexcharts-tooltip {
   font-size: 0.85rem !important;
   left: 20px !important;
 }
-.mat-mdc-row:nth-child(even){
-  background-color: rgba(0,0,0,.01);
+
+.mat-mdc-row:nth-child(even) {
+  background-color: rgba(0, 0, 0, .01);
 }
 
 #mapsvg svg {
   transform: scale(0.699258) !important;
 }
-.section-heading{
+
+.section-heading {
   padding: 10px;
   background-color: var(--main-color);
   color: white;
