@@ -235,6 +235,7 @@ export class DashboardComponent {
 
   cardCountData() {
     let filterFormData = this.topFilterForm?.value;
+    console.log("filterFormData",filterFormData)
     let str = `${filterFormData?.talukaId ?filterFormData?.talukaId:0}&kendraId=${filterFormData?.kendraId ? filterFormData?.kendraId:0}&schoolId=${filterFormData?.schoolId? filterFormData?.schoolId: 0}
     &flag=${filterFormData?.flag? filterFormData?.flag :'en'}&yearId=${filterFormData?.yearId? filterFormData?.yearId :0}&userId=${filterFormData?.userId? filterFormData?.userId :0}`
     this.apiService.setHttp('get', 'dashboard/get-summary-dashboard-count?talukaId=' + str, false, false, false, 'baseUrl');
